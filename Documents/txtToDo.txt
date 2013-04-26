@@ -1,0 +1,153 @@
+'nexIRC 3.0.23
+'02-27-2013 - guideX
+
+ frmChannelList:
+  - Slow
+  - (Needs attention) Strip colors before adding
+  - (Feature needed) Add the following button bar items to the top of the window ...
+      Refresh
+      Add to Channel Folder
+      Add to Auto Join
+      Clear
+      Close
+            
+ frmAddNetwork:
+  - (Disabled) Help button
+  - (Disabled) Help menu
+
+ frmAddNickName:
+  - (Disabled) Help button
+  - (Disabled) Help menu
+
+ frmAddServer:
+  - (Disabled) Help button
+  - (Disabled) Help menu
+
+ frmChangeNickName:
+  - (Disabled) Help button
+  - (Disabled) Help menu
+
+ mdiMain (Strict):
+  - (Needs attention) Browser's Y2 isn't resizing far down enough to hide minimized windows
+  - (Needs attention) Toggle sidebar button doesn't resize browser
+  - (Needs attention) Window bar doesn't show all channels joined
+  - (Needs attention) Window bar fuzzy match errors when two channels with the same name happens and the user tries to go to one 
+  - (Needs attention) Window bar Error in tspWindows_ItemClicked
+  - (Needs attention) No way to part a channel
+  - (Needs attention) Recient Servers menu doesn't work
+  - (Needs attention) On double click, notify list doesn't bring up a query window
+  - (Needs attention) No way to specify Quit message
+  - (Needs attention) Server time menu item returns the word $servername to the user
+  - (No Resolution) Can't resize sidebar on left in Windowed mode
+  - (Feature request) Auto Cascade feature for child windows
+  - (Feature request) Add following stats commands to menu items in Connection/Command/Stats
+        Start with 'STATS ' then add the letter for each command, eg 'STAT b'
+		
+		B - banversion - Send the ban version list
+		b - badword - Send the badwords list
+		C - link - Send the link block list
+		d - denylinkauto - Send the deny link (auto) block list
+		D - denylinkall - Send the deny link (all) block list
+		e - exceptthrottle - Send the except throttle block list
+		E - exceptban - Send the except ban and except tkl block list
+		f - spamfilter - Send the spamfilter list
+		F - denydcc - Send the deny dcc and allow dcc block lists
+		G - gline - Send the gline and gzline list
+		  Extended flags: [+/-mrs] [mask] [reason] [setby]
+		   m Return glines matching/not matching the specified mask
+		   r Return glines with a reason matching/not matching the specified reason
+		   s Return glines set by/not set by clients matching the specified name
+		I - allow - Send the allow block list
+		j - officialchans - Send the offical channels list
+		K - kline - Send the ban user/ban ip/except ban block list
+		l - linkinfo - Send link information
+		L - linkinfoall - Send all link information
+		M - command - Send list of how many times each command was used
+		n - banrealname - Send the ban realname block list
+		O - oper - Send the oper block list
+		P - port - Send information about ports
+		q - bannick - Send the ban nick block list
+		Q - sqline - Send the global qline list
+		r - chanrestrict - Send the channel deny/allow block list
+		S - set - Send the set block list
+		s - shun - Send the shun list
+		  Extended flags: [+/-mrs] [mask] [reason] [setby]
+		   m Return shuns matching/not matching the specified mask
+		   r Return shuns with a reason matching/not matching the specified reason
+		   s Return shuns set by/not set by clients matching the specified name
+		t - tld - Send the tld block list
+		T - traffic - Send traffic information
+		u - uptime - Send the server uptime and connection count
+		U - uline - Send the ulines block list
+		v - denyver - Send the deny version block list
+		V - vhost - Send the vhost block list
+		X - notlink - Send the list of servers that are not current linked
+		Y - class - Send the class block list
+		z - zip - Send compression information about ziplinked servers
+		Z - mem - Send memory usage information
+  
+ frmRaw:
+  - (Needs attention) Data gets added from top to bottom when hidden, and then bottom to when it is visible  
+  
+ frmEditString:
+  - (Missing Feature) Add Parameter Button (Fixed)
+  - (Missing Feature) Remove Parameter Button (Fixed)
+
+ frmQuerySettings:
+  - (Needs Attention) Deny message and secure query prompt don't do anything 
+
+ frmXCommands:
+  - (Disabled) Does not function at all
+ 
+ frmAddService:
+  - (Disabled) Does not function at all
+ 
+ clsListViewSorter:
+  - (Not strict)
+  - (Needs attention) Sloppy Programming, rewrite may be needed
+  
+ clsSocket:
+  - (Not strict)
+  - (Obsolete) Dns.Resolve
+  
+ mdlStrings:
+  - (Not Strict)
+  - (Needs attention) bold functions improperly
+  - (Needs attention) background does not always work, sometimes just shows in text as ,07
+  - (Needs attention) seems quirky and colors seem off a little
+  - (Needs attention) Some colors are too bright 
+  
+ frmChannel:
+  - (Needs attention) Close Button doesn't part channel, but removes all access to channel from user
+  - (Needs attention) Minimize Button doesn't work
+  - (Needs attention) Channel Operator, voice, Moderated and Invite Only menu items doesn't work
+  - (Needs attention) Refresh Nicklist shows mixed results
+  - (Needs attention) Notice menu item sends this ...
+      :guideX!n=nirc@75-142-127-102.static.mtpk.ca.charter.com NOTICE #nexgen :$text
+  - (Needs attention) Add to Channel Folder menu item doesn't work
+  - (Needs attention) Add to Auto Join menu item doesn't work
+  - (Needs attention) On part or quit, user isn't removed from the listbox 
+  - (Needs attention) Needs a listview
+  - (Needs attention) Needs a right click menu for the textbox and nicklist  
+  - (Needs attention) Nicklist doesn't always show people in the channel
+  - (Needs attention) You must redesign the nicklist using a ListView
+  - (Needs attention) Nicklist has no icons
+  - (Needs attention) When you close a channel window, the channel text doesn't return
+  - (Needs attention) When focused on another windows, you can't click on the NickList to return frmChannel to focus
+
+ frmDCCGet:
+  - (Slow) Transfer of files is kind of slow 40 kb per second max
+  
+ frmStatus:
+  - (Fixed?) When Status Window is closed when minimized, it shows as very small next time a status window is loaded
+  - (Needs attention) When the program first opens, a new status window appears, and does not have any server information,
+      if you 'Try to connect, you receive an error, you must change your server connection first.
+ 
+ Errors reported by other users:
+  - (PSC: <David Jones> small interface quarks)
+  - (PSC: <Brandon Scott> I couldn't seem to get the channel join window to appear again after I closed it.) (FIXED)
+  - (PSC: Jason Newland - doesn't seem to work in VB2005) (Could not reproduce problem)
+       E:\VBNet Source\NexIRC\NexIRC\mdlStrings.vb(2288) : warning BC42016: Implicit conversion from 'Double' to 'Integer'.
+       E:\VBNet Source\NexIRC\NexIRC\mdlStrings.vb(2290) : warning BC42016: Implicit conversion from 'Double' to 'Integer'.
+       E:\VBNet Source\NexIRC\NexIRC\mdlStrings.vb(2291) : warning BC42016: Implicit conversion from 'Double' to 'Integer'.
+       E:\VBNet Source\NexIRC\NexIRC\mdlStrings.vb(2301) : warning BC42016: Implicit conversion from 'Single' to 'Long'.)

@@ -1,0 +1,89 @@
+﻿
+        'Public Sub dAddToPrivateMessages(ByVal lStatusIndex As Integer, ByVal lName As String, ByVal lHost As String, ByVal lData As String)
+        'On Error Resume Next
+        'Dim i As Integer, n As Integer, msg As String, lDeny As Boolean, lPrompt As Boolean, lAutoAllow As Boolean
+        'If lStatusObjects.sStatusObject(lStatusIndex).sConnected = False Then Exit Sub
+        'If Len(lName) = 0 Or lStatusIndex = 0 Then Exit Sub
+        'lAutoAllow = UserAutoAllowList(lName)
+        'If lAutoAllow = False And lQuerySettings.qEnableSpamFilter = True And PrivateMessages_HasSpam(lData) = True Then Exit Sub
+        'If lQuerySettings.qPromptUser = True Then lPrompt = True
+        'If lQuerySettings.qAutoDeny = eQueryAutoDeny.qEveryOne Then
+        'lDeny = True
+        'ElseIf lQuerySettings.qAutoDeny = eQueryAutoDeny.qList Then
+        'For i = 1 To lQuerySettings.qAutoDenyCount
+        'If LCase(Trim(lQuerySettings.qAutoDenyList(i))) = LCase(Trim(lName)) Then
+        'lDeny = True
+        'Exit For
+        'End If
+        'Next i
+        'End If
+        'If lQuerySettings.qPromptUser = True Then
+        'If lAutoAllow = True Then lPrompt = False
+        'For i = 1 To lStatusObjects.sStatusObject(lStatusIndex).sPrivateMessages.pCount
+        'With lStatusObjects.sStatusObject(lStatusIndex).sPrivateMessages.pPrivateMessage(i)
+        'If LCase(Trim(.pName)) = LCase(Trim(lName)) Then
+        'n = i
+        'Exit For
+        'End If
+        'End With
+        'Next i
+        'msg = "12<" & lName & "> " & lData
+        'If n = 0 Then
+        'lStatusObjects.sStatusObject(lStatusIndex).sPrivateMessages.pCount = lStatusObjects.sStatusObject(lStatusIndex).sPrivateMessages.pCount + 1
+        'n = lStatusObjects.sStatusObject(lStatusIndex).sPrivateMessages.pCount
+        'With lStatusObjects.sStatusObject(lStatusIndex).sPrivateMessages.pPrivateMessage(n)
+        '.pName = lName
+        '.pHost = lHost
+        '.pStatusIndex = lStatusIndex
+        'End With
+        'End If
+        'With lStatusObjects.sStatusObject(lStatusIndex).sPrivateMessages.pPrivateMessage(n)
+        'If .pTreeNodeVisible = True Then lPrompt = False
+        '.pIncomingText = msg & vbCrLf & .pIncomingText
+        'If lDeny = True Then Exit Sub
+        'If lPrompt = True Then
+        'mdiMain.tspQueryPrompt.Visible = True
+        'mdiMain.lblQueryPrompt.Text = "Accept query from '" & .pName & "(" & .pHost & ")'?"
+        'mdiMain.lblQueryPrompt.Tag = Trim(lStatusIndex.ToString) & ":" & Trim(n.ToString) & ":" & lData
+        'Exit Sub
+        'End If
+        'AddToPrivateMessages2(lStatusIndex, n, lData)
+        'End With
+        'End If
+        'If Err.Number <> 0 Then RaiseEvent ProcessError(ex.Message, "Public Sub JoinChannel(ByVal lChannelName As String)")
+        'End Sub
+
+        'Public Sub dAddToPrivateMessages2(ByVal lStatusIndex As Integer, ByVal lIndex As Integer, ByVal lData As String, Optional ByVal lShowWindowAutomatically As Boolean = False)
+        'On Error Resume Next
+        'Dim msg As String
+        'With lStatusObjects.sStatusObject(lStatusIndex).sPrivateMessages.pPrivateMessage(lIndex)
+        'msg = "12<" & .pName & "> " & lData
+        'If .pVisible = False Then
+        'If .pTreeNodeVisible = False Then
+        '.pTreeNodeVisible = True
+        '.pTreeNode = lStatusObjects.sStatusObject(lStatusIndex).sTreeNode.Nodes.Add(.pName, .pName, 3, 3)
+        'End If
+        '.pWindow = New frmNoticeWindow
+        '.pWindow.SetStatusIndex(lStatusIndex)
+        '.pWindow.Text = .pName & " (" & .pHost & ")"
+        '.pWindow.SetMotdWindow(False)
+        '.pWindow.SetNoticeWindow(False)
+        '.pWindow.SetUnknownsWindow(False)
+        '.pWindow.SetPrivateMessageWindow(True, .pName)
+        '.pWindow.txtOutgoing.Visible = True
+        '.pWindow.TriggerResize()
+        'If lIRC.iSettings.sShowWindowsAutomatically = True Or lShowWindowAutomatically = True Then
+        '.pVisible = True
+        '.pWindow.Show()
+        '.pWindow.DoNoticeColor(.pIncomingText)
+        'If lIRC.iSettings.sAutoMaximize = True Then .pWindow.WindowState = FormWindowState.Maximized
+        'Else
+        'If .pTreeNode.ImageIndex <> 6 Then .pTreeNode.ImageIndex = 6
+        'If .pTreeNode.SelectedImageIndex <> 6 Then .pTreeNode.SelectedImageIndex = 6
+        'End If
+        'Else
+        '.pWindow.DoNoticeColor(msg)
+        'End If
+        'End With
+        'If Err.Number <> 0 Then 'RaiseEvent ProcessError(ex.Message, "Public Sub ShowQueryWindow(ByVal StatusIndex As Integer, ByVal lIndex As Integer)")
+        'End Sub

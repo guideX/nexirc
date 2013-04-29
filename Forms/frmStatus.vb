@@ -365,7 +365,11 @@ Public Class frmStatus
     End Sub
 
     Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-
+        'Try
+        Me.frmStatus_Resize(sender, e)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
+        'End Try
     End Sub
 
     Private Sub txtOutgoing_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtOutgoing.KeyPress

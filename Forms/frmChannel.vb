@@ -185,4 +185,12 @@ Public Class frmChannel
     Private Sub txtOutgoing_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtOutgoing.TextChanged
 
     End Sub
+
+    Private Sub frmChannel_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Try
+            frmChannel_Resize(sender, e)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub frmChannel_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
+        End Try
+    End Sub
 End Class

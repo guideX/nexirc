@@ -28,13 +28,13 @@ Partial Class frmChannel
         Me.txtIncomingColor = New System.Windows.Forms.RichTextBox()
         Me.txtOutgoing = New System.Windows.Forms.TextBox()
         Me.tspChannel = New System.Windows.Forms.ToolStrip()
+        Me.tmrGetNames = New System.Windows.Forms.Timer(Me.components)
         Me.cmdPart = New System.Windows.Forms.ToolStripButton()
         Me.cmdHide = New System.Windows.Forms.ToolStripButton()
         Me.cmdNotice = New System.Windows.Forms.ToolStripButton()
         Me.cmdAddToChannelFolder = New System.Windows.Forms.ToolStripButton()
         Me.cmdNames = New System.Windows.Forms.ToolStripButton()
         Me.cmdURL = New System.Windows.Forms.ToolStripButton()
-        Me.tmrGetNames = New System.Windows.Forms.Timer(Me.components)
         Me.tspChannel.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -85,6 +85,9 @@ Partial Class frmChannel
         Me.tspChannel.ShowItemToolTips = False
         Me.tspChannel.Size = New System.Drawing.Size(439, 25)
         Me.tspChannel.TabIndex = 11
+        '
+        'tmrGetNames
+        '
         '
         'cmdPart
         '
@@ -140,9 +143,6 @@ Partial Class frmChannel
         Me.cmdURL.Size = New System.Drawing.Size(23, 22)
         Me.cmdURL.Text = "URL"
         Me.cmdURL.Visible = False
-        '
-        'tmrGetNames
-        '
         '
         'frmChannel
         '

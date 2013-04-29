@@ -221,7 +221,7 @@ Namespace IRC.Channels
                 .cWindow = New frmChannel
                 .cWindow.Text = .cName
                 clsAnimate.Animate(.cWindow, clsAnimate.Effect.Center, 200, 1)
-                .cWindow.MeIndex = _ChannelIndex
+                .cWindow.lMdiChildWindow.MeIndex = _ChannelIndex
                 .cWindow.MdiParent = mdiMain
             End With
             'Catch ex As Exception

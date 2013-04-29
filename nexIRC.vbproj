@@ -134,6 +134,7 @@
     <Compile Include="Classes\clsListViewSorter.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\clsMdiChildWindow.vb" />
     <Compile Include="Classes\clsProcess.vb" />
     <Compile Include="Classes\clsScript.vb" />
     <Compile Include="Classes\clsServerInfo.vb" />
@@ -411,6 +412,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Classes\clsMdiChildWindow.resx">
+      <DependentUpon>clsMdiChildWindow.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChannel.resx">
       <DependentUpon>frmChannel.vb</DependentUpon>
     </EmbeddedResource>

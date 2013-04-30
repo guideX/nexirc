@@ -6,42 +6,12 @@ Imports System.Text
 
 Public Class frmStatus
     Private lMeIndex As Integer
+    Public WithEvents lMdiChildWindow As New clsMdiChildWindow
     Public WithEvents lAutoConnectDelayTimer As New Timer
-
-    Private Sub Me_GotFocus()
-        'Try
-        'Me.Focus()
-        lChannels.CurrentIndex = 0
-        If lIRC.iSettings.sAutoMaximize = True Then Me.WindowState = FormWindowState.Maximized
-        lStatus.SetSeenIcon(lMeIndex, True)
-        lStatus.ActiveIndex = lMeIndex
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub Me_GotFocus()")
-        'End Try
-    End Sub
-
-    Public Property MeIndex() As Integer
-        Get
-            'Try
-            Return lMeIndex
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Public Property MeIndex(_StatusIndex As Integer) As Integer")
-            'End Try
-        End Get
-        Set(_MeIndex As Integer)
-            'Try
-            lMeIndex = _MeIndex
-            lStatus.Open(lMeIndex) = True
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Public Property MeIndex(_StatusIndex As Integer) As Integer")
-            'End Try
-        End Set
-    End Property
 
     Private Sub txtIncomingColor_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.Click
         'Try
-        Me.Focus()
-        Me_GotFocus()
+        lMdiChildWindow.txtIncomingColor_Click(Me)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtIncomingColor_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.Click")
         'End Try
@@ -49,7 +19,7 @@ Public Class frmStatus
 
     Private Sub txtIncomingColor_GotFocus(sender As Object, e As System.EventArgs) Handles txtIncomingColor.GotFocus
         'Try
-        Me_GotFocus()
+        lMdiChildWindow.txtIncomingColor_GotFocus(Me)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtIncomingColor_GotFocus(sender As Object, e As System.EventArgs) Handles txtIncomingColor.GotFocus")
         'End Try
@@ -57,7 +27,7 @@ Public Class frmStatus
 
     Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked
         'Try
-        mdiMain.BrowseURL(e.LinkText)
+        lMdiChildWindow.TextBox_LinkClicked(e.LinkText)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked")
         'End Try
@@ -65,24 +35,15 @@ Public Class frmStatus
 
     Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown
         'Try
-        Me.Focus()
-        Me_GotFocus()
+        lMdiChildWindow.Form_GotFocus(Me)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown")
         'End Try
     End Sub
 
-    Private Sub tmrCheckChannelList_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCheckChannelList.Tick
-        'Try
-        'lStatus.CheckChannelListData(lMeIndex)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub tmrCheckChannelList_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCheckChannelList.Tick")
-        'End Try
-    End Sub
-
     Private Sub txtOutgoing_GotFocus(sender As Object, e As System.EventArgs) Handles txtOutgoing.GotFocus
         'Try
-        Me_GotFocus()
+        lMdiChildWindow.Form_GotFocus(Me)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtOutgoing_GotFocus(sender As Object, e As System.EventArgs) Handles txtOutgoing.GotFocus")
         'End Try
@@ -90,8 +51,7 @@ Public Class frmStatus
 
     Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
         'Try
-        Me.Focus()
-        Me_GotFocus()
+        lMdiChildWindow.Form_GotFocus(Me)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
         'End Try
@@ -99,10 +59,7 @@ Public Class frmStatus
 
     Private Sub frmStatus_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
         'Try
-        txtIncomingColor.Width = Me.ClientSize.Width
-        txtIncomingColor.Height = Me.ClientSize.Height - (txtOutgoing.Height + txtIncomingColor.Top)
-        txtOutgoing.Width = txtIncomingColor.Width
-        txtOutgoing.Top = txtIncomingColor.Height + txtIncomingColor.Top
+        lMdiChildWindow.Form_Resize(txtIncomingColor, txtOutgoing, Me)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmStatus_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize")
         'End Try
@@ -263,51 +220,7 @@ Public Class frmStatus
 
     Private Sub frmStatus_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         'Try
-        Dim mBox As MsgBoxResult, b As Boolean
-        lIRC.iSettings.sWindowSizes.lStatus.wWidth = Me.Width
-        lIRC.iSettings.sWindowSizes.lStatus.wHeight = Me.Height
-        If Me.WindowState = FormWindowState.Minimized Then Me.WindowState = FormWindowState.Normal
-        SaveWindowSizes()
-        Select Case LCase(e.CloseReason.ToString)
-            Case "mdiformclosing"
-                b = False
-            Case Else
-                b = True
-        End Select
-        If b = False Then Exit Sub
-        If lIRC.iSettings.sHideStatusOnClose = True Then
-            Me.WindowState = FormWindowState.Minimized
-            e.Cancel = True
-            Exit Sub
-        End If
-        If lIRC.iSettings.sPrompts = True Then
-            If Len(lStatus.StatusServerName(lMeIndex)) <> 0 Then
-                If lStatus.Connected(lMeIndex) = True Then
-                    mBox = MsgBox("Are you sure, close this status window '" & lStatus.StatusServerName(lMeIndex) & "'?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question, "nexIRC - Close Server?")
-                Else
-                    mBox = MsgBoxResult.Yes
-                End If
-            Else
-                If lStatus.Connected(lMeIndex) = True Then
-                    mBox = MsgBox("Are you sure, close this server window?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question, "nexIRC - Close Server?")
-                Else
-                    mBox = MsgBoxResult.Yes
-                End If
-            End If
-        Else
-            mBox = MsgBoxResult.Yes
-        End If
-        If mBox = MsgBoxResult.Yes Then
-            lStatus.CloseSocket(lMeIndex)
-            lStatus.ActiveIndex = 0
-            lStatus.RemoveTreeView(lMeIndex)
-            lStatus.Clear(lMeIndex)
-            lStatus.Open(lMeIndex) = False
-            mdiMain.RemoveWindowBar(lStatus.InitialText(lMeIndex))
-        Else
-            e.Cancel = True
-            Beep()
-        End If
+        lMdiChildWindow.Form_FormClosing(Me, e)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs)")
         'End Try
@@ -342,7 +255,7 @@ Public Class frmStatus
 
     Private Sub frmStatus_MdiChildActivate(sender As Object, e As System.EventArgs) Handles Me.MdiChildActivate
         'Try
-        Me_GotFocus()
+        lMdiChildWindow.Form_GotFocus(Me)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmStatus_MdiChildActivate(sender As Object, e As System.EventArgs) Handles Me.MdiChildActivate")
         'End Try
@@ -350,7 +263,7 @@ Public Class frmStatus
 
     Private Sub frmStatus_GotFocus(sender As Object, e As System.EventArgs) Handles Me.GotFocus
         'Try
-        Me_GotFocus()
+        lMdiChildWindow.Form_GotFocus(Me)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmStatus_GotFocus(sender As Object, e As System.EventArgs) Handles Me.GotFocus")
         'End Try
@@ -358,7 +271,7 @@ Public Class frmStatus
 
     Private Sub ToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem1.Click
         'Try
-        frmChangeNickname.SetServerWindow(lMeIndex)
+        lMdiChildWindow.cmdChangeNickName_Click()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub ToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem1.Click")
         'End Try
@@ -366,17 +279,9 @@ Public Class frmStatus
 
     Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         'Try
-        Me.frmStatus_Resize(sender, e)
+        lMdiChildWindow.Form_Load(txtIncomingColor, txtOutgoing, Me)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
-        'End Try
-    End Sub
-
-    Private Sub txtOutgoing_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtOutgoing.KeyPress
-        'Try
-        'e.Handled = True
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub txtOutgoing_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtOutgoing.KeyPress")
         'End Try
     End Sub
 End Class

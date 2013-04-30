@@ -110,11 +110,15 @@ Public Class clsMdiChildWindow
         End Set
     End Property
 
-    Public Sub Form_Resize()
+    Public Sub Form_Resize(_IncomingRichTextBox As RichTextBox, _OutgoingTextBox As TextBox, _Form As Form)
         'Handles Me.Resize
         'Try
         Select Case lFormType
             Case eFormTypes.fStatus
+                _IncomingRichTextBox.Width = _Form.ClientSize.Width
+                _IncomingRichTextBox.Height = _Form.ClientSize.Height - (_OutgoingTextBox.Height + _IncomingRichTextBox.Top)
+                _OutgoingTextBox.Width = _IncomingRichTextBox.Width
+                _OutgoingTextBox.Top = _IncomingRichTextBox.Height + _IncomingRichTextBox.Top
             Case eFormTypes.fChannel
                 If lMeIndex <> 0 Then
                     lChannels.Window_Resize(lMeIndex)
@@ -125,24 +129,56 @@ Public Class clsMdiChildWindow
         'End Try
     End Sub
 
-    Public Sub Form_Load(_FormName As String)
+    Public Sub cmdChangeNickName_Click()
         'Try
-        Select Case _FormName
+        frmChangeNickname.SetServerWindow(lMeIndex)
+        frmChangeNickname.Show()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdChangeNickName_Click()")
+        'End Try
+    End Sub
+
+    Public Sub Form_Load(_IncomingTextBox As RichTextBox, _OutgoingTextBox As TextBox, _Form As Form)
+        'Try
+        Select Case _Form.Name
             Case "frmStatus"
                 lFormType = eFormTypes.fStatus
+                'txtIncomingColor.BackColor = System.Drawing.Color.FromArgb(RGB(233, 240, 249))
+                Form_Resize(_IncomingTextBox, _OutgoingTextBox, _Form)
             Case "frmChannel"
                 lFormType = eFormTypes.fChannel
         End Select
-        Form_Resize()
+        Form_Resize(_IncomingTextBox, _OutgoingTextBox, _Form)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub Form_Load(_FormName As String)")
         'End Try
     End Sub
 
-    Public Sub Form_FormClosing()
+    Public Sub txtIncomingColor_GotFocus(_Form As Form)
+        'Try
+        _Form.Focus()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub txtIncomingColor_GotFocus(_Form As Form)")
+        'End Try
+    End Sub
+
+    Public Sub Form_GotFocus(_Form As Form)
+        'Try
+        _Form.Focus()
+        lChannels.CurrentIndex = 0
+        If lIRC.iSettings.sAutoMaximize = True Then _Form.WindowState = FormWindowState.Maximized
+        lStatus.SetSeenIcon(lMeIndex, True)
+        lStatus.ActiveIndex = lMeIndex
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub Form_GotFocus()")
+        'End Try
+    End Sub
+
+    Public Sub Form_FormClosing(Optional ByRef _Form As frmStatus = Nothing, Optional ByRef e As System.Windows.Forms.FormClosingEventArgs = Nothing)
         'Try
         Select Case lFormType
             Case eFormTypes.fStatus
+                lStatus.Form_Closing(_Form, e)
             Case eFormTypes.fChannel
                 lChannels.Window_Closing(lMeIndex)
         End Select
@@ -212,5 +248,13 @@ Public Class clsMdiChildWindow
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub cmdNotice_Click()")
         'End Try
+    End Sub
+
+    Public Sub TextBox_LinkClicked(_Link As String)
+        Try
+            mdiMain.BrowseURL(_Link)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Sub TextBox_LinkClicked(_Link As String)")
+        End Try
     End Sub
 End Class

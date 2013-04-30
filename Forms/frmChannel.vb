@@ -144,7 +144,8 @@ Public Class frmChannel
 
     Private Sub frmChannel_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         'Try
-        lMdiChildWindow.Form_Load(Me.Name)
+        txtIncomingColor.BackColor = System.Drawing.Color.FromArgb(RGB(233, 240, 249))
+        lMdiChildWindow.Form_Load(txtIncomingColor, txtOutgoing, Me)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmChannel_Load(sender As Object, e As System.EventArgs) Handles Me.Load")
         'End Try
@@ -152,7 +153,7 @@ Public Class frmChannel
 
     Private Sub frmChannel_Resize(sender As Object, e As System.EventArgs) Handles Me.Resize
         'Try
-        lMdiChildWindow.Form_Resize()
+        lMdiChildWindow.Form_Resize(txtIncomingColor, txtOutgoing, Me)
         'Catch ex As Exception
         'ProcessError(ex.Message,"Private Sub frmChannel_Resize(sender As Object, e As System.EventArgs) Handles Me.Resize")
         'End Try

@@ -236,10 +236,32 @@ Public Class mdiMain
     End Sub
 
     Private Sub mdiMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        'For Each control As Control In Me.Controls
+        Dim ctlMDI As MdiClient
+        For Each ctl As Object In Me.Controls
+            Try
+                ' Attempt to cast the control to type MdiClient.
+                ctlMDI = CType(ctl, MdiClient)
+
+                ' Set the BackColor of the MdiClient control.
+                ctlMDI.BackColor = Color.Black
+
+            Catch exc As InvalidCastException
+                ' Catch and ignore the error if casting failed.
+            End Try
+        Next
+
+        'Dim client As MdiClient = New MdiClient
+
+        'If client IsNot Nothing Then
+        'client.BackColor = System.Drawing.Color.FromArgb(RGB(191, 219, 255))
+        'End If
+        'Next control
         'Timer1.Interval = 500
         'Timer1.Enabled = True
         'Timer1.Start()
-        On Error Resume Next
+        'On Error Resume Next
+
         Panel1.BackColor = Color.Black
         nicSystray.Visible = True
         nicSystray.Icon = Me.Icon

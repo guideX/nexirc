@@ -238,12 +238,12 @@ Namespace IRC.Status
                 .sWindow.Icon = mdiMain.Icon
                 .sWindow.MdiParent = mdiMain
                 .sWindow.Visible = True
-                ActiveIndex = .sWindow.MeIndex
+                ActiveIndex = .sWindow.lMdiChildWindow.MeIndex
                 mdiMain.SetWindowFocus(.sWindow)
                 .sWindow.Width = lIRC.iSettings.sWindowSizes.lStatus.wWidth
                 .sWindow.Height = lIRC.iSettings.sWindowSizes.lStatus.wHeight
                 If lIRC.iSettings.sAutoConnect = True Then .sWindow.lAutoConnectDelayTimer.Enabled = True
-                .sWindow.MeIndex = i
+                .sWindow.lMdiChildWindow.MeIndex = i
                 msg = NewInitialText(i)
                 .sPrimitives.sRemoteIP = lServers.sServer(lServers.sIndex).sIP
                 .sPrimitives.sRemotePort = lServers.sServer(lServers.sIndex).sPort
@@ -895,7 +895,7 @@ Namespace IRC.Status
                                 .sMotdWindow.mWindow.Show()
                                 .sMotdWindow.mVisible = True
                                 .sMotdWindow.mWindow.SetStatusIndex(n)
-                                .sMotdWindow.mWindow.Text = StatusServerName(.sWindow.MeIndex) & " - MOTD"
+                                .sMotdWindow.mWindow.Text = StatusServerName(.sWindow.lMdiChildWindow.MeIndex) & " - MOTD"
                                 .sMotdWindow.mWindow.SetMotdWindow(True)
                                 .sMotdWindow.mWindow.SetNoticeWindow(False)
                                 .sMotdWindow.mWindow.SetUnknownsWindow(False)
@@ -913,7 +913,7 @@ Namespace IRC.Status
                     If n <> 0 Then
                         With lStatusObjects.sStatusObject(n)
                             If .sServerLinks.sVisible = False Then
-                                t = NetworkIndex(.sWindow.MeIndex)
+                                t = NetworkIndex(.sWindow.lMdiChildWindow.MeIndex)
                                 .sServerLinks.sVisible = True
                                 .sServerLinks.sWindow = New frmServerLinks
                                 'clsAnimate.Animate(.sServerLinks.sWindow, clsAnimate.Effect.Center, 200, 1)
@@ -1043,7 +1043,7 @@ Namespace IRC.Status
                                 .sVisible = True
                                 .sWindow.Visible = True
                             End If
-                            ActiveIndex = .sWindow.MeIndex
+                            ActiveIndex = .sWindow.lMdiChildWindow.MeIndex
                             mdiMain.SetWindowFocus(.sWindow)
                         End With
                     End If
@@ -1370,7 +1370,7 @@ Namespace IRC.Status
                                 .sMotdWindow.mWindow.Show()
                                 .sMotdWindow.mWindow.SetStatusIndex(lIndex)
                                 .sMotdWindow.mVisible = True
-                                .sMotdWindow.mWindow.Text = StatusServerName(.sWindow.MeIndex) & " - MOTD"
+                                .sMotdWindow.mWindow.Text = StatusServerName(.sWindow.lMdiChildWindow.MeIndex) & " - MOTD"
                                 .sMotdWindow.mWindow.SetMotdWindow(True)
                                 .sMotdWindow.mWindow.SetNoticeWindow(False)
                                 .sMotdWindow.mWindow.SetUnknownsWindow(False)
@@ -1746,7 +1746,7 @@ Namespace IRC.Status
                                 .sNoticesWindow.nWindow.SetNoticeWindow(True)
                                 .sNoticesWindow.nWindow.SetUnknownsWindow(False)
                                 .sNoticesWindow.nWindow.SetMotdWindow(False)
-                                .sNoticesWindow.nWindow.Text = StatusServerName(.sWindow.MeIndex) & " - Notices"
+                                .sNoticesWindow.nWindow.Text = StatusServerName(.sWindow.lMdiChildWindow.MeIndex) & " - Notices"
                                 .sNoticesWindow.nWindow.DoNoticeColor(.sNoticesWindow.nData)
                             Else
                                 If .sNoticesWindow.nTreeNode.ImageIndex <> 6 Then .sNoticesWindow.nTreeNode.ImageIndex = 6
@@ -1763,6 +1763,57 @@ Namespace IRC.Status
             'Catch ex As Exception
             'RaiseEvent ProcessError(ex.Message, "Public Sub AddToNotices(ByVal lIndex As Integer, ByVal lData As String)")
             'End Try
+        End Sub
+        Public Sub Form_Closing(Optional ByRef _Form As frmStatus = Nothing, Optional ByRef e As System.Windows.Forms.FormClosingEventArgs = Nothing)
+            Try
+                Dim mBox As MsgBoxResult, b As Boolean
+                lIRC.iSettings.sWindowSizes.lStatus.wWidth = _Form.Width
+                lIRC.iSettings.sWindowSizes.lStatus.wHeight = _Form.Height
+                If _Form.WindowState = FormWindowState.Minimized Then _Form.WindowState = FormWindowState.Normal
+                SaveWindowSizes()
+                Select Case LCase(e.CloseReason.ToString)
+                    Case "mdiformclosing"
+                        b = False
+                    Case Else
+                        b = True
+                End Select
+                If b = False Then Exit Sub
+                If lIRC.iSettings.sHideStatusOnClose = True Then
+                    _Form.WindowState = FormWindowState.Minimized
+                    e.Cancel = True
+                    Exit Sub
+                End If
+                If lIRC.iSettings.sPrompts = True Then
+                    If Len(lStatus.StatusServerName(_Form.lMdiChildWindow.MeIndex)) <> 0 Then
+                        If lStatus.Connected(_Form.lMdiChildWindow.MeIndex) = True Then
+                            mBox = MsgBox("Are you sure, close this status window '" & lStatus.StatusServerName(_Form.lMdiChildWindow.MeIndex) & "'?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question, "nexIRC - Close Server?")
+                        Else
+                            mBox = MsgBoxResult.Yes
+                        End If
+                    Else
+                        If lStatus.Connected(_Form.lMdiChildWindow.MeIndex) = True Then
+                            mBox = MsgBox("Are you sure, close this server window?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question, "nexIRC - Close Server?")
+                        Else
+                            mBox = MsgBoxResult.Yes
+                        End If
+                    End If
+                Else
+                    mBox = MsgBoxResult.Yes
+                End If
+                If mBox = MsgBoxResult.Yes Then
+                    lStatus.CloseSocket(_Form.lMdiChildWindow.MeIndex)
+                    lStatus.ActiveIndex = 0
+                    lStatus.RemoveTreeView(_Form.lMdiChildWindow.MeIndex)
+                    lStatus.Clear(_Form.lMdiChildWindow.MeIndex)
+                    lStatus.Open(_Form.lMdiChildWindow.MeIndex) = False
+                    mdiMain.RemoveWindowBar(lStatus.InitialText(_Form.lMdiChildWindow.MeIndex))
+                Else
+                    e.Cancel = True
+                    Beep()
+                End If
+            Catch ex As Exception
+                RaiseEvent ProcessError(ex.Message, "Public Sub Form_Closing(_Form As Form)")
+            End Try
         End Sub
         Public Property Notice_Visible(_StatusIndex As Integer) As Boolean
             Get
@@ -1905,14 +1956,14 @@ Namespace IRC.Status
                     End If
                     If .sServerLinks.sVisible = False Then
                         If lIRC.iSettings.sShowWindowsAutomatically = True Then
-                            i = NetworkIndex(.sWindow.MeIndex)
+                            i = NetworkIndex(.sWindow.lMdiChildWindow.MeIndex)
                             .sServerLinks.sVisible = True
                             .sServerLinks.sWindow = New frmServerLinks
                             'clsAnimate.Animate(.sServerLinks.sWindow, clsAnimate.Effect.Center, 200, 1)
                             .sServerLinks.sWindow.Show()
                             .sServerLinks.sWindow.SetStatusIndex(lIndex)
                             .sServerLinks.sWindow.SetNetworkIndex(i)
-                            .sServerLinks.sWindow.Text = "nexIRC " & StatusServerName(.sWindow.MeIndex) & " - Links"
+                            .sServerLinks.sWindow.Text = "nexIRC " & StatusServerName(.sWindow.lMdiChildWindow.MeIndex) & " - Links"
                         Else
                             If .sServerLinks.sTreeNode.ImageIndex <> 6 Then .sServerLinks.sTreeNode.ImageIndex = 6
                             If .sServerLinks.sTreeNode.SelectedImageIndex <> 6 Then .sServerLinks.sTreeNode.SelectedImageIndex = 6

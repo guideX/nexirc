@@ -104,11 +104,16 @@ Partial Class mdiMain
         Me.cmdRedirectDeny = New System.Windows.Forms.ToolStripButton()
         Me.tmrWaitForQuit = New System.Windows.Forms.Timer(Me.components)
         Me.tmrHideRedirect = New System.Windows.Forms.Timer(Me.components)
+        Me.lblInputMessage = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.cmdEnter = New System.Windows.Forms.Button()
+        Me.Panel2 = New System.Windows.Forms.Panel()
         Me.ToolStrip.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.tspQueryPrompt.SuspendLayout()
         Me.tspDCCToolBar.SuspendLayout()
         Me.tspRedirect.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'nicSystray
@@ -597,7 +602,7 @@ Partial Class mdiMain
         Me.tspQueryPrompt.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tspQueryPrompt.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.tspQueryPrompt.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblQueryPrompt, Me.ToolStripButton1, Me.ToolStripButton2})
-        Me.tspQueryPrompt.Location = New System.Drawing.Point(167, 25)
+        Me.tspQueryPrompt.Location = New System.Drawing.Point(167, 75)
         Me.tspQueryPrompt.Name = "tspQueryPrompt"
         Me.tspQueryPrompt.Padding = New System.Windows.Forms.Padding(0)
         Me.tspQueryPrompt.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
@@ -633,7 +638,7 @@ Partial Class mdiMain
         Me.lblUser.BackColor = System.Drawing.Color.Yellow
         Me.lblUser.ForeColor = System.Drawing.Color.Black
         Me.lblUser.Name = "lblUser"
-        Me.lblUser.Size = New System.Drawing.Size(254, 32)
+        Me.lblUser.Size = New System.Drawing.Size(254, 22)
         Me.lblUser.Text = "Download the file (file) from the user (user)?"
         '
         'tspDCCToolBar
@@ -643,12 +648,12 @@ Partial Class mdiMain
         Me.tspDCCToolBar.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tspDCCToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.tspDCCToolBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblUser, Me.cmdAccept, Me.cmdDeny})
-        Me.tspDCCToolBar.Location = New System.Drawing.Point(143, 36)
+        Me.tspDCCToolBar.Location = New System.Drawing.Point(167, 50)
         Me.tspDCCToolBar.Name = "tspDCCToolBar"
         Me.tspDCCToolBar.Padding = New System.Windows.Forms.Padding(0)
         Me.tspDCCToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
         Me.tspDCCToolBar.ShowItemToolTips = False
-        Me.tspDCCToolBar.Size = New System.Drawing.Size(691, 35)
+        Me.tspDCCToolBar.Size = New System.Drawing.Size(652, 25)
         Me.tspDCCToolBar.TabIndex = 29
         Me.tspDCCToolBar.Visible = False
         '
@@ -660,7 +665,7 @@ Partial Class mdiMain
         Me.cmdAccept.Image = CType(resources.GetObject("cmdAccept.Image"), System.Drawing.Image)
         Me.cmdAccept.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdAccept.Name = "cmdAccept"
-        Me.cmdAccept.Size = New System.Drawing.Size(50, 32)
+        Me.cmdAccept.Size = New System.Drawing.Size(50, 22)
         Me.cmdAccept.Text = "Accept"
         '
         'cmdDeny
@@ -671,7 +676,7 @@ Partial Class mdiMain
         Me.cmdDeny.Image = CType(resources.GetObject("cmdDeny.Image"), System.Drawing.Image)
         Me.cmdDeny.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdDeny.Name = "cmdDeny"
-        Me.cmdDeny.Size = New System.Drawing.Size(39, 32)
+        Me.cmdDeny.Size = New System.Drawing.Size(39, 22)
         Me.cmdDeny.Text = "Deny"
         '
         'fdgOpen
@@ -732,6 +737,46 @@ Partial Class mdiMain
         '
         Me.tmrHideRedirect.Interval = 6000
         '
+        'lblInputMessage
+        '
+        Me.lblInputMessage.AutoSize = True
+        Me.lblInputMessage.BackColor = System.Drawing.Color.White
+        Me.lblInputMessage.Location = New System.Drawing.Point(-406, 29)
+        Me.lblInputMessage.Name = "lblInputMessage"
+        Me.lblInputMessage.Size = New System.Drawing.Size(93, 18)
+        Me.lblInputMessage.TabIndex = 38
+        Me.lblInputMessage.Text = "(No Message)"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox1.Location = New System.Drawing.Point(8, 274)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(551, 19)
+        Me.TextBox1.TabIndex = 37
+        '
+        'cmdEnter
+        '
+        Me.cmdEnter.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.cmdEnter.Location = New System.Drawing.Point(565, 274)
+        Me.cmdEnter.Name = "cmdEnter"
+        Me.cmdEnter.Size = New System.Drawing.Size(75, 19)
+        Me.cmdEnter.TabIndex = 39
+        Me.cmdEnter.Text = "Enter"
+        Me.cmdEnter.UseVisualStyleBackColor = False
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.cmdEnter)
+        Me.Panel2.Controls.Add(Me.TextBox1)
+        Me.Panel2.Controls.Add(Me.lblInputMessage)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel2.Location = New System.Drawing.Point(167, 250)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(652, 81)
+        Me.Panel2.TabIndex = 40
+        Me.Panel2.Visible = False
+        '
         'mdiMain
         '
         Me.AccessibleRole = System.Windows.Forms.AccessibleRole.Window
@@ -740,6 +785,7 @@ Partial Class mdiMain
         Me.BackColor = System.Drawing.Color.Black
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(819, 356)
+        Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.tspQueryPrompt)
         Me.Controls.Add(Me.tspDCCToolBar)
         Me.Controls.Add(Me.tspRedirect)
@@ -752,7 +798,7 @@ Partial Class mdiMain
         Me.IsMdiContainer = True
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "mdiMain"
-        Me.Text = "RadRibbonBar1"
+        Me.Text = "nexIRC"
         Me.ToolStrip.ResumeLayout(False)
         Me.ToolStrip.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -762,6 +808,8 @@ Partial Class mdiMain
         Me.tspDCCToolBar.PerformLayout()
         Me.tspRedirect.ResumeLayout(False)
         Me.tspRedirect.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -848,6 +896,10 @@ Partial Class mdiMain
     Friend WithEvents cmdRedirectDeny As System.Windows.Forms.ToolStripButton
     Friend WithEvents tmrWaitForQuit As System.Windows.Forms.Timer
     Friend WithEvents tmrHideRedirect As System.Windows.Forms.Timer
+    Friend WithEvents lblInputMessage As System.Windows.Forms.Label
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents cmdEnter As System.Windows.Forms.Button
+    Friend WithEvents Panel2 As System.Windows.Forms.Panel
     'Friend WithEvents cmdConnection As System.Windows.Forms.ToolStripSplitButton
     'Friend WithEvents mnuNewStatusWindow As System.Windows.Forms.ToolStripMenuItem
     'Friend WithEvents mnuSep76829639 As System.Windows.Forms.ToolStripSeparator

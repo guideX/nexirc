@@ -63,7 +63,7 @@ Public Class frmChannel
 
     Private Sub txtIncomingColor_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtIncomingColor.TextChanged
         'Try
-        txtIncomingColor.ScrollToCaret()
+        lMdiChildWindow.txtIncomingColor_TextChanged(txtIncomingColor)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtIncomingColor_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtIncomingColor.TextChanged")
         'End Try
@@ -71,9 +71,7 @@ Public Class frmChannel
 
     Private Sub tmrGetNames_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrGetNames.Tick
         'Try
-        If lvwNicklist.Items.Count = 0 Then
-            ProcessReplaceCommand(lChannels.StatusIndex(lMdiChildWindow.MeIndex), eCommandTypes.cNAMES, lChannels.Name(lMdiChildWindow.MeIndex))
-        End If
+        lMdiChildWindow.tmrGetNames_Tick(lvwNicklist)
         tmrGetNames.Enabled = False
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub tmrGetNames_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrGetNames.Tick")
@@ -82,7 +80,7 @@ Public Class frmChannel
 
     Private Sub lvwNicklist_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwNicklist.DoubleClick
         'Try
-        lChannels.NickList_DoubleClick(lMdiChildWindow.MeIndex)
+        lMdiChildWindow.lvwNickList_DoubleClick()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub lvwNicklist_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwNicklist.DoubleClick")
         'End Try
@@ -90,7 +88,7 @@ Public Class frmChannel
 
     Private Sub cmdURL_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdURL.Click
         'Try
-        mdiMain.BrowseURL(lChannels.URL(lMdiChildWindow.MeIndex))
+        lMdiChildWindow.cmdUrl_Click()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdURL_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_URL.Click")
         'End Try
@@ -98,9 +96,7 @@ Public Class frmChannel
 
     Private Sub cmdPart_Click(sender As System.Object, e As System.EventArgs) Handles cmdPart.Click
         'Try
-        Me.Close()
-        lChannels.RemoveTree(lMdiChildWindow.MeIndex)
-        ProcessReplaceCommand(lChannels.StatusIndex(lMdiChildWindow.MeIndex), eCommandTypes.cPART, lChannels.Name(lMdiChildWindow.MeIndex))
+        lMdiChildWindow.cmdPart_Click(Me)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdPart_Click(sender As System.Object, e As System.EventArgs) Handles cmdPart.Click")
         'End Try
@@ -108,7 +104,7 @@ Public Class frmChannel
 
     Private Sub cmdHide_Click(sender As System.Object, e As System.EventArgs) Handles cmdHide.Click
         'Try
-        lChannels.Minimize(lMdiChildWindow.MeIndex)
+        lMdiChildWindow.cmdHide_Click()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdHide_Click(sender As System.Object, e As System.EventArgs) Handles cmdHide.Click")
         'End Try
@@ -116,9 +112,7 @@ Public Class frmChannel
 
     Private Sub cmdNotice_Click(sender As System.Object, e As System.EventArgs) Handles cmdNotice.Click
         'Try
-        Dim msg As String
-        msg = InputBox("Enter notice message:")
-        If Len(msg) <> 0 Then ProcessReplaceCommand(lMdiChildWindow.MeIndex, eCommandTypes.cNOTICE, lChannels.Name(lMdiChildWindow.MeIndex), msg)
+        lMdiChildWindow.cmdNotice_Click()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdNotice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Notice.Click")
         'End Try
@@ -137,7 +131,7 @@ Public Class frmChannel
         lMdiChildWindow.cmdNames_Click(lvwNicklist)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdNames_Click(sender As System.Object, e As System.EventArgs) Handles cmdNames.Click")
-        'End Try
+        'End Try    
     End Sub
 
     Private Sub frmChannel_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing

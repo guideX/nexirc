@@ -150,4 +150,67 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub Form_FormClosing()")
         'End Try
     End Sub
+
+    Public Sub txtIncomingColor_TextChanged(_RichTextBox As RichTextBox)
+        'Try
+        _RichTextBox.ScrollToCaret()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub txtIncomingColor_TextChanged()")
+        'End Try
+    End Sub
+
+    Public Sub tmrGetNames_Tick(_NickList As ListView)
+        Try
+            If _NickList.Items.Count = 0 Then
+                ProcessReplaceCommand(lChannels.StatusIndex(lMeIndex), eCommandTypes.cNAMES, lChannels.Name(MeIndex))
+            End If
+
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Sub tmrGetNames_Tick(_NickList As ListView)")
+        End Try
+    End Sub
+
+    Public Sub lvwNickList_DoubleClick()
+        'Try
+        lChannels.NickList_DoubleClick(lMeIndex)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub lvwNickList_DoubleClick()")
+        'End Try
+    End Sub
+
+    Public Sub cmdUrl_Click()
+        Try
+            mdiMain.BrowseURL(lChannels.URL(lMeIndex))
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Sub cmdUrl_Click()")
+        End Try
+    End Sub
+
+    Public Sub cmdPart_Click(_Form As Form)
+        'Try
+        _Form.Close()
+        lChannels.RemoveTree(lMeIndex)
+        ProcessReplaceCommand(lChannels.StatusIndex(lMeIndex), eCommandTypes.cPART, lChannels.Name(lMeIndex))
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdPart_Click(_Form As Form)")
+        'End Try
+    End Sub
+
+    Public Sub cmdHide_Click()
+        'Try
+        lChannels.Minimize(MeIndex)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdHide_Click()")
+        'End Try
+    End Sub
+
+    Public Sub cmdNotice_Click()
+        'Try
+        Dim msg As String
+        msg = InputBox("Enter notice message:")
+        If Len(msg) <> 0 Then ProcessReplaceCommand(MeIndex, eCommandTypes.cNOTICE, lChannels.Name(MeIndex), msg)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdNotice_Click()")
+        'End Try
+    End Sub
 End Class

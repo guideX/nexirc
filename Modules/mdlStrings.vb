@@ -2011,7 +2011,7 @@ Module mdlStrings
     End Function
 
     Private Function FindStringIndex(ByVal lType As eStringTypes) As Integer
-        On Error Resume Next
+        'Try
         Dim i As Integer
         For i = 1 To lStrings.sFixedStringCount
             If lType = lStrings.sFixedString(i).sType Then
@@ -2019,7 +2019,9 @@ Module mdlStrings
                 Exit Function
             End If
         Next i
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Function FindStringIndex(lType As eStringTypes) As Integer")
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function FindStringIndex(ByVal lType As eStringTypes) As Integer")
+        'End Try
     End Function
 
     Public Sub ProcessReplaceString(ByVal lStatusIndex As Integer, ByVal lType As eStringTypes, Optional ByVal r1 As String = "", Optional ByVal r2 As String = "", Optional ByVal r3 As String = "", Optional ByVal r4 As String = "", Optional ByVal r5 As String = "", Optional ByVal r6 As String = "", Optional ByVal r7 As String = "", Optional ByVal r8 As String = "")

@@ -381,10 +381,12 @@ Namespace IRC.Channels
         Public Sub SomeoneQuit(ByVal _StatusIndex As Integer, ByVal _Data As String)
             'Try
             ':guide_X!~guide_X@pool-108-13-216-135.lsanca.fios.verizon.net QUIT :Client Quit
+            Dim splt3() As String = Split(_Data, "QUIT :")
             Dim splt() As String = _Data.Split(Convert.ToChar(":")), splt2() As String, _QuitMessage As String = "", _HostName As String = "", _NickName As String, i As Integer, n As Integer = 0
             _NickName = ParseData(_Data, ":", "!")
             splt2 = _Data.Split(Convert.ToChar(" "))
-            _QuitMessage = Right(_Data, -(splt(1).Length + 8))
+            '_QuitMessage = Right(_Data, -(splt(1).Length + 8))
+            _QuitMessage = splt3(1)
             _HostName = splt2(0).Replace(":", "").Trim()
             For i = 1 To lChannels.cCount
                 For n = 0 To lChannels.cChannel(i).cWindow.lvwNicklist.Items.Count - 1

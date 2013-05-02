@@ -6,14 +6,23 @@ Public Class clsMdiChildWindow
     Private Enum eFormTypes
         fStatus = 1
         fChannel = 2
+        fNoticeWindow = 3
+        fMotdWindow = 4
+        fUnknown = 5
+        fUnsupported = 6
+        fPrivateMessage = 7
     End Enum
 
     Private lMeIndex As Integer
     Private lFormType As eFormTypes
+    Private lPMNickName As String
 
     Public Sub cmdAddToChannelFolder_Click()
         'Try
-        AddToChannelFolders(lChannels.Name(lMeIndex), lChannels.StatusIndex(lMeIndex))
+        Select Case lFormType
+            Case eFormTypes.fChannel
+                AddToChannelFolders(lChannels.Name(lMeIndex), lChannels.StatusIndex(lMeIndex))
+        End Select
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmd_ChannelFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChannelFolder.Click")
         'End Try
@@ -21,8 +30,11 @@ Public Class clsMdiChildWindow
 
     Public Sub cmdNames_Click(_NickList As ListView)
         'Try
-        _NickList.Items.Clear()
-        ProcessReplaceCommand(lChannels.StatusIndex(lMeIndex), eCommandTypes.cNAMES, lChannels.Name(lMeIndex))
+        Select Case lFormType
+            Case eFormTypes.fChannel
+                _NickList.Items.Clear()
+                ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cNAMES, lChannels.Name(lMeIndex))
+        End Select
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdNames_Click(sender As System.Object, e As System.EventArgs) Handles cmdNames.Click")
         'End Try
@@ -30,28 +42,38 @@ Public Class clsMdiChildWindow
 
     Public Sub txtOutgoing_GotFocus()
         'Try
-        lChannels.Outgoing_GotFocus(lMeIndex)
+        Select Case lFormType
+            Case eFormTypes.fChannel
+                lChannels.Outgoing_GotFocus(lMeIndex)
+            Case eFormTypes.fStatus
+                lStatus.Outgoing_GotFocus(lMeIndex)
+        End Select
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtOutgoing_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtOutgoing.GotFocus")
         'End Try
     End Sub
 
-    Public Sub txtOutgoing_KeyDown(e As System.Windows.Forms.KeyEventArgs)
+    Public Sub txtOutgoing_KeyDown(ByRef e As System.Windows.Forms.KeyEventArgs, ByRef _TextBox As TextBox)
         'Try
-        lChannels.Outgoing_KeyDown(lMeIndex, e.KeyCode)
-        If e.KeyCode = 13 Then
-            e.SuppressKeyPress = True
-        End If
+        Select Case lFormType
+            Case eFormTypes.fStatus
+                Dim msg As String
+                If e.KeyCode = 13 Then
+                    msg = _TextBox.Text
+                    _TextBox.Text = ""
+                    lStatus.ProcessUserInput(lMeIndex, msg)
+                    e.SuppressKeyPress = True
+                    'e.Handled = True
+                    Exit Sub
+                End If
+            Case eFormTypes.fChannel
+                lChannels.Outgoing_KeyDown(lMeIndex, e.KeyCode)
+                If e.KeyCode = 13 Then
+                    e.SuppressKeyPress = True
+                End If
+        End Select
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown")
-        'End Try
-    End Sub
-
-    Public Sub txtIncomingColor_LinkClicked(e As System.Windows.Forms.LinkClickedEventArgs)
-        'Try
-        lChannels.Incoming_LinkClick(lMeIndex, e.LinkText)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked")
         'End Try
     End Sub
 
@@ -63,7 +85,15 @@ Public Class clsMdiChildWindow
         'End Try
     End Sub
 
-    Public Sub txtIncomingColor_MouseUp(_SelectedText As String, _txtOutgoing As TextBox)
+    Public Sub cmd_JoinChannel_Click()
+        Try
+            frmChannelJoin.Show()
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Sub cmd_JoinChannel_Click()")
+        End Try
+    End Sub
+
+    Public Sub txtIncomingColor_MouseUp(_SelectedText As String, ByRef _txtOutgoing As TextBox)
         'Try
         If Len(_SelectedText) <> 0 Then
             Clipboard.Clear()
@@ -75,7 +105,7 @@ Public Class clsMdiChildWindow
         'End Try
     End Sub
 
-    Public Sub txtOutgoing_MouseDown(lForm As Form)
+    Public Sub txtOutgoing_MouseDown(ByRef lForm As Form)
         'Try
         lForm.Focus()
         'Catch ex As Exception
@@ -83,7 +113,7 @@ Public Class clsMdiChildWindow
         'End Try
     End Sub
 
-    Public Sub txtIncomingColor_Click(lForm As Form)
+    Public Sub txtIncomingColor_Click(ByRef lForm As Form)
         'Try
         lForm.Focus()
         'Catch ex As Exception
@@ -110,7 +140,7 @@ Public Class clsMdiChildWindow
         End Set
     End Property
 
-    Public Sub Form_Resize(_IncomingRichTextBox As RichTextBox, _OutgoingTextBox As TextBox, _Form As Form)
+    Public Sub Form_Resize(ByRef _IncomingRichTextBox As RichTextBox, ByRef _OutgoingTextBox As TextBox, ByRef _Form As Form)
         'Handles Me.Resize
         'Try
         Select Case lFormType
@@ -130,21 +160,30 @@ Public Class clsMdiChildWindow
     End Sub
 
     Public Sub cmdChangeNickName_Click()
+        Dim _StatusIndex As Integer
         'Try
-        frmChangeNickname.SetServerWindow(lMeIndex)
-        frmChangeNickname.Show()
+        Select Case lFormType
+            Case eFormTypes.fChannel
+                _StatusIndex = lChannels.StatusIndex(lMeIndex)
+            Case eFormTypes.fStatus
+                _StatusIndex = lMeIndex
+        End Select
+        If _StatusIndex <> 0 Then
+            frmChangeNickname.SetServerWindow(lMeIndex)
+            frmChangeNickname.Show()
+        End If
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub cmdChangeNickName_Click()")
         'End Try
     End Sub
 
-    Public Sub Form_Load(_IncomingTextBox As RichTextBox, _OutgoingTextBox As TextBox, _Form As Form)
+    Public Sub Form_Load(ByRef _IncomingTextBox As RichTextBox, ByRef _OutgoingTextBox As TextBox, ByRef _Form As Form)
         'Try
         Select Case _Form.Name
             Case "frmStatus"
                 lFormType = eFormTypes.fStatus
                 'txtIncomingColor.BackColor = System.Drawing.Color.FromArgb(RGB(233, 240, 249))
-                Form_Resize(_IncomingTextBox, _OutgoingTextBox, _Form)
+                'Form_Resize(_IncomingTextBox, _OutgoingTextBox, _Form)
             Case "frmChannel"
                 lFormType = eFormTypes.fChannel
         End Select
@@ -164,11 +203,14 @@ Public Class clsMdiChildWindow
 
     Public Sub Form_GotFocus(_Form As Form)
         'Try
+        Dim _StatusIndex As Integer = ReturnMeStatusIndex()
+        If _StatusIndex <> 0 Then
+            lChannels.CurrentIndex = 0
+            If lIRC.iSettings.sAutoMaximize = True Then _Form.WindowState = FormWindowState.Maximized
+            lStatus.SetSeenIcon(_StatusIndex, True)
+            lStatus.ActiveIndex = _StatusIndex
+        End If
         _Form.Focus()
-        lChannels.CurrentIndex = 0
-        If lIRC.iSettings.sAutoMaximize = True Then _Form.WindowState = FormWindowState.Maximized
-        lStatus.SetSeenIcon(lMeIndex, True)
-        lStatus.ActiveIndex = lMeIndex
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub Form_GotFocus()")
         'End Try
@@ -187,7 +229,7 @@ Public Class clsMdiChildWindow
         'End Try
     End Sub
 
-    Public Sub txtIncomingColor_TextChanged(_RichTextBox As RichTextBox)
+    Public Sub txtIncomingColor_TextChanged(ByRef _RichTextBox As RichTextBox)
         'Try
         _RichTextBox.ScrollToCaret()
         'Catch ex As Exception
@@ -195,38 +237,147 @@ Public Class clsMdiChildWindow
         'End Try
     End Sub
 
-    Public Sub tmrGetNames_Tick(_NickList As ListView)
-        Try
-            If _NickList.Items.Count = 0 Then
-                ProcessReplaceCommand(lChannels.StatusIndex(lMeIndex), eCommandTypes.cNAMES, lChannels.Name(MeIndex))
-            End If
+    Public Sub tmrGetNames_Tick(ByRef _NickList As ListView)
+        'Try
+        Select Case lFormType
+            Case eFormTypes.fChannel
+                If _NickList.Items.Count = 0 Then
+                    ProcessReplaceCommand(_StatusIndex, eCommandTypes.cNAMES, lChannels.Name(MeIndex))
+                End If
+        End Select
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub tmrGetNames_Tick(_NickList As ListView)")
+        'End Try
+    End Sub
 
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub tmrGetNames_Tick(_NickList As ListView)")
-        End Try
+    Private Function ReturnMeStatusIndex() As Integer
+        'Try
+        Dim _StatusIndex As Integer
+        Select Case lFormType
+            Case eFormTypes.fChannel
+                _StatusIndex = lChannels.StatusIndex(lMeIndex)
+            Case eFormTypes.fStatus
+                _StatusIndex = lMeIndex
+        End Select
+        Return _StatusIndex
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function ReturnMeStatusIndex() As Integer")
+        'Return Nothing
+        'End Try
+    End Function
+
+    Public Sub cmdSendNewNotice_Click()
+        'Try
+        Dim _Form As New frmSendNotice
+        _Form.StatusIndex = ReturnMeStatusIndex()
+        _Form.Visible = True
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdSendNewNotice_Click()")
+        'End Try
+    End Sub
+
+    Public Sub cmdNewPrivateMessage_Click()
+        'Try
+        Dim _Form As New frmPrivateMessage
+        _Form.StatusIndex = ReturnMeStatusIndex()
+        _Form.Show()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdNewPrivateMessage_Click()")
+        'End Try
+    End Sub
+
+    Public Sub cmdChangeConnection_Click()
+        'Try
+        Dim _Form As New frmChangeConnection
+        _Form.Show()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdChangeConnection_Click()")
+        'End Try
+    End Sub
+
+    Public Sub cmdToggleConnection_Click()
+        'Try
+        lStatus.ToggleConnection(ReturnMeStatusIndex())
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdToggleConnection()")
+        'End Try
+    End Sub
+
+    Public Sub cmdConnect_Click()
+        'Try
+        lStatus.Connect(ReturnMeStatusIndex())
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdConnect_Click()")
+        'End Try
+    End Sub
+
+    Public Sub tmrConnectDelay_Tick()
+        'Try
+        lStatus.Connect(ReturnMeStatusIndex())
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub lAutoConnectDelayTimer_Tick()")
+        'End Try
+    End Sub
+
+    Public Sub cmdChannelFolder_Click()
+        'Try
+        Dim _Form As New frmChannelFolder
+        _Form.SetStatusIndex(ReturnMeStatusIndex())
+        _Form.Show()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdChannelFolder_Click()")
+        'End Try
+    End Sub
+
+    Public Sub cmdDisconnect_Click()
+        'Try
+        Dim _StatusIndex As Integer = ReturnMeStatusIndex()
+        If lStatus.Connected(_StatusIndex) = True Or lStatus.ReturnStatusConnecting(_StatusIndex) = True Then
+            lStatus.CloseStatusConnection(_StatusIndex, True)
+        End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdDisconnect_Click()")
+        'End Try
     End Sub
 
     Public Sub lvwNickList_DoubleClick()
         'Try
-        lChannels.NickList_DoubleClick(lMeIndex)
+        Select Case lFormType
+            Case eFormTypes.fChannel
+                lChannels.NickList_DoubleClick(lMeIndex)
+        End Select
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub lvwNickList_DoubleClick()")
         'End Try
     End Sub
 
+    Public Sub cmdListChannels_Click()
+        'Try
+        ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cLIST)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdListChannels()")
+        'End Try
+    End Sub
+
     Public Sub cmdUrl_Click()
-        Try
-            mdiMain.BrowseURL(lChannels.URL(lMeIndex))
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub cmdUrl_Click()")
-        End Try
+        'Try
+        Select Case lFormType
+            Case eFormTypes.fChannel
+                mdiMain.BrowseURL(lChannels.URL(lMeIndex))
+        End Select
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdUrl_Click()")
+        'End Try
     End Sub
 
     Public Sub cmdPart_Click(_Form As Form)
         'Try
-        _Form.Close()
-        lChannels.RemoveTree(lMeIndex)
-        ProcessReplaceCommand(lChannels.StatusIndex(lMeIndex), eCommandTypes.cPART, lChannels.Name(lMeIndex))
+        Select Case lFormType
+            Case eFormTypes.fChannel
+                _Form.Close()
+                lChannels.RemoveTree(lMeIndex)
+                ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cPART, lChannels.Name(lMeIndex))
+        End Select
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub cmdPart_Click(_Form As Form)")
         'End Try
@@ -234,7 +385,12 @@ Public Class clsMdiChildWindow
 
     Public Sub cmdHide_Click()
         'Try
-        lChannels.Minimize(MeIndex)
+        Select Case lFormType
+            Case eFormTypes.fChannel
+                lChannels.Minimize(lMeIndex)
+            Case eFormTypes.fStatus
+                lStatus.Minimize(lMeIndex)
+        End Select
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub cmdHide_Click()")
         'End Try
@@ -242,9 +398,12 @@ Public Class clsMdiChildWindow
 
     Public Sub cmdNotice_Click()
         'Try
-        Dim msg As String
-        msg = InputBox("Enter notice message:")
-        If Len(msg) <> 0 Then ProcessReplaceCommand(MeIndex, eCommandTypes.cNOTICE, lChannels.Name(MeIndex), msg)
+        Select Case lFormType
+            Case eFormTypes.fChannel
+                Dim msg As String
+                msg = InputBox("Enter notice message:")
+                If Len(msg) <> 0 Then ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cNOTICE, lChannels.Name(MeIndex), msg)
+        End Select
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub cmdNotice_Click()")
         'End Try

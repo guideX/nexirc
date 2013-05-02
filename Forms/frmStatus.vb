@@ -5,7 +5,6 @@ Option Strict On
 Imports System.Text
 
 Public Class frmStatus
-    Private lMeIndex As Integer
     Public WithEvents lMdiChildWindow As New clsMdiChildWindow
     Public WithEvents lAutoConnectDelayTimer As New Timer
 
@@ -67,102 +66,16 @@ Public Class frmStatus
 
     Private Sub txtIncomingColor_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseUp
         'Try
-        If Len(txtIncomingColor.SelectedText) <> 0 Then
-            Clipboard.Clear()
-            Clipboard.SetText(txtIncomingColor.SelectedText)
-        End If
-        txtOutgoing.Focus()
+        lMdiChildWindow.txtIncomingColor_MouseUp(txtIncomingColor.SelectedText, txtOutgoing)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtIncomingColor_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseUp")
         'End Try
     End Sub
 
-    Private Sub cmd_JoinChannel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'Try
-        frmChannelJoin.Show()
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmd_JoinChannel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-        'End Try
-    End Sub
-
-    Private Sub cmd_ChannelList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'Try
-        ProcessReplaceCommand(lMeIndex, eCommandTypes.cLIST)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmd_ChannelList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-        'End Try
-    End Sub
-
-    Private Sub cmd_Disconnect_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'Try
-        If lStatus.Connected(lMeIndex) = True Or lStatus.ReturnStatusConnecting(lMeIndex) = True Then
-            lStatus.CloseStatusConnection(lMeIndex, True)
-        End If
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmd_Disconnect_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-        'End Try
-    End Sub
-
-    Private Sub cmd_Quit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'Try
-        lStatus.Quit(lMeIndex)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmd_Quit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-        'End Try
-    End Sub
-
-    Private Sub cmd_CloseConnection_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'Try
-        lStatus.CloseStatusConnection(lMeIndex, True)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmd_CloseConnection_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-        'End Try
-    End Sub
-
-    Private Sub cmd_Change_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'Try
-        frmChangeConnection.Show()
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmd_Change_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Change.Click")
-        'End Try
-    End Sub
-
-    Private Sub cmd_ChannelJoin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'Try
-        frmChannelJoin.Show()
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmd_ChannelJoin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChannelJoin.Click")
-        'End Try
-    End Sub
-
-    Private Sub cmd_ListChannels_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'Try
-        ProcessReplaceCommand(lMeIndex, eCommandTypes.cLIST)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmd_ListChannels_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ListChannels.Click")
-        'End Try
-    End Sub
-
-    Private Sub cmd_ChannelFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'Try
-        frmChannelFolder.SetStatusIndex(lStatus.ActiveIndex())
-        frmChannelFolder.Show()
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmd_ChannelFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChannelFolder.Click")
-        'End Try
-    End Sub
-
-    Private Sub cmd_Disconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        'Try
-        lStatus.Quit(lMeIndex)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmd_Disconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-        'End Try
-    End Sub
-
     Private Sub cmdDisconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDisconnect.Click
         'Try
-        lStatus.CloseStatusConnection(lStatus.ActiveIndex, True)
+        lMdiChildWindow.cmdDisconnect_Click()
+        'lStatus.CloseStatusConnection(lStatus.ActiveIndex, True)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdDisconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDisconnect.Click")
         'End Try
@@ -170,7 +83,7 @@ Public Class frmStatus
 
     Private Sub cmdChangeConnection_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdChangeConnection.Click
         'Try
-        frmChangeConnection.Show()
+        lMdiChildWindow.cmdChangeConnection_Click()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmd_ChangeConnection_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChangeConnection.Click")
         'End Try
@@ -178,7 +91,7 @@ Public Class frmStatus
 
     Private Sub cmdConnection_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnection.ButtonClick
         'Try
-        lStatus.ToggleConnection(lMeIndex)
+        lMdiChildWindow.cmdToggleConnection_Click()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdConnection_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnection.ButtonClick")
         'End Try
@@ -186,8 +99,7 @@ Public Class frmStatus
 
     Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click
         'Try
-        'lStatus.StatusConnectProc(lMeIndex)
-        lStatus.Connect(lMeIndex)
+        lMdiChildWindow.cmdConnect_Click()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click")
         'End Try
@@ -195,8 +107,8 @@ Public Class frmStatus
 
     Private Sub lAutoConnectDelayTimer_Tick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lAutoConnectDelayTimer.Tick
         'Try
+        lMdiChildWindow.tmrConnectDelay_Tick()
         lAutoConnectDelayTimer.Enabled = False
-        lStatus.Connect(lMeIndex)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub lAutoConnectDelayTimer_Tick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lAutoConnectDelayTimer.Tick")
         'End Try
@@ -204,15 +116,7 @@ Public Class frmStatus
 
     Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown
         'Try
-        Dim msg As String
-        If e.KeyCode = 13 Then
-            msg = txtOutgoing.Text
-            txtOutgoing.Text = ""
-            lStatus.ProcessUserInput(lMeIndex, msg)
-            e.SuppressKeyPress = True
-            'e.Handled = True
-            Exit Sub
-        End If
+        lMdiChildWindow.txtOutgoing_KeyDown(e, txtOutgoing)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown")
         'End Try
@@ -228,8 +132,7 @@ Public Class frmStatus
 
     Private Sub ToolStripMenuItem3_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem3.Click
         'Try
-        frmSendNotice.StatusIndex = lMeIndex
-        frmSendNotice.Visible = True
+        lMdiChildWindow.cmdSendNewNotice_Click()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub ToolStripMenuItem3_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem3.Click")
         'End Try
@@ -237,9 +140,7 @@ Public Class frmStatus
 
     Private Sub ToolStripMenuItem2_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem2.Click
         'Try
-        Dim _Form As New frmPrivateMessage
-        _Form.StatusIndex = lMeIndex
-        _Form.Show()
+        lMdiChildWindow.cmdNewPrivateMessage_Click()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub ToolStripMenuItem2_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem2.Click")
         'End Try
@@ -247,7 +148,7 @@ Public Class frmStatus
 
     Private Sub tspListChannels_Click(sender As System.Object, e As System.EventArgs) Handles tspListChannels.Click
         'Try
-        ProcessReplaceCommand(lMeIndex, eCommandTypes.cLIST)
+        lMdiChildWindow.cmdListChannels_Click()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub tspListChannels_Click(sender As System.Object, e As System.EventArgs) Handles tspListChannels.Click")
         'End Try

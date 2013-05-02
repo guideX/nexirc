@@ -584,6 +584,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="bin\Debug\data\config\channelfolders.ini" />
+    <None Include="bin\Debug\data\config\commands.ini" />
+    <None Include="bin\Debug\data\config\compatibility.ini" />
+    <None Include="bin\Debug\data\config\dcc.ini" />
+    <None Include="bin\Debug\data\config\errors.ini" />
+    <None Include="bin\Debug\data\config\extensions.ini" />
+    <None Include="bin\Debug\data\config\Ident.ini" />
+    <None Include="bin\Debug\data\config\identd.ini" />
+    <None Include="bin\Debug\data\config\networks.ini" />
+    <None Include="bin\Debug\data\config\nicknames.ini" />
+    <None Include="bin\Debug\data\config\notify.ini" />
+    <None Include="bin\Debug\data\config\query.ini" />
+    <None Include="bin\Debug\data\config\recientservers.ini" />
+    <None Include="bin\Debug\data\config\servermenu.ini" />
+    <None Include="bin\Debug\data\config\servers.ini" />
+    <None Include="bin\Debug\data\config\services.ini" />
+    <None Include="bin\Debug\data\config\settings.ini" />
+    <None Include="bin\Debug\data\config\stringsettings.ini" />
+    <None Include="bin\Debug\data\config\text.ini" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -595,6 +614,56 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\data\config\notepad.txt" />
+    <Content Include="bin\Debug\data\images\accept.png" />
+    <Content Include="bin\Debug\data\images\add.png" />
+    <Content Include="bin\Debug\data\images\announce.png" />
+    <Content Include="bin\Debug\data\images\applications.png" />
+    <Content Include="bin\Debug\data\images\back.png" />
+    <Content Include="bin\Debug\data\images\cancel.png" />
+    <Content Include="bin\Debug\data\images\channel %282%29.bmp" />
+    <Content Include="bin\Debug\data\images\channel.bmp" />
+    <Content Include="bin\Debug\data\images\channel2.bmp" />
+    <Content Include="bin\Debug\data\images\channel_blue.bmp" />
+    <Content Include="bin\Debug\data\images\chat.ico" />
+    <Content Include="bin\Debug\data\images\chat.png" />
+    <Content Include="bin\Debug\data\images\close.png" />
+    <Content Include="bin\Debug\data\images\configure.png" />
+    <Content Include="bin\Debug\data\images\copy.png" />
+    <Content Include="bin\Debug\data\images\delete.png" />
+    <Content Include="bin\Debug\data\images\documents.png" />
+    <Content Include="bin\Debug\data\images\edit %281%29.png" />
+    <Content Include="bin\Debug\data\images\edit.png" />
+    <Content Include="bin\Debug\data\images\film.png" />
+    <Content Include="bin\Debug\data\images\forward.png" />
+    <Content Include="bin\Debug\data\images\home.png" />
+    <Content Include="bin\Debug\data\images\move.png" />
+    <Content Include="bin\Debug\data\images\network.png" />
+    <Content Include="bin\Debug\data\images\notice.bmp" />
+    <Content Include="bin\Debug\data\images\noticesblue.bmp" />
+    <Content Include="bin\Debug\data\images\preferences %281%29.png" />
+    <Content Include="bin\Debug\data\images\preferences.png" />
+    <Content Include="bin\Debug\data\images\raw.bmp" />
+    <Content Include="bin\Debug\data\images\rawblue.bmp" />
+    <Content Include="bin\Debug\data\images\refresh.png" />
+    <Content Include="bin\Debug\data\images\remove.png" />
+    <Content Include="bin\Debug\data\images\save.png" />
+    <Content Include="bin\Debug\data\images\server.bmp" />
+    <Content Include="bin\Debug\data\images\server2.bmp" />
+    <Content Include="bin\Debug\data\images\serverblue.bmp" />
+    <Content Include="bin\Debug\data\images\status %282%29.bmp" />
+    <Content Include="bin\Debug\data\images\status copy.bmp" />
+    <Content Include="bin\Debug\data\images\status.bmp" />
+    <Content Include="bin\Debug\data\images\status.ico" />
+    <Content Include="bin\Debug\data\images\status2.bmp" />
+    <Content Include="bin\Debug\data\images\status_blue.bmp" />
+    <Content Include="bin\Debug\data\images\tools.png" />
+    <Content Include="bin\Debug\data\images\user.png" />
+    <Content Include="bin\Debug\data\images\web.png" />
+    <Content Include="bin\Debug\data\logs\query.txt" />
+    <Content Include="bin\Debug\data\script\nirc.txt" />
+    <Content Include="bin\Debug\data\script\status.txt" />
+    <Content Include="bin\Debug\Resources\status.ico" />
     <Content Include="nexgen.ico" />
     <None Include="Resources\connect.png" />
     <None Include="Resources\chat.png" />
@@ -654,6 +723,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\data\images\bkup\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

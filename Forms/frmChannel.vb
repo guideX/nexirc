@@ -15,7 +15,7 @@ Public Class frmChannel
 
     Private Sub txtOutgoing_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown
         'Try
-        lMdiChildWindow.txtOutgoing_KeyDown(e)
+        lMdiChildWindow.txtOutgoing_KeyDown(e, txtOutgoing)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown")
         'End Try
@@ -31,7 +31,7 @@ Public Class frmChannel
 
     Private Sub txtIncomingColor_LinkClicked(sender As Object, e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked
         'Try
-        lMdiChildWindow.txtIncomingColor_LinkClicked(e)
+        lMdiChildWindow.TextBox_LinkClicked(e.LinkText)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked")
         'End Try

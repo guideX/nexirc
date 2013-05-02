@@ -2,7 +2,6 @@
 '02-27-2013 - guideX
 Option Explicit On
 Option Strict On
-
 Public Class frmNoticeWindow
     Private lStatusIndex As Integer
     Private lNoticeWindow As Boolean

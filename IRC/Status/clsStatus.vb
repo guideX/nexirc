@@ -152,6 +152,23 @@ Namespace IRC.Status
             'RaiseEvent ProcessError(ex.Message, "Private Sub SocketError(_Error As String)")
             'End Try
         End Sub
+        Public Sub Minimize(_StatusIndex As Integer)
+            'Try
+            lStatusObjects.sStatusObject(_StatusIndex).sWindow.WindowState = FormWindowState.Minimized
+            'Catch ex As Exception
+            'RaiseEvent ProcessError(ex.Message, "Public Sub Minimize(_StatusIndex As Integer)")
+            'End Try
+        End Sub
+        Public Sub Outgoing_GotFocus(_StatusIndex As Integer)
+            Try
+                With lStatusObjects.sStatusObject(_StatusIndex)
+                    If lIRC.iSettings.sAutoMaximize = True Then .sWindow.WindowState = FormWindowState.Maximized
+                    lStatus.ActiveIndex = _StatusIndex
+                End With
+            Catch ex As Exception
+                RaiseEvent ProcessError(ex.Message, "Public Sub Outgoing_GotFocus(_ChannelIndex As Integer)")
+            End Try
+        End Sub
         Public Sub New(_StatusObjectSize As Integer)
             'Try
             ReDim lStatusObjects.sStatusObject(_StatusObjectSize)

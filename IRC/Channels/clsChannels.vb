@@ -206,15 +206,6 @@ Namespace IRC.Channels
             'RaiseEvent ProcessError(ex.Message, "Public Sub Users_DoubleClick(_ChannelIndex As Integer)")
             'End Try
         End Sub
-        Public Sub Incoming_LinkClick(_ChannelIndex As Integer, _Link As String)
-            'Try
-            If lIRC.iSettings.sShowBrowser = True Then
-                mdiMain.BrowseURL(_Link)
-            End If
-            'Catch ex As Exception
-            'RaiseEvent ProcessError(ex.Message, "Public Sub LinkClicked(_ChannelIndex As Integer)")
-            'End Try
-        End Sub
         Public Sub CreateWindow(_ChannelIndex As Integer)
             'Try
             With lChannels.cChannel(_ChannelIndex)

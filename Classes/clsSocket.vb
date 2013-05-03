@@ -104,12 +104,12 @@ Namespace nexIRC.Sockets
 
         Public ReadOnly Property Connected() As Boolean
             Get
-                Try
-                    Return(m_tmpSocket.Connected)
-                    'm_tmpSocket
-                Catch ex As Exception
-                    ProcessError(ex.Message, "Public ReadOnly Property Connected() As Boolean")
-                End Try
+                'Try
+                Return (m_tmpSocket.Connected)
+                'm_tmpSocket
+                'Catch ex As Exception
+                'ProcessError(ex.Message, "Public ReadOnly Property Connected() As Boolean")
+                'End Try
             End Get
         End Property
 
@@ -211,16 +211,16 @@ Namespace nexIRC.Sockets
             'TODO
             'TODO
             'TODO
-            Try
-                m_tmpSocket = CType(ar.AsyncState, Socket)
-                m_tmpSocket.EndConnect(ar)
-                RaiseEvent socketConnected("null")
-                Dim lTempSocket As Socket = m_tmpSocket, lSocketState As New StateObject
-                lSocketState.WorkSocket = lTempSocket
-                lTempSocket.BeginReceive(lSocketState.Buffer, 0, lSocketState.BufferSize, 0, New AsyncCallback(AddressOf onDataArrival), lSocketState)
-            Catch ex As Exception
-                RaiseEvent socketError(ex.Message)
-            End Try
+            'Try
+            m_tmpSocket = CType(ar.AsyncState, Socket)
+            m_tmpSocket.EndConnect(ar)
+            RaiseEvent socketConnected("null")
+            Dim lTempSocket As Socket = m_tmpSocket, lSocketState As New StateObject
+            lSocketState.WorkSocket = lTempSocket
+            lTempSocket.BeginReceive(lSocketState.Buffer, 0, lSocketState.BufferSize, 0, New AsyncCallback(AddressOf onDataArrival), lSocketState)
+            'Catch ex As Exception
+            'RaiseEvent socketError(ex.Message)
+            'End Try
         End Sub
 
         Public ReadOnly Property SocketID() As String

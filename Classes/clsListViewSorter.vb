@@ -218,7 +218,7 @@ Friend Class ColumnSorter
                         Try
                             lDate = Date.Parse(msg)
                             n += 1
-                    Catch
+                        Catch
                             Return ColumnType.Text
                         End Try
                     End Try

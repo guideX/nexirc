@@ -27,11 +27,11 @@ Public Class frmChangeNickname
     End Sub
 
     Private Sub lstNickNames_DoubleClick(sender As Object, e As System.EventArgs) Handles lstNickNames.DoubleClick
-        Try
-            cmdOK_Click(sender, e)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lstNickNames_DoubleClick(sender As Object, e As System.EventArgs) Handles lstNickNames.DoubleClick")
-        End Try
+        'Try
+        cmdOK_Click(sender, e)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub lstNickNames_DoubleClick(sender As Object, e As System.EventArgs) Handles lstNickNames.DoubleClick")
+        'End Try
     End Sub
 
     Private Sub lstNickNames_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstNickNames.SelectedIndexChanged

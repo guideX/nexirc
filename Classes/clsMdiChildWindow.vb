@@ -89,11 +89,11 @@ Public Class clsMdiChildWindow
     End Sub
 
     Public Sub cmd_JoinChannel_Click()
-        Try
-            frmChannelJoin.Show()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub cmd_JoinChannel_Click()")
-        End Try
+        'Try
+        frmChannelJoin.Show()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmd_JoinChannel_Click()")
+        'End Try
     End Sub
 
     Public Sub txtIncomingColor_MouseUp(_SelectedText As String, ByRef _txtOutgoing As TextBox)
@@ -421,10 +421,10 @@ Public Class clsMdiChildWindow
     End Sub
 
     Public Sub TextBox_LinkClicked(_Link As String)
-        Try
-            mdiMain.BrowseURL(_Link)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub TextBox_LinkClicked(_Link As String)")
-        End Try
+        'Try
+        mdiMain.BrowseURL(_Link)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub TextBox_LinkClicked(_Link As String)")
+        'End Try
     End Sub
 End Class

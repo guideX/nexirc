@@ -137,6 +137,7 @@
     <Compile Include="Classes\clsMdiChildWindow.vb" />
     <Compile Include="Classes\clsProcess.vb" />
     <Compile Include="Classes\clsScript.vb" />
+    <Compile Include="Classes\clsScrollToBottom.vb" />
     <Compile Include="Classes\clsServerInfo.vb" />
     <Compile Include="Classes\clsSocket.vb" />
     <Compile Include="Forms\frmChannel.Designer.vb">

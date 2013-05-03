@@ -2270,9 +2270,9 @@ Module mdlStrings
 
     Public Sub DoColor(lData As String, lTextBox As RichTextBox, Optional _Black As Boolean = False)
         'Try
-        Dim i As Integer, msg As String, lBackColor As Integer = 16, lForeColor As Integer
+        Dim i As Integer, msg As String, lBackColor As Integer = 16, lForeColor As Integer, _ScrollToBottom As New clsScrollToBottom
         LockWindowUpdate(lTextBox.Handle)
-        If Len(lData) = 0 Then Exit Sub
+        If Len(lData.Trim) = 0 Then Exit Sub
         If lQuerySettings.qEnableSpamFilter = True Then
             For i = 1 To lQuerySettings.qSpamPhraseCount
                 If InStr(LCase(lData), LCase(lQuerySettings.qSpamPhrases(i).ToString)) <> 0 Then Exit Sub
@@ -2281,20 +2281,13 @@ Module mdlStrings
         lTextBox.SelectionStart = Len(lTextBox.Text)
         lTextBox.SelectionLength = Len(lTextBox.Text)
         lTextBox.SelectedText = vbCrLf
-        'lTextBox.SelectedText = "HEY!"
-
         If InStr(lData, "") <> 0 Then
             For i = 0 To Len(lData)
                 If Len(lData) = 0 Then
-                    'lTextBox.SelectionStart = 0
-                    'lTextBox.SelectionLength = 0
-                    'lTextBox.SelectedText = Chr(13)
-                    'Threading.Thread.Sleep(200)
-                    lTextBox.Refresh()
-                    Application.DoEvents()
-                    lTextBox.SelectionStart = lTextBox.Text.Length
+                    'lTextBox.SelectionStart = lTextBox.Text.Length
                     'lTextBox.SelectionLength = lTextBox.Text.Length
-                    lTextBox.ScrollToCaret()
+                    'lTextBox.ScrollToCaret()
+                    _ScrollToBottom.ScrollToBottom(lTextBox)
                     LockWindowUpdate(IntPtr.Zero)
                     Exit Sub
                 End If
@@ -2337,16 +2330,11 @@ Module mdlStrings
         Else
             lTextBox.SelectedText = lData
         End If
-        'Threading.Thread.Sleep(200)
-        Application.DoEvents()
-        lTextBox.Refresh()
-        lTextBox.SelectionStart = lTextBox.Text.Length
+        'lTextBox.SelectionStart = lTextBox.Text.Length
         'lTextBox.SelectionLength = lTextBox.TextLength
-        lTextBox.ScrollToCaret()
+        'lTextBox.ScrollToCaret()
+        _ScrollToBottom.ScrollToBottom(lTextBox)
         LockWindowUpdate(IntPtr.Zero)
-        'lTextBox.SelectionStart = 0
-        'lTextBox.SelectionLength = 0
-        'lTextBox.SelectedText = vbCrLf
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub DoColor(lData As String, lTextBox As RichTextBox)")
         'End Try

@@ -1,6 +1,9 @@
 'nexIRC 3.0.23
 '02-27-2013 - guideX
 Option Explicit On
+
+Imports System.Runtime.InteropServices
+
 'Option Strict On
 
 Module mdlStrings
@@ -1582,6 +1585,10 @@ Module mdlStrings
         '  UNREAL
     End Enum
 
+    <DllImport("user32.dll")> _
+    Public Function LockWindowUpdate(ByVal hWndLock As IntPtr) As Boolean
+    End Function
+
     Structure gCommandReturnData
         Public cSocketData As String
         Public cDoColorData As String
@@ -2229,7 +2236,9 @@ Module mdlStrings
 
     Public Sub DoText(ByVal lData As String, ByVal lTextBox As TextBox)
         On Error Resume Next
+        LockWindowUpdate(lTextBox.Handle)
         lTextBox.Text = lData & vbCrLf & lTextBox.Text
+        LockWindowUpdate(IntPtr.Zero)
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub DoText(ByVal lData As String, ByVal lTextBox As TextBox)")
     End Sub
 
@@ -2262,20 +2271,31 @@ Module mdlStrings
     Public Sub DoColor(lData As String, lTextBox As RichTextBox, Optional _Black As Boolean = False)
         'Try
         Dim i As Integer, msg As String, lBackColor As Integer = 16, lForeColor As Integer
+        LockWindowUpdate(lTextBox.Handle)
         If Len(lData) = 0 Then Exit Sub
         If lQuerySettings.qEnableSpamFilter = True Then
             For i = 1 To lQuerySettings.qSpamPhraseCount
                 If InStr(LCase(lData), LCase(lQuerySettings.qSpamPhrases(i).ToString)) <> 0 Then Exit Sub
             Next i
         End If
-        lTextBox.SelectionStart = 0
-        lTextBox.SelectionLength = 0
+        lTextBox.SelectionStart = Len(lTextBox.Text)
+        lTextBox.SelectionLength = Len(lTextBox.Text)
+        lTextBox.SelectedText = vbCrLf
+        'lTextBox.SelectedText = "HEY!"
+
         If InStr(lData, "") <> 0 Then
             For i = 0 To Len(lData)
                 If Len(lData) = 0 Then
-                    lTextBox.SelectionStart = 0
-                    lTextBox.SelectionLength = 0
-                    lTextBox.SelectedText = vbCrLf
+                    'lTextBox.SelectionStart = 0
+                    'lTextBox.SelectionLength = 0
+                    'lTextBox.SelectedText = Chr(13)
+                    'Threading.Thread.Sleep(200)
+                    lTextBox.Refresh()
+                    Application.DoEvents()
+                    lTextBox.SelectionStart = lTextBox.Text.Length
+                    'lTextBox.SelectionLength = lTextBox.Text.Length
+                    lTextBox.ScrollToCaret()
+                    LockWindowUpdate(IntPtr.Zero)
                     Exit Sub
                 End If
                 msg = Left(lData, 1)
@@ -2317,9 +2337,16 @@ Module mdlStrings
         Else
             lTextBox.SelectedText = lData
         End If
-        lTextBox.SelectionStart = 0
-        lTextBox.SelectionLength = 0
-        lTextBox.SelectedText = vbCrLf
+        'Threading.Thread.Sleep(200)
+        Application.DoEvents()
+        lTextBox.Refresh()
+        lTextBox.SelectionStart = lTextBox.Text.Length
+        'lTextBox.SelectionLength = lTextBox.TextLength
+        lTextBox.ScrollToCaret()
+        LockWindowUpdate(IntPtr.Zero)
+        'lTextBox.SelectionStart = 0
+        'lTextBox.SelectionLength = 0
+        'lTextBox.SelectedText = vbCrLf
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub DoColor(lData As String, lTextBox As RichTextBox)")
         'End Try

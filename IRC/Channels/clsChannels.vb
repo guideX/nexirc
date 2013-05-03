@@ -210,10 +210,16 @@ Namespace IRC.Channels
             'Try
             With lChannels.cChannel(_ChannelIndex)
                 .cWindow = New frmChannel
-                .cWindow.Text = .cName
-                clsAnimate.Animate(.cWindow, clsAnimate.Effect.Center, 200, 1)
+                .cWindow.Show()
+                LockWindowUpdate(.cWindow.Handle)
+                '.cWindow.txtIncomingColor.BackColor = System.Drawing.Color.FromArgb(RGB(233, 240, 249))
+                .cWindow.lMdiChildWindow.Form_Load(.cWindow.txtIncomingColor, .cWindow.txtOutgoing, .cWindow, clsMdiChildWindow.eFormTypes.fChannel)
+                .cWindow.lMdiChildWindow.SetFormType(clsMdiChildWindow.eFormTypes.fChannel)
                 .cWindow.lMdiChildWindow.MeIndex = _ChannelIndex
-                .cWindow.MdiParent = mdiMain
+                .cWindow.Text = .cName
+                LockWindowUpdate(IntPtr.Zero)
+                'clsAnimate.Animate(.cWindow, clsAnimate.Effect.Center, 200, 1)
+                '.cWindow.MdiParent = mdiMain
             End With
             'Catch ex As Exception
             'RaiseEvent ProcessError(ex.Message, "Public Sub NewChannelWindow(_Channel As gChannel)")
@@ -511,7 +517,7 @@ Namespace IRC.Channels
             'RaiseEvent ProcessError(ex.Message, "Public Sub ChannelTopicMessage(_StatusIndex As Integer, _Data As String)")
             'End Try
         End Sub
-        Public Function Add(_Name As String, _StatusIndex As Integer) As Integer
+        Private Function Add(_Name As String, _StatusIndex As Integer) As Integer
             'Try
             lChannels.cCount = lChannels.cCount + 1
             ReDim Preserve lChannels.cChannel(lChannels.cCount)

@@ -7,7 +7,7 @@ Public Class frmChannel
 
     Private Sub txtOutgoing_GotFocus(sender As Object, e As System.EventArgs) Handles txtOutgoing.GotFocus
         'Try
-        lMdiChildWindow.txtOutgoing_GotFocus()
+        lMdiChildWindow.txtOutgoing_GotFocus(Me)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtOutgoing_GotFocus(sender As Object, e As System.EventArgs) Handles txtOutgoing.GotFocus")
         'End Try
@@ -23,9 +23,17 @@ Public Class frmChannel
 
     Private Sub txtIncomingColor_Click(sender As Object, e As System.EventArgs) Handles txtIncomingColor.Click
         'Try
-        lMdiChildWindow.txtIncomingColor_Click(Me)
+        'lMdiChildWindow.txtIncomingColor_Click(txtOutgoing)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtIncomingColor_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.Click")
+        'End Try
+    End Sub
+
+    Private Sub txtIncomingColor_GotFocus(sender As Object, e As System.EventArgs) Handles txtIncomingColor.GotFocus
+        'Try
+        lMdiChildWindow.txtIncomingColor_GotFocus(Me)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub txtIncomingColor_GotFocus(sender As Object, e As System.EventArgs) Handles txtIncomingColor.GotFocus")
         'End Try
     End Sub
 
@@ -47,7 +55,7 @@ Public Class frmChannel
 
     Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown
         'Try
-        lMdiChildWindow.txtIncomingColor_MouseDown(Me)
+        lMdiChildWindow.txtIncomingColor_MouseDown(Me, txtOutgoing)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown")
         'End Try
@@ -142,14 +150,12 @@ Public Class frmChannel
         'End Try
     End Sub
 
-    Private Sub frmChannel_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        'Try
-        txtIncomingColor.BackColor = System.Drawing.Color.FromArgb(RGB(233, 240, 249))
-        lMdiChildWindow.Form_Load(txtIncomingColor, txtOutgoing, Me)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub frmChannel_Load(sender As Object, e As System.EventArgs) Handles Me.Load")
-        'End Try
-    End Sub
+    'Private Sub frmChannel_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+    'Try
+    'Catch ex As Exception
+    'ProcessError(ex.Message, "Private Sub frmChannel_Load(sender As Object, e As System.EventArgs) Handles Me.Load")
+    'End Try
+    'End Sub
 
     Private Sub frmChannel_Resize(sender As Object, e As System.EventArgs) Handles Me.Resize
         'Try

@@ -231,27 +231,23 @@ Public Class mdiMain
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function ShowOpenDialog(ByVal lInitDir As String, ByVal lTitle As String, ByVal lFilter As String) As String")
     End Function
 
-    Private Sub mdiMain_HandleCreated(sender As Object, e As System.EventArgs) Handles Me.HandleCreated
-
-    End Sub
-
     Private Sub mdiMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        For Each control As Control In Me.Controls
-            Dim ctlMDI As MdiClient
-            Dim c As System.Drawing.Color = System.Drawing.Color.FromArgb(RGB(191, 219, 255))
-            For Each ctl As Object In Me.Controls
-                Try
-                    ' Attempt to cast the control to type MdiClient.
-                    ctlMDI = CType(ctl, MdiClient)
-                    ' Set the BackColor of the MdiClient control.
-                    ctlMDI.BackColor = c
-                Catch exc As InvalidCastException
-                    ' Catch and ignore the error if casting failed.
-                End Try
-            Next
-        Next control
+        'For Each control As Control In Me.Controls
+        'Dim ctlMDI As MdiClient
+        'Dim c As System.Drawing.Color = System.Drawing.Color.FromArgb(RGB(191, 219, 255))
+        'For Each ctl As Object In Me.Controls
+        'Try
+        ' Attempt to cast the control to type MdiClient.
+        'ctlMDI = CType(ctl, MdiClient)
+        ' Set the BackColor of the MdiClient control.
+        'ctlMDI.BackColor = c
+        'Catch exc As InvalidCastException
+        ' Catch and ignore the error if casting failed.
+        'End Try
+        'Next
+        'Next control
 
-        Dim client As MdiClient = New MdiClient
+        'Dim client As MdiClient = New MdiClient
 
         'If client IsNot Nothing Then
         'client.BackColor = System.Drawing.Color.FromArgb(RGB(191, 219, 255))

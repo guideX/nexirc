@@ -6,6 +6,7 @@ Imports System.Net.Sockets
 Imports System
 Imports System.Text
 Imports System.Net
+Imports System.Runtime.InteropServices
 
 Public Class clsIRC
     Private l001 As String, l002 As String, l003 As String, l004 As String
@@ -834,6 +835,7 @@ Public Class clsIRC
                         Case 353
                             n = lChannels.Find(lStatusIndex, Trim(splt(4)))
                             If n <> 0 Then
+                                LockWindowUpdate(lChannels.Window(n).Handle)
                                 splt = Split(splt2(3), " ")
                                 For i = 0 To UBound(splt)
                                     If splt(i).Length <> 0 Then lChannels.AddToNickList(n, Trim(splt(i)))
@@ -856,6 +858,7 @@ Public Class clsIRC
                             End If
                             Exit Sub
                         Case 366
+                            LockWindowUpdate(IntPtr.Zero)
                             If lIRC.iSettings.sNoIRCMessages = False Then
                                 ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFNAMES, splt2(2))
                             End If

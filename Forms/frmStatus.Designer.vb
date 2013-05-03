@@ -37,11 +37,11 @@ Partial Class frmStatus
         Me.cmdChannels = New System.Windows.Forms.ToolStripSplitButton()
         Me.tspListChannels = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtOutgoing = New System.Windows.Forms.TextBox()
-        Me.txtIncomingColor = New System.Windows.Forms.RichTextBox()
         Me.tmrWaitForChannelList = New System.Windows.Forms.Timer(Me.components)
         Me.tmrCheckChannelList = New System.Windows.Forms.Timer(Me.components)
         Me.tmrWaitForLUsers = New System.Windows.Forms.Timer(Me.components)
         Me.tmrWaitForWhois = New System.Windows.Forms.Timer(Me.components)
+        Me.txtIncomingColor = New System.Windows.Forms.RichTextBox()
         Me.tspChannel.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -148,19 +148,6 @@ Partial Class frmStatus
         Me.txtOutgoing.Size = New System.Drawing.Size(249, 19)
         Me.txtOutgoing.TabIndex = 8
         '
-        'txtIncomingColor
-        '
-        Me.txtIncomingColor.BackColor = System.Drawing.Color.White
-        Me.txtIncomingColor.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtIncomingColor.Cursor = System.Windows.Forms.Cursors.Arrow
-        Me.txtIncomingColor.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtIncomingColor.ForeColor = System.Drawing.Color.White
-        Me.txtIncomingColor.Location = New System.Drawing.Point(0, 25)
-        Me.txtIncomingColor.Name = "txtIncomingColor"
-        Me.txtIncomingColor.Size = New System.Drawing.Size(249, 83)
-        Me.txtIncomingColor.TabIndex = 9
-        Me.txtIncomingColor.Text = ""
-        '
         'tmrWaitForChannelList
         '
         Me.tmrWaitForChannelList.Interval = 10000
@@ -176,6 +163,20 @@ Partial Class frmStatus
         'tmrWaitForWhois
         '
         Me.tmrWaitForWhois.Interval = 2000
+        '
+        'txtIncomingColor
+        '
+        Me.txtIncomingColor.BackColor = System.Drawing.Color.White
+        Me.txtIncomingColor.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtIncomingColor.Cursor = System.Windows.Forms.Cursors.Arrow
+        Me.txtIncomingColor.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIncomingColor.ForeColor = System.Drawing.Color.White
+        Me.txtIncomingColor.HideSelection = False
+        Me.txtIncomingColor.Location = New System.Drawing.Point(0, 25)
+        Me.txtIncomingColor.Name = "txtIncomingColor"
+        Me.txtIncomingColor.Size = New System.Drawing.Size(249, 83)
+        Me.txtIncomingColor.TabIndex = 9
+        Me.txtIncomingColor.Text = ""
         '
         'frmStatus
         '
@@ -203,7 +204,6 @@ Partial Class frmStatus
     Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents cmdChangeConnection As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents txtOutgoing As System.Windows.Forms.TextBox
-    Friend WithEvents txtIncomingColor As System.Windows.Forms.RichTextBox
     Friend WithEvents tmrWaitForChannelList As System.Windows.Forms.Timer
     Friend WithEvents tmrCheckChannelList As System.Windows.Forms.Timer
     Friend WithEvents tmrWaitForLUsers As System.Windows.Forms.Timer
@@ -214,4 +214,5 @@ Partial Class frmStatus
     Friend WithEvents ToolStripMenuItem3 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmdChannels As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents tspListChannels As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents txtIncomingColor As System.Windows.Forms.RichTextBox
 End Class

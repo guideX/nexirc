@@ -3,7 +3,7 @@
 Option Explicit On
 Option Strict On
 Public Class clsMdiChildWindow
-    Private Enum eFormTypes
+    Public Enum eFormTypes
         fStatus = 1
         fChannel = 2
         fNoticeWindow = 3
@@ -16,6 +16,14 @@ Public Class clsMdiChildWindow
     Private lMeIndex As Integer
     Private lFormType As eFormTypes
     Private lPMNickName As String
+
+    Public Sub SetFormType(_FormType As eFormTypes)
+        'Try
+        lFormType = _FormType
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub SetFormType(_FormType As eFormTypes)")
+        'End Try
+    End Sub
 
     Public Sub cmdAddToChannelFolder_Click()
         'Try
@@ -40,14 +48,9 @@ Public Class clsMdiChildWindow
         'End Try
     End Sub
 
-    Public Sub txtOutgoing_GotFocus()
+    Public Sub txtOutgoing_GotFocus(_Form As Form)
         'Try
-        Select Case lFormType
-            Case eFormTypes.fChannel
-                lChannels.Outgoing_GotFocus(lMeIndex)
-            Case eFormTypes.fStatus
-                lStatus.Outgoing_GotFocus(lMeIndex)
-        End Select
+        _Form.BringToFront()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtOutgoing_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtOutgoing.GotFocus")
         'End Try
@@ -77,9 +80,9 @@ Public Class clsMdiChildWindow
         'End Try
     End Sub
 
-    Public Sub txtIncomingColor_MouseDown(lForm As Form)
+    Public Sub txtIncomingColor_MouseDown(lForm As Form, _txtOutgoing As TextBox)
         'Try
-        lForm.Focus()
+        lForm.BringToFront()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub txtIncomingColor_MouseDown()")
         'End Try
@@ -107,15 +110,15 @@ Public Class clsMdiChildWindow
 
     Public Sub txtOutgoing_MouseDown(ByRef lForm As Form)
         'Try
-        lForm.Focus()
+        'lForm.Focus()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub txtOutgoing_MouseDown()")
         'End Try
     End Sub
 
-    Public Sub txtIncomingColor_Click(ByRef lForm As Form)
+    Public Sub txtIncomingColor_Click(_OutgoingTextBox As TextBox)
         'Try
-        lForm.Focus()
+        _OutgoingTextBox.Focus()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub txtIncomingColor_Click(sender As Object, e As System.EventArgs)")
         'End Try
@@ -133,6 +136,8 @@ Public Class clsMdiChildWindow
                     lChannels.SetChannelVisible(_MeIndex, True)
                     lChannels.CurrentIndex = _MeIndex
                     lChannels.Window_Load(lMeIndex)
+                Case eFormTypes.fStatus
+                    lMeIndex = _MeIndex
             End Select
             'Catch ex As Exception
             'ProcessError(ex.Message, "Public WriteOnly Property MeIndex() As String")
@@ -177,15 +182,21 @@ Public Class clsMdiChildWindow
         'End Try
     End Sub
 
-    Public Sub Form_Load(ByRef _IncomingTextBox As RichTextBox, ByRef _OutgoingTextBox As TextBox, ByRef _Form As Form)
+    Public Sub Form_Load(ByRef _IncomingTextBox As RichTextBox, ByRef _OutgoingTextBox As TextBox, _Form As Form, _FormType As eFormTypes)
         'Try
-        Select Case _Form.Name
-            Case "frmStatus"
+        lFormType = _FormType
+        _Form.Icon = mdiMain.Icon
+        _Form.MdiParent = mdiMain
+        Select Case lFormType
+            Case eFormTypes.fStatus
                 lFormType = eFormTypes.fStatus
                 'txtIncomingColor.BackColor = System.Drawing.Color.FromArgb(RGB(233, 240, 249))
                 'Form_Resize(_IncomingTextBox, _OutgoingTextBox, _Form)
-            Case "frmChannel"
+            Case eFormTypes.fChannel
                 lFormType = eFormTypes.fChannel
+            Case Else
+                _Form.Width = lIRC.iSettings.sWindowSizes.iNotice.wWidth
+                _Form.Height = lIRC.iSettings.sWindowSizes.iNotice.wHeight
         End Select
         Form_Resize(_IncomingTextBox, _OutgoingTextBox, _Form)
         'Catch ex As Exception
@@ -195,7 +206,7 @@ Public Class clsMdiChildWindow
 
     Public Sub txtIncomingColor_GotFocus(_Form As Form)
         'Try
-        _Form.Focus()
+        '_Form.Focus()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub txtIncomingColor_GotFocus(_Form As Form)")
         'End Try
@@ -210,7 +221,7 @@ Public Class clsMdiChildWindow
             lStatus.SetSeenIcon(_StatusIndex, True)
             lStatus.ActiveIndex = _StatusIndex
         End If
-        _Form.Focus()
+        '_Form.Focus()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub Form_GotFocus()")
         'End Try
@@ -242,7 +253,7 @@ Public Class clsMdiChildWindow
         Select Case lFormType
             Case eFormTypes.fChannel
                 If _NickList.Items.Count = 0 Then
-                    ProcessReplaceCommand(_StatusIndex, eCommandTypes.cNAMES, lChannels.Name(MeIndex))
+                    ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cNAMES, lChannels.Name(MeIndex))
                 End If
         End Select
         'Catch ex As Exception

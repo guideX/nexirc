@@ -10,6 +10,7 @@ Public Class frmNoticeWindow
     Private lUnsupported As Boolean
     Private lPrivateMessage As Boolean
     Private lPMNick As String
+    Private lMdiWindow As New clsMdiChildWindow
 
     Public Sub SetPrivateMessageWindow(ByVal lValue As Boolean, ByVal lNick As String)
         On Error Resume Next
@@ -85,11 +86,15 @@ Public Class frmNoticeWindow
     End Sub
 
     Private Sub frmNoticeWindow_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        On Error Resume Next
+        'Try
         Me.Icon = mdiMain.Icon
         Me.MdiParent = mdiMain
         Me.Width = lIRC.iSettings.sWindowSizes.iNotice.wWidth
         Me.Height = lIRC.iSettings.sWindowSizes.iNotice.wHeight
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub frmNoticeWindow_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+        'End Try
+        'On Error Resume Next
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub frmNoticeWindow_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
     End Sub
 
@@ -181,8 +186,10 @@ Public Class frmNoticeWindow
     End Sub
 
     Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
-        On Error Resume Next
-        Me.Focus()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
+        'Try
+        lMdiWindow.txtOutgoing_GotFocus(Me)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
+        'End Try
     End Sub
 End Class

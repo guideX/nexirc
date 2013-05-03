@@ -251,6 +251,7 @@ Namespace IRC.Status
                 .sWindow = New frmStatus
                 'clsAnimate.Animate(.sWindow, clsAnimate.Effect.Center, 200, 1)
                 .sWindow.Show()
+                .sWindow.lMdiChildWindow.MeIndex = i
                 .sVisible = True
                 .sWindow.Icon = mdiMain.Icon
                 .sWindow.MdiParent = mdiMain
@@ -260,7 +261,7 @@ Namespace IRC.Status
                 .sWindow.Width = lIRC.iSettings.sWindowSizes.lStatus.wWidth
                 .sWindow.Height = lIRC.iSettings.sWindowSizes.lStatus.wHeight
                 If lIRC.iSettings.sAutoConnect = True Then .sWindow.lAutoConnectDelayTimer.Enabled = True
-                .sWindow.lMdiChildWindow.MeIndex = i
+
                 msg = NewInitialText(i)
                 .sPrimitives.sRemoteIP = lServers.sServer(lServers.sIndex).sIP
                 .sPrimitives.sRemotePort = lServers.sServer(lServers.sIndex).sPort

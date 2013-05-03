@@ -10,7 +10,7 @@ Public Class frmStatus
 
     Private Sub txtIncomingColor_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.Click
         'Try
-        lMdiChildWindow.txtIncomingColor_Click(Me)
+        'lMdiChildWindow.txtIncomingColor_Click(txtOutgoing)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtIncomingColor_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.Click")
         'End Try
@@ -24,6 +24,13 @@ Public Class frmStatus
         'End Try
     End Sub
 
+    Private Sub txtIncomingColor_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtIncomingColor.KeyPress
+        'Try
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub txtIncomingColor_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtIncomingColor.KeyPress")
+        'End Try
+    End Sub
+
     Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked
         'Try
         lMdiChildWindow.TextBox_LinkClicked(e.LinkText)
@@ -34,7 +41,7 @@ Public Class frmStatus
 
     Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown
         'Try
-        lMdiChildWindow.Form_GotFocus(Me)
+        lMdiChildWindow.txtIncomingColor_MouseDown(Me, txtOutgoing)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown")
         'End Try
@@ -42,7 +49,7 @@ Public Class frmStatus
 
     Private Sub txtOutgoing_GotFocus(sender As Object, e As System.EventArgs) Handles txtOutgoing.GotFocus
         'Try
-        lMdiChildWindow.Form_GotFocus(Me)
+        lMdiChildWindow.txtOutgoing_GotFocus(Me)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtOutgoing_GotFocus(sender As Object, e As System.EventArgs) Handles txtOutgoing.GotFocus")
         'End Try
@@ -180,9 +187,17 @@ Public Class frmStatus
 
     Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         'Try
-        lMdiChildWindow.Form_Load(txtIncomingColor, txtOutgoing, Me)
+        lMdiChildWindow.Form_Load(txtIncomingColor, txtOutgoing, Me, clsMdiChildWindow.eFormTypes.fStatus)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
         'End Try
+    End Sub
+
+    Private Sub txtOutgoing_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtOutgoing.TextChanged
+
+    End Sub
+
+    Private Sub txtIncomingColor_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtIncomingColor.TextChanged
+
     End Sub
 End Class

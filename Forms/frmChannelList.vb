@@ -81,14 +81,6 @@ Public Class frmChannelList
         'End Try
     End Sub
 
-    'Private Sub lvwChannels_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwChannels.GotFocus
-    'Try
-    'If lIRC.iSettings.sAutoMaximize = True Then Me.WindowState = FormWindowState.Maximized
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub lvwChannels_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwChannels.GotFocus")
-    'End Try
-    'End Sub
-
     Private Sub lvwChannels_ItemSelectionChanged(ByVal sender As Object, ByVal e As System.Windows.Forms.ListViewItemSelectionChangedEventArgs) Handles lvwChannels.ItemSelectionChanged
         'Try
         lCurrentChannel = lvwChannels.Items(e.ItemIndex).Text
@@ -103,9 +95,5 @@ Public Class frmChannelList
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub lvwChannels_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvwChannels.MouseDown")
         'End Try
-    End Sub
-
-    Private Sub lvwChannels_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lvwChannels.SelectedIndexChanged
-
     End Sub
 End Class

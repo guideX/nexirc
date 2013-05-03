@@ -2,10 +2,7 @@
 '02-27-2013 - guideX
 Option Explicit On
 Option Strict On
-Imports System
-Imports System.Text
 Imports System.Net
-Imports System.Net.Sockets
 
 Public Class frmNetworkSettings
     Private Function ReturnIpAddress() As String

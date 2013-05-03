@@ -2,7 +2,6 @@
 '02-27-2013 - guideX
 Option Explicit On
 Option Strict On
-Imports System.Text
 
 Public Class frmStatus
     Public WithEvents lMdiChildWindow As New clsMdiChildWindow

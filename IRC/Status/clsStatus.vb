@@ -2,7 +2,6 @@
 '02-27-2013 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.IRC.Channels
 
 Namespace IRC.Status
     Public Class clsStatus
@@ -1151,6 +1150,7 @@ Namespace IRC.Status
                     End With
                 Next _PrivateMessageIndex
             End If
+            Return _Result
             'Catch ex As Exception
             'RaiseEvent ProcessError(ex.Message, "Public Function FindPrivateMessageIndex(ByVal _StatusIndex As Integer, ByVal _Name As String) As Integer")
             'Return Nothing

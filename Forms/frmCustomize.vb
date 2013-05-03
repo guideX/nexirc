@@ -435,10 +435,8 @@ Public Class frmCustomize
 
     Private Sub lvwServers_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         On Error Resume Next
-        Dim i As Integer
         txtServer.Text = lvwServers.SelectedItems(0).Item(1).ToString
         txtServerPort.Text = lvwServers.SelectedItems(0).Item(2).ToString
-        i = FindServerIndexByIp(txtServer.Text)
         lServers.sModified = True
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub lvwServers_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwServers.Click")
     End Sub

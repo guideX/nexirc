@@ -2,39 +2,33 @@
 '02-27-2013 - guideX
 Option Explicit On
 Option Strict On
-Imports System.Net.Sockets
 Imports System
-Imports System.Text
 Imports System.Net
-Imports System.Runtime.InteropServices
 
 Public Class clsIRC
     Private l001 As String, l002 As String, l003 As String, l004 As String
     Private l311 As String, l312 As String, l313 As String, l316 As String, l317 As String, l319 As String, l378 As String, l379 As String, l401 As String
     Private l250 As String, l251 As String, l252 As String, l253 As String, l254 As String, l255 As String, l265 As String, l266 As String
     Private l616 As String, l615 As String, lWhoisUser As String
-    Private lLinksWindowVisible As Boolean
-    Private lTempStatusIndex As Integer
-    Private lTempDataArrival As String
-    Private lNetworkAvailable As Boolean
+    'Private lNetworkAvailable As Boolean
     Private Delegate Sub StatusDataDelegate(ByVal lStatusIndex As Integer, ByVal lData As String)
     Private Delegate Sub JoinPartDelegate(ByVal lStatusIndex As Integer, ByVal lData As String)
     Private Delegate Sub QuitDelegate(ByVal lStatusIndex As Integer, ByVal lData As String)
     Private Delegate Sub ProcessReplaceStringDelegate1(ByVal lStatusIndex As Integer, ByVal lType As eStringTypes, ByVal r1 As String)
 
-    Public Sub SetNetworkAvailable(ByVal lAvailable As Boolean)
-        'Try
-        Select Case lAvailable
-            Case True
-                ProcessReplaceString(lStatus.ActiveIndex, eStringTypes.sNETWORK_AVAILABLE)
-            Case False
-                ProcessReplaceString(lStatus.ActiveIndex, eStringTypes.sNETWORK_UNAVAILABLE)
-        End Select
-        lNetworkAvailable = lAvailable
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub SetNetworkAvailable(ByVal lAvailable As Boolean)")
-        'End Try
-    End Sub
+    'Public Sub SetNetworkAvailable(ByVal lAvailable As Boolean)
+    'Try
+    'Select Case lAvailable
+    'Case True
+    'ProcessReplaceString(lStatus.ActiveIndex, eStringTypes.sNETWORK_AVAILABLE)
+    'Case False
+    'ProcessReplaceString(lStatus.ActiveIndex, eStringTypes.sNETWORK_UNAVAILABLE)
+    'End Select
+    'lNetworkAvailable = lAvailable
+    'Catch ex As Exception
+    'ProcessError(ex.Message, "Private Sub SetNetworkAvailable(ByVal lAvailable As Boolean)")
+    'End Try
+    'End Sub
 
     Private Sub ProcessReplaceStringHelper(ByVal lStatusIndex As Integer, ByVal lType As eStringTypes, ByVal r1 As String)
         'Try

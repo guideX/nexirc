@@ -84,17 +84,17 @@ Public Class clsScript
         'End Try
     End Function
 
-    Private Sub RemoveVariable(ByVal lIndex As Integer)
-        'Try
-        With lVariables.vVariable(lIndex)
-            .vName = Nothing
-            .vType = Nothing
-            .vData = Nothing
-        End With
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub RemoveVariable(ByVal lIndex As Integer)")
-        'End Try
-    End Sub
+    'Private Sub RemoveVariable(ByVal lIndex As Integer)
+    'Try
+    'With lVariables.vVariable(lIndex)
+    '.vName = Nothing
+    '.vType = Nothing
+    '.vData = Nothing
+    'End With
+    'Catch ex As Exception
+    'ProcessError(ex.Message, "Public Sub RemoveVariable(ByVal lIndex As Integer)")
+    'End Try
+    'End Sub
 
     Private Function FindVariableIndex(ByVal lSubIndex As Integer, ByVal lName As String) As Integer
         'Try
@@ -113,33 +113,33 @@ Public Class clsScript
         'End Try
     End Function
 
-    Private Sub SortVariables()
-        'Try
-        Dim msg() As String, msg2() As eDataTypes, msg3() As String, msg4() As String, i As Integer, c As Integer
-        ReDim msg(lArraySizes.aSub), msg2(lArraySizes.aSub), msg3(lArraySizes.aSub), msg4(lArraySizes.aSub)
-        For i = 1 To lArraySizes.aSub
-            With lVariables.vVariable(i)
-                If Len(.vName) <> 0 Then
-                    c = c + 1
-                    msg(c) = .vName
-                    msg2(c) = .vType
-                    msg3(c) = .vData
-                    msg4(c) = .vParent
-                End If
-            End With
-        Next i
-        For i = 0 To lArraySizes.aSub
-            RemoveVariable(i)
-        Next i
-        lVariables.vCount = 0
-        For i = 1 To c
-            AddVariable(msg(i), msg2(i), msg3(i), msg4(i))
-        Next i
-        lVariables.vCount = 1
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub SortVariables()")
-        'End Try
-    End Sub
+    'Private Sub SortVariables()
+    'Try
+    'Dim msg() As String, msg2() As eDataTypes, msg3() As String, msg4() As String, i As Integer, c As Integer
+    'ReDim msg(lArraySizes.aSub), msg2(lArraySizes.aSub), msg3(lArraySizes.aSub), msg4(lArraySizes.aSub)
+    'For i = 1 To lArraySizes.aSub
+    'With lVariables.vVariable(i)
+    'If Len(.vName) <> 0 Then
+    'c = c + 1
+    'msg(c) = .vName
+    'msg2(c) = .vType
+    'msg3(c) = .vData
+    'msg4(c) = .vParent
+    'End If
+    'End With
+    'Next i
+    'For i = 0 To lArraySizes.aSub
+    'RemoveVariable(i)
+    'Next i
+    'lVariables.vCount = 0
+    'For i = 1 To c
+    'AddVariable(msg(i), msg2(i), msg3(i), msg4(i))
+    'Next i
+    'lVariables.vCount = 1
+    'Catch ex As Exception
+    'ProcessError(ex.Message, "Private Sub SortVariables()")
+    'End Try
+    'End Sub
 
     Private Function AddSub(ByVal lName As String) As Integer
         'Try
@@ -203,19 +203,19 @@ Public Class clsScript
         'End Try
     End Sub
 
-    Private Sub DeleteSub(ByVal lIndex As Integer)
-        'Try
-        If lIndex <> 0 Then
-            With lSubs.sSub(lIndex)
-                .sName = ""
-                .sCode = ""
-            End With
-        End If
-        SortSubs()
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub DeleteSub(ByVal lIndex As Integer)")
-        'End Try
-    End Sub
+    'Private Sub DeleteSub(ByVal lIndex As Integer)
+    'Try
+    'If lIndex <> 0 Then
+    'With lSubs.sSub(lIndex)
+    '.sName = ""
+    '.sCode = ""
+    'End With
+    'End If
+    'SortSubs()
+    'Catch ex As Exception
+    'ProcessError(ex.Message, "Public Sub DeleteSub(ByVal lIndex As Integer)")
+    'End Try
+    'End Sub
 
     Private Function ReturnSubParamValue(ByVal lIndex As Integer, ByVal lParamIndex As Integer) As String
         'Try
@@ -264,37 +264,37 @@ Public Class clsScript
         'End Try
     End Function
 
-    Private Sub SortSubs()
-        'Try
-        Dim msg() As String, msg2() As String, i As Integer, c As Integer
-        ReDim msg(lArraySizes.aSub)
-        ReDim msg2(lArraySizes.aSub)
-        For i = 0 To lSubs.sCount
-            With lSubs.sSub(i)
-                If Len(lSubs.sSub(i).sName) <> 0 And Len(lSubs.sSub(i).sCode) <> 0 Then
-                    msg(i) = lSubs.sSub(i).sName
-                    msg2(i) = lSubs.sSub(i).sCode
-                    c = c + 1
-                End If
-            End With
-        Next i
-        For i = 0 To lArraySizes.aSub
-            With lSubs.sSub(i)
-                .sName = ""
-                .sCode = ""
-            End With
-        Next i
-        lSubs.sCount = c
-        For i = 0 To c
-            With lSubs.sSub(i)
-                .sName = msg(i)
-                .sCode = msg(i)
-            End With
-        Next i
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub SortSubs()")
-        'End Try
-    End Sub
+    'Private Sub SortSubs()
+    'Try
+    'Dim msg() As String, msg2() As String, i As Integer, c As Integer
+    'ReDim msg(lArraySizes.aSub)
+    'ReDim msg2(lArraySizes.aSub)
+    'For i = 0 To lSubs.sCount
+    'With lSubs.sSub(i)
+    'If Len(lSubs.sSub(i).sName) <> 0 And Len(lSubs.sSub(i).sCode) <> 0 Then
+    'msg(i) = lSubs.sSub(i).sName
+    'msg2(i) = lSubs.sSub(i).sCode
+    'c = c + 1
+    'End If
+    'End With
+    'Next i
+    'For i = 0 To lArraySizes.aSub
+    'With lSubs.sSub(i)
+    '.sName = ""
+    '.sCode = ""
+    'End With
+    'Next i
+    'lSubs.sCount = c
+    'For i = 0 To c
+    'With lSubs.sSub(i)
+    '.sName = msg(i)
+    '.sCode = msg(i)
+    'End With
+    'Next i
+    'Catch ex As Exception
+    'ProcessError(ex.Message, "Public Sub SortSubs()")
+    'End Try
+    'End Sub
 
     Public Sub DoSubByName(ByVal lName As String)
         'Try
@@ -310,7 +310,7 @@ Public Class clsScript
 
     Public Sub ReadCodeFile(ByVal lFile As String)
         'Try
-        Dim msg As String, msg2 As String, splt() As String, splt2() As String, splt3() As String, i As Integer, n As Integer, t As Integer, lSub As Boolean, lSubCode As String = ""
+        Dim msg As String, msg2 As String, splt() As String, splt2() As String, splt3() As String, i As Integer, n As Integer, t As Integer, lSub As Boolean
         ReDim splt2(lArraySizes.aSub)
         If Len(lFile) <> 0 Then
             msg = My.Computer.FileSystem.ReadAllText(lFile)

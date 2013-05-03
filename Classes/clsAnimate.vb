@@ -1,12 +1,15 @@
 ﻿Option Explicit On
 Option Strict On
-Imports System.ComponentModel
 Imports System.Windows.Forms
 Imports System.Runtime.InteropServices
 
 Public NotInheritable Class clsAnimate
     Private Sub New()
     End Sub
+
+    <DllImport("user32.dll")> _
+    Private Shared Function AnimateWindow(handle As IntPtr, msec As Integer, flags As Integer) As Boolean
+    End Function
 
     Public Enum Effect
         Roll
@@ -35,11 +38,6 @@ Public NotInheritable Class clsAnimate
         ctl.Visible = Not ctl.Visible
     End Sub
 
-    Private Shared dirmap As Integer() = {1, 5, 4, 6, 2, 10, _
-     8, 9}
-    Private Shared effmap As Integer() = {0, &H40000, &H10, &H80000}
-
-    <DllImport("user32.dll")> _
-    Private Shared Function AnimateWindow(handle As IntPtr, msec As Integer, flags As Integer) As Boolean
-    End Function
+    Private Shared ReadOnly dirmap As Integer() = {1, 5, 4, 6, 2, 10, 8, 9}
+    Private Shared ReadOnly effmap As Integer() = {0, &H40000, &H10, &H80000}
 End Class

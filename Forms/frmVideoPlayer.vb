@@ -107,9 +107,9 @@ Public Class frmVideoPlayer
         '
         'TrackOffset
         '
-        Me.TrackOffset.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TrackOffset.Anchor = (((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Or System.Windows.Forms.AnchorStyles.Left) _
+        Or System.Windows.Forms.AnchorStyles.Right)
         Me.TrackOffset.BackColor = System.Drawing.SystemColors.Control
         Me.TrackOffset.Location = New System.Drawing.Point(0, 1)
         Me.TrackOffset.Maximum = 0
@@ -121,8 +121,8 @@ Public Class frmVideoPlayer
         '
         'PnlOffset
         '
-        Me.PnlOffset.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PnlOffset.Anchor = ((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Or System.Windows.Forms.AnchorStyles.Right)
         Me.PnlOffset.Controls.Add(Me.TrackOffset)
         Me.PnlOffset.Location = New System.Drawing.Point(0, 387)
         Me.PnlOffset.Name = "PnlOffset"
@@ -131,8 +131,8 @@ Public Class frmVideoPlayer
         '
         'PnlAudio
         '
-        Me.PnlAudio.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.PnlAudio.Anchor = ((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Or System.Windows.Forms.AnchorStyles.Left)
         Me.PnlAudio.BackColor = System.Drawing.SystemColors.Control
         Me.PnlAudio.Controls.Add(Me.LblSpeed)
         Me.PnlAudio.Controls.Add(Me.TrackSpeed)
@@ -149,7 +149,7 @@ Public Class frmVideoPlayer
         '
         'LblSpeed
         '
-        Me.LblSpeed.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblSpeed.Anchor = (System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right)
         Me.LblSpeed.AutoSize = True
         Me.LblSpeed.ForeColor = System.Drawing.Color.Black
         Me.LblSpeed.Location = New System.Drawing.Point(10, 150)
@@ -160,7 +160,7 @@ Public Class frmVideoPlayer
         '
         'TrackSpeed
         '
-        Me.TrackSpeed.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TrackSpeed.Anchor = (System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right)
         Me.TrackSpeed.BackColor = System.Drawing.SystemColors.Control
         Me.TrackSpeed.Location = New System.Drawing.Point(3, 166)
         Me.TrackSpeed.Maximum = 2000
@@ -246,9 +246,9 @@ Public Class frmVideoPlayer
         '
         'PnlVideo
         '
-        Me.PnlVideo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PnlVideo.Anchor = (((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Or System.Windows.Forms.AnchorStyles.Left) _
+        Or System.Windows.Forms.AnchorStyles.Right)
         Me.PnlVideo.BackColor = System.Drawing.SystemColors.Control
         Me.PnlVideo.Location = New System.Drawing.Point(91, 28)
         Me.PnlVideo.Name = "PnlVideo"
@@ -419,9 +419,19 @@ Public Class frmVideoPlayer
     End Sub
 
     Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged
-        On Error Resume Next
-        lVideo.Mute = CType((ChkMuteLeft.Checked And clsVideo.Channels.Left) Or (ChkMuteRight.Checked And clsVideo.Channels.Right), Boolean)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged")
+        'Try
+        If ChkMuteLeft.Checked = True And ChkMuteRight.Checked = True Then
+            lVideo.Mute = clsVideo.Channels.Both
+        ElseIf ChkMuteLeft.Checked = True And ChkMuteRight.Checked = False Then
+            lVideo.Mute = clsVideo.Channels.Left
+        ElseIf ChkMuteLeft.Checked = False And ChkMuteRight.Checked = True Then
+            lVideo.Mute = clsVideo.Channels.Right
+        Else
+            lVideo.Mute = clsVideo.Channels.None
+        End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged")
+        'End Try
     End Sub
 
     Private Sub TrackVolume_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrackVolume.Scroll
@@ -436,35 +446,35 @@ Public Class frmVideoPlayer
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub TrackBalance_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrackBalance.Scroll")
     End Sub
 
-    Private Sub TrackSpeed_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        On Error Resume Next
-        lVideo.Speed = TrackSpeed.Value
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub TrackSpeed_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-    End Sub
+    'Private Sub TrackSpeed_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    'On Error Resume Next
+    'lVideo.Speed = TrackSpeed.Value
+    'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub TrackSpeed_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs)")
+    'End Sub
 
-    Private Sub BtnPlay_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        On Error Resume Next
-        lVideo.Play()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub BtnPlay_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-    End Sub
+    'Private Sub BtnPlay_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    'On Error Resume Next
+    'lVideo.Play()
+    'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub BtnPlay_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
+    'End Sub
 
-    Private Sub BtnPause_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        On Error Resume Next
-        lVideo.Pause()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub BtnPause_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-    End Sub
+    'Private Sub BtnPause_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    'On Error Resume Next
+    'lVideo.Pause()
+    'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub BtnPause_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
+    'End Sub
 
-    Private Sub BtnResume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        On Error Resume Next
-        lVideo.Resume()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub BtnResume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-    End Sub
+    'Private Sub BtnResume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    'On Error Resume Next
+    'lVideo.Resume()
+    'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub BtnResume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
+    'End Sub
 
-    Private Sub BtnStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        On Error Resume Next
-        lVideo.Stop()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub BtnStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-    End Sub
+    'Private Sub BtnStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    'On Error Resume Next
+    'lVideo.Stop()
+    'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub BtnStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
+    'End Sub
 
     Private Sub FrmMain_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         On Error Resume Next

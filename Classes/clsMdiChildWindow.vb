@@ -15,7 +15,6 @@ Public Class clsMdiChildWindow
 
     Private lMeIndex As Integer
     Private lFormType As eFormTypes
-    Private lPMNickName As String
 
     Public Sub SetFormType(_FormType As eFormTypes)
         'Try

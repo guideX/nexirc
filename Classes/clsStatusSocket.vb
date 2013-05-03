@@ -2,7 +2,6 @@
 '02-27-2013 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.IRC.Status
 
 Public Class clsStatusSocket
     Public Event ProcessError(_Error As String, _Sub As String)

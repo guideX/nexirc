@@ -14,17 +14,13 @@ Namespace My
     ' StartupNextInstance: Raised when launching a single-instance application and the application is already active. 
     ' NetworkAvailabilityChanged: Raised when the network connection is connected or disconnected.
     Partial Friend Class MyApplication
-        Protected Overrides Sub Finalize()
-            MyBase.Finalize()
-        End Sub
-
-        Private Sub MyApplication_NetworkAvailabilityChanged(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.Devices.NetworkAvailableEventArgs) Handles Me.NetworkAvailabilityChanged
-            'Try
-            lStatus.lIRCMisc.SetNetworkAvailable(e.IsNetworkAvailable)
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Private Sub MyApplication_NetworkAvailabilityChanged(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.Devices.NetworkAvailableEventArgs) Handles Me.NetworkAvailabilityChanged")
-            'End Try
-        End Sub
+    'Private Sub MyApplication_NetworkAvailabilityChanged(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.Devices.NetworkAvailableEventArgs) Handles Me.NetworkAvailabilityChanged
+        'Try
+        'lStatus.lIRCMisc.SetNetworkAvailable(e.IsNetworkAvailable)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub MyApplication_NetworkAvailabilityChanged(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.Devices.NetworkAvailableEventArgs) Handles Me.NetworkAvailabilityChanged")
+        'End Try
+        'End Sub
 
         Private Sub MyApplication_StartupNextInstance(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupNextInstanceEventArgs) Handles Me.StartupNextInstance
             'Try

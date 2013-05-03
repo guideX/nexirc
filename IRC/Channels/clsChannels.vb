@@ -242,10 +242,8 @@ Namespace IRC.Channels
         End Sub
         Public Sub AddText_WhereUserExists(_StatusIndex As Integer, _NickName As String, _Text As String)
             'Try
-            Dim _Result As Boolean = False
             If (_StatusIndex <> 0 Or _NickName.Trim().Length() = 0) Then
                 For _ChannelIndex As Integer = 1 To lChannels.cCount
-                    _Result = False
                     For n As Integer = 0 To lChannels.cChannel(_ChannelIndex).cWindow.lvwNicklist.Items.Count - 1
                         If (lChannels.cChannel(_ChannelIndex).cWindow.lvwNicklist.Items(n).Text.Trim().ToLower.Replace("@", "").Replace("+", "") = _NickName.Trim().ToLower.Replace("@", "").Replace("+", "")) Then
                             DoChannelColor(_ChannelIndex, _Text)
@@ -379,10 +377,9 @@ Namespace IRC.Channels
             'Try
             ':guide_X!~guide_X@pool-108-13-216-135.lsanca.fios.verizon.net QUIT :Client Quit
             Dim splt3() As String = Split(_Data, "QUIT :")
-            Dim splt() As String = _Data.Split(Convert.ToChar(":")), splt2() As String, _QuitMessage As String = "", _HostName As String = "", _NickName As String, i As Integer, n As Integer = 0
+            Dim splt2() As String, _QuitMessage As String = "", _HostName As String = "", _NickName As String, i As Integer, n As Integer = 0
             _NickName = ParseData(_Data, ":", "!")
             splt2 = _Data.Split(Convert.ToChar(" "))
-            '_QuitMessage = Right(_Data, -(splt(1).Length + 8))
             _QuitMessage = splt3(1)
             _HostName = splt2(0).Replace(":", "").Trim()
             For i = 1 To lChannels.cCount

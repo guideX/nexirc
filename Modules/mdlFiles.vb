@@ -9,7 +9,6 @@ Module mdlFiles
     Private Declare Auto Function WritePrivateProfileString Lib "kernel32" (ByVal lpAppName As String, ByVal lpKeyName As String, ByVal lpString As String, ByVal lpFileName As String) As Boolean
 
     Public Function GetFilePath(ByVal lFile As String) As String
-        Dim m As New PictureBox
         On Error Resume Next
         Dim msg() As String
         If Len(lFile) <> 0 Then

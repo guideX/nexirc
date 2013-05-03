@@ -83,7 +83,7 @@ Namespace nexIRC.Sockets
     Public Class AsyncSocket
         Private m_SocketID As String
         Private m_tmpSocket As Socket
-        Private m_recBuffer As String
+        'Private m_recBuffer As String
         Public Event socketDisconnected(ByVal SocketID As String)
         Public Event socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer)
         Public Event socketConnected(ByVal SocketID As String)

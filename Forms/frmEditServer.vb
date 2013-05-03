@@ -3,8 +3,6 @@
 Option Explicit On
 Option Strict On
 
-Imports Telerik.WinControls.UI
-
 Public Class frmEditServer
     Private lServerIndex As Integer
     Private lInfoSet As Boolean
@@ -33,17 +31,16 @@ Public Class frmEditServer
                 .sIP = txtIp.Text
                 .sPort = CLng(Trim(txtPort.Text))
                 .sNetworkIndex = FindNetworkIndex(cboNetwork.Text)
-                If lWinVisible.wCustomize = True Then
-                    Dim l As ListViewDataItem, i As Integer
-                    'For i = 0 To frmCustomize.lvwServers.Count - 1
-
-                    'l = frmCustomize.lvwServers.SelectedItems(i)
-                    'l.Text = txtDescription.Text
-                    'l.Item(1) = txtIp.Text
-                    'l.Item(2) = txtPort.Text
-                    'Exit For
-                    'Next i
-                End If
+                'If lWinVisible.wCustomize = True Then
+                'Dim l As ListViewDataItem, i As Integer
+                'For i = 0 To frmCustomize.lvwServers.Count - 1
+                'l = frmCustomize.lvwServers.SelectedItems(i)
+                'l.Text = txtDescription.Text
+                'l.Item(1) = txtIp.Text
+                'l.Item(2) = txtPort.Text
+                'Exit For
+                'Next i
+                'End If
             End With
             Me.Close()
         Else

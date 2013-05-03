@@ -4,10 +4,6 @@
 Option Explicit On
 Option Strict On
 
-Imports System
-Imports System.IO
-Imports System.Collections
-
 Public Class frmDCCSend
     Private WithEvents lListen As nexIRC.Sockets.AsyncServer
     Private WithEvents lSocket As nexIRC.Sockets.AsyncSocket

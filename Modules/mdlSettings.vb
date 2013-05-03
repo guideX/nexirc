@@ -2,10 +2,7 @@
 '02-27-2013 - guideX
 Option Explicit On
 Option Strict On
-Imports System
-Imports System.Text
 Imports System.Net
-Imports System.Net.Sockets
 Imports System.IO
 
 Public Module mdlSettings
@@ -1222,27 +1219,27 @@ Public Module mdlSettings
         If Err.Number <> 0 Then MsgBox(Err.Description)
     End Sub
 
-    Private Sub OldLoadServers()
-        On Error Resume Next
-        Dim i As Integer
-        With lServers
-            .sCount = CInt(Trim(ReadINI(lINI.iServers, "Settings", "Count", "0")))
-            .sIndex = CInt(Trim(ReadINI(lINI.iServers, "Settings", "Index", "0")))
-        End With
-        If lServers.sCount <> 0 Then
-            For i = 1 To lServers.sCount
-                With lServers.sServer(i)
-                    .sIP = ReadINI(lINI.iServers, Trim(CStr(i)), "IP", "")
-                    If Len(.sIP) <> 0 Then
-                        .sDescription = ReadINI(lINI.iServers, Trim(CStr(i)), "Description", "")
-                        .sNetworkIndex = CInt(ReadINI(lINI.iServers, Trim(CStr(i)), "NetworkIndex", "0"))
-                        .sPort = CLng(ReadINI(lINI.iServers, Trim(CStr(i)), "Port", "0"))
-                    End If
-                End With
-            Next i
-        End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub LoadServers()")
-    End Sub
+    'Private Sub OldLoadServers()
+    'On Error Resume Next
+    'Dim i As Integer
+    'With lServers
+    '.sCount = CInt(Trim(ReadINI(lINI.iServers, "Settings", "Count", "0")))
+    '.sIndex = CInt(Trim(ReadINI(lINI.iServers, "Settings", "Index", "0")))
+    'End With
+    'If lServers.sCount <> 0 Then
+    'For i = 1 To lServers.sCount
+    'With lServers.sServer(i)
+    '.sIP = ReadINI(lINI.iServers, Trim(CStr(i)), "IP", "")
+    'If Len(.sIP) <> 0 Then
+    '.sDescription = ReadINI(lINI.iServers, Trim(CStr(i)), "Description", "")
+    '.sNetworkIndex = CInt(ReadINI(lINI.iServers, Trim(CStr(i)), "NetworkIndex", "0"))
+    '.sPort = CLng(ReadINI(lINI.iServers, Trim(CStr(i)), "Port", "0"))
+    'End If
+    'End With
+    'Next i
+    'End If
+    'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub LoadServers()")
+    'End Sub
 
     Public Sub LoadStringSettings()
         On Error Resume Next

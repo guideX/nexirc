@@ -4,6 +4,7 @@ Option Explicit On
 Option Strict On
 Imports System.Net
 Imports System.IO
+Imports Telerik.WinControls.UI
 
 Public Module mdlSettings
     Enum eDCCFileExistsAction
@@ -777,14 +778,14 @@ Public Module mdlSettings
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub AddService(ByVal lName As String, ByVal lType As eServiceType)")
     End Sub
 
-    Public Sub PopulateNotifyByListView(ByVal lListView As ListView)
+    Public Sub PopulateNotifyByListView(ByVal lListView As RadListView)
         On Error Resume Next
         Dim i As Integer, n As Integer
         For i = 0 To (lListView.Items.Count - 1)
             n = n + 1
             With lListView.Items(i)
                 lNotify.nNotify(n).nNickName = .Text
-                lNotify.nNotify(n).nMessage = .SubItems(1).Text
+                'lNotify.nNotify(n).nMessage = .SubItems(1).Text
             End With
         Next i
         lNotify.nCount = n
@@ -1777,7 +1778,7 @@ Public Module mdlSettings
                 AddNickName = lIRC.iNicks.nCount
             End With
             SaveNickNames()
-            If lWinVisible.wCustomize = True Then frmCustomize.cboNickNames.Items.Add(lNickName)
+            If lWinVisible.wCustomize = True Then frmCustomize.cboMyNickNames.Items.Add(lNickName)
         End If
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub AddNickName(ByVal lNickName As String)")
     End Function

@@ -399,16 +399,31 @@ Public Class mdiMain
     End Sub
 
     Private Sub tspWindows_ItemClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles tspWindows.ItemClicked
-        On Error Resume Next
-        Dim i As Integer, n As Integer, msg As String
-        i = CInt(Trim(e.ClickedItem.Tag.ToString))
-        msg = e.ClickedItem.Text
-        n = lChannels.Find(i, msg)
-        If n <> 0 Then
-            lChannels.ToggleChannelWindowState(n)
-        Else
-            lStatus.ToggleStatusWindowState(i)
+        Dim _MeIndex As Integer
+        'Try
+        If (IsNumeric(e.ClickedItem.Tag.ToString()) = True) Then
+            _MeIndex = CType(e.ClickedItem.Tag.ToString(), Integer)
+            If DoLeft(e.ClickedItem.Text, 1) = "#" Then
+                lChannels.ToggleChannelWindowState(_MeIndex)
+            ElseIf InStr(e.ClickedItem.Text, "(") <> 0 And InStr(e.ClickedItem.Text, ")") <> 0 Then
+                lStatus.ToggleStatusWindowState(_MeIndex)
+            Else
+                lStatus.PrivateMessage_ToggleWindowState(lStatus.ActiveIndex, lStatus.PrivateMessage_Find(lStatus.ActiveIndex, e.ClickedItem.Text))
+            End If
         End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub tspWindows_ItemClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles tspWindows.ItemClicked")
+        'End Try
+        'On Error Resume Next
+        'Dim i As Integer, n As Integer, msg As String
+        'i = CInt(Trim(e.ClickedItem.Tag.ToString))
+        'msg = e.ClickedItem.Text
+        'n = lChannels.Find(i, msg)
+        'If n <> 0 Then
+        ' lChannels.ToggleChannelWindowState(n)
+        'Else
+        'lStatus.ToggleStatusWindowState(i)
+        'End If
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub tspWindows_ItemClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles tspWindows.ItemClicked")
     End Sub
 

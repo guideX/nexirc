@@ -99,25 +99,25 @@ Public Class frmCustomize
             .mServerNotices = chkServerNotices.Checked
             .mWallops = chkWallops.Checked
         End With
-        lIRC.iNicks.nIndex = ReturnNickIndex(cboNickNames.Text)
+        lIRC.iNicks.nIndex = ReturnNickIndex(cboMyNickNames.Text)
         lNetworks.nSelected = cboNetworks.SelectedItem
         lNetworks.nIndex = FindNetworkIndex(cboNetworks.Text)
         lServers.sIndex = FindServerIndexByIp(txtServer.Text)
         With lIRC.iSettings
             .sAutoCloseSupportingWindows = chkAutoCloseSupportingWindows.Checked
-            .sChannelFolderCloseOnJoin = chkChannelFolderCloseOnJoin.Checked
-            .sAutoAddToChannelFolder = chkAutoAddToChannelFolder.Checked
-            .sCloseWindowOnDisconnect = chkCloseWindowOnDisconnect.Checked
-            .sAutoNavigateChannelUrls = chkAutoNavigateChannelUrls.Checked
+            .sChannelFolderCloseOnJoin = chkCloseChannelFolder.Checked
+            .sAutoAddToChannelFolder = chkAddToChannelFolder.Checked
+            .sCloseWindowOnDisconnect = chkCloseStatusWindow.Checked
+            .sAutoNavigateChannelUrls = chkBrowseChannelURLs.Checked
             .sShowUserAddresses = chkShowUserAddresses.Checked
-            .sHideMOTD = chkHideMOTD.Checked
+            .sHideMOTD = chkHideMOTDs.Checked
             .sPrompts = chkShowPrompts.Checked
             .sExtendedMessages = chkExtendedMessages.Checked
             .sNoIRCMessages = chkNoIRCMessages.Checked
-            .sCustomizeOnStartup = chkShowCustomizeOnStartup.Checked
+            .sCustomizeOnStartup = chkShowCustomize.Checked
             .sPopupChannelFolders = chkPopupChannelFolder.Checked
             '.sAntiConnectHammer = chkAntiConnectHammer.Checked
-            .sChangeNickNameWindow = chkChangeNickNameWindow.Checked
+            .sChangeNickNameWindow = chkShowNicknameWindow.Checked
             .sShowBrowser = chkShowBrowser.Checked
             .sURL = txtURL.Text
             .sShowWindowsAutomatically = chkShowWindowsAutomatically.Checked
@@ -136,7 +136,7 @@ Public Class frmCustomize
         End With
         PopulateNotifyByListView(lvwNotify)
         i = lStatus.ActiveIndex()
-        lStatus.NickName(i, False) = cboNickNames.Text
+        lStatus.NickName(i, False) = cboMyNickNames.Text
         lStatus.Email(i) = lIRC.iEMail
         lStatus.Pass(i) = lIRC.iPass
         lStatus.RealName(i) = lIRC.iRealName
@@ -193,9 +193,15 @@ Public Class frmCustomize
         On Error Resume Next
         Dim lItem As ListViewItem
         If Len(lNickName) <> 0 And Len(lMessage) <> 0 Then
-            lItem = lvwNotify.Items.Add(lNickName)
-            lItem.SubItems.Add(lMessage)
-            lItem.SubItems.Add(lServerIP)
+            Dim _Item As New ListViewDataItem
+            _Item.Text = lNickName
+            _Item.Item("Message") = lMessage
+            _Item.Item("ServerIP") = lServerIP
+            lvwNotify.Items.Add(_Item)
+            'lvwNotify.Items.Add(
+            'lItem = lvwNotify.Items.Add(lNickName)
+            'lItem.SubItems.Add(lMessage)
+            'lItem.SubItems.Add(lServerIP)
         End If
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub AddToNotifyListView(ByVal lNickName As String, ByVal lMessage As String)")
     End Sub
@@ -224,11 +230,11 @@ Public Class frmCustomize
         For i = 1 To lIRC.iNicks.nCount
             With lIRC.iNicks.nNick(i)
                 If Len(.nNick) <> 0 Then
-                    cboNickNames.Items.Add(.nNick)
+                    cboMyNickNames.Items.Add(.nNick)
                 End If
             End With
         Next i
-        cboNickNames.Text = lIRC.iNicks.nNick(lIRC.iNicks.nIndex).nNick
+        cboMyNickNames.Text = lIRC.iNicks.nNick(lIRC.iNicks.nIndex).nNick
         'With lIRC.iIdent
         'txtIdentdUserID.Text = .iUserID
         'txtIdentdSystem.Text = .iSystem
@@ -314,22 +320,22 @@ Public Class frmCustomize
             txtURL.Text = .sURL
             'sldTextSpeed.Value = .sTextSpeed
             'sldHammerTime.Value = CInt(.sHammerTime)
-            chkChannelFolderCloseOnJoin.Checked = .sChannelFolderCloseOnJoin
-            chkAutoAddToChannelFolder.Checked = .sAutoAddToChannelFolder
-            chkCloseWindowOnDisconnect.Checked = .sCloseWindowOnDisconnect
-            chkAutoNavigateChannelUrls.Checked = .sAutoNavigateChannelUrls
+            chkCloseChannelFolder.Checked = .sChannelFolderCloseOnJoin
+            chkAddToChannelFolder.Checked = .sAutoAddToChannelFolder
+            chkCloseStatusWindow.Checked = .sCloseWindowOnDisconnect
+            chkBrowseChannelURLs.Checked = .sAutoNavigateChannelUrls
             chkHideStatusOnClose.Checked = .sHideStatusOnClose
             'chkShowRawWindow.Checked = .sShowRawWindow
             'chkHideChildrenOnFocus.Checked = .sHideChildrenOnFocus
             chkShowUserAddresses.Checked = .sShowUserAddresses
-            chkHideMOTD.Checked = .sHideMOTD
+            chkHideMOTDs.Checked = .sHideMOTD
             chkShowPrompts.Checked = .sPrompts
             chkExtendedMessages.Checked = .sExtendedMessages
             chkNoIRCMessages.Checked = .sNoIRCMessages
-            chkShowCustomizeOnStartup.Checked = .sCustomizeOnStartup
+            chkShowCustomize.Checked = .sCustomizeOnStartup
             chkPopupChannelFolder.Checked = .sPopupChannelFolders
             'chkMOTDInOwnWindow.Checked = .sMOTDInOwnWindow
-            chkChangeNickNameWindow.Checked = .sChangeNickNameWindow
+            chkShowNicknameWindow.Checked = .sChangeNickNameWindow
             'chkNoticesInOwnWindow.Checked = .sNoticesInOwnWindow
             chkShowBrowser.Checked = .sShowBrowser
             chkShowWindowsAutomatically.Checked = .sShowWindowsAutomatically
@@ -398,9 +404,9 @@ Public Class frmCustomize
                 '.Add("Ports", "Port")
             End With
             With lvwNotify.Columns
-                .Add("NickName", 140)
-                .Add("Message", 140)
-                .Add("Network", 140)
+                '.Add("NickName", 140)
+                '.Add("Message", 140)
+                '.Add("Network", 140)
             End With
             lListViewSorter = New clsListViewSorter(lvwStrings)
             InitSettings()
@@ -435,8 +441,10 @@ Public Class frmCustomize
 
     Private Sub lvwServers_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         On Error Resume Next
+        Dim i As Integer
         txtServer.Text = lvwServers.SelectedItems(0).Item(1).ToString
         txtServerPort.Text = lvwServers.SelectedItems(0).Item(2).ToString
+        i = FindServerIndexByIp(txtServer.Text)
         lServers.sModified = True
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub lvwServers_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwServers.Click")
     End Sub
@@ -504,10 +512,10 @@ Public Class frmCustomize
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdEditString_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdEditString.Click")
     End Sub
 
-    Private Sub lvwNotify_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvwNotify.SelectedIndexChanged
+    Private Sub lvwNotify_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         On Error Resume Next
         Dim i As Integer, n As Integer
-        cmdRemove.Enabled = True
+        'cmdRemove.Enabled = True
         'cmdRemoveNotify.Enabled = True
         For i = 0 To lvwNotify.SelectedItems.Count - 1
             n = FindNotifyIndex(lvwNotify.SelectedItems(i).Text)
@@ -593,10 +601,7 @@ Public Class frmCustomize
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdNetworkSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNetworkSettings.Click")
     End Sub
 
-    Private Sub cmdUserSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdUserSettings.Click
-        On Error Resume Next
-        frmEditUserProfile.Show()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdUserSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdUserSettings.Click")
+    Private Sub cmdUserSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
     End Sub
 
     Private Sub cmdAddIgnoreExtension_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -607,16 +612,13 @@ Public Class frmCustomize
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdAddIgnoreExtension_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddIgnoreExtension.Click")
     End Sub
 
-    Private Sub cmdSecureQuerySettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSecureQuerySettings.Click
+    Private Sub cmdSecureQuerySettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         On Error Resume Next
-        frmQuerySettings.Show()
+
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdSecureQuerySettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSecureQuerySettings.Click")
     End Sub
 
-    Private Sub cmdAddAlternateNickname_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddAlternateNickname.Click
-        On Error Resume Next
-        frmAddNickName.Show()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdAddAlternateNickname_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddAlternateNickname.Click")
+    Private Sub cmdAddAlternateNickname_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs)
     End Sub
 
     Private Sub cmdCompatibility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCompatibility.Click
@@ -628,19 +630,19 @@ Public Class frmCustomize
     Private Sub cmdRemoveNotify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         On Error Resume Next
         'cmdRemoveNotify.Enabled = False
-        For Each _SelectedListViewItem As ListViewItem In lvwNotify.SelectedItems
-            lvwNotify.Items.RemoveAt(_SelectedListViewItem.Index)
+        For Each _SelectedListViewItem As ListViewDataItem In lvwNotify.SelectedItems
+            lvwNotify.Items.Remove(_SelectedListViewItem)
         Next _SelectedListViewItem
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdRemoveNotify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveNotify.Click")
     End Sub
 
-    Private Sub cmdEditIdentSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdEditIdentSettings.Click
+    Private Sub cmdEditIdentSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         On Error Resume Next
         frmIdentdSettings.Show()
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdEditIdentSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdEditIdentSettings.Click")
     End Sub
 
-    Private Sub cmdShowInOwnWinddow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdShowInOwnWinddow.Click
+    Private Sub cmdShowInOwnWinddow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         On Error Resume Next
         frmInOwnWindow.Show()
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdEditIdentSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdEditIdentSettings.Click")
@@ -873,5 +875,49 @@ Public Class frmCustomize
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cboNetworks_SelectedIndexChanged(sender As System.Object, e As Telerik.WinControls.UI.Data.PositionChangedEventArgs) Handles cboNetworks.SelectedIndexChanged")
         'End Try
+    End Sub
+
+    Private Sub cmdAddMyNickName_Click(sender As System.Object, e As System.EventArgs) Handles cmdAddMyNickName.Click
+        'Try
+        frmAddNickName.Show()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub cmdAddMyNickName_Click(sender As System.Object, e As System.EventArgs) Handles cmdAddMyNickName.Click")
+        'End Try
+    End Sub
+
+    Private Sub cmdRemove_Click(sender As System.Object, e As System.EventArgs)
+        cboMyNickNames.Items.Remove(cboMyNickNames.SelectedItem)
+    End Sub
+
+    Private Sub RadPageViewPage2_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles RadPageViewPage2.Paint
+
+    End Sub
+
+    Private Sub cmdClearMyNickName_Click(sender As System.Object, e As System.EventArgs) Handles cmdClearMyNickName.Click
+        'Try
+        cboMyNickNames.Items.Clear()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub cmdClearMyNickName_Click(sender As System.Object, e As System.EventArgs) Handles cmdClearMyNickName.Click")
+        'End Try
+    End Sub
+
+    Private Sub cmdEditUserSettings_Click(sender As System.Object, e As System.EventArgs) Handles cmdEditUserSettings.Click
+        'Try
+        frmEditUserProfile.Show()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub RadButton2_Click(sender As System.Object, e As System.EventArgs) Handles RadButton2.Click")
+        'End Try
+    End Sub
+
+    Private Sub cmdQuerySettings_Click(sender As System.Object, e As System.EventArgs) Handles cmdQuerySettings.Click
+        frmQuerySettings.Show()
+    End Sub
+
+    Private Sub RadPageViewPage3_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles RadPageViewPage3.Paint
+
+    End Sub
+
+    Private Sub cmdInOwnWindow_Click(sender As System.Object, e As System.EventArgs) Handles cmdInOwnWindow.Click
+        frmInOwnWindow.Show()
     End Sub
 End Class

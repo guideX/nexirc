@@ -1137,6 +1137,23 @@ Namespace IRC.Status
         End Sub
 #End Region
 #Region "PRIVATE MESSAGES"
+        Public Sub PrivateMessage_ToggleWindowState(_StatusIndex As Integer, _PrivateMessageIndex As Integer)
+            'Try
+            If _PrivateMessageIndex <> 0 Then
+                With lStatusObjects.sStatusObject(_StatusIndex).sPrivateMessages.pPrivateMessage(_PrivateMessageIndex)
+                    If .pWindow.WindowState = FormWindowState.Normal = True Then
+                        .pWindow.WindowState = FormWindowState.Minimized
+                    ElseIf .pWindow.WindowState = FormWindowState.Maximized Then
+                        .pWindow.WindowState = FormWindowState.Minimized
+                    ElseIf .pWindow.WindowState = FormWindowState.Minimized Then
+                        .pWindow.WindowState = FormWindowState.Normal
+                    End If
+                End With
+            End If
+            'Catch ex As Exception
+            'RaiseEvent ProcessError(ex.Message, "Public Sub PrivateMessage_ToggleWindowState(_StatusIndex As Integer, _PrivateMessageIndex As Integer)")
+            'End Try
+        End Sub
         Public Function PrivateMessage_Find(ByVal _StatusIndex As Integer, ByVal _Name As String) As Integer
             'Try
             Dim _Result As Integer = 0, _GetObject As clsStatus.gStatus = lStatus.GetObject(_StatusIndex)

@@ -737,7 +737,7 @@ Partial Class mdiMain
         Me.AccessibleRole = System.Windows.Forms.AccessibleRole.Window
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Black
+        Me.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(819, 356)
         Me.Controls.Add(Me.tspQueryPrompt)

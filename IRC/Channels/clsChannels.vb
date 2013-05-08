@@ -407,7 +407,7 @@ Namespace IRC.Channels
                 If UBound(splt2) = 1 Then
                     _NickName = splt2(0)
                     _NickName = ParseData(_NickName, ":", "!")
-                    _HostName = splt2(1)
+                    _HostName = Split(splt2(0), "~")(1) & "@" & splt2(1)
                 End If
             End If
             _ChannelIndex = Find(_StatusIndex, _ChannelName)

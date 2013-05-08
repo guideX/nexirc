@@ -668,6 +668,7 @@
     <Content Include="nexgen.ico" />
     <None Include="Resources\connect.png" />
     <None Include="Resources\chat.png" />
+    <None Include="Resources\abstract11.gif" />
     <Content Include="TextFile1.txt" />
     <None Include="Resources\Software.ico" />
     <None Include="Resources\documents_white.ico" />

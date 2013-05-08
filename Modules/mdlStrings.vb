@@ -2328,6 +2328,8 @@ Module mdlStrings
                 End If
             Next i
         Else
+            lTextBox.SelectionColor = ConvertIntToSystemColor(lForeColor, _Black)
+            lTextBox.SelectionBackColor = ConvertIntToSystemColor(lBackColor, _Black)
             lTextBox.SelectedText = lData
         End If
         'lTextBox.SelectionStart = lTextBox.Text.Length

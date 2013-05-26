@@ -191,16 +191,16 @@ Public Class clsIRC
         Dim msg As String, msg2 As String, msg3 As String
         msg2 = ReturnReplacedString(eStringTypes.sLUSERS_BEGIN)
         msg3 = ReturnReplacedString(eStringTypes.sLUSERS_END)
-        msg = "-" & vbCrLf & msg2 & vbCrLf
-        If Len(Trim(l251)) <> 0 Then msg = msg & l251 & vbCrLf
-        If Len(Trim(l252)) <> 0 Then msg = msg & l252 & vbCrLf
-        If Len(Trim(l254)) <> 0 Then msg = msg & l254 & vbCrLf
-        If Len(Trim(l250)) <> 0 Then msg = msg & l250 & vbCrLf
-        If Len(Trim(l253)) <> 0 Then msg = msg & l253 & vbCrLf
-        If Len(Trim(l255)) <> 0 Then msg = msg & l255 & vbCrLf
-        If Len(Trim(l265)) <> 0 Then msg = msg & l265 & vbCrLf
-        If Len(Trim(l266)) <> 0 Then msg = msg & l266 & vbCrLf
-        msg = msg & msg3 & vbCrLf & "-"
+        msg = "-" & vbCrLf & msg2 & Chr(13)
+        If Len(Trim(l251)) <> 0 Then msg = msg & l251 & Chr(13)
+        If Len(Trim(l252)) <> 0 Then msg = msg & l252 & Chr(13)
+        If Len(Trim(l254)) <> 0 Then msg = msg & l254 & Chr(13)
+        If Len(Trim(l250)) <> 0 Then msg = msg & l250 & Chr(13)
+        If Len(Trim(l253)) <> 0 Then msg = msg & l253 & Chr(13)
+        If Len(Trim(l255)) <> 0 Then msg = msg & l255 & Chr(13)
+        If Len(Trim(l265)) <> 0 Then msg = msg & l265 & Chr(13)
+        If Len(Trim(l266)) <> 0 Then msg = msg & l266 & Chr(13)
+        msg = msg & msg3 & Chr(13) & "-"
         lStatus.AddText(msg, lStatusIndex)
         ResetMessages()
         'Catch ex As Exception

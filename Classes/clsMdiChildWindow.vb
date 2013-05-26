@@ -13,6 +13,7 @@ Public Class clsMdiChildWindow
         fPrivateMessage = 7
     End Enum
 
+    Public lForeMost As Boolean
     Private lMeIndex As Integer
     Private lFormType As eFormTypes
 
@@ -49,6 +50,9 @@ Public Class clsMdiChildWindow
 
     Public Sub txtOutgoing_GotFocus(_Form As Form)
         'Try
+        lChannels.ResetForeMostWindows()
+        lStatus.ResetForeMostWindows()
+        lForeMost = True
         _Form.BringToFront()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtOutgoing_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtOutgoing.GotFocus")
@@ -104,22 +108,6 @@ Public Class clsMdiChildWindow
         _txtOutgoing.Focus()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub txtIncomingColor_MouseUp(_SelectedText As String)")
-        'End Try
-    End Sub
-
-    Public Sub txtOutgoing_MouseDown(ByRef lForm As Form)
-        'Try
-        'lForm.Focus()
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub txtOutgoing_MouseDown()")
-        'End Try
-    End Sub
-
-    Public Sub txtIncomingColor_Click(_OutgoingTextBox As TextBox)
-        'Try
-        _OutgoingTextBox.Focus()
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub txtIncomingColor_Click(sender As Object, e As System.EventArgs)")
         'End Try
     End Sub
 
@@ -200,14 +188,6 @@ Public Class clsMdiChildWindow
         Form_Resize(_IncomingTextBox, _OutgoingTextBox, _Form)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub Form_Load(_FormName As String)")
-        'End Try
-    End Sub
-
-    Public Sub txtIncomingColor_GotFocus(_Form As Form)
-        'Try
-        '_Form.Focus()
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub txtIncomingColor_GotFocus(_Form As Form)")
         'End Try
     End Sub
 

@@ -135,7 +135,7 @@ Namespace nexIRC.Sockets
             'Try
             Dim obj_StateObject As New StateObject
             obj_StateObject.WorkSocket = m_tmpSocket
-            Dim Buffer As Byte() = Encoding.ASCII.GetBytes(tmp_Data)
+            Dim Buffer As Byte() = Encoding.UTF8.GetBytes(tmp_Data)
             m_tmpSocket.BeginSend(Buffer, 0, Buffer.Length, 0, New AsyncCallback(AddressOf onSendComplete), obj_StateObject)
             'Catch ex As Exception
             'RaiseEvent SocketError(ex.Message)
@@ -168,7 +168,7 @@ Namespace nexIRC.Sockets
             Dim sck_Data As String
             Dim BytesRead As Integer = obj_Socket.EndReceive(ar)
             If BytesRead > 0 Then
-                sck_Data = Encoding.ASCII.GetString(obj_SocketState.Buffer, 0, BytesRead)
+                sck_Data = Encoding.UTF8.GetString(obj_SocketState.Buffer, 0, BytesRead)
                 RaiseEvent socketDataArrival(m_SocketID, sck_Data, obj_SocketState.Buffer, BytesRead)
             End If
             obj_Socket.BeginReceive(obj_SocketState.Buffer, 0, obj_SocketState.BufferSize, 0, New AsyncCallback(AddressOf onDataArrival), obj_SocketState)

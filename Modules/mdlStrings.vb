@@ -1658,10 +1658,10 @@ Module mdlStrings
         If i <> 0 Then
             msg = lCommands.cCommad(i).cData
             msg2 = lCommands.cCommad(i).cDisplay
-            msg = Replace(msg, "$crlf", Chr(13))
+            msg = Replace(msg, "$crlf", "")
             msg = Replace(msg, "$space", " ")
             msg = Replace(msg, "$4sp", "    ")
-            msg2 = Replace(msg2, "$crlf", Chr(13))
+            msg2 = Replace(msg2, "$crlf", "")
             msg2 = Replace(msg2, "$space", " ")
             msg2 = Replace(msg2, "$4sp", "    ")
             If InStr(msg, "$activeservername") <> 0 Then msg = Replace(msg, "$activeservername", lStatus.Description(lStatus.ActiveIndex))

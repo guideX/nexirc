@@ -62,7 +62,7 @@ Public Class frmNoticeWindow
         lIRC.iSettings.sWindowSizes.iNotice.wHeight = Me.Height
         SaveWindowSizes()
         If lMotdWindow = True Then
-            lStatus.Motd_Closed(lStatusIndex) = True
+            lStatus.Motd_Open(lStatusIndex) = False
         ElseIf lPrivateMessage = True Then
             lStatus.PrivateMessage_Visible(lStatusIndex, lPMNick) = False
         ElseIf lNoticeWindow = True Then
@@ -128,7 +128,9 @@ Public Class frmNoticeWindow
                     lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & lPMNick & " :" & msg)
                     txtOutgoing.Text = ""
                     e.Handled = True
-                    DoNoticeColor("12<" & lStatus.NickName(lStatusIndex) & "> " & msg)
+                    DoNoticeColor("<" & lStatus.NickName(lStatusIndex) & "> " & msg)
+                    lStatus.PrivateMessage_AddToConversation("<" & lStatus.NickName(lStatusIndex) & "> " & msg, lStatusIndex, lStatus.PrivateMessage_Find(lStatusIndex, lPMNick))
+                    '.sPrivateMessages.pPrivateMessage(n).pIncomingText = .sPrivateMessages.pPrivateMessage(n).pIncomingText & vbCrLf & _Message
                 End If
             End If
         End If

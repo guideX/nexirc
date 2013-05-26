@@ -151,6 +151,16 @@ Namespace IRC.Status
             'RaiseEvent ProcessError(ex.Message, "Private Sub SocketError(_Error As String)")
             'End Try
         End Sub
+        Public Sub ResetForeMostWindows()
+            'Try
+            For i As Integer = 1 To lStatusObjects.sCount
+                lStatusObjects.sStatusObject(i).sWindow.lMdiChildWindow.lForeMost = False
+            Next i
+            'Catch ex As Exception
+            'RaiseEvent ProcessError(ex.Message, "Public Sub ResetForeMostWindows()")
+            'End Try
+        End Sub
+
         Public Sub Minimize(_StatusIndex As Integer)
             'Try
             lStatusObjects.sStatusObject(_StatusIndex).sWindow.WindowState = FormWindowState.Minimized
@@ -320,15 +330,31 @@ Namespace IRC.Status
             'RaiseEvent ProcessError(ex.Message, "Public Sub CloseWindow(_Index As Integer)")
             'End Try
         End Sub
-        Public Sub ToggleStatusWindowState(ByVal lIndex As Integer)
+        Public Function Window(_StatusIndex As Integer) As frmStatus
             'Try
-            If lIndex <> 0 Then
-                With lStatusObjects.sStatusObject(lIndex)
+            Return lStatusObjects.sStatusObject(_StatusIndex).sWindow
+            'Catch ex As Exception
+            'RaiseEvent ProcessError(ex.Message, "Public Function Window(_StatusIndex As Integer) As frmStatus")
+            'Return Nothing
+            'End Try
+        End Function
+        Public Sub ToggleStatusWindowState(ByVal _StatusIndex As Integer, _ForeMost As Boolean)
+            'Try
+            If _StatusIndex <> 0 Then
+                With lStatusObjects.sStatusObject(_StatusIndex)
                     If .sWindow.WindowState = FormWindowState.Normal = True Then
-                        .sWindow.WindowState = FormWindowState.Minimized
-                    ElseIf .sWindow.WindowState = FormWindowState.Maximized Then
-                        .sWindow.WindowState = FormWindowState.Minimized
-                    ElseIf .sWindow.WindowState = FormWindowState.Minimized Then
+                        If _ForeMost = True Then
+                            .sWindow.WindowState = FormWindowState.Minimized
+                        Else
+                            .sWindow.Focus()
+                        End If
+                    ElseIf .sWindow.WindowState = FormWindowState.Maximized = True Then
+                        If _ForeMost = True Then
+                            .sWindow.WindowState = FormWindowState.Minimized
+                        Else
+                            .sWindow.Focus()
+                        End If
+                    ElseIf .sWindow.WindowState = FormWindowState.Minimized = True Then
                         .sWindow.WindowState = FormWindowState.Normal
                     End If
                 End With
@@ -905,223 +931,227 @@ Namespace IRC.Status
                     If n <> 0 Then
                         With lStatusObjects.sStatusObject(n)
                             If .sMotdWindow.mVisible = False Then
+                                LockWindowUpdate(mdiMain.Handle)
                                 If .sMotdWindow.mTreeNode.ImageIndex <> 3 Then .sMotdWindow.mTreeNode.ImageIndex = 3
                                 If .sMotdWindow.mTreeNode.SelectedImageIndex <> 3 Then .sMotdWindow.mTreeNode.SelectedImageIndex = 3
                                 .sMotdWindow.mWindow = New frmNoticeWindow
-                                'clsAnimate.Animate(.sMotdWindow.mWindow, clsAnimate.Effect.Center, 200, 1)
+                                .sMotdWindow.mWindow.Visible = False
                                 .sMotdWindow.mWindow.Show()
                                 .sMotdWindow.mVisible = True
                                 .sMotdWindow.mWindow.SetStatusIndex(n)
                                 .sMotdWindow.mWindow.Text = StatusServerName(.sWindow.lMdiChildWindow.MeIndex) & " - MOTD"
+                                mdiMain.Refresh()
                                 .sMotdWindow.mWindow.SetMotdWindow(True)
                                 .sMotdWindow.mWindow.SetNoticeWindow(False)
                                 .sMotdWindow.mWindow.SetUnknownsWindow(False)
                                 .sMotdWindow.mWindow.SetUnsupportedWindow(False)
                                 .sMotdWindow.mWindow.DoNoticeColor(.sMotdWindow.mData)
+                                .sMotdWindow.mWindow.Visible = True
+                                LockWindowUpdate(IntPtr.Zero)
                             Else
                                 mdiMain.SetWindowFocus(.sMotdWindow.mWindow)
                             End If
                         End With
-                    End If
-                    Exit Sub
                 End If
-                If LCase(lTreeNode.Text) = "links" Then
-                    n = Find(lTreeNode.Parent.Text)
-                    If n <> 0 Then
-                        With lStatusObjects.sStatusObject(n)
-                            If .sServerLinks.sVisible = False Then
-                                t = NetworkIndex(.sWindow.lMdiChildWindow.MeIndex)
-                                .sServerLinks.sVisible = True
-                                .sServerLinks.sWindow = New frmServerLinks
-                                'clsAnimate.Animate(.sServerLinks.sWindow, clsAnimate.Effect.Center, 200, 1)
-                                .sServerLinks.sWindow.Show()
-                                .sServerLinks.sWindow.SetStatusIndex(n)
-                                .sServerLinks.sWindow.SetNetworkIndex(t)
-                                .sServerLinks.sWindow.cboNetworks.Text = lNetworks.nNetwork(t).nDescription
-                                For i = 1 To .sServerLinks.sLinkCount
-                                    .sServerLinks.sWindow.AddToLinks(.sServerLinks.sLink(i).lServerIP, .sServerLinks.sLink(i).lPort)
-                                Next i
-                            Else
-                                mdiMain.SetWindowFocus(.sServerLinks.sWindow)
-                            End If
-                        End With
-                    End If
-                End If
-                If LCase(lTreeNode.Text) = "unknowns" Then
-                    n = Find(lTreeNode.Parent.Text)
-                    If n <> 0 Then
-                        With lStatusObjects.sStatusObject(n)
-                            If .sUnknowns.uVisible = False Then
-                                .sUnknowns.uVisible = True
-                                .sUnknowns.uWindow = New frmNoticeWindow
-                                .sUnknowns.uWindow.SetStatusIndex(n)
-                                'clsAnimate.Animate(.sUnknowns.uWindow, clsAnimate.Effect.Center, 200, 1)
-                                .sUnknowns.uWindow.Show()
-                                .sUnknowns.uWindow.SetUnknownsWindow(True)
-                                .sUnknowns.uWindow.SetMotdWindow(False)
-                                .sUnknowns.uWindow.SetNoticeWindow(False)
-                                .sUnknowns.uWindow.Text = "Unknowns"
-                                .sUnknowns.uWindow.DoNoticeColor(.sUnknowns.uData)
-                                If .sUnknowns.uTreeNode.ImageIndex <> 3 Then .sUnknowns.uTreeNode.ImageIndex = 3
-                                If .sUnknowns.uTreeNode.SelectedImageIndex <> 3 Then .sUnknowns.uTreeNode.SelectedImageIndex = 3
-                            Else
-                                mdiMain.SetWindowFocus(.sUnknowns.uWindow)
-                            End If
-                        End With
-                    End If
-                End If
-                If LCase(lTreeNode.Text) = "unsupported" Then
-                    n = Find(lTreeNode.Parent.Text)
-                    If n <> 0 Then
-                        With lStatusObjects.sStatusObject(n)
-                            If .sUnsupported.uVisible = False Then
-                                .sUnsupported.uVisible = True
-                                .sUnsupported.uWindow = New frmNoticeWindow
-                                .sUnsupported.uWindow.SetStatusIndex(n)
-                                'clsAnimate.Animate(.sUnsupported.uWindow, clsAnimate.Effect.Center, 200, 1)
-                                .sUnsupported.uWindow.Show()
-                                .sUnsupported.uWindow.SetUnknownsWindow(True)
-                                .sUnsupported.uWindow.SetMotdWindow(False)
-                                .sUnsupported.uWindow.SetNoticeWindow(False)
-                                .sUnsupported.uWindow.Text = "Unsupported"
-                                .sUnsupported.uWindow.DoNoticeColor(.sUnsupported.uData)
-                                If .sUnsupported.uTreeNode.ImageIndex <> 3 Then .sUnsupported.uTreeNode.ImageIndex = 3
-                                If .sUnsupported.uTreeNode.SelectedImageIndex <> 3 Then .sUnsupported.uTreeNode.SelectedImageIndex = 3
-                            Else
-                                mdiMain.SetWindowFocus(.sUnsupported.uWindow)
-                            End If
-                        End With
-                    End If
-                End If
-                If LCase(lTreeNode.Text) = "raw" Then
-                    n = Find(lTreeNode.Parent.Text)
-                    If n <> 0 Then
-                        With lStatusObjects.sStatusObject(n).sRaw
-                            If .rVisible = False Then
-                                .rRawWindow = New frmRaw
-                                'clsAnimate.Animate(.rRawWindow, clsAnimate.Effect.Center, 200, 1)
-                                .rRawWindow.Show()
-                                .rVisible = True
-                                .rRawWindow.SetStatusIndex(n)
-                                .rRawWindow.txtInData.Text = .rInData
-                                .rRawWindow.txtOutData.Text = .rOutData
-                                .rRawWindow.Text = "nexIRC - Raw " & lStatusObjects.sStatusObject(n).sDescription
-                                If .rTreeNode.ImageIndex <> 4 Then .rTreeNode.ImageIndex = 4
-                                If .rTreeNode.SelectedImageIndex <> 4 Then .rTreeNode.SelectedImageIndex = 4
-                            Else
-                                mdiMain.SetWindowFocus(.rRawWindow)
-                            End If
-                        End With
-                    End If
-                    Exit Sub
-                End If
-                If LCase(lTreeNode.Text) = "channel list" Then
-                    n = Find(lTreeNode.Parent.Text)
-                    If n <> 0 Then
-                        lChannelLists.DoubleClick(lChannelLists.ReturnChannelListIndex(n))
-                    End If
-                    Exit Sub
-                End If
-                If LCase(lTreeNode.Text) = "notify" Then Exit Sub
-                If LCase(lTreeNode.Text) = "notices" Then
-                    n = Find(lTreeNode.Parent.Text)
-                    msg = lStatusObjects.sStatusObject(n).sPrimitives.sServerName
-                    With lStatusObjects.sStatusObject(n).sNoticesWindow
-                        If .nVisible = False Then
-                            .nVisible = True
-                            .nWindow = New frmNoticeWindow
-                            'clsAnimate.Animate(.nWindow, clsAnimate.Effect.Center, 200, 1)
-                            .nWindow.Show()
-                            .nWindow.SetStatusIndex(n)
-                            .nWindow.DoNoticeColor(.nData)
-                            .nWindow.SetNoticeWindow(True)
-                            .nWindow.SetUnknownsWindow(False)
-                            .nWindow.SetMotdWindow(False)
-                            .nWindow.Text = msg & " - Notices"
-                            If .nTreeNode.SelectedImageIndex <> 3 Then .nTreeNode.SelectedImageIndex = 3
-                            If .nTreeNode.ImageIndex <> 3 Then .nTreeNode.ImageIndex = 3
+                Exit Sub
+            End If
+            If LCase(lTreeNode.Text) = "links" Then
+                n = Find(lTreeNode.Parent.Text)
+                If n <> 0 Then
+                    With lStatusObjects.sStatusObject(n)
+                        If .sServerLinks.sVisible = False Then
+                            t = NetworkIndex(.sWindow.lMdiChildWindow.MeIndex)
+                            .sServerLinks.sVisible = True
+                            .sServerLinks.sWindow = New frmServerLinks
+                            'clsAnimate.Animate(.sServerLinks.sWindow, clsAnimate.Effect.Center, 200, 1)
+                            .sServerLinks.sWindow.Show()
+                            .sServerLinks.sWindow.SetStatusIndex(n)
+                            .sServerLinks.sWindow.SetNetworkIndex(t)
+                            .sServerLinks.sWindow.cboNetworks.Text = lNetworks.nNetwork(t).nDescription
+                            For i = 1 To .sServerLinks.sLinkCount
+                                .sServerLinks.sWindow.AddToLinks(.sServerLinks.sLink(i).lServerIP, .sServerLinks.sLink(i).lPort)
+                            Next i
                         Else
-                            mdiMain.SetWindowFocus(.nWindow)
+                            mdiMain.SetWindowFocus(.sServerLinks.sWindow)
                         End If
                     End With
-                    Exit Sub
                 End If
-                If LCase(lTreeNode.Text) = "status" Then
-                    msg = lTreeNode.FullPath
-                    msg = Replace(msg, "\", "")
-                    msg = Replace(msg, "/", "")
-                    msg = Replace(msg, "Status", "")
-                    n = FindByDescription(msg)
-                    If n <> 0 Then
-                        With lStatusObjects.sStatusObject(n)
-                            If .sTreeNodeStatus.ImageIndex <> 0 Then .sTreeNodeStatus.ImageIndex = 0
-                            If .sTreeNodeStatus.SelectedImageIndex <> 0 Then .sTreeNodeStatus.SelectedImageIndex = 0
-                            If .sVisible = False Then
-                                .sVisible = True
-                                .sWindow.Visible = True
-                            End If
-                            ActiveIndex = .sWindow.lMdiChildWindow.MeIndex
-                            mdiMain.SetWindowFocus(.sWindow)
-                        End With
+            End If
+            If LCase(lTreeNode.Text) = "unknowns" Then
+                n = Find(lTreeNode.Parent.Text)
+                If n <> 0 Then
+                    With lStatusObjects.sStatusObject(n)
+                        If .sUnknowns.uVisible = False Then
+                            .sUnknowns.uVisible = True
+                            .sUnknowns.uWindow = New frmNoticeWindow
+                            .sUnknowns.uWindow.SetStatusIndex(n)
+                            'clsAnimate.Animate(.sUnknowns.uWindow, clsAnimate.Effect.Center, 200, 1)
+                            .sUnknowns.uWindow.Show()
+                            .sUnknowns.uWindow.SetUnknownsWindow(True)
+                            .sUnknowns.uWindow.SetMotdWindow(False)
+                            .sUnknowns.uWindow.SetNoticeWindow(False)
+                            .sUnknowns.uWindow.Text = "Unknowns"
+                            .sUnknowns.uWindow.DoNoticeColor(.sUnknowns.uData)
+                            If .sUnknowns.uTreeNode.ImageIndex <> 3 Then .sUnknowns.uTreeNode.ImageIndex = 3
+                            If .sUnknowns.uTreeNode.SelectedImageIndex <> 3 Then .sUnknowns.uTreeNode.SelectedImageIndex = 3
+                        Else
+                            mdiMain.SetWindowFocus(.sUnknowns.uWindow)
+                        End If
+                    End With
+                End If
+            End If
+            If LCase(lTreeNode.Text) = "unsupported" Then
+                n = Find(lTreeNode.Parent.Text)
+                If n <> 0 Then
+                    With lStatusObjects.sStatusObject(n)
+                        If .sUnsupported.uVisible = False Then
+                            .sUnsupported.uVisible = True
+                            .sUnsupported.uWindow = New frmNoticeWindow
+                            .sUnsupported.uWindow.SetStatusIndex(n)
+                            'clsAnimate.Animate(.sUnsupported.uWindow, clsAnimate.Effect.Center, 200, 1)
+                            .sUnsupported.uWindow.Show()
+                            .sUnsupported.uWindow.SetUnknownsWindow(True)
+                            .sUnsupported.uWindow.SetMotdWindow(False)
+                            .sUnsupported.uWindow.SetNoticeWindow(False)
+                            .sUnsupported.uWindow.Text = "Unsupported"
+                            .sUnsupported.uWindow.DoNoticeColor(.sUnsupported.uData)
+                            If .sUnsupported.uTreeNode.ImageIndex <> 3 Then .sUnsupported.uTreeNode.ImageIndex = 3
+                            If .sUnsupported.uTreeNode.SelectedImageIndex <> 3 Then .sUnsupported.uTreeNode.SelectedImageIndex = 3
+                        Else
+                            mdiMain.SetWindowFocus(.sUnsupported.uWindow)
+                        End If
+                    End With
+                End If
+            End If
+            If LCase(lTreeNode.Text) = "raw" Then
+                n = Find(lTreeNode.Parent.Text)
+                If n <> 0 Then
+                    With lStatusObjects.sStatusObject(n).sRaw
+                        If .rVisible = False Then
+                            .rRawWindow = New frmRaw
+                            'clsAnimate.Animate(.rRawWindow, clsAnimate.Effect.Center, 200, 1)
+                            .rRawWindow.Show()
+                            .rVisible = True
+                            .rRawWindow.SetStatusIndex(n)
+                            .rRawWindow.txtInData.Text = .rInData
+                            .rRawWindow.txtOutData.Text = .rOutData
+                            .rRawWindow.Text = "nexIRC - Raw " & lStatusObjects.sStatusObject(n).sDescription
+                            If .rTreeNode.ImageIndex <> 4 Then .rTreeNode.ImageIndex = 4
+                            If .rTreeNode.SelectedImageIndex <> 4 Then .rTreeNode.SelectedImageIndex = 4
+                        Else
+                            mdiMain.SetWindowFocus(.rRawWindow)
+                        End If
+                    End With
+                End If
+                Exit Sub
+            End If
+            If LCase(lTreeNode.Text) = "channel list" Then
+                n = Find(lTreeNode.Parent.Text)
+                If n <> 0 Then
+                    lChannelLists.DoubleClick(lChannelLists.ReturnChannelListIndex(n))
+                End If
+                Exit Sub
+            End If
+            If LCase(lTreeNode.Text) = "notify" Then Exit Sub
+            If LCase(lTreeNode.Text) = "notices" Then
+                n = Find(lTreeNode.Parent.Text)
+                msg = lStatusObjects.sStatusObject(n).sPrimitives.sServerName
+                With lStatusObjects.sStatusObject(n).sNoticesWindow
+                    If .nVisible = False Then
+                        .nVisible = True
+                        .nWindow = New frmNoticeWindow
+                        'clsAnimate.Animate(.nWindow, clsAnimate.Effect.Center, 200, 1)
+                        .nWindow.Show()
+                        .nWindow.SetStatusIndex(n)
+                        .nWindow.DoNoticeColor(.nData)
+                        .nWindow.SetNoticeWindow(True)
+                        .nWindow.SetUnknownsWindow(False)
+                        .nWindow.SetMotdWindow(False)
+                        .nWindow.Text = msg & " - Notices"
+                        If .nTreeNode.SelectedImageIndex <> 3 Then .nTreeNode.SelectedImageIndex = 3
+                        If .nTreeNode.ImageIndex <> 3 Then .nTreeNode.ImageIndex = 3
+                    Else
+                        mdiMain.SetWindowFocus(.nWindow)
                     End If
-                    Exit Sub
+                End With
+                Exit Sub
+            End If
+            If LCase(lTreeNode.Text) = "status" Then
+                msg = lTreeNode.FullPath
+                msg = Replace(msg, "\", "")
+                msg = Replace(msg, "/", "")
+                msg = Replace(msg, "Status", "")
+                n = FindByDescription(msg)
+                If n <> 0 Then
+                    With lStatusObjects.sStatusObject(n)
+                        If .sTreeNodeStatus.ImageIndex <> 0 Then .sTreeNodeStatus.ImageIndex = 0
+                        If .sTreeNodeStatus.SelectedImageIndex <> 0 Then .sTreeNodeStatus.SelectedImageIndex = 0
+                        If .sVisible = False Then
+                            .sVisible = True
+                            .sWindow.Visible = True
+                        End If
+                        ActiveIndex = .sWindow.lMdiChildWindow.MeIndex
+                        mdiMain.SetWindowFocus(.sWindow)
+                    End With
                 End If
-                If Find(lTreeNode.Text) <> 0 Then Exit Sub
-                If LCase(lTreeNode.Parent.Text) = "notify" Then
-                    e = FindNotifyIndex(lTreeNode.Text)
-                    n = Find(lTreeNode.Parent.Text)
+                Exit Sub
+            End If
+            If Find(lTreeNode.Text) <> 0 Then Exit Sub
+            If LCase(lTreeNode.Parent.Text) = "notify" Then
+                e = FindNotifyIndex(lTreeNode.Text)
+                n = Find(lTreeNode.Parent.Text)
+                If e <> 0 And n <> 0 Then
+                    'If e <> 0 Then SendActiveStatusSocket("WHOIS :" & lTreeNode.Text)
+                    'AddToPrivateMessages(e, lTreeNode.Text, "", "")
+                    If e <> 0 Then
+                        lStatus.PrivateMessages_Initialize(n, lTreeNode.Text)
+                        Exit Sub
+                    End If
+                ElseIf e <> 0 And n = 0 Then
+                    n = FindByInitialText(lTreeNode.Parent.Parent.Text)
                     If e <> 0 And n <> 0 Then
-                        'If e <> 0 Then SendActiveStatusSocket("WHOIS :" & lTreeNode.Text)
-                        'AddToPrivateMessages(e, lTreeNode.Text, "", "")
-                        If e <> 0 Then
-                            lStatus.PrivateMessages_Initialize(n, lTreeNode.Text)
-                            Exit Sub
-                        End If
-                    ElseIf e <> 0 And n = 0 Then
-                        n = FindByInitialText(lTreeNode.Parent.Parent.Text)
-                        If e <> 0 And n <> 0 Then
-                            lStatus.PrivateMessages_Initialize(n, lTreeNode.Text)
-                            Exit Sub
-                        End If
+                        lStatus.PrivateMessages_Initialize(n, lTreeNode.Text)
+                        Exit Sub
                     End If
                 End If
-                e = lStatus.PrivateMessage_Find(Find(lTreeNode.Parent.Text), lTreeNode.Text)
-                If e <> 0 Then
-                    With lStatusObjects.sStatusObject(Find(lTreeNode.Parent.Text))
-                        If .sPrivateMessages.pPrivateMessage(e).pVisible = False Then
-                            Dim ntc As New frmNoticeWindow
-                            .sPrivateMessages.pPrivateMessage(e).pVisible = True
-                            .sPrivateMessages.pPrivateMessage(e).pWindow = ntc
-                            'clsAnimate.Animate(.sPrivateMessages.pPrivateMessage(e).pWindow, clsAnimate.Effect.Center, 200, 1)
-                            .sPrivateMessages.pPrivateMessage(e).pWindow.Show()
-                            .sPrivateMessages.pPrivateMessage(e).pWindow.Text = .sPrivateMessages.pPrivateMessage(e).pName & " (" & .sPrivateMessages.pPrivateMessage(e).pHost & ")"
-                            .sPrivateMessages.pPrivateMessage(e).pWindow.DoNoticeColor(.sPrivateMessages.pPrivateMessage(e).pIncomingText)
-                            If .sPrivateMessages.pPrivateMessage(e).pTreeNode.ImageIndex <> 3 Then .sPrivateMessages.pPrivateMessage(e).pTreeNode.ImageIndex = 3
-                            If .sPrivateMessages.pPrivateMessage(e).pTreeNode.SelectedImageIndex <> 3 Then .sPrivateMessages.pPrivateMessage(e).pTreeNode.SelectedImageIndex = 3
-                            .sPrivateMessages.pPrivateMessage(e).pWindow.SetPrivateMessageWindow(True, .sPrivateMessages.pPrivateMessage(e).pName)
-                            .sPrivateMessages.pPrivateMessage(e).pWindow.SetStatusIndex(Find(lTreeNode.Parent.Text))
-                            Exit Sub
-                        Else
-                            .sPrivateMessages.pPrivateMessage(e).pWindow.Focus()
-                            If lIRC.iSettings.sAutoMaximize = True Then .sPrivateMessages.pPrivateMessage(e).pWindow.WindowState = FormWindowState.Maximized
-                            Exit Sub
-                        End If
-                    End With
-                End If
-                e = lChannels.Find(Find(lTreeNode.Parent.Text), lTreeNode.Text)
-                If e <> 0 Then
-                    If lChannels.Name(e).Length <> 0 Then
-                        If lChannels.Visible(e) = True Then
-                            mdiMain.SetWindowFocus(lChannels.Window(e))
-                        Else
-                            mdiMain.SetWindowFocus(lChannels.Window(e))
-                            lChannels.CreateWindow(e)
-                            'lChannels.Recall(e)
-                            If lTreeNode.ImageIndex <> 1 Then lTreeNode.ImageIndex = 1
-                            If lTreeNode.SelectedImageIndex <> 1 Then lTreeNode.SelectedImageIndex = 1
-                        End If
+            End If
+            e = lStatus.PrivateMessage_Find(Find(lTreeNode.Parent.Text), lTreeNode.Text)
+            If e <> 0 Then
+                With lStatusObjects.sStatusObject(Find(lTreeNode.Parent.Text))
+                    If .sPrivateMessages.pPrivateMessage(e).pVisible = False Then
+                        Dim ntc As New frmNoticeWindow
+                        .sPrivateMessages.pPrivateMessage(e).pVisible = True
+                        .sPrivateMessages.pPrivateMessage(e).pWindow = ntc
+                        'clsAnimate.Animate(.sPrivateMessages.pPrivateMessage(e).pWindow, clsAnimate.Effect.Center, 200, 1)
+                        .sPrivateMessages.pPrivateMessage(e).pWindow.Show()
+                        .sPrivateMessages.pPrivateMessage(e).pWindow.Text = .sPrivateMessages.pPrivateMessage(e).pName & " (" & .sPrivateMessages.pPrivateMessage(e).pHost & ")"
+                        .sPrivateMessages.pPrivateMessage(e).pWindow.DoNoticeColor(.sPrivateMessages.pPrivateMessage(e).pIncomingText)
+                        If .sPrivateMessages.pPrivateMessage(e).pTreeNode.ImageIndex <> 3 Then .sPrivateMessages.pPrivateMessage(e).pTreeNode.ImageIndex = 3
+                        If .sPrivateMessages.pPrivateMessage(e).pTreeNode.SelectedImageIndex <> 3 Then .sPrivateMessages.pPrivateMessage(e).pTreeNode.SelectedImageIndex = 3
+                        .sPrivateMessages.pPrivateMessage(e).pWindow.SetPrivateMessageWindow(True, .sPrivateMessages.pPrivateMessage(e).pName)
+                        .sPrivateMessages.pPrivateMessage(e).pWindow.SetStatusIndex(Find(lTreeNode.Parent.Text))
+                        Exit Sub
+                    Else
+                        .sPrivateMessages.pPrivateMessage(e).pWindow.Focus()
+                        If lIRC.iSettings.sAutoMaximize = True Then .sPrivateMessages.pPrivateMessage(e).pWindow.WindowState = FormWindowState.Maximized
+                        Exit Sub
+                    End If
+                End With
+            End If
+            e = lChannels.Find(Find(lTreeNode.Parent.Text), lTreeNode.Text)
+            If e <> 0 Then
+                If lChannels.Name(e).Length <> 0 Then
+                    If lChannels.Visible(e) = True Then
+                        mdiMain.SetWindowFocus(lChannels.Window(e))
+                    Else
+                        mdiMain.SetWindowFocus(lChannels.Window(e))
+                        lChannels.CreateWindow(e)
+                        'lChannels.Recall(e)
+                        If lTreeNode.ImageIndex <> 1 Then lTreeNode.ImageIndex = 1
+                        If lTreeNode.SelectedImageIndex <> 1 Then lTreeNode.SelectedImageIndex = 1
                     End If
                 End If
+            End If
             End If
             'Catch ex As Exception
             'RaiseEvent ProcessError(ex.Message, "Public Sub DblClickConnections(ByVal lTreeNode As TreeNode)")
@@ -1241,7 +1271,7 @@ Namespace IRC.Status
                             End If
                         End With
                     Next _PrivateMessageIndex
-                    _Message = "12<" & _Name & "> " & _Data
+                    _Message = "<" & _Name & "> " & _Data
                     If n = 0 Then
                         .sPrivateMessages.pCount = .sPrivateMessages.pCount + 1
                         n = .sPrivateMessages.pCount
@@ -1250,13 +1280,15 @@ Namespace IRC.Status
                         .sPrivateMessages.pPrivateMessage(n).pStatusIndex = _StatusIndex
                     End If
                     If .sPrivateMessages.pPrivateMessage(n).pTreeNodeVisible = True Then _Prompt = False
-                    .sPrivateMessages.pPrivateMessage(n).pIncomingText = _Message & vbCrLf & .sPrivateMessages.pPrivateMessage(n).pIncomingText
+                    PrivateMessage_AddToConversation(_Message, _StatusIndex, n)
                     If _Deny = True Then Exit Sub
-                    If _Prompt = True Then
-                        mdiMain.tspQueryPrompt.Visible = True
-                        mdiMain.lblQueryPrompt.Text = "Accept query from '" & .sPrivateMessages.pPrivateMessage(n).pName & "(" & .sPrivateMessages.pPrivateMessage(n).pHost & ")'?"
-                        mdiMain.lblQueryPrompt.Tag = Trim(_StatusIndex.ToString) & ":" & Trim(n.ToString) & ":" & _Data
-                        Exit Sub
+                    If mdiMain.lblQueryPrompt.Text = "Accept query from '" & .sPrivateMessages.pPrivateMessage(n).pName & "(" & .sPrivateMessages.pPrivateMessage(n).pHost & ")'?" Then
+                        If _Prompt = True Then
+                            mdiMain.tspQueryPrompt.Visible = True
+                            mdiMain.lblQueryPrompt.Text = "Accept query from '" & .sPrivateMessages.pPrivateMessage(n).pName & "(" & .sPrivateMessages.pPrivateMessage(n).pHost & ")'?"
+                            mdiMain.lblQueryPrompt.Tag = Trim(_StatusIndex.ToString) & ":" & Trim(n.ToString) & ":" & _Data
+                            Exit Sub
+                        End If
                     End If
                     If .sPrivateMessages.pPrivateMessage(n).pVisible = False Then
                         If .sPrivateMessages.pPrivateMessage(n).pTreeNodeVisible = False Then
@@ -1290,6 +1322,28 @@ Namespace IRC.Status
             'Catch ex As Exception
             'RaiseEvent ProcessError(ex.Message, "Public Sub PrivateMessages_Add(_StatusIndex As Integer, _Name As String, _Host As String, _Data As String)")
             'End Try
+        End Sub
+        Public Sub PrivateMessage_AddToConversation(_FullString As String, _StatusIndex As Integer, _PrivateMessageIndex As Integer)
+            Dim splt() As String, _Temp As String
+            Try
+                With lStatusObjects.sStatusObject(_StatusIndex).sPrivateMessages.pPrivateMessage(_PrivateMessageIndex)
+                    splt = Split(.pIncomingText, vbCrLf)
+                    _Temp = .pIncomingText
+                    .pIncomingText = ""
+                    For Each _Line As String In .pIncomingText
+                        If .pIncomingText.Length <> 0 Then
+                            .pIncomingText = .pIncomingText & vbCrLf & _Line
+                        Else
+                            .pIncomingText = _Line
+                        End If
+                        .pIncomingText = .pIncomingText & vbCrLf & _Line
+
+                    Next _Line
+                    .pIncomingText = .pIncomingText & vbCrLf & _FullString
+                End With
+            Catch ex As Exception
+                RaiseEvent ProcessError(ex.Message, "Public Sub PrivateMessage_AddToConversation(_FullString As String, _StatusIndex As Integer, _PrivateMessageIndex As Integer)")
+            End Try
         End Sub
         Public Sub PrivateMessage_SetListBox(ByVal _StatusIndex As Integer, ByVal _ListBox As ListBox)
             'Try
@@ -1370,7 +1424,7 @@ Namespace IRC.Status
         End Sub
 #End Region
 #Region "MOTD"
-        Public Property Motd_Closed(ByVal lIndex As Integer) As Boolean
+        Public Property Motd_Open(ByVal lIndex As Integer) As Boolean
             Get
                 'Try
                 Return lStatusObjects.sStatusObject(lIndex).sMotdWindow.mVisible
@@ -2225,6 +2279,9 @@ Namespace IRC.Status
                 End If
                 splt = Split(_Data, " ")
                 Select Case LCase(Trim(splt(0)))
+                    Case "nick"
+                        lStatus.NickName(ActiveIndex, True) = splt(1)
+                        Exit Sub
                     Case "echo"
                         AddText(_Data, _StatusIndex)
                         Exit Sub

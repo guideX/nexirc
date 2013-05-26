@@ -232,20 +232,20 @@ Public Class mdiMain
     End Function
 
     Private Sub mdiMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        'For Each control As Control In Me.Controls
-        'Dim ctlMDI As MdiClient
-        'Dim c As System.Drawing.Color = System.Drawing.Color.FromArgb(RGB(191, 219, 255))
-        'For Each ctl As Object In Me.Controls
-        'Try
-        ' Attempt to cast the control to type MdiClient.
-        'ctlMDI = CType(ctl, MdiClient)
-        ' Set the BackColor of the MdiClient control.
-        'ctlMDI.BackColor = c
-        'Catch exc As InvalidCastException
-        ' Catch and ignore the error if casting failed.
-        'End Try
-        'Next
-        'Next control
+        Dim ctl As Control
+        Dim ctlMDI As MdiClient
+        For Each ctl In Me.Controls
+            Try
+                ' Attempt to cast the control to type MdiClient.
+                ctlMDI = CType(ctl, MdiClient)
+
+                ' Set the BackColor of the MdiClient control.
+                ctlMDI.BackColor = Color.Navy
+            Catch exc As InvalidCastException
+                ' Catch and ignore the error if casting failed.
+            End Try
+        Next
+
 
         'Dim client As MdiClient = New MdiClient
 
@@ -404,9 +404,9 @@ Public Class mdiMain
         If (IsNumeric(e.ClickedItem.Tag.ToString()) = True) Then
             _MeIndex = CType(e.ClickedItem.Tag.ToString(), Integer)
             If DoLeft(e.ClickedItem.Text, 1) = "#" Then
-                lChannels.ToggleChannelWindowState(_MeIndex)
+                lChannels.ToggleChannelWindowState(_MeIndex, lChannels.Window(_MeIndex).lMdiChildWindow.lForeMost)
             ElseIf InStr(e.ClickedItem.Text, "(") <> 0 And InStr(e.ClickedItem.Text, ")") <> 0 Then
-                lStatus.ToggleStatusWindowState(_MeIndex)
+                lStatus.ToggleStatusWindowState(_MeIndex, lStatus.Window(_MeIndex).lMdiChildWindow.lForeMost)
             Else
                 lStatus.PrivateMessage_ToggleWindowState(lStatus.ActiveIndex, lStatus.PrivateMessage_Find(lStatus.ActiveIndex, e.ClickedItem.Text))
             End If
@@ -435,7 +435,7 @@ Public Class mdiMain
 
     Private Sub ToolStripButton1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripButton1.Click
         'Try
-        Dim splt() As String
+        Dim splt() As String, _NickName As String, _HostName As String
         If Len(lblQueryPrompt.Tag.ToString) = 1 Then
             Select Case CType(CType(lblQueryPrompt.Tag.ToString, Integer), eInfoBar)
                 Case eInfoBar.iNickServ_NickTaken
@@ -448,7 +448,22 @@ Public Class mdiMain
                 MsgBox("TODO!!!")
                 'GLITCHY!!!!!
                 'TODO!!!!!!!!
+                'MessageBox.Show(splt(0))
+                'MessageBox.Show(splt(1))
+                'MessageBox.Show(splt(2))
+
+                'Accept query from 'guideX(huoweh@fhowefhweio)'?
+                _NickName = ParseData(lblQueryPrompt.Text, "'", "(")
+                _HostName = ParseData(lblQueryPrompt.Text, "(", ")")
+                'MessageBox.Show(lblQueryPrompt.Text)
+                'MessageBox.Show(lblQueryPrompt.Tag.ToString)
+                '_HostName
+                'MessageBox.Show(_NickName)
+                'MessageBox.Show(_HostName)
+                lStatus.PrivateMessages_Add(CInt(Trim(splt(0))), _NickName, _HostName, splt(2))
                 'lStatus.PrivateMessages_Add(CInt(Trim(splt(0))), CInt(Trim(splt(1))), splt(2), True)
+                'lStatus.PrivateMessages_Add(CInt(Trim(mdiMain.tspQueryPrompt.Tag)), 
+                'lStatus.PrivateMessages_Add(
                 'LEON!!!!!!!!
                 'LEON!!!!!!!!
                 'LEON!!!!!!!!
@@ -830,10 +845,6 @@ Public Class mdiMain
         'End Try
     End Sub
 
-    Private Sub tmrHideInfoBar_Tick(sender As System.Object, e As System.EventArgs)
-
-    End Sub
-
     Private Sub lProcesses_ProcessError(_Error As String, _Sub As String) Handles lProcesses.ProcessError
         'Try
         ProcessError(_Error, _Sub)
@@ -841,10 +852,6 @@ Public Class mdiMain
         'ProcessError(ex.Message, "Private Sub lProcesses_ProcessError(_Error As String, _Sub As String) Handles lProcesses.ProcessError")
         'End Try
     End Sub
-
-    'Private Sub Timer1_Tick(sender As System.Object, e As System.EventArgs) Handles Timer1.Tick
-    'Me.Text = lStatus.ActiveIndex().ToString
-    'End Sub
 
     Private Sub cmdRedirectDeny_Click(sender As System.Object, e As System.EventArgs) Handles cmdRedirectDeny.Click
         tspRedirect.Visible = False
@@ -878,9 +885,5 @@ Public Class mdiMain
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub tmrHideRedirect_Tick(sender As System.Object, e As System.EventArgs) Handles tmrHideRedirect.Tick")
         'End Try
-    End Sub
-
-    Private Sub mnu_Commands_Click(sender As System.Object, e As System.EventArgs) Handles mnu_Commands.Click
-
     End Sub
 End Class

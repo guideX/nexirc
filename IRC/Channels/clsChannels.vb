@@ -225,17 +225,35 @@ Namespace IRC.Channels
             'RaiseEvent ProcessError(ex.Message, "Public Sub NewChannelWindow(_Channel As gChannel)")
             'End Try
         End Sub
-        Public Sub ToggleChannelWindowState(_ChannelIndex As Integer)
+        Public Sub ResetForeMostWindows()
+            'Try
+            For i As Integer = 1 To lChannels.cCount
+                lChannels.cChannel(i).cWindow.lMdiChildWindow.lForeMost = False
+            Next i
+            'Catch ex As Exception
+            'RaiseEvent ProcessError(ex.Message, "Public Sub ResetForeMostWindows()")
+            'End Try
+        End Sub
+        Public Sub ToggleChannelWindowState(_ChannelIndex As Integer, _ForeMost As Boolean)
             'Try
             With lChannels.cChannel(_ChannelIndex).cWindow
                 If .WindowState = FormWindowState.Normal = True Then
-                    .WindowState = FormWindowState.Minimized
+                    If _ForeMost = True Then
+                        .WindowState = FormWindowState.Minimized
+                    Else
+                        .Focus()
+                    End If
                 ElseIf .WindowState = FormWindowState.Maximized Then
-                    .WindowState = FormWindowState.Minimized
+                    If _ForeMost = True Then
+                        .WindowState = FormWindowState.Minimized
+                    Else
+                        .Focus()
+                    End If
                 ElseIf .WindowState = FormWindowState.Minimized Then
                     .WindowState = FormWindowState.Normal
                 End If
             End With
+            'End If
             'Catch ex As Exception
             'RaiseEvent ProcessError(ex.Message, "Public Sub ToggleChannelWindowState(_Channel As gChannel)")
             'End Try

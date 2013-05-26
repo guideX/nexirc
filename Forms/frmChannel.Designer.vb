@@ -57,7 +57,6 @@ Partial Class frmChannel
         Me.txtIncomingColor.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtIncomingColor.Cursor = System.Windows.Forms.Cursors.Arrow
         Me.txtIncomingColor.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtIncomingColor.HideSelection = False
         Me.txtIncomingColor.Location = New System.Drawing.Point(0, 25)
         Me.txtIncomingColor.Name = "txtIncomingColor"
         Me.txtIncomingColor.Size = New System.Drawing.Size(328, 109)

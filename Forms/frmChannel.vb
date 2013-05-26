@@ -21,35 +21,11 @@ Public Class frmChannel
         'End Try
     End Sub
 
-    Private Sub txtIncomingColor_Click(sender As Object, e As System.EventArgs) Handles txtIncomingColor.Click
-        'Try
-        'lMdiChildWindow.txtIncomingColor_Click(txtOutgoing)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub txtIncomingColor_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.Click")
-        'End Try
-    End Sub
-
-    Private Sub txtIncomingColor_GotFocus(sender As Object, e As System.EventArgs) Handles txtIncomingColor.GotFocus
-        'Try
-        lMdiChildWindow.txtIncomingColor_GotFocus(Me)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub txtIncomingColor_GotFocus(sender As Object, e As System.EventArgs) Handles txtIncomingColor.GotFocus")
-        'End Try
-    End Sub
-
     Private Sub txtIncomingColor_LinkClicked(sender As Object, e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked
         'Try
         lMdiChildWindow.TextBox_LinkClicked(e.LinkText)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked")
-        'End Try
-    End Sub
-
-    Private Sub txtOutgoing_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
-        'Try
-        lMdiChildWindow.txtOutgoing_MouseDown(Me)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
         'End Try
     End Sub
 

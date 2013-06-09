@@ -4,12 +4,14 @@ Option Explicit On
 Option Strict On
 Imports nexIRC.IRC.Channels
 Imports nexIRC.IRC.Status
+Imports Telerik.WinControls.UI
 
 Module mdlObjects
     Public lIdent As New clsIdent
     Public lStatus As clsStatus
     Public lChannels As New clsChannel
     Public lChannelLists As New clsChannelList
+    Public lChannelFolder As New clsChannelFolder
 
     Public Function ReturnFirstSelectedListViewItem(ByVal lListView As ListView) As ListViewItem
         On Error Resume Next
@@ -38,6 +40,18 @@ Module mdlObjects
             End With
         Next i
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function DoesListViewItemExist(ByVal lListView As ListView, ByVal lData As String) As Boolean")
+    End Function
+
+    Public Function ReturnRadListBoxIndex(ByVal lListBox As RadListControl, ByVal lData As String) As Integer
+        On Error Resume Next
+        Dim i As Integer
+        For i = 0 To lListBox.Items.Count
+            If LCase(Trim(lData)) = LCase(Trim(lListBox.Items(i).ToString)) Then
+                ReturnRadListBoxIndex = i
+                Exit For
+            End If
+        Next i
+        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function ReturnListBoxIndex(ByVal lListBox As ListBox, ByVal lData As String) As Integer")
     End Function
 
     Public Function ReturnListBoxIndex(ByVal lListBox As ListBox, ByVal lData As String) As Integer

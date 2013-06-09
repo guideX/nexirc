@@ -62,6 +62,10 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CSScriptLibrary.v3.5, Version=3.5.2.0, Culture=neutral, PublicKeyToken=70fcc3d18c749033, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\CSScriptLibrary.v3.5.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -113,6 +117,7 @@
     <Reference Include="Telerik.WinControls.UI">
       <HintPath>..\..\telerik\Bin\Telerik.WinControls.UI.dll</HintPath>
     </Reference>
+    <Reference Include="TelerikCommon, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -146,6 +151,13 @@
     <Compile Include="Forms\frmChannel.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmChannelFolder.Designer.vb">
+      <DependentUpon>frmChannelFolder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChannelFolder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IRC\Channels\clsChannelFolder.vb" />
     <Compile Include="IRC\Status\clsStatus.vb" />
     <Compile Include="Classes\clsStatusSocket.vb" />
     <Compile Include="Forms\frmPrivateMessage.Designer.vb">
@@ -205,12 +217,6 @@
       <DependentUpon>frmChangeNickname.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmChangeNickname.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmChannelFolder.Designer.vb">
-      <DependentUpon>frmChannelFolder.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmChannelFolder.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmChannelJoin.Designer.vb">
@@ -419,6 +425,9 @@
     <EmbeddedResource Include="Forms\frmChannel.resx">
       <DependentUpon>frmChannel.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChannelFolder.resx">
+      <DependentUpon>frmChannelFolder.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmPrivateMessage.resx">
       <DependentUpon>frmPrivateMessage.vb</DependentUpon>
     </EmbeddedResource>
@@ -455,10 +464,6 @@
     <EmbeddedResource Include="Forms\frmChangeNickname.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmChangeNickname.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmChannelFolder.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmChannelFolder.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChannelJoin.resx">
       <SubType>Designer</SubType>

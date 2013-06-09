@@ -404,7 +404,7 @@ Public Class mdiMain
         If (IsNumeric(e.ClickedItem.Tag.ToString()) = True) Then
             _MeIndex = CType(e.ClickedItem.Tag.ToString(), Integer)
             If DoLeft(e.ClickedItem.Text, 1) = "#" Then
-                lChannels.ToggleChannelWindowState(_MeIndex, lChannels.Window(_MeIndex).lMdiChildWindow.lForeMost)
+                lChannels.ToggleChannelWindowState(lChannels.StatusIndex(_MeIndex), lChannels.Window(_MeIndex).lMdiChildWindow.lForeMost)
             ElseIf InStr(e.ClickedItem.Text, "(") <> 0 And InStr(e.ClickedItem.Text, ")") <> 0 Then
                 lStatus.ToggleStatusWindowState(_MeIndex, lStatus.Window(_MeIndex).lMdiChildWindow.lForeMost)
             Else
@@ -535,7 +535,7 @@ Public Class mdiMain
 
     Private Sub cmd_Channels_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Channels.ButtonClick
         On Error Resume Next
-        frmChannelFolder.SetStatusIndex(lStatus.ActiveIndex())
+        lChannelFolder.SetStatusIndex(lStatus.ActiveIndex())
         clsAnimate.Animate(frmChannelFolder, clsAnimate.Effect.Center, 200, 1)
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmd_Connect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Connect.Click")
     End Sub
@@ -620,8 +620,8 @@ Public Class mdiMain
 
     Private Sub cmd_ChannelFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChannelFolder.Click
         On Error Resume Next
-        frmChannelFolder.SetStatusIndex(lStatus.ActiveIndex())
-        clsAnimate.Animate(frmChannelFolder, clsAnimate.Effect.Center, 200, 1)
+        lChannelFolder.ShowWindow()
+        lChannelFolder.SetStatusIndex(lStatus.ActiveIndex)
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmd_ChannelFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChannelFolder.Click")
     End Sub
 
@@ -688,13 +688,16 @@ Public Class mdiMain
     Private Sub cmdLeftBar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdLeftBar.Click
         On Error Resume Next
         If cmd_LeftBar.Checked = True Then
+            clsAnimate.Animate(Panel1, clsAnimate.Effect.Slide, 200, 1)
             cmd_LeftBar.Checked = False
-            Panel1.Visible = False
+            'Panel1.Visible = False
         Else
             cmd_LeftBar.Checked = True
-            Panel1.Visible = True
+            'Panel1.Visible = True
+            clsAnimate.Animate(Panel1, clsAnimate.Effect.Slide, 200, 1)
         End If
         Me.Width = Me.Width + 1
+        mdiMain.ActiveForm.Focus()
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdLeftBar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdLeftBar.Click")
     End Sub
 

@@ -126,13 +126,6 @@ Public Class frmChannel
         'End Try
     End Sub
 
-    'Private Sub frmChannel_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-    'Try
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub frmChannel_Load(sender As Object, e As System.EventArgs) Handles Me.Load")
-    'End Try
-    'End Sub
-
     Private Sub frmChannel_Resize(sender As Object, e As System.EventArgs) Handles Me.Resize
         'Try
         lMdiChildWindow.Form_Resize(txtIncomingColor, txtOutgoing, Me)

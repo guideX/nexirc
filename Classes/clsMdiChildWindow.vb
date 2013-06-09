@@ -311,9 +311,8 @@ Public Class clsMdiChildWindow
 
     Public Sub cmdChannelFolder_Click()
         'Try
-        Dim _Form As New frmChannelFolder
-        _Form.SetStatusIndex(ReturnMeStatusIndex())
-        _Form.Show()
+        lChannelFolder.SetStatusIndex(lMeIndex)
+        lChannelFolder.ShowWindow()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub cmdChannelFolder_Click()")
         'End Try

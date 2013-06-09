@@ -360,6 +360,7 @@ Public Class clsIRC
                             If lIRC.iSettings.sNoIRCMessages = False Then
                                 ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ISUPPORT, splt2(2))
                             End If
+                            ProcessISUPPORT(lData)
                             Exit Sub
                         Case 6
                             If lIRC.iSettings.sNoIRCMessages = False Then
@@ -1293,8 +1294,7 @@ Public Class clsIRC
             lStatus.GetObject(lStatusIndex).sWindow.Invoke(lQuitProc, lStatusIndex, lData)
         End If
         If Trim(LCase(splt(1))) = "nick" Then
-            splt2 = Split(lData, ":")
-            ProcessReplaceString(lStatusIndex, eStringTypes.sNICK_CHANGE, ParseData(lData, ":", "!"), ParseData(lData, "=", " NICK :"), Right(lData, Len(lData) - (Len(splt2(1)) + 2)))
+            ProcessNickNameChange(lStatusIndex, lData)
             Exit Sub
         End If
         If UBound(splt) <> 0 Then
@@ -1366,6 +1366,30 @@ Public Class clsIRC
         lStatus.AddToUnknowns(lStatusIndex, lData)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub ProcessDataArrivalLine(ByVal lStatusIndex As Integer, ByVal lData As String)")
+        'End Try
+    End Sub
+
+    Public Sub ProcessNickNameChange(_StatusIndex As Integer, _Data As String)
+        Dim splt() As String, _OldNick As String, _NewNick As String, _HostName As String
+        'Try
+        splt = Split(_Data, ":")
+        _OldNick = ParseData(_Data, ":", "!")
+        _NewNick = ParseData(_Data, "=", " NICK :")
+        _HostName = Right(_Data, Len(_Data) - (Len(splt(1)) + 2))
+        ProcessReplaceString(_StatusIndex, eStringTypes.sNICK_CHANGE, _OldNick, _NewNick, _HostName)
+        If _OldNick = lStatus.NickName(_StatusIndex) Then
+            lStatus.NickName(_StatusIndex, False) = _NewNick
+        End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub ProcessNickNameChange(_StatusIndex As Integer, _Data As String)")
+        'End Try
+    End Sub
+
+    Public Sub ProcessISUPPORT(lData As String)
+        'Try
+        'TODO
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub ProcessISUPPORT(lData As String)")
         'End Try
     End Sub
 

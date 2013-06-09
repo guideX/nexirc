@@ -330,8 +330,6 @@ Namespace IRC.Channels
                 Else
                     Join(_StatusIndex, _ChannelB)
                 End If
-
-
                 If lIRC.iSettings.sNoIRCMessages = False Then ProcessReplaceString(_StatusIndex, eStringTypes.sERR_LINKCHANNEL, _ChannelA, _ChannelB)
                 'Join(_StatusIndex, _ChannelB)
             End If
@@ -358,6 +356,8 @@ Namespace IRC.Channels
                 _ChannelIndex = Add(_Channel, _StatusIndex)
                 CreateWindow(_ChannelIndex)
                 DoChannelColor(_ChannelIndex, ReturnReplacedString(eStringTypes.sYOUJOIN, _Channel))
+                AddToChannelFolders(_Channel, lStatus.NetworkIndex(_StatusIndex))
+                lChannelFolder.RefreshChannelFolderChannelList()
             Else
                 If lIRC.iSettings.sShowUserAddresses = True Then
                     _TextToDisplay = ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName & " (" & _IpAddress & ")", _Channel)

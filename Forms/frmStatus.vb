@@ -7,13 +7,6 @@ Public Class frmStatus
     Public WithEvents lMdiChildWindow As New clsMdiChildWindow
     Public WithEvents lAutoConnectDelayTimer As New Timer
 
-    Private Sub txtIncomingColor_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtIncomingColor.KeyPress
-        'Try
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub txtIncomingColor_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtIncomingColor.KeyPress")
-        'End Try
-    End Sub
-
     Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked
         'Try
         lMdiChildWindow.TextBox_LinkClicked(e.LinkText)
@@ -174,13 +167,5 @@ Public Class frmStatus
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
         'End Try
-    End Sub
-
-    Private Sub txtOutgoing_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtOutgoing.TextChanged
-
-    End Sub
-
-    Private Sub txtIncomingColor_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtIncomingColor.TextChanged
-
     End Sub
 End Class

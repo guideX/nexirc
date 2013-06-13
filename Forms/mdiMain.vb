@@ -139,9 +139,9 @@ Public Class mdiMain
     Private Function IsPageExempt(ByVal lURL As String) As Boolean
         'Try
         Dim splt() As String = Split(lURL, "/")
-        If InStr(splt(2), "'02-27-2013 - guideX") <> 0 Or InStr(splt(0), "tnexgen.com") <> 0 Then
-            Return True
-        End If
+        'If InStr(splt(2), "'02-27-2013 - guideX") <> 0 Or InStr(splt(0), "tnexgen.com") <> 0 Then
+        'Return True
+        'End If
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Function IsPageExempt(ByVal lURL As String) As Boolean")
         'End Try
@@ -294,6 +294,7 @@ Public Class mdiMain
 
     Private Sub mdiMain_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
         On Error Resume Next
+        LockWindowUpdate(Me.Handle)
         cmdLeftBar.Top = CInt(Me.ClientSize.Height / 2)
         If Panel1.Visible = True Then
             cmdLeftBar.Left = Panel1.ClientSize.Width
@@ -323,6 +324,8 @@ Public Class mdiMain
             End If
         End If
         ResizeBrowser()
+        Me.Refresh()
+        LockWindowUpdate(System.IntPtr.Zero)
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdCustomize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCustomize.Click")
     End Sub
 
@@ -536,7 +539,7 @@ Public Class mdiMain
     Private Sub cmd_Channels_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Channels.ButtonClick
         On Error Resume Next
         lChannelFolder.SetStatusIndex(lStatus.ActiveIndex())
-        clsAnimate.Animate(frmChannelFolder, clsAnimate.Effect.Center, 200, 1)
+        clsAnimate.Animate(lChannelFolder.Window(), clsAnimate.Effect.Center, 200, 1)
         'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmd_Connect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Connect.Click")
     End Sub
 

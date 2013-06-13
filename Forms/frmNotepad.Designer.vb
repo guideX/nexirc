@@ -22,12 +22,14 @@ Partial Class frmNotepad
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.txtData = New System.Windows.Forms.TextBox
+        Me.txtData = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'txtData
         '
+        Me.txtData.BackColor = System.Drawing.Color.Black
         Me.txtData.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtData.ForeColor = System.Drawing.Color.White
         Me.txtData.Location = New System.Drawing.Point(0, 0)
         Me.txtData.Multiline = True
         Me.txtData.Name = "txtData"

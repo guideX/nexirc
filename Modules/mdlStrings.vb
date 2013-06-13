@@ -2270,6 +2270,7 @@ Module mdlStrings
 
     Public Sub DoColor(lData As String, lTextBox As RichTextBox, Optional _Black As Boolean = False)
         'Try
+        _Black = True
         Dim i As Integer, msg As String, lBackColor As Integer = 16, lForeColor As Integer, _ScrollToBottom As New clsScrollToBottom
         LockWindowUpdate(lTextBox.Handle)
         If Len(lData.Trim) = 0 Then Exit Sub

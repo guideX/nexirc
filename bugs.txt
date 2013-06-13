@@ -1,0 +1,9 @@
+﻿- dcc
+  - dcc send broken
+  - dcc get broken
+  - dcc chat broken 
+  - dcc accept chat broken
+- browser
+  - on start, if browser is enabled and customize window is shown, the customize window falls behind the main window, when the page is finished loading
+- main window
+  - icons in left pane (server window) isn't the same icon when connected

@@ -19,12 +19,13 @@ Partial Class frmNoticeWindow
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.txtIncomingColor = New System.Windows.Forms.RichTextBox
-        Me.txtOutgoing = New System.Windows.Forms.TextBox
+        Me.txtIncomingColor = New System.Windows.Forms.RichTextBox()
+        Me.txtOutgoing = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'txtIncomingColor
         '
+        Me.txtIncomingColor.BackColor = System.Drawing.Color.Black
         Me.txtIncomingColor.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtIncomingColor.Cursor = System.Windows.Forms.Cursors.Arrow
         Me.txtIncomingColor.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -36,9 +37,10 @@ Partial Class frmNoticeWindow
         '
         'txtOutgoing
         '
-        Me.txtOutgoing.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.txtOutgoing.BackColor = System.Drawing.Color.Navy
         Me.txtOutgoing.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtOutgoing.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOutgoing.ForeColor = System.Drawing.Color.White
         Me.txtOutgoing.Location = New System.Drawing.Point(0, 82)
         Me.txtOutgoing.Name = "txtOutgoing"
         Me.txtOutgoing.Size = New System.Drawing.Size(172, 16)

@@ -40,7 +40,7 @@ Partial Class frmChannel
         '
         'lvwNicklist
         '
-        Me.lvwNicklist.BackColor = System.Drawing.Color.MistyRose
+        Me.lvwNicklist.BackColor = System.Drawing.Color.Black
         Me.lvwNicklist.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.lvwNicklist.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lvwNicklist.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
@@ -54,6 +54,7 @@ Partial Class frmChannel
         '
         'txtIncomingColor
         '
+        Me.txtIncomingColor.BackColor = System.Drawing.Color.Black
         Me.txtIncomingColor.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtIncomingColor.Cursor = System.Windows.Forms.Cursors.Arrow
         Me.txtIncomingColor.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -65,9 +66,10 @@ Partial Class frmChannel
         '
         'txtOutgoing
         '
-        Me.txtOutgoing.BackColor = System.Drawing.Color.MistyRose
+        Me.txtOutgoing.BackColor = System.Drawing.Color.Navy
         Me.txtOutgoing.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOutgoing.ForeColor = System.Drawing.Color.White
         Me.txtOutgoing.Location = New System.Drawing.Point(0, 134)
         Me.txtOutgoing.Name = "txtOutgoing"
         Me.txtOutgoing.Size = New System.Drawing.Size(430, 19)

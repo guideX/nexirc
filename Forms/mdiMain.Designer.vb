@@ -157,22 +157,22 @@ Partial Class mdiMain
         '
         'tmrStartupSettings
         '
-        Me.tmrStartupSettings.Interval = 10
+        Me.tmrStartupSettings.Interval = 200
         '
         'ImageList1
         '
         Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.ImageList1.TransparentColor = System.Drawing.Color.White
-        Me.ImageList1.Images.SetKeyName(0, "status2.bmp")
-        Me.ImageList1.Images.SetKeyName(1, "channel2.bmp")
-        Me.ImageList1.Images.SetKeyName(2, "server2.bmp")
-        Me.ImageList1.Images.SetKeyName(3, "notice.bmp")
-        Me.ImageList1.Images.SetKeyName(4, "raw.bmp")
-        Me.ImageList1.Images.SetKeyName(5, "rawblue.bmp")
-        Me.ImageList1.Images.SetKeyName(6, "noticesblue.bmp")
-        Me.ImageList1.Images.SetKeyName(7, "serverblue.bmp")
-        Me.ImageList1.Images.SetKeyName(8, "status_blue.bmp")
-        Me.ImageList1.Images.SetKeyName(9, "channel_blue.bmp")
+        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
+        Me.ImageList1.Images.SetKeyName(0, "black_status.jpg")
+        Me.ImageList1.Images.SetKeyName(1, "black_channel.jpg")
+        Me.ImageList1.Images.SetKeyName(2, "black_server.jpg")
+        Me.ImageList1.Images.SetKeyName(3, "black_notice.jpg")
+        Me.ImageList1.Images.SetKeyName(4, "black_raw.jpg")
+        Me.ImageList1.Images.SetKeyName(5, "black_rawblue.jpg")
+        Me.ImageList1.Images.SetKeyName(6, "black_noticeblue.jpg")
+        Me.ImageList1.Images.SetKeyName(7, "black_serverblue.jpg")
+        Me.ImageList1.Images.SetKeyName(8, "black_statusblue.jpg")
+        Me.ImageList1.Images.SetKeyName(9, "black_channelblue.jpg")
         '
         'ToolStrip
         '
@@ -565,11 +565,11 @@ Partial Class mdiMain
         '
         'tvwConnections
         '
-        Me.tvwConnections.BackColor = System.Drawing.Color.White
+        Me.tvwConnections.BackColor = System.Drawing.Color.Black
         Me.tvwConnections.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tvwConnections.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tvwConnections.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tvwConnections.ForeColor = System.Drawing.Color.Black
+        Me.tvwConnections.ForeColor = System.Drawing.Color.White
         Me.tvwConnections.FullRowSelect = True
         Me.tvwConnections.ImageIndex = 0
         Me.tvwConnections.ImageList = Me.ImageList1
@@ -738,6 +738,7 @@ Partial Class mdiMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.BackgroundImage = Global.nexIRC.My.Resources.Resources.background
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(819, 356)
         Me.Controls.Add(Me.tspQueryPrompt)

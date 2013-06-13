@@ -4,6 +4,7 @@ Option Explicit On
 Option Strict On
 Imports System
 Imports System.Net
+Imports nexIRC.IRC.Channels.clsChannel
 
 Public Class clsIRC
     Private l001 As String, l002 As String, l003 As String, l004 As String
@@ -354,7 +355,6 @@ Public Class clsIRC
                                 If Len(l001) <> 0 And Len(l002) <> 0 And Len(l003) <> 0 And Len(l004) <> 0 Then lStatus.ProcessWelcomeMessage(lStatusIndex, l001, l002, l003, l004)
                             End If
                             DoNotify(lStatusIndex)
-
                             Exit Sub
                         Case 5
                             If lIRC.iSettings.sNoIRCMessages = False Then
@@ -1289,6 +1289,16 @@ Public Class clsIRC
                 End If
             End If
         End If
+        If Trim(LCase(splt(1))) = "nick" Then
+            ':guide__X!~guide_X@71-94-138-127.static.mtpk.ca.charter.com NICK :guide___X
+            splt2 = Split(lData, " ")
+            splt2(2) = splt2(2).Replace(":", "")
+            splt2(0) = ParseData(splt2(0), ":", "!").Replace(":", "").Replace("!", "")
+            splt2(1) = lData
+            splt2(1) = Left(lData, Len(lData) - (Len(splt2(2)) + 7))
+            splt2(1) = Right(splt2(1), Len(splt2(1)) - (Len(splt2(0)) + 2))
+            lChannels.SomeoneChangedNickName(splt2(0), splt2(1), splt2(2), lStatusIndex)
+        End If
         If Trim(LCase(splt(1))) = "quit" Then
             Dim lQuitProc As New QuitDelegate(AddressOf lChannels.SomeoneQuit)
             lStatus.GetObject(lStatusIndex).sWindow.Invoke(lQuitProc, lStatusIndex, lData)
@@ -1370,13 +1380,13 @@ Public Class clsIRC
     End Sub
 
     Public Sub ProcessNickNameChange(_StatusIndex As Integer, _Data As String)
-        Dim splt() As String, _OldNick As String, _NewNick As String, _HostName As String
+        Dim splt() As String, _OldNick As String, _NewNick As String ', _HostName As String
         'Try
         splt = Split(_Data, ":")
         _OldNick = ParseData(_Data, ":", "!")
         _NewNick = ParseData(_Data, "=", " NICK :")
-        _HostName = Right(_Data, Len(_Data) - (Len(splt(1)) + 2))
-        ProcessReplaceString(_StatusIndex, eStringTypes.sNICK_CHANGE, _OldNick, _NewNick, _HostName)
+        '_HostName = Right(_Data, Len(_Data) - (Len(splt(1)) + 2))
+        'ProcessReplaceString(_StatusIndex, eStringTypes.sNICK_CHANGE, _OldNick, _NewNick, _HostName)
         If _OldNick = lStatus.NickName(_StatusIndex) Then
             lStatus.NickName(_StatusIndex, False) = _NewNick
         End If

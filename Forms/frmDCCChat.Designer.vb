@@ -36,8 +36,11 @@ Partial Class frmDCCChat
         '
         'txtIncoming
         '
+        Me.txtIncoming.BackColor = System.Drawing.Color.Black
         Me.txtIncoming.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtIncoming.Cursor = System.Windows.Forms.Cursors.Arrow
+        Me.txtIncoming.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIncoming.ForeColor = System.Drawing.Color.White
         Me.txtIncoming.Location = New System.Drawing.Point(0, 25)
         Me.txtIncoming.Name = "txtIncoming"
         Me.txtIncoming.Size = New System.Drawing.Size(334, 90)
@@ -46,11 +49,13 @@ Partial Class frmDCCChat
         '
         'txtOutgoing
         '
-        Me.txtOutgoing.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.txtOutgoing.BackColor = System.Drawing.Color.Navy
         Me.txtOutgoing.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOutgoing.ForeColor = System.Drawing.Color.White
         Me.txtOutgoing.Location = New System.Drawing.Point(0, 124)
         Me.txtOutgoing.Name = "txtOutgoing"
-        Me.txtOutgoing.Size = New System.Drawing.Size(334, 14)
+        Me.txtOutgoing.Size = New System.Drawing.Size(334, 19)
         Me.txtOutgoing.TabIndex = 0
         '
         'tlsDCCChat
@@ -90,6 +95,8 @@ Partial Class frmDCCChat
         '
         'cboUsers
         '
+        Me.cboUsers.BackColor = System.Drawing.Color.Black
+        Me.cboUsers.ForeColor = System.Drawing.Color.White
         Me.cboUsers.Name = "cboUsers"
         Me.cboUsers.Size = New System.Drawing.Size(121, 25)
         '
@@ -106,7 +113,7 @@ Partial Class frmDCCChat
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Control
+        Me.BackColor = System.Drawing.Color.Black
         Me.ClientSize = New System.Drawing.Size(346, 150)
         Me.Controls.Add(Me.tlsDCCChat)
         Me.Controls.Add(Me.txtOutgoing)

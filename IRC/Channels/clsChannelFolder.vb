@@ -112,7 +112,7 @@ Public Class clsChannelFolderWindow
     Public Sub cmdClose_Click(_Form As Form)
         'Try
         SaveChannelFolders()
-        _Form.Close()
+        clsAnimate.Animate(_Form, clsAnimate.Effect.Center, 200, 1)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub Form_Closed(lCloseWindow As Boolean)")
         'End Try
@@ -130,6 +130,7 @@ Public Class clsChannelFolderWindow
     Public Sub lnkJumpToChannelList_LinkClicked(_Form As Form)
         'Try
         ProcessReplaceCommand(lStatusIndex, eCommandTypes.cLIST, lStatus.Description(lStatus.ActiveIndex))
+        clsAnimate.Animate(_Form, clsAnimate.Effect.Center, 200, 1)
         _Form.Close()
         'Catch ex As Exception
         'ProcessError(ex.Message, "lnkJumpToChannelList_LinkClicked")
@@ -206,4 +207,8 @@ Public Class clsChannelFolder
         'ProcessError(ex.Message, "Private Sub lWindow_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles lWindow.FormClosed")
         'End Try
     End Sub
+
+    Public Function Window() As Form
+        Return lWindow
+    End Function
 End Class

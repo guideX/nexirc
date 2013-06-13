@@ -49,7 +49,7 @@ Namespace IRC.Channels
                     ElseIf InStr(_NickListItem.Text, "+") <> 0 Then
                         _NickListItem.ForeColor = Color.DarkGreen
                     Else
-                        _NickListItem.ForeColor = Color.Black
+                        _NickListItem.ForeColor = Color.White
                     End If
                 End If
             End With
@@ -337,6 +337,22 @@ Namespace IRC.Channels
             'RaiseEvent ProcessError(ex.Message, "Public Sub Redirect(_StatusIndex As Integer, _Data As String)")
             'End Try
         End Sub
+        Public Sub SomeoneChangedNickName(_OldNickName As String, _HostName As String, _NickName As String, _StatusIndex As Integer)
+            'Try
+            For Each lChannel As gChannel In lChannels.cChannel
+                If (lChannel.cStatusIndex = _StatusIndex) Then
+                    For Each lListViewItem As ListViewItem In lChannel.cWindow.lvwNicklist.Items
+                        If (lListViewItem.Text = _OldNickName) Then
+                            lListViewItem.Text = _NickName
+                            DoColor(ReturnReplacedString(eStringTypes.sNICK_CHANGE, _OldNickName, _HostName, _NickName), lChannel.cWindow.txtIncomingColor)
+                        End If
+                    Next lListViewItem
+                End If
+            Next lChannel
+            'Catch ex As Exception
+            'RaiseEvent ProcessError(ex.Message, "Public Sub SomeoneChangedNickName(_OldNickName As String, _HostName As String, _NickName As String, _StatusIndex As Integer)")
+            'End Try
+        End Sub
         Public Sub SomeoneJoined(ByVal _StatusIndex As Integer, ByVal _Data As String)
             ':guide_X!~guide_X@pool-108-13-216-135.lsanca.fios.verizon.net JOIN #testerama
             'Try
@@ -489,6 +505,7 @@ Namespace IRC.Channels
             'RaiseEvent ProcessError(ex.Message, "Public Sub KillChannel(ByVal lIndex As Integer)")
             'End Try
         End Sub
+
         Public Sub Join(ByVal lStatusIndex As Integer, ByVal lChannelName As String)
             'Try
             If lStatusIndex <> 0 And Len(lChannelName) <> 0 Then lStatus.SendSocket(lStatusIndex, "JOIN " & lChannelName)

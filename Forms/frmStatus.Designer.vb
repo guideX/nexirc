@@ -139,10 +139,10 @@ Partial Class frmStatus
         '
         'txtOutgoing
         '
-        Me.txtOutgoing.BackColor = System.Drawing.Color.MistyRose
+        Me.txtOutgoing.BackColor = System.Drawing.Color.Navy
         Me.txtOutgoing.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOutgoing.ForeColor = System.Drawing.Color.Black
+        Me.txtOutgoing.ForeColor = System.Drawing.Color.White
         Me.txtOutgoing.Location = New System.Drawing.Point(0, 114)
         Me.txtOutgoing.Name = "txtOutgoing"
         Me.txtOutgoing.Size = New System.Drawing.Size(249, 19)
@@ -166,7 +166,7 @@ Partial Class frmStatus
         '
         'txtIncomingColor
         '
-        Me.txtIncomingColor.BackColor = System.Drawing.Color.White
+        Me.txtIncomingColor.BackColor = System.Drawing.Color.Black
         Me.txtIncomingColor.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtIncomingColor.Cursor = System.Windows.Forms.Cursors.Arrow
         Me.txtIncomingColor.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

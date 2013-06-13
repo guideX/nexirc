@@ -158,6 +158,7 @@ Public Class frmDCCChat
                 Else
                     msg = lStatus.lIRCMisc.ReturnMyIp()
                 End If
+                msg = msg.Replace(Chr(10), "").Replace(Chr(13), "").Replace(vbCrLf, "").Trim
                 lStatus.DoStatusSocket(lStatusIndex, "NOTICE " & cboUsers.Text & " :DCC CHAT (" & msg & ")")
                 lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & cboUsers.Text & " :DCC CHAT chat " & EncodeIPAddr(msg) & " " & Trim(p.ToString) & "")
                 Me.Invoke(lAddText, "Attempting Connection")

@@ -18,6 +18,7 @@ Public Class frmStatus
     Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown
         'Try
         lMdiChildWindow.txtIncomingColor_MouseDown(Me, txtOutgoing)
+        lStatus.ActiveIndex = lMdiChildWindow.MeIndex
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown")
         'End Try

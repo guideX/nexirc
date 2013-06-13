@@ -21,12 +21,12 @@ Partial Class frmCustomize
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCustomize))
-        Dim ListViewDetailColumn7 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
-        Dim ListViewDetailColumn8 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Server")
-        Dim ListViewDetailColumn9 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Port")
-        Dim ListViewDetailColumn1 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
-        Dim ListViewDetailColumn2 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Network")
-        Dim ListViewDetailColumn3 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Message")
+        Dim ListViewDetailColumn4 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
+        Dim ListViewDetailColumn5 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Server")
+        Dim ListViewDetailColumn6 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Port")
+        Dim ListViewDetailColumn7 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
+        Dim ListViewDetailColumn8 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Network")
+        Dim ListViewDetailColumn9 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Message")
         Me.cmdCancelNow = New Telerik.WinControls.UI.RadButton()
         Me.cmdServersMove = New Telerik.WinControls.UI.RadButton()
         Me.cmdServersClear = New Telerik.WinControls.UI.RadButton()
@@ -1047,11 +1047,11 @@ Partial Class frmCustomize
         '
         'lvwServers
         '
-        ListViewDetailColumn7.HeaderText = "Description"
-        ListViewDetailColumn8.HeaderText = "Server"
-        ListViewDetailColumn9.HeaderText = "Port"
-        ListViewDetailColumn9.Width = 117.0!
-        Me.lvwServers.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn7, ListViewDetailColumn8, ListViewDetailColumn9})
+        ListViewDetailColumn4.HeaderText = "Description"
+        ListViewDetailColumn5.HeaderText = "Server"
+        ListViewDetailColumn6.HeaderText = "Port"
+        ListViewDetailColumn6.Width = 117.0!
+        Me.lvwServers.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn4, ListViewDetailColumn5, ListViewDetailColumn6})
         Me.lvwServers.EnableColumnSort = True
         Me.lvwServers.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwServers.ItemSize = New System.Drawing.Size(200, 20)
@@ -1563,10 +1563,10 @@ Partial Class frmCustomize
         '
         'lvwNotify
         '
-        ListViewDetailColumn1.HeaderText = "Name"
-        ListViewDetailColumn2.HeaderText = "Network"
-        ListViewDetailColumn3.HeaderText = "Message"
-        Me.lvwNotify.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn1, ListViewDetailColumn2, ListViewDetailColumn3})
+        ListViewDetailColumn7.HeaderText = "Name"
+        ListViewDetailColumn8.HeaderText = "Network"
+        ListViewDetailColumn9.HeaderText = "Message"
+        Me.lvwNotify.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn7, ListViewDetailColumn8, ListViewDetailColumn9})
         Me.lvwNotify.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwNotify.ItemSize = New System.Drawing.Size(200, 20)
         Me.lvwNotify.ItemSpacing = -1
@@ -1636,7 +1636,7 @@ Partial Class frmCustomize
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmCustomize"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "nexIRC - Customize"
         CType(Me.cmdCancelNow, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdServersMove, System.ComponentModel.ISupportInitialize).EndInit()

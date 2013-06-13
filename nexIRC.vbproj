@@ -670,6 +670,7 @@
     <Content Include="bin\Debug\data\script\nirc.txt" />
     <Content Include="bin\Debug\data\script\status.txt" />
     <Content Include="bin\Debug\Resources\status.ico" />
+    <Content Include="bugs.txt" />
     <Content Include="nexgen.ico" />
     <None Include="Resources\connect.png" />
     <None Include="Resources\chat.png" />

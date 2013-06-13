@@ -24,7 +24,9 @@ Partial Class frmChannelList
         '
         'lvwChannels
         '
+        Me.lvwChannels.BackColor = System.Drawing.Color.Black
         Me.lvwChannels.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.lvwChannels.ForeColor = System.Drawing.Color.White
         Me.lvwChannels.FullRowSelect = True
         Me.lvwChannels.Location = New System.Drawing.Point(1, 1)
         Me.lvwChannels.Name = "lvwChannels"

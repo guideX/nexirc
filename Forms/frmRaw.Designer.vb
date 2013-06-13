@@ -22,14 +22,16 @@ Partial Class frmRaw
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.txtInData = New System.Windows.Forms.TextBox
-        Me.txtOutData = New System.Windows.Forms.TextBox
+        Me.txtInData = New System.Windows.Forms.TextBox()
+        Me.txtOutData = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'txtInData
         '
+        Me.txtInData.BackColor = System.Drawing.Color.Black
         Me.txtInData.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtInData.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtInData.ForeColor = System.Drawing.Color.White
         Me.txtInData.Location = New System.Drawing.Point(0, 0)
         Me.txtInData.Multiline = True
         Me.txtInData.Name = "txtInData"
@@ -39,8 +41,10 @@ Partial Class frmRaw
         '
         'txtOutData
         '
+        Me.txtOutData.BackColor = System.Drawing.Color.Black
         Me.txtOutData.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtOutData.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOutData.ForeColor = System.Drawing.Color.White
         Me.txtOutData.Location = New System.Drawing.Point(0, 91)
         Me.txtOutData.Multiline = True
         Me.txtOutData.Name = "txtOutData"

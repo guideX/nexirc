@@ -1,5 +1,5 @@
 'nexIRC 3.0.23
-'02-27-2013 - guideX
+'06-13-2013 - guideX
 
 Option Explicit On
 Option Strict On
@@ -39,7 +39,7 @@ Public Class frmDCCSend
             .fFileLength = LOF(.fFileNumber)
             SendFileChunk("")
         End With
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub InitFile()")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub InitFile()")
     End Sub
 
     Public Sub SendFileChunk(ByVal lData As String)
@@ -57,7 +57,7 @@ Public Class frmDCCSend
             lSocket.Send(msg)
             Me.Invoke(lSetProgress, .fBytesSent, .fFileLength)
         End With
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub SendFileChunk()")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SendFileChunk()")
     End Sub
 
     Private Sub SetProgress(ByVal lBytesSent As Long, ByVal lLength As Long)
@@ -71,26 +71,26 @@ Public Class frmDCCSend
             lblStatus.Text = "Send Complete"
             tmrCloseSocketDelay.Enabled = True
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub SetProgressBar()")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub SetProgressBar()")
     End Sub
 
     Public Sub SetStatusIndex(ByVal lIndex As Integer)
         On Error Resume Next
         lStatusIndex = lIndex
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
     End Sub
 
     Private Sub frmDCCSend_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         On Error Resume Next
-        WriteINI(lINI.iDCC, "Settings", "DCCSendLastNick", cboNickname.Text)
+        clsFiles.WriteINI(lINI.iDCC, "Settings", "DCCSendLastNick", cboNickname.Text)
         If lFileOpen = True Then FileClose(lFile.fFileNumber)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub frmDCCSend_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub frmDCCSend_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed")
     End Sub
 
     Private Sub frmDCCSend_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         On Error Resume Next
         Dim i As Integer
-        cboNickname.Text = ReadINI(lINI.iDCC, "Settings", "DCCSendLastNick", "")
+        cboNickname.Text = clsFiles.ReadINI(lINI.iDCC, "Settings", "DCCSendLastNick", "")
         Me.Icon = mdiMain.Icon
         For i = 1 To lNotify.nCount
             cboNickname.Items.Add(lNotify.nNotify(i).nNickName)
@@ -99,14 +99,14 @@ Public Class frmDCCSend
             cboPort.Items.Add(Trim(i.ToString))
         Next i
         cboPort.Text = Trim(lStatus.lIRCMisc.ReturnDCCPort().ToString)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub frmDCCSend_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub frmDCCSend_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load")
     End Sub
 
     Private Sub InitSendListenSocket(ByVal lPort As Integer)
         On Error Resume Next
         lListen = New nexIRC.Sockets.AsyncServer(CInt(lPort))
         lListen.Start()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub InitSendListenSocket(ByVal lPort As Integer)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub InitSendListenSocket(ByVal lPort As Integer)")
     End Sub
 
     Private Sub cmdSend_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSend.Click
@@ -134,13 +134,13 @@ Public Class frmDCCSend
                 End If
             End If
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdSend_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSend.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdSend_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSend.Click")
     End Sub
 
     Private Sub SetLabel(ByVal lData As String)
         On Error Resume Next
         lblStatus.Text = lData
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub SetLabel(ByVal lData As String)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub SetLabel(ByVal lData As String)")
     End Sub
 
     Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As nexIRC.Sockets.AsyncSocket) Handles lListen.ConnectionAccept
@@ -148,27 +148,27 @@ Public Class frmDCCSend
         Dim l As New EmptyDelegate(AddressOf InitFile)
         lSocket = tmp_Socket
         Me.Invoke(l)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As nexIRC.Sockets.AsyncSocket) Handles lListen.ConnectionAccept")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As nexIRC.Sockets.AsyncSocket) Handles lListen.ConnectionAccept")
     End Sub
 
     Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lSocket.socketDataArrival
         On Error Resume Next
         Dim l As New StringDelegate(AddressOf SendFileChunk)
         Me.Invoke(l, SocketData)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String) Handles lSocket.socketDataArrival")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String) Handles lSocket.socketDataArrival")
     End Sub
 
     Private Sub lSocket_socketError(ByVal lData As String) Handles lSocket.socketError
         On Error Resume Next
         Dim lSetLabel As New StringDelegate(AddressOf SetLabel)
         Me.Invoke(lSetLabel, lData)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub lSocket_socketError(ByVal lData As String) Handles lSocket.socketError")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub lSocket_socketError(ByVal lData As String) Handles lSocket.socketError")
     End Sub
 
     Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click
         On Error Resume Next
         Me.Close()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click")
     End Sub
 
     Private Sub cmdSelectFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSelectFile.Click
@@ -176,7 +176,7 @@ Public Class frmDCCSend
         OpenFileDialog1.Filter = "All Files (*.*)|*.*"
         OpenFileDialog1.ShowDialog()
         txtFilename.Text = OpenFileDialog1.FileName
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdSelectFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSelectFile.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdSelectFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSelectFile.Click")
     End Sub
 
     Private Sub tmrCloseSocketDelay_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCloseSocketDelay.Tick
@@ -184,12 +184,12 @@ Public Class frmDCCSend
         tmrCloseSocketDelay.Enabled = False
         lSocket.Close()
         If lDCC.dAutoCloseDialogs = True Then Me.Close()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub tmrCloseSocketDelay_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCloseSocketDelay.Tick")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub tmrCloseSocketDelay_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCloseSocketDelay.Tick")
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click
         On Error Resume Next
         Me.Close()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click")
     End Sub
 End Class

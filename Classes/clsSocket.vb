@@ -1,5 +1,5 @@
 'nexIRC 3.0.23
-'02-27-2013 - guideX / DarkMercenary44
+'06-13-2013 - guideX / DarkMercenary44
 Option Explicit On
 Option Strict On
 Imports System

@@ -5,5 +5,21 @@
   - dcc accept chat broken
 - browser
   - on start, if browser is enabled and customize window is shown, the customize window falls behind the main window, when the page is finished loading
-- main window
-  - icons in left pane (server window) isn't the same icon when connected
+- channel folder
+  - join button doesn't work
+  - double click on listview doesn't work
+  - jump to channel list button doesn't work
+  - second time loaded, the dropdown and listbox are empty
+- raw
+  - can't tell where indata ends and outdata begins
+  - after showing window, text is added in the oposit direction
+- status window
+  - if show browser in customize is unchecked, and you click on a link, nothing happens
+- customize
+  - notify tab is mostly broken
+  - remove nickname button doesn't work
+  - add nickname button is positioned off center
+  - no prompts setting breaks irc client in various ways
+
+- channel
+  - whois has unwanted line feeds in it

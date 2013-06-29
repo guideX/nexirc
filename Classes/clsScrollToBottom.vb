@@ -12,10 +12,10 @@ Public Class clsScrollToBottom
     Private Shared ReadOnly WM_VSCROLL As Integer = 277
 
     Public Sub ScrollToBottom(_RichTextBox As RichTextBox)
-        'Try
-        SendMessage(_RichTextBox.Handle, WM_VSCROLL, CType(7, IntPtr), IntPtr.Zero)
-        'Catch ex As Exception
-        'RaiseEvent ProcessError(ex.Message, "Public Shared Sub ScrollToBottom(_RichTextBox As RichTextBox)")
-        'End Try
+        Try
+            SendMessage(_RichTextBox.Handle, WM_VSCROLL, CType(7, IntPtr), IntPtr.Zero)
+        Catch ex As Exception
+            RaiseEvent ProcessError(ex.Message, "Public Shared Sub ScrollToBottom(_RichTextBox As RichTextBox)")
+        End Try
     End Sub
 End Class

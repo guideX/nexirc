@@ -1,5 +1,5 @@
 'nexIRC 3.0.23
-'02-27-2013 - guideX
+'06-13-2013 - guideX
 Option Explicit On
 Option Strict On
 
@@ -19,7 +19,7 @@ Public Class frmDCCChat
     Public Sub SetStatusIndex(ByVal lIndex As Integer)
         On Error Resume Next
         lStatusIndex = lIndex
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
     End Sub
 
     Private Sub AddText(ByVal lData As String)
@@ -31,7 +31,7 @@ Public Class frmDCCChat
                 txtIncoming.Text = lData & txtIncoming.Text
             End If
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub AddText(ByVal lData As String)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub AddText(ByVal lData As String)")
     End Sub
 
     Private Sub SendData(ByVal lTempSocket As nexIRC.Sockets.AsyncSocket, ByVal lData As String)
@@ -39,20 +39,20 @@ Public Class frmDCCChat
         If Len(lData) <> 0 Then
             lTempSocket.Send(lData & vbCrLf)
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub SendData(ByVal lSocket As nexIRC.Sockets.AsyncSocket, ByVal lData As String)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub SendData(ByVal lSocket As nexIRC.Sockets.AsyncSocket, ByVal lData As String)")
     End Sub
 
     Private Sub InitDCCListenSocket(Optional ByVal lPort As Long = 0)
         On Error Resume Next
         lListen = New nexIRC.Sockets.AsyncServer(CInt(lPort))
         lListen.Start()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub InitDCCListenSocket(ByVal lPort As Integer)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub InitDCCListenSocket(ByVal lPort As Integer)")
     End Sub
 
     Public Sub ConnectToDCCChat(ByVal lIp As String, ByVal lPort As Long)
         On Error Resume Next
         lSocket.Connect(lIp, lPort)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub ConnectToDCCChat(ByVal lIp As String, ByVal lPort As Long)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub ConnectToDCCChat(ByVal lIp As String, ByVal lPort As Long)")
     End Sub
 
     Public Sub SetInfo(ByVal lIp As String, ByVal lPort As String)
@@ -60,7 +60,7 @@ Public Class frmDCCChat
         lRemoteIp = lIp
         lRemotePort = lPort
         lAutoConnect = True
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub SetInfo(ByVal lIp As String, ByVal lPort As String)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub SetInfo(ByVal lIp As String, ByVal lPort As String)")
     End Sub
 
     Private Sub frmDCCChat_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -82,7 +82,7 @@ Public Class frmDCCChat
             cmdDisconnect.Enabled = True
             Me.Invoke(lConnect, lRemoteIp, lPort)
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub frmDCCChat_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub frmDCCChat_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
     End Sub
 
     Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As nexIRC.Sockets.AsyncSocket) Handles lListen.ConnectionAccept
@@ -90,7 +90,7 @@ Public Class frmDCCChat
         Dim lAddText As New StringDelegate(AddressOf AddText)
         Me.Invoke(lAddText, "Connection Accepted")
         lSocket = tmp_Socket
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As nexIRC.Sockets.AsyncSocket) Handles lListen.ConnectionAccept")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As nexIRC.Sockets.AsyncSocket) Handles lListen.ConnectionAccept")
     End Sub
 
     Private Sub lSocket_socketConnected(ByVal SocketID As String) Handles lSocket.socketConnected
@@ -98,7 +98,7 @@ Public Class frmDCCChat
         Dim lAddText As New StringDelegate(AddressOf AddText)
         Me.Invoke(lAddText, "Socket Connected")
         lClientConnected = True
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub lSocket_socketConnected(ByVal SocketID As String) Handles lSocket.socketConnected")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub lSocket_socketConnected(ByVal SocketID As String) Handles lSocket.socketConnected")
     End Sub
 
     Private Sub ProcessInData(ByVal lData As String)
@@ -111,14 +111,14 @@ Public Class frmDCCChat
             msg = "<" & cboUsers.Text & "> " & Trim(lData)
             Me.Invoke(lAddText, msg)
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub ProcessInData(ByVal lData As String)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub ProcessInData(ByVal lData As String)")
     End Sub
 
     Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lSocket.socketDataArrival
         On Error Resume Next
         Dim lInData As New StringDelegate(AddressOf ProcessInData)
         Me.Invoke(lInData, SocketData)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String) Handles lSocket.socketDataArrival")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String) Handles lSocket.socketDataArrival")
     End Sub
 
     Private Sub SocketDisconnectedProc()
@@ -129,20 +129,20 @@ Public Class frmDCCChat
         Else
             AddText("Socket Disconnected")
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub SocketDisconnectedProc()")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub SocketDisconnectedProc()")
     End Sub
 
     Private Sub lSocket_socketDisconnected(ByVal SocketID As String) Handles lSocket.socketDisconnected
         On Error Resume Next
         Dim lSocketDisconnectProc As New EmptyDelegate(AddressOf SocketDisconnectedProc)
         Me.Invoke(lSocketDisconnectProc)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub lSocket_socketDisconnected(ByVal SocketID As String) Handles lSocket.socketDisconnected")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub lSocket_socketDisconnected(ByVal SocketID As String) Handles lSocket.socketDisconnected")
     End Sub
 
     Private Sub cmdSetNickName_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         On Error Resume Next
         cboUsers.Enabled = False
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdSetNickName_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSetNickName.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdSetNickName_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSetNickName.Click")
     End Sub
 
     Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click
@@ -167,7 +167,7 @@ Public Class frmDCCChat
                 cmdDisconnect.Enabled = True
             End If
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click")
     End Sub
 
     Private Sub frmDCCChat_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
@@ -178,7 +178,7 @@ Public Class frmDCCChat
         txtIncoming.Height = txtIncomingNoColor.Height
         txtOutgoing.Width = txtIncomingNoColor.Width
         txtOutgoing.Top = txtIncoming.Height + tlsDCCChat.Height
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub frmDCCChat_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub frmDCCChat_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize")
     End Sub
 
     Private Sub cmdDisconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDisconnect.Click
@@ -187,25 +187,25 @@ Public Class frmDCCChat
         AddText("Disconnected")
         cmdDisconnect.Enabled = False
         cmdConnect.Enabled = False
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdDisconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDisconnect.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdDisconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDisconnect.Click")
     End Sub
 
     Private Sub txtIncoming_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncoming.MouseDown
         On Error Resume Next
         Me.Focus()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub txtIncoming_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncoming.MouseDown")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtIncoming_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncoming.MouseDown")
     End Sub
 
     Private Sub txtIncoming_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtIncoming.TextChanged
         On Error Resume Next
         txtIncomingNoColor.ScrollToCaret()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub txtIncoming_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtIncoming.TextChanged")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtIncoming_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtIncoming.TextChanged")
     End Sub
 
     Private Sub txtOutgoing_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtOutgoing.GotFocus
         On Error Resume Next
         If lIRC.iSettings.sAutoMaximize = True Then Me.WindowState = FormWindowState.Maximized
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub txtOutgoing_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtOutgoing.GotFocus")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtOutgoing_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtOutgoing.GotFocus")
     End Sub
 
     Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown
@@ -221,13 +221,13 @@ Public Class frmDCCChat
             End If
             Exit Sub
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown")
     End Sub
 
     Private Sub txtOutgoing_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtOutgoing.KeyPress
         On Error Resume Next
         If e.KeyChar = Chr(13) Then e.Handled = True
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub txtOutgoing_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtOutgoing.KeyPress")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtOutgoing_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtOutgoing.KeyPress")
     End Sub
 
     Private Sub SocketErrorProc(ByVal lData As String)
@@ -238,19 +238,19 @@ Public Class frmDCCChat
             AddText("Socket Error: " & lData)
             lClientConnected = False
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub SocketErrorProc()")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub SocketErrorProc()")
     End Sub
 
     Private Sub lSocket_socketError(ByVal lData As String) Handles lSocket.socketError
         On Error Resume Next
         Dim lSocketErrorProc As New StringDelegate(AddressOf SocketErrorProc)
         Me.Invoke(lSocketErrorProc, lData)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub lSocket_socketConnected(ByVal SocketID As String) Handles lSocket.socketConnected")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub lSocket_socketConnected(ByVal SocketID As String) Handles lSocket.socketConnected")
     End Sub
 
     Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
         On Error Resume Next
         Me.Focus()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
     End Sub
 End Class

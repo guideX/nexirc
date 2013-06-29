@@ -1,10 +1,9 @@
 'nexIRC 3.0.23
-'02-27-2013 - guideX
+'06-13-2013 - guideX
 Option Explicit On
-
-Imports System.Runtime.InteropServices
-
 'Option Strict On
+Imports System.Runtime.InteropServices
+Imports Telerik.WinControls.UI
 
 Module mdlStrings
     Enum eCommandTypes
@@ -1636,7 +1635,7 @@ Module mdlStrings
             lStatus.SendSocket(lStatusIndex, lCommandData.cSocketData)
             lStatus.AddText(lCommandData.cDoColorData, lStatusIndex)
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub ProcessReplaceCommand(lType As eStringTypes, lTextBox As ctlTBox, Optional r1 As String, Optional r2 As String, Optional r3 As String, Optional r4 As String, Optional r5 As String)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub ProcessReplaceCommand(lType As eStringTypes, lTextBox As ctlTBox, Optional r1 As String, Optional r2 As String, Optional r3 As String, Optional r4 As String, Optional r5 As String)")
     End Sub
 
     Private Function FindCommandIndex(ByVal lType As eCommandTypes) As Integer
@@ -1648,7 +1647,7 @@ Module mdlStrings
                 Exit Function
             End If
         Next i
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Function FindStringIndex(lType As eStringTypes) As Integer")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Function FindStringIndex(lType As eStringTypes) As Integer")
     End Function
 
     Public Function ReturnReplacedCommand(ByVal lType As eCommandTypes, Optional ByVal p1 As String = "", Optional ByVal p2 As String = "", Optional ByVal p3 As String = "", Optional ByVal p4 As String = "") As gCommandReturnData
@@ -1690,7 +1689,7 @@ Module mdlStrings
             ReturnReplacedCommand.cSocketData = ""
             ReturnReplacedCommand.cDoColorData = ""
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function ReturnReplacedString(lType As eStringTypes, Optional r1 As String, Optional r2 As String, Optional r3 As String, Optional r4 As String, Optional r5 As String) As String")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnReplacedString(lType As eStringTypes, Optional r1 As String, Optional r2 As String, Optional r3 As String, Optional r4 As String, Optional r5 As String) As String")
     End Function
 
     Public Function DoesColorExist(ByVal lData As String) As Boolean
@@ -1700,41 +1699,41 @@ Module mdlStrings
         Else
             DoesColorExist = False
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function DoesColorExist(ByVal lData As String) As Boolean")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function DoesColorExist(ByVal lData As String) As Boolean")
     End Function
 
     Public Sub RemoveTextStringParameter(ByVal lTextStringIndex As Integer, ByVal lStringParameterName As String)
-        'Try
-        Dim i As Integer
-        If Len(lStringParameterName) <> 0 Then
-            For i = 1 To 100
-                If Trim(LCase(ReadINI(lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), ""))) = lStringParameterName Then
-                    WriteINI(lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), "")
-                    Exit For
-                End If
-            Next i
-        End If
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub RemoveTextStringParameter(ByVal lTextStringIndex As Integer, ByVal lStringParameterName As String)")
-        'End Try
+        Try
+            Dim i As Integer
+            If Len(lStringParameterName) <> 0 Then
+                For i = 1 To 100
+                    If Trim(LCase(clsFiles.ReadINI(lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), ""))) = lStringParameterName Then
+                        clsFiles.WriteINI(lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), "")
+                        Exit For
+                    End If
+                Next i
+            End If
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Sub RemoveTextStringParameter(ByVal lTextStringIndex As Integer, ByVal lStringParameterName As String)")
+        End Try
     End Sub
 
     Public Sub AddTextStringParameter(ByVal lTextStringIndex As Integer, ByVal lStringParameterName As String)
-        'Try
-        Dim i As Integer, n As Integer
-        If Len(lStringParameterName) <> 0 Then
-            For i = 1 To 100
-                If Len(ReadINI(lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), "")) = 0 Then
-                    n = i
-                    Exit For
-                End If
-            Next i
-            WriteINI(lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(n.ToString), lStringParameterName)
-            lStrings.sFixedString(lTextStringIndex).sFind(n) = lStringParameterName
-        End If
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub AddTextStringParameter(ByVal lStringParameterName As String)")
-        'End Try
+        Try
+            Dim i As Integer, n As Integer
+            If Len(lStringParameterName) <> 0 Then
+                For i = 1 To 100
+                    If Len(clsFiles.ReadINI(lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), "")) = 0 Then
+                        n = i
+                        Exit For
+                    End If
+                Next i
+                clsFiles.WriteINI(lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(n.ToString), lStringParameterName)
+                lStrings.sFixedString(lTextStringIndex).sFind(n) = lStringParameterName
+            End If
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Sub AddTextStringParameter(ByVal lStringParameterName As String)")
+        End Try
     End Sub
 
     Public Sub tDoColor(ByVal lData As String, ByVal lColorTextBox As RichTextBox)
@@ -1845,14 +1844,14 @@ Module mdlStrings
             End Select
             lColorTextBox.SelectionFont = New Font(lFont.FontFamily, lFont.Size, FontStyle.Regular)
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub DoColor(ByVal lData As String)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub DoColor(ByVal lData As String)")
     End Sub
 
     Public Sub SetSelectionStart(ByVal lColorTextBox As RichTextBox)
         On Error Resume Next
         lColorTextBox.ScrollToCaret()
         lColorTextBox.SelectionStart = 0
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub SetSelectionStart(ByVal lColorTextBox As RichTextBox)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetSelectionStart(ByVal lColorTextBox As RichTextBox)")
     End Sub
 
     Public Function ConvertIntToSystemColor(ByVal lColor As Integer, Optional lBlackSetting As Boolean = False) As System.Drawing.Color
@@ -1905,7 +1904,7 @@ Module mdlStrings
                     ConvertIntToSystemColor = Color.White
                 End If
         End Select
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function ConvertIntToSystemColor(ByVal lColor As Integer) As System.Drawing.Color")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ConvertIntToSystemColor(ByVal lColor As Integer) As System.Drawing.Color")
     End Function
 
     Public Function ReturnRightColorNumeric(ByVal lData As String) As Integer
@@ -1942,43 +1941,43 @@ Module mdlStrings
                 End If
             End If
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function ReturnRightNumeric(ByVal lData As String) As Integer")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnRightNumeric(ByVal lData As String) As Integer")
     End Function
 
     Public Sub SetStringData(ByVal lIndex As Integer, ByVal lData As String)
         On Error Resume Next
         If Len(lData) <> 0 And lIndex <> 0 Then
             lStrings.sFixedString(lIndex).sData = lData
-            WriteINI(lINI.iText, Trim(CStr(lIndex)), "Data", lData)
+            clsFiles.WriteINI(lINI.iText, Trim(CStr(lIndex)), "Data", lData)
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub SetStringData(ByVal lIndex As Integer, ByVal lData As String)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetStringData(ByVal lIndex As Integer, ByVal lData As String)")
     End Sub
 
     Public Sub SetStringDescription(ByVal lIndex As Integer, ByVal lData As String)
         On Error Resume Next
         If lIndex <> 0 And Len(lData) <> 0 Then
             lStrings.sFixedString(lIndex).sDescription = lData
-            WriteINI(lINI.iText, Trim(CStr(lIndex)), "Description", lData)
+            clsFiles.WriteINI(lINI.iText, Trim(CStr(lIndex)), "Description", lData)
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub SetStringDescription(ByVal lIndex As Integer, ByVal lDescription As String)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetStringDescription(ByVal lIndex As Integer, ByVal lDescription As String)")
     End Sub
 
     Public Sub SetStringSyntax(ByVal lIndex As Integer, ByVal lData As String)
         On Error Resume Next
         If lIndex <> 0 And Len(lData) <> 0 Then
             lStrings.sFixedString(lIndex).sSyntax = lData
-            WriteINI(lINI.iText, Trim(CStr(lIndex)), "Syntax", lData)
+            clsFiles.WriteINI(lINI.iText, Trim(CStr(lIndex)), "Syntax", lData)
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub SetStringSyntax(ByVal lIndex As Integer, ByVal lData As String)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetStringSyntax(ByVal lIndex As Integer, ByVal lData As String)")
     End Sub
 
     Public Sub SetStringSupport(ByVal lIndex As Integer, ByVal lData As String)
         On Error Resume Next
         If lIndex <> 0 And Len(lData) <> 0 Then
             lStrings.sFixedString(lIndex).sSupport = lData
-            WriteINI(lINI.iText, Trim(CStr(lIndex)), "Support", lData)
+            clsFiles.WriteINI(lINI.iText, Trim(CStr(lIndex)), "Support", lData)
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub SetStringSupport(ByVal lIndex As Integer, ByVal lData As String)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetStringSupport(ByVal lIndex As Integer, ByVal lData As String)")
     End Sub
 
     Public Sub ResetStrings()
@@ -1986,7 +1985,7 @@ Module mdlStrings
         lStatus.lIRCMisc.ResetMessages()
         ClearStrings()
         LoadStrings()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub ResetStrings()")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub ResetStrings()")
     End Sub
 
     Public Function FindStringIndexByDescription(ByVal lDescription As String) As Integer
@@ -2000,7 +1999,7 @@ Module mdlStrings
                 End If
             Next i
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function FindStringIndexByDescription(lDescription As String) As Integer")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function FindStringIndexByDescription(lDescription As String) As Integer")
     End Function
 
     Public Function ReturnStringTypeByDescription(ByVal lDescription As String) As eStringTypes
@@ -2014,36 +2013,36 @@ Module mdlStrings
                 End If
             Next i
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function ReturnStringTypeByDescription(lDescription As String) As eStringTypes")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnStringTypeByDescription(lDescription As String) As eStringTypes")
     End Function
 
     Private Function FindStringIndex(ByVal lType As eStringTypes) As Integer
-        'Try
-        Dim i As Integer
-        For i = 1 To lStrings.sFixedStringCount
-            If lType = lStrings.sFixedString(i).sType Then
-                FindStringIndex = i
-                Exit Function
-            End If
-        Next i
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Function FindStringIndex(ByVal lType As eStringTypes) As Integer")
-        'End Try
+        Try
+            Dim i As Integer
+            For i = 1 To lStrings.sFixedStringCount
+                If lType = lStrings.sFixedString(i).sType Then
+                    FindStringIndex = i
+                    Exit Function
+                End If
+            Next i
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Function FindStringIndex(ByVal lType As eStringTypes) As Integer")
+        End Try
     End Function
 
     Public Sub ProcessReplaceString(ByVal lStatusIndex As Integer, ByVal lType As eStringTypes, Optional ByVal r1 As String = "", Optional ByVal r2 As String = "", Optional ByVal r3 As String = "", Optional ByVal r4 As String = "", Optional ByVal r5 As String = "", Optional ByVal r6 As String = "", Optional ByVal r7 As String = "", Optional ByVal r8 As String = "")
-        'Try
-        Dim msg As String
-        If lIRC.iSettings.sNoIRCMessages = True Then Exit Sub
-        msg = ReturnReplacedString(lType, r1, r2, r3, r4, r5, r6, r7, r8)
-        If ReturnStringCompatibile(lType) = True Then
-            If Len(msg) <> 0 Then lStatus.AddText(msg, lStatusIndex)
-        Else
-            lStatus.AddToUnsupported(lStatusIndex, msg)
-        End If
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub ProcessReplaceString()")
-        'End Try
+        Try
+            Dim msg As String
+            If lIRC.iSettings.sNoIRCMessages = True Then Exit Sub
+            msg = ReturnReplacedString(lType, r1, r2, r3, r4, r5, r6, r7, r8)
+            If ReturnStringCompatibile(lType) = True Then
+                If Len(msg) <> 0 Then lStatus.AddText(msg, lStatusIndex)
+            Else
+                lStatus.AddToUnsupported(lStatusIndex, msg)
+            End If
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Sub ProcessReplaceString()")
+        End Try
     End Sub
 
     Public Function ReturnStringCompatibile(ByVal lType As eStringTypes) As Boolean
@@ -2057,7 +2056,7 @@ Module mdlStrings
                 End If
             Next i
         End With
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function ReturnStringCompatibile(ByVal lType As eStringTypes) As Boolean")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnStringCompatibile(ByVal lType As eStringTypes) As Boolean")
     End Function
 
     Public Function ReturnReplacedString(ByVal lType As eStringTypes, Optional ByVal r1 As String = "", Optional ByVal r2 As String = "", Optional ByVal r3 As String = "", Optional ByVal r4 As String = "", Optional ByVal r5 As String = "", Optional ByVal r6 As String = "", Optional ByVal r7 As String = "", Optional ByVal r8 As String = "") As String
@@ -2080,7 +2079,7 @@ Module mdlStrings
             If Len(r8) <> 0 Then msg = Replace(msg, .sFind(8), r8, 1, -1, vbTextCompare)
         End With
         ReturnReplacedString = msg
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function ReturnReplacedString(lType As eStringTypes, Optional r1 As String, Optional r2 As String, Optional r3 As String, Optional r4 As String, Optional r5 As String) As String")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnReplacedString(lType As eStringTypes, Optional r1 As String, Optional r2 As String, Optional r3 As String, Optional r4 As String, Optional r5 As String) As String")
     End Function
 
     Public Sub SaveTextStrings()
@@ -2088,16 +2087,16 @@ Module mdlStrings
         Dim i As Integer
         For i = 1 To 200
             If Len(lStrings.sFixedString(i).sData) <> 0 Then
-                WriteINI(ReturnTextINI, Trim(Str(i)), "Type", Trim(Str(lStrings.sFixedString(i).sType)))
-                WriteINI(ReturnTextINI, Trim(Str(i)), "Data", Trim(lStrings.sFixedString(i).sData))
-                If Len(lStrings.sFixedString(i).sFind(1)) <> 0 Then WriteINI(ReturnTextINI, Trim(Str(i)), "Find1", lStrings.sFixedString(i).sFind(1))
-                If Len(lStrings.sFixedString(i).sFind(2)) <> 0 Then WriteINI(ReturnTextINI, Trim(Str(i)), "Find2", lStrings.sFixedString(i).sFind(2))
-                If Len(lStrings.sFixedString(i).sFind(3)) <> 0 Then WriteINI(ReturnTextINI, Trim(Str(i)), "Find3", lStrings.sFixedString(i).sFind(3))
-                If Len(lStrings.sFixedString(i).sFind(4)) <> 0 Then WriteINI(ReturnTextINI, Trim(Str(i)), "Find4", lStrings.sFixedString(i).sFind(4))
-                If Len(lStrings.sFixedString(i).sFind(5)) <> 0 Then WriteINI(ReturnTextINI, Trim(Str(i)), "Find5", lStrings.sFixedString(i).sFind(5))
+                clsFiles.WriteINI(ReturnTextINI, Trim(Str(i)), "Type", Trim(Str(lStrings.sFixedString(i).sType)))
+                clsFiles.WriteINI(ReturnTextINI, Trim(Str(i)), "Data", Trim(lStrings.sFixedString(i).sData))
+                If Len(lStrings.sFixedString(i).sFind(1)) <> 0 Then clsFiles.WriteINI(ReturnTextINI, Trim(Str(i)), "Find1", lStrings.sFixedString(i).sFind(1))
+                If Len(lStrings.sFixedString(i).sFind(2)) <> 0 Then clsFiles.WriteINI(ReturnTextINI, Trim(Str(i)), "Find2", lStrings.sFixedString(i).sFind(2))
+                If Len(lStrings.sFixedString(i).sFind(3)) <> 0 Then clsFiles.WriteINI(ReturnTextINI, Trim(Str(i)), "Find3", lStrings.sFixedString(i).sFind(3))
+                If Len(lStrings.sFixedString(i).sFind(4)) <> 0 Then clsFiles.WriteINI(ReturnTextINI, Trim(Str(i)), "Find4", lStrings.sFixedString(i).sFind(4))
+                If Len(lStrings.sFixedString(i).sFind(5)) <> 0 Then clsFiles.WriteINI(ReturnTextINI, Trim(Str(i)), "Find5", lStrings.sFixedString(i).sFind(5))
             End If
         Next i
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub SaveTextStrings()")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SaveTextStrings()")
     End Sub
 
     Public Function ReturnStringDataByType(ByVal lType As eStringTypes) As String
@@ -2110,7 +2109,7 @@ Module mdlStrings
             End If
         Next i
         ReturnStringDataByType = ""
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function ReturnStringData(lIndex As Integer) As String")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnStringData(lIndex As Integer) As String")
     End Function
 
     Public Sub SetStringData(ByVal lType As eStringTypes, ByVal lData As String)
@@ -2120,7 +2119,7 @@ Module mdlStrings
         If i <> 0 Then
             lStrings.sFixedString(i).sData = lData
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub SetStringData(lType As eStringTypes)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetStringData(lType As eStringTypes)")
     End Sub
 
     Public Sub ClearStrings()
@@ -2139,28 +2138,28 @@ Module mdlStrings
                 .sType = 0
             End With
         Next i
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub ClearStrings()")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub ClearStrings()")
     End Sub
 
     Public Sub LoadCommands()
         On Error Resume Next
         Dim i As Integer
         ReDim lCommands.cCommad(100)
-        lCommands.cCount = CInt(ReadINI(ReturnCommandsINI, "Settings", "Count", "0"))
+        lCommands.cCount = CInt(clsFiles.ReadINI(ReturnCommandsINI, "Settings", "Count", "0"))
         For i = 1 To lCommands.cCount
             With lCommands.cCommad(i)
-                .cData = ReadINI(ReturnCommandsINI, Trim(Str(i)), "Command", "")
+                .cData = clsFiles.ReadINI(ReturnCommandsINI, Trim(Str(i)), "Command", "")
                 If Len(.cData) <> 0 Then
-                    .cCommandType = CType(ReadINI(ReturnCommandsINI, Trim(Str(i)), "Type", ""), eCommandTypes)
-                    .cDisplay = ReadINI(ReturnCommandsINI, Trim(Str(i)), "Display", "")
-                    .cParam1 = ReadINI(ReturnCommandsINI, Trim(Str(i)), "Param1", "")
-                    If Len(.cParam1) <> 0 Then .cParam2 = ReadINI(ReturnCommandsINI, Trim(Str(i)), "Param2", "")
-                    If Len(.cParam2) <> 0 Then .cParam3 = ReadINI(ReturnCommandsINI, Trim(Str(i)), "Param3", "")
-                    If Len(.cParam3) <> 0 Then .cParam4 = ReadINI(ReturnCommandsINI, Trim(Str(i)), "Param4", "")
+                    .cCommandType = CType(clsFiles.ReadINI(ReturnCommandsINI, Trim(Str(i)), "Type", ""), eCommandTypes)
+                    .cDisplay = clsFiles.ReadINI(ReturnCommandsINI, Trim(Str(i)), "Display", "")
+                    .cParam1 = clsFiles.ReadINI(ReturnCommandsINI, Trim(Str(i)), "Param1", "")
+                    If Len(.cParam1) <> 0 Then .cParam2 = clsFiles.ReadINI(ReturnCommandsINI, Trim(Str(i)), "Param2", "")
+                    If Len(.cParam2) <> 0 Then .cParam3 = clsFiles.ReadINI(ReturnCommandsINI, Trim(Str(i)), "Param3", "")
+                    If Len(.cParam3) <> 0 Then .cParam4 = clsFiles.ReadINI(ReturnCommandsINI, Trim(Str(i)), "Param4", "")
                 End If
             End With
         Next i
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub LoadCommand()")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub LoadCommand()")
     End Sub
 
     Public Sub LoadStrings()
@@ -2216,22 +2215,28 @@ Module mdlStrings
         If Err.Number <> 0 Then MsgBox(Err.Description)
     End Sub
 
-    Public Sub PopulateListViewWithStrings(ByVal lListView As ListView)
+    Public Sub PopulateListViewWithStrings(ByVal lListView As RadListView)
         On Error Resume Next
-        Dim i As Integer, lItem As ListViewItem, msg As String
+        Dim i As Integer, lItem As Telerik.WinControls.UI.ListViewDataItem, msg As String
+        lListView.Items.Clear()
         For i = 0 To lStrings.sFixedStringCount
             With lStrings.sFixedString(i)
                 msg = .sDescription
                 If Len(msg) <> 0 Then
-                    lItem = lListView.Items.Add(msg)
+                    lItem = New Telerik.WinControls.UI.ListViewDataItem
+                    lItem.Text = msg
+                    lItem.SubItems.Add(msg)
                     lItem.SubItems.Add(.sSupport)
                     lItem.SubItems.Add(.sSyntax)
                     lItem.SubItems.Add(Trim(CStr(.sType)))
                     lItem.SubItems.Add(.sData)
+                    lListView.Items.Add(lItem)
+                    'lListView.Show()
                 End If
             End With
         Next i
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub PopulateListViewWithStrings(ByVal lListView As ListView)")
+        lListView.SelectedIndex = 0
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub PopulateListViewWithStrings(ByVal lListView As ListView)")
     End Sub
 
     Public Sub DoText(ByVal lData As String, ByVal lTextBox As TextBox)
@@ -2239,7 +2244,7 @@ Module mdlStrings
         LockWindowUpdate(lTextBox.Handle)
         lTextBox.Text = lData & vbCrLf & lTextBox.Text
         LockWindowUpdate(IntPtr.Zero)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub DoText(ByVal lData As String, ByVal lTextBox As TextBox)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub DoText(ByVal lData As String, ByVal lTextBox As TextBox)")
     End Sub
 
     Public Function GetFileTitle(ByVal lFileName As String) As String
@@ -2247,160 +2252,174 @@ Module mdlStrings
         Dim msg() As String
         msg = Split(lFileName, "\")
         GetFileTitle = msg(UBound(msg))
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function GetFileTitle(ByVal lFileName As String) As String")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function GetFileTitle(ByVal lFileName As String) As String")
     End Function
 
     Public Function StripColorCodes(ByVal lData As String) As String
-        'Try
-        Dim i As Integer, n As Integer, msg As String, msg2 As String
-        For i = 0 To 15
-            For n = 0 To 15
-                msg2 = "" & Trim(i.ToString) & "," & Trim(n.ToString)
-                If InStr(msg2, lData) <> 0 Then lData = Replace(lData, msg2, "")
-            Next n
-            msg = "" & Trim(i.ToString)
-            If InStr(msg, lData) <> 0 Then lData = Replace(lData, msg, "")
-        Next i
-        Return lData
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Function StripColorCodes(ByVal lData As String) As String")
-        'Return Nothing
-        'End Try
+        Try
+            Dim i As Integer, n As Integer, msg As String, msg2 As String
+            For i = 0 To 15
+                For n = 0 To 15
+                    msg2 = "" & Trim(i.ToString) & "," & Trim(n.ToString)
+                    If InStr(msg2, lData) <> 0 Then lData = Replace(lData, msg2, "")
+                Next n
+                msg = "" & Trim(i.ToString)
+                If InStr(msg, lData) <> 0 Then lData = Replace(lData, msg, "")
+            Next i
+            Return lData
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Function StripColorCodes(ByVal lData As String) As String")
+            Return Nothing
+        End Try
     End Function
 
     Public Sub DoColor(lData As String, lTextBox As RichTextBox, Optional _Black As Boolean = False)
-        'Try
-        _Black = True
-        Dim i As Integer, msg As String, lBackColor As Integer = 16, lForeColor As Integer, _ScrollToBottom As New clsScrollToBottom
-        LockWindowUpdate(lTextBox.Handle)
-        If Len(lData.Trim) = 0 Then Exit Sub
-        If lQuerySettings.qEnableSpamFilter = True Then
-            For i = 1 To lQuerySettings.qSpamPhraseCount
-                If InStr(LCase(lData), LCase(lQuerySettings.qSpamPhrases(i).ToString)) <> 0 Then Exit Sub
-            Next i
-        End If
-        lTextBox.SelectionStart = Len(lTextBox.Text)
-        lTextBox.SelectionLength = Len(lTextBox.Text)
-        lTextBox.SelectedText = vbCrLf
-        If InStr(lData, "") <> 0 Then
-            For i = 0 To Len(lData)
-                If Len(lData) = 0 Then
-                    'lTextBox.SelectionStart = lTextBox.Text.Length
-                    'lTextBox.SelectionLength = lTextBox.Text.Length
-                    'lTextBox.ScrollToCaret()
-                    _ScrollToBottom.ScrollToBottom(lTextBox)
-                    LockWindowUpdate(IntPtr.Zero)
-                    Exit Sub
-                End If
-                msg = Left(lData, 1)
-                lData = Right(lData, Len(lData) - 1)
-                If msg = "" Then
-                    If IsNumeric(Left(lData, 2)) = True And Not InStr(Left(lData, 2), ",") <> 0 Then
-                        lForeColor = CInt(Trim(Left(lData, 2)))
-                        lData = Right(lData, Len(lData) - 2)
-                    ElseIf IsNumeric(Left(lData, 1)) Then
-                        lForeColor = CInt(Trim(Left(lData, 1)))
-                        lData = Right(lData, Len(lData) - 1)
+        Try
+            _Black = True
+            Dim i As Integer, msg As String, lBackColor As Integer = 16, lForeColor As Integer, _ScrollToBottom As New clsScrollToBottom
+            LockWindowUpdate(lTextBox.Handle)
+            If Len(lData.Trim) = 0 Then Exit Sub
+            If lQuerySettings.qEnableSpamFilter = True Then
+                For i = 1 To lQuerySettings.qSpamPhraseCount
+                    If InStr(LCase(lData), LCase(lQuerySettings.qSpamPhrases(i).ToString)) <> 0 Then Exit Sub
+                Next i
+            End If
+            lTextBox.SelectionStart = Len(lTextBox.Text)
+            lTextBox.SelectionLength = Len(lTextBox.Text)
+            lTextBox.SelectedText = vbCrLf
+            If InStr(lData, "") <> 0 Then
+                For i = 0 To Len(lData)
+                    If Len(lData) = 0 Then
+                        'lTextBox.SelectionStart = lTextBox.Text.Length
+                        'lTextBox.SelectionLength = lTextBox.Text.Length
+                        'lTextBox.ScrollToCaret()
+                        _ScrollToBottom.ScrollToBottom(lTextBox)
+                        LockWindowUpdate(IntPtr.Zero)
+                        Exit Sub
+                    End If
+                    msg = Left(lData, 1)
+                    lData = Right(lData, Len(lData) - 1)
+                    If msg = "" Then
+                        If IsNumeric(Left(lData, 2)) = True And Not InStr(Left(lData, 2), ",") <> 0 Then
+                            lForeColor = CInt(Trim(Left(lData, 2)))
+                            lData = Right(lData, Len(lData) - 2)
+                        ElseIf IsNumeric(Left(lData, 1)) Then
+                            lForeColor = CInt(Trim(Left(lData, 1)))
+                            lData = Right(lData, Len(lData) - 1)
+                        Else
+                            lForeColor = 0
+                            lBackColor = 16
+                            lTextBox.SelectionColor = ConvertIntToSystemColor(lForeColor, _Black)
+                            lTextBox.SelectionBackColor = ConvertIntToSystemColor(lBackColor, _Black)
+                            If msg <> "" Then
+                                lTextBox.SelectedText = msg
+                            End If
+                        End If
+                        If Left(lData, 1) = "," Then
+                            lData = Right(lData, Len(lData) - 1)
+                            If IsNumeric(Left(lData, 2)) = True And Not InStr(Left(lData, 2), ",") <> 0 Then
+                                lBackColor = CInt(Trim(Left(lData, 2)))
+                                lData = Right(lData, Len(lData) - 2)
+                            ElseIf IsNumeric(Left(lData, 1)) Then
+                                lBackColor = CInt(Trim(Left(lData, 1)))
+                                lData = Right(lData, Len(lData) - 1)
+                            End If
+                        End If
                     Else
-                        lForeColor = 0
-                        lBackColor = 16
                         lTextBox.SelectionColor = ConvertIntToSystemColor(lForeColor, _Black)
                         lTextBox.SelectionBackColor = ConvertIntToSystemColor(lBackColor, _Black)
                         If msg <> "" Then
                             lTextBox.SelectedText = msg
                         End If
                     End If
-                    If Left(lData, 1) = "," Then
-                        lData = Right(lData, Len(lData) - 1)
-                        If IsNumeric(Left(lData, 2)) = True And Not InStr(Left(lData, 2), ",") <> 0 Then
-                            lBackColor = CInt(Trim(Left(lData, 2)))
-                            lData = Right(lData, Len(lData) - 2)
-                        ElseIf IsNumeric(Left(lData, 1)) Then
-                            lBackColor = CInt(Trim(Left(lData, 1)))
-                            lData = Right(lData, Len(lData) - 1)
-                        End If
-                    End If
-                Else
-                    lTextBox.SelectionColor = ConvertIntToSystemColor(lForeColor, _Black)
-                    lTextBox.SelectionBackColor = ConvertIntToSystemColor(lBackColor, _Black)
-                    If msg <> "" Then
-                        lTextBox.SelectedText = msg
-                    End If
-                End If
-            Next i
-        Else
-            lTextBox.SelectionColor = ConvertIntToSystemColor(lForeColor, _Black)
-            lTextBox.SelectionBackColor = ConvertIntToSystemColor(lBackColor, _Black)
-            lTextBox.SelectedText = lData
-        End If
-        'lTextBox.SelectionStart = lTextBox.Text.Length
-        'lTextBox.SelectionLength = lTextBox.TextLength
-        'lTextBox.ScrollToCaret()
-        _ScrollToBottom.ScrollToBottom(lTextBox)
-        LockWindowUpdate(IntPtr.Zero)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub DoColor(lData As String, lTextBox As RichTextBox)")
-        'End Try
+                Next i
+            Else
+                lTextBox.SelectionColor = ConvertIntToSystemColor(lForeColor, _Black)
+                lTextBox.SelectionBackColor = ConvertIntToSystemColor(lBackColor, _Black)
+                lTextBox.SelectedText = lData
+            End If
+            'lTextBox.SelectionStart = lTextBox.Text.Length
+            'lTextBox.SelectionLength = lTextBox.TextLength
+            'lTextBox.ScrollToCaret()
+            _ScrollToBottom.ScrollToBottom(lTextBox)
+            LockWindowUpdate(IntPtr.Zero)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Sub DoColor(lData As String, lTextBox As RichTextBox)")
+        End Try
     End Sub
 
     'FIGURE OUT HOW TO FIX THIS SHIT!
     Public Function DecodeLongIPAddr(ByVal LongIPAddr As String) As String
-        On Error Resume Next
-        Dim msg!, msg2!
-        Dim msg3, msg4, msg5, i As Integer, msg6 As String
-        msg! = Int(LongIPAddr / 65536)
-        msg2! = LongIPAddr - msg! * 65536
-        msg3 = Int(msg! / 256)
-        msg4 = msg! - msg3 * 256
-        msg5 = Int(msg2! / 256)
-        i = msg2! - msg5 * 256
-        msg6 = Trim(Str(msg3)) & "."
-        msg6 = msg6 & Trim(Str(msg4)) & "."
-        msg6 = msg6 & Trim(Str(msg5)) & "."
-        msg6 = msg6 & Trim(Str(i))
-        DecodeLongIPAddr = msg6
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Function DecodeLongIPAddr(ByVal LongIPAddr As String) As String")
+        Try
+            Dim msg!, msg2!
+            Dim msg3, msg4, msg5, i As Integer, msg6 As String
+            msg! = Int(LongIPAddr / 65536)
+            msg2! = LongIPAddr - msg! * 65536
+            msg3 = Int(msg! / 256)
+            msg4 = msg! - msg3 * 256
+            msg5 = Int(msg2! / 256)
+            i = msg2! - msg5 * 256
+            msg6 = Trim(Str(msg3)) & "."
+            msg6 = msg6 & Trim(Str(msg4)) & "."
+            msg6 = msg6 & Trim(Str(msg5)) & "."
+            msg6 = msg6 & Trim(Str(i))
+            DecodeLongIPAddr = msg6
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Function DecodeLongIPAddr(ByVal LongIPAddr As String) As String")
+            Return ""
+        End Try
     End Function
 
     'FIGURE OUT HOW TO FIX THIS SHIT!
     Public Function EncodeIPAddr(ByVal lData As String) As String
-        On Error Resume Next
-        Dim msg, msg2, msg3 As String, msg4, msg5, i As Integer, msg6 As String
-        msg4 = 1
-        msg = ""
-        Do
-            msg2 = InStr(msg4, lData & ".", ".")
-            msg3 = Hex(Val(Mid$(lData & ".", msg4, msg2 - msg4)))
-            msg = msg & IIf(Len(msg3) = 1, "0" & msg3, msg3)
-            msg4 = msg2 + 1
-        Loop Until msg4 >= Len(lData & ".")
-        msg5 = Val("&H" & Mid(msg, 1, 2)) * 256.0! + Val("&H" & Mid(msg, 3, 2))
-        i = Val("&H" & Mid(msg, 5, 2)) * 256.0! + Val("&H" & Mid(msg, 7, 2))
-        msg6 = Str(msg5 * 65536 + i)
-        EncodeIPAddr = Trim$(msg6)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Function EncodeIPAddr(ByVal IPAddr As String) As String")
+        Try
+            Dim msg, msg2, msg3 As String, msg4, msg5, i As Integer, msg6 As String
+            msg4 = 1
+            msg = ""
+            Do
+                msg2 = InStr(msg4, lData & ".", ".")
+                msg3 = Hex(Val(Mid$(lData & ".", msg4, msg2 - msg4)))
+                msg = msg & IIf(Len(msg3) = 1, "0" & msg3, msg3)
+                msg4 = msg2 + 1
+            Loop Until msg4 >= Len(lData & ".")
+            msg5 = Val("&H" & Mid(msg, 1, 2)) * 256.0! + Val("&H" & Mid(msg, 3, 2))
+            i = Val("&H" & Mid(msg, 5, 2)) * 256.0! + Val("&H" & Mid(msg, 7, 2))
+            msg6 = Str(msg5 * 65536 + i)
+            EncodeIPAddr = Trim$(msg6)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Function EncodeIPAddr(ByVal IPAddr As String) As String")
+            Return ""
+        End Try
     End Function
 
     'FIGURE OUT HOW TO FIX THIS SHIT!
     Public Function GetRnd(ByVal lStart As Integer, ByVal lEnd As Integer) As Long
-        On Error Resume Next
-        Dim i As Long
-        Randomize()
-        i = lStart + (Rnd() * (lEnd - lStart))
-        Return i
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Function GetRnd(ByVal lStart As Integer, ByVal lEnd As Integer) As Long")
+        Try
+            Dim i As Long
+            Randomize()
+            i = lStart + (Rnd() * (lEnd - lStart))
+            Return i
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Function GetRnd(ByVal lStart As Integer, ByVal lEnd As Integer) As Long")
+        End Try
     End Function
 
     Public Function DoRight(ByVal lData As String, ByVal lLength As Integer) As String
-        On Error Resume Next
-        DoRight = Right(lData, lLength).ToString
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function DoRight(ByVal lData As String, ByVal lLength As Integer)")
+        Try
+            DoRight = Right(lData, lLength).ToString
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Function DoRight(ByVal lData As String, ByVal lLength As Integer)")
+            Return Nothing
+        End Try
     End Function
 
     Public Function DoLeft(ByVal lData As String, ByVal lLength As Integer) As String
-        On Error Resume Next
-        DoLeft = Left(lData, lLength).ToString
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function DoLeft(ByVal lData As String, ByVal lLength As Integer)")
+        Try
+            DoLeft = Left(lData, lLength).ToString
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Function DoLeft(ByVal lData As String, ByVal lLength As Integer)")
+            Return Nothing
+        End Try
     End Function
 
     Public Function LeftRight(ByVal lString As String, ByVal lLeft As Integer, ByVal lDistance As Integer) As String
@@ -2410,7 +2429,7 @@ Module mdlStrings
         Else
             LeftRight = ""
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function LeftRight(ByVal lString As String, ByVal lLeft As Integer, ByVal lDistance As Integer) As String")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function LeftRight(ByVal lString As String, ByVal lLeft As Integer, ByVal lDistance As Integer) As String")
     End Function
 
     Public Function ParseData(ByVal lWhole As String, ByVal lStart As String, ByVal lEnd As String) As String
@@ -2429,6 +2448,6 @@ Module mdlStrings
         Else
             ParseData = ""
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function ParseData(ByVal lWhole As String, ByVal lStart As String, ByVal lEnd As String)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ParseData(ByVal lWhole As String, ByVal lStart As String, ByVal lEnd As String)")
     End Function
 End Module

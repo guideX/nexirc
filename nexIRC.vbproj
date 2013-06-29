@@ -67,11 +67,14 @@
       <HintPath>bin\Debug\CSScriptLibrary.v3.5.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
     <Reference Include="Telerik.WinControls">
       <HintPath>..\..\telerik\Bin\Telerik.WinControls.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.WinControls.GridView, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.Themes.Aqua">
       <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Aqua.dll</HintPath>
     </Reference>
@@ -131,12 +134,10 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Classes\clsAnimate.vb" />
+    <Compile Include="Classes\clsFiles.vb" />
     <Compile Include="Classes\clsFlashWindow.vb" />
     <Compile Include="Classes\clsIdent.vb" />
     <Compile Include="Classes\clsIRC.vb">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Classes\clsListViewSorter.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\clsMdiChildWindow.vb" />
@@ -145,6 +146,18 @@
     <Compile Include="Classes\clsScrollToBottom.vb" />
     <Compile Include="Classes\clsServerInfo.vb" />
     <Compile Include="Classes\clsSocket.vb" />
+    <Compile Include="Forms\frmAbout.Designer.vb">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAbout.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSharedAdd.Designer.vb">
+      <DependentUpon>frmSharedAdd.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSharedAdd.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmChannel.Designer.vb">
       <DependentUpon>frmChannel.vb</DependentUpon>
     </Compile>
@@ -155,6 +168,18 @@
       <DependentUpon>frmChannelFolder.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmChannelFolder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCustomize.Designer.vb">
+      <DependentUpon>frmCustomize.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCustomize.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmStatus2.Designer.vb">
+      <DependentUpon>frmStatus2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmStatus2.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IRC\Channels\clsChannelFolder.vb" />
@@ -174,20 +199,9 @@
     </Compile>
     <Compile Include="IRC\Channel List\clsChannelList.vb" />
     <Compile Include="IRC\Channels\clsChannels.vb" />
+    <Compile Include="Modules\mdlObjects.vb" />
     <Compile Include="User Controls\clsVideo.vb">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Forms\frmAbout.Designer.vb">
-      <DependentUpon>frmAbout.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmAbout.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmAddNetwork.Designer.vb">
-      <DependentUpon>frmAddNetwork.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmAddNetwork.vb">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmAddNickName.Designer.vb">
       <DependentUpon>frmAddNickName.vb</DependentUpon>
@@ -241,12 +255,6 @@
       <DependentUpon>frmCompatibility.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmCompatibility.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmCustomize.Designer.vb">
-      <DependentUpon>frmCustomize.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmCustomize.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmDCCChat.Designer.vb">
@@ -307,12 +315,6 @@
       <DependentUpon>frmIdentdSettings.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmIdentdSettings.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmInOwnWindow.Designer.vb">
-      <DependentUpon>frmInOwnWindow.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmInOwnWindow.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmLoading.Designer.vb">
@@ -390,9 +392,7 @@
     <Compile Include="Forms\mdiMain.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Modules\mdlObjects.vb" />
     <Compile Include="Modules\mdlSettings.vb" />
-    <Compile Include="Modules\mdlFiles.vb" />
     <Compile Include="Modules\mdlStrings.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -422,11 +422,20 @@
     <EmbeddedResource Include="Classes\clsMdiChildWindow.resx">
       <DependentUpon>clsMdiChildWindow.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAbout.resx">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSharedAdd.resx">
+      <DependentUpon>frmSharedAdd.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChannel.resx">
       <DependentUpon>frmChannel.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChannelFolder.resx">
       <DependentUpon>frmChannelFolder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCustomize.resx">
+      <DependentUpon>frmCustomize.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmPrivateMessage.resx">
       <DependentUpon>frmPrivateMessage.vb</DependentUpon>
@@ -434,16 +443,12 @@
     <EmbeddedResource Include="Forms\frmSendNotice.resx">
       <DependentUpon>frmSendNotice.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmStatus2.resx">
+      <DependentUpon>frmStatus2.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="User Controls\clsVideo.resx">
       <DependentUpon>clsVideo.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmAbout.resx">
-      <DependentUpon>frmAbout.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmAddNetwork.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmAddNetwork.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAddNickName.resx">
       <SubType>Designer</SubType>
@@ -480,10 +485,6 @@
     <EmbeddedResource Include="Forms\frmCompatibility.resx">
       <DependentUpon>frmCompatibility.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmCustomize.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmCustomize.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDCCChat.resx">
       <SubType>Designer</SubType>
@@ -523,10 +524,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmIdentdSettings.resx">
       <DependentUpon>frmIdentdSettings.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmInOwnWindow.resx">
-      <DependentUpon>frmInOwnWindow.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmLoading.resx">

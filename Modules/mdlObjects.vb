@@ -1,5 +1,5 @@
 'nexIRC 3.0.23
-'02-27-2013 - guideX
+'06-13-2013 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.IRC.Channels
@@ -25,7 +25,7 @@ Module mdlObjects
                 End If
             End With
         Next i
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function ReturnSelectedListViewIndex(ByVal lListView As ListView) As Integer")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnSelectedListViewIndex(ByVal lListView As ListView) As Integer")
     End Function
 
     Public Function DoesListViewItemExist(ByVal lListView As ListView, ByVal lData As String) As Boolean
@@ -39,7 +39,7 @@ Module mdlObjects
                 End If
             End With
         Next i
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function DoesListViewItemExist(ByVal lListView As ListView, ByVal lData As String) As Boolean")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function DoesListViewItemExist(ByVal lListView As ListView, ByVal lData As String) As Boolean")
     End Function
 
     Public Function ReturnRadListBoxIndex(ByVal lListBox As RadListControl, ByVal lData As String) As Integer
@@ -51,7 +51,7 @@ Module mdlObjects
                 Exit For
             End If
         Next i
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function ReturnListBoxIndex(ByVal lListBox As ListBox, ByVal lData As String) As Integer")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnListBoxIndex(ByVal lListBox As ListBox, ByVal lData As String) As Integer")
     End Function
 
     Public Function ReturnListBoxIndex(ByVal lListBox As ListBox, ByVal lData As String) As Integer
@@ -63,7 +63,7 @@ Module mdlObjects
                 Exit For
             End If
         Next i
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function ReturnListBoxIndex(ByVal lListBox As ListBox, ByVal lData As String) As Integer")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnListBoxIndex(ByVal lListBox As ListBox, ByVal lData As String) As Integer")
     End Function
 
     Public Function FindListViewIndex(ByVal lListView As ListView, ByVal lText As String) As Integer
@@ -79,7 +79,40 @@ Module mdlObjects
                 End With
             Next i
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function FindListViewIndex(ByVal lListView As ListView, ByVal lText As String) As Integer")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function FindListViewIndex(ByVal lListView As ListView, ByVal lText As String) As Integer")
+    End Function
+
+    Public Function FindRadListViewIndex(ByVal lListView As RadListView, ByVal lText As String) As Integer
+        On Error Resume Next
+        Dim i As Integer
+        If Len(lText) <> 0 Then
+            For i = 0 To lListView.Items.Count - 1
+                With lListView.Items(i)
+                    If LCase(Trim(.Text)) = LCase(Trim(lText)) Then
+                        FindRadListViewIndex = i
+                        Exit For
+                    End If
+                End With
+            Next i
+        End If
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function FindListViewIndex(ByVal lListView As ListView, ByVal lText As String) As Integer")
+    End Function
+
+    Public Function FindRadComboIndex(ByVal lComboBox As RadDropDownList, ByVal lText As String) As Integer
+        On Error Resume Next
+        Dim i As Integer
+        If Len(lText) <> 0 Then
+            FindRadComboIndex = 0
+            With lComboBox
+                For i = 0 To lComboBox.Items.Count
+                    If Trim(LCase(.Items(i).ToString)) = Trim(LCase(lText)) Then
+                        FindRadComboIndex = i
+                        Exit For
+                    End If
+                Next i
+            End With
+        End If
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function FindComboIndex(ByVal lText As String) As Integer")
     End Function
 
     Public Function FindComboIndex(ByVal lComboBox As ComboBox, ByVal lText As String) As Integer
@@ -96,6 +129,6 @@ Module mdlObjects
                 Next i
             End With
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Function FindComboIndex(ByVal lText As String) As Integer")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function FindComboIndex(ByVal lText As String) As Integer")
     End Function
 End Module

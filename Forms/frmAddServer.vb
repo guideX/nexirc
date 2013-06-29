@@ -1,5 +1,5 @@
 'nexIRC 3.0.23
-'02-27-2013 - guideX
+'06-13-2013 - guideX
 Option Explicit On
 Option Strict On
 
@@ -9,26 +9,26 @@ Public Class frmAddServer
     Public Sub SetConnectEvent()
         On Error Resume Next
         lConnectOK = True
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub SetConnectEvent()")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetConnectEvent()")
     End Sub
 
     Public Sub SetNetwork(ByVal lNetwork As String)
         On Error Resume Next
         cboNetwork.Text = lNetwork
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub SetNetwork(ByVal lNetwork As String)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetNetwork(ByVal lNetwork As String)")
     End Sub
 
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
         On Error Resume Next
         Me.Close()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
     End Sub
 
     Private Sub frmAddServer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         On Error Resume Next
         Me.Icon = mdiMain.Icon
         FillComboWithNetworks(cboNetwork, True)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub frmAddServer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub frmAddServer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
     End Sub
 
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
@@ -49,7 +49,7 @@ Public Class frmAddServer
             lStatus.SetRemoteSettings(lStatus.ActiveIndex(), txtIp.Text, CLng(Trim(txtPort.Text)))
             lStatus.ActiveStatusConnect()
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub frmAddServer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub frmAddServer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
     End Sub
 
     Private Sub cmdNewNetwork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNewNetwork.Click
@@ -63,18 +63,18 @@ Public Class frmAddServer
                 cboNetwork.SelectedItem = FindComboIndex(cboNetwork, msg)
             End If
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdNewNetwork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNewNetwork.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdNewNetwork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNewNetwork.Click")
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         On Error Resume Next
         Me.Close()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click")
     End Sub
 
     Private Sub mnuServerLists_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         On Error Resume Next
         mdiMain.BrowseURL("http://www.irchelp.org/irchelp/networks/servers/index.html")
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub mnuServerLists_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuServerLists.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub mnuServerLists_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuServerLists.Click")
     End Sub
 End Class

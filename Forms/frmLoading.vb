@@ -1,5 +1,5 @@
 'nexIRC 3.0.23
-'02-27-2013 - guideX
+'06-13-2013 - guideX
 Option Explicit On
 Option Strict On
 
@@ -8,7 +8,7 @@ Public Class frmLoading
         On Error Resume Next
         lblStatus.Text = lData
         prgLoading.Value = lValue
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub SetProgress(ByVal lData As String, ByVal lValue As Integer)")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetProgress(ByVal lData As String, ByVal lValue As Integer)")
     End Sub
 
     Private Sub frmLoading_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load

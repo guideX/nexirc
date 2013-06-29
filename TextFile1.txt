@@ -85,5 +85,5 @@
         '.pWindow.DoNoticeColor(msg)
         'End If
         'End With
-        'If Err.Number <> 0 Then 'RaiseEvent ProcessError(ex.Message, "Public Sub ShowQueryWindow(ByVal StatusIndex As Integer, ByVal lIndex As Integer)")
+        'If Err.Number <> 0 Then RaiseEvent ProcessError(ex.Message, "Public Sub ShowQueryWindow(ByVal StatusIndex As Integer, ByVal lIndex As Integer)")
         'End Sub

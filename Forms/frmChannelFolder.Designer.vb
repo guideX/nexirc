@@ -172,6 +172,7 @@ Partial Class frmChannelFolder
         '
         '
         Me.RootElement.ApplyShapeToControl = True
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Channel Folder"
         CType(Me.txtChannel, System.ComponentModel.ISupportInitialize).EndInit()

@@ -1,6 +1,6 @@
 'INCOMPLETE
 'nexIRC 3.0.23
-'02-27-2013 - guideX
+'06-13-2013 - guideX
 Option Explicit On
 Option Strict On
 
@@ -10,7 +10,7 @@ Public Class frmDownloadManager
         On Error Resume Next
         Me.Icon = mdiMain.Icon
         SetListViewToDownloadManager(lvwDownloadManager)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub frmDownloadManager_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub frmDownloadManager_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
     End Sub
 
     Private Sub frmDownloadManager_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
@@ -25,19 +25,19 @@ Public Class frmDownloadManager
         cmdClear.Top = cmdRun.Top
         cmdOpenLocation.Top = cmdClear.Top
         cmdOpenLocation.Left = lvwDownloadManager.Left
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub frmDownloadManager_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub frmDownloadManager_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize")
     End Sub
 
     Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click
         On Error Resume Next
         Me.Close()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click")
     End Sub
 
     Private Sub cmdClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClear.Click
         On Error Resume Next
         lvwDownloadManager.Items.Clear()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClear.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClear.Click")
     End Sub
 
     Private Sub cmdRun_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRun.Click
@@ -80,7 +80,7 @@ Public Class frmDownloadManager
                 Exit Sub
             End If
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdRun_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRun.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdRun_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRun.Click")
     End Sub
 
     Private Sub lvwDownloadManager_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwDownloadManager.Click
@@ -96,7 +96,7 @@ Public Class frmDownloadManager
 
         End Select
         MsgBox(msg)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub lvwDownloadManager_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvwDownloadManager.SelectedIndexChanged")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub lvwDownloadManager_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvwDownloadManager.SelectedIndexChanged")
     End Sub
 
     Private Sub lvwDownloadManager_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lvwDownloadManager.SelectedIndexChanged

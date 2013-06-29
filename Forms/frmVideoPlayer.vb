@@ -1,5 +1,5 @@
 'nexIRC 3.0.23
-'02-27-2013 - guideX
+'06-13-2013 - guideX
 Option Explicit On
 'Option Strict On
 
@@ -406,7 +406,6 @@ Public Class frmVideoPlayer
         End If
         CurrentSec = CLng(CurrentSec / 1000)
         lblTime.Text = "   Total time = " & CStr(Int(TotalSec / 60)).PadLeft(2, CChar("0")) & ":" & CStr(CInt(TotalSec Mod 60)).PadLeft(2, CChar("0")) & "     Time = " & CStr(Int(CurrentSec / 60)).PadLeft(2, CChar("0")) & ":" & CStr(CInt(CurrentSec Mod 60)).PadLeft(2, CChar("0"))
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub TmrDisplay_Elapsed(ByVal sender As System.Object, ByVal e As System.Timers.ElapsedEventArgs) Handles TmrDisplay.Elapsed")
     End Sub
 
     Private Sub TrackOffset_Scroll(ByVal sender As Object, ByVal e As System.EventArgs) Handles TrackOffset.Scroll
@@ -415,77 +414,63 @@ Public Class frmVideoPlayer
         lVideo.Mute = clsVideo.Channels.Both
         lVideo.MoveToTime(TrackOffset.Value)
         lVideo.Mute = Mute
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub TrackOffset_Scroll(ByVal sender As Object, ByVal e As System.EventArgs) Handles TrackOffset.Scroll")
     End Sub
 
     Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged
-        'Try
-        If ChkMuteLeft.Checked = True And ChkMuteRight.Checked = True Then
-            lVideo.Mute = clsVideo.Channels.Both
-        ElseIf ChkMuteLeft.Checked = True And ChkMuteRight.Checked = False Then
-            lVideo.Mute = clsVideo.Channels.Left
-        ElseIf ChkMuteLeft.Checked = False And ChkMuteRight.Checked = True Then
-            lVideo.Mute = clsVideo.Channels.Right
-        Else
-            lVideo.Mute = clsVideo.Channels.None
-        End If
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged")
-        'End Try
+        Try
+            If ChkMuteLeft.Checked = True And ChkMuteRight.Checked = True Then
+                lVideo.Mute = clsVideo.Channels.Both
+            ElseIf ChkMuteLeft.Checked = True And ChkMuteRight.Checked = False Then
+                lVideo.Mute = clsVideo.Channels.Left
+            ElseIf ChkMuteLeft.Checked = False And ChkMuteRight.Checked = True Then
+                lVideo.Mute = clsVideo.Channels.Right
+            Else
+                lVideo.Mute = clsVideo.Channels.None
+            End If
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged")
+        End Try
     End Sub
 
     Private Sub TrackVolume_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrackVolume.Scroll
         On Error Resume Next
         lVideo.Volume = TrackVolume.Value
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub TrackVolume_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrackVolume.Scroll")
     End Sub
 
     Private Sub TrackBalance_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrackBalance.Scroll
         On Error Resume Next
         lVideo.Balance = TrackBalance.Value
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub TrackBalance_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrackBalance.Scroll")
     End Sub
 
     'Private Sub TrackSpeed_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs)
-    'On Error Resume Next
     'lVideo.Speed = TrackSpeed.Value
-    'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub TrackSpeed_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs)")
     'End Sub
 
     'Private Sub BtnPlay_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-    'On Error Resume Next
     'lVideo.Play()
-    'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub BtnPlay_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
     'End Sub
 
     'Private Sub BtnPause_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-    'On Error Resume Next
     'lVideo.Pause()
-    'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub BtnPause_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
     'End Sub
 
     'Private Sub BtnResume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-    'On Error Resume Next
     'lVideo.Resume()
-    'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub BtnResume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
     'End Sub
 
     'Private Sub BtnStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-    'On Error Resume Next
     'lVideo.Stop()
-    'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub BtnStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
     'End Sub
 
     Private Sub FrmMain_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         On Error Resume Next
         Me.MdiParent = mdiMain
         TmrDisplay.Enabled = True
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub FrmMain_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load")
     End Sub
 
     Public Sub OpenAndPlay(ByVal lFileName As String)
         On Error Resume Next
-        If DoesFileExist(lFileName) = True Then
+        If clsFiles.DoesFileExist(lFileName) = True Then
             lVideo.Open(lFileName)
             If lVideo.TotalTime >= 0 Then
                 TrackOffset.Value = 0
@@ -494,7 +479,6 @@ Public Class frmVideoPlayer
             End If
             lVideo.Play()
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Public Sub OpenAndPlay(ByVal lFileName As String)")
     End Sub
 
     Private Sub cmdOpen_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOpen.Click
@@ -515,37 +499,31 @@ Public Class frmVideoPlayer
             lVideo.Play()
         End If
         AskFile.Dispose()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdOpen_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOpen.Click")
     End Sub
 
     Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click
         On Error Resume Next
         lVideo.Close()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click")
     End Sub
 
     Private Sub cmdPlay_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdPlay.Click
         On Error Resume Next
         lVideo.Play()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdPlay_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdPlay.Click")
     End Sub
 
     Private Sub cmdPause_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdPause.Click
         On Error Resume Next
         lVideo.Pause()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdPause_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdPause.Click")
     End Sub
 
     Private Sub cmdResume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdResume.Click
         On Error Resume Next
         lVideo.Resume()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdResume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdResume.Click")
     End Sub
 
     Private Sub cmdStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdStop.Click
         On Error Resume Next
         lVideo.Stop()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdStop.Click")
     End Sub
 
     Private Sub cmdControls_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdControls.Click
@@ -559,7 +537,6 @@ Public Class frmVideoPlayer
             PnlVideo.Left = 91
             PnlVideo.Width = Me.Width - 91
         End If
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdControls_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdControls.Click")
     End Sub
 
     Private Sub cmdRepeat_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRepeat.Click

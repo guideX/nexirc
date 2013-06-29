@@ -1,5 +1,5 @@
 'nexIRC 3.0.23
-'02-27-2013 - guideX
+'06-13-2013 - guideX
 Option Explicit On
 Option Strict On
 
@@ -30,20 +30,20 @@ Public Class frmXLogin
         SaveServices()
         lStatus.PrivateMessage_User(lStatusIndex, lX.xLongName, "LOGIN " & lX.xLoginNickName & " " & lX.xLoginPassword)
         Me.Close()
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub cmdLogin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdLogin.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdLogin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdLogin.Click")
     End Sub
 
     Private Sub lblCreateAnAccount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblCreateAnAccount.Click
         On Error Resume Next
         mdiMain.BrowseURL(lX.xCreateAnAccountURL)
-        'If Err.Number <> 0 Then 'ProcessError(ex.Message, "Private Sub lblCreateAnAccount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblCreateAnAccount.Click")
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub lblCreateAnAccount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblCreateAnAccount.Click")
     End Sub
 
     Private Sub cmdCancel_Click(sender As Object, e As System.EventArgs) Handles cmdCancel.Click
-        'Try
-        Me.Close()
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmdCancel_Click(sender As Object, e As System.EventArgs) Handles cmdCancel.Click")
-        'End Try
+        Try
+            Me.Close()
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub cmdCancel_Click(sender As Object, e As System.EventArgs) Handles cmdCancel.Click")
+        End Try
     End Sub
 End Class

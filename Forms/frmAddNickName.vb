@@ -1,40 +1,17 @@
-'nexIRC 3.0.23
-'06-13-2013 - guideX
-Option Explicit On
+﻿Option Explicit On
 Option Strict On
-
-Public Class frmAddNickName
-    Private Sub OK_Button()
-        On Error Resume Next
-        If Len(txtNickname.Text) <> 0 Then AddNickName(txtNickname.Text)
-        Me.Close()
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub OK_Button()")
+Public Class frmAddNickname
+    Private WithEvents lAddNickName As New clsAddNickName
+    Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
+        lAddNickName.cmdCancel_Click(Me)
     End Sub
-
-    Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
-        On Error Resume Next
-        OK_Button()
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click")
+    Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click
+        lAddNickName.cmdOK_Click(Me, txtNickName.Text)
     End Sub
-
-    Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
-        On Error Resume Next
-        Me.Close()
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click")
+    Private Sub frmAddNickname_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+        lAddNickName.Form_Load(txtNickName)
     End Sub
-
-    Private Sub txtNickname_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtNickname.KeyPress
-        On Error Resume Next
-        If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Return) Then
-            e.Handled = True
-            OK_Button()
-        End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtNickname_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtNickname.KeyPress")
-    End Sub
-
-    Private Sub frmAddNickName_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        On Error Resume Next
-        Me.Icon = mdiMain.Icon
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub frmAddNickName_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+    Private Sub txtNickName_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtNickName.KeyPress
+        lAddNickName.txtNickname_KeyPress(Me, e.KeyChar, txtNickName.Text)
     End Sub
 End Class

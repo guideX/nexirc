@@ -23,20 +23,20 @@ Partial Class frmCustomize
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewDetailColumn7 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
-        Dim ListViewDetailColumn8 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Server")
-        Dim ListViewDetailColumn9 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Port")
-        Dim ListViewDetailColumn10 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
-        Dim ListViewDetailColumn11 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Network")
-        Dim ListViewDetailColumn12 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Message")
-        Dim ListViewDetailColumn1 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
-        Dim ListViewDetailColumn2 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Support")
-        Dim ListViewDetailColumn3 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Syntax")
-        Dim ListViewDetailColumn13 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 3", "Numeric")
-        Dim ListViewDetailColumn14 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 4", "Data")
-        Dim RadListDataItem1 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
-        Dim RadListDataItem2 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
-        Dim RadListDataItem3 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim ListViewDetailColumn12 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
+        Dim ListViewDetailColumn13 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Server")
+        Dim ListViewDetailColumn14 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Port")
+        Dim ListViewDetailColumn1 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
+        Dim ListViewDetailColumn2 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Network")
+        Dim ListViewDetailColumn3 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Message")
+        Dim ListViewDetailColumn4 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
+        Dim ListViewDetailColumn5 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Support")
+        Dim ListViewDetailColumn6 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Syntax")
+        Dim ListViewDetailColumn15 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 3", "Numeric")
+        Dim ListViewDetailColumn16 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 4", "Data")
+        Dim RadListDataItem4 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim RadListDataItem5 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim RadListDataItem6 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCustomize))
         Me.RadPageView1 = New Telerik.WinControls.UI.RadPageView()
         Me.RadPageViewPage1 = New Telerik.WinControls.UI.RadPageViewPage()
@@ -49,8 +49,6 @@ Partial Class frmCustomize
         Me.cmdServerDelete = New Telerik.WinControls.UI.RadButton()
         Me.lnkNetworkDelete = New System.Windows.Forms.LinkLabel()
         Me.cmdServerEdit = New Telerik.WinControls.UI.RadButton()
-        Me.txtServer = New System.Windows.Forms.TextBox()
-        Me.txtServerPort = New System.Windows.Forms.TextBox()
         Me.RadPageViewPage2 = New Telerik.WinControls.UI.RadPageViewPage()
         Me.RadLabel3 = New Telerik.WinControls.UI.RadLabel()
         Me.RadLabel2 = New Telerik.WinControls.UI.RadLabel()
@@ -156,13 +154,13 @@ Partial Class frmCustomize
         Me.chkNewStatus = New Telerik.WinControls.UI.RadCheckBox()
         Me.TelerikMetroTheme1 = New Telerik.WinControls.Themes.TelerikMetroTheme()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.cmdApplyNow = New Telerik.WinControls.UI.RadButton()
-        Me.RadButton1 = New Telerik.WinControls.UI.RadButton()
-        Me.cmdConnectNow = New Telerik.WinControls.UI.RadButton()
-        Me.cmdCancelNow = New Telerik.WinControls.UI.RadButton()
         Me.TelerikMetroTheme2 = New Telerik.WinControls.Themes.TelerikMetroTheme()
         Me.Office2010SilverTheme1 = New Telerik.WinControls.Themes.Office2010SilverTheme()
         Me.AquaTheme1 = New Telerik.WinControls.Themes.AquaTheme()
+        Me.cmdApplyNow = New Telerik.WinControls.UI.RadButton()
+        Me.cmdOK = New Telerik.WinControls.UI.RadButton()
+        Me.cmdConnectNow = New Telerik.WinControls.UI.RadButton()
+        Me.cmdCancelNow = New Telerik.WinControls.UI.RadButton()
         CType(Me.RadPageView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RadPageView1.SuspendLayout()
         Me.RadPageViewPage1.SuspendLayout()
@@ -282,7 +280,7 @@ Partial Class frmCustomize
         CType(Me.optDccChatPrompt, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkNewStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdApplyNow, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RadButton1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdConnectNow, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdCancelNow, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -298,7 +296,7 @@ Partial Class frmCustomize
         Me.RadPageView1.Controls.Add(Me.RadPageViewPage6)
         Me.RadPageView1.Location = New System.Drawing.Point(0, 1)
         Me.RadPageView1.Name = "RadPageView1"
-        Me.RadPageView1.SelectedPage = Me.RadPageViewPage4
+        Me.RadPageView1.SelectedPage = Me.RadPageViewPage1
         Me.RadPageView1.Size = New System.Drawing.Size(542, 381)
         Me.RadPageView1.TabIndex = 31
         Me.RadPageView1.Text = "RadPageView1"
@@ -314,8 +312,6 @@ Partial Class frmCustomize
         Me.RadPageViewPage1.Controls.Add(Me.cmdServerDelete)
         Me.RadPageViewPage1.Controls.Add(Me.lnkNetworkDelete)
         Me.RadPageViewPage1.Controls.Add(Me.cmdServerEdit)
-        Me.RadPageViewPage1.Controls.Add(Me.txtServer)
-        Me.RadPageViewPage1.Controls.Add(Me.txtServerPort)
         Me.RadPageViewPage1.Image = Global.nexIRC.My.Resources.Resources.web
         Me.RadPageViewPage1.Location = New System.Drawing.Point(10, 37)
         Me.RadPageViewPage1.Name = "RadPageViewPage1"
@@ -324,13 +320,13 @@ Partial Class frmCustomize
         '
         'lvwServers
         '
-        ListViewDetailColumn7.HeaderText = "Description"
-        ListViewDetailColumn7.Width = 365.0!
-        ListViewDetailColumn8.HeaderText = "Server"
-        ListViewDetailColumn8.Width = 75.0!
-        ListViewDetailColumn9.HeaderText = "Port"
-        ListViewDetailColumn9.Width = 75.0!
-        Me.lvwServers.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn7, ListViewDetailColumn8, ListViewDetailColumn9})
+        ListViewDetailColumn12.HeaderText = "Description"
+        ListViewDetailColumn12.Width = 365.0!
+        ListViewDetailColumn13.HeaderText = "Server"
+        ListViewDetailColumn13.Width = 75.0!
+        ListViewDetailColumn14.HeaderText = "Port"
+        ListViewDetailColumn14.Width = 75.0!
+        Me.lvwServers.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn12, ListViewDetailColumn13, ListViewDetailColumn14})
         Me.lvwServers.EnableColumnSort = True
         Me.lvwServers.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwServers.ItemSize = New System.Drawing.Size(200, 20)
@@ -446,27 +442,6 @@ Partial Class frmCustomize
         Me.cmdServerEdit.TabIndex = 18
         Me.cmdServerEdit.Text = "&Edit"
         Me.cmdServerEdit.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'txtServer
-        '
-        Me.txtServer.BackColor = System.Drawing.Color.Black
-        Me.txtServer.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtServer.Location = New System.Drawing.Point(102, 122)
-        Me.txtServer.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtServer.Name = "txtServer"
-        Me.txtServer.Size = New System.Drawing.Size(247, 13)
-        Me.txtServer.TabIndex = 12
-        Me.txtServer.Visible = False
-        '
-        'txtServerPort
-        '
-        Me.txtServerPort.BackColor = System.Drawing.Color.Black
-        Me.txtServerPort.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtServerPort.Location = New System.Drawing.Point(244, 149)
-        Me.txtServerPort.Name = "txtServerPort"
-        Me.txtServerPort.Size = New System.Drawing.Size(100, 13)
-        Me.txtServerPort.TabIndex = 21
-        Me.txtServerPort.Visible = False
         '
         'RadPageViewPage2
         '
@@ -1054,13 +1029,13 @@ Partial Class frmCustomize
         '
         'lvwNotify
         '
-        ListViewDetailColumn10.HeaderText = "Name"
-        ListViewDetailColumn10.Width = 363.0!
-        ListViewDetailColumn11.HeaderText = "Network"
-        ListViewDetailColumn11.Width = 75.0!
-        ListViewDetailColumn12.HeaderText = "Message"
-        ListViewDetailColumn12.Width = 75.0!
-        Me.lvwNotify.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn10, ListViewDetailColumn11, ListViewDetailColumn12})
+        ListViewDetailColumn1.HeaderText = "Name"
+        ListViewDetailColumn1.Width = 363.0!
+        ListViewDetailColumn2.HeaderText = "Network"
+        ListViewDetailColumn2.Width = 75.0!
+        ListViewDetailColumn3.HeaderText = "Message"
+        ListViewDetailColumn3.Width = 75.0!
+        Me.lvwNotify.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn1, ListViewDetailColumn2, ListViewDetailColumn3})
         Me.lvwNotify.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwNotify.ItemSize = New System.Drawing.Size(200, 20)
         Me.lvwNotify.ItemSpacing = -1
@@ -1194,17 +1169,17 @@ Partial Class frmCustomize
         '
         'lvwStrings
         '
-        ListViewDetailColumn1.HeaderText = "Description"
-        ListViewDetailColumn1.Width = 175.0!
-        ListViewDetailColumn2.HeaderText = "Support"
-        ListViewDetailColumn2.Width = 50.0!
-        ListViewDetailColumn3.HeaderText = "Syntax"
-        ListViewDetailColumn3.Width = 50.0!
-        ListViewDetailColumn13.HeaderText = "Numeric"
-        ListViewDetailColumn13.Width = 50.0!
-        ListViewDetailColumn14.HeaderText = "Data"
-        ListViewDetailColumn14.Width = 50.0!
-        Me.lvwStrings.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn1, ListViewDetailColumn2, ListViewDetailColumn3, ListViewDetailColumn13, ListViewDetailColumn14})
+        ListViewDetailColumn4.HeaderText = "Description"
+        ListViewDetailColumn4.Width = 175.0!
+        ListViewDetailColumn5.HeaderText = "Support"
+        ListViewDetailColumn5.Width = 50.0!
+        ListViewDetailColumn6.HeaderText = "Syntax"
+        ListViewDetailColumn6.Width = 50.0!
+        ListViewDetailColumn15.HeaderText = "Numeric"
+        ListViewDetailColumn15.Width = 50.0!
+        ListViewDetailColumn16.HeaderText = "Data"
+        ListViewDetailColumn16.Width = 50.0!
+        Me.lvwStrings.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn4, ListViewDetailColumn5, ListViewDetailColumn6, ListViewDetailColumn15, ListViewDetailColumn16})
         Me.lvwStrings.EnableColumnSort = True
         Me.lvwStrings.EnableSorting = True
         Me.lvwStrings.GroupItemSize = New System.Drawing.Size(200, 20)
@@ -1361,15 +1336,15 @@ Partial Class frmCustomize
         'cboDCCFileExists
         '
         Me.cboDCCFileExists.DropDownAnimationEnabled = True
-        RadListDataItem1.Text = "Prompt"
-        RadListDataItem1.TextWrap = True
-        RadListDataItem2.Text = "Overwrite"
-        RadListDataItem2.TextWrap = True
-        RadListDataItem3.Text = "Ignore"
-        RadListDataItem3.TextWrap = True
-        Me.cboDCCFileExists.Items.Add(RadListDataItem1)
-        Me.cboDCCFileExists.Items.Add(RadListDataItem2)
-        Me.cboDCCFileExists.Items.Add(RadListDataItem3)
+        RadListDataItem4.Text = "Prompt"
+        RadListDataItem4.TextWrap = True
+        RadListDataItem5.Text = "Overwrite"
+        RadListDataItem5.TextWrap = True
+        RadListDataItem6.Text = "Ignore"
+        RadListDataItem6.TextWrap = True
+        Me.cboDCCFileExists.Items.Add(RadListDataItem4)
+        Me.cboDCCFileExists.Items.Add(RadListDataItem5)
+        Me.cboDCCFileExists.Items.Add(RadListDataItem6)
         Me.cboDCCFileExists.Location = New System.Drawing.Point(125, 303)
         Me.cboDCCFileExists.Name = "cboDCCFileExists"
         Me.cboDCCFileExists.ShowImageInEditorArea = True
@@ -1526,20 +1501,20 @@ Partial Class frmCustomize
         Me.cmdApplyNow.Text = "&Apply"
         Me.cmdApplyNow.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
         '
-        'RadButton1
+        'cmdOK
         '
-        Me.RadButton1.Image = Global.nexIRC.My.Resources.Resources.accept
-        Me.RadButton1.Location = New System.Drawing.Point(271, 388)
-        Me.RadButton1.Name = "RadButton1"
-        Me.RadButton1.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
+        Me.cmdOK.Image = Global.nexIRC.My.Resources.Resources.accept
+        Me.cmdOK.Location = New System.Drawing.Point(271, 388)
+        Me.cmdOK.Name = "cmdOK"
+        Me.cmdOK.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
         '
         '
         '
-        Me.RadButton1.RootElement.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
-        Me.RadButton1.Size = New System.Drawing.Size(86, 29)
-        Me.RadButton1.TabIndex = 28
-        Me.RadButton1.Text = "&OK"
-        Me.RadButton1.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdOK.RootElement.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
+        Me.cmdOK.Size = New System.Drawing.Size(86, 29)
+        Me.cmdOK.TabIndex = 28
+        Me.cmdOK.Text = "&OK"
+        Me.cmdOK.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
         '
         'cmdConnectNow
         '
@@ -1579,7 +1554,7 @@ Partial Class frmCustomize
         Me.Controls.Add(Me.RadPageView1)
         Me.Controls.Add(Me.chkNewStatus)
         Me.Controls.Add(Me.cmdApplyNow)
-        Me.Controls.Add(Me.RadButton1)
+        Me.Controls.Add(Me.cmdOK)
         Me.Controls.Add(Me.cmdConnectNow)
         Me.Controls.Add(Me.cmdCancelNow)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
@@ -1718,7 +1693,7 @@ Partial Class frmCustomize
         CType(Me.optDccChatPrompt, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkNewStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdApplyNow, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RadButton1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdConnectNow, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdCancelNow, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1781,8 +1756,6 @@ Partial Class frmCustomize
     Friend WithEvents cmdServerDelete As Telerik.WinControls.UI.RadButton
     Friend WithEvents lnkNetworkDelete As System.Windows.Forms.LinkLabel
     Friend WithEvents cmdServerEdit As Telerik.WinControls.UI.RadButton
-    Friend WithEvents txtServer As System.Windows.Forms.TextBox
-    Friend WithEvents txtServerPort As System.Windows.Forms.TextBox
     Friend WithEvents RadPageViewPage2 As Telerik.WinControls.UI.RadPageViewPage
     Friend WithEvents cmdClearMyNickName As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdRemoveMyNickName As Telerik.WinControls.UI.RadButton
@@ -1797,7 +1770,7 @@ Partial Class frmCustomize
     Friend WithEvents TelerikMetroTheme1 As Telerik.WinControls.Themes.TelerikMetroTheme
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
     Friend WithEvents cmdApplyNow As Telerik.WinControls.UI.RadButton
-    Friend WithEvents RadButton1 As Telerik.WinControls.UI.RadButton
+    Friend WithEvents cmdOK As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdConnectNow As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdCancelNow As Telerik.WinControls.UI.RadButton
     Friend WithEvents TelerikMetroTheme2 As Telerik.WinControls.Themes.TelerikMetroTheme

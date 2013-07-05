@@ -91,14 +91,6 @@ Public Class clsMdiChildWindow
         End Try
     End Sub
 
-    Public Sub cmd_JoinChannel_Click()
-        Try
-            frmChannelJoin.Show()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub cmd_JoinChannel_Click()")
-        End Try
-    End Sub
-
     Public Sub txtIncomingColor_MouseUp(_SelectedText As String, ByRef _txtOutgoing As TextBox)
         Try
             If Len(_SelectedText) <> 0 Then
@@ -161,8 +153,10 @@ Public Class clsMdiChildWindow
                     _StatusIndex = lMeIndex
             End Select
             If _StatusIndex <> 0 Then
-                frmChangeNickname.SetServerWindow(lMeIndex)
-                frmChangeNickname.Show()
+                Dim f As New frmChangeNickName
+                f = New frmChangeNickName
+                f.lChangeNickName.lServerIndex = lMeIndex
+                clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
             End If
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub cmdChangeNickName_Click()")
@@ -276,14 +270,14 @@ Public Class clsMdiChildWindow
         End Try
     End Sub
 
-    Public Sub cmdChangeConnection_Click()
-        Try
-            Dim _Form As New frmChangeConnection
-            _Form.Show()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub cmdChangeConnection_Click()")
-        End Try
-    End Sub
+    'Public Sub cmdChangeConnection_Click()
+    'Try
+    'Dim _Form As New frmChangeConnection
+    '_Form.Show()
+    'Catch ex As Exception
+    'ProcessError(ex.Message, "Public Sub cmdChangeConnection_Click()")
+    'End Try
+    'End Sub
 
     Public Sub cmdToggleConnection_Click()
         Try

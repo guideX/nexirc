@@ -65,13 +65,13 @@ Public Class frmStatus
         End Try
     End Sub
 
-    Private Sub cmdChangeConnection_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdChangeConnection.Click
-        Try
-            lMdiChildWindow.cmdChangeConnection_Click()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmd_ChangeConnection_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChangeConnection.Click")
-        End Try
-    End Sub
+    'Private Sub cmdChangeConnection_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdChangeConnection.Click
+    'Try
+    'lMdiChildWindow.cmdChangeConnection_Click()
+    'Catch ex As Exception
+    'ProcessError(ex.Message, "Private Sub cmd_ChangeConnection_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChangeConnection.Click")
+    'End Try
+    'End Sub
 
     Private Sub cmdConnection_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnection.ButtonClick
         Try

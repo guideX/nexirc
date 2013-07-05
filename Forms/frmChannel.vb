@@ -133,4 +133,8 @@ Public Class frmChannel
             ProcessError(ex.Message, "Private Sub frmChannel_Resize(sender As Object, e As System.EventArgs) Handles Me.Resize")
         End Try
     End Sub
+
+    Private Sub frmChannel_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class

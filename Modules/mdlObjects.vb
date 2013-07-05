@@ -98,21 +98,24 @@ Module mdlObjects
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function FindListViewIndex(ByVal lListView As ListView, ByVal lText As String) As Integer")
     End Function
 
-    Public Function FindRadComboIndex(ByVal lComboBox As RadDropDownList, ByVal lText As String) As Integer
-        On Error Resume Next
-        Dim i As Integer
-        If Len(lText) <> 0 Then
-            FindRadComboIndex = 0
-            With lComboBox
-                For i = 0 To lComboBox.Items.Count
-                    If Trim(LCase(.Items(i).ToString)) = Trim(LCase(lText)) Then
-                        FindRadComboIndex = i
-                        Exit For
-                    End If
-                Next i
-            End With
-        End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function FindComboIndex(ByVal lText As String) As Integer")
+
+    Public Function FindRadComboIndex(ByVal _RadDropDownList As RadDropDownList, ByVal _Text As String) As Integer
+        Try
+            Dim i As Integer
+            If Len(_Text) <> 0 Then
+                FindRadComboIndex = 0
+                With _RadDropDownList
+                    For i = 0 To _RadDropDownList.Items.Count
+                        If Trim(LCase(.Items(i).ToString)) = Trim(LCase(_Text)) Then
+                            FindRadComboIndex = i
+                            Exit For
+                        End If
+                    Next i
+                End With
+            End If
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Function FindRadComboIndex(ByVal _RadDropDownList As RadDropDownList, ByVal _Text As String) As Integer")
+        End Try
     End Function
 
     Public Function FindComboIndex(ByVal lComboBox As ComboBox, ByVal lText As String) As Integer

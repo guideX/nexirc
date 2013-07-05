@@ -22,14 +22,14 @@ Partial Class frmOperator_Connect
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.lblTargetServer = New System.Windows.Forms.Label
-        Me.cboTargetServer = New System.Windows.Forms.ComboBox
-        Me.lblPort = New System.Windows.Forms.Label
-        Me.TextBox1 = New System.Windows.Forms.TextBox
-        Me.lblRemoteServer = New System.Windows.Forms.Label
-        Me.txtRemoteServer = New System.Windows.Forms.TextBox
-        Me.cmdCancel = New System.Windows.Forms.Button
-        Me.cmdOK = New System.Windows.Forms.Button
+        Me.lblTargetServer = New System.Windows.Forms.Label()
+        Me.cboTargetServer = New System.Windows.Forms.ComboBox()
+        Me.lblPort = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.lblRemoteServer = New System.Windows.Forms.Label()
+        Me.txtRemoteServer = New System.Windows.Forms.TextBox()
+        Me.cmdCancel = New System.Windows.Forms.Button()
+        Me.cmdOK = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'lblTargetServer

@@ -181,9 +181,9 @@ Partial Class frmAbout
         Me.RadPageViewPage2.Controls.Add(Me.LinkLabel6)
         Me.RadPageViewPage2.Controls.Add(Me.Label6)
         Me.RadPageViewPage2.Controls.Add(Me.LinkLabel5)
-        Me.RadPageViewPage2.Location = New System.Drawing.Point(4, 4)
+        Me.RadPageViewPage2.Location = New System.Drawing.Point(10, 37)
         Me.RadPageViewPage2.Name = "RadPageViewPage2"
-        Me.RadPageViewPage2.Size = New System.Drawing.Size(0, 0)
+        Me.RadPageViewPage2.Size = New System.Drawing.Size(265, 158)
         Me.RadPageViewPage2.Text = "Credits"
         '
         'Label8

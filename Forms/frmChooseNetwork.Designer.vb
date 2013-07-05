@@ -1,14 +1,17 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmChooseNetwork
-    Inherits System.Windows.Forms.Form
+    Inherits Telerik.WinControls.UI.RadForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-        If disposing AndAlso components IsNot Nothing Then
-            components.Dispose()
-        End If
-        MyBase.Dispose(disposing)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
     End Sub
 
     'Required by the Windows Form Designer
@@ -19,59 +22,65 @@ Partial Class frmChooseNetwork
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.cmdCancel = New System.Windows.Forms.Button()
-        Me.cmdOK = New System.Windows.Forms.Button()
-        Me.cboNetwork = New System.Windows.Forms.ComboBox()
+        Me.cboNetworks = New Telerik.WinControls.UI.RadDropDownList()
+        Me.cmdOK = New Telerik.WinControls.UI.RadButton()
+        Me.cmdCancel = New Telerik.WinControls.UI.RadButton()
+        CType(Me.cboNetworks, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'cmdCancel
+        'cboNetworks
         '
-        Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdCancel.Location = New System.Drawing.Point(253, 39)
-        Me.cmdCancel.Name = "cmdCancel"
-        Me.cmdCancel.Size = New System.Drawing.Size(65, 23)
-        Me.cmdCancel.TabIndex = 1
-        Me.cmdCancel.Text = "Cancel"
-        Me.cmdCancel.UseVisualStyleBackColor = True
+        Me.cboNetworks.DropDownAnimationEnabled = True
+        Me.cboNetworks.Location = New System.Drawing.Point(12, 12)
+        Me.cboNetworks.Name = "cboNetworks"
+        Me.cboNetworks.ShowImageInEditorArea = True
+        Me.cboNetworks.Size = New System.Drawing.Size(284, 20)
+        Me.cboNetworks.TabIndex = 0
         '
         'cmdOK
         '
-        Me.cmdOK.Location = New System.Drawing.Point(182, 39)
+        Me.cmdOK.Location = New System.Drawing.Point(110, 38)
         Me.cmdOK.Name = "cmdOK"
-        Me.cmdOK.Size = New System.Drawing.Size(65, 23)
-        Me.cmdOK.TabIndex = 2
+        Me.cmdOK.Size = New System.Drawing.Size(90, 24)
+        Me.cmdOK.TabIndex = 1
         Me.cmdOK.Text = "OK"
-        Me.cmdOK.UseVisualStyleBackColor = True
         '
-        'cboNetwork
+        'cmdCancel
         '
-        Me.cboNetwork.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboNetwork.FormattingEnabled = True
-        Me.cboNetwork.Location = New System.Drawing.Point(12, 12)
-        Me.cboNetwork.Name = "cboNetwork"
-        Me.cboNetwork.Size = New System.Drawing.Size(306, 21)
-        Me.cboNetwork.TabIndex = 3
+        Me.cmdCancel.Location = New System.Drawing.Point(206, 38)
+        Me.cmdCancel.Name = "cmdCancel"
+        Me.cmdCancel.Size = New System.Drawing.Size(90, 24)
+        Me.cmdCancel.TabIndex = 2
+        Me.cmdCancel.Text = "Cancel"
         '
         'frmChooseNetwork
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.cmdCancel
-        Me.ClientSize = New System.Drawing.Size(328, 69)
-        Me.Controls.Add(Me.cboNetwork)
-        Me.Controls.Add(Me.cmdOK)
+        Me.ClientSize = New System.Drawing.Size(308, 70)
         Me.Controls.Add(Me.cmdCancel)
-        Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Controls.Add(Me.cmdOK)
+        Me.Controls.Add(Me.cboNetworks)
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmChooseNetwork"
-        Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        '
+        '
+        '
+        Me.RootElement.ApplyShapeToControl = True
         Me.Text = "nexIRC - Choose Network"
+        CType(Me.cboNetworks, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents cmdCancel As System.Windows.Forms.Button
-    Friend WithEvents cmdOK As System.Windows.Forms.Button
-    Friend WithEvents cboNetwork As System.Windows.Forms.ComboBox
+    Friend WithEvents cboNetworks As Telerik.WinControls.UI.RadDropDownList
+    Friend WithEvents cmdOK As Telerik.WinControls.UI.RadButton
+    Friend WithEvents cmdCancel As Telerik.WinControls.UI.RadButton
 End Class
+

@@ -13,11 +13,11 @@ Public Module mdlSettings
         dIgnore = 3
     End Enum
 
-    Enum eStringsDisplayMode
-        dNormal = 1
-        dRaw = 2
-        dMinimal = 3
-    End Enum
+    'Enum eStringsDisplayMode
+    'dNormal = 1
+    'dRaw = 2
+    'dMinimal = 3
+    'End Enum
 
     Enum eUnsupportedIn
         uStatusWindow = 1
@@ -223,7 +223,7 @@ Public Module mdlSettings
     End Structure
 
     Structure gStringSettings
-        Public sDisplay As eStringsDisplayMode
+        'Public sDisplay As eStringsDisplayMode
         Public sUnknowns As eUnknownsIn
         Public sUnsupported As eUnsupportedIn
         Public sServerInNotices As Boolean
@@ -1228,15 +1228,15 @@ Public Module mdlSettings
         On Error Resume Next
         Dim i As Integer
         With lIRC.iSettings.sStringSettings
-            i = CInt(Trim(clsFiles.ReadINI(lINI.iStringSettings, "Settings", "DisplayIn", "1")))
-            Select Case i
-                Case 1
-                    .sDisplay = eStringsDisplayMode.dNormal
-                Case 2
-                    .sDisplay = eStringsDisplayMode.dRaw
-                Case 3
-                    .sDisplay = eStringsDisplayMode.dMinimal
-            End Select
+            'i = CInt(Trim(clsFiles.ReadINI(lINI.iStringSettings, "Settings", "DisplayIn", "1")))
+            'Select Case i
+            'Case 1
+            '.sDisplay = eStringsDisplayMode.dNormal
+            'Case 2
+            '.sDisplay = eStringsDisplayMode.dRaw
+            'Case 3
+            '.sDisplay = eStringsDisplayMode.dMinimal
+            'End Select
             i = 0
             i = CInt(Trim(clsFiles.ReadINI(lINI.iStringSettings, "Settings", "Unknowns", "2")))
             Select Case i
@@ -1548,7 +1548,7 @@ Public Module mdlSettings
             SaveWindowSizes()
         End With
         With lIRC.iSettings.sStringSettings
-            clsFiles.WriteINI(lINI.iStringSettings, "Settings", "DisplayMode", Trim(Str(.sDisplay)))
+            'clsFiles.WriteINI(lINI.iStringSettings, "Settings", "DisplayMode", Trim(Str(.sDisplay)))
             clsFiles.WriteINI(lINI.iStringSettings, "Settings", "Unknowns", Trim(Str(.sUnknowns)))
             clsFiles.WriteINI(lINI.iStringSettings, "Settings", "Unsupported", Trim(Str(.sUnsupported)))
             clsFiles.WriteINI(lINI.iStringSettings, "Settings", "ServerInNotices", Trim(.sServerInNotices.ToString))
@@ -1594,7 +1594,7 @@ Public Module mdlSettings
                 .sPort = lPort
             End With
             SaveServers()
-            If lWinVisible.wCustomize = True Then frmCustomize.RefreshServers(False)
+            If lWinVisible.wCustomize = True Then frmCustomize.lCustomize.RefreshServers(frmCustomize.ServersListView)
         End If
         AddServer = lServers.sCount
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub AddServer(ByVal lDescription As String, ByVal lIp As String, ByVal lNetworkIndex As Integer, ByVal lPort As Long)")
@@ -1608,7 +1608,7 @@ Public Module mdlSettings
                 .nDescription = lDescription
             End With
             If lWinVisible.wCustomize = True Then
-                frmCustomize.RefreshNetworks()
+                frmCustomize.lCustomize.RefreshNetworks(frmCustomize.cboNetworks)
                 frmCustomize.cboNetworks.Text = lDescription
             End If
         End If
@@ -1620,21 +1620,16 @@ Public Module mdlSettings
     Public Sub SaveServers()
         On Error Resume Next
         Dim i As Integer
-        If lServers.sModified = True Then
-            clsFiles.WriteINI(lINI.iServers, "Settings", "Count", Trim(CStr(lServers.sCount)))
-            clsFiles.WriteINI(lINI.iServers, "Settings", "Index", Trim(CStr(lServers.sIndex)))
-            For i = 1 To lServers.sCount
-                With lServers.sServer(i)
-                    clsFiles.WriteINI(lINI.iServers, Trim(CStr(i)), "Ip", .sIP)
-                    clsFiles.WriteINI(lINI.iServers, Trim(CStr(i)), "Port", Trim(CStr(.sPort)))
-                    clsFiles.WriteINI(lINI.iServers, Trim(CStr(i)), "Description", .sDescription)
-                    clsFiles.WriteINI(lINI.iServers, Trim(CStr(i)), "NetworkIndex", Trim(.sNetworkIndex.ToString))
-                End With
-            Next i
-            lServers.sModified = False
-        End If
-
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SaveServers()")
+        clsFiles.WriteINI(lINI.iServers, "Settings", "Count", lServers.sCount.ToString().Trim)
+        clsFiles.WriteINI(lINI.iServers, "Settings", "Index", lServers.sIndex.ToString().Trim)
+        For i = 1 To lServers.sCount
+            With lServers.sServer(i)
+                clsFiles.WriteINI(lINI.iServers, Trim(CStr(i)), "Ip", .sIP)
+                clsFiles.WriteINI(lINI.iServers, Trim(CStr(i)), "Port", Trim(CStr(.sPort)))
+                clsFiles.WriteINI(lINI.iServers, Trim(CStr(i)), "Description", .sDescription)
+                clsFiles.WriteINI(lINI.iServers, Trim(CStr(i)), "NetworkIndex", Trim(.sNetworkIndex.ToString))
+            End With
+        Next i
     End Sub
 
     Private Sub SaveNetworks()
@@ -1717,6 +1712,24 @@ Public Module mdlSettings
             Next i
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub FillComboWithServers(Optional ByVal lServerIndex As Integer = 0)")
+        End Try
+    End Sub
+
+    Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)
+        Try
+            Dim i As Integer
+            If _Clear = True Then _RadDropDownList.Items.Clear()
+            For i = 1 To lNetworks.nCount
+                With lNetworks.nNetwork(i)
+                    If (.nDescription IsNot Nothing) Then
+                        If (.nDescription.Length <> 0) Then
+                            _RadDropDownList.Items.Add(.nDescription)
+                        End If
+                    End If
+                End With
+            Next i
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)")
         End Try
     End Sub
 

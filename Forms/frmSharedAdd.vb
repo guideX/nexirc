@@ -8,7 +8,7 @@ Public Class frmSharedAdd
         sAddNetwork = 1
     End Enum
 
-    Private lSharedAddType As eSharedAddType
+    Public lSharedAddType As eSharedAddType
 
     Private Sub OK_Button()
         Try

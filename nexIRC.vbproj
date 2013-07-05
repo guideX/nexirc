@@ -152,6 +152,36 @@
     <Compile Include="Forms\frmAbout.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmAddNickName.Designer.vb">
+      <DependentUpon>frmAddNickName.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddNickName.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddServer.Designer.vb">
+      <DependentUpon>frmAddServer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddServer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChangeNickName.Designer.vb">
+      <DependentUpon>frmChangeNickName.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChangeNickName.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChooseNetwork.Designer.vb">
+      <DependentUpon>frmChooseNetwork.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChooseNetwork.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCompatibility.Designer.vb">
+      <DependentUpon>frmCompatibility.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCompatibility.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmSharedAdd.Designer.vb">
       <DependentUpon>frmSharedAdd.vb</DependentUpon>
     </Compile>
@@ -183,6 +213,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IRC\Channels\clsChannelFolder.vb" />
+    <Compile Include="IRC\Customize\clsCustomize.vb" />
     <Compile Include="IRC\Status\clsStatus.vb" />
     <Compile Include="Classes\clsStatusSocket.vb" />
     <Compile Include="Forms\frmPrivateMessage.Designer.vb">
@@ -199,21 +230,15 @@
     </Compile>
     <Compile Include="IRC\Channel List\clsChannelList.vb" />
     <Compile Include="IRC\Channels\clsChannels.vb" />
+    <Compile Include="IRC\UtilityWindows\clsAbout.vb" />
+    <Compile Include="IRC\UtilityWindows\clsAddNickName.vb" />
+    <Compile Include="IRC\UtilityWindows\clsAddServer.vb" />
+    <Compile Include="IRC\UtilityWindows\clsChangeNickName.vb" />
+    <Compile Include="IRC\UtilityWindows\clsChooseNetwork.vb" />
+    <Compile Include="IRC\UtilityWindows\clsCompatibility.vb" />
     <Compile Include="Modules\mdlObjects.vb" />
     <Compile Include="User Controls\clsVideo.vb">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Forms\frmAddNickName.Designer.vb">
-      <DependentUpon>frmAddNickName.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmAddNickName.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmAddServer.Designer.vb">
-      <DependentUpon>frmAddServer.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmAddServer.vb">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmBrowser.Designer.vb">
       <DependentUpon>frmBrowser.vb</DependentUpon>
@@ -221,40 +246,10 @@
     <Compile Include="Forms\frmBrowser.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmChangeConnection.Designer.vb">
-      <DependentUpon>frmChangeConnection.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmChangeConnection.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmChangeNickname.Designer.vb">
-      <DependentUpon>frmChangeNickname.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmChangeNickname.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmChannelJoin.Designer.vb">
-      <DependentUpon>frmChannelJoin.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmChannelJoin.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\frmChannelList.Designer.vb">
       <DependentUpon>frmChannelList.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmChannelList.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmChooseNetwork.Designer.vb">
-      <DependentUpon>frmChooseNetwork.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmChooseNetwork.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmCompatibility.Designer.vb">
-      <DependentUpon>frmCompatibility.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmCompatibility.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmDCCChat.Designer.vb">
@@ -335,22 +330,10 @@
     <Compile Include="Forms\frmNickServLogin.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmNotepad.Designer.vb">
-      <DependentUpon>frmNotepad.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmNotepad.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\frmNoticeWindow.Designer.vb">
       <DependentUpon>frmNoticeWindow.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmNoticeWindow.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmOperator_Connect.Designer.vb">
-      <DependentUpon>frmOperator_Connect.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmOperator_Connect.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmQuerySettings.Designer.vb">
@@ -425,6 +408,21 @@
     <EmbeddedResource Include="Forms\frmAbout.resx">
       <DependentUpon>frmAbout.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddNickName.resx">
+      <DependentUpon>frmAddNickName.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddServer.resx">
+      <DependentUpon>frmAddServer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChangeNickName.resx">
+      <DependentUpon>frmChangeNickName.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChooseNetwork.resx">
+      <DependentUpon>frmChooseNetwork.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCompatibility.resx">
+      <DependentUpon>frmCompatibility.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSharedAdd.resx">
       <DependentUpon>frmSharedAdd.vb</DependentUpon>
     </EmbeddedResource>
@@ -450,41 +448,13 @@
       <DependentUpon>clsVideo.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmAddNickName.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmAddNickName.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmAddServer.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmAddServer.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmBrowser.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmBrowser.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmChangeConnection.resx">
-      <DependentUpon>frmChangeConnection.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmChangeNickname.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmChangeNickname.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmChannelJoin.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmChannelJoin.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChannelList.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmChannelList.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmChooseNetwork.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmChooseNetwork.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmCompatibility.resx">
-      <DependentUpon>frmCompatibility.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDCCChat.resx">
       <SubType>Designer</SubType>
@@ -538,17 +508,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmNickServLogin.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmNotepad.resx">
-      <DependentUpon>frmNotepad.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmNoticeWindow.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmNoticeWindow.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmOperator_Connect.resx">
-      <DependentUpon>frmOperator_Connect.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmQuerySettings.resx">
       <SubType>Designer</SubType>

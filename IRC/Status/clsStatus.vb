@@ -1629,7 +1629,7 @@ Namespace IRC.Status
                         Connect(i)
                     Else
                         _AddServer = New frmAddServer
-                        _AddServer.SetConnectEvent()
+                        _AddServer.lAddServer.lConnectSetting = True
                         _AddServer.txtIp.Text = _Server
                         _AddServer.txtPort.Text = _Port.ToString().Trim()
                         clsAnimate.Animate(_AddServer, clsAnimate.Effect.Center, 200, 1)

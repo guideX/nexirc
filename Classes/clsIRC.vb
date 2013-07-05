@@ -1060,9 +1060,9 @@ Public Class clsIRC
                             Case 433
                                 ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NICKNAMEINUSE, lStatus.NickName(lStatusIndex))
                                 If lIRC.iSettings.sChangeNickNameWindow = True Then
-                                    Dim f As New frmChangeNickname
-                                    f = New frmChangeNickname
-                                    f.SetServerWindow(lStatusIndex)
+                                    Dim f As New frmChangeNickName
+                                    f = New frmChangeNickName
+                                    f.lChangeNickName.lServerIndex = lStatusIndex
                                     clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
                                 End If
                                 Exit Sub

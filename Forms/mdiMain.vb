@@ -803,12 +803,6 @@ Public Class mdiMain
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdDeny_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeny.Click")
     End Sub
 
-    Private Sub cmd_Notepad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Notepad.Click
-        On Error Resume Next
-        clsAnimate.Animate(frmNotepad, clsAnimate.Effect.Center, 200, 1)
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmd_Notepad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Notepad.Click")
-    End Sub
-
     Private Sub nicSystray_MouseDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles nicSystray.MouseDoubleClick
         On Error Resume Next
         Me.Show()
@@ -817,13 +811,13 @@ Public Class mdiMain
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub nicSystray_MouseDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles nicSystray.MouseDoubleClick")
     End Sub
 
-    Private Sub cmd_ChangeConnection_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChangeConnection.Click
-        Try
-            clsAnimate.Animate(frmChangeConnection, clsAnimate.Effect.Center, 200, 1)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmd_ChangeConnection_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChangeConnection.Click")
-        End Try
-    End Sub
+    'Private Sub cmd_ChangeConnection_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChangeConnection.Click
+    'Try
+    'clsAnimate.Animate(frmChangeConnection, clsAnimate.Effect.Center, 200, 1)
+    'Catch ex As Exception
+    'ProcessError(ex.Message, "Private Sub cmd_ChangeConnection_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChangeConnection.Click")
+    'End Try
+    'End Sub
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try

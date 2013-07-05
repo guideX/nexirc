@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmCompatibility
-    Inherits System.Windows.Forms.Form
+    Inherits Telerik.WinControls.UI.RadForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -22,87 +22,94 @@ Partial Class frmCompatibility
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.lvwCompatibility = New System.Windows.Forms.ListView
-        Me.cmdOK = New System.Windows.Forms.Button
-        Me.cmdCancel = New System.Windows.Forms.Button
-        Me.lblAdd = New System.Windows.Forms.LinkLabel
-        Me.lblRemove = New System.Windows.Forms.LinkLabel
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCompatibility))
+        Me.lvwCompatibility = New Telerik.WinControls.UI.RadListView()
+        Me.cmdOK = New Telerik.WinControls.UI.RadButton()
+        Me.cmdCancel = New Telerik.WinControls.UI.RadButton()
+        Me.lnkRemove = New System.Windows.Forms.LinkLabel()
+        Me.lnkAdd = New System.Windows.Forms.LinkLabel()
+        CType(Me.lvwCompatibility, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lvwCompatibility
         '
-        Me.lvwCompatibility.FullRowSelect = True
-        Me.lvwCompatibility.Location = New System.Drawing.Point(3, 2)
+        Me.lvwCompatibility.GroupItemSize = New System.Drawing.Size(200, 20)
+        Me.lvwCompatibility.ItemSize = New System.Drawing.Size(200, 20)
+        Me.lvwCompatibility.Location = New System.Drawing.Point(2, 3)
         Me.lvwCompatibility.Name = "lvwCompatibility"
-        Me.lvwCompatibility.Size = New System.Drawing.Size(268, 160)
+        Me.lvwCompatibility.Size = New System.Drawing.Size(243, 136)
         Me.lvwCompatibility.TabIndex = 0
-        Me.lvwCompatibility.UseCompatibleStateImageBehavior = False
-        Me.lvwCompatibility.View = System.Windows.Forms.View.Details
+        Me.lvwCompatibility.Text = "RadListView1"
         '
         'cmdOK
         '
-        Me.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.cmdOK.Location = New System.Drawing.Point(115, 168)
+        Me.cmdOK.Location = New System.Drawing.Point(121, 145)
         Me.cmdOK.Name = "cmdOK"
-        Me.cmdOK.Size = New System.Drawing.Size(75, 23)
+        Me.cmdOK.Size = New System.Drawing.Size(59, 24)
         Me.cmdOK.TabIndex = 1
         Me.cmdOK.Text = "OK"
-        Me.cmdOK.UseVisualStyleBackColor = True
         '
         'cmdCancel
         '
-        Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdCancel.Location = New System.Drawing.Point(196, 168)
+        Me.cmdCancel.Location = New System.Drawing.Point(186, 145)
         Me.cmdCancel.Name = "cmdCancel"
-        Me.cmdCancel.Size = New System.Drawing.Size(75, 23)
+        Me.cmdCancel.Size = New System.Drawing.Size(59, 24)
         Me.cmdCancel.TabIndex = 2
         Me.cmdCancel.Text = "Cancel"
-        Me.cmdCancel.UseVisualStyleBackColor = True
         '
-        'lblAdd
+        'lnkRemove
         '
-        Me.lblAdd.AutoSize = True
-        Me.lblAdd.Location = New System.Drawing.Point(0, 165)
-        Me.lblAdd.Name = "lblAdd"
-        Me.lblAdd.Size = New System.Drawing.Size(26, 13)
-        Me.lblAdd.TabIndex = 3
-        Me.lblAdd.TabStop = True
-        Me.lblAdd.Text = "Add"
+        Me.lnkRemove.AutoSize = True
+        Me.lnkRemove.Location = New System.Drawing.Point(33, 152)
+        Me.lnkRemove.Name = "lnkRemove"
+        Me.lnkRemove.Size = New System.Drawing.Size(47, 13)
+        Me.lnkRemove.TabIndex = 18
+        Me.lnkRemove.TabStop = True
+        Me.lnkRemove.Text = "Remove"
         '
-        'lblRemove
+        'lnkAdd
         '
-        Me.lblRemove.AutoSize = True
-        Me.lblRemove.Location = New System.Drawing.Point(32, 165)
-        Me.lblRemove.Name = "lblRemove"
-        Me.lblRemove.Size = New System.Drawing.Size(46, 13)
-        Me.lblRemove.TabIndex = 4
-        Me.lblRemove.TabStop = True
-        Me.lblRemove.Text = "Remove"
+        Me.lnkAdd.AutoSize = True
+        Me.lnkAdd.Location = New System.Drawing.Point(-1, 152)
+        Me.lnkAdd.Name = "lnkAdd"
+        Me.lnkAdd.Size = New System.Drawing.Size(28, 13)
+        Me.lnkAdd.TabIndex = 19
+        Me.lnkAdd.TabStop = True
+        Me.lnkAdd.Text = "Add"
         '
         'frmCompatibility
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.CancelButton = Me.cmdCancel
-        Me.ClientSize = New System.Drawing.Size(276, 195)
-        Me.Controls.Add(Me.lblRemove)
-        Me.Controls.Add(Me.lblAdd)
+        Me.ClientSize = New System.Drawing.Size(248, 174)
+        Me.Controls.Add(Me.lnkAdd)
+        Me.Controls.Add(Me.lnkRemove)
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.cmdOK)
         Me.Controls.Add(Me.lvwCompatibility)
-        Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmCompatibility"
-        Me.Text = "nexIRC - IRC Compatibility"
+        '
+        '
+        '
+        Me.RootElement.ApplyShapeToControl = True
+        Me.Text = "nexIRC - Compatibility"
+        CType(Me.lvwCompatibility, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents lvwCompatibility As System.Windows.Forms.ListView
-    Friend WithEvents cmdOK As System.Windows.Forms.Button
-    Friend WithEvents cmdCancel As System.Windows.Forms.Button
-    Friend WithEvents lblAdd As System.Windows.Forms.LinkLabel
-    Friend WithEvents lblRemove As System.Windows.Forms.LinkLabel
+    Friend WithEvents lvwCompatibility As Telerik.WinControls.UI.RadListView
+    Friend WithEvents cmdOK As Telerik.WinControls.UI.RadButton
+    Friend WithEvents cmdCancel As Telerik.WinControls.UI.RadButton
+    Friend WithEvents lnkRemove As System.Windows.Forms.LinkLabel
+    Friend WithEvents lnkAdd As System.Windows.Forms.LinkLabel
 End Class
+

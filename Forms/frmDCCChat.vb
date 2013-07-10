@@ -4,8 +4,8 @@ Option Explicit On
 Option Strict On
 
 Public Class frmDCCChat
-    Private WithEvents lListen As nexIRC.Sockets.AsyncServer
-    Private WithEvents lSocket As nexIRC.Sockets.AsyncSocket
+    Private WithEvents lListen As nexIRC.Classes.Communications.AsyncServer
+    Private WithEvents lSocket As nexIRC.Classes.Communications.AsyncSocket
     Private lServer As Boolean
     Private lRemoteIp As String
     Private lRemotePort As String
@@ -34,7 +34,7 @@ Public Class frmDCCChat
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub AddText(ByVal lData As String)")
     End Sub
 
-    Private Sub SendData(ByVal lTempSocket As nexIRC.Sockets.AsyncSocket, ByVal lData As String)
+    Private Sub SendData(ByVal lTempSocket As nexIRC.Classes.Communications.AsyncSocket, ByVal lData As String)
         On Error Resume Next
         If Len(lData) <> 0 Then
             lTempSocket.Send(lData & vbCrLf)
@@ -44,7 +44,7 @@ Public Class frmDCCChat
 
     Private Sub InitDCCListenSocket(Optional ByVal lPort As Long = 0)
         On Error Resume Next
-        lListen = New nexIRC.Sockets.AsyncServer(CInt(lPort))
+        lListen = New nexIRC.Classes.Communications.AsyncServer(CInt(lPort))
         lListen.Start()
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub InitDCCListenSocket(ByVal lPort As Integer)")
     End Sub
@@ -74,7 +74,7 @@ Public Class frmDCCChat
             End With
         Next i
         If lAutoConnect = True Then
-            lSocket = New nexIRC.Sockets.AsyncSocket
+            lSocket = New nexIRC.Classes.Communications.AsyncSocket
             lRemoteIp = DecodeLongIPAddr(lRemoteIp)
             lPort = CLng(Replace(Trim(lRemotePort), "", ""))
             cboUsers.Enabled = False
@@ -85,7 +85,7 @@ Public Class frmDCCChat
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub frmDCCChat_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
     End Sub
 
-    Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As nexIRC.Sockets.AsyncSocket) Handles lListen.ConnectionAccept
+    Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As nexIRC.Classes.Communications.AsyncSocket) Handles lListen.ConnectionAccept
         On Error Resume Next
         Dim lAddText As New StringDelegate(AddressOf AddText)
         Me.Invoke(lAddText, "Connection Accepted")
@@ -151,7 +151,7 @@ Public Class frmDCCChat
         If Len(cboUsers.Text) <> 0 Then
             p = lStatus.lIRCMisc.ReturnDCCPort()
             If p <> 0 Then
-                lSocket = New nexIRC.Sockets.AsyncSocket
+                lSocket = New nexIRC.Classes.Communications.AsyncSocket
                 InitDCCListenSocket(p)
                 If lDCC.dUseIpAddress = True Then
                     msg = lDCC.dCustomIpAddress

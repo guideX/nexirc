@@ -1,5 +1,6 @@
 ﻿Option Explicit On
 Option Strict On
+Imports nexIRC.IRC.UtilityWindows
 Public Class frmAddNickname
     Private WithEvents lAddNickName As New clsAddNickName
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click

@@ -3,6 +3,9 @@
 Option Explicit On
 Option Strict On
 
+Imports nexIRC.Classes.IO
+Imports nexIRC.Classes.UI
+
 Public Class mdiMain
     Structure gVideo
         Public vWindow As frmVideoPlayer
@@ -297,7 +300,7 @@ Public Class mdiMain
 
     Private Sub mdiMain_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
         On Error Resume Next
-        LockWindowUpdate(Me.Handle)
+        clsLockWindowUpdate.LockWindowUpdate(Me.Handle)
         cmdLeftBar.Top = CInt(Me.ClientSize.Height / 2)
         If Panel1.Visible = True Then
             cmdLeftBar.Left = Panel1.ClientSize.Width
@@ -328,7 +331,7 @@ Public Class mdiMain
         End If
         ResizeBrowser()
         Me.Refresh()
-        LockWindowUpdate(System.IntPtr.Zero)
+        clsLockWindowUpdate.LockWindowUpdate(System.IntPtr.Zero)
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdCustomize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCustomize.Click")
     End Sub
 
@@ -819,17 +822,17 @@ Public Class mdiMain
     'End Try
     'End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Try
-            Dim lScript As clsScript
-            lScript = New clsScript
-            lScript.ReadCodeFile(lINI.iBasePath & "data\script\status.txt")
-            'lScript.DoCode(1)
-            lScript.DoCodeByName("MakeStatus")
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-        End Try
-    End Sub
+    'Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    'Try
+    'Dim lScript As clsScript
+    'lScript = New clsScript
+    'lScript.ReadCodeFile(lINI.iBasePath & "data\script\status.txt")
+    ''lScript.DoCode(1)
+    'lScript.DoCodeByName("MakeStatus")
+    'Catch ex As Exception
+    'ProcessError(ex.Message, "Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
+    'End Try
+    'End Sub
 
     Private Sub cmd_SelectAServer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmd_SelectAServer.Click
         Try

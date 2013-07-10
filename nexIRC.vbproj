@@ -133,19 +133,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="Classes\clsAnimate.vb" />
-    <Compile Include="Classes\clsFiles.vb" />
-    <Compile Include="Classes\clsFlashWindow.vb" />
+    <Compile Include="Classes\UI\clsAnimate.vb" />
+    <Compile Include="Classes\IO\clsFiles.vb" />
+    <Compile Include="Classes\UI\clsFlashWindow.vb" />
     <Compile Include="Classes\clsIdent.vb" />
     <Compile Include="Classes\clsIRC.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\clsMdiChildWindow.vb" />
     <Compile Include="Classes\clsProcess.vb" />
-    <Compile Include="Classes\clsScript.vb" />
-    <Compile Include="Classes\clsScrollToBottom.vb" />
+    <Compile Include="Classes\UI\clsLockWindowUpdate.vb" />
+    <Compile Include="Classes\UI\clsScrollToBottom.vb" />
     <Compile Include="Classes\clsServerInfo.vb" />
-    <Compile Include="Classes\clsSocket.vb" />
+    <Compile Include="Classes\Communications\clsSocket.vb" />
     <Compile Include="Forms\frmAbout.Designer.vb">
       <DependentUpon>frmAbout.vb</DependentUpon>
     </Compile>
@@ -215,7 +215,7 @@
     <Compile Include="IRC\Channels\clsChannelFolder.vb" />
     <Compile Include="IRC\Customize\clsCustomize.vb" />
     <Compile Include="IRC\Status\clsStatus.vb" />
-    <Compile Include="Classes\clsStatusSocket.vb" />
+    <Compile Include="Classes\Communications\clsStatusSocket.vb" />
     <Compile Include="Forms\frmPrivateMessage.Designer.vb">
       <DependentUpon>frmPrivateMessage.vb</DependentUpon>
     </Compile>

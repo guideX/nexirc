@@ -2,12 +2,12 @@
 '06-13-2013 - guideX / DarkMercenary44
 Option Explicit On
 Option Strict On
-Imports System
+'Imports System
 Imports System.Text
 Imports System.Net
 Imports System.Net.Sockets
 
-Namespace nexIRC.Sockets
+Namespace Classes.Communications
     Public Class StateObject
         Public WorkSocket As Socket = Nothing
         Public BufferSize As Integer = 32767
@@ -291,7 +291,7 @@ Namespace nexIRC.Sockets
         Public ReadOnly Property Item(ByVal Key As String) As AsyncSocket
             Get
                 Try
-                    Return CType(m_SocketCol(Key), nexIRC.Sockets.AsyncSocket)
+                    Return CType(m_SocketCol(Key), nexIRC.Classes.Communications.AsyncSocket)
                 Catch ex As Exception
                     RaiseEvent onSocketError(ex.Message)
                     Return Nothing
@@ -302,7 +302,7 @@ Namespace nexIRC.Sockets
         Public ReadOnly Property ItembyIndex(ByVal Key As Integer) As AsyncSocket
             Get
                 Try
-                    Return CType(m_SocketCol(m_SocketCol.GetKey(Key)), nexIRC.Sockets.AsyncSocket)
+                    Return CType(m_SocketCol(m_SocketCol.GetKey(Key)), nexIRC.Classes.Communications.AsyncSocket)
                 Catch ex As Exception
                     ProcessError(ex.Message, "Public ReadOnly Property ItembyIndex(ByVal Key As Integer) As AsyncSocket")
                     Return Nothing
@@ -312,7 +312,7 @@ Namespace nexIRC.Sockets
 
         Public Function Exists(ByVal SocketID As String) As Boolean
             Try
-                Dim lTempSocket As nexIRC.Sockets.AsyncSocket = Item(SocketID)
+                Dim lTempSocket As nexIRC.Classes.Communications.AsyncSocket = Item(SocketID)
                 If lTempSocket Is Nothing Then
                     Return False
                 Else

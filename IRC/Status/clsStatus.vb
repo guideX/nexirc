@@ -2,7 +2,7 @@
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
-
+Imports nexIRC.Classes.UI
 Namespace IRC.Status
     Public Class clsStatus
         Public Event ProcessError(_Error As String, _Sub As String)
@@ -115,7 +115,7 @@ Namespace IRC.Status
             Public sUnsupported As gUnsupported
             Public sServerLinks As gLinks
             'Public sChannelList As clsChannelList.gChannelList
-            Public sSocket As clsStatusSocket
+            Public sSocket As nexIRC.Classes.Communications.clsStatusSocket
             Public sWindow As frmStatus
             Public sWindowBarItem As ToolStripItem
             Public sWindowBarItemSet As Boolean
@@ -725,8 +725,8 @@ Namespace IRC.Status
                 End Try
             End Get
             'Set(_Connected As Boolean)
-        'lStatusObjects.sStatusObject(_StatusIndex).sConnected = _Connected
-        'End Set
+            'lStatusObjects.sStatusObject(_StatusIndex).sConnected = _Connected
+            'End Set
         End Property
         Public Sub ActiveStatusConnect()
             Try
@@ -933,7 +933,7 @@ Namespace IRC.Status
                         If n <> 0 Then
                             With lStatusObjects.sStatusObject(n)
                                 If .sMotdWindow.mVisible = False Then
-                                    LockWindowUpdate(mdiMain.Handle)
+                                    clsLockWindowUpdate.LockWindowUpdate(mdiMain.Handle)
                                     If .sMotdWindow.mTreeNode.ImageIndex <> 3 Then .sMotdWindow.mTreeNode.ImageIndex = 3
                                     If .sMotdWindow.mTreeNode.SelectedImageIndex <> 3 Then .sMotdWindow.mTreeNode.SelectedImageIndex = 3
                                     .sMotdWindow.mWindow = New frmNoticeWindow
@@ -949,7 +949,7 @@ Namespace IRC.Status
                                     .sMotdWindow.mWindow.SetUnsupportedWindow(False)
                                     .sMotdWindow.mWindow.DoNoticeColor(.sMotdWindow.mData)
                                     .sMotdWindow.mWindow.Visible = True
-                                    LockWindowUpdate(IntPtr.Zero)
+                                    clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
                                 Else
                                     mdiMain.SetWindowFocus(.sMotdWindow.mWindow)
                                 End If
@@ -1556,7 +1556,7 @@ Namespace IRC.Status
                         AddToRecientServerList(FindServerIndexByIp(.sPrimitives.sRemoteIP))
                         SaveRecientServers()
                         .sConnecting = True
-                        .sSocket = New clsStatusSocket()
+                        .sSocket = New nexIRC.Classes.Communications.clsStatusSocket()
                         AddHandler .sSocket.SocketError, AddressOf SocketError
                         .sSocket.NewSocket(_StatusIndex, .sWindow)
                         .sSocket.ConnectSocket(.sPrimitives.sRemoteIP, .sPrimitives.sRemotePort)
@@ -1630,7 +1630,7 @@ Namespace IRC.Status
                     Else
                         _AddServer = New frmAddServer
                         _AddServer.lAddServer.lConnectSetting = True
-                        _AddServer.txtIp.Text = _Server
+                        _AddServer.txtIP.Text = _Server
                         _AddServer.txtPort.Text = _Port.ToString().Trim()
                         clsAnimate.Animate(_AddServer, clsAnimate.Effect.Center, 200, 1)
                     End If
@@ -1707,7 +1707,7 @@ Namespace IRC.Status
         Public Sub NewStatusSocket(ByVal _Index As Integer)
             Try
                 With lStatusObjects.sStatusObject(_Index)
-                    .sSocket = New clsStatusSocket
+                    .sSocket = New nexIRC.Classes.Communications.clsStatusSocket
                     .sSocket.NewSocket(_Index, lStatusObjects.sStatusObject(_Index).sWindow)
                 End With
             Catch ex As Exception

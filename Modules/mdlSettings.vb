@@ -5,6 +5,8 @@ Option Strict On
 Imports System.Net
 Imports System.IO
 Imports Telerik.WinControls.UI
+Imports nexIRC.Classes.IO
+Imports nexIRC.Classes.UI
 
 Public Module mdlSettings
     Enum eDCCFileExistsAction

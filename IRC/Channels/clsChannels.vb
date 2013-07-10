@@ -2,6 +2,9 @@
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
+
+Imports nexIRC.Classes.UI
+
 Namespace IRC.Channels
     Public Class clsChannel
         Public Event ProcessError(_Error As String, _Sub As String)
@@ -210,13 +213,13 @@ Namespace IRC.Channels
                 With lChannels.cChannel(_ChannelIndex)
                     .cWindow = New frmChannel
                     .cWindow.Show()
-                    LockWindowUpdate(.cWindow.Handle)
+                    clsLockWindowUpdate.LockWindowUpdate(.cWindow.Handle)
                     '.cWindow.txtIncomingColor.BackColor = System.Drawing.Color.FromArgb(RGB(233, 240, 249))
                     .cWindow.lMdiChildWindow.Form_Load(.cWindow.txtIncomingColor, .cWindow.txtOutgoing, .cWindow, clsMdiChildWindow.eFormTypes.fChannel)
                     .cWindow.lMdiChildWindow.SetFormType(clsMdiChildWindow.eFormTypes.fChannel)
                     .cWindow.lMdiChildWindow.MeIndex = _ChannelIndex
                     .cWindow.Text = .cName
-                    LockWindowUpdate(IntPtr.Zero)
+                    clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
                     'clsAnimate.Animate(.cWindow, clsAnimate.Effect.Center, 200, 1)
                     '.cWindow.MdiParent = mdiMain
                 End With

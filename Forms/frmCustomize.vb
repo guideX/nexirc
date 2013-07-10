@@ -3,6 +3,9 @@
 Option Explicit On
 Option Strict On
 Imports Telerik.WinControls.UI
+Imports nexIRC.Classes.IO
+Imports nexIRC.Classes.UI
+Imports nexIRC.IRC.Customize
 Public Class frmCustomize
     Public WithEvents lCustomize As New clsCustomize
     Public ReadOnly Property ServersListView() As RadListView

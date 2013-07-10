@@ -1,5 +1,8 @@
 ﻿Option Explicit On
-Option Strict on
+Option Strict On
+
+Imports nexIRC.Classes.UI
+
 Public Class clsChannelList
     'Public Event ProcessError(_Error As String, _Sub As String)
     Public Structure gChannelListItem
@@ -125,7 +128,7 @@ Public Class clsChannelList
     Private Sub SetItems(_ChannelListIndex As Integer)
         Try
             Dim _Item As ListViewItem
-            LockWindowUpdate(lChannelLists.cChannelList(_ChannelListIndex).cWindow.lvwChannels.Handle)
+            clsLockWindowUpdate.LockWindowUpdate(lChannelLists.cChannelList(_ChannelListIndex).cWindow.lvwChannels.Handle)
             With lChannelLists.cChannelList(_ChannelListIndex)
                 For i As Integer = 1 To .cItem.cCount
                     _Item = .cWindow.lvwChannels.Items.Add(.cItem.cChannelListItem(i).cChannel)
@@ -133,7 +136,7 @@ Public Class clsChannelList
                     _Item.SubItems.Add(.cItem.cChannelListItem(i).cUserCount.ToString)
                 Next i
             End With
-            LockWindowUpdate(IntPtr.Zero)
+            clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub SetItems(_ChannelListIndex As Integer)")
         End Try

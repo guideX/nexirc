@@ -1,4 +1,5 @@
-﻿Public Class frmCompatibility
+﻿Imports nexIRC.IRC.UtilityWindows
+Public Class frmCompatibility
     Private WithEvents lCompatibility As New clsCompatibility
     Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click
         lCompatibility.cmdOK_Click(Me)

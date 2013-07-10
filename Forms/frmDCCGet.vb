@@ -3,10 +3,11 @@
 Option Explicit On
 Option Strict On
 Imports System.IO
+Imports nexIRC.Classes.IO
 
 Public Class frmDCCGet
     Public Declare Function htonl Lib "wsock32.dll" (ByVal hostlong As UInt32) As UInt32
-    Private WithEvents lSocket As New nexIRC.Sockets.AsyncSocket
+    Private WithEvents lSocket As New nexIRC.Classes.Communications.AsyncSocket
     Private Delegate Sub DataArrivalDelegate(ByVal lData As String, ByVal lBytes() As Byte, ByVal lBytesRecieved As Integer)
     Private Delegate Sub EmptyDelegate()
     Private lOutPut As FileStream

@@ -1,5 +1,6 @@
 ﻿Option Explicit On
 Option Strict On
+Imports nexIRC.IRC.UtilityWindows
 Public Class frmAddServer
     Public WithEvents lAddServer As New clsAddServer
 

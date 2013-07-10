@@ -4,11 +4,13 @@
 Option Explicit On
 Option Strict On
 
+Imports nexIRC.Classes.IO
+
 Public Class frmDCCSend
-    Private WithEvents lListen As nexIRC.Sockets.AsyncServer
-    Private WithEvents lSocket As nexIRC.Sockets.AsyncSocket
+    Private WithEvents lListen As nexIRC.Classes.Communications.AsyncServer
+    Private WithEvents lSocket As nexIRC.Classes.Communications.AsyncSocket
     Private Delegate Sub mDoStatusColor(ByVal lData As String, ByVal lIndex As Integer)
-    Private Delegate Sub SocketDelegate(ByVal lTmpSocket As nexIRC.Sockets.AsyncSocket)
+    Private Delegate Sub SocketDelegate(ByVal lTmpSocket As nexIRC.Classes.Communications.AsyncSocket)
     Private Delegate Sub ProgressBarDelegate(ByVal lValue As Integer)
     Private Delegate Sub DoubleLongDelegate(ByVal lLong As Long, ByVal lLong2 As Long)
     Private lStatusIndex As Integer
@@ -104,7 +106,7 @@ Public Class frmDCCSend
 
     Private Sub InitSendListenSocket(ByVal lPort As Integer)
         On Error Resume Next
-        lListen = New nexIRC.Sockets.AsyncServer(CInt(lPort))
+        lListen = New nexIRC.Classes.Communications.AsyncServer(CInt(lPort))
         lListen.Start()
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub InitSendListenSocket(ByVal lPort As Integer)")
     End Sub
@@ -120,7 +122,7 @@ Public Class frmDCCSend
                     txtFilename.Enabled = False
                     cboPort.Enabled = False
                     Me.Invoke(lSetLabel, "Requesting Connection")
-                    lSocket = New nexIRC.Sockets.AsyncSocket
+                    lSocket = New nexIRC.Classes.Communications.AsyncSocket
                     InitSendListenSocket(CInt(Trim(cboPort.Text)))
                     If lDCC.dUseIpAddress = True Then
                         msg = lDCC.dCustomIpAddress
@@ -143,7 +145,7 @@ Public Class frmDCCSend
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub SetLabel(ByVal lData As String)")
     End Sub
 
-    Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As nexIRC.Sockets.AsyncSocket) Handles lListen.ConnectionAccept
+    Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As nexIRC.Classes.Communications.AsyncSocket) Handles lListen.ConnectionAccept
         On Error Resume Next
         Dim l As New EmptyDelegate(AddressOf InitFile)
         lSocket = tmp_Socket

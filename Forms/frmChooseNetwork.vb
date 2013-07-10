@@ -1,5 +1,6 @@
 ﻿Option Explicit On
 Option Strict On
+Imports nexIRC.IRC.UtilityWindows
 Public Class frmChooseNetwork
     Public WithEvents lChooseNetwork As New clsChooseNetwork
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click

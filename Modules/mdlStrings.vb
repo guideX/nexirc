@@ -2,11 +2,12 @@
 '06-13-2013 - guideX
 Option Explicit On
 'Option Strict On
-Imports System.Runtime.InteropServices
 Imports Telerik.WinControls.UI
+Imports nexIRC.Classes.IO
+Imports nexIRC.Classes.UI
 
 Module mdlStrings
-    Enum eCommandTypes
+    Public Enum eCommandTypes
         cCUSTOM = 0
         '  NOT YET IMPLEMENTED.
         '  THIS SPOT IS RESERVED FOR SUPPORT FOR CUSTOM USER COMMAND TYPE TO BE 
@@ -199,7 +200,7 @@ Module mdlStrings
         '  SYNTAX:                      AWAY
     End Enum
 
-    Enum eStringTypes
+    Public Enum eStringTypes
         'sDUMMY = -100
         sCHANNEL_LIST_WAIT = -43
         ' TELL YOU TO WAIT DURING A CHANNEL LIST
@@ -1584,10 +1585,6 @@ Module mdlStrings
         '  UNREAL
     End Enum
 
-    <DllImport("user32.dll")> _
-    Public Function LockWindowUpdate(ByVal hWndLock As IntPtr) As Boolean
-    End Function
-
     Structure gCommandReturnData
         Public cSocketData As String
         Public cDoColorData As String
@@ -2241,9 +2238,9 @@ Module mdlStrings
 
     Public Sub DoText(ByVal lData As String, ByVal lTextBox As TextBox)
         On Error Resume Next
-        LockWindowUpdate(lTextBox.Handle)
+        clsLockWindowUpdate.LockWindowUpdate(lTextBox.Handle)
         lTextBox.Text = lData & vbCrLf & lTextBox.Text
-        LockWindowUpdate(IntPtr.Zero)
+        clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub DoText(ByVal lData As String, ByVal lTextBox As TextBox)")
     End Sub
 
@@ -2277,7 +2274,7 @@ Module mdlStrings
         Try
             _Black = True
             Dim i As Integer, msg As String, lBackColor As Integer = 16, lForeColor As Integer, _ScrollToBottom As New clsScrollToBottom
-            LockWindowUpdate(lTextBox.Handle)
+            clsLockWindowUpdate.LockWindowUpdate(lTextBox.Handle)
             If Len(lData.Trim) = 0 Then Exit Sub
             If lQuerySettings.qEnableSpamFilter = True Then
                 For i = 1 To lQuerySettings.qSpamPhraseCount
@@ -2294,7 +2291,7 @@ Module mdlStrings
                         'lTextBox.SelectionLength = lTextBox.Text.Length
                         'lTextBox.ScrollToCaret()
                         _ScrollToBottom.ScrollToBottom(lTextBox)
-                        LockWindowUpdate(IntPtr.Zero)
+                        clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
                         Exit Sub
                     End If
                     msg = Left(lData, 1)
@@ -2342,7 +2339,7 @@ Module mdlStrings
             'lTextBox.SelectionLength = lTextBox.TextLength
             'lTextBox.ScrollToCaret()
             _ScrollToBottom.ScrollToBottom(lTextBox)
-            LockWindowUpdate(IntPtr.Zero)
+            clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub DoColor(lData As String, lTextBox As RichTextBox)")
         End Try

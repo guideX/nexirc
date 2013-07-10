@@ -4,21 +4,21 @@ Option Explicit On
 Option Strict On
 
 Public Class clsIdent
-    Private WithEvents lIdentListen As nexIRC.Sockets.AsyncServer
-    Private WithEvents lClientSocket As nexIRC.Sockets.AsyncSocket
+    Private WithEvents lIdentListen As nexIRC.Classes.Communications.AsyncServer
+    Private WithEvents lClientSocket As nexIRC.Classes.Communications.AsyncSocket
     Private Delegate Sub StringDelegate(ByVal lData As String)
     'Public Event ProcessError(ByVal _Error As String, ByVal _Sub As String)
 
     Public Sub InitListenSocket(Optional ByVal lPort As Long = 0)
         Try
-            lIdentListen = New nexIRC.Sockets.AsyncServer(CInt(lPort))
+            lIdentListen = New nexIRC.Classes.Communications.AsyncServer(CInt(lPort))
             lIdentListen.Start()
         Catch ex As Exception
             ProcessError(Err.Description, "Private Sub InitListenSocket(ByVal lPort As Integer)")
         End Try
     End Sub
 
-    Private Sub lIdentListen_ConnectionAccept(ByVal tmp_Socket As nexIRC.Sockets.AsyncSocket) Handles lIdentListen.ConnectionAccept
+    Private Sub lIdentListen_ConnectionAccept(ByVal tmp_Socket As nexIRC.Classes.Communications.AsyncSocket) Handles lIdentListen.ConnectionAccept
         Try
             lClientSocket = tmp_Socket
         Catch ex As Exception

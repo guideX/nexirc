@@ -3,6 +3,8 @@
 Option Explicit On
 Option Strict On
 Imports Telerik.WinControls.UI
+Imports nexIRC.Classes.UI
+
 Public Class clsChannelFolderWindow
     Private lStatusIndex As Integer
     Private lLastFocused As Control = Nothing

@@ -1,5 +1,6 @@
 ﻿Option Explicit On
 Option Strict On
+Imports nexIRC.IRC.UtilityWindows
 Public Class frmChangeNickName
     Public WithEvents lChangeNickName As New clsChangeNickName
     Private Sub frmChangeNickName_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load

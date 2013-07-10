@@ -2,6 +2,9 @@
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
+
+Imports nexIRC.Classes.IO
+
 Public Class frmChannelList
     Private lCurrentChannel As String
     'Private lListViewSorter As clsListViewSorter

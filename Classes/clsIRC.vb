@@ -5,12 +5,10 @@ Option Strict On
 Imports System
 Imports System.Net
 Imports nexIRC.IRC.Channels.clsChannel
+Imports nexIRC.Classes.UI
 
 Public Class clsIRC
-    Private l001 As String, l002 As String, l003 As String, l004 As String
-    Private l311 As String, l312 As String, l313 As String, l316 As String, l317 As String, l319 As String, l378 As String, l379 As String, l401 As String
-    Private l250 As String, l251 As String, l252 As String, l253 As String, l254 As String, l255 As String, l265 As String, l266 As String
-    Private l616 As String, l615 As String, lWhoisUser As String
+    Private l001 As String, l002 As String, l003 As String, l004 As String, l311 As String, l312 As String, l313 As String, l316 As String, l317 As String, l319 As String, l378 As String, l379 As String, l401 As String, l250 As String, l251 As String, l252 As String, l253 As String, l254 As String, l255 As String, l265 As String, l266 As String, l616 As String, l615 As String, lWhoisUser As String
     Private Delegate Sub StatusDataDelegate(ByVal lStatusIndex As Integer, ByVal lData As String)
     Private Delegate Sub JoinPartDelegate(ByVal lStatusIndex As Integer, ByVal lData As String)
     Private Delegate Sub QuitDelegate(ByVal lStatusIndex As Integer, ByVal lData As String)
@@ -814,7 +812,7 @@ Public Class clsIRC
                             Case 353
                                 n = lChannels.Find(lStatusIndex, Trim(splt(4)))
                                 If n <> 0 Then
-                                    LockWindowUpdate(lChannels.Window(n).Handle)
+                                    clsLockWindowUpdate.LockWindowUpdate(lChannels.Window(n).Handle)
                                     splt = Split(splt2(3), " ")
                                     For i = 0 To UBound(splt)
                                         If splt(i).Length <> 0 Then lChannels.AddToNickList(n, Trim(splt(i)))
@@ -837,7 +835,7 @@ Public Class clsIRC
                                 End If
                                 Exit Sub
                             Case 366
-                                LockWindowUpdate(IntPtr.Zero)
+                                clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
                                 If lIRC.iSettings.sNoIRCMessages = False Then
                                     ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFNAMES, splt2(2))
                                 End If

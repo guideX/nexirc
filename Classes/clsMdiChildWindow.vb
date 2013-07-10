@@ -2,6 +2,9 @@
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
+
+Imports nexIRC.Classes.UI
+
 Public Class clsMdiChildWindow
     Public Enum eFormTypes
         fStatus = 1

@@ -1,5 +1,6 @@
 ﻿Option Explicit On
 Option Strict On
+Imports nexIRC.IRC.UtilityWindows
 Public Class frmAbout
     Private WithEvents lAbout As New clsAbout
     Private Sub frmAbout_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load

@@ -15,11 +15,19 @@
   - after showing window, text is added in the oposit direction
 - status window
   - if show browser in customize is unchecked, and you click on a link, nothing happens
+  - show in all of status's windows when disconnected
 - customize
   - notify tab is mostly broken
   - remove nickname button doesn't work
   - add nickname button is positioned off center
   - no prompts setting breaks irc client in various ways
-
+  - edit server window is broken
+  - add network window pops up two windows
+  - move network combo box can be edited/is not a dropdown list
+  - move network window icon is incorrect
+  - move network function doesn't update customize window, but does work
+  - move network window doesn't auto close after moving a server
+  - move network dropdown can be edited
+  - add nickname window pops up twice
 - channel
   - whois has unwanted line feeds in it

@@ -1,15 +1,11 @@
 'nexIRC 3.0.23
 '06-13-2013 - guideX
 Option Explicit On
-
+Option Strict On
 Imports nexIRC.Classes.IO
-
-'Option Strict On
-
 Public Class frmVideoPlayer
     Inherits System.Windows.Forms.Form
     Private WithEvents lVideo As clsVideo
-
 #Region " Windows Form Designer generated code "
 
     Public Sub New()
@@ -66,33 +62,32 @@ Public Class frmVideoPlayer
     Friend WithEvents cmdRepeat As System.Windows.Forms.ToolStripButton
     Friend WithEvents LblSpeed As System.Windows.Forms.Label
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmVideoPlayer))
-        Me.TmrDisplay = New System.Timers.Timer
-        Me.TrackOffset = New System.Windows.Forms.TrackBar
-        Me.PnlOffset = New System.Windows.Forms.Panel
-        Me.PnlAudio = New System.Windows.Forms.Panel
-        Me.LblSpeed = New System.Windows.Forms.Label
-        Me.TrackSpeed = New System.Windows.Forms.TrackBar
-        Me.ChkMuteLeft = New System.Windows.Forms.CheckBox
-        Me.TrackVolume = New System.Windows.Forms.TrackBar
-        Me.LblBalance = New System.Windows.Forms.Label
-        Me.LblVolume = New System.Windows.Forms.Label
-        Me.ChkMuteRight = New System.Windows.Forms.CheckBox
-        Me.TrackBalance = New System.Windows.Forms.TrackBar
-        Me.PnlVideo = New System.Windows.Forms.Panel
-        Me.tspTop = New System.Windows.Forms.ToolStrip
-        Me.cmdOpen = New System.Windows.Forms.ToolStripButton
-        Me.cmdClose = New System.Windows.Forms.ToolStripButton
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
-        Me.cmdPlay = New System.Windows.Forms.ToolStripButton
-        Me.cmdStop = New System.Windows.Forms.ToolStripButton
-        Me.cmdRepeat = New System.Windows.Forms.ToolStripButton
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator
-        Me.cmdPause = New System.Windows.Forms.ToolStripButton
-        Me.cmdResume = New System.Windows.Forms.ToolStripButton
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator
-        Me.cmdControls = New System.Windows.Forms.ToolStripButton
-        Me.lblTime = New System.Windows.Forms.ToolStripLabel
+        Me.TmrDisplay = New System.Timers.Timer()
+        Me.TrackOffset = New System.Windows.Forms.TrackBar()
+        Me.PnlOffset = New System.Windows.Forms.Panel()
+        Me.PnlAudio = New System.Windows.Forms.Panel()
+        Me.LblSpeed = New System.Windows.Forms.Label()
+        Me.TrackSpeed = New System.Windows.Forms.TrackBar()
+        Me.ChkMuteLeft = New System.Windows.Forms.CheckBox()
+        Me.TrackVolume = New System.Windows.Forms.TrackBar()
+        Me.LblBalance = New System.Windows.Forms.Label()
+        Me.LblVolume = New System.Windows.Forms.Label()
+        Me.ChkMuteRight = New System.Windows.Forms.CheckBox()
+        Me.TrackBalance = New System.Windows.Forms.TrackBar()
+        Me.PnlVideo = New System.Windows.Forms.Panel()
+        Me.tspTop = New System.Windows.Forms.ToolStrip()
+        Me.cmdOpen = New System.Windows.Forms.ToolStripButton()
+        Me.cmdClose = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmdPlay = New System.Windows.Forms.ToolStripButton()
+        Me.cmdStop = New System.Windows.Forms.ToolStripButton()
+        Me.cmdRepeat = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmdPause = New System.Windows.Forms.ToolStripButton()
+        Me.cmdResume = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmdControls = New System.Windows.Forms.ToolStripButton()
+        Me.lblTime = New System.Windows.Forms.ToolStripLabel()
         CType(Me.TmrDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TrackOffset, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlOffset.SuspendLayout()
@@ -105,14 +100,14 @@ Public Class frmVideoPlayer
         '
         'TmrDisplay
         '
-        Me.TmrDisplay.Interval = 333
+        Me.TmrDisplay.Interval = 333.0R
         Me.TmrDisplay.SynchronizingObject = Me
         '
         'TrackOffset
         '
-        Me.TrackOffset.Anchor = (((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-        Or System.Windows.Forms.AnchorStyles.Left) _
-        Or System.Windows.Forms.AnchorStyles.Right)
+        Me.TrackOffset.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TrackOffset.BackColor = System.Drawing.SystemColors.Control
         Me.TrackOffset.Location = New System.Drawing.Point(0, 1)
         Me.TrackOffset.Maximum = 0
@@ -124,8 +119,8 @@ Public Class frmVideoPlayer
         '
         'PnlOffset
         '
-        Me.PnlOffset.Anchor = ((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-        Or System.Windows.Forms.AnchorStyles.Right)
+        Me.PnlOffset.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PnlOffset.Controls.Add(Me.TrackOffset)
         Me.PnlOffset.Location = New System.Drawing.Point(0, 387)
         Me.PnlOffset.Name = "PnlOffset"
@@ -134,8 +129,8 @@ Public Class frmVideoPlayer
         '
         'PnlAudio
         '
-        Me.PnlAudio.Anchor = ((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-        Or System.Windows.Forms.AnchorStyles.Left)
+        Me.PnlAudio.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.PnlAudio.BackColor = System.Drawing.SystemColors.Control
         Me.PnlAudio.Controls.Add(Me.LblSpeed)
         Me.PnlAudio.Controls.Add(Me.TrackSpeed)
@@ -152,7 +147,7 @@ Public Class frmVideoPlayer
         '
         'LblSpeed
         '
-        Me.LblSpeed.Anchor = (System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right)
+        Me.LblSpeed.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LblSpeed.AutoSize = True
         Me.LblSpeed.ForeColor = System.Drawing.Color.Black
         Me.LblSpeed.Location = New System.Drawing.Point(10, 150)
@@ -163,7 +158,7 @@ Public Class frmVideoPlayer
         '
         'TrackSpeed
         '
-        Me.TrackSpeed.Anchor = (System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right)
+        Me.TrackSpeed.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TrackSpeed.BackColor = System.Drawing.SystemColors.Control
         Me.TrackSpeed.Location = New System.Drawing.Point(3, 166)
         Me.TrackSpeed.Maximum = 2000
@@ -249,9 +244,9 @@ Public Class frmVideoPlayer
         '
         'PnlVideo
         '
-        Me.PnlVideo.Anchor = (((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-        Or System.Windows.Forms.AnchorStyles.Left) _
-        Or System.Windows.Forms.AnchorStyles.Right)
+        Me.PnlVideo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PnlVideo.BackColor = System.Drawing.SystemColors.Control
         Me.PnlVideo.Location = New System.Drawing.Point(91, 28)
         Me.PnlVideo.Name = "PnlVideo"
@@ -273,19 +268,17 @@ Public Class frmVideoPlayer
         'cmdOpen
         '
         Me.cmdOpen.ForeColor = System.Drawing.Color.Black
-        Me.cmdOpen.Image = CType(resources.GetObject("cmdOpen.Image"), System.Drawing.Image)
         Me.cmdOpen.ImageTransparentColor = System.Drawing.Color.White
         Me.cmdOpen.Name = "cmdOpen"
-        Me.cmdOpen.Size = New System.Drawing.Size(53, 22)
+        Me.cmdOpen.Size = New System.Drawing.Size(37, 22)
         Me.cmdOpen.Text = "Open"
         '
         'cmdClose
         '
         Me.cmdClose.ForeColor = System.Drawing.Color.Black
-        Me.cmdClose.Image = CType(resources.GetObject("cmdClose.Image"), System.Drawing.Image)
         Me.cmdClose.ImageTransparentColor = System.Drawing.Color.White
         Me.cmdClose.Name = "cmdClose"
-        Me.cmdClose.Size = New System.Drawing.Size(53, 22)
+        Me.cmdClose.Size = New System.Drawing.Size(37, 22)
         Me.cmdClose.Text = "Close"
         '
         'ToolStripSeparator1
@@ -296,28 +289,25 @@ Public Class frmVideoPlayer
         'cmdPlay
         '
         Me.cmdPlay.ForeColor = System.Drawing.Color.Black
-        Me.cmdPlay.Image = CType(resources.GetObject("cmdPlay.Image"), System.Drawing.Image)
         Me.cmdPlay.ImageTransparentColor = System.Drawing.Color.White
         Me.cmdPlay.Name = "cmdPlay"
-        Me.cmdPlay.Size = New System.Drawing.Size(47, 22)
+        Me.cmdPlay.Size = New System.Drawing.Size(31, 22)
         Me.cmdPlay.Text = "Play"
         '
         'cmdStop
         '
         Me.cmdStop.ForeColor = System.Drawing.Color.Black
-        Me.cmdStop.Image = CType(resources.GetObject("cmdStop.Image"), System.Drawing.Image)
         Me.cmdStop.ImageTransparentColor = System.Drawing.Color.White
         Me.cmdStop.Name = "cmdStop"
-        Me.cmdStop.Size = New System.Drawing.Size(49, 22)
+        Me.cmdStop.Size = New System.Drawing.Size(33, 22)
         Me.cmdStop.Text = "Stop"
         '
         'cmdRepeat
         '
         Me.cmdRepeat.CheckOnClick = True
-        Me.cmdRepeat.Image = CType(resources.GetObject("cmdRepeat.Image"), System.Drawing.Image)
         Me.cmdRepeat.ImageTransparentColor = System.Drawing.Color.White
         Me.cmdRepeat.Name = "cmdRepeat"
-        Me.cmdRepeat.Size = New System.Drawing.Size(62, 22)
+        Me.cmdRepeat.Size = New System.Drawing.Size(46, 22)
         Me.cmdRepeat.Text = "Repeat"
         '
         'ToolStripSeparator2
@@ -328,19 +318,17 @@ Public Class frmVideoPlayer
         'cmdPause
         '
         Me.cmdPause.ForeColor = System.Drawing.Color.Black
-        Me.cmdPause.Image = CType(resources.GetObject("cmdPause.Image"), System.Drawing.Image)
         Me.cmdPause.ImageTransparentColor = System.Drawing.Color.White
         Me.cmdPause.Name = "cmdPause"
-        Me.cmdPause.Size = New System.Drawing.Size(56, 22)
+        Me.cmdPause.Size = New System.Drawing.Size(40, 22)
         Me.cmdPause.Text = "Pause"
         '
         'cmdResume
         '
         Me.cmdResume.ForeColor = System.Drawing.Color.Black
-        Me.cmdResume.Image = CType(resources.GetObject("cmdResume.Image"), System.Drawing.Image)
         Me.cmdResume.ImageTransparentColor = System.Drawing.Color.White
         Me.cmdResume.Name = "cmdResume"
-        Me.cmdResume.Size = New System.Drawing.Size(65, 22)
+        Me.cmdResume.Size = New System.Drawing.Size(49, 22)
         Me.cmdResume.Text = "Resume"
         '
         'ToolStripSeparator3
@@ -351,18 +339,16 @@ Public Class frmVideoPlayer
         'cmdControls
         '
         Me.cmdControls.ForeColor = System.Drawing.Color.Black
-        Me.cmdControls.Image = CType(resources.GetObject("cmdControls.Image"), System.Drawing.Image)
         Me.cmdControls.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdControls.Name = "cmdControls"
-        Me.cmdControls.Size = New System.Drawing.Size(102, 22)
+        Me.cmdControls.Size = New System.Drawing.Size(86, 22)
         Me.cmdControls.Text = "Toggle Controls"
         '
         'lblTime
         '
         Me.lblTime.ForeColor = System.Drawing.Color.Black
-        Me.lblTime.Image = CType(resources.GetObject("lblTime.Image"), System.Drawing.Image)
         Me.lblTime.Name = "lblTime"
-        Me.lblTime.Size = New System.Drawing.Size(45, 16)
+        Me.lblTime.Size = New System.Drawing.Size(29, 22)
         Me.lblTime.Text = "Time"
         '
         'frmVideoPlayer
@@ -376,7 +362,6 @@ Public Class frmVideoPlayer
         Me.Controls.Add(Me.PnlOffset)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmVideoPlayer"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "nexIRC Player"
@@ -397,9 +382,7 @@ Public Class frmVideoPlayer
     End Sub
 
 #End Region
-
     Private Sub TmrDisplay_Elapsed(ByVal sender As System.Object, ByVal e As System.Timers.ElapsedEventArgs) Handles TmrDisplay.Elapsed
-        On Error Resume Next
         Dim TotalSec As Long = CLng(lVideo.TotalTime() / 1000)
         Dim CurrentSec As Long = lVideo.CurrentTime()
         If CurrentSec >= TrackOffset.Minimum And CurrentSec <= TrackOffset.Maximum Then
@@ -412,7 +395,6 @@ Public Class frmVideoPlayer
     End Sub
 
     Private Sub TrackOffset_Scroll(ByVal sender As Object, ByVal e As System.EventArgs) Handles TrackOffset.Scroll
-        On Error Resume Next
         Dim Mute As clsVideo.Channels = lVideo.Mute
         lVideo.Mute = clsVideo.Channels.Both
         lVideo.MoveToTime(TrackOffset.Value)
@@ -420,28 +402,28 @@ Public Class frmVideoPlayer
     End Sub
 
     Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged
-        Try
-            If ChkMuteLeft.Checked = True And ChkMuteRight.Checked = True Then
-                lVideo.Mute = clsVideo.Channels.Both
-            ElseIf ChkMuteLeft.Checked = True And ChkMuteRight.Checked = False Then
-                lVideo.Mute = clsVideo.Channels.Left
-            ElseIf ChkMuteLeft.Checked = False And ChkMuteRight.Checked = True Then
-                lVideo.Mute = clsVideo.Channels.Right
-            Else
-                lVideo.Mute = clsVideo.Channels.None
-            End If
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged")
-        End Try
+        'Try
+        If ChkMuteLeft.Checked = True And ChkMuteRight.Checked = True Then
+            lVideo.Mute = clsVideo.Channels.Both
+        ElseIf ChkMuteLeft.Checked = True And ChkMuteRight.Checked = False Then
+            lVideo.Mute = clsVideo.Channels.Left
+        ElseIf ChkMuteLeft.Checked = False And ChkMuteRight.Checked = True Then
+            lVideo.Mute = clsVideo.Channels.Right
+        Else
+            lVideo.Mute = clsVideo.Channels.None
+        End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged")
+        'End Try
     End Sub
 
     Private Sub TrackVolume_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrackVolume.Scroll
-        On Error Resume Next
+        'On Error Resume Next
         lVideo.Volume = TrackVolume.Value
     End Sub
 
     Private Sub TrackBalance_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrackBalance.Scroll
-        On Error Resume Next
+        'On Error Resume Next
         lVideo.Balance = TrackBalance.Value
     End Sub
 
@@ -466,13 +448,11 @@ Public Class frmVideoPlayer
     'End Sub
 
     Private Sub FrmMain_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        On Error Resume Next
         Me.MdiParent = mdiMain
         TmrDisplay.Enabled = True
     End Sub
 
     Public Sub OpenAndPlay(ByVal lFileName As String)
-        On Error Resume Next
         If clsFiles.DoesFileExist(lFileName) = True Then
             lVideo.Open(lFileName)
             If lVideo.TotalTime >= 0 Then
@@ -485,7 +465,6 @@ Public Class frmVideoPlayer
     End Sub
 
     Private Sub cmdOpen_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOpen.Click
-        On Error Resume Next
         Dim AskFile As New OpenFileDialog
         AskFile.AddExtension = True
         AskFile.CheckFileExists = True
@@ -505,32 +484,26 @@ Public Class frmVideoPlayer
     End Sub
 
     Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click
-        On Error Resume Next
         lVideo.Close()
     End Sub
 
     Private Sub cmdPlay_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdPlay.Click
-        On Error Resume Next
         lVideo.Play()
     End Sub
 
     Private Sub cmdPause_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdPause.Click
-        On Error Resume Next
         lVideo.Pause()
     End Sub
 
     Private Sub cmdResume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdResume.Click
-        On Error Resume Next
         lVideo.Resume()
     End Sub
 
     Private Sub cmdStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdStop.Click
-        On Error Resume Next
         lVideo.Stop()
     End Sub
 
     Private Sub cmdControls_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdControls.Click
-        On Error Resume Next
         If PnlAudio.Visible = True Then
             PnlAudio.Visible = False
             PnlVideo.Left = 0

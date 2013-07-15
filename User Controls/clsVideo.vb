@@ -123,128 +123,128 @@ Public Class clsVideo
     End Property
 
     Public Function [Open](ByVal File As String) As Boolean
-        Try
-            If pOpenSuccess = True Then
-                Me.Close()
-            End If
-            Dim Device_Type As String = "MPEGVideo"
-            Dim MciExtension As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows NT\CurrentVersion\MCI Extensions", False)
-            If Not MciExtension Is Nothing Then
-                Device_Type = CStr(MciExtension.GetValue(Replace(System.IO.Path.GetExtension(File), ".", ""), "MPEGVideo"))
-            End If
-            pLastError = mciSendString("open """ & File & """ type " & Device_Type & " alias " & pAlias & "  parent " & Me.Handle.ToString & " style child", vbNullString, 0, IntPtr.Zero)
-            If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                pOpenSuccess = True
-                pPlaying = False
-                pPaused = False
-                pFileName = File
-                SizeMediaWindow()
-                DoSpeed()
-                DoMute()
-                DoBalance()
-                DoVolume()
-                pTotalTime = GetTotalTime()
-                pTotalFrames = GetTotalFrames()
-                Return True
-            End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function [Open](ByVal File As String) As Boolean")
-        End Try
+        'Try
+        If pOpenSuccess = True Then
+            Me.Close()
+        End If
+        Dim Device_Type As String = "MPEGVideo"
+        Dim MciExtension As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows NT\CurrentVersion\MCI Extensions", False)
+        If Not MciExtension Is Nothing Then
+            Device_Type = CStr(MciExtension.GetValue(Replace(System.IO.Path.GetExtension(File), ".", ""), "MPEGVideo"))
+        End If
+        pLastError = mciSendString("open """ & File & """ type " & Device_Type & " alias " & pAlias & "  parent " & Me.Handle.ToString & " style child", vbNullString, 0, IntPtr.Zero)
+        If pLastError = MCIERR.MCIERR_NO_ERROR Then
+            pOpenSuccess = True
+            pPlaying = False
+            pPaused = False
+            pFileName = File
+            SizeMediaWindow()
+            DoSpeed()
+            DoMute()
+            DoBalance()
+            DoVolume()
+            pTotalTime = GetTotalTime()
+            pTotalFrames = GetTotalFrames()
+            Return True
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function [Open](ByVal File As String) As Boolean")
+        'End Try
     End Function
 
     Public Function [Close]() As Boolean
-        Try
-            If pOpenSuccess = True Then
-                pLastError = mciSendString("close " & pAlias, vbNullString, 0, IntPtr.Zero)
-                If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                    pOpenSuccess = False
-                    pPlaying = False
-                    pPaused = False
-                    pFileName = ""
-                    pTotalTime = -1
-                    pTotalFrames = -1
-                    Return True
-                End If
+        'Try
+        If pOpenSuccess = True Then
+            pLastError = mciSendString("close " & pAlias, vbNullString, 0, IntPtr.Zero)
+            If pLastError = MCIERR.MCIERR_NO_ERROR Then
+                pOpenSuccess = False
+                pPlaying = False
+                pPaused = False
+                pFileName = ""
+                pTotalTime = -1
+                pTotalFrames = -1
+                Return True
             End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function Close() As Boolean")
-        End Try
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function Close() As Boolean")
+        'End Try
     End Function
 
     Public Function [Play]() As Boolean
-        Try
-            Return Me.Play(True, True, False)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function Play() As Boolean")
-        End Try
+        'Try
+        Return Me.Play(True, True, False)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function Play() As Boolean")
+        'End Try
     End Function
 
     Private Function [Play](ByVal WithClipStart As Boolean, ByVal WithClipEnd As Boolean, ByVal WithPauseState As Boolean) As Boolean
-        Try
-            If pOpenSuccess = True Then
-                If pClipFormat.Length > 0 Then
-                    pLastError = mciSendString("set " & pAlias & " time format " & pClipFormat, vbNullString, 0, IntPtr.Zero)
-                End If
-                pLastError = mciSendString("play " & pAlias & CStr(IIf((pClipStart <> -1) And WithClipStart = True, " from " & CStr(pClipStart), "")) & CStr(IIf((pClipEnd <> -1) And WithClipEnd = True, " to " & CStr(pClipEnd), "")) & " notify", vbNullString, 0, Me.Handle)
-                If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                    pPlaying = True
-                    If WithPauseState = True And pPaused = True Then
-                        Me.Pause()
-                    Else
-                        pPaused = False
-                    End If
-                End If
-                Return (pLastError = MCIERR.MCIERR_NO_ERROR)
+        'Try
+        If pOpenSuccess = True Then
+            If pClipFormat.Length > 0 Then
+                pLastError = mciSendString("set " & pAlias & " time format " & pClipFormat, vbNullString, 0, IntPtr.Zero)
             End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Function [Play](ByVal WithClipStart As Boolean, ByVal WithClipEnd As Boolean, ByVal WithPauseState As Boolean) As Boolean")
-        End Try
+            pLastError = mciSendString("play " & pAlias & CStr(IIf((pClipStart <> -1) And WithClipStart = True, " from " & CStr(pClipStart), "")) & CStr(IIf((pClipEnd <> -1) And WithClipEnd = True, " to " & CStr(pClipEnd), "")) & " notify", vbNullString, 0, Me.Handle)
+            If pLastError = MCIERR.MCIERR_NO_ERROR Then
+                pPlaying = True
+                If WithPauseState = True And pPaused = True Then
+                    Me.Pause()
+                Else
+                    pPaused = False
+                End If
+            End If
+            Return (pLastError = MCIERR.MCIERR_NO_ERROR)
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function [Play](ByVal WithClipStart As Boolean, ByVal WithClipEnd As Boolean, ByVal WithPauseState As Boolean) As Boolean")
+        'End Try
     End Function
 
     Public Function [Stop]() As Boolean
-        Try
-            If pOpenSuccess = True Then
-                pLastError = mciSendString("stop " & pAlias, vbNullString, 0, IntPtr.Zero)
-                If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                    pLastError = mciSendString("seek " & pAlias & " to start", vbNullString, 0, IntPtr.Zero)
-                End If
-                pPlaying = False
-                pPaused = False
-                Return (pLastError = MCIERR.MCIERR_NO_ERROR)
+        'Try
+        If pOpenSuccess = True Then
+            pLastError = mciSendString("stop " & pAlias, vbNullString, 0, IntPtr.Zero)
+            If pLastError = MCIERR.MCIERR_NO_ERROR Then
+                pLastError = mciSendString("seek " & pAlias & " to start", vbNullString, 0, IntPtr.Zero)
             End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function [Stop]() As Boolean")
-        End Try
+            pPlaying = False
+            pPaused = False
+            Return (pLastError = MCIERR.MCIERR_NO_ERROR)
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function [Stop]() As Boolean")
+        'End Try
     End Function
 
     Public Function [Pause]() As Boolean
-        Try
-            If pOpenSuccess = True Then
-                pLastError = mciSendString("pause " & pAlias, vbNullString, 0, IntPtr.Zero)
-                pPaused = (pLastError = MCIERR.MCIERR_NO_ERROR)
-                Return pPaused
-            End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function [Pause]() As Boolean")
-        End Try
+        'Try
+        If pOpenSuccess = True Then
+            pLastError = mciSendString("pause " & pAlias, vbNullString, 0, IntPtr.Zero)
+            pPaused = (pLastError = MCIERR.MCIERR_NO_ERROR)
+            Return pPaused
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function [Pause]() As Boolean")
+        'End Try
     End Function
 
     Public Function [Resume]() As Boolean
-        Try
-            If pOpenSuccess = True And pPaused = True Then
-                pLastError = mciSendString("resume " & pAlias, vbNullString, 0, IntPtr.Zero)
-                pPaused = Not (pLastError = MCIERR.MCIERR_NO_ERROR)
-                Return (pLastError = MCIERR.MCIERR_NO_ERROR)
-            End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function [Resume]() As Boolean")
-        End Try
+        'Try
+        If pOpenSuccess = True And pPaused = True Then
+            pLastError = mciSendString("resume " & pAlias, vbNullString, 0, IntPtr.Zero)
+            pPaused = Not (pLastError = MCIERR.MCIERR_NO_ERROR)
+            Return (pLastError = MCIERR.MCIERR_NO_ERROR)
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function [Resume]() As Boolean")
+        'End Try
     End Function
 
     Public Property Repeat() As Boolean
@@ -361,311 +361,311 @@ Public Class clsVideo
     End Property
 
     Public Function MoveToStart() As Boolean
-        Try
-            If pOpenSuccess = True Then
-                pLastError = mciSendString("seek " & pAlias & " to start", vbNullString, 0, IntPtr.Zero)
-                pPlaying = False
-                pPaused = False
-                Return (pLastError = MCIERR.MCIERR_NO_ERROR)
-            End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function MoveToStart() As Boolean")
-        End Try
+        'Try
+        If pOpenSuccess = True Then
+            pLastError = mciSendString("seek " & pAlias & " to start", vbNullString, 0, IntPtr.Zero)
+            pPlaying = False
+            pPaused = False
+            Return (pLastError = MCIERR.MCIERR_NO_ERROR)
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function MoveToStart() As Boolean")
+        'End Try
     End Function
 
     Public Function MoveToEnd() As Boolean
-        Try
-            If pOpenSuccess = True Then
-                pLastError = mciSendString("seek " & pAlias & " to end", vbNullString, 0, IntPtr.Zero)
-                pPlaying = False
-                pPaused = False
-                Return (pLastError = MCIERR.MCIERR_NO_ERROR)
-            End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function MoveToEnd() As Boolean")
-        End Try
+        'Try
+        If pOpenSuccess = True Then
+            pLastError = mciSendString("seek " & pAlias & " to end", vbNullString, 0, IntPtr.Zero)
+            pPlaying = False
+            pPaused = False
+            Return (pLastError = MCIERR.MCIERR_NO_ERROR)
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function MoveToEnd() As Boolean")
+        'End Try
     End Function
 
     Public Function MoveToFrame(ByVal Frame As Long) As Boolean
-        Try
-            Return MoveToPosition(Frame, "frames")
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function MoveToFrame(ByVal Frame As Long) As Boolean")
-        End Try
+        'Try
+        Return MoveToPosition(Frame, "frames")
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function MoveToFrame(ByVal Frame As Long) As Boolean")
+        'End Try
     End Function
 
     Public Function MoveToTime(ByVal Milliseconds As Long) As Boolean
-        Try
-            Return MoveToPosition(Milliseconds, "milliseconds")
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function MoveToTime(ByVal Milliseconds As Long) As Boolean")
-        End Try
+        'Try
+        Return MoveToPosition(Milliseconds, "milliseconds")
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function MoveToTime(ByVal Milliseconds As Long) As Boolean")
+        'End Try
     End Function
 
     Private Function MoveToPosition(ByVal Index As Long, ByVal TimeFormat As String) As Boolean
-        Try
-            If pOpenSuccess = True Then
-                pLastError = mciSendString("set " & pAlias & " time format " & TimeFormat, vbNullString, 0, IntPtr.Zero)
+        'Try
+        If pOpenSuccess = True Then
+            pLastError = mciSendString("set " & pAlias & " time format " & TimeFormat, vbNullString, 0, IntPtr.Zero)
+            If pLastError = MCIERR.MCIERR_NO_ERROR Then
+                pLastError = mciSendString("seek " & pAlias & " to " & CStr(Index), vbNullString, 0, IntPtr.Zero)
                 If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                    pLastError = mciSendString("seek " & pAlias & " to " & CStr(Index), vbNullString, 0, IntPtr.Zero)
-                    If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                        If pPlaying = True Then
-                            Me.Play(False, True, True)
-                        End If
+                    If pPlaying = True Then
+                        Me.Play(False, True, True)
                     End If
-                    Return (pLastError = MCIERR.MCIERR_NO_ERROR)
                 End If
+                Return (pLastError = MCIERR.MCIERR_NO_ERROR)
             End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Function MoveToPosition(ByVal Index As Long, ByVal TimeFormat As String) As Boolean")
-        End Try
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function MoveToPosition(ByVal Index As Long, ByVal TimeFormat As String) As Boolean")
+        'End Try
     End Function
 
     Public Function ClipFrame(ByVal [Start] As Long, ByVal [End] As Long) As Boolean
-        Try
-            Return Clip([Start], [End], Me.CurrentFrame, "frames")
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function ClipFrame(ByVal [Start] As Long, ByVal [End] As Long) As Boolean")
-        End Try
+        'Try
+        Return Clip([Start], [End], Me.CurrentFrame, "frames")
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function ClipFrame(ByVal [Start] As Long, ByVal [End] As Long) As Boolean")
+        'End Try
     End Function
 
     Public Function ClipTime(ByVal [Start] As Long, ByVal [End] As Long) As Boolean
-        Try
-            Return Clip([Start], [End], Me.CurrentTime, "milliseconds")
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function ClipTime(ByVal [Start] As Long, ByVal [End] As Long) As Boolean")
-        End Try
+        'Try
+        Return Clip([Start], [End], Me.CurrentTime, "milliseconds")
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function ClipTime(ByVal [Start] As Long, ByVal [End] As Long) As Boolean")
+        'End Try
     End Function
 
     Private Function Clip(ByVal [Start] As Long, ByVal [End] As Long, ByVal Current As Long, ByVal TimeFormat As String) As Boolean
-        Try
-            If pOpenSuccess = True Then
-                If [Start] <> pClipStart Or [End] <> pClipEnd Or TimeFormat <> pClipFormat Then
-                    pClipStart = [Start]
-                    pClipEnd = [End]
-                    If pClipStart = -1 And pClipEnd = -1 Then
-                        pClipFormat = ""
-                    Else
-                        pClipFormat = TimeFormat
-                    End If
-                    If pPlaying = True Then
-                        Me.Play(([Start] > Current And [Start] <> -1), True, True)
-                    End If
-                    Return True
+        'Try
+        If pOpenSuccess = True Then
+            If [Start] <> pClipStart Or [End] <> pClipEnd Or TimeFormat <> pClipFormat Then
+                pClipStart = [Start]
+                pClipEnd = [End]
+                If pClipStart = -1 And pClipEnd = -1 Then
+                    pClipFormat = ""
+                Else
+                    pClipFormat = TimeFormat
                 End If
+                If pPlaying = True Then
+                    Me.Play(([Start] > Current And [Start] <> -1), True, True)
+                End If
+                Return True
             End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Function Clip(ByVal [Start] As Long, ByVal [End] As Long, ByVal Current As Long, ByVal TimeFormat As String) As Boolean")
-        End Try
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function Clip(ByVal [Start] As Long, ByVal [End] As Long, ByVal Current As Long, ByVal TimeFormat As String) As Boolean")
+        'End Try
     End Function
 
     Private Function SizeMediaWindow() As Boolean
-        Try
-            If pOpenSuccess = True Then
-                Dim OptimalSize As Size = Me.OriginalSize
-                If OptimalSize.IsEmpty = False Then
-                    Dim wRatio As Double = (100 / OptimalSize.Width * Me.Width) / 100
-                    If OptimalSize.Height * wRatio > Me.Height Then
-                        wRatio = (100 / OptimalSize.Height * Me.Height) / 100
-                    End If
-                    Dim wWidth As Integer = CInt(OptimalSize.Width * wRatio)
-                    Dim wHeight As Integer = CInt(OptimalSize.Height * wRatio)
-                    Dim wLeft As Integer = CInt((Me.Width - wWidth) / 2)
-                    Dim wTop As Integer = CInt((Me.Height - wHeight) / 2)
-                    pLastError = mciSendString("put " & pAlias & " window at " & CStr(wLeft) & " " & CStr(wTop) & " " & CStr(wWidth) & " " & CStr(wHeight), vbNullString, 0, IntPtr.Zero)
-                    Return (pLastError = MCIERR.MCIERR_NO_ERROR)
+        'Try
+        If pOpenSuccess = True Then
+            Dim OptimalSize As Size = Me.OriginalSize
+            If OptimalSize.IsEmpty = False Then
+                Dim wRatio As Double = (100 / OptimalSize.Width * Me.Width) / 100
+                If OptimalSize.Height * wRatio > Me.Height Then
+                    wRatio = (100 / OptimalSize.Height * Me.Height) / 100
                 End If
+                Dim wWidth As Integer = CInt(OptimalSize.Width * wRatio)
+                Dim wHeight As Integer = CInt(OptimalSize.Height * wRatio)
+                Dim wLeft As Integer = CInt((Me.Width - wWidth) / 2)
+                Dim wTop As Integer = CInt((Me.Height - wHeight) / 2)
+                pLastError = mciSendString("put " & pAlias & " window at " & CStr(wLeft) & " " & CStr(wTop) & " " & CStr(wWidth) & " " & CStr(wHeight), vbNullString, 0, IntPtr.Zero)
+                Return (pLastError = MCIERR.MCIERR_NO_ERROR)
             End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Function SizeMediaWindow() As Boolean")
-        End Try
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function SizeMediaWindow() As Boolean")
+        'End Try
     End Function
 
     Private Function DoSpeed() As Boolean
-        Try
-            If pOpenSuccess = True Then
-                pLastError = mciSendString("set " & pAlias & " speed " & CStr(pSpeed), vbNullString, 0, IntPtr.Zero)
-                Return (pLastError = MCIERR.MCIERR_NO_ERROR)
-            End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Function DoSpeed() As Boolean")
-        End Try
+        'Try
+        If pOpenSuccess = True Then
+            pLastError = mciSendString("set " & pAlias & " speed " & CStr(pSpeed), vbNullString, 0, IntPtr.Zero)
+            Return (pLastError = MCIERR.MCIERR_NO_ERROR)
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function DoSpeed() As Boolean")
+        'End Try
     End Function
 
     Private Function DoMute() As Boolean
-        Try
-            If pOpenSuccess = True Then
-                Select Case pMute
-                    Case Channels.None
-                        pLastError = mciSendString("set " & pAlias & " audio all on", vbNullString, 0, IntPtr.Zero)
-                    Case Channels.Both
-                        pLastError = mciSendString("set " & pAlias & " audio all off", vbNullString, 0, IntPtr.Zero)
-                    Case Channels.Left
-                        pLastError = mciSendString("set " & pAlias & " audio left off", vbNullString, 0, IntPtr.Zero)
-                        pLastError = mciSendString("set " & pAlias & " audio right on", vbNullString, 0, IntPtr.Zero)
-                    Case Channels.Right
-                        pLastError = mciSendString("set " & pAlias & " audio left on", vbNullString, 0, IntPtr.Zero)
-                        pLastError = mciSendString("set " & pAlias & " audio right off", vbNullString, 0, IntPtr.Zero)
-                End Select
-                Return (pLastError = MCIERR.MCIERR_NO_ERROR)
-            End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Function DoMute() As Boolean")
-        End Try
+        'Try
+        If pOpenSuccess = True Then
+            Select Case pMute
+                Case Channels.None
+                    pLastError = mciSendString("set " & pAlias & " audio all on", vbNullString, 0, IntPtr.Zero)
+                Case Channels.Both
+                    pLastError = mciSendString("set " & pAlias & " audio all off", vbNullString, 0, IntPtr.Zero)
+                Case Channels.Left
+                    pLastError = mciSendString("set " & pAlias & " audio left off", vbNullString, 0, IntPtr.Zero)
+                    pLastError = mciSendString("set " & pAlias & " audio right on", vbNullString, 0, IntPtr.Zero)
+                Case Channels.Right
+                    pLastError = mciSendString("set " & pAlias & " audio left on", vbNullString, 0, IntPtr.Zero)
+                    pLastError = mciSendString("set " & pAlias & " audio right off", vbNullString, 0, IntPtr.Zero)
+            End Select
+            Return (pLastError = MCIERR.MCIERR_NO_ERROR)
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function DoMute() As Boolean")
+        'End Try
     End Function
 
     Private Function DoBalance() As Boolean
-        Try
-            If pOpenSuccess = True Then
-                pLastError = mciSendString("setaudio " & pAlias & " left volume to " & CStr(1000 - pBalance), vbNullString, 0, IntPtr.Zero)
-                pLastError = mciSendString("setaudio " & pAlias & " right volume to " & CStr(pBalance), vbNullString, 0, IntPtr.Zero)
-                Return (pLastError = MCIERR.MCIERR_NO_ERROR)
-            End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Function DoBalance() As Boolean")
-        End Try
+        'Try
+        If pOpenSuccess = True Then
+            pLastError = mciSendString("setaudio " & pAlias & " left volume to " & CStr(1000 - pBalance), vbNullString, 0, IntPtr.Zero)
+            pLastError = mciSendString("setaudio " & pAlias & " right volume to " & CStr(pBalance), vbNullString, 0, IntPtr.Zero)
+            Return (pLastError = MCIERR.MCIERR_NO_ERROR)
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function DoBalance() As Boolean")
+        'End Try
     End Function
 
     Private Function DoVolume() As Boolean
-        Try
-            If pOpenSuccess = True Then
-                pLastError = mciSendString("setaudio " & pAlias & " volume to " & CStr(pVolume), vbNullString, 0, IntPtr.Zero)
-                Return (pLastError = MCIERR.MCIERR_NO_ERROR)
-            End If
-            Return False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Function DoVolume() As Boolean")
-        End Try
+        'Try
+        If pOpenSuccess = True Then
+            pLastError = mciSendString("setaudio " & pAlias & " volume to " & CStr(pVolume), vbNullString, 0, IntPtr.Zero)
+            Return (pLastError = MCIERR.MCIERR_NO_ERROR)
+        End If
+        Return False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function DoVolume() As Boolean")
+        'End Try
     End Function
 
     Private Function GetTotalFrames() As Long
-        Try
-            If pOpenSuccess = True Then
-                pLastError = mciSendString("set " & pAlias & " time format frames", vbNullString, 0, IntPtr.Zero)
+        'Try
+        If pOpenSuccess = True Then
+            pLastError = mciSendString("set " & pAlias & " time format frames", vbNullString, 0, IntPtr.Zero)
+            If pLastError = MCIERR.MCIERR_NO_ERROR Then
+                Dim FrameStr As String = Space(128)
+                pLastError = mciSendString("status " & pAlias & " length", FrameStr, Len(FrameStr), IntPtr.Zero)
                 If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                    Dim FrameStr As String = Space(128)
-                    pLastError = mciSendString("status " & pAlias & " length", FrameStr, Len(FrameStr), IntPtr.Zero)
-                    If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                        Return CLng(Trim(FrameStr))
-                    End If
+                    Return CLng(Trim(FrameStr))
                 End If
             End If
-            Return -1
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Function GetTotalFrames() As Long")
-        End Try
+        End If
+        Return -1
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function GetTotalFrames() As Long")
+        'End Try
     End Function
 
     Private Function GetTotalTime() As Long
-        Try
-            If pOpenSuccess = True Then
-                pLastError = mciSendString("set " & pAlias & " time format milliseconds", vbNullString, 0, IntPtr.Zero)
+        'Try
+        If pOpenSuccess = True Then
+            pLastError = mciSendString("set " & pAlias & " time format milliseconds", vbNullString, 0, IntPtr.Zero)
+            If pLastError = MCIERR.MCIERR_NO_ERROR Then
+                Dim TimeStr As String = Space(128)
+                pLastError = mciSendString("status " & pAlias & " length", TimeStr, Len(TimeStr), IntPtr.Zero)
                 If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                    Dim TimeStr As String = Space(128)
-                    pLastError = mciSendString("status " & pAlias & " length", TimeStr, Len(TimeStr), IntPtr.Zero)
-                    If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                        Return CLng(Trim(TimeStr))
-                    End If
+                    Return CLng(Trim(TimeStr))
                 End If
             End If
-            Return -1
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Function GetTotalTime() As Long")
-        End Try
+        End If
+        Return -1
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function GetTotalTime() As Long")
+        'End Try
     End Function
 
     Public Function GetLastError() As Integer
-        Try
-            Return pLastError
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function GetLastError() As Integer")
-        End Try
+        'Try
+        Return pLastError
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function GetLastError() As Integer")
+        'End Try
     End Function
 
     Public Function GetErrorString() As String
-        Try
-            If pLastError <> MCIERR.MCIERR_NO_ERROR Then
-                Dim ErrorText As String = Space(128)
-                If mciGetErrorString(pLastError, ErrorText, Len(ErrorText)) <> 0 Then
-                    Return Trim(ErrorText)
-                Else
-                    Return Nothing
-                End If
+        'Try
+        If pLastError <> MCIERR.MCIERR_NO_ERROR Then
+            Dim ErrorText As String = Space(128)
+            If mciGetErrorString(pLastError, ErrorText, Len(ErrorText)) <> 0 Then
+                Return Trim(ErrorText)
             Else
-                Return Nothing
+                Return ""
             End If
-        Catch ex As Exception
-            GetErrorString = ""
-            ProcessError(ex.Message, "Public Function GetLastError() As Integer")
-        End Try
+        Else
+            Return ""
+        End If
+        'Catch ex As Exception
+        'Return Nothing
+        'ProcessError(ex.Message, "Public Function GetLastError() As Integer")
+        'End Try
     End Function
 
     Public Sub New()
-        Try
-            pFileName = ""
-            pAlias = "ALIAS" & Me.Handle.ToString
-            pLastError = MCIERR.MCIERR_NO_ERROR
-            pOpenSuccess = False
-            pSpeed = 1000
-            pMute = Channels.None
-            pBalance = 500
-            pVolume = 500
-            pRepeat = False
-            pTotalTime = -1
-            pTotalFrames = -1
-            pClipStart = -1
-            pClipEnd = -1
-            pClipFormat = ""
-            pPaused = False
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub New()")
-        End Try
+        'Try
+        pFileName = ""
+        pAlias = "ALIAS" & Me.Handle.ToString
+        pLastError = MCIERR.MCIERR_NO_ERROR
+        pOpenSuccess = False
+        pSpeed = 1000
+        pMute = Channels.None
+        pBalance = 500
+        pVolume = 500
+        pRepeat = False
+        pTotalTime = -1
+        pTotalFrames = -1
+        pClipStart = -1
+        pClipEnd = -1
+        pClipFormat = ""
+        pPaused = False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub New()")
+        'End Try
     End Sub
 
     Protected Overrides Sub OnResize(ByVal e As System.EventArgs)
-        Try
-            SizeMediaWindow()
-        Catch ex As Exception
-            ProcessError(ex.Message, "SizeMediaWindow()")
-        End Try
+        'Try
+        SizeMediaWindow()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "SizeMediaWindow()")
+        'End Try
     End Sub
 
     Protected Overloads Overrides Sub Dispose(ByVal disposing As Boolean)
-        Try
-            Me.Close()
-            MyBase.Dispose(disposing)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Protected Overloads Overrides Sub Dispose(ByVal disposing As Boolean)")
-        End Try
+        'Try
+        Me.Close()
+        MyBase.Dispose(disposing)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Protected Overloads Overrides Sub Dispose(ByVal disposing As Boolean)")
+        'End Try
     End Sub
 
     Protected Overrides Sub WndProc(ByRef m As System.Windows.Forms.Message)
-        Try
-            Select Case m.Msg
-                Case MM_MCINOTIFY
-                    If m.WParam.ToInt32 = MCI_NOTIFY_SUCCESSFUL Then
-                        If pRepeat = True Then
-                            Me.Stop()
-                            Me.Play()
-                        Else
-                            Me.Stop()
-                            Dim e As New System.EventArgs
-                            RaiseEvent OnEnd(Me, e)
-                            e = Nothing
-                        End If
+        'Try
+        Select Case m.Msg
+            Case MM_MCINOTIFY
+                If m.WParam.ToInt32 = MCI_NOTIFY_SUCCESSFUL Then
+                    If pRepeat = True Then
+                        Me.Stop()
+                        Me.Play()
+                    Else
+                        Me.Stop()
+                        Dim e As New System.EventArgs
+                        RaiseEvent OnEnd(Me, e)
+                        e = Nothing
                     End If
-            End Select
-            MyBase.WndProc(m)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Protected Overrides Sub WndProc(ByRef m As System.Windows.Forms.Message)")
-        End Try
+                End If
+        End Select
+        MyBase.WndProc(m)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Protected Overrides Sub WndProc(ByRef m As System.Windows.Forms.Message)")
+        'End Try
     End Sub
 End Class

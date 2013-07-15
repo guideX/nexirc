@@ -30,7 +30,7 @@ Partial Class mdiMain
         Me.tspWindows = New System.Windows.Forms.ToolStrip()
         Me.tmrStartupSettings = New System.Windows.Forms.Timer(Me.components)
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.ToolStrip = New System.Windows.Forms.ToolStrip()
+        Me.tspMain = New System.Windows.Forms.ToolStrip()
         Me.cmd_Connection = New System.Windows.Forms.ToolStripSplitButton()
         Me.cmd_RecientServers = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmd_RecientServer1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -85,12 +85,12 @@ Partial Class mdiMain
         Me.cmd_ArrangeIcons = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.cmd_ShowAbout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.pnlLeftNav = New System.Windows.Forms.Panel()
         Me.tvwConnections = New System.Windows.Forms.TreeView()
         Me.lblQueryPrompt = New System.Windows.Forms.ToolStripLabel()
         Me.tspQueryPrompt = New System.Windows.Forms.ToolStrip()
-        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripButton2 = New System.Windows.Forms.ToolStripButton()
+        Me.cmdAcceptQuery = New System.Windows.Forms.ToolStripButton()
+        Me.cmdDeclineQuery = New System.Windows.Forms.ToolStripButton()
         Me.lblUser = New System.Windows.Forms.ToolStripLabel()
         Me.tspDCCToolBar = New System.Windows.Forms.ToolStrip()
         Me.cmdAccept = New System.Windows.Forms.ToolStripButton()
@@ -104,8 +104,8 @@ Partial Class mdiMain
         Me.cmdRedirectDeny = New System.Windows.Forms.ToolStripButton()
         Me.tmrWaitForQuit = New System.Windows.Forms.Timer(Me.components)
         Me.tmrHideRedirect = New System.Windows.Forms.Timer(Me.components)
-        Me.ToolStrip.SuspendLayout()
-        Me.Panel1.SuspendLayout()
+        Me.tspMain.SuspendLayout()
+        Me.pnlLeftNav.SuspendLayout()
         Me.tspQueryPrompt.SuspendLayout()
         Me.tspDCCToolBar.SuspendLayout()
         Me.tspRedirect.SuspendLayout()
@@ -174,19 +174,19 @@ Partial Class mdiMain
         Me.ImageList1.Images.SetKeyName(8, "black_statusblue.jpg")
         Me.ImageList1.Images.SetKeyName(9, "black_channelblue.jpg")
         '
-        'ToolStrip
+        'tspMain
         '
-        Me.ToolStrip.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.ToolStrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.ToolStrip.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_Connection, Me.cmd_Customize, Me.cmd_Media, Me.cmd_DCC, Me.ToolStripSeparator1, Me.cmd_Channels, Me.ToolStripSeparator2, Me.cmd_View, Me.cmd_Window})
-        Me.ToolStrip.Location = New System.Drawing.Point(0, 0)
-        Me.ToolStrip.Name = "ToolStrip"
-        Me.ToolStrip.Padding = New System.Windows.Forms.Padding(0)
-        Me.ToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.ToolStrip.Size = New System.Drawing.Size(819, 25)
-        Me.ToolStrip.TabIndex = 22
+        Me.tspMain.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.tspMain.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.tspMain.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tspMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.tspMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_Connection, Me.cmd_Customize, Me.cmd_Media, Me.cmd_DCC, Me.ToolStripSeparator1, Me.cmd_Channels, Me.ToolStripSeparator2, Me.cmd_View, Me.cmd_Window})
+        Me.tspMain.Location = New System.Drawing.Point(0, 0)
+        Me.tspMain.Name = "tspMain"
+        Me.tspMain.Padding = New System.Windows.Forms.Padding(0)
+        Me.tspMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
+        Me.tspMain.Size = New System.Drawing.Size(819, 25)
+        Me.tspMain.TabIndex = 22
         '
         'cmd_Connection
         '
@@ -550,18 +550,18 @@ Partial Class mdiMain
         Me.cmd_ShowAbout.Size = New System.Drawing.Size(166, 22)
         Me.cmd_ShowAbout.Text = "Show About"
         '
-        'Panel1
+        'pnlLeftNav
         '
-        Me.Panel1.BackColor = System.Drawing.Color.Black
-        Me.Panel1.Controls.Add(Me.tvwConnections)
-        Me.Panel1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel1.Location = New System.Drawing.Point(0, 25)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel1.Size = New System.Drawing.Size(167, 306)
-        Me.Panel1.TabIndex = 25
+        Me.pnlLeftNav.BackColor = System.Drawing.Color.Black
+        Me.pnlLeftNav.Controls.Add(Me.tvwConnections)
+        Me.pnlLeftNav.Cursor = System.Windows.Forms.Cursors.Default
+        Me.pnlLeftNav.Dock = System.Windows.Forms.DockStyle.Left
+        Me.pnlLeftNav.Location = New System.Drawing.Point(0, 25)
+        Me.pnlLeftNav.Margin = New System.Windows.Forms.Padding(4)
+        Me.pnlLeftNav.Name = "pnlLeftNav"
+        Me.pnlLeftNav.Padding = New System.Windows.Forms.Padding(1)
+        Me.pnlLeftNav.Size = New System.Drawing.Size(167, 306)
+        Me.pnlLeftNav.TabIndex = 25
         '
         'tvwConnections
         '
@@ -596,7 +596,7 @@ Partial Class mdiMain
         Me.tspQueryPrompt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.tspQueryPrompt.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tspQueryPrompt.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.tspQueryPrompt.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblQueryPrompt, Me.ToolStripButton1, Me.ToolStripButton2})
+        Me.tspQueryPrompt.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblQueryPrompt, Me.cmdAcceptQuery, Me.cmdDeclineQuery})
         Me.tspQueryPrompt.Location = New System.Drawing.Point(167, 25)
         Me.tspQueryPrompt.Name = "tspQueryPrompt"
         Me.tspQueryPrompt.Padding = New System.Windows.Forms.Padding(0)
@@ -606,27 +606,27 @@ Partial Class mdiMain
         Me.tspQueryPrompt.TabIndex = 27
         Me.tspQueryPrompt.Visible = False
         '
-        'ToolStripButton1
+        'cmdAcceptQuery
         '
-        Me.ToolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.ToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.ToolStripButton1.ForeColor = System.Drawing.Color.Blue
-        Me.ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), System.Drawing.Image)
-        Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(50, 22)
-        Me.ToolStripButton1.Text = "Accept"
+        Me.cmdAcceptQuery.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.cmdAcceptQuery.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.cmdAcceptQuery.ForeColor = System.Drawing.Color.Blue
+        Me.cmdAcceptQuery.Image = CType(resources.GetObject("cmdAcceptQuery.Image"), System.Drawing.Image)
+        Me.cmdAcceptQuery.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdAcceptQuery.Name = "cmdAcceptQuery"
+        Me.cmdAcceptQuery.Size = New System.Drawing.Size(50, 22)
+        Me.cmdAcceptQuery.Text = "Accept"
         '
-        'ToolStripButton2
+        'cmdDeclineQuery
         '
-        Me.ToolStripButton2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.ToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.ToolStripButton2.ForeColor = System.Drawing.Color.Blue
-        Me.ToolStripButton2.Image = CType(resources.GetObject("ToolStripButton2.Image"), System.Drawing.Image)
-        Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(39, 22)
-        Me.ToolStripButton2.Text = "Deny"
+        Me.cmdDeclineQuery.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.cmdDeclineQuery.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.cmdDeclineQuery.ForeColor = System.Drawing.Color.Blue
+        Me.cmdDeclineQuery.Image = CType(resources.GetObject("cmdDeclineQuery.Image"), System.Drawing.Image)
+        Me.cmdDeclineQuery.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdDeclineQuery.Name = "cmdDeclineQuery"
+        Me.cmdDeclineQuery.Size = New System.Drawing.Size(39, 22)
+        Me.cmdDeclineQuery.Text = "Deny"
         '
         'lblUser
         '
@@ -643,7 +643,7 @@ Partial Class mdiMain
         Me.tspDCCToolBar.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tspDCCToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.tspDCCToolBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblUser, Me.cmdAccept, Me.cmdDeny})
-        Me.tspDCCToolBar.Location = New System.Drawing.Point(167, 50)
+        Me.tspDCCToolBar.Location = New System.Drawing.Point(167, 25)
         Me.tspDCCToolBar.Name = "tspDCCToolBar"
         Me.tspDCCToolBar.Padding = New System.Windows.Forms.Padding(0)
         Me.tspDCCToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
@@ -744,8 +744,8 @@ Partial Class mdiMain
         Me.Controls.Add(Me.tspQueryPrompt)
         Me.Controls.Add(Me.tspDCCToolBar)
         Me.Controls.Add(Me.tspRedirect)
-        Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.ToolStrip)
+        Me.Controls.Add(Me.pnlLeftNav)
+        Me.Controls.Add(Me.tspMain)
         Me.Controls.Add(Me.tspWindows)
         Me.Controls.Add(Me.cmdLeftBar)
         Me.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -754,9 +754,9 @@ Partial Class mdiMain
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "mdiMain"
         Me.Text = "nexIRC"
-        Me.ToolStrip.ResumeLayout(False)
-        Me.ToolStrip.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
+        Me.tspMain.ResumeLayout(False)
+        Me.tspMain.PerformLayout()
+        Me.pnlLeftNav.ResumeLayout(False)
         Me.tspQueryPrompt.ResumeLayout(False)
         Me.tspQueryPrompt.PerformLayout()
         Me.tspDCCToolBar.ResumeLayout(False)
@@ -775,7 +775,7 @@ Partial Class mdiMain
     Friend WithEvents tspWindows As System.Windows.Forms.ToolStrip
     Friend WithEvents tmrStartupSettings As System.Windows.Forms.Timer
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
-    Friend WithEvents ToolStrip As System.Windows.Forms.ToolStrip
+    Friend WithEvents tspMain As System.Windows.Forms.ToolStrip
     Friend WithEvents cmd_Connection As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents cmd_RecientServers As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmd_RecientServer1 As System.Windows.Forms.ToolStripMenuItem
@@ -828,11 +828,11 @@ Partial Class mdiMain
     Friend WithEvents cmd_Cascade As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmd_Sep3869626 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents cmd_ArrangeIcons As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents pnlLeftNav As System.Windows.Forms.Panel
     Friend WithEvents tvwConnections As System.Windows.Forms.TreeView
     Friend WithEvents lblQueryPrompt As System.Windows.Forms.ToolStripLabel
-    Friend WithEvents ToolStripButton1 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton2 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents cmdAcceptQuery As System.Windows.Forms.ToolStripButton
+    Friend WithEvents cmdDeclineQuery As System.Windows.Forms.ToolStripButton
     Friend WithEvents tspQueryPrompt As System.Windows.Forms.ToolStrip
     Friend WithEvents lblUser As System.Windows.Forms.ToolStripLabel
     Friend WithEvents cmdAccept As System.Windows.Forms.ToolStripButton

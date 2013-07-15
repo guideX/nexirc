@@ -2,9 +2,9 @@
 '06-13-2013 - guideX
 
  frmChannelList:
-  - Slow
-  - (Needs attention) Strip colors before adding
-  - (Feature needed) Add the following button bar items to the top of the window ...
+  - Slow (Solved)
+  - Strip colors before adding (Solved)
+  - Add the following button bar items to the top of the window ... (Feature needed)
       Refresh
       Add to Channel Folder
       Add to Auto Join
@@ -141,7 +141,7 @@
  frmStatus:
   - (Fixed?) When Status Window is closed when minimized, it shows as very small next time a status window is loaded
   - (Needs attention) When the program first opens, a new status window appears, and does not have any server information,
-      if you Try to connect, you receive an error, you must change your server connection first.
+      if you 'Try to connect, you receive an error, you must change your server connection first.
  
  Errors reported by other users:
   - (PSC: <David Jones> small interface quarks)

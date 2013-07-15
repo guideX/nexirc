@@ -1,6 +1,6 @@
 ﻿
         'Public Sub dAddToPrivateMessages(ByVal lStatusIndex As Integer, ByVal lName As String, ByVal lHost As String, ByVal lData As String)
-        'On Error Resume Next
+        ''On Error Resume Next
         'Dim i As Integer, n As Integer, msg As String, lDeny As Boolean, lPrompt As Boolean, lAutoAllow As Boolean
         'If lStatusObjects.sStatusObject(lStatusIndex).sConnected = False Then Exit Sub
         'If Len(lName) = 0 Or lStatusIndex = 0 Then Exit Sub
@@ -50,11 +50,11 @@
         'AddToPrivateMessages2(lStatusIndex, n, lData)
         'End With
         'End If
-        'If Err.Number <> 0 Then RaiseEvent ProcessError(ex.Message, "Public Sub JoinChannel(ByVal lChannelName As String)")
+        'If Err.Number <> 0 Then 'RaiseEvent ProcessError(ex.Message, "Public Sub JoinChannel(ByVal lChannelName As String)")
         'End Sub
 
         'Public Sub dAddToPrivateMessages2(ByVal lStatusIndex As Integer, ByVal lIndex As Integer, ByVal lData As String, Optional ByVal lShowWindowAutomatically As Boolean = False)
-        'On Error Resume Next
+        ''On Error Resume Next
         'Dim msg As String
         'With lStatusObjects.sStatusObject(lStatusIndex).sPrivateMessages.pPrivateMessage(lIndex)
         'msg = "12<" & .pName & "> " & lData
@@ -85,5 +85,5 @@
         '.pWindow.DoNoticeColor(msg)
         'End If
         'End With
-        'If Err.Number <> 0 Then RaiseEvent ProcessError(ex.Message, "Public Sub ShowQueryWindow(ByVal StatusIndex As Integer, ByVal lIndex As Integer)")
+        'If Err.Number <> 0 Then 'RaiseEvent ProcessError(ex.Message, "Public Sub ShowQueryWindow(ByVal StatusIndex As Integer, ByVal lIndex As Integer)")
         'End Sub

@@ -137,9 +137,6 @@
     <Compile Include="Classes\IO\clsFiles.vb" />
     <Compile Include="Classes\UI\clsFlashWindow.vb" />
     <Compile Include="Classes\clsIdent.vb" />
-    <Compile Include="Classes\clsIRC.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Classes\clsMdiChildWindow.vb" />
     <Compile Include="Classes\clsProcess.vb" />
     <Compile Include="Classes\UI\clsLockWindowUpdate.vb" />
@@ -213,7 +210,13 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IRC\Channels\clsChannelFolder.vb" />
+    <Compile Include="IRC\Channels\clsChannelListUI.vb" />
     <Compile Include="IRC\Customize\clsCustomize.vb" />
+    <Compile Include="IRC\MainWindow\clsMainWindowUI.vb" />
+    <Compile Include="IRC\Numerics\clsCommandTypes.vb" />
+    <Compile Include="IRC\Numerics\clsIrcNumericHelper.vb" />
+    <Compile Include="IRC\Numerics\clsIrcNumerics.vb" />
+    <Compile Include="IRC\Numerics\clsProcessNumeric.vb" />
     <Compile Include="IRC\Status\clsStatus.vb" />
     <Compile Include="Classes\Communications\clsStatusSocket.vb" />
     <Compile Include="Forms\frmPrivateMessage.Designer.vb">
@@ -228,7 +231,7 @@
     <Compile Include="Forms\frmSendNotice.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IRC\Channel List\clsChannelList.vb" />
+    <Compile Include="IRC\Channels\clsChannelList.vb" />
     <Compile Include="IRC\Channels\clsChannels.vb" />
     <Compile Include="IRC\UtilityWindows\clsAbout.vb" />
     <Compile Include="IRC\UtilityWindows\clsAddNickName.vb" />
@@ -428,6 +431,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChannel.resx">
       <DependentUpon>frmChannel.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChannelFolder.resx">
       <DependentUpon>frmChannelFolder.vb</DependentUpon>
@@ -443,6 +447,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmStatus2.resx">
       <DependentUpon>frmStatus2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmVideoPlayer.resx">
+      <DependentUpon>frmVideoPlayer.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User Controls\clsVideo.resx">
       <DependentUpon>clsVideo.vb</DependentUpon>

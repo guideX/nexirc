@@ -5,7 +5,7 @@ Option Strict On
 
 Public Class frmEditUserProfile
     Private Sub frmEditUserProfile_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        On Error Resume Next
+        'On Error Resume Next
         Me.Icon = mdiMain.Icon
         With lIRC
             txtEMail.Text = .iEMail
@@ -18,7 +18,7 @@ Public Class frmEditUserProfile
     End Sub
 
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
-        On Error Resume Next
+        'On Error Resume Next
         Dim splt() As String
         If InStr(txtEMail.Text, "@") <> 0 Then
             splt = Split(txtEMail.Text, "@")
@@ -38,7 +38,7 @@ Public Class frmEditUserProfile
     End Sub
 
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
-        On Error Resume Next
+        'On Error Resume Next
         Me.Close()
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
     End Sub

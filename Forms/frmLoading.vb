@@ -5,7 +5,7 @@ Option Strict On
 
 Public Class frmLoading
     Public Sub SetProgress(ByVal lData As String, ByVal lValue As Integer)
-        On Error Resume Next
+        'On Error Resume Next
         lblStatus.Text = lData
         prgLoading.Value = lValue
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetProgress(ByVal lData As String, ByVal lValue As Integer)")

@@ -15,12 +15,6 @@ Public Module mdlSettings
         dIgnore = 3
     End Enum
 
-    'Enum eStringsDisplayMode
-    'dNormal = 1
-    'dRaw = 2
-    'dMinimal = 3
-    'End Enum
-
     Enum eUnsupportedIn
         uStatusWindow = 1
         uOwnWindow = 2
@@ -225,7 +219,6 @@ Public Module mdlSettings
     End Structure
 
     Structure gStringSettings
-        'Public sDisplay As eStringsDisplayMode
         Public sUnknowns As eUnknownsIn
         Public sUnsupported As eUnsupportedIn
         Public sServerInNotices As Boolean
@@ -308,7 +301,6 @@ Public Module mdlSettings
         Public sPopupChannelFolders As Boolean
         Public sMOTDInOwnWindow As Boolean
         Public sHideMOTD As Boolean
-        'Public sAntiConnectHammer As Boolean
         Public sChangeNickNameWindow As Boolean
         Public sNoticesInOwnWindow As Boolean
         Public sStringSettings As gStringSettings
@@ -398,7 +390,6 @@ Public Module mdlSettings
 
     Structure gNickServ
         Public nLoginPassword As String
-        'Public nEnable As Boolean
         Public nShowOnConnect As Boolean
         Public nLoginOnConnect As Boolean
     End Structure
@@ -430,253 +421,253 @@ Public Module mdlSettings
     Public lBlack As Boolean = False
 
     Public Function FindCompatibilityIndex(ByVal lDescription As String) As Integer
-        Try
-            For i As Integer = 1 To lCompatibility.cCount
-                With lCompatibility.cCompatibility(i)
-                    If LCase(Trim(.cDescription)) = LCase(Trim(lDescription)) Then
-                        FindCompatibilityIndex = i
-                        Exit For
-                    End If
-                End With
-            Next i
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Function FindCompatibilityIndex(ByVal lDescription As String) As Integer")
-        End Try
+        'Try
+        For i As Integer = 1 To lCompatibility.cCount
+            With lCompatibility.cCompatibility(i)
+                If LCase(Trim(.cDescription)) = LCase(Trim(lDescription)) Then
+                    FindCompatibilityIndex = i
+                    Exit For
+                End If
+            End With
+        Next i
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function FindCompatibilityIndex(ByVal lDescription As String) As Integer")
+        'End Try
     End Function
 
     Public Sub SaveCompatibility()
-        Try
-            Dim i As Integer
-            If lCompatibility.cModified = True Then
-                clsFiles.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.cCount.ToString))
-                For i = 1 To lCompatibility.cCount
-                    With lCompatibility.cCompatibility(i)
-                        clsFiles.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", .cDescription)
-                        clsFiles.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", Trim(.cEnabled.ToString))
-                    End With
-                Next i
-            End If
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub SaveCompatibility()")
-        End Try
+        'Try
+        Dim i As Integer
+        If lCompatibility.cModified = True Then
+            clsFiles.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.cCount.ToString))
+            For i = 1 To lCompatibility.cCount
+                With lCompatibility.cCompatibility(i)
+                    clsFiles.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", .cDescription)
+                    clsFiles.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", Trim(.cEnabled.ToString))
+                End With
+            Next i
+        End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub SaveCompatibility()")
+        'End Try
     End Sub
 
     Public Sub LoadCompatibility()
-        Try
-            Dim i As Integer
-            lCompatibility.cCount = CInt(Trim(clsFiles.ReadINI(lINI.iCompatibility, "Settings", "Count", "0")))
-            ReDim lCompatibility.cCompatibility(1000)
-            For i = 1 To lCompatibility.cCount
-                With lCompatibility.cCompatibility(i)
-                    .cDescription = clsFiles.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Description", "")
-                    .cEnabled = CBool(clsFiles.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", "False"))
-                End With
-            Next i
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub LoadCompatibility()")
-        End Try
+        'Try
+        Dim i As Integer
+        lCompatibility.cCount = CInt(Trim(clsFiles.ReadINI(lINI.iCompatibility, "Settings", "Count", "0")))
+        ReDim lCompatibility.cCompatibility(1000)
+        For i = 1 To lCompatibility.cCount
+            With lCompatibility.cCompatibility(i)
+                .cDescription = clsFiles.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Description", "")
+                .cEnabled = CBool(clsFiles.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", "False"))
+            End With
+        Next i
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub LoadCompatibility()")
+        'End Try
     End Sub
 
     Public Sub AddToCompatibility(ByVal lDescription As String, ByVal lEnabled As Boolean)
-        Try
-            If Len(lDescription) <> 0 Then
-                lCompatibility.cModified = True
-                lCompatibility.cCount = lCompatibility.cCount + 1
-                With lCompatibility.cCompatibility(lCompatibility.cCount)
-                    .cDescription = lDescription
-                    .cEnabled = lEnabled
-                End With
-            End If
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub AddToCompatibility(ByVal lDescription As String, ByVal lEnabled As String)")
-        End Try
+        'Try
+        If Len(lDescription) <> 0 Then
+            lCompatibility.cModified = True
+            lCompatibility.cCount = lCompatibility.cCount + 1
+            With lCompatibility.cCompatibility(lCompatibility.cCount)
+                .cDescription = lDescription
+                .cEnabled = lEnabled
+            End With
+        End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub AddToCompatibility(ByVal lDescription As String, ByVal lEnabled As String)")
+        'End Try
     End Sub
 
     Public Sub RemoveFromCompatibility(ByVal lIndex As Integer)
-        Try
-            lCompatibility.cModified = True
-            With lCompatibility.cCompatibility(lIndex)
-                .cEnabled = False
-                .cDescription = ""
-            End With
-            SortCompatibility()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub RemoveFromCompatibility(ByVal lIndex As Integer)")
-        End Try
+        'Try
+        lCompatibility.cModified = True
+        With lCompatibility.cCompatibility(lIndex)
+            .cEnabled = False
+            .cDescription = ""
+        End With
+        SortCompatibility()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub RemoveFromCompatibility(ByVal lIndex As Integer)")
+        'End Try
     End Sub
 
     Public Sub SortCompatibility()
-        Try
-            Dim lEnabled(lArraySizes.aCompatibility) As Boolean, lDescription(lArraySizes.aCompatibility) As String, i As Integer, c As Integer
-            For i = 1 To lCompatibility.cCount
-                With lCompatibility.cCompatibility(i)
-                    lEnabled(i) = .cEnabled
-                    lDescription(i) = .cDescription
-                    .cEnabled = False
-                    .cDescription = ""
+        'Try
+        Dim lEnabled(lArraySizes.aCompatibility) As Boolean, lDescription(lArraySizes.aCompatibility) As String, i As Integer, c As Integer
+        For i = 1 To lCompatibility.cCount
+            With lCompatibility.cCompatibility(i)
+                lEnabled(i) = .cEnabled
+                lDescription(i) = .cDescription
+                .cEnabled = False
+                .cDescription = ""
+            End With
+        Next i
+        For i = 1 To lArraySizes.aCompatibility
+            If Len(lDescription(i)) <> 0 Then
+                c = c + 1
+                With lCompatibility.cCompatibility(c)
+                    .cDescription = lDescription(i)
+                    .cEnabled = lEnabled(i)
                 End With
-            Next i
-            For i = 1 To lArraySizes.aCompatibility
-                If Len(lDescription(i)) <> 0 Then
-                    c = c + 1
-                    With lCompatibility.cCompatibility(c)
-                        .cDescription = lDescription(i)
-                        .cEnabled = lEnabled(i)
-                    End With
-                End If
-            Next i
-            lCompatibility.cCount = c
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub SortCompatibility()")
-        End Try
+            End If
+        Next i
+        lCompatibility.cCount = c
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub SortCompatibility()")
+        'End Try
     End Sub
 
     Public Sub LoadPlaylists()
-        Try
-            Dim i As Integer
-            ReDim lPlaylists.pPlaylist(lArraySizes.aPlaylists)
-            lPlaylists.pCount = CInt(Trim(clsFiles.ReadINI(lINI.iPlaylists, "Settings", "Count", "0")))
-            For i = 1 To lPlaylists.pCount
-                With lPlaylists.pPlaylist(i)
-                    .pName = clsFiles.ReadINI(lINI.iPlaylists, "Settings", Trim(i.ToString), "Name")
-                    .pType = CType(CInt(Trim(clsFiles.ReadINI(lINI.iPlaylists, Trim(i.ToString), "Type", "0"))), ePlaylistType)
-                End With
-            Next i
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub LoadPlaylists()")
-        End Try
+        'Try
+        Dim i As Integer
+        ReDim lPlaylists.pPlaylist(lArraySizes.aPlaylists)
+        lPlaylists.pCount = CInt(Trim(clsFiles.ReadINI(lINI.iPlaylists, "Settings", "Count", "0")))
+        For i = 1 To lPlaylists.pCount
+            With lPlaylists.pPlaylist(i)
+                .pName = clsFiles.ReadINI(lINI.iPlaylists, "Settings", Trim(i.ToString), "Name")
+                .pType = CType(CInt(Trim(clsFiles.ReadINI(lINI.iPlaylists, Trim(i.ToString), "Type", "0"))), ePlaylistType)
+            End With
+        Next i
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub LoadPlaylists()")
+        'End Try
     End Sub
 
     Public Sub NewPlaylist(ByVal lName As String)
-        Try
-            lPlaylists.pCount = lPlaylists.pCount + 1
-            With lPlaylists.pPlaylist(lPlaylists.pCount)
-                .pName = lName
-            End With
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub NewPlaylist(ByVal lName As String)")
-        End Try
+        'Try
+        lPlaylists.pCount = lPlaylists.pCount + 1
+        With lPlaylists.pPlaylist(lPlaylists.pCount)
+            .pName = lName
+        End With
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub NewPlaylist(ByVal lName As String)")
+        'End Try
     End Sub
 
     Public Sub LoadMediaFiles()
-        Try
-            Dim i As Integer
-            With lMediaFiles
-                .mCount = CInt(Trim(clsFiles.ReadINI(lINI.iMedia, "Settings", "Count", "0")))
-                For i = 1 To .mCount
-                    .mFile(i) = clsFiles.ReadINI(lINI.iMedia, Trim(i.ToString), "File", "")
-                Next i
-            End With
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub LoadMediaFiles()")
-        End Try
+        'Try
+        Dim i As Integer
+        With lMediaFiles
+            .mCount = CInt(Trim(clsFiles.ReadINI(lINI.iMedia, "Settings", "Count", "0")))
+            For i = 1 To .mCount
+                .mFile(i) = clsFiles.ReadINI(lINI.iMedia, Trim(i.ToString), "File", "")
+            Next i
+        End With
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub LoadMediaFiles()")
+        'End Try
     End Sub
 
     Public Sub SaveMediaFiles()
-        Try
-            Dim i As Integer
-            With lMediaFiles
-                clsFiles.WriteINI(lINI.iMedia, "Settings", "Count", Trim(lMediaFiles.mCount.ToString))
-                For i = 1 To lMediaFiles.mCount
-                    clsFiles.WriteINI(lINI.iMedia, Trim(i.ToString), "File", .mFile(i))
-                Next i
-            End With
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub SaveMediaFiles()")
-        End Try
+        'Try
+        Dim i As Integer
+        With lMediaFiles
+            clsFiles.WriteINI(lINI.iMedia, "Settings", "Count", Trim(lMediaFiles.mCount.ToString))
+            For i = 1 To lMediaFiles.mCount
+                clsFiles.WriteINI(lINI.iMedia, Trim(i.ToString), "File", .mFile(i))
+            Next i
+        End With
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub SaveMediaFiles()")
+        'End Try
     End Sub
 
     Public Function ReturnDownloadManagerFullPath(ByVal lFileName As String) As String
-        Try
-            Dim i As Integer, msg As String = ""
-            If Len(lFileName) <> 0 Then
-                For i = 0 To lDownloadManager.dCount
-                    With lDownloadManager.dDownload(i)
-                        If LCase(Trim(.dFileName)) = LCase(Trim(lFileName)) Then
-                            msg = .dFilePath & .dFileName
-                        End If
-                    End With
-                Next i
-            End If
-            Return msg
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub ReturnDownloadManagerFullPath(ByVal lFileName As String)")
-            Return Nothing
-        End Try
+        'Try
+        Dim i As Integer, msg As String = ""
+        If Len(lFileName) <> 0 Then
+            For i = 0 To lDownloadManager.dCount
+                With lDownloadManager.dDownload(i)
+                    If LCase(Trim(.dFileName)) = LCase(Trim(lFileName)) Then
+                        msg = .dFilePath & .dFileName
+                    End If
+                End With
+            Next i
+        End If
+        Return msg
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub ReturnDownloadManagerFullPath(ByVal lFileName As String)")
+        'Return Nothing
+        'End Try
     End Function
 
     Public Sub AddToRecientServerList(ByVal lServerIndex As Integer)
-        Try
-            Dim msg As String
-            If lServerIndex <> 0 Then
-                msg = lServers.sServer(lServerIndex).sIP
-                If msg = lRecientServers.sItem(1) Or msg = lRecientServers.sItem(2) Or msg = lRecientServers.sItem(3) Then Exit Sub
-                lRecientServers.sItem(3) = lRecientServers.sItem(2)
-                lRecientServers.sItem(2) = lRecientServers.sItem(1)
-                lRecientServers.sItem(1) = msg
-                RefreshRecientServersMenu()
-                SaveRecientServers()
-            End If
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub AddToRecientServerList(ByVal lServerIndex As Integer)")
-        End Try
+        'Try
+        Dim msg As String
+        If lServerIndex <> 0 Then
+            msg = lServers.sServer(lServerIndex).sIP
+            If msg = lRecientServers.sItem(1) Or msg = lRecientServers.sItem(2) Or msg = lRecientServers.sItem(3) Then Exit Sub
+            lRecientServers.sItem(3) = lRecientServers.sItem(2)
+            lRecientServers.sItem(2) = lRecientServers.sItem(1)
+            lRecientServers.sItem(1) = msg
+            RefreshRecientServersMenu()
+            SaveRecientServers()
+        End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub AddToRecientServerList(ByVal lServerIndex As Integer)")
+        'End Try
     End Sub
 
     Public Sub LoadRecientServers()
-        Try
-            Dim i As Integer
-            lRecientServers.sCount = lArraySizes.aRecientServers
-            ReDim lRecientServers.sItem(lRecientServers.sCount)
-            For i = 1 To lRecientServers.sCount
-                lRecientServers.sItem(i) = clsFiles.ReadINI(lINI.iRecientServers, "Items", Trim(i.ToString), "")
-            Next i
-            RefreshRecientServersMenu()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub LoadRecientServers()")
-        End Try
+        'Try
+        Dim i As Integer
+        lRecientServers.sCount = lArraySizes.aRecientServers
+        ReDim lRecientServers.sItem(lRecientServers.sCount)
+        For i = 1 To lRecientServers.sCount
+            lRecientServers.sItem(i) = clsFiles.ReadINI(lINI.iRecientServers, "Items", Trim(i.ToString), "")
+        Next i
+        RefreshRecientServersMenu()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub LoadRecientServers()")
+        'End Try
     End Sub
 
     Public Sub RefreshRecientServersMenu()
-        Try
-            mdiMain.cmd_RecientServer1.Text = lRecientServers.sItem(1)
-            mdiMain.cmd_RecientServer2.Text = lRecientServers.sItem(2)
-            mdiMain.cmd_RecientServer3.Text = lRecientServers.sItem(3)
-            If Len(mdiMain.cmd_RecientServer1.Text) = 0 Then
-                mdiMain.cmd_RecientServer1.Text = "(Empty)"
-                mdiMain.cmd_RecientServer1.Enabled = False
-            Else
-                mdiMain.cmd_RecientServer1.Enabled = True
-            End If
-            If Len(mdiMain.cmd_RecientServer2.Text) = 0 Then
-                mdiMain.cmd_RecientServer2.Text = "(Empty)"
-                mdiMain.cmd_RecientServer2.Enabled = False
-            Else
-                mdiMain.cmd_RecientServer2.Enabled = True
-            End If
-            If Len(mdiMain.cmd_RecientServer3.Text) = 0 Then
-                mdiMain.cmd_RecientServer3.Text = "(Empty)"
-                mdiMain.cmd_RecientServer3.Enabled = False
-            Else
-                mdiMain.cmd_RecientServer3.Enabled = True
-            End If
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub RefreshRecientServersMenu()")
-        End Try
+        'Try
+        mdiMain.cmd_RecientServer1.Text = lRecientServers.sItem(1)
+        mdiMain.cmd_RecientServer2.Text = lRecientServers.sItem(2)
+        mdiMain.cmd_RecientServer3.Text = lRecientServers.sItem(3)
+        If Len(mdiMain.cmd_RecientServer1.Text) = 0 Then
+            mdiMain.cmd_RecientServer1.Text = "(Empty)"
+            mdiMain.cmd_RecientServer1.Enabled = False
+        Else
+            mdiMain.cmd_RecientServer1.Enabled = True
+        End If
+        If Len(mdiMain.cmd_RecientServer2.Text) = 0 Then
+            mdiMain.cmd_RecientServer2.Text = "(Empty)"
+            mdiMain.cmd_RecientServer2.Enabled = False
+        Else
+            mdiMain.cmd_RecientServer2.Enabled = True
+        End If
+        If Len(mdiMain.cmd_RecientServer3.Text) = 0 Then
+            mdiMain.cmd_RecientServer3.Text = "(Empty)"
+            mdiMain.cmd_RecientServer3.Enabled = False
+        Else
+            mdiMain.cmd_RecientServer3.Enabled = True
+        End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub RefreshRecientServersMenu()")
+        'End Try
     End Sub
 
     Public Sub SaveRecientServers()
-        Try
-            Dim i As Integer
-            For i = 1 To lRecientServers.sCount
-                clsFiles.WriteINI(lINI.iRecientServers, "Items", Trim(i.ToString), lRecientServers.sItem(i))
-            Next i
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub SaveRecientServers()")
-        End Try
+        'Try
+        Dim i As Integer
+        For i = 1 To lRecientServers.sCount
+            clsFiles.WriteINI(lINI.iRecientServers, "Items", Trim(i.ToString), lRecientServers.sItem(i))
+        Next i
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub SaveRecientServers()")
+        'End Try
     End Sub
 
     Public Sub WriteTextFile(ByVal lFileName As String, ByVal lData As String)
-        On Error Resume Next
+        'On Error Resume Next
         Dim w As StreamWriter
         w = New StreamWriter(lFileName)
         w.Write(lData)
@@ -685,7 +676,6 @@ Public Module mdlSettings
     End Sub
 
     Public Function ReadTextFile(ByVal lFileName As String) As String
-        On Error Resume Next
         Dim r As StreamReader, msg As String, msg2 As String
         r = New StreamReader(lFileName)
         msg = r.ReadLine
@@ -698,11 +688,9 @@ Public Module mdlSettings
             End If
         Loop
         ReadTextFile = msg2
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReadTextFile(ByVal lFileName As String) As String")
     End Function
 
     Public Sub LoadQuerySettings()
-        On Error Resume Next
         Dim i As Integer
         With lQuerySettings
             .qAutoAllow = CType(clsFiles.ReadINI(lINI.iQuery, "Settings", "AutoAllow", "1"), eQueryAutoAllow)
@@ -728,11 +716,9 @@ Public Module mdlSettings
                 .qSpamPhrases(i) = clsFiles.ReadINI(lINI.iQuery, "SpamPhrases", Trim(i.ToString), "")
             Next
         End With
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub LoadQuerySettings()")
     End Sub
 
     Public Sub SaveQuerySettings()
-        On Error Resume Next
         Dim i As Integer
         With lQuerySettings
             clsFiles.WriteINI(lINI.iQuery, "Settings", "AutoAllow", Trim(CType(.qAutoAllow, Integer).ToString))
@@ -755,11 +741,9 @@ Public Module mdlSettings
                 clsFiles.WriteINI(lINI.iQuery, "SpamPhrases", Trim(i.ToString), .qSpamPhrases(i))
             Next i
         End With
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SaveQuerySettings()")
     End Sub
 
     Public Function DoesNetworkHaveAService(ByVal lNetwork As String) As Boolean
-        On Error Resume Next
         Dim i As Integer
         If Len(lNetwork) <> 0 Then
             For i = 1 To lServices.sCount
@@ -769,11 +753,9 @@ Public Module mdlSettings
                 End If
             Next i
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function DoesNetworkHaveAService(ByVal lNetwork As String) As Boolean")
     End Function
 
     Public Sub AddService(ByVal lName As String, ByVal lType As eServiceType)
-        On Error Resume Next
         lServices.sCount = lServices.sCount + 1
         If Len(lName) <> 0 And lType <> eServiceType.sNone Then
             With lServices.sService(lServices.sCount)
@@ -781,25 +763,26 @@ Public Module mdlSettings
                 .sType = lType
             End With
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub AddService(ByVal lName As String, ByVal lType As eServiceType)")
     End Sub
 
     Public Sub PopulateNotifyByListView(ByVal lListView As RadListView)
-        On Error Resume Next
+        'Try
         Dim i As Integer, n As Integer
         For i = 0 To (lListView.Items.Count - 1)
             n = n + 1
             With lListView.Items(i)
                 lNotify.nNotify(n).nNickName = .Text
-                'lNotify.nNotify(n).nMessage = .SubItems(1).Text
+                lNotify.nNotify(n).nNetwork = .Item(2).ToString
+                lNotify.nNotify(n).nMessage = .Item(1).ToString
             End With
         Next i
         lNotify.nCount = n
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function PopulateNotifyByListView(ByVal lListView As ListView)")
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub PopulateNotifyByListView(ByVal lListView As RadListView)")
+        'End Try
     End Sub
 
     Public Function FindNotifyIndex(ByVal lNickName As String) As Integer
-        On Error Resume Next
         Dim i As Integer
         FindNotifyIndex = 0
         If Len(lNickName) <> 0 Then
@@ -810,23 +793,17 @@ Public Module mdlSettings
                 End If
             Next i
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function FindNotifyIndex(ByVal lNickName As String)")
     End Function
 
     Public Function ReturnAwayStatus() As Boolean
-        On Error Resume Next
         ReturnAwayStatus = lAway
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnAwayStatus() As Boolean")
     End Function
 
     Public Sub SetAwayStatus(ByVal lStatus As Boolean)
-        On Error Resume Next
         lAway = lStatus
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetAwayStatus(ByVal lStatus As Boolean)")
     End Sub
 
     Public Sub LoadNotifyList()
-        On Error Resume Next
         Dim i As Integer
         ReDim lNotify.nNotify(lArraySizes.aNotifyItems)
         lNotify.nCount = CInt(Trim(clsFiles.ReadINI(lINI.iNotify, "Settings", "Count", "0")))
@@ -839,11 +816,22 @@ Public Module mdlSettings
                 End With
             Next i
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub LoadNotifyList()")
+    End Sub
+
+    Public Sub AddToNotifyList(_Item As gNotify)
+        'Try
+        lNotify.nCount = lNotify.nCount + 1
+        With lNotify.nNotify(lNotify.nCount)
+            .nNickName = _Item.nNickName
+            .nNetwork = _Item.nNetwork
+            .nMessage = _Item.nMessage
+        End With
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub AddToNotifyList(_Item As gNotify)")
+        'End Try
     End Sub
 
     Public Sub SaveNotifyList()
-        On Error Resume Next
         Dim i As Integer
         If lNotify.nModified = True Then
             clsFiles.WriteINI(lINI.iNotify, "Settings", "Count", Trim(lNotify.nCount.ToString))
@@ -856,11 +844,9 @@ Public Module mdlSettings
             Next i
             lNotify.nModified = False
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SaveNotifyList()")
     End Sub
 
     Public Function ReturnOtherNickName(ByVal lUnAcceptedNick As String) As String
-        On Error Resume Next
         Dim i As Integer
         For i = 1 To lIRC.iNicks.nCount
             With lIRC.iNicks.nNick(i)
@@ -871,29 +857,21 @@ Public Module mdlSettings
             End With
         Next i
         ReturnOtherNickName = ""
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnOtherNickName(ByVal lUnAcceptedNick As String) As String")
     End Function
 
     Public Function ReturnTextINI() As String
-        On Error Resume Next
         ReturnTextINI = lINI.iText
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnTextINI() As String")
     End Function
 
     Public Function ReturnCommandsINI() As String
-        On Error Resume Next
         ReturnCommandsINI = lINI.iCommands
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnCommandsINI() As String")
     End Function
 
     Public Function ReturnBasePath() As String
-        On Error Resume Next
         ReturnBasePath = lINI.iBasePath
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnBasePath() As String")
     End Function
 
     Public Sub SetArraySizes()
-        On Error Resume Next
         With lArraySizes
             .aSub = 1000
             .aCompatibility = 1000
@@ -925,11 +903,9 @@ Public Module mdlSettings
         ReDim lNetworks.nNetwork(lArraySizes.aNetworks)
         ReDim lServers.sServer(lArraySizes.aServers)
         ReDim lIRC.iNicks.nNick(lArraySizes.aNickNames)
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetArraySizes()")
     End Sub
 
     Private Sub SetINIFiles()
-        On Error Resume Next
         With lINI
             .iBasePath = clsFiles.GetFilePath(Application.ExecutablePath)
             .iNotepad = lINI.iBasePath & "data/config/notepad.txt"
@@ -954,11 +930,9 @@ Public Module mdlSettings
             .iMedia = lINI.iBasePath & "data/config/media.ini"
             .iCompatibility = lINI.iBasePath & "data/config/compatibility.ini"
         End With
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub SetINIFiles()")
     End Sub
 
     Private Sub LoadServices()
-        On Error Resume Next
         Dim i As Integer, n As Integer, t As Integer, e As Integer
         lServices.sCount = CInt(clsFiles.ReadINI(lINI.iServices, "Settings", "Count", "0"))
         ReDim lServices.sService(lArraySizes.aServices)
@@ -1012,11 +986,9 @@ Public Module mdlSettings
             .nLoginOnConnect = CBool(clsFiles.ReadINI(lINI.iServices, "NickServ", "LoginOnConnect", "False"))
             .nShowOnConnect = CBool(clsFiles.ReadINI(lINI.iServices, "NickServ", "ShowOnConnect", "True"))
         End With
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub LoadServices()")
     End Sub
 
     Public Sub LoadDCCSettings()
-        On Error Resume Next
         Dim i As Integer, n As Integer
         With lDCC
             ReDim .dIgnorelist.dItem(lArraySizes.aDCCIgnore)
@@ -1065,11 +1037,9 @@ Public Module mdlSettings
                 End Select
             End With
         Next i
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub LoadDCCSettings()")
     End Sub
 
     Public Sub SaveDCCSettings()
-        On Error Resume Next
         Dim i As Integer
         With lDCC
             clsFiles.WriteINI(lINI.iDCC, "Settings", "DownloadDirectory", .dDownloadDirectory)
@@ -1102,11 +1072,9 @@ Public Module mdlSettings
             clsFiles.WriteINI(lINI.iDCC, "Settings", "AutoIgnore", Trim(.dAutoIgnore.ToString))
             clsFiles.WriteINI(lINI.iDCC, "Settings", "AutoCloseDialogs", Trim(.dAutoCloseDialogs.ToString))
         End With
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SaveDCCSettings()")
     End Sub
 
     Public Function FindServicesIndexByType(ByVal lService As eServiceType) As Integer
-        On Error Resume Next
         Dim i As Integer
         For i = 1 To lServices.sCount
             With lServices.sService(i)
@@ -1116,11 +1084,9 @@ Public Module mdlSettings
                 End If
             End With
         Next i
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function FindServicesIndexByType(ByVal lService As eServiceType) As Integer")
     End Function
 
     Public Sub SaveServices()
-        On Error Resume Next
         Dim i As Integer
         clsFiles.WriteINI(lINI.iServices, "Settings", "Count", Trim(lServices.sCount.ToString))
         If lServices.sCount <> 0 Then
@@ -1138,14 +1104,11 @@ Public Module mdlSettings
         clsFiles.WriteINI(lINI.iServices, "X", "ShowOnConnect", CStr(lX.xShowOnConnect))
         clsFiles.WriteINI(lINI.iServices, "X", "LongName", lX.xLongName)
         clsFiles.WriteINI(lINI.iServices, "NickServ", "LoginPassword", lNickServ.nLoginPassword)
-        'clsFiles.WriteINI(lINI.iServices, "NickServ", "Enable", CStr(lNickServ.nEnable))
         clsFiles.WriteINI(lINI.iServices, "NickServ", "LoginOnConnect", CStr(lNickServ.nLoginOnConnect))
         clsFiles.WriteINI(lINI.iServices, "NickServ", "ShowOnConnect", CStr(lNickServ.nShowOnConnect))
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub SaveServices()")
     End Sub
 
     Private Sub LoadNickNames()
-        On Error Resume Next
         Dim i As Integer
         With lIRC.iNicks
             .nCount = CInt(clsFiles.ReadINI(lINI.iNicks, "Settings", "Count", "0"))
@@ -1158,11 +1121,9 @@ Public Module mdlSettings
                 End With
             Next i
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub LoadNickNames()")
     End Sub
 
     Private Sub LoadIdent()
-        On Error Resume Next
         With lIRC.iIdent
             .iSettings.iEnabled = CBool(clsFiles.ReadINI(lINI.iIdent, "Settings", "Enabled", CStr(True)))
             If .iSettings.iEnabled = True Then
@@ -1171,11 +1132,9 @@ Public Module mdlSettings
                 .iSystem = clsFiles.ReadINI(lINI.iIdent, "Settings", "System", "")
             End If
         End With
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub LoadIdent()")
     End Sub
 
     Public Sub LoadNetworks()
-        On Error Resume Next
         Dim i As Integer
         With lNetworks
             .nCount = CInt(clsFiles.ReadINI(lINI.iNetworks, "Settings", "Count", "0"))
@@ -1188,11 +1147,9 @@ Public Module mdlSettings
                 End With
             Next i
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub LoadNetworks()")
     End Sub
 
     Private Sub LoadServers()
-        On Error Resume Next
         Dim msg As String, msg2 As String, splt() As String, splt2() As String
         Dim lIndex As Integer
         ReDim lServers.sServer(lArraySizes.aServers)
@@ -1227,18 +1184,8 @@ Public Module mdlSettings
     End Sub
 
     Public Sub LoadStringSettings()
-        On Error Resume Next
         Dim i As Integer
         With lIRC.iSettings.sStringSettings
-            'i = CInt(Trim(clsFiles.ReadINI(lINI.iStringSettings, "Settings", "DisplayIn", "1")))
-            'Select Case i
-            'Case 1
-            '.sDisplay = eStringsDisplayMode.dNormal
-            'Case 2
-            '.sDisplay = eStringsDisplayMode.dRaw
-            'Case 3
-            '.sDisplay = eStringsDisplayMode.dMinimal
-            'End Select
             i = 0
             i = CInt(Trim(clsFiles.ReadINI(lINI.iStringSettings, "Settings", "Unknowns", "2")))
             Select Case i
@@ -1261,11 +1208,9 @@ Public Module mdlSettings
             End Select
             .sServerInNotices = CBool(Trim(clsFiles.ReadINI(lINI.iStringSettings, "Settings", "ServerInNotices", "True")))
         End With
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub LoadStringSettings()")
     End Sub
 
     Private Sub LoadDownloadManager()
-        On Error Resume Next
         Dim i As Integer
         ReDim lDownloadManager.dDownload(lArraySizes.aDownloadManager)
         With lDownloadManager
@@ -1276,22 +1221,18 @@ Public Module mdlSettings
                 .dDownload(i).dNickName = clsFiles.ReadINI(lINI.iDownloadManager, Trim(i.ToString), "NickName", "")
             Next i
         End With
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub LoadDownloadManager()")
     End Sub
 
     Public Sub SetListViewToDownloadManager(ByVal lListView As ListView)
-        On Error Resume Next
         Dim i As Integer
         For i = 1 To lDownloadManager.dCount
             With lDownloadManager.dDownload(i)
                 lListView.Items.Add(.dFileName, 0)
             End With
         Next i
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SetListViewToDownloadManager(ByVal lListView As ListView)")
     End Sub
 
     Public Sub LoadSettings()
-        On Error Resume Next
         If lIRC.iInitialized = False Then
             mdiMain.SetLoadingFormProgress("Setting INI Files", 5)
             SetINIFiles()
@@ -1371,11 +1312,9 @@ Public Module mdlSettings
         LoadStrings()
         mdiMain.SetLoadingFormProgress("Loading Query Settings", 95)
         LoadQuerySettings()
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub LoadSettings()")
     End Sub
 
     Public Sub SaveWindowSizes()
-        On Error Resume Next
         With lIRC.iSettings
             clsFiles.WriteINI(lINI.iIRC, "Settings", "InitialChannelWidth", .sWindowSizes.iChannel.wWidth.ToString.Trim)
             clsFiles.WriteINI(lINI.iIRC, "Settings", "InitialChannelHeight", .sWindowSizes.iChannel.wHeight.ToString.Trim)
@@ -1384,40 +1323,35 @@ Public Module mdlSettings
             clsFiles.WriteINI(lINI.iIRC, "Settings", "InitialNoticeWidth", .sWindowSizes.iNotice.wWidth.ToString.Trim)
             clsFiles.WriteINI(lINI.iIRC, "Settings", "InitialNoticeHeight", .sWindowSizes.iNotice.wHeight.ToString.Trim)
         End With
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SaveWindowSizes()")
     End Sub
 
     Public Sub StartupSettings()
-        On Error Resume Next
         With lIRC.iSettings
             If .sCustomizeOnStartup = True Then
                 frmCustomize.Show()
-                'clsAnimate.Animate(frmCustomize, clsAnimate.Effect.Center, 200, 1)
             End If
         End With
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub StartupSettings()")
     End Sub
 
     Public Function FindDownloadManagerIndexByFileName(ByVal lFileName As String) As Integer
-        Try
-            Dim i As Integer
-            If Len(lFileName) <> 0 Then
-                For i = 1 To lDownloadManager.dCount
-                    With lDownloadManager.dDownload(i)
-                        If LCase(lFileName) = LCase(.dFileName) Then
-                            FindDownloadManagerIndexByFileName = i
-                            Exit For
-                        End If
-                    End With
-                Next i
-            End If
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Function FindDownloadManagerIndexByFileName(ByVal lFileName As String) As Integer")
-        End Try
+        'Try
+        Dim i As Integer
+        If Len(lFileName) <> 0 Then
+            For i = 1 To lDownloadManager.dCount
+                With lDownloadManager.dDownload(i)
+                    If LCase(lFileName) = LCase(.dFileName) Then
+                        FindDownloadManagerIndexByFileName = i
+                        Exit For
+                    End If
+                End With
+            Next i
+        End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function FindDownloadManagerIndexByFileName(ByVal lFileName As String) As Integer")
+        'End Try
     End Function
 
     Public Sub AddToDownloadManager(ByVal lFile As String, ByVal lNickname As String, Optional ByVal lShowDownloadManager As Boolean = False)
-        On Error Resume Next
         Dim msg As String, msg2 As String
         msg = GetFileTitle(lFile)
         msg2 = Left(lFile, Len(lFile) - Len(msg))
@@ -1433,11 +1367,9 @@ Public Module mdlSettings
                 If lShowDownloadManager = True Then clsAnimate.Animate(frmDownloadManager, clsAnimate.Effect.Center, 200, 1)
             End If
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub AddToDownloadManager(ByVal lFileName As String, ByVal lFilePath As String, ByVal lNickname As String)")
     End Sub
 
     Public Sub RemoveFromDownloadManager(ByVal lIndex As Integer)
-        On Error Resume Next
         If lIndex <> 0 Then
             With lDownloadManager.dDownload(lIndex)
                 .dFileName = ""
@@ -1448,11 +1380,9 @@ Public Module mdlSettings
                 clsFiles.WriteINI(lINI.iDownloadManager, Trim(lIndex.ToString), "NickName", "")
             End With
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub RemoveFromDownloadManager(ByVal lIndex As Integer)")
     End Sub
 
     Private Sub SaveDownloadManagerSettings()
-        On Error Resume Next
         Dim lFileName(300) As String, lFilePath(300) As String, lNickName(300) As String, i As Integer, n As Integer
         For i = 1 To lDownloadManager.dCount
             With lDownloadManager.dDownload(i)
@@ -1472,22 +1402,18 @@ Public Module mdlSettings
                 clsFiles.WriteINI(lINI.iDownloadManager, Trim(i.ToString), "NickName", lNickName(i))
             Next i
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub SaveDownloadManagerSettings()")
     End Sub
 
     Private Sub SaveIdentdSettings()
-        On Error Resume Next
         With lIRC.iIdent
             clsFiles.WriteINI(lINI.iIdent, "Settings", "UserID", .iUserID)
             clsFiles.WriteINI(lINI.iIdent, "Settings", "System", .iSystem)
             clsFiles.WriteINI(lINI.iIdent, "Settings", "Port", Trim(CStr(.iPort)))
             clsFiles.WriteINI(lINI.iIdent, "Settings", "Enabled", Trim(.iSettings.iEnabled.ToString))
         End With
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub SaveIdentdSettings()")
     End Sub
 
     Public Function ReturnNickIndex(ByVal lNickName As String) As Integer
-        On Error Resume Next
         Dim i As Integer
         If Len(lNickName) <> 0 Then
             For i = 1 To lIRC.iNicks.nCount
@@ -1499,11 +1425,9 @@ Public Module mdlSettings
                 End With
             Next i
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ReturnNickIndex(ByVal lNickName As String)")
     End Function
 
     Private Sub SaveNickNames()
-        On Error Resume Next
         Dim i As Integer
         With lIRC.iNicks
             clsFiles.WriteINI(lINI.iNicks, "Settings", "Count", Trim(.nCount.ToString))
@@ -1516,11 +1440,9 @@ Public Module mdlSettings
                 End If
             End With
         Next i
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub SaveNickNames()")
     End Sub
 
     Public Sub SaveSettings()
-        On Error Resume Next
         With lIRC.iSettings
             clsFiles.WriteINI(lINI.iIRC, "Settings", "AutoNavigateChannelUrls", Trim(.sAutoNavigateChannelUrls.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ChannelFolderCloseOnJoin", Trim(.sChannelFolderCloseOnJoin.ToString))
@@ -1535,7 +1457,6 @@ Public Module mdlSettings
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", Trim(.sCustomizeOnStartup.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "NoIRCMessages", Trim(.sNoIRCMessages.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ExtendedMessages", Trim(.sExtendedMessages.ToString))
-            'clsFiles.WriteINI(lINI.iIRC, "Settings", "AntiConnectHammer", Trim(.sAntiConnectHammer.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "HammerTime", Trim(CStr(.sHammerTime)))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", Trim(.sChangeNickNameWindow.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", Trim(.sNoticesInOwnWindow.ToString))
@@ -1550,7 +1471,6 @@ Public Module mdlSettings
             SaveWindowSizes()
         End With
         With lIRC.iSettings.sStringSettings
-            'clsFiles.WriteINI(lINI.iStringSettings, "Settings", "DisplayMode", Trim(Str(.sDisplay)))
             clsFiles.WriteINI(lINI.iStringSettings, "Settings", "Unknowns", Trim(Str(.sUnknowns)))
             clsFiles.WriteINI(lINI.iStringSettings, "Settings", "Unsupported", Trim(Str(.sUnsupported)))
             clsFiles.WriteINI(lINI.iStringSettings, "Settings", "ServerInNotices", Trim(.sServerInNotices.ToString))
@@ -1581,11 +1501,9 @@ Public Module mdlSettings
         SaveDCCSettings()
         SaveDownloadManagerSettings()
         SaveQuerySettings()
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SaveSettings()")
     End Sub
 
     Public Function AddServer(ByVal lDescription As String, ByVal lIp As String, ByVal lNetworkIndex As Integer, ByVal lPort As Long) As Integer
-        On Error Resume Next
         If Len(lDescription) <> 0 And Len(lIp) <> 0 Then
             lServers.sModified = True
             lServers.sCount = lServers.sCount + 1
@@ -1599,11 +1517,9 @@ Public Module mdlSettings
             If lWinVisible.wCustomize = True Then frmCustomize.lCustomize.RefreshServers(frmCustomize.ServersListView)
         End If
         AddServer = lServers.sCount
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub AddServer(ByVal lDescription As String, ByVal lIp As String, ByVal lNetworkIndex As Integer, ByVal lPort As Long)")
     End Function
 
     Public Function AddNetwork(ByVal lDescription As String) As Integer
-        On Error Resume Next
         If Len(lDescription) <> 0 Then
             lNetworks.nCount = lNetworks.nCount + 1
             With lNetworks.nNetwork(lNetworks.nCount)
@@ -1616,11 +1532,9 @@ Public Module mdlSettings
         End If
         SaveNetworks()
         AddNetwork = lNetworks.nCount
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub AddNetwork(ByVal lDescription As String)")
     End Function
 
     Public Sub SaveServers()
-        On Error Resume Next
         Dim i As Integer
         clsFiles.WriteINI(lINI.iServers, "Settings", "Count", lServers.sCount.ToString().Trim)
         clsFiles.WriteINI(lINI.iServers, "Settings", "Index", lServers.sIndex.ToString().Trim)
@@ -1635,7 +1549,6 @@ Public Module mdlSettings
     End Sub
 
     Private Sub SaveNetworks()
-        On Error Resume Next
         Dim i As Integer
         If lNetworks.nCount <> 0 Then
             clsFiles.WriteINI(lINI.iNetworks, "Settings", "Count", Trim(lNetworks.nCount.ToString))
@@ -1646,11 +1559,9 @@ Public Module mdlSettings
                 End With
             Next i
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub SaveNetworks()")
     End Sub
 
     Public Function FindServerIndexByIp(ByVal lIp As String) As Integer
-        On Error Resume Next
         Dim i As Integer
         If Len(lIp) <> 0 Then
             For i = 1 To lServers.sCount
@@ -1662,11 +1573,9 @@ Public Module mdlSettings
                 End With
             Next i
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function FindServerIndexByIp(ByVal lIp As String) As Integer")
     End Function
 
     Public Function FindServerIndex(ByVal lDescription As String) As Integer
-        On Error Resume Next
         Dim i As Integer
         If Len(lDescription) <> 0 Then
             For i = 1 To lServers.sCount
@@ -1678,11 +1587,9 @@ Public Module mdlSettings
                 End With
             Next i
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function FindServerIndex(ByVal lDescription As String) As Integer")
     End Function
 
     Public Function FindNetworkIndex(ByVal lDescription As String) As Integer
-        On Error Resume Next
         Dim i As Integer
         For i = 1 To lNetworks.nCount
             If LCase(Trim(lDescription)) = LCase(Trim(lNetworks.nNetwork(i).nDescription)) Then
@@ -1690,53 +1597,51 @@ Public Module mdlSettings
                 Exit Function
             End If
         Next i
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function FindNetworkIndex(ByVal lDescription As String) As Integer")
     End Function
 
     Public Sub FillComboWithServers(ByVal lCombo As ComboBox, Optional ByVal lNetworkIndex As Integer = 0, Optional ByVal lClearCombo As Boolean = False)
-        Try
-            Dim i As Integer
-            If lClearCombo = True Then lCombo.Items.Clear()
-            For i = 1 To lServers.sCount
-                With lServers.sServer(i)
-                    If (.sDescription IsNot Nothing) Then
-                        If (.sDescription.Length <> 0) Then
-                            If lNetworkIndex <> 0 Then
-                                If lNetworkIndex = .sNetworkIndex Then
-                                    lCombo.Items.Add(.sDescription)
-                                End If
-                            Else
+        'Try
+        Dim i As Integer
+        If lClearCombo = True Then lCombo.Items.Clear()
+        For i = 1 To lServers.sCount
+            With lServers.sServer(i)
+                If (.sDescription IsNot Nothing) Then
+                    If (.sDescription.Length <> 0) Then
+                        If lNetworkIndex <> 0 Then
+                            If lNetworkIndex = .sNetworkIndex Then
                                 lCombo.Items.Add(.sDescription)
                             End If
+                        Else
+                            lCombo.Items.Add(.sDescription)
                         End If
                     End If
-                End With
-            Next i
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub FillComboWithServers(Optional ByVal lServerIndex As Integer = 0)")
-        End Try
+                End If
+            End With
+        Next i
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub FillComboWithServers(Optional ByVal lServerIndex As Integer = 0)")
+        'End Try
     End Sub
 
     Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)
-        Try
-            Dim i As Integer
-            If _Clear = True Then _RadDropDownList.Items.Clear()
-            For i = 1 To lNetworks.nCount
-                With lNetworks.nNetwork(i)
-                    If (.nDescription IsNot Nothing) Then
-                        If (.nDescription.Length <> 0) Then
-                            _RadDropDownList.Items.Add(.nDescription)
-                        End If
+        'Try
+        Dim i As Integer
+        If _Clear = True Then _RadDropDownList.Items.Clear()
+        For i = 1 To lNetworks.nCount
+            With lNetworks.nNetwork(i)
+                If (.nDescription IsNot Nothing) Then
+                    If (.nDescription.Length <> 0) Then
+                        _RadDropDownList.Items.Add(.nDescription)
                     End If
-                End With
-            Next i
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)")
-        End Try
+                End If
+            End With
+        Next i
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)")
+        'End Try
     End Sub
 
     Public Sub FillComboWithNetworks(ByVal lCombo As ComboBox, Optional ByVal lClearCombo As Boolean = False)
-        On Error Resume Next
         Dim i As Integer
         If lClearCombo = True Then lCombo.Items.Clear()
         For i = 1 To lNetworks.nCount
@@ -1748,11 +1653,9 @@ Public Module mdlSettings
                 End If
             End With
         Next i
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub FillComboWithNetworks(ByVal lCombo As ComboBox)")
     End Sub
 
     Public Function FindNickNameIndex(ByVal lNickName As String) As Integer
-        On Error Resume Next
         Dim i As Integer
         If Len(lNickName) <> 0 Then
             For i = 1 To lIRC.iNicks.nCount
@@ -1764,11 +1667,9 @@ Public Module mdlSettings
                 End With
             Next i
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function FindNickNameIndex(ByVal lNickName As String) As Integer")
     End Function
 
     Public Function AddNickName(ByVal lNickName As String) As Integer
-        On Error Resume Next
         If Len(lNickName) <> 0 Then
             If FindNickNameIndex(lNickName) <> 0 Then Exit Function
             lIRC.iNicks.nCount = lIRC.iNicks.nCount + 1
@@ -1779,18 +1680,14 @@ Public Module mdlSettings
             SaveNickNames()
             If lWinVisible.wCustomize = True Then frmCustomize.cboMyNickNames.Items.Add(lNickName)
         End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub AddNickName(ByVal lNickName As String)")
     End Function
 
     Public Sub RemoveNetwork(ByVal lIndex As Integer)
-        On Error Resume Next
         lNetworks.nNetwork(lIndex).nDescription = ""
         CleanUpNetworks()
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub RemoveNetwork(ByVal lIndex As Integer)")
     End Sub
 
     Public Sub CleanUpNetworks()
-        On Error Resume Next
         Dim msg() As String, c As Integer, i As Integer
         ReDim msg(lArraySizes.aNetworks)
         For i = 1 To lArraySizes.aNetworks
@@ -1808,19 +1705,15 @@ Public Module mdlSettings
                 .nDescription = msg(i)
             End With
         Next i
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub CleanUpNetworks()")
     End Sub
 
     Public Function ShowPrompts() As Boolean
-        On Error Resume Next
         With lIRC.iSettings
             ShowPrompts = .sPrompts
         End With
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Function ShowPrompts() As Boolean")
     End Function
 
     Public Sub LoadModes()
-        On Error Resume Next
         With lIRC.iModes
             .mInvisible = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "Invisible", "True"))
             .mLocalOperator = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "LocalOperator", "False"))
@@ -1828,11 +1721,9 @@ Public Module mdlSettings
             .mRestricted = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "Restricted", "False"))
             .mServerNotices = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ServerNotices", "True"))
         End With
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub LoadModes()")
     End Sub
 
     Public Sub LoadChannelFolders()
-        On Error Resume Next
         Dim i As Integer
         ReDim lChannelFolders.cChannelFolder(lArraySizes.aChannelFolder)
         lChannelFolders.cCount = CInt(Trim(clsFiles.ReadINI(lINI.iChannelFolders, "Settings", "Count", "0")))
@@ -1842,11 +1733,9 @@ Public Module mdlSettings
                 .cNetwork = clsFiles.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Network", "")
             End With
         Next i
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub LoadChannelFolder()")
     End Sub
 
     Public Sub SaveChannelFolders()
-        On Error Resume Next
         Dim i As Integer
         clsFiles.WriteINI(lINI.iChannelFolders, "Settings", "Count", Trim(Str(lChannelFolders.cCount)))
         For i = 1 To lChannelFolders.cCount
@@ -1855,84 +1744,83 @@ Public Module mdlSettings
                 clsFiles.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Network", .cNetwork)
             End With
         Next i
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub SaveChannelFolders()")
     End Sub
 
     Public Sub AddToChannelFolders(ByVal lChannel As String, ByVal lNetworkIndex As Integer)
-        Try
-            Dim i As Integer
-            For i = 1 To lChannelFolders.cCount
-                If LCase(Trim(lChannel)) = LCase(Trim(lChannelFolders.cChannelFolder(i).cChannel)) And LCase(Trim(lNetworks.nNetwork(lNetworkIndex).nDescription)) = LCase(Trim(lChannelFolders.cChannelFolder(i).cNetwork)) Then
-                    Exit Sub
-                End If
-            Next i
-            If Len(lChannel) <> 0 Then
-                lChannelFolders.cCount = lChannelFolders.cCount + 1
-                With lChannelFolders.cChannelFolder(lChannelFolders.cCount)
-                    .cChannel = lChannel
-                    .cNetwork = lNetworks.nNetwork(lNetworkIndex).nDescription
-                End With
-                SaveChannelFolders()
+        'Try
+        Dim i As Integer
+        For i = 1 To lChannelFolders.cCount
+            If LCase(Trim(lChannel)) = LCase(Trim(lChannelFolders.cChannelFolder(i).cChannel)) And LCase(Trim(lNetworks.nNetwork(lNetworkIndex).nDescription)) = LCase(Trim(lChannelFolders.cChannelFolder(i).cNetwork)) Then
+                Exit Sub
             End If
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub AddToChannelFolders(ByVal lChannel As String, ByVal lNetworkIndex As Integer)")
-        End Try
+        Next i
+        If Len(lChannel) <> 0 Then
+            lChannelFolders.cCount = lChannelFolders.cCount + 1
+            With lChannelFolders.cChannelFolder(lChannelFolders.cCount)
+                .cChannel = lChannel
+                .cNetwork = lNetworks.nNetwork(lNetworkIndex).nDescription
+            End With
+            SaveChannelFolders()
+        End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub AddToChannelFolders(ByVal lChannel As String, ByVal lNetworkIndex As Integer)")
+        'End Try
     End Sub
 
     Public Sub ProcessError(ByVal lErrorDescription As String, ByVal lSub As String)
-        Try
-            Dim i As Integer, msg As String
-            Err.Clear()
-            If Len(lErrorDescription) <> 0 Then
-                msg = lSub & " - " & lErrorDescription
-                i = CInt(Trim(clsFiles.ReadINI(lINI.iErrors, msg, "Count", "0")))
-                clsFiles.WriteINI(lINI.iErrors, msg, "Count", Trim(CStr(i + 1)))
-            End If
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub ProcessError(ByVal lErrorDescription As String, ByVal lSub As String)")
-        End Try
+        'Try
+        Dim i As Integer, msg As String
+        Err.Clear()
+        If Len(lErrorDescription) <> 0 Then
+            msg = lSub & " - " & lErrorDescription
+            i = CInt(Trim(clsFiles.ReadINI(lINI.iErrors, msg, "Count", "0")))
+            clsFiles.WriteINI(lINI.iErrors, msg, "Count", Trim(CStr(i + 1)))
+        End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub ProcessError(ByVal lErrorDescription As String, ByVal lSub As String)")
+        'End Try
     End Sub
 
     Public Sub RemoveChannelFolder(ByVal lIndex As Integer)
-        Try
-            With lChannelFolders.cChannelFolder(lIndex)
-                .cChannel = ""
-            End With
-            SaveChannelFolders()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub RemoveChannelFolder(ByVal lIndex As Integer)")
-        End Try
+        'Try
+        With lChannelFolders.cChannelFolder(lIndex)
+            .cChannel = ""
+        End With
+        SaveChannelFolders()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub RemoveChannelFolder(ByVal lIndex As Integer)")
+        'End Try
     End Sub
 
     Public Function FindChannelFolderIndex(ByVal lChannel As String) As Integer
-        Try
-            Dim i As Integer
-            For i = 1 To lChannelFolders.cCount
-                With lChannelFolders.cChannelFolder(i)
-                    If LCase(Trim(.cChannel)) = LCase(Trim(lChannel)) Then
-                        FindChannelFolderIndex = i
-                        Exit Function
-                    End If
-                End With
-            Next i
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub RemoveChannelFolder(ByVal lIndex As Integer)")
-        End Try
+        'Try
+        Dim i As Integer
+        For i = 1 To lChannelFolders.cCount
+            With lChannelFolders.cChannelFolder(i)
+                If LCase(Trim(.cChannel)) = LCase(Trim(lChannel)) Then
+                    FindChannelFolderIndex = i
+                    Exit Function
+                End If
+            End With
+        Next i
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub RemoveChannelFolder(ByVal lIndex As Integer)")
+        'End Try
     End Function
 
     Public Sub RemoveServer(ByVal lIndex As Integer)
-        Try
-            If lIndex <> 0 Then
-                lServers.sModified = True
-                With lServers.sServer(lIndex)
-                    .sDescription = ""
-                    .sIP = ""
-                    .sNetworkIndex = 0
-                    .sPort = 0
-                End With
-            End If
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub RemoveServer(ByVal lIndex As Integer)")
-        End Try
+        'Try
+        If lIndex <> 0 Then
+            lServers.sModified = True
+            With lServers.sServer(lIndex)
+                .sDescription = ""
+                .sIP = ""
+                .sNetworkIndex = 0
+                .sPort = 0
+            End With
+        End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub RemoveServer(ByVal lIndex As Integer)")
+        'End Try
     End Sub
 End Module

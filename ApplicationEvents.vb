@@ -19,24 +19,24 @@ Namespace My
         'End Sub
 
         Private Sub MyApplication_StartupNextInstance(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupNextInstanceEventArgs) Handles Me.StartupNextInstance
-            Try
-                e.BringToForeground = True
-            Catch ex As Exception
-                ProcessError(ex.Message, "Private Sub MyApplication_StartupNextInstance(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupNextInstanceEventArgs) Handles Me.StartupNextInstance")
-            End Try
+            'Try
+            e.BringToForeground = True
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub MyApplication_StartupNextInstance(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupNextInstanceEventArgs) Handles Me.StartupNextInstance")
+            'End Try
         End Sub
 
         Private Sub MyApplication_UnhandledException(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.UnhandledExceptionEventArgs) Handles Me.UnhandledException
-            Try
-                Dim mbox As MsgBoxResult
-                mbox = MsgBox("nexIRC encountered an unhandled exception." & vbCrLf & "Description: " & e.Exception.Message & vbCrLf & "Would you like to shutdown nexIRC?", MsgBoxStyle.YesNo)
-                If mbox = MsgBoxResult.Yes Then
-                    e.ExitApplication = True
-                Else
-                    e.ExitApplication = False
-                End If
-            Catch ex As Exception
-            End Try
+            'Try
+            Dim mbox As MsgBoxResult
+            mbox = MsgBox("nexIRC encountered an unhandled exception." & vbCrLf & "Description: " & e.Exception.Message & vbCrLf & "Would you like to shutdown nexIRC?", MsgBoxStyle.YesNo)
+            If mbox = MsgBoxResult.Yes Then
+                e.ExitApplication = True
+            Else
+                e.ExitApplication = False
+            End If
+            'Catch ex As Exception
+            'End Try
         End Sub
     End Class
 End Namespace

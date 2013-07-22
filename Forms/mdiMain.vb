@@ -219,8 +219,4 @@ Public Class mdiMain
     Private Sub tmrHideRedirect_Tick(sender As System.Object, e As System.EventArgs) Handles tmrHideRedirect.Tick
         lMainWindowUI.tmrHideRedirect_Tick(tspRedirect, tmrHideRedirect)
     End Sub
-
-    Private Sub tvwConnections_AfterSelect(sender As System.Object, e As System.Windows.Forms.TreeViewEventArgs) Handles tvwConnections.AfterSelect
-
-    End Sub
 End Class

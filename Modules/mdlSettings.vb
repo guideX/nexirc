@@ -7,14 +7,8 @@ Imports System.IO
 Imports Telerik.WinControls.UI
 Imports nexIRC.Classes.IO
 Imports nexIRC.Classes.UI
-
+Imports nexIRC.Modules
 Public Module mdlSettings
-    Enum eDCCFileExistsAction
-        dPrompt = 1
-        dOverwrite = 2
-        dIgnore = 3
-    End Enum
-
     Enum eUnsupportedIn
         uStatusWindow = 1
         uOwnWindow = 2
@@ -240,43 +234,6 @@ Public Module mdlSettings
         Public iExtension As String
     End Structure
 
-    Enum eDCCPrompt
-        ePrompt = 1
-        eAcceptAll = 2
-        eIgnore = 3
-    End Enum
-
-    Enum gDCCIgnoreType
-        dNicknames = 1
-        dHostnames = 2
-        dFileTypes = 3
-    End Enum
-
-    Structure gDCCIgnoreItem
-        Public dType As gDCCIgnoreType
-        Public dData As String
-    End Structure
-
-    Structure gDCCIgnoreList
-        Public dCount As Integer
-        Public dItem() As gDCCIgnoreItem
-    End Structure
-
-    Structure gDCC
-        Public dFileExistsAction As eDCCFileExistsAction
-        Public dChatPrompt As eDCCPrompt
-        Public dSendPrompt As eDCCPrompt
-        Public dUseIpAddress As Boolean
-        Public dCustomIpAddress As String
-        Public dIgnorelist As gDCCIgnoreList
-        Public dSendPort As String
-        Public dRandomizePort As Boolean
-        Public dBufferSize As Long
-        Public dAutoIgnore As Boolean
-        Public dAutoCloseDialogs As Boolean
-        Public dDownloadDirectory As String
-    End Structure
-
     Structure gWindowSize
         Public wWidth As Integer
         Public wHeight As Integer
@@ -348,52 +305,6 @@ Public Module mdlSettings
         sMemoServ = 3
         sX = 4
     End Enum
-
-    Structure gServiceParam
-        Public sParam As String
-    End Structure
-
-    Structure gServiceCommand
-        Public sCommand As String
-        Public sLevel As Integer
-        Public sServiceParam() As gServiceParam
-        Public sServiceParamCount As Integer
-    End Structure
-
-    Structure gServiceCommands
-        Public sServiceCommand() As gServiceCommand
-        Public sServiceCommandCount As Integer
-    End Structure
-
-    Structure gService
-        Public sName As String
-        Public sType As eServiceType
-        Public sTypeCustom As Integer
-        Public sNetwork As String
-        Public sServerCommands As gServiceCommands
-    End Structure
-
-    Structure gServices
-        Public sCount As Integer
-        Public sService() As gService
-    End Structure
-
-    Structure gX
-        Public xLoginNickName As String
-        Public xLoginPassword As String
-        Public xEnable As Boolean
-        Public xShowOnConnect As Boolean
-        Public xLoginOnConnect As Boolean
-        Public xCreateAnAccountURL As String
-        Public xLongName As String
-    End Structure
-
-    Structure gNickServ
-        Public nLoginPassword As String
-        Public nShowOnConnect As Boolean
-        Public nLoginOnConnect As Boolean
-    End Structure
-
     Structure gRecientServers
         Public sCount As Integer
         Public sItem() As String
@@ -402,7 +313,6 @@ Public Module mdlSettings
     Private lAway As Boolean
     Public lArraySizes As gArraySizes
     Public lDownloadManager As gDownloadManager
-    Public lDCC As gDCC
     Public lINI As gINI
     Public lWinVisible As gWinVisible
     Public lIRC As gIRC
@@ -410,9 +320,6 @@ Public Module mdlSettings
     Public lNetworks As gNetworks
     Public lChannelFolders As gChannelFolders
     Public lNotify As gNotifyList
-    Public lServices As gServices
-    Public lX As gX
-    Public lNickServ As gNickServ
     Public lQuerySettings As gQuery
     Public lRecientServers As gRecientServers
     Public lPlaylists As gPlaylists
@@ -743,27 +650,6 @@ Public Module mdlSettings
         End With
     End Sub
 
-    Public Function DoesNetworkHaveAService(ByVal lNetwork As String) As Boolean
-        Dim i As Integer
-        If Len(lNetwork) <> 0 Then
-            For i = 1 To lServices.sCount
-                If Trim(LCase(lServices.sService(i).sNetwork)) = Trim(LCase(lNetwork)) Then
-                    DoesNetworkHaveAService = True
-                    Exit For
-                End If
-            Next i
-        End If
-    End Function
-
-    Public Sub AddService(ByVal lName As String, ByVal lType As eServiceType)
-        lServices.sCount = lServices.sCount + 1
-        If Len(lName) <> 0 And lType <> eServiceType.sNone Then
-            With lServices.sService(lServices.sCount)
-                .sName = lName
-                .sType = lType
-            End With
-        End If
-    End Sub
 
     Public Sub PopulateNotifyByListView(ByVal lListView As RadListView)
         'Try
@@ -931,183 +817,6 @@ Public Module mdlSettings
             .iCompatibility = lINI.iBasePath & "data/config/compatibility.ini"
         End With
     End Sub
-
-    Private Sub LoadServices()
-        Dim i As Integer, n As Integer, t As Integer, e As Integer
-        lServices.sCount = CInt(clsFiles.ReadINI(lINI.iServices, "Settings", "Count", "0"))
-        ReDim lServices.sService(lArraySizes.aServices)
-        If lServices.sCount <> 0 Then
-            For i = 1 To lServices.sCount
-                With lServices.sService(i)
-                    ReDim .sServerCommands.sServiceCommand(lArraySizes.aServiceCommands)
-                    ReDim .sServerCommands.sServiceCommand(i).sServiceParam(lArraySizes.aServiceParams)
-                    .sName = clsFiles.ReadINI(lINI.iServices, Trim(Str(i)), "Name", "")
-                    e = CInt(clsFiles.ReadINI(lINI.iServices, Trim(Str(i)), "Type", "0"))
-                    Select Case e
-                        Case 0
-                            .sType = eServiceType.sNone
-                        Case 1
-                            .sType = eServiceType.sChanServ
-                        Case 2
-                            .sType = eServiceType.sNickServ
-                        Case 3
-                            .sType = eServiceType.sX
-                        Case Else
-                            .sTypeCustom = e
-                    End Select
-                    .sNetwork = clsFiles.ReadINI(lINI.iServices, Trim(Str(i)), "Network", "")
-                    .sServerCommands.sServiceCommandCount = CInt(Trim(clsFiles.ReadINI(lINI.iServices, Trim(Str(i)), "CommandCount", "0")))
-                    If .sServerCommands.sServiceCommandCount <> 0 Then
-                        For n = 1 To .sServerCommands.sServiceCommandCount
-                            .sServerCommands.sServiceCommand(n).sCommand = clsFiles.ReadINI(lINI.iServices, Trim(CStr(i)), "Command" & Trim(CStr(n)), "")
-                            .sServerCommands.sServiceCommand(n).sServiceParamCount = CInt(Trim(clsFiles.ReadINI(lINI.iServices, Trim(CStr(i)), "Command" & Trim(CStr(n)) & "ParamCount", "0")))
-                            If .sServerCommands.sServiceCommand(n).sServiceParamCount <> 0 Then
-                                For t = 1 To .sServerCommands.sServiceCommand(n).sServiceParamCount
-                                    .sServerCommands.sServiceCommand(n).sServiceParam(t).sParam = clsFiles.ReadINI(lINI.iServices, Trim(CStr(i)), "Command" & Trim(CStr(n)) & "Param" & Trim(CStr(t)), "")
-                                Next t
-                            End If
-                        Next n
-                    End If
-                End With
-            Next i
-        End If
-        With lX
-            .xLoginNickName = clsFiles.ReadINI(lINI.iServices, "X", "LoginNickName", "")
-            .xLoginPassword = clsFiles.ReadINI(lINI.iServices, "X", "LoginPassword", "")
-            .xCreateAnAccountURL = clsFiles.ReadINI(lINI.iServices, "X", "CreateAnAccountURL", "http://cservice.undernet.org/live/newuser.php")
-            .xEnable = CBool(clsFiles.ReadINI(lINI.iServices, "X", "Enable", "True"))
-            .xLoginOnConnect = CBool(clsFiles.ReadINI(lINI.iServices, "X", "LoginOnConnect", "False"))
-            .xShowOnConnect = CBool(clsFiles.ReadINI(lINI.iServices, "X", "ShowOnConnect", "True"))
-            .xLongName = clsFiles.ReadINI(lINI.iServices, "X", "LongName", "x@channels.undernet.org")
-        End With
-        With lNickServ
-            '.nEnable = CBool(clsFiles.ReadINI(lINI.iServices, "NickServ", "Enable", "False"))
-            .nLoginPassword = clsFiles.ReadINI(lINI.iServices, "NickServ", "LoginPassword", "")
-            .nLoginOnConnect = CBool(clsFiles.ReadINI(lINI.iServices, "NickServ", "LoginOnConnect", "False"))
-            .nShowOnConnect = CBool(clsFiles.ReadINI(lINI.iServices, "NickServ", "ShowOnConnect", "True"))
-        End With
-    End Sub
-
-    Public Sub LoadDCCSettings()
-        Dim i As Integer, n As Integer
-        With lDCC
-            ReDim .dIgnorelist.dItem(lArraySizes.aDCCIgnore)
-            .dFileExistsAction = CType(clsFiles.ReadINI(lINI.iDCC, "Settings", "FileExistsAction", "1"), eDCCFileExistsAction)
-            n = CInt(Trim(clsFiles.ReadINI(lINI.iDCC, "Settings", "ChatPrompt", "1")))
-            If n = 1 Then
-                .dChatPrompt = eDCCPrompt.ePrompt
-            ElseIf n = 2 Then
-                .dChatPrompt = eDCCPrompt.eAcceptAll
-            ElseIf n = 3 Then
-                .dChatPrompt = eDCCPrompt.eIgnore
-            End If
-            n = CInt(Trim(clsFiles.ReadINI(lINI.iDCC, "Settings", "SendPrompt", "1")))
-            If n = 1 Then
-                .dSendPrompt = eDCCPrompt.ePrompt
-            ElseIf n = 2 Then
-                .dSendPrompt = eDCCPrompt.eAcceptAll
-            ElseIf n = 3 Then
-                .dSendPrompt = eDCCPrompt.eIgnore
-            End If
-            .dDownloadDirectory = clsFiles.ReadINI(lINI.iDCC, "Settings", "DownloadDirectory", "")
-            If Len(.dDownloadDirectory) = 0 Then .dDownloadDirectory = Application.StartupPath & "\"
-            .dDownloadDirectory = Replace(.dDownloadDirectory, "\\", "")
-            .dBufferSize = CLng(Trim(clsFiles.ReadINI(lINI.iDCC, "Settings", "BufferSize", "1024")))
-            .dUseIpAddress = CBool(Trim(clsFiles.ReadINI(lINI.iDCC, "Settings", "UseIpAddress", "False")))
-            .dCustomIpAddress = clsFiles.ReadINI(lINI.iDCC, "Settings", "CustomIpAddress", "")
-            If Len(.dCustomIpAddress) = 0 Then .dCustomIpAddress = New WebClient().DownloadString("http://www.whatismyip.com/automation/n09230945.asp")
-            .dIgnorelist.dCount = CInt(Trim(clsFiles.ReadINI(lINI.iDCC, "Settings", "IgnoreCount", "0")))
-            .dSendPort = clsFiles.ReadINI(lINI.iDCC, "Settings", "SendPort", "1024")
-            .dRandomizePort = CBool(Trim(clsFiles.ReadINI(lINI.iDCC, "Settings", "RandomizePort", "True")))
-            .dIgnorelist.dCount = CInt(clsFiles.ReadINI(lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString)))
-            .dAutoIgnore = CBool(clsFiles.ReadINI(lINI.iDCC, "Settings", "AutoIgnore", "True"))
-            .dAutoCloseDialogs = CBool(clsFiles.ReadINI(lINI.iDCC, "Settings", "AutoCloseDialogs", "False"))
-        End With
-        For i = 1 To lDCC.dIgnorelist.dCount
-            With lDCC.dIgnorelist.dItem(i)
-                .dData = clsFiles.ReadINI(lINI.iDCC, Trim(i.ToString), "Data", "")
-                .dType = CType(clsFiles.ReadINI(lINI.iDCC, Trim(i.ToString), "Type", "0"), gDCCIgnoreType)
-                Select Case .dType
-                    Case gDCCIgnoreType.dNicknames
-                        .dType = gDCCIgnoreType.dNicknames
-                    Case gDCCIgnoreType.dHostnames
-                        .dType = gDCCIgnoreType.dHostnames
-                    Case gDCCIgnoreType.dFileTypes
-                        .dType = gDCCIgnoreType.dFileTypes
-                End Select
-            End With
-        Next i
-    End Sub
-
-    Public Sub SaveDCCSettings()
-        Dim i As Integer
-        With lDCC
-            clsFiles.WriteINI(lINI.iDCC, "Settings", "DownloadDirectory", .dDownloadDirectory)
-            clsFiles.WriteINI(lINI.iDCC, "Settings", "FileExistsAction", Trim(CType(.dFileExistsAction, Integer).ToString))
-            clsFiles.WriteINI(lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
-            For i = 1 To lDCC.dIgnorelist.dCount
-                clsFiles.WriteINI(lINI.iDCC, Trim(i.ToString), "Data", .dIgnorelist.dItem(i).dData)
-                clsFiles.WriteINI(lINI.iDCC, Trim(i.ToString), "Type", Trim(CType(.dIgnorelist.dItem(i).dType, Integer).ToString))
-            Next i
-            If .dChatPrompt = eDCCPrompt.ePrompt Then
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "ChatPrompt", "1")
-            ElseIf .dChatPrompt = eDCCPrompt.eAcceptAll Then
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "ChatPrompt", "2")
-            ElseIf .dChatPrompt = eDCCPrompt.eIgnore Then
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "ChatPrompt", "3")
-            End If
-            If .dSendPrompt = eDCCPrompt.ePrompt Then
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "SendPrompt", "1")
-            ElseIf .dSendPrompt = eDCCPrompt.eAcceptAll Then
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "SendPrompt", "2")
-            ElseIf .dSendPrompt = eDCCPrompt.eIgnore Then
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "SendPrompt", "3")
-            End If
-            clsFiles.WriteINI(lINI.iDCC, "Settings", "UseIpAddress", Trim(.dUseIpAddress.ToString))
-            clsFiles.WriteINI(lINI.iDCC, "Settings", "CustomIpAddress", Trim(.dCustomIpAddress))
-            clsFiles.WriteINI(lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
-            clsFiles.WriteINI(lINI.iDCC, "Settings", "SendPort", Trim(.dSendPort.ToString))
-            clsFiles.WriteINI(lINI.iDCC, "Settings", "RandomizePort", (Trim(.dRandomizePort.ToString)))
-            clsFiles.WriteINI(lINI.iDCC, "Settings", "BufferSize", (Trim(.dBufferSize.ToString)))
-            clsFiles.WriteINI(lINI.iDCC, "Settings", "AutoIgnore", Trim(.dAutoIgnore.ToString))
-            clsFiles.WriteINI(lINI.iDCC, "Settings", "AutoCloseDialogs", Trim(.dAutoCloseDialogs.ToString))
-        End With
-    End Sub
-
-    Public Function FindServicesIndexByType(ByVal lService As eServiceType) As Integer
-        Dim i As Integer
-        For i = 1 To lServices.sCount
-            With lServices.sService(i)
-                If .sType = lService Then
-                    FindServicesIndexByType = i
-                    Exit For
-                End If
-            End With
-        Next i
-    End Function
-
-    Public Sub SaveServices()
-        Dim i As Integer
-        clsFiles.WriteINI(lINI.iServices, "Settings", "Count", Trim(lServices.sCount.ToString))
-        If lServices.sCount <> 0 Then
-            For i = 1 To lServices.sCount
-                With lServices.sService(i)
-                    clsFiles.WriteINI(lINI.iServices, Trim(Str(i)), "Name", .sName)
-                    clsFiles.WriteINI(lINI.iServices, Trim(Str(i)), "Type", CStr(.sType))
-                End With
-            Next i
-        End If
-        clsFiles.WriteINI(lINI.iServices, "X", "LoginNickName", lX.xLoginNickName)
-        clsFiles.WriteINI(lINI.iServices, "X", "LoginPassword", lX.xLoginPassword)
-        clsFiles.WriteINI(lINI.iServices, "X", "Enable", CStr(lX.xEnable))
-        clsFiles.WriteINI(lINI.iServices, "X", "LoginOnConnect", CStr(lX.xLoginOnConnect))
-        clsFiles.WriteINI(lINI.iServices, "X", "ShowOnConnect", CStr(lX.xShowOnConnect))
-        clsFiles.WriteINI(lINI.iServices, "X", "LongName", lX.xLongName)
-        clsFiles.WriteINI(lINI.iServices, "NickServ", "LoginPassword", lNickServ.nLoginPassword)
-        clsFiles.WriteINI(lINI.iServices, "NickServ", "LoginOnConnect", CStr(lNickServ.nLoginOnConnect))
-        clsFiles.WriteINI(lINI.iServices, "NickServ", "ShowOnConnect", CStr(lNickServ.nShowOnConnect))
-    End Sub
-
     Private Sub LoadNickNames()
         Dim i As Integer
         With lIRC.iNicks
@@ -1239,7 +948,7 @@ Public Module mdlSettings
             mdiMain.SetLoadingFormProgress("Loading Recient Servers", 11)
             LoadRecientServers()
             mdiMain.SetLoadingFormProgress("Loading Services", 12)
-            LoadServices()
+            lSettings_Services.LoadServices()
             mdiMain.SetLoadingFormProgress("Loading String Settings", 15)
             LoadStringSettings()
             mdiMain.SetLoadingFormProgress("Loading Channel Folders", 17)
@@ -1261,7 +970,7 @@ Public Module mdlSettings
             mdiMain.SetLoadingFormProgress("Loading Compatibility", 60)
             LoadCompatibility()
             mdiMain.SetLoadingFormProgress("Loading DCC Settings", 65)
-            LoadDCCSettings()
+            lSettings_DCC.LoadDCCSettings()
             mdiMain.SetLoadingFormProgress("Loading Download Manager", 68)
             LoadDownloadManager()
             mdiMain.SetLoadingFormProgress("Loading IRC Settings", 70)
@@ -1492,13 +1201,13 @@ Public Module mdlSettings
         End With
         SaveCompatibility()
         SaveRecientServers()
-        SaveServices()
+        lSettings_Services.SaveServices()
         SaveIdentdSettings()
         SaveNickNames()
         SaveNetworks()
         SaveServers()
         SaveNotifyList()
-        SaveDCCSettings()
+        lSettings_DCC.SaveDCCSettings()
         SaveDownloadManagerSettings()
         SaveQuerySettings()
     End Sub

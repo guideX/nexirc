@@ -3,6 +3,7 @@
 Option Explicit On
 Option Strict On
 Imports System.Net
+Imports nexIRC.Modules
 
 Public Class frmNetworkSettings
     Private Function ReturnIpAddress() As String
@@ -19,7 +20,7 @@ Public Class frmNetworkSettings
     Private Sub frmNetworkSettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'On Error Resume Next
         Me.Icon = mdiMain.Icon
-        With lDCC
+        With lSettings_DCC.lDCC
             If .dUseIpAddress = True Then
                 optIpAddressCustom.Checked = True
             Else
@@ -35,7 +36,7 @@ Public Class frmNetworkSettings
 
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
         'On Error Resume Next
-        With lDCC
+        With lSettings_DCC.lDCC
             .dRandomizePort = chkRandomize.Checked
             .dSendPort = txtSendPort.Text
             If optIpAddressAuto.Checked = True Then

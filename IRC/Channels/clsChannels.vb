@@ -71,8 +71,6 @@ Namespace IRC.Channels
         Public Sub PrivMsg(_ChannelIndex As Integer, ByVal _Data As String)
             'Try
             With lChannels.cChannel(_ChannelIndex)
-                .cIncomingText = _Data & vbCrLf & .cIncomingText
-                'mdiMain.lFlashWindow.FlashOnce()
                 If .cVisible = True Then
                     DoChannelColor(_ChannelIndex, _Data)
                 Else
@@ -86,6 +84,21 @@ Namespace IRC.Channels
         End Sub
         Public Sub DoChannelColor(_ChannelIndex As Integer, ByVal _Data As String)
             'Try
+            Dim splt() As String
+            With lChannels.cChannel(_ChannelIndex)
+                splt = Split(.cIncomingText, Chr(10))
+                .cIncomingText = ""
+                For Each _Line As String In splt
+                    If (_Line.Length <> 0) Then
+                        If (.cIncomingText.Length = 0) Then
+                            .cIncomingText = _Line.Trim()
+                        Else
+                            .cIncomingText = (.cIncomingText & Chr(10) & _Line).Trim()
+                        End If
+                    End If
+                Next _Line
+                .cIncomingText = .cIncomingText & Chr(10) & _Data.Trim()
+            End With
             With lChannels.cChannel(_ChannelIndex)
                 DoColor(_Data, .cWindow.txtIncomingColor)
             End With
@@ -214,14 +227,12 @@ Namespace IRC.Channels
                 .cWindow = New frmChannel
                 .cWindow.Show()
                 clsLockWindowUpdate.LockWindowUpdate(.cWindow.Handle)
-                '.cWindow.txtIncomingColor.BackColor = System.Drawing.Color.FromArgb(RGB(233, 240, 249))
                 .cWindow.lMdiChildWindow.Form_Load(.cWindow.txtIncomingColor, .cWindow.txtOutgoing, .cWindow, clsMdiChildWindow.eFormTypes.fChannel)
                 .cWindow.lMdiChildWindow.SetFormType(clsMdiChildWindow.eFormTypes.fChannel)
                 .cWindow.lMdiChildWindow.MeIndex = _ChannelIndex
+                DoColor(.cIncomingText, .cWindow.txtIncomingColor, True)
                 .cWindow.Text = .cName
                 clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
-                'clsAnimate.Animate(.cWindow, clsAnimate.Effect.Center, 200, 1)
-                '.cWindow.MdiParent = mdiMain
             End With
             'Catch ex As Exception
             'RaiseEvent ProcessError(ex.Message, "Public Sub NewChannelWindow(_Channel As gChannel)")

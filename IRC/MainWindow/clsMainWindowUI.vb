@@ -226,7 +226,7 @@ Namespace nexIRC.MainWindow
             Application.DoEvents()
             SetLoadingFormProgress("Initializing Status Windows", 2)
             SetArraySizes()
-            lStatus = New IRC.Status.clsStatus(lArraySizes.aStatusWindows)
+            lStatus = New Global.nexIRC.IRC.Status.clsStatus(lArraySizes.aStatusWindows)
             SetLoadingFormProgress("Initializing Processes", 5)
             lProcesses.Initialize()
             SetLoadingFormProgress("Loading Settings", 7)
@@ -369,10 +369,20 @@ Namespace nexIRC.MainWindow
             If (IsNumeric(e.ClickedItem.Tag.ToString()) = True) Then
                 _MeIndex = CType(e.ClickedItem.Tag.ToString(), Integer)
                 If DoLeft(e.ClickedItem.Text, 1) = "#" Then
-                    _ChannelIndex = lChannels.Find(_MeIndex, e.ClickedItem.Text)
-                    lChannels.ToggleChannelWindowState(_ChannelIndex, lChannels.Window(_ChannelIndex).lMdiChildWindow.lForeMost)
+                    If (lChannels.Visible(lChannels.Find(_MeIndex, e.ClickedItem.Tag.ToString)) = True) Then
+                        _ChannelIndex = lChannels.Find(_MeIndex, e.ClickedItem.Text)
+                        lChannels.ToggleChannelWindowState(_ChannelIndex, lChannels.Window(_ChannelIndex).lMdiChildWindow.lForeMost)
+                    Else
+                        lChannels.CreateWindow(lChannels.Find(_MeIndex, e.ClickedItem.Tag.ToString))
+                        mdiMain.SetWindowFocus(lChannels.Window(lChannels.Find(_MeIndex, e.ClickedItem.Tag.ToString)))
+                        lChannels.CreateWindow(lChannels.Find(_MeIndex, e.ClickedItem.Tag.ToString))
+                    End If
                 ElseIf InStr(e.ClickedItem.Text, "(") <> 0 And InStr(e.ClickedItem.Text, ")") <> 0 Then
-                    lStatus.ToggleStatusWindowState(_MeIndex, lStatus.Window(_MeIndex).lMdiChildWindow.lForeMost)
+                    If (lStatus.Window(_MeIndex) IsNot Nothing) Then
+                        If (lStatus.Window(_MeIndex).Visible) = True Then
+                            lStatus.ToggleStatusWindowState(_MeIndex, lStatus.Window(_MeIndex).lMdiChildWindow.lForeMost)
+                        End If
+                    End If
                 Else
                     If (lStatus.PrivateMessage_Visible(_MeIndex, e.ClickedItem.Text) = True) Then
                         lStatus.PrivateMessage_ToggleWindowState(Convert.ToInt32(e.ClickedItem.Tag), lStatus.PrivateMessage_Find(Convert.ToInt32(e.ClickedItem.Tag), e.ClickedItem.Text))

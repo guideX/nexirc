@@ -24,11 +24,11 @@ Partial Class frmSharedAdd
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSharedAdd))
         Me.RadLabel1 = New Telerik.WinControls.UI.RadLabel()
-        Me.txtNetworkDescription = New Telerik.WinControls.UI.RadTextBox()
+        Me.txtDescription = New Telerik.WinControls.UI.RadTextBox()
         Me.cmdOK = New Telerik.WinControls.UI.RadButton()
         Me.cmdCancel = New Telerik.WinControls.UI.RadButton()
         CType(Me.RadLabel1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtNetworkDescription, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtDescription, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -42,13 +42,13 @@ Partial Class frmSharedAdd
         Me.RadLabel1.TabIndex = 0
         Me.RadLabel1.Text = "Description:"
         '
-        'txtNetworkDescription
+        'txtDescription
         '
-        Me.txtNetworkDescription.Location = New System.Drawing.Point(84, 13)
-        Me.txtNetworkDescription.Name = "txtNetworkDescription"
-        Me.txtNetworkDescription.Size = New System.Drawing.Size(259, 20)
-        Me.txtNetworkDescription.TabIndex = 1
-        Me.txtNetworkDescription.TabStop = False
+        Me.txtDescription.Location = New System.Drawing.Point(84, 13)
+        Me.txtDescription.Name = "txtDescription"
+        Me.txtDescription.Size = New System.Drawing.Size(259, 20)
+        Me.txtDescription.TabIndex = 1
+        Me.txtDescription.TabStop = False
         '
         'cmdOK
         '
@@ -73,7 +73,7 @@ Partial Class frmSharedAdd
         Me.ClientSize = New System.Drawing.Size(355, 71)
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.cmdOK)
-        Me.Controls.Add(Me.txtNetworkDescription)
+        Me.Controls.Add(Me.txtDescription)
         Me.Controls.Add(Me.RadLabel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -85,7 +85,7 @@ Partial Class frmSharedAdd
         Me.RootElement.ApplyShapeToControl = True
         Me.Text = "nexIRC - Add"
         CType(Me.RadLabel1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtNetworkDescription, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtDescription, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
@@ -94,7 +94,7 @@ Partial Class frmSharedAdd
 
     End Sub
     Friend WithEvents RadLabel1 As Telerik.WinControls.UI.RadLabel
-    Friend WithEvents txtNetworkDescription As Telerik.WinControls.UI.RadTextBox
+    Friend WithEvents txtDescription As Telerik.WinControls.UI.RadTextBox
     Friend WithEvents cmdOK As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdCancel As Telerik.WinControls.UI.RadButton
 End Class

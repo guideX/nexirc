@@ -1085,6 +1085,10 @@ Namespace IRC.Status
                             If .sVisible = False Then
                                 .sVisible = True
                                 .sWindow.Visible = True
+                            Else
+                                If (.sWindow.WindowState = FormWindowState.Minimized) Then
+                                    .sWindow.WindowState = FormWindowState.Normal
+                                End If
                             End If
                             ActiveIndex = .sWindow.lMdiChildWindow.MeIndex
                             mdiMain.SetWindowFocus(.sWindow)
@@ -2257,8 +2261,8 @@ Namespace IRC.Status
         Public Sub XLogin(ByVal lStatusIndex As Integer)
             'On Error Resume Next
             Dim f As New frmXLogin, b As Boolean, i As Integer
-            For i = 1 To lServices.sCount
-                With lServices.sService(i)
+            For i = 1 To lSettings_Services.lServices.sCount
+                With lSettings_Services.lServices.sService(i)
                     If Trim(LCase(.sNetwork)) = Trim(LCase(lNetworks.nNetwork(NetworkIndex(lStatusIndex)).nDescription)) And .sType = eServiceType.sX Then
                         b = True
                         Exit For
@@ -2266,13 +2270,13 @@ Namespace IRC.Status
                 End With
             Next i
             If b = True Or LCase(Trim(lNetworks.nNetwork(NetworkIndex(lStatusIndex)).nDescription)) = "undernet" Then
-                If lX.xEnable = True Then
-                    If lX.xLoginOnConnect = True Then
-                        If Len(lX.xLoginNickName) <> 0 And Len(lX.xLoginPassword) <> 0 Then
-                            PrivateMessage_User(lStatusIndex, lX.xLongName, "LOGIN " & lX.xLoginNickName & " " & lX.xLoginPassword)
+                If lSettings_Services.lX.xEnable = True Then
+                    If lSettings_Services.lX.xLoginOnConnect = True Then
+                        If Len(lSettings_Services.lX.xLoginNickName) <> 0 And Len(lSettings_Services.lX.xLoginPassword) <> 0 Then
+                            PrivateMessage_User(lStatusIndex, lSettings_Services.lX.xLongName, "LOGIN " & lSettings_Services.lX.xLoginNickName & " " & lSettings_Services.lX.xLoginPassword)
                         End If
                     End If
-                    If lX.xShowOnConnect = True Then
+                    If lSettings_Services.lX.xShowOnConnect = True Then
                         f = New frmXLogin
                         f.SetStatusIndex(lStatusIndex)
                         clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
@@ -2284,8 +2288,8 @@ Namespace IRC.Status
         Public Sub NickServLogin(ByVal lStatusIndex As Integer)
             'On Error Resume Next
             Dim i As Integer, b As Boolean, f As frmNickServLogin
-            For i = 1 To lServices.sCount
-                With lServices.sService(i)
+            For i = 1 To lSettings_Services.lServices.sCount
+                With lSettings_Services.lServices.sService(i)
                     If Trim(LCase(.sNetwork)) = Trim(LCase(lNetworks.nNetwork(NetworkIndex(lStatusIndex)).nDescription)) And .sType = eServiceType.sNickServ Then
                         b = True
                         Exit For
@@ -2294,12 +2298,12 @@ Namespace IRC.Status
             Next i
             If b = True Then
                 'If lNickServ.nEnable = True Then
-                If lNickServ.nLoginOnConnect = True Then
-                    If Len(lNickServ.nLoginPassword) <> 0 Then
-                        PrivateMessage_User(lStatusIndex, "nickserv", "identify " & lNickServ.nLoginPassword)
+                If lSettings_Services.lNickServ.nLoginOnConnect = True Then
+                    If Len(lSettings_Services.lNickServ.nLoginPassword) <> 0 Then
+                        PrivateMessage_User(lStatusIndex, "nickserv", "identify " & lSettings_Services.lNickServ.nLoginPassword)
                     End If
                 End If
-                If lNickServ.nShowOnConnect = True Then
+                If lSettings_Services.lNickServ.nShowOnConnect = True Then
                     f = New frmNickServLogin
                     f.SetStatusIndex(lStatusIndex)
                     clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)

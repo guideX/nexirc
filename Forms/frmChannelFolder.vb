@@ -3,7 +3,7 @@
 Option Explicit On
 Option Strict On
 Public Class frmChannelFolder
-    Private lChannelFolderWindow As New clsChannelFolderWindow
+    Private lChannelFolderWindow As New clsChannelFolderUI
     Public Sub Init()
         'Try
         lChannelFolderWindow.Init(cboNetwork, chkPopupOnConnect, chkCloseOnJoin)

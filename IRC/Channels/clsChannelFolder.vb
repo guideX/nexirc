@@ -6,8 +6,7 @@ Imports Telerik.WinControls.UI
 Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
-
-Public Class clsChannelFolderWindow
+Public Class clsChannelFolderUI
     Private lStatusIndex As Integer
     Private lLastFocused As Control = Nothing
     Public Sub SetStatusIndex(ByVal _StatusIndex As Integer)
@@ -215,6 +214,11 @@ Public Class clsChannelFolder
         'End Try
     End Sub
     Public Function Window() As Form
+        'Try
         Return lWindow
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function Window() As Form")
+        'Return Nothing
+        'End Try
     End Function
 End Class

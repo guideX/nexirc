@@ -29,7 +29,7 @@ Public Class frmDCCSend
     Private lFile As gFile
     Public Sub InitFile()
         With lFile
-            .fBufferSize = lDCC.dBufferSize
+            .fBufferSize = lSettings_DCC.lDCC.dBufferSize
             .fFileNumber = FreeFile()
             FileOpen(.fFileNumber, txtFilename.Text, OpenMode.Binary, OpenAccess.Read)
             lFileOpen = True
@@ -98,8 +98,8 @@ Public Class frmDCCSend
                     Me.Invoke(lSetLabel, "Requesting Connection")
                     lSocket = New AsyncSocket
                     InitSendListenSocket(CInt(Trim(cboPort.Text)))
-                    If lDCC.dUseIpAddress = True Then
-                        msg = lDCC.dCustomIpAddress
+                    If lSettings_DCC.lDCC.dUseIpAddress = True Then
+                        msg = lSettings_DCC.lDCC.dCustomIpAddress
                     Else
                         msg = lProcessNumeric.lIrcNumericHelper.ReturnMyIp()
                     End If
@@ -138,7 +138,7 @@ Public Class frmDCCSend
     Private Sub tmrCloseSocketDelay_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCloseSocketDelay.Tick
         tmrCloseSocketDelay.Enabled = False
         lSocket.Close()
-        If lDCC.dAutoCloseDialogs = True Then Me.Close()
+        If lSettings_DCC.lDCC.dAutoCloseDialogs = True Then Me.Close()
     End Sub
     Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click
         Me.Close()

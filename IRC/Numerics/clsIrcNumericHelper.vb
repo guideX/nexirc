@@ -40,19 +40,19 @@ Public Class clsIrcNumericHelper
     Public Function ReturnDCCPort() As Long
         'Try
         Dim splt() As String, p As Long
-        If lDCC.dRandomizePort = True Then
-            If InStr(lDCC.dSendPort, "-") <> 0 Then
-                splt = Split(lDCC.dSendPort, "-")
+        If lSettings_DCC.lDCC.dRandomizePort = True Then
+            If InStr(lSettings_DCC.lDCC.dSendPort, "-") <> 0 Then
+                splt = Split(lSettings_DCC.lDCC.dSendPort, "-")
                 p = GetRnd(CInt(Trim(splt(0))), CInt(Trim(splt(1))))
             Else
                 p = GetRnd(128, 9999)
             End If
         Else
-            If InStr(lDCC.dSendPort, "-") <> 0 Then
-                splt = Split(lDCC.dSendPort, "-")
+            If InStr(lSettings_DCC.lDCC.dSendPort, "-") <> 0 Then
+                splt = Split(lSettings_DCC.lDCC.dSendPort, "-")
                 p = GetRnd(CInt(Trim(splt(0))), CInt(Trim(splt(1))))
             Else
-                p = CLng(Trim(lDCC.dSendPort))
+                p = CLng(Trim(lSettings_DCC.lDCC.dSendPort))
             End If
         End If
         ReturnDCCPort = p
@@ -78,7 +78,7 @@ Public Class clsIrcNumericHelper
         'Try
         Dim f As frmDCCChat
         f = New frmDCCChat
-        f.SetStatusIndex(lStatus.ActiveIndex)
+        f.lDccChatUI.SetStatusIndex(lStatus.ActiveIndex)
         clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub NewDCCChat()")
@@ -227,19 +227,19 @@ Public Class clsIrcNumericHelper
         Dim splt() As String, msg As String
         msg = ParseData(lData, ":", "!")
         splt = Split(lData, " ")
-        If lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then Exit Sub
+        If lSettings_DCC.lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then Exit Sub
         If IsNickNameInDCCIgnoreList(Trim(msg)) = False Then
-            If lDCC.dChatPrompt = eDCCPrompt.ePrompt Then
+            If lSettings_DCC.lDCC.dChatPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.ePrompt Then
                 Dim lDCCChatPrompt As New frmDCCChatPrompt
                 lDCCChatPrompt.SetInfo(Trim(msg), splt(6), splt(7))
                 lDCCChatPrompt.SetStatusIndex(lStatusIndex)
                 clsAnimate.Animate(lDCCChatPrompt, clsAnimate.Effect.Center, 200, 1)
-            ElseIf lDCC.dChatPrompt = eDCCPrompt.eAcceptAll Then
+            ElseIf lSettings_DCC.lDCC.dChatPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll Then
                 Dim lDCCChat As New frmDCCChat
                 lDCCChat.cboUsers.Text = Trim(msg)
-                lDCCChat.SetInfo(splt(6), Trim(splt(7)))
+                lDCCChat.lDccChatUI.SetInfo(splt(6), Trim(splt(7)))
                 clsAnimate.Animate(lDCCChat, clsAnimate.Effect.Center, 200, 1)
-            ElseIf lDCC.dChatPrompt = eDCCPrompt.eIgnore Then
+            ElseIf lSettings_DCC.lDCC.dChatPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eIgnore Then
             End If
         End If
         'Catch ex As Exception
@@ -252,9 +252,9 @@ Public Class clsIrcNumericHelper
         Dim i As Integer, splt() As String, msg As String
         splt = Split(lFileName, ".")
         msg = LCase(Trim(splt(UBound(splt))))
-        With lDCC.dIgnorelist
+        With lSettings_DCC.lDCC.dIgnorelist
             For i = 1 To .dCount
-                If .dItem(i).dType = gDCCIgnoreType.dFileTypes Then
+                If .dItem(i).dType = nexIRC.IRC.Settings.clsDCC.gDCCIgnoreType.dFileTypes Then
                     If LCase(Trim(.dItem(i).dData)) = LCase(Trim(msg)) Then
                         ReturnIsFileTypeIgnored = True
                         Exit For
@@ -286,20 +286,20 @@ Public Class clsIrcNumericHelper
         Dim lForm As New frmDCCGet, splt() As String, splt2() As String, msg As String
         msg = ParseData(lData, ":", "!")
         splt = Split(lData, " ")
-        If lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then
+        If lSettings_DCC.lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then
             lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Auto Ignore is enabled, and user is unknown '" & msg & "'.")
             Exit Sub
         End If
         If IsNickNameInDCCIgnoreList(msg) = False Then
             If ReturnIsFileTypeIgnored(Trim(splt(5))) = False Then
-                If lDCC.dSendPrompt = eDCCPrompt.ePrompt Then
+                If lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.ePrompt Then
                     mdiMain.tspDCCToolBar.Items(0).Text = "Accept the file '" & Trim(splt(5)) & "' from the user '" & msg & "'?"
                     mdiMain.tspDCCToolBar.Visible = True
                     mdiMain.lblUser.Tag = msg & vbCrLf & Trim(splt(6)) & vbCrLf & Trim(splt(7)) & vbCrLf & Trim(splt(5)) & vbCrLf & Trim(splt(8))
-                ElseIf lDCC.dSendPrompt = eDCCPrompt.eAcceptAll Then
+                ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll Then
                     lForm.InitDCCGet(Trim(msg), Trim(splt(6)), Trim(splt(7)), Trim(splt(5)), Trim(splt(8)))
                     clsAnimate.Animate(lForm, clsAnimate.Effect.Center, 200, 1)
-                ElseIf lDCC.dSendPrompt = eDCCPrompt.eIgnore Then
+                ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eIgnore Then
                     lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring all DCC connections")
                 End If
             Else
@@ -318,8 +318,8 @@ Public Class clsIrcNumericHelper
         'Try
         Dim i As Integer
         If Len(lNickName) <> 0 Then
-            For i = 1 To lDCC.dIgnorelist.dCount
-                With lDCC.dIgnorelist.dItem(i)
+            For i = 1 To lSettings_DCC.lDCC.dIgnorelist.dCount
+                With lSettings_DCC.lDCC.dIgnorelist.dItem(i)
                     If LCase(.dData) = LCase(lNickName) Then
                         IsNickNameInDCCIgnoreList = True
                         Exit For

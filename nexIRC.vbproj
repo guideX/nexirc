@@ -210,13 +210,15 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IRC\Channels\clsChannelFolder.vb" />
-    <Compile Include="IRC\Channels\clsChannelListUI.vb" />
     <Compile Include="IRC\Customize\clsCustomize.vb" />
+    <Compile Include="IRC\DCC\clsDccChat.vb" />
     <Compile Include="IRC\MainWindow\clsMainWindowUI.vb" />
     <Compile Include="IRC\Numerics\clsCommandTypes.vb" />
     <Compile Include="IRC\Numerics\clsIrcNumericHelper.vb" />
     <Compile Include="IRC\Numerics\clsIrcNumerics.vb" />
     <Compile Include="IRC\Numerics\clsProcessNumeric.vb" />
+    <Compile Include="IRC\Settings\clsDCC.vb" />
+    <Compile Include="IRC\Settings\clsServices.vb" />
     <Compile Include="IRC\Status\clsStatus.vb" />
     <Compile Include="Classes\Communications\clsStatusSocket.vb" />
     <Compile Include="Forms\frmPrivateMessage.Designer.vb">
@@ -343,12 +345,6 @@
       <DependentUpon>frmQuerySettings.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmQuerySettings.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmServerFolder.Designer.vb">
-      <DependentUpon>frmServerFolder.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmServerFolder.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmStatus.Designer.vb">
@@ -522,10 +518,6 @@
     <EmbeddedResource Include="Forms\frmQuerySettings.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmQuerySettings.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmServerFolder.resx">
-      <DependentUpon>frmServerFolder.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmStatus.resx">
       <DependentUpon>frmStatus.vb</DependentUpon>

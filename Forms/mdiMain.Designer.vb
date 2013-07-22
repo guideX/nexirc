@@ -141,7 +141,7 @@ Partial Class mdiMain
         '
         'tspWindows
         '
-        Me.tspWindows.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.tspWindows.BackColor = System.Drawing.Color.Black
         Me.tspWindows.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.tspWindows.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.tspWindows.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

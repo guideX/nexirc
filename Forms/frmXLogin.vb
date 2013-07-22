@@ -13,26 +13,26 @@ Public Class frmXLogin
 
     Private Sub frmXLogin_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Icon = mdiMain.Icon
-        txtUsername.Text = lX.xLoginNickName
-        txtPassword.Text = lX.xLoginPassword
-        chkXEnable.Checked = lX.xEnable
-        chkLoginOnConnect.Checked = lX.xLoginOnConnect
-        chkShowOnConnect.Checked = lX.xShowOnConnect
+        txtUsername.Text = lSettings_Services.lX.xLoginNickName
+        txtPassword.Text = lSettings_Services.lX.xLoginPassword
+        chkXEnable.Checked = lSettings_Services.lX.xEnable
+        chkLoginOnConnect.Checked = lSettings_Services.lX.xLoginOnConnect
+        chkShowOnConnect.Checked = lSettings_Services.lX.xShowOnConnect
     End Sub
 
     Private Sub cmdLogin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdLogin.Click
-        lX.xEnable = CBool(chkXEnable.Checked)
-        lX.xLoginNickName = txtUsername.Text
-        lX.xLoginPassword = txtPassword.Text
-        lX.xShowOnConnect = CBool(chkShowOnConnect.Checked)
-        lX.xLoginOnConnect = CBool(chkLoginOnConnect.Checked)
-        SaveServices()
-        lStatus.PrivateMessage_User(lStatusIndex, lX.xLongName, "LOGIN " & lX.xLoginNickName & " " & lX.xLoginPassword)
+        lSettings_Services.lX.xEnable = CBool(chkXEnable.Checked)
+        lSettings_Services.lX.xLoginNickName = txtUsername.Text
+        lSettings_Services.lX.xLoginPassword = txtPassword.Text
+        lSettings_Services.lX.xShowOnConnect = CBool(chkShowOnConnect.Checked)
+        lSettings_Services.lX.xLoginOnConnect = CBool(chkLoginOnConnect.Checked)
+        lSettings_Services.SaveServices()
+        lStatus.PrivateMessage_User(lStatusIndex, lSettings_Services.lX.xLongName, "LOGIN " & lSettings_Services.lX.xLoginNickName & " " & lSettings_Services.lX.xLoginPassword)
         Me.Close()
     End Sub
 
     Private Sub lblCreateAnAccount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblCreateAnAccount.Click
-        mdiMain.BrowseURL(lX.xCreateAnAccountURL)
+        mdiMain.BrowseURL(lSettings_Services.lX.xCreateAnAccountURL)
     End Sub
 
     Private Sub cmdCancel_Click(sender As Object, e As System.EventArgs) Handles cmdCancel.Click

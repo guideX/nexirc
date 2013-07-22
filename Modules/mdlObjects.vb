@@ -13,6 +13,8 @@ Namespace Modules
         Public lChannelLists As New clsChannelList
         Public lChannelFolder As New clsChannelFolder
         Public lProcessNumeric As New clsProcessNumeric
+        Public lSettings_DCC As New nexIRC.IRC.Settings.clsDCC
+        Public lSettings_Services As New nexIRC.IRC.Settings.clsServices
 
         Public Function ReturnFirstSelectedListViewItem(ByVal lListView As ListView) As ListViewItem
             Dim i As Integer

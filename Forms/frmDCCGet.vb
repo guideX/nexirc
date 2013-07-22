@@ -5,6 +5,7 @@ Option Strict On
 Imports System.IO
 Imports nexIRC.Classes.IO
 Imports nexIRC.Classes.Communications
+Imports nexIRC.Modules
 
 Public Class frmDCCGet
     Public Declare Function htonl Lib "wsock32.dll" (ByVal hostlong As UInt32) As UInt32
@@ -55,7 +56,7 @@ Public Class frmDCCGet
 
     Private Sub frmDCCGet_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'Try
-        txtDownloadTo.Text = lDCC.dDownloadDirectory
+        txtDownloadTo.Text = lSettings_DCC.lDCC.dDownloadDirectory
         Me.Icon = mdiMain.Icon
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmDCCGet_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
@@ -68,16 +69,16 @@ Public Class frmDCCGet
         txtDownloadTo.Enabled = False
         If clsFiles.DoesFileExist(lINI.iBasePath & lblFilename.Text) = True Then
             If lIRC.iSettings.sPrompts = True Then
-                If lDCC.dFileExistsAction = eDCCFileExistsAction.dPrompt = True Then
+                If lSettings_DCC.lDCC.dFileExistsAction = nexIRC.IRC.Settings.clsDCC.eDCCFileExistsAction.dPrompt = True Then
                     mBox = MsgBox("This file already exists, replace the original?", MsgBoxStyle.Question Or MsgBoxStyle.YesNoCancel)
-                ElseIf lDCC.dFileExistsAction = eDCCFileExistsAction.dOverwrite = True Then
+                ElseIf lSettings_DCC.lDCC.dFileExistsAction = nexIRC.IRC.Settings.clsDCC.eDCCFileExistsAction.dOverwrite = True Then
                     mBox = MsgBoxResult.Yes
-                ElseIf lDCC.dFileExistsAction = eDCCFileExistsAction.dIgnore = True Then
+                ElseIf lSettings_DCC.lDCC.dFileExistsAction = nexIRC.IRC.Settings.clsDCC.eDCCFileExistsAction.dIgnore = True Then
                     MsgBox("This file already exists!", MsgBoxStyle.Critical)
                     mBox = MsgBoxResult.No
                 End If
             Else
-                If lDCC.dFileExistsAction = eDCCFileExistsAction.dIgnore = True Then
+                If lSettings_DCC.lDCC.dFileExistsAction = nexIRC.IRC.Settings.clsDCC.eDCCFileExistsAction.dIgnore = True Then
                     mBox = MsgBoxResult.No
                 Else
                     mBox = MsgBoxResult.Yes
@@ -169,7 +170,7 @@ Public Class frmDCCGet
             lFileOpen = False
         End If
         AddToDownloadManager(txtDownloadTo.Text & lblFilename.Text, lblNickname.Text, True)
-        If lDCC.dAutoCloseDialogs = True Then
+        If lSettings_DCC.lDCC.dAutoCloseDialogs = True Then
             Me.Close()
         Else
             Me.Text = "nexIRC - Transfer Complete"

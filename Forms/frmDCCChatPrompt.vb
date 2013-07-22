@@ -42,8 +42,8 @@ Public Class frmDCCChatPrompt
         'Try
         Dim lDCCChat As New frmDCCChat
         lDCCChat.cboUsers.Text = lNickName
-        lDCCChat.SetStatusIndex(lStatusIndex)
-        lDCCChat.SetInfo(lAddress, Trim(lPort.ToString))
+        lDCCChat.lDccChatUI.SetStatusIndex(lStatusIndex)
+        lDCCChat.lDccChatUI.SetInfo(lAddress, Trim(lPort.ToString))
         lDCCChat.Show()
         Me.Close()
         'Catch ex As Exception

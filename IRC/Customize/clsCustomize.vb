@@ -4,10 +4,224 @@ Imports Telerik.WinControls.UI
 Imports nexIRC.Classes.IO
 Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
-
 Namespace IRC.Customize
     Public Class clsCustomize
         Public lBrowserEnabled As Boolean
+        Public Event Apply()
+        Public Sub cmdDCCIgnoreAdd_Click()
+            'Try
+            Dim f As New frmDCCIgnoreAdd
+            f.optNickName.Checked = True
+            f.Show()
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub cmdDCCIgnoreAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDCCIgnoreAdd.Click")
+            'End Try
+        End Sub
+        Public Sub lvwStrings_DoubleClick()
+            'Try
+            'cmdEditString_Click(sender, e)
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub lvwStrings_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwStrings.DoubleClick")
+            'End Try
+        End Sub
+        Public Sub lstDCCIgnoreItems_MouseClick(_ListBox As RadListControl)
+            'Try
+            Dim msg As String
+            If _ListBox.SelectedIndex = -1 Then
+                Exit Sub
+            End If
+            msg = Trim(_ListBox.SelectedItem.ToString)
+            If InStr(Err.Description, "Object reference not set to an instance of an object.") <> 0 Then
+                Err.Clear()
+                Exit Sub
+            End If
+            If Len(msg) <> 0 Then _ListBox.Enabled = True
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub lstDCCIgnoreItems_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lstDCCIgnoreItems.MouseClick")
+            'End Try
+        End Sub
+        Public Sub cmdDCCIgnoreRemove_Click(_ListBox As RadListControl)
+            'Try
+            Dim lItems() As String, i As Integer, c As Integer, msg As String
+            msg = _ListBox.SelectedItem.ToString
+            If InStr(Err.Description, "Object reference not set to an instance of an object.") <> 0 Then
+                Err.Clear()
+                Exit Sub
+            End If
+            If Len(Trim(msg)) <> 0 Then
+                _ListBox.Items.Remove(_ListBox.SelectedItem)
+                ReDim lItems(100)
+                For i = 1 To lSettings_DCC.lDCC.dIgnorelist.dCount
+                    With lSettings_DCC.lDCC.dIgnorelist.dItem(i)
+                        If LCase(Trim(.dData)) = LCase(Trim(msg)) Then
+                            .dData = ""
+                        Else
+                            If Len(.dData) <> 0 Then
+                                c = c + 1
+                                lItems(c) = .dData
+                            End If
+                        End If
+                    End With
+                Next i
+                lSettings_DCC.lDCC.dIgnorelist.dCount = c
+                clsFiles.WriteINI(lINI.iDCC, "Settings", "IgnoreCount", Trim(c.ToString))
+                For i = 1 To 100
+                    With lSettings_DCC.lDCC.dIgnorelist.dItem(i)
+                        If Len(lItems(i)) <> 0 Then
+                            .dData = lItems(i)
+                            clsFiles.WriteINI(lINI.iDCC, "Ignore", Trim(i.ToString), .dData)
+                        Else
+                            .dData = ""
+                        End If
+                    End With
+                Next i
+            End If
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub cmdDCCIgnoreRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDCCIgnoreRemove.Click")
+            'End Try
+        End Sub
+        Public Sub cmdNetworkSettings_Click()
+            'Try
+            frmNetworkSettings.Show()
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub cmdNetworkSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNetworkSettings.Click")
+            'End Try
+        End Sub
+        Public Sub cmdCompatibility_Click()
+            'Try
+            frmCompatibility.Show()
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub cmdCompatibility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCompatibility.Click")
+            'End Try
+        End Sub
+        Public Sub cmdRemoveNotify_Click(_NotifyListView As RadListView)
+            'Try
+            _NotifyListView.Items.Remove(_NotifyListView.SelectedItem)
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub cmdRemoveNotify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveNotify.Click")
+            'End Try
+        End Sub
+        Public Sub cmdEditIdentSettings_Click()
+            'Try
+            frmIdentdSettings.Show()
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub cmdEditIdentSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdEditIdentSettings.Click")
+            'End Try
+        End Sub
+        Public Sub cmdRemoveIgnoreExtension_Click(_ListBox As RadListControl)
+            'Try
+            _ListBox.Items.RemoveAt(_ListBox.SelectedIndex)
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub cmdRemoveIgnoreExtension_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveIgnoreExtension.Click")
+            'End Try
+        End Sub
+        Public Sub cmdAddIgnoreExtension_Click(_ListBox As RadListControl)
+            'Try
+            Dim msg As String = InputBox("Add Ignore Extension")
+            If Len(msg) <> 0 Then
+                _ListBox.Items.Add(msg)
+            Else
+                If lIRC.iSettings.sPrompts = True Then MsgBox("Warning: No items were added!", MsgBoxStyle.Critical)
+            End If
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub cmdAddIgnoreExtension_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddIgnoreExtension.Click")
+            'End Try
+        End Sub
+        Public Sub lstDCCIgnoreItems_Click(_Button As RadButton)
+            'Try
+            _Button.Enabled = True
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub lstDCCIgnoreItems_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstDCCIgnoreItems.Click")
+            'End Try
+        End Sub
+        Public Sub lstIgnoreExtensions_SelectedIndexChanged(_RemoveButton As RadButton)
+            'Try
+            _RemoveButton.Enabled = True
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub lstIgnoreExtensions_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstIgnoreExtensions.SelectedIndexChanged")
+            'End Try
+        End Sub
+        Public Sub lvwServers_DoubleClick(_CheckBox As RadCheckBox, _Form As Form)
+            'Try
+            If _CheckBox.Checked = True Then
+                lStatus.Create(lIRC, lServers)
+                Application.DoEvents()
+            End If
+            If lStatus.ActiveIndex() <> 0 Then
+                RaiseEvent Apply()
+                lStatus.ActiveStatusConnect()
+            End If
+            _Form.Close()
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub lvwServers_DoubleClick(sender As Object, e As System.EventArgs) Handles lvwServers.DoubleClick")
+            'End Try
+        End Sub
+        Public Sub lnkNetworkDelete_LinkClicked(_DropDownList As RadDropDownList)
+            'Try
+            Dim _MsgBoxResult As MsgBoxResult, msg As String
+            msg = _DropDownList.SelectedItem.ToString
+            If lIRC.iSettings.sPrompts = True Then
+                _MsgBoxResult = MsgBox("Really, delete '" & msg & "'?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question)
+            Else
+                _MsgBoxResult = MsgBoxResult.Yes
+            End If
+            If _MsgBoxResult = MsgBoxResult.Yes Then
+                _DropDownList.Items.Remove(_DropDownList.SelectedItem)
+                RemoveNetwork(FindNetworkIndex(msg))
+            End If
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub lnkNetworkDelete_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkDelete.LinkClicked")
+            'End Try
+        End Sub
+        Public Sub lnkNetworkAdd_LinkClicked()
+            'Try
+            Dim f As New frmSharedAdd
+            f.lSharedAddType = frmSharedAdd.eSharedAddType.sAddNetwork
+            'clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub lnkNetworkAdd_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkAdd.LinkClicked")
+            'End Try
+        End Sub
+        Public Sub cmdServerEdit_Click(_ListView As RadListView)
+            'Try
+            Dim i As Integer
+            i = FindServerIndexByIp(_ListView.SelectedItem.Item(1).ToString)
+            If (i <> 0) Then
+                clsAnimate.Animate(frmEditServer, clsAnimate.Effect.Center, 200, 1)
+                frmEditServer.SetServerInfo(i)
+            End If
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Private Sub cmdServerEdit_Click(sender As System.Object, e As System.EventArgs) Handles cmdServerEdit.Click")
+            'End Try
+        End Sub
+        Public Sub cmdServerDelete_Click(_ListView As RadListView)
+            'Try
+            Dim _MessageBoxResult As MsgBoxResult
+            For Each _Item As Telerik.WinControls.UI.ListViewDataItem In _ListView.SelectedItems
+                If lIRC.iSettings.sPrompts = True Then
+                    _MessageBoxResult = MsgBox("Are you sure you wish to remove '" & _Item.Text & "'?", MsgBoxStyle.YesNoCancel Or MsgBoxStyle.Question)
+                Else
+                    _MessageBoxResult = MsgBoxResult.Yes
+                End If
+                If _MessageBoxResult = MsgBoxResult.Yes Then
+                    _ListView.Items.Remove(_Item)
+                ElseIf _MessageBoxResult = MsgBoxResult.Cancel Then
+                    Exit For
+                End If
+            Next _Item
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Public Sub cmdServerDelete_Click()")
+            'End Try
+        End Sub
+        Public Sub cmdServerAdd_Click()
+            Dim f As frmAddServer
+            Try
+                f = New frmAddServer()
+                clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
+            Catch ex As Exception
+                ProcessError(ex.Message, "Public Sub cmdServerAdd_Click()")
+            End Try
+        End Sub
         Public Sub UpdateSelectedServer(_ServerListView As RadListView, _Description As String, _Ip As String, _Port As String)
             'Try
             If (_ServerListView.SelectedItem IsNot Nothing) Then

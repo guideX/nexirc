@@ -2,11 +2,9 @@
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
-
 Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
-
 Public Class clsMdiChildWindow
     Public Enum eFormTypes
         fStatus = 1
@@ -17,11 +15,9 @@ Public Class clsMdiChildWindow
         fUnsupported = 6
         fPrivateMessage = 7
     End Enum
-
     Public lForeMost As Boolean
     Private lMeIndex As Integer
     Private lFormType As eFormTypes
-
     Public Sub SetFormType(_FormType As eFormTypes)
         'Try
         lFormType = _FormType
@@ -29,7 +25,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub SetFormType(_FormType As eFormTypes)")
         'End Try
     End Sub
-
     Public Sub cmdAddToChannelFolder_Click()
         'Try
         Select Case lFormType
@@ -40,7 +35,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Private Sub cmd_ChannelFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChannelFolder.Click")
         'End Try
     End Sub
-
     Public Sub cmdNames_Click(_NickList As ListView)
         'Try
         Select Case lFormType
@@ -52,7 +46,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Private Sub cmdNames_Click(sender As System.Object, e As System.EventArgs) Handles cmdNames.Click")
         'End Try
     End Sub
-
     Public Sub txtOutgoing_GotFocus(_Form As Form)
         'Try
         lChannels.ResetForeMostWindows()
@@ -63,7 +56,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Private Sub txtOutgoing_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtOutgoing.GotFocus")
         'End Try
     End Sub
-
     Public Sub txtOutgoing_KeyDown(ByRef e As System.Windows.Forms.KeyEventArgs, ByRef _TextBox As TextBox)
         'Try
         Select Case lFormType
@@ -87,7 +79,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown")
         'End Try
     End Sub
-
     Public Sub txtIncomingColor_MouseDown(lForm As Form, _txtOutgoing As TextBox)
         'Try
         lForm.BringToFront()
@@ -95,7 +86,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub txtIncomingColor_MouseDown()")
         'End Try
     End Sub
-
     Public Sub txtIncomingColor_MouseUp(_SelectedText As String, ByRef _txtOutgoing As TextBox)
         'Try
         If Len(_SelectedText) <> 0 Then
@@ -107,7 +97,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub txtIncomingColor_MouseUp(_SelectedText As String)")
         'End Try
     End Sub
-
     Public Property MeIndex() As Integer
         Get
             Return lMeIndex
@@ -119,7 +108,7 @@ Public Class clsMdiChildWindow
                     lMeIndex = _MeIndex
                     lChannels.SetChannelVisible(_MeIndex, True)
                     lChannels.CurrentIndex = _MeIndex
-                    lChannels.Window_Load(lMeIndex)
+                    'lChannels.Window_Load(lMeIndex)
                 Case eFormTypes.fStatus
                     lMeIndex = _MeIndex
             End Select
@@ -128,7 +117,6 @@ Public Class clsMdiChildWindow
             'End Try
         End Set
     End Property
-
     Public Sub Form_Resize(ByRef _IncomingRichTextBox As RichTextBox, ByRef _OutgoingTextBox As TextBox, ByRef _Form As Form)
         'Handles Me.Resize
         'Try
@@ -147,7 +135,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub Form_Resize()")
         'End Try
     End Sub
-
     Public Sub cmdChangeNickName_Click()
         Dim _StatusIndex As Integer
         'Try
@@ -167,29 +154,27 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub cmdChangeNickName_Click()")
         'End Try
     End Sub
-
     Public Sub Form_Load(ByRef _IncomingTextBox As RichTextBox, ByRef _OutgoingTextBox As TextBox, _Form As Form, _FormType As eFormTypes)
         'Try
         lFormType = _FormType
         _Form.Icon = mdiMain.Icon
         _Form.MdiParent = mdiMain
-        Select Case lFormType
+        Select Case _FormType
             Case eFormTypes.fStatus
-                lFormType = eFormTypes.fStatus
-                'txtIncomingColor.BackColor = System.Drawing.Color.FromArgb(RGB(233, 240, 249))
-                'Form_Resize(_IncomingTextBox, _OutgoingTextBox, _Form)
+                Form_Resize(_IncomingTextBox, _OutgoingTextBox, _Form)
             Case eFormTypes.fChannel
-                lFormType = eFormTypes.fChannel
+                lChannels.Window_Resize(lMeIndex)
             Case Else
-                _Form.Width = lIRC.iSettings.sWindowSizes.iNotice.wWidth
-                _Form.Height = lIRC.iSettings.sWindowSizes.iNotice.wHeight
+                '_Form.Width = lIRC.iSettings.sWindowSizes.iNotice.wWidth
+                '_Form.Height = lIRC.iSettings.sWindowSizes.iNotice.wHeight
         End Select
-        Form_Resize(_IncomingTextBox, _OutgoingTextBox, _Form)
+        _Form.Width = Convert.ToInt32((mdiMain.Width / 10) * 8)
+        _Form.Height = Convert.ToInt32(mdiMain.Height / 2)
+        _Form.Focus()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub Form_Load(_FormName As String)")
         'End Try
     End Sub
-
     Public Sub Form_GotFocus(_Form As Form)
         'Try
         Dim _StatusIndex As Integer = ReturnMeStatusIndex()
@@ -204,12 +189,11 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub Form_GotFocus()")
         'End Try
     End Sub
-
     Public Sub Form_FormClosing(Optional ByRef _Form As frmStatus = Nothing, Optional ByRef e As System.Windows.Forms.FormClosingEventArgs = Nothing)
         'Try
         Select Case lFormType
             Case eFormTypes.fStatus
-                lStatus.Form_Closing(_Form, e)
+                lStatus.Form_Closing(_Form, lMeIndex, e)
             Case eFormTypes.fChannel
                 lChannels.Window_Closing(lMeIndex)
         End Select
@@ -217,7 +201,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub Form_FormClosing()")
         'End Try
     End Sub
-
     Public Sub txtIncomingColor_TextChanged(ByRef _RichTextBox As RichTextBox)
         'Try
         _RichTextBox.ScrollToCaret()
@@ -225,7 +208,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub txtIncomingColor_TextChanged()")
         'End Try
     End Sub
-
     Public Sub tmrGetNames_Tick(ByRef _NickList As ListView)
         'Try
         Select Case lFormType
@@ -238,7 +220,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub tmrGetNames_Tick(_NickList As ListView)")
         'End Try
     End Sub
-
     Private Function ReturnMeStatusIndex() As Integer
         'Try
         Dim _StatusIndex As Integer
@@ -254,17 +235,15 @@ Public Class clsMdiChildWindow
         'Return Nothing
         'End Try
     End Function
-
     Public Sub cmdSendNewNotice_Click()
         'Try
         Dim _Form As New frmSendNotice
-        _Form.StatusIndex = ReturnMeStatusIndex()
+        _Form.lSendNoticeUI.StatusIndex = ReturnMeStatusIndex()
         _Form.Visible = True
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub cmdSendNewNotice_Click()")
         'End Try
     End Sub
-
     Public Sub cmdNewPrivateMessage_Click()
         'Try
         Dim _Form As New frmPrivateMessage
@@ -274,16 +253,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub cmdNewPrivateMessage_Click()")
         'End Try
     End Sub
-
-    'Public Sub cmdChangeConnection_Click()
-    ''Try
-    'Dim _Form As New frmChangeConnection
-    '_Form.Show()
-    ''Catch ex As Exception
-    'ProcessError(ex.Message, "Public Sub cmdChangeConnection_Click()")
-    ''End Try
-    'End Sub
-
     Public Sub cmdToggleConnection_Click()
         'Try
         lStatus.ToggleConnection(ReturnMeStatusIndex())
@@ -291,7 +260,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub cmdToggleConnection()")
         'End Try
     End Sub
-
     Public Sub cmdConnect_Click()
         'Try
         lStatus.Connect(ReturnMeStatusIndex())
@@ -299,7 +267,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub cmdConnect_Click()")
         'End Try
     End Sub
-
     Public Sub tmrConnectDelay_Tick()
         'Try
         lStatus.Connect(ReturnMeStatusIndex())
@@ -307,7 +274,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub lAutoConnectDelayTimer_Tick()")
         'End Try
     End Sub
-
     Public Sub cmdChannelFolder_Click()
         'Try
         lChannelFolder.Show(lMeIndex)
@@ -315,7 +281,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub cmdChannelFolder_Click()")
         'End Try
     End Sub
-
     Public Sub cmdDisconnect_Click()
         'Try
         Dim _StatusIndex As Integer = ReturnMeStatusIndex()
@@ -326,7 +291,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub cmdDisconnect_Click()")
         'End Try
     End Sub
-
     Public Sub lvwNickList_DoubleClick()
         'Try
         Select Case lFormType
@@ -337,7 +301,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub lvwNickList_DoubleClick()")
         'End Try
     End Sub
-
     Public Sub cmdListChannels_Click()
         'Try
         ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cLIST)
@@ -345,7 +308,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub cmdListChannels()")
         'End Try
     End Sub
-
     Public Sub cmdUrl_Click()
         'Try
         Select Case lFormType
@@ -356,7 +318,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub cmdUrl_Click()")
         'End Try
     End Sub
-
     Public Sub cmdPart_Click(_Form As Form)
         'Try
         Select Case lFormType
@@ -369,7 +330,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub cmdPart_Click(_Form As Form)")
         'End Try
     End Sub
-
     Public Sub cmdHide_Click()
         'Try
         Select Case lFormType
@@ -382,7 +342,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub cmdHide_Click()")
         'End Try
     End Sub
-
     Public Sub cmdNotice_Click()
         'Try
         Select Case lFormType
@@ -395,7 +354,6 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub cmdNotice_Click()")
         'End Try
     End Sub
-
     Public Sub TextBox_LinkClicked(_Link As String)
         'Try
         mdiMain.BrowseURL(_Link, False)

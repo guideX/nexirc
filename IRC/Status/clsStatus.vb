@@ -250,6 +250,7 @@ Namespace IRC.Status
         Public Function Create(ByVal lIRCSettings As gIRC, ByVal lServerSettings As gServers) As Integer
             'Try
             Dim msg As String, i As Integer
+            clsLockWindowUpdate.LockWindowUpdate(mdiMain.Handle)
             lStatusObjects.sCount = lStatusObjects.sCount + 1
             lStatusObjects.sIndex = lStatusObjects.sCount
             i = lStatusObjects.sIndex
@@ -292,6 +293,7 @@ Namespace IRC.Status
                 .sTreeNode.Expand()
             End With
             ActiveIndex = i
+            clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
             Return lStatusObjects.sCount
             'Catch ex As Exception
             'RaiseEvent ProcessError(ex.Message, "Public Function NewStatusWindow(ByVal lIRCSettings As gIRC, ByVal lServerSettings As gServers) As Integer")
@@ -965,11 +967,11 @@ Namespace IRC.Status
                                 .sServerLinks.sVisible = True
                                 .sServerLinks.sWindow = New frmServerLinks
                                 .sServerLinks.sWindow.Show()
-                                .sServerLinks.sWindow.SetStatusIndex(n)
-                                .sServerLinks.sWindow.SetNetworkIndex(t)
+                                .sServerLinks.sWindow.lServerLinksUI.SetStatusIndex(n)
+                                .sServerLinks.sWindow.lServerLinksUI.SetNetworkIndex(t, .sServerLinks.sWindow.cboNetworks)
                                 .sServerLinks.sWindow.cboNetworks.Text = lNetworks.nNetwork(t).nDescription
                                 For i = 1 To .sServerLinks.sLinkCount
-                                    .sServerLinks.sWindow.AddToLinks(.sServerLinks.sLink(i).lServerIP, .sServerLinks.sLink(i).lPort)
+                                    .sServerLinks.sWindow.lServerLinksUI.AddToLinks(.sServerLinks.sLink(i).lServerIP, .sServerLinks.sLink(i).lPort, .sServerLinks.sWindow.lvwLinks)
                                 Next i
                             Else
                                 mdiMain.SetWindowFocus(.sServerLinks.sWindow)
@@ -1142,7 +1144,7 @@ Namespace IRC.Status
                             mdiMain.SetWindowFocus(lChannels.Window(e))
                         Else
                             mdiMain.SetWindowFocus(lChannels.Window(e))
-                            lChannels.CreateWindow(e)
+                            lChannels.Form_Load(e)
                             If lTreeNode.ImageIndex <> 1 Then lTreeNode.ImageIndex = 1
                             If lTreeNode.SelectedImageIndex <> 1 Then lTreeNode.SelectedImageIndex = 1
                         End If
@@ -1920,9 +1922,10 @@ Namespace IRC.Status
             'RaiseEvent ProcessError(ex.Message, "Public Sub AddToNotices(ByVal lIndex As Integer, ByVal lData As String)")
             'End Try
         End Sub
-        Public Sub Form_Closing(Optional ByRef _Form As frmStatus = Nothing, Optional ByRef e As System.Windows.Forms.FormClosingEventArgs = Nothing)
+        Public Sub Form_Closing(Optional ByRef _Form As frmStatus = Nothing, Optional ByRef _MeIndex As Integer = 0, Optional ByRef e As System.Windows.Forms.FormClosingEventArgs = Nothing)
             'Try
             Dim mBox As MsgBoxResult, b As Boolean
+            clsLockWindowUpdate.LockWindowUpdate(mdiMain.Handle)
             lIRC.iSettings.sWindowSizes.lStatus.wWidth = _Form.Width
             lIRC.iSettings.sWindowSizes.lStatus.wHeight = _Form.Height
             If _Form.WindowState = FormWindowState.Minimized Then _Form.WindowState = FormWindowState.Normal
@@ -1936,6 +1939,7 @@ Namespace IRC.Status
             If b = False Then Exit Sub
             If lIRC.iSettings.sHideStatusOnClose = True Then
                 _Form.WindowState = FormWindowState.Minimized
+                clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
                 e.Cancel = True
                 Exit Sub
             End If
@@ -1957,7 +1961,9 @@ Namespace IRC.Status
                 mBox = MsgBoxResult.Yes
             End If
             If mBox = MsgBoxResult.Yes Then
-                lStatus.CloseSocket(_Form.lMdiChildWindow.MeIndex)
+                If lStatus.Connected(_MeIndex) Then
+                    lStatus.CloseSocket(_Form.lMdiChildWindow.MeIndex)
+                End If
                 lStatus.ActiveIndex = 0
                 lStatus.RemoveTreeView(_Form.lMdiChildWindow.MeIndex)
                 lStatus.Clear(_Form.lMdiChildWindow.MeIndex)
@@ -1967,6 +1973,7 @@ Namespace IRC.Status
                 e.Cancel = True
                 Beep()
             End If
+            clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
             'Catch ex As Exception
             'RaiseEvent ProcessError(ex.Message, "Public Sub Form_Closing(_Form As Form)")
             'End Try
@@ -2106,8 +2113,8 @@ Namespace IRC.Status
                             .sServerLinks.sWindow = New frmServerLinks
                             'clsAnimate.Animate(.sServerLinks.sWindow, clsAnimate.Effect.Center, 200, 1)
                             .sServerLinks.sWindow.Show()
-                            .sServerLinks.sWindow.SetStatusIndex(lIndex)
-                            .sServerLinks.sWindow.SetNetworkIndex(i)
+                            .sServerLinks.sWindow.lServerLinksUI.SetStatusIndex(lIndex)
+                            .sServerLinks.sWindow.lServerLinksUI.SetNetworkIndex(i, .sServerLinks.sWindow.cboNetworks)
                             .sServerLinks.sWindow.Text = "nexIRC " & StatusServerName(.sWindow.lMdiChildWindow.MeIndex) & " - Links"
                         Else
                             If .sServerLinks.sTreeNode.ImageIndex <> 6 Then .sServerLinks.sTreeNode.ImageIndex = 6
@@ -2117,7 +2124,7 @@ Namespace IRC.Status
                             .sServerLinks.sLink(.sServerLinks.sLinkCount).lPort = lServerPort
                         End If
                     End If
-                    .sServerLinks.sWindow.AddToLinks(lServerIP, lServerPort)
+                    .sServerLinks.sWindow.lServerLinksUI.AddToLinks(lServerIP, lServerPort, .sServerLinks.sWindow.lvwLinks)
                 End With
             End If
             'If Err.Number <> 0 Then 'RaiseEvent ProcessError(ex.Message, "Public Sub AddToServerLinks(ByVal lServerIP As String, ByVal lServerPort As String)")
@@ -2278,7 +2285,7 @@ Namespace IRC.Status
                     End If
                     If lSettings_Services.lX.xShowOnConnect = True Then
                         f = New frmXLogin
-                        f.SetStatusIndex(lStatusIndex)
+                        f.lXLogin.SetStatusIndex(lStatusIndex)
                         clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
                     End If
                 End If
@@ -2322,7 +2329,7 @@ Namespace IRC.Status
                 If DoLeft(LCase(_Data), 6) = "xlogin" Then
                     Dim f As frmXLogin
                     f = New frmXLogin
-                    f.SetStatusIndex(ActiveIndex)
+                    f.lXLogin.SetStatusIndex(ActiveIndex)
                     clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
                     Exit Sub
                 End If

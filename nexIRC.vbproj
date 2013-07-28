@@ -203,12 +203,7 @@
     <Compile Include="Forms\frmCustomize.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmStatus2.Designer.vb">
-      <DependentUpon>frmStatus2.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmStatus2.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="IRC\Browser\clsBrowserUI.vb" />
     <Compile Include="IRC\Channels\clsChannelFolder.vb" />
     <Compile Include="IRC\Customize\clsCustomize.vb" />
     <Compile Include="IRC\DCC\clsDccChat.vb" />
@@ -217,6 +212,9 @@
     <Compile Include="IRC\Numerics\clsIrcNumericHelper.vb" />
     <Compile Include="IRC\Numerics\clsIrcNumerics.vb" />
     <Compile Include="IRC\Numerics\clsProcessNumeric.vb" />
+    <Compile Include="IRC\SendNotice\clsSendNotice.vb" />
+    <Compile Include="IRC\ServerLinks\clsServerLinks.vb" />
+    <Compile Include="IRC\Services\clsXLogin.vb" />
     <Compile Include="IRC\Settings\clsDCC.vb" />
     <Compile Include="IRC\Settings\clsServices.vb" />
     <Compile Include="IRC\Status\clsStatus.vb" />
@@ -241,6 +239,7 @@
     <Compile Include="IRC\UtilityWindows\clsChangeNickName.vb" />
     <Compile Include="IRC\UtilityWindows\clsChooseNetwork.vb" />
     <Compile Include="IRC\UtilityWindows\clsCompatibility.vb" />
+    <Compile Include="IRC\UtilityWindows\clsSharedAdd.vb" />
     <Compile Include="Modules\mdlObjects.vb" />
     <Compile Include="User Controls\clsVideo.vb">
       <SubType>Component</SubType>
@@ -441,9 +440,6 @@
     <EmbeddedResource Include="Forms\frmSendNotice.resx">
       <DependentUpon>frmSendNotice.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmStatus2.resx">
-      <DependentUpon>frmStatus2.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmVideoPlayer.resx">
       <DependentUpon>frmVideoPlayer.vb</DependentUpon>
     </EmbeddedResource>
@@ -628,12 +624,12 @@
     <Content Include="bin\Debug\data\script\nirc.txt" />
     <Content Include="bin\Debug\data\script\status.txt" />
     <Content Include="bin\Debug\Resources\status.ico" />
-    <Content Include="bugs.txt" />
+    <Content Include="Documents\bugs.txt" />
     <Content Include="nexgen.ico" />
     <None Include="Resources\connect.png" />
     <None Include="Resources\chat.png" />
     <None Include="Resources\abstract11.gif" />
-    <Content Include="TextFile1.txt" />
+    <Content Include="Documents\TextFile1.txt" />
     <None Include="Resources\Software.ico" />
     <None Include="Resources\documents_white.ico" />
     <None Include="Resources\Image1.gif" />

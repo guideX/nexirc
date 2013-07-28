@@ -116,8 +116,4 @@ Public Class frmChannelFolder
         'ProcessError(ex.Message, "Private Sub txtChannel_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtChannel.MouseUp")
         'End Try
     End Sub
-
-    Private Sub lstChannels_SelectedIndexChanged(sender As System.Object, e As Telerik.WinControls.UI.Data.PositionChangedEventArgs) Handles lstChannels.SelectedIndexChanged
-
-    End Sub
 End Class

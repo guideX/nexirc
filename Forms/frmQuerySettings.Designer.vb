@@ -22,48 +22,48 @@ Partial Class frmQuerySettings
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.TabControl1 = New System.Windows.Forms.TabControl
-        Me.TabPage1 = New System.Windows.Forms.TabPage
-        Me.chkAutoShowWindow = New System.Windows.Forms.CheckBox
-        Me.chkPromptUser = New System.Windows.Forms.CheckBox
-        Me.chkSpamFilter = New System.Windows.Forms.CheckBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.txtDeclineMessage = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.txtStandbyMessage = New System.Windows.Forms.TextBox
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.optAutoDeny3 = New System.Windows.Forms.RadioButton
-        Me.optAutoDeny2 = New System.Windows.Forms.RadioButton
-        Me.optAutoDeny1 = New System.Windows.Forms.RadioButton
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.optAutoAllow3 = New System.Windows.Forms.RadioButton
-        Me.optAutoAllow2 = New System.Windows.Forms.RadioButton
-        Me.optAutoAllow1 = New System.Windows.Forms.RadioButton
-        Me.TabPage2 = New System.Windows.Forms.TabPage
-        Me.lstAutoAllowList = New System.Windows.Forms.ListBox
-        Me.cmdAddToAutoAllowList = New System.Windows.Forms.Button
-        Me.cmdRemoveFromAutoAllowList = New System.Windows.Forms.Button
-        Me.TabPage3 = New System.Windows.Forms.TabPage
-        Me.lstAutoDenyList = New System.Windows.Forms.ListBox
-        Me.cmdAddToAutoDenyList = New System.Windows.Forms.Button
-        Me.cmdRemoveFromAutoDenyList = New System.Windows.Forms.Button
-        Me.TabPage4 = New System.Windows.Forms.TabPage
-        Me.txtQueryLog = New System.Windows.Forms.RichTextBox
-        Me.lstConnections = New System.Windows.Forms.ListBox
-        Me.cmdClearLog = New System.Windows.Forms.Button
-        Me.lstQueryLog = New System.Windows.Forms.ListBox
-        Me.picLog = New System.Windows.Forms.PictureBox
-        Me.TabPage5 = New System.Windows.Forms.TabPage
-        Me.cmdAddToSpamPhrases = New System.Windows.Forms.Button
-        Me.cmdRemoveFromSpamPhrases = New System.Windows.Forms.Button
-        Me.lstSpamPhrases = New System.Windows.Forms.ListBox
-        Me.cmdCancel = New System.Windows.Forms.Button
-        Me.cmdOK = New System.Windows.Forms.Button
-        Me.mnuFile = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HowToUseThisWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.chkAutoShowWindow = New System.Windows.Forms.CheckBox()
+        Me.chkPromptUser = New System.Windows.Forms.CheckBox()
+        Me.chkSpamFilter = New System.Windows.Forms.CheckBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtDeclineMessage = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtStandbyMessage = New System.Windows.Forms.TextBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.optAutoDeny3 = New System.Windows.Forms.RadioButton()
+        Me.optAutoDeny2 = New System.Windows.Forms.RadioButton()
+        Me.optAutoDeny1 = New System.Windows.Forms.RadioButton()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.optAutoAllow3 = New System.Windows.Forms.RadioButton()
+        Me.optAutoAllow2 = New System.Windows.Forms.RadioButton()
+        Me.optAutoAllow1 = New System.Windows.Forms.RadioButton()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.lstAutoAllowList = New System.Windows.Forms.ListBox()
+        Me.cmdAddToAutoAllowList = New System.Windows.Forms.Button()
+        Me.cmdRemoveFromAutoAllowList = New System.Windows.Forms.Button()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.lstAutoDenyList = New System.Windows.Forms.ListBox()
+        Me.cmdAddToAutoDenyList = New System.Windows.Forms.Button()
+        Me.cmdRemoveFromAutoDenyList = New System.Windows.Forms.Button()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.txtQueryLog = New System.Windows.Forms.RichTextBox()
+        Me.lstConnections = New System.Windows.Forms.ListBox()
+        Me.cmdClearLog = New System.Windows.Forms.Button()
+        Me.lstQueryLog = New System.Windows.Forms.ListBox()
+        Me.picLog = New System.Windows.Forms.PictureBox()
+        Me.TabPage5 = New System.Windows.Forms.TabPage()
+        Me.cmdAddToSpamPhrases = New System.Windows.Forms.Button()
+        Me.cmdRemoveFromSpamPhrases = New System.Windows.Forms.Button()
+        Me.lstSpamPhrases = New System.Windows.Forms.ListBox()
+        Me.cmdCancel = New System.Windows.Forms.Button()
+        Me.cmdOK = New System.Windows.Forms.Button()
+        Me.mnuFile = New System.Windows.Forms.MenuStrip()
+        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HowToUseThisWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -486,7 +486,7 @@ Partial Class frmQuerySettings
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(92, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'HelpToolStripMenuItem

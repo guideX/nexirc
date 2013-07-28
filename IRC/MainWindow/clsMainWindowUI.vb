@@ -100,7 +100,7 @@ Namespace nexIRC.MainWindow
         End Sub
         Public Sub TriggerBrowserResize()
             'Try
-            lBrowser.bWindow.TriggerResize()
+            lBrowser.bWindow.lBrowserUI.TriggerResize(lBrowser.bWindow)
             'Catch ex As Exception
             'ProcessError(ex.Message, "Public Sub TriggerBrowserResize()")
             'End Try
@@ -218,6 +218,7 @@ Namespace nexIRC.MainWindow
         End Function
         Public Sub Form_Load(_Form As Form, _NotifyIcon As NotifyIcon, _TimerStartupSettings As Timer, _LeftBarButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
             'Try
+            _WindowsToolStrip.ForeColor = Color.White
             _NotifyIcon.Visible = True
             _NotifyIcon.Icon = _Form.Icon
             lLoadingForm = New frmLoading
@@ -247,7 +248,6 @@ Namespace nexIRC.MainWindow
             _TimerStartupSettings.Interval = 500
             _TimerStartupSettings.Enabled = True
             _Form.Text = "nexIRC v" & Application.ProductVersion
-            _Form.LayoutMdi(MdiLayout.Cascade)
             _LeftBarButton.Left = 0
             _LeftNav.Visible = False
             Form_Resize(_Form, _LeftBarButton, _LeftNav, _ToolStrip, _WindowsToolStrip)
@@ -373,9 +373,9 @@ Namespace nexIRC.MainWindow
                         _ChannelIndex = lChannels.Find(_MeIndex, e.ClickedItem.Text)
                         lChannels.ToggleChannelWindowState(_ChannelIndex, lChannels.Window(_ChannelIndex).lMdiChildWindow.lForeMost)
                     Else
-                        lChannels.CreateWindow(lChannels.Find(_MeIndex, e.ClickedItem.Tag.ToString))
+                        lChannels.Form_Load(lChannels.Find(_MeIndex, e.ClickedItem.Tag.ToString))
                         mdiMain.SetWindowFocus(lChannels.Window(lChannels.Find(_MeIndex, e.ClickedItem.Tag.ToString)))
-                        lChannels.CreateWindow(lChannels.Find(_MeIndex, e.ClickedItem.Tag.ToString))
+                        lChannels.Form_Load(lChannels.Find(_MeIndex, e.ClickedItem.Tag.ToString))
                     End If
                 ElseIf InStr(e.ClickedItem.Text, "(") <> 0 And InStr(e.ClickedItem.Text, ")") <> 0 Then
                     If (lStatus.Window(_MeIndex) IsNot Nothing) Then

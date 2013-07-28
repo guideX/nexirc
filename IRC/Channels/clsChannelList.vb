@@ -121,12 +121,12 @@ Public Class clsChannelList
         'End Try
     End Function
     Public Function ReturnStatusIndex(_ChannelListIndex As Integer) As Integer
-        'Try
-        Return lChannelLists.cChannelList(_ChannelListIndex).cStatusIndex
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Function ReturnStatusIndex(_ChannelListIndex As Integer) As Integer")
-        'Return Nothing
-        'End Try
+        Try
+            Return lChannelLists.cChannelList(_ChannelListIndex).cStatusIndex
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Function ReturnStatusIndex(_ChannelListIndex As Integer) As Integer")
+            Return Nothing
+        End Try
     End Function
     Public Sub NewChannelList(_StatusIndex As Integer)
         'Try
@@ -169,13 +169,15 @@ Public Class clsChannelList
     End Sub
     Public Sub Unload(_ChannelListIndex As Integer)
         'Try
-        With lChannelLists.cChannelList(_ChannelListIndex)
-            If .cVisible = True Then .cWindow.Close()
-            If .cTreeNodeVisible = True Then .cTreeNode = Nothing
-            .cTreeNodeVisible = False
-            .cVisible = False
-            .cWindow = Nothing
-        End With
+        If lChannelLists.cCount <> 0 Then
+            With lChannelLists.cChannelList(_ChannelListIndex)
+                If .cVisible = True Then .cWindow.Close()
+                If .cTreeNodeVisible = True Then .cTreeNode = Nothing
+                .cTreeNodeVisible = False
+                .cVisible = False
+                .cWindow = Nothing
+            End With
+        End If
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Shared Sub Unload(_ChannelList As gChannelList)")
         'End Try
@@ -220,25 +222,25 @@ Public Class clsChannelList
         'End Try
     End Sub
     Public Sub Close(_ChannelListIndex As Integer)
-        'Try
-        With lChannelLists.cChannelList(_ChannelListIndex)
-            If .cVisible = True Then .cWindow.Close()
-        End With
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub Close()")
-        'End Try
+        Try
+            With lChannelLists.cChannelList(_ChannelListIndex)
+                If .cVisible = True Then .cWindow.Close()
+            End With
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Sub Close()")
+        End Try
     End Sub
     Public Sub HideTreeNode(_ChannelListIndex As Integer)
-        'Try
-        With lChannelLists.cChannelList(_ChannelListIndex)
-            If .cTreeNodeVisible = True Then
-                .cTreeNodeVisible = False
-                .cTreeNode.Remove()
-            End If
-        End With
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub HideTreeNode(_ChannelListIndex As Integer)")
-        'End Try
+        Try
+            With lChannelLists.cChannelList(_ChannelListIndex)
+                If .cTreeNodeVisible = True Then
+                    .cTreeNodeVisible = False
+                    .cTreeNode.Remove()
+                End If
+            End With
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Sub HideTreeNode(_ChannelListIndex As Integer)")
+        End Try
     End Sub
     Public Sub DoubleClick(_ChannelListIndex As Integer)
         'Try

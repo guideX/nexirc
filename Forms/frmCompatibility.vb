@@ -1,4 +1,8 @@
-﻿Imports nexIRC.IRC.UtilityWindows
+﻿'nexIRC 3.0.23
+'06-13-2013 - guideX
+Option Explicit On
+Option Strict On
+Imports nexIRC.IRC.UtilityWindows
 Public Class frmCompatibility
     Private WithEvents lCompatibility As New clsCompatibility
     Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click

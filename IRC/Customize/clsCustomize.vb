@@ -4,6 +4,8 @@ Imports Telerik.WinControls.UI
 Imports nexIRC.Classes.IO
 Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
+Imports nexIRC.clsSharedAdd
+
 Namespace IRC.Customize
     Public Class clsCustomize
         Public lBrowserEnabled As Boolean
@@ -176,7 +178,7 @@ Namespace IRC.Customize
         Public Sub lnkNetworkAdd_LinkClicked()
             'Try
             Dim f As New frmSharedAdd
-            f.lSharedAddType = frmSharedAdd.eSharedAddType.sAddNetwork
+            f.lSharedAddUI.lSharedAddType = eSharedAddType.sAddNetwork
             'clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
             'Catch ex As Exception
             'ProcessError(ex.Message, "Private Sub lnkNetworkAdd_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkAdd.LinkClicked")
@@ -450,7 +452,7 @@ Namespace IRC.Customize
             'Try
             Dim lSharedAdd As New frmSharedAdd
             clsAnimate.Animate(lSharedAdd, clsAnimate.Effect.Center, 200, 1)
-            lSharedAdd.lSharedAddType = frmSharedAdd.eSharedAddType.sAddNetwork
+            lSharedAdd.lSharedAddUI.lSharedAddType = eSharedAddType.sAddNetwork
             'Catch ex As Exception
             'ProcessError(ex.Message, "Private Sub lnkNetworkAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddNetwork.Click")
             'End Try
@@ -558,6 +560,16 @@ Namespace IRC.Customize
             'ProcessError(ex.Message, "Public Sub txtNotifyMessage_TextChanged(_NotifyMessage As String, _NotifyListView As RadListView)")
             'End Try
         End Sub
+        Public Sub Apply_Servers(_ServersListView As RadListView, _SelectedNetwork As String)
+            'Try
+            If _ServersListView.SelectedItem.Item(1).ToString() <> Nothing Then lServers.sIndex = FindServerIndexByIp(_ServersListView.SelectedItem.Item(1).ToString)
+            If _SelectedNetwork <> Nothing Then lNetworks.nIndex = FindNetworkIndex(_SelectedNetwork)
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Public Sub Apply_Servers(_ServersListView As RadListView, _NetworksDropDown As RadDropDownList)")
+            'End Try
+        End Sub
+
+        'Public Sub Apply_()
         Public Sub txtNotifyNickname_TextChanged(_NotifyNickName As String, _NotifyListView As RadListView)
             'Try
             If (_NotifyListView.SelectedItem IsNot Nothing) Then

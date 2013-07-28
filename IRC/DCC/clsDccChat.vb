@@ -174,18 +174,22 @@ Public Class clsDccChat
     End Sub
     Public Sub frmDCCChat_Resize()
         'Try
-        lIncomingTextBox.Width = lInvokeForm.ClientSize.Width
-        lOutgoingTextBox.Width = lIncomingTextBox.Width
-        lOutgoingTextBox.Top = lOutgoingTextBox.Height + lToolStrip.Height
+        'lIncomingTextBox.Width = lInvokeForm.ClientSize.Width
+        'lOutgoingTextBox.Width = lIncomingTextBox.Width
+        'lOutgoingTextBox.Top = lOutgoingTextBox.Height + lToolStrip.Height
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub frmDCCChat_Resize()")
         'End Try
     End Sub
     Public Sub cmdDisconnect_Click()
+        'Try
         lSocket.Close()
         AddText("Disconnected")
         lDisconnectButton.Enabled = False
         lConnectButton.Enabled = False
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub cmdDisconnect_Click()")
+        'End Try
     End Sub
     Public Sub txtIncoming_MouseDown()
         lInvokeForm.Focus()

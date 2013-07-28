@@ -120,22 +120,40 @@ Namespace IRC.Channels
             'RaiseEvent ProcessError(ex.Message, "Public Sub Window_Closing(_ChannelIndex As Integer)")
             'End Try
         End Sub
-        Public Sub Window_Load(_ChannelIndex As Integer)
+        Public Sub Form_Load(_ChannelIndex As Integer)
             'Try
-            With lChannels.cChannel(_ChannelIndex).cWindow
-                .Icon = mdiMain.Icon
-                .MdiParent = mdiMain
-                .tmrGetNames.Enabled = True
-                .lvwNicklist.Columns.Add("Nickname", 80)
-                .Width = lIRC.iSettings.sWindowSizes.iChannel.wWidth
-                .Height = lIRC.iSettings.sWindowSizes.iChannel.wHeight
+            With lChannels.cChannel(_ChannelIndex)
+                clsLockWindowUpdate.LockWindowUpdate(mdiMain.Handle)
+                .cWindow = New frmChannel
+                .cWindow.Show()
+                .cWindow.lMdiChildWindow.SetFormType(clsMdiChildWindow.eFormTypes.fChannel)
+                .cWindow.lMdiChildWindow.MeIndex = _ChannelIndex
+                .cWindow.lMdiChildWindow.Form_Load(.cWindow.txtIncomingColor, .cWindow.txtOutgoing, .cWindow, clsMdiChildWindow.eFormTypes.fChannel)
+                DoColor(.cIncomingText, .cWindow.txtIncomingColor, True)
+                .cWindow.Text = .cName
+                .cWindow.Icon = mdiMain.Icon
+                .cWindow.MdiParent = mdiMain
+                .cWindow.tmrGetNames.Enabled = True
+                .cWindow.lvwNicklist.Columns.Add("Nickname", 80)
+                clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
             End With
             'Catch ex As Exception
-            'RaiseEvent ProcessError(ex.Message, "Public Sub Window_Load(_ChannelIndex As Integer)")
+            'RaiseEvent ProcessError(ex.Message, "Public Sub NewChannelWindow(_Channel As gChannel)")
             'End Try
         End Sub
+        'Public Sub Window_Load(_ChannelIndex As Integer)
+        'Try
+        'With lChannels.cChannel(_ChannelIndex).cWindow
+        '.Width = lIRC.iSettings.sWindowSizes.iChannel.wWidth
+        '.Height = lIRC.iSettings.sWindowSizes.iChannel.wHeight
+        'End With
+        'Catch ex As Exception
+        'RaiseEvent ProcessError(ex.Message, "Public Sub Window_Load(_ChannelIndex As Integer)")
+        'End Try
+        'End Sub
         Public Sub Window_Resize(_ChannelIndex As Integer)
             'Try
+
             With lChannels.cChannel(_ChannelIndex).cWindow
                 .txtIncomingColor.Width = .ClientSize.Width - .lvwNicklist.Width
                 .txtIncomingColor.Height = .ClientSize.Height - (.txtOutgoing.Height + .tspChannel.ClientSize.Height)
@@ -163,19 +181,21 @@ Namespace IRC.Channels
         Public Sub Outgoing_KeyDown(_ChannelIndex As Integer, _KeyCode As Integer)
             'Try
             Dim msg As String, msg2 As String
-            With lChannels.cChannel(_ChannelIndex)
-                If _KeyCode = 13 Then
-                    msg = .cWindow.txtOutgoing.Text
-                    .cWindow.txtOutgoing.Text = ""
-                    If LeftRight(msg, 0, 1) = "/" Then
-                        lStatus.ProcessUserInput(lChannels.cChannel(_ChannelIndex).cStatusIndex, msg)
-                    Else
-                        lStatus.DoStatusSocket(lChannels.cChannel(_ChannelIndex).cStatusIndex, "PRIVMSG " & lChannels.cChannel(_ChannelIndex).cName & " :" & msg)
-                        msg2 = ReturnReplacedString(eStringTypes.sPRIVMSG, lStatus.NickName(lChannels.cChannel(_ChannelIndex).cStatusIndex), msg)
-                        DoChannelColor(_ChannelIndex, msg2)
+            If (_ChannelIndex <> 0) Then
+                With lChannels.cChannel(_ChannelIndex)
+                    If _KeyCode = 13 Then
+                        msg = .cWindow.txtOutgoing.Text
+                        .cWindow.txtOutgoing.Text = ""
+                        If LeftRight(msg, 0, 1) = "/" Then
+                            lStatus.ProcessUserInput(lChannels.cChannel(_ChannelIndex).cStatusIndex, msg)
+                        Else
+                            lStatus.DoStatusSocket(lChannels.cChannel(_ChannelIndex).cStatusIndex, "PRIVMSG " & lChannels.cChannel(_ChannelIndex).cName & " :" & msg)
+                            msg2 = ReturnReplacedString(eStringTypes.sPRIVMSG, lStatus.NickName(lChannels.cChannel(_ChannelIndex).cStatusIndex), msg)
+                            DoChannelColor(_ChannelIndex, msg2)
+                        End If
                     End If
-                End If
-            End With
+                End With
+            End If
             'Catch ex As Exception
             'RaiseEvent ProcessError(ex.Message, "Public Sub Outgoing_KeyDown(_ChannelIndex As Integer, _TextBox As TextBox, _KeyCode As Integer)")
             'End Try
@@ -219,23 +239,6 @@ Namespace IRC.Channels
             End With
             'Catch ex As Exception
             'RaiseEvent ProcessError(ex.Message, "Public Sub Users_DoubleClick(_ChannelIndex As Integer)")
-            'End Try
-        End Sub
-        Public Sub CreateWindow(_ChannelIndex As Integer)
-            'Try
-            With lChannels.cChannel(_ChannelIndex)
-                .cWindow = New frmChannel
-                .cWindow.Show()
-                clsLockWindowUpdate.LockWindowUpdate(.cWindow.Handle)
-                .cWindow.lMdiChildWindow.Form_Load(.cWindow.txtIncomingColor, .cWindow.txtOutgoing, .cWindow, clsMdiChildWindow.eFormTypes.fChannel)
-                .cWindow.lMdiChildWindow.SetFormType(clsMdiChildWindow.eFormTypes.fChannel)
-                .cWindow.lMdiChildWindow.MeIndex = _ChannelIndex
-                DoColor(.cIncomingText, .cWindow.txtIncomingColor, True)
-                .cWindow.Text = .cName
-                clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
-            End With
-            'Catch ex As Exception
-            'RaiseEvent ProcessError(ex.Message, "Public Sub NewChannelWindow(_Channel As gChannel)")
             'End Try
         End Sub
         Public Sub ResetForeMostWindows()
@@ -378,7 +381,7 @@ Namespace IRC.Channels
             End If
             If LCase(Trim(_NickName)) = LCase(Trim(lStatus.NickName(_StatusIndex))) Then
                 _ChannelIndex = Add(_Channel, _StatusIndex)
-                CreateWindow(_ChannelIndex)
+                Form_Load(_ChannelIndex)
                 DoChannelColor(_ChannelIndex, ReturnReplacedString(eStringTypes.sYOUJOIN, _Channel))
                 AddToChannelFolders(_Channel, lStatus.NetworkIndex(_StatusIndex))
                 lChannelFolder.RefreshChannelFolderChannelList()

@@ -22,6 +22,7 @@ Partial Class frmChannelFolder
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmChannelFolder))
         Me.txtChannel = New Telerik.WinControls.UI.RadTextBox()
         Me.RadLabel1 = New Telerik.WinControls.UI.RadLabel()
         Me.cmdJoin = New Telerik.WinControls.UI.RadButton()
@@ -121,7 +122,7 @@ Partial Class frmChannelFolder
         Me.lstChannels.Name = "lstChannels"
         Me.lstChannels.Size = New System.Drawing.Size(197, 137)
         Me.lstChannels.TabIndex = 3
-        Me.lstChannels.Text = "RadListControl1"
+        Me.lstChannels.Text = "Channel Folder"
         '
         'lnkJumpToChannelList
         '
@@ -166,7 +167,8 @@ Partial Class frmChannelFolder
         Me.Controls.Add(Me.cmdClose)
         Me.Controls.Add(Me.RadLabel1)
         Me.Controls.Add(Me.txtChannel)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmChannelFolder"
         '
         '

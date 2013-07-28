@@ -200,4 +200,8 @@ Public Class frmQuerySettings
         'ProcessError(ex.Message, "Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click")
         'End Try
     End Sub
+
+    Private Sub mnuFile_ItemClicked(sender As System.Object, e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles mnuFile.ItemClicked
+
+    End Sub
 End Class

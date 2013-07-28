@@ -699,19 +699,21 @@ Module mdlStrings
         Try
             _Black = True
             Dim i As Integer, msg As String, lBackColor As Integer = 16, lForeColor As Integer, _ScrollToBottom As New clsScrollToBottom
-            clsLockWindowUpdate.LockWindowUpdate(lTextBox.Handle)
             If Len(lData.Trim) = 0 Then Exit Sub
             If lQuerySettings.qEnableSpamFilter = True Then
                 For i = 1 To lQuerySettings.qSpamPhraseCount
                     If InStr(LCase(lData), LCase(lQuerySettings.qSpamPhrases(i).ToString)) <> 0 Then Exit Sub
                 Next i
             End If
+            clsLockWindowUpdate.LockWindowUpdate(lTextBox.Handle)
             lTextBox.SelectionStart = Len(lTextBox.Text)
             lTextBox.SelectionLength = Len(lTextBox.Text)
             lTextBox.SelectedText = vbCrLf
+            clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
             If InStr(lData, "") <> 0 Then
                 For i = 0 To Len(lData)
                     If Len(lData) = 0 Then
+                        clsLockWindowUpdate.LockWindowUpdate(lTextBox.Handle)
                         'lTextBox.SelectionStart = lTextBox.Text.Length
                         'lTextBox.SelectionLength = lTextBox.Text.Length
                         'lTextBox.ScrollToCaret()
@@ -751,7 +753,9 @@ Module mdlStrings
                         lTextBox.SelectionColor = ConvertIntToSystemColor(lForeColor, _Black)
                         lTextBox.SelectionBackColor = ConvertIntToSystemColor(lBackColor, _Black)
                         If msg <> "" Then
+                            clsLockWindowUpdate.LockWindowUpdate(lTextBox.Handle)
                             lTextBox.SelectedText = msg
+                            clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
                         End If
                     End If
                 Next i
@@ -763,6 +767,7 @@ Module mdlStrings
             'lTextBox.SelectionStart = lTextBox.Text.Length
             'lTextBox.SelectionLength = lTextBox.TextLength
             'lTextBox.ScrollToCaret()
+            clsLockWindowUpdate.LockWindowUpdate(lTextBox.Handle)
             _ScrollToBottom.ScrollToBottom(lTextBox)
             clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
         Catch ex As Exception

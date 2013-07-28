@@ -10,8 +10,15 @@ Imports nexIRC.Modules
 Imports nexIRC.nexIRC.IRC.Settings.clsDCC
 Public Class frmCustomize
     Public WithEvents lCustomize As New clsCustomize
-    
     Public Sub EventApply()
+        'Try
+        Dim _SelectedIndex As Integer = cboNetworks.SelectedIndex
+        lCustomize.Apply_Servers(lvwServers, cboNetworks.Items(_SelectedIndex).Text)
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub EventApply()")
+        'End Try
+    End Sub
+    Public Sub EventApply1()
         'Try
         'NETWORKS/SERVERS
         Dim i As Integer
@@ -85,7 +92,7 @@ Public Class frmCustomize
         'lIRC.iNicks.nIndex = ReturnNickIndex(cboMyNickNames.Text)
         'lNetworks.nSelected = cboNetworks.SelectedItem
         'lNetworks.nIndex = FindNetworkIndex(cboNetworks.Text)
-        lServers.sIndex = FindServerIndexByIp(lvwServers.SelectedItem.Item(1).ToString)
+        'If lvwServers.SelectedItem.Item(1) <> Nothing then lServers.sIndex = FindServerIndexByIp(lvwServers.SelectedItem.Item(1).ToString)
         With lIRC.iSettings
             .sAutoCloseSupportingWindows = chkAutoCloseSupportingWindows.Checked
             .sChannelFolderCloseOnJoin = chkCloseChannelFolder.Checked

@@ -518,4 +518,8 @@ Public Class frmVideoPlayer
     Private Sub cmdRepeat_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRepeat.Click
         lVideo.Repeat = cmdRepeat.Checked
     End Sub
+
+    Private Sub PnlVideo_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles PnlVideo.Paint
+
+    End Sub
 End Class

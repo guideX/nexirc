@@ -1,4 +1,6 @@
-﻿Option Explicit On
+﻿'nexIRC 3.0.23
+'06-13-2013 - guideX
+Option Explicit On
 Option Strict On
 Imports nexIRC.IRC.UtilityWindows
 Public Class frmChooseNetwork

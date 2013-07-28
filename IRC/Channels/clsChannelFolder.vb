@@ -6,6 +6,7 @@ Imports Telerik.WinControls.UI
 Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
+Imports System.Linq
 Public Class clsChannelFolderUI
     Private lStatusIndex As Integer
     Private lLastFocused As Control = Nothing
@@ -39,6 +40,7 @@ Public Class clsChannelFolderUI
         'End Try
     End Sub
     Public Sub Init(_NetworksComboBox As RadDropDownList, _PopupOnConnectCheckBox As RadCheckBox, _AutoCloseCheckBox As RadCheckBox)
+        'Try
         Dim i As Integer, msg As String
         _NetworksComboBox.Items.Clear()
         For i = 1 To lNetworks.nCount
@@ -53,13 +55,15 @@ Public Class clsChannelFolderUI
                 Exit For
             End If
         Next i
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub Init(_NetworksComboBox As RadDropDownList, _PopupOnConnectCheckBox As RadCheckBox, _AutoCloseCheckBox As RadCheckBox)")
+        'End Try
     End Sub
     Public Sub Form_Load(_Form As Form, _NetworksComboBox As RadDropDownList, _PopupOnConnectCheckBox As RadCheckBox, _AutoCloseCheckBox As RadCheckBox)
         'Try
         Init(_NetworksComboBox, _PopupOnConnectCheckBox, _AutoCloseCheckBox)
         _PopupOnConnectCheckBox.Checked = lIRC.iSettings.sPopupChannelFolders
         _AutoCloseCheckBox.Checked = lIRC.iSettings.sChannelFolderCloseOnJoin
-        _Form.Icon = mdiMain.Icon
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmChannelFolder_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
         'End Try
@@ -85,17 +89,30 @@ Public Class clsChannelFolderUI
         'ProcessError(ex.Message, "Private Sub cmdRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemove.Click")
         'End Try
     End Sub
-    Public Sub cboNetwork_SelectedIndexChanged(_ChannelsListBox As RadListControl, _Network As String)
+    Private Function ReturnListOfChannels(network As String) As List(Of String)
         'Try
-        Dim i As Integer
-        _ChannelsListBox.Items.Clear()
+        Dim i As Integer, channels As New List(Of String)
         For i = 1 To lChannelFolders.cCount
-            If lNetworks.nNetwork(FindNetworkIndex(lChannelFolders.cChannelFolder(i).cNetwork)).nDescription.Trim().ToLower() = _Network.Trim().ToLower() Then
+            If lNetworks.nNetwork(FindNetworkIndex(lChannelFolders.cChannelFolder(i).cNetwork)).nDescription.Trim().ToLower() = network.Trim().ToLower() Then
                 If (lChannelFolders.cChannelFolder(i).cChannel.Trim().Length() <> 0) Then
-                    _ChannelsListBox.Items.Add(lChannelFolders.cChannelFolder(i).cChannel)
+                    channels.Add(lChannelFolders.cChannelFolder(i).cChannel)
                 End If
             End If
         Next i
+        channels = channels.OrderBy(Function(c) c).ToList()
+        Return channels
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Function ReturnListOfChannels(network As String) As String")
+        'End Try
+    End Function
+    Public Sub cboNetwork_SelectedIndexChanged(_ChannelsListBox As RadListControl, _Network As String)
+        'Try
+        Dim channels As List(Of String)
+        _ChannelsListBox.Items.Clear()
+        channels = ReturnListOfChannels(_Network)
+        For Each channel As String In channels
+            _ChannelsListBox.Items.Add(channel)
+        Next channel
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cboNetwork_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboNetwork.SelectedIndexChanged")
         'End Try

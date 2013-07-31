@@ -215,7 +215,7 @@ Public Module mdlSettings
     Structure gStringSettings
         Public sUnknowns As eUnknownsIn
         Public sUnsupported As eUnsupportedIn
-        Public sServerInNotices As Boolean
+        'Public sServerInNotices As Boolean
     End Structure
 
     Structure gDownload
@@ -246,7 +246,7 @@ Public Module mdlSettings
     End Structure
 
     Structure gSettings
-        Public sAutoCloseSupportingWindows As Boolean
+        'Public sCloseOnDisconnect As Boolean
         Public sAutoAddToChannelFolder As Boolean
         Public sWindowSizes As gInitialWindowSizes
         Public sShowBrowser As Boolean
@@ -265,8 +265,8 @@ Public Module mdlSettings
         Public sShowUserAddresses As Boolean
         Public sShowRawWindow As Boolean
         Public sShowWindowsAutomatically As Boolean
-        Public sTextSpeed As Integer
-        Public sHammerTime As Long
+        'Public sTextSpeed As Integer
+        'Public sHammerTime As Long
         Public sAutoMaximize As Boolean
         Public sQuitMessage As String
         Public sHideStatusOnClose As Boolean
@@ -915,7 +915,7 @@ Public Module mdlSettings
                 Case 3
                     .sUnsupported = eUnsupportedIn.uHide
             End Select
-            .sServerInNotices = CBool(Trim(clsFiles.ReadINI(lINI.iStringSettings, "Settings", "ServerInNotices", "True")))
+            '.sServerInNotices = CBool(Trim(clsFiles.ReadINI(lINI.iStringSettings, "Settings", "ServerInNotices", "True")))
         End With
     End Sub
 
@@ -976,7 +976,7 @@ Public Module mdlSettings
             mdiMain.SetLoadingFormProgress("Loading IRC Settings", 70)
             With lIRC.iSettings
                 .sChannelFolderCloseOnJoin = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ChannelFolderCloseOnJoin", "True"))
-                .sAutoCloseSupportingWindows = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "AutoCloseSupportingWindows", "True"))
+                '.sCloseOnDisconnect = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "AutoCloseSupportingWindows", "True"))
                 .sShowUserAddresses = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowUserAddresses", "True"))
                 .sHideMOTD = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "HideMOTD", "True"))
                 .sPrompts = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "Prompts", "True"))
@@ -992,8 +992,8 @@ Public Module mdlSettings
                 .sNoticesInOwnWindow = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", "False"))
                 .sURL = clsFiles.ReadINI(lINI.iIRC, "Settings", "URL", "http://www.team-nexgen.org")
                 .sShowWindowsAutomatically = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", "False"))
-                .sTextSpeed = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "Settings", "TextSpeed", "300")))
-                .sHammerTime = CLng(clsFiles.ReadINI(lINI.iIRC, "Settings", "HammerTime", "10"))
+                '.sTextSpeed = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "Settings", "TextSpeed", "300")))
+                '                .sHammerTime = CLng(clsFiles.ReadINI(lINI.iIRC, "Settings", "HammerTime", "10"))
                 .sAutoMaximize = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "AutoMaximize", "False"))
                 .sQuitMessage = clsFiles.ReadINI(lINI.iIRC, "Settings", "QuitMessage", "Quit")
                 .sHideStatusOnClose = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "HideStatusOnClose", "False"))
@@ -1140,7 +1140,7 @@ Public Module mdlSettings
         Dim i As Integer
         With lIRC.iNicks
             clsFiles.WriteINI(lINI.iNicks, "Settings", "Count", Trim(.nCount.ToString))
-            clsFiles.WriteINI(lINI.iNicks, "Settings", "Index", Trim(.nIndex.ToString))
+            If (.nIndex <> 0) Then clsFiles.WriteINI(lINI.iNicks, "Settings", "Index", Trim(.nIndex.ToString))
         End With
         For i = 1 To lIRC.iNicks.nCount
             With lIRC.iNicks.nNick(i)
@@ -1166,13 +1166,13 @@ Public Module mdlSettings
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", Trim(.sCustomizeOnStartup.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "NoIRCMessages", Trim(.sNoIRCMessages.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ExtendedMessages", Trim(.sExtendedMessages.ToString))
-            clsFiles.WriteINI(lINI.iIRC, "Settings", "HammerTime", Trim(CStr(.sHammerTime)))
+            'clsFiles.WriteINI(lINI.iIRC, "Settings", "HammerTime", Trim(CStr(.sHammerTime)))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", Trim(.sChangeNickNameWindow.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", Trim(.sNoticesInOwnWindow.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "HideMOTD", Trim(.sHideMOTD.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowRawWindow", Trim(.sShowRawWindow.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", Trim(.sShowWindowsAutomatically.ToString))
-            clsFiles.WriteINI(lINI.iIRC, "Settings", "TextSpeed", Trim(.sTextSpeed.ToString))
+            'clsFiles.WriteINI(lINI.iIRC, "Settings", "TextSpeed", Trim(.sTextSpeed.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "AutoMaximize", Trim(.sAutoMaximize.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "HideStatusOnClose", Trim(.sHideStatusOnClose.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "AutoConnect", Trim(.sAutoConnect.ToString))
@@ -1182,7 +1182,7 @@ Public Module mdlSettings
         With lIRC.iSettings.sStringSettings
             clsFiles.WriteINI(lINI.iStringSettings, "Settings", "Unknowns", Trim(Str(.sUnknowns)))
             clsFiles.WriteINI(lINI.iStringSettings, "Settings", "Unsupported", Trim(Str(.sUnsupported)))
-            clsFiles.WriteINI(lINI.iStringSettings, "Settings", "ServerInNotices", Trim(.sServerInNotices.ToString))
+            'clsFiles.WriteINI(lINI.iStringSettings, "Settings", "ServerInNotices", Trim(.sServerInNotices.ToString))
         End With
         With lIRC.iModes
             clsFiles.WriteINI(lINI.iIRC, "Settings", "Invisible", Trim(.mInvisible.ToString))
@@ -1223,7 +1223,7 @@ Public Module mdlSettings
                 .sPort = lPort
             End With
             SaveServers()
-            If lWinVisible.wCustomize = True Then frmCustomize.lCustomize.RefreshServers(frmCustomize.ServersListView)
+            If lWinVisible.wCustomize = True Then frmCustomize.lCustomize.RefreshServers(frmCustomize.ServersListView, lNetworkIndex)
         End If
         AddServer = lServers.sCount
     End Function

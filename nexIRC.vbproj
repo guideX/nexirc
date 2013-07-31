@@ -143,6 +143,7 @@
     <Compile Include="Classes\UI\clsScrollToBottom.vb" />
     <Compile Include="Classes\clsServerInfo.vb" />
     <Compile Include="Classes\Communications\clsSocket.vb" />
+    <Compile Include="Classes\UI\listViewSorter.vb" />
     <Compile Include="Forms\frmAbout.Designer.vb">
       <DependentUpon>frmAbout.vb</DependentUpon>
     </Compile>

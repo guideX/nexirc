@@ -1094,6 +1094,7 @@ Namespace IRC.Status
                             End If
                             ActiveIndex = .sWindow.lMdiChildWindow.MeIndex
                             mdiMain.SetWindowFocus(.sWindow)
+                            .sWindow.Focus()
                         End With
                     End If
                     Exit Sub

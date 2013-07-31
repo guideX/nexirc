@@ -1140,13 +1140,13 @@ Public Class clsProcessNumeric
                 msg2 = Replace(msg2, "***", "")
                 msg2 = Replace(msg2, ":", "")
                 msg3 = ReturnReplacedString(eStringTypes.sNOTICE, Replace(splt(0), ":", ""), msg2)
-                If lIRC.iSettings.sStringSettings.sServerInNotices = False Then
-                    msg3 = msg3 & "»"
-                    msg3 = ParseData(msg3, ":", "»")
-                    msg3 = Replace(msg3, ":", "")
-                    msg3 = Replace(msg3, "»", "")
-                    msg3 = Trim(msg3)
-                End If
+                'If lIRC.iSettings.sStringSettings.sServerInNotices = False Then
+                'msg3 = msg3 & "»"
+                'msg3 = ParseData(msg3, ":", "»")
+                'msg3 = Replace(msg3, ":", "")
+                'msg3 = Replace(msg3, "»", "")
+                'msg3 = Trim(msg3)
+                'End If
                 If lIRC.iSettings.sNoticesInOwnWindow = True Then
                     lStatus.Notices_Add(lStatusIndex, msg3)
                 Else

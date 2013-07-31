@@ -5,7 +5,6 @@ Imports nexIRC.Classes.IO
 Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
 Imports nexIRC.clsSharedAdd
-
 Namespace IRC.Customize
     Public Class clsCustomize
         Public lBrowserEnabled As Boolean
@@ -328,8 +327,8 @@ Namespace IRC.Customize
             End If
             If lStatus.Connected(lStatus.ActiveIndex) = False Then
                 _Result = True
-                SaveSettings()
-                _Form.Close()
+                'SaveSettings()
+                '_Form.Close()
             Else
                 If lIRC.iSettings.sPrompts = True Then
                     mbox = MsgBox("You are currently connected on this status window, you will not be able to change the server settings if you continue, would you like to continue anyways?", MsgBoxStyle.YesNoCancel Or MsgBoxStyle.Question)
@@ -338,8 +337,8 @@ Namespace IRC.Customize
                 End If
                 If mbox = MsgBoxResult.Yes Then
                     _Result = True
-                    SaveSettings()
-                    _Form.Close()
+                    'SaveSettings()
+                    '_Form.Close()
                 End If
             End If
             Return _Result
@@ -365,8 +364,7 @@ Namespace IRC.Customize
         End Sub
         Public Sub cboNetworks_SelectedIndexChanged(_Network As String, _ServersListView As RadListView)
             'Try
-            lNetworks.nIndex = FindNetworkIndex(_Network)
-            RefreshServers(_ServersListView)
+            RefreshServers(_ServersListView, FindNetworkIndex(_Network))
             'Catch ex As Exception
             'ProcessError(ex.Message, "Public Sub cboNetworks_SelectedIndexChanged()")
             'End Try
@@ -508,15 +506,15 @@ Namespace IRC.Customize
             'ProcessError(ex.Message, "Public Sub RefreshNetworks()")
             'End Try
         End Sub
-        Public Sub RefreshServers(_RadListView As RadListView)
+        Public Sub RefreshServers(_RadListView As RadListView, _NetworkIndex As Integer)
             'Try
             Dim i As Integer, t As Integer = 0, _Ip As String = "", _Port As String = "", n As Integer = -1
             _RadListView.Items.Clear()
-            If lNetworks.nIndex <> 0 Then
+            If _NetworkIndex <> 0 Then
                 For i = 1 To lServers.sCount
                     With lServers.sServer(i)
                         If Len(.sDescription) <> 0 Then
-                            If .sNetworkIndex = lNetworks.nIndex Then
+                            If .sNetworkIndex = _NetworkIndex Then
                                 Dim _Values(2) As String
                                 _Values(0) = .sDescription
                                 _Values(1) = .sIP
@@ -531,6 +529,7 @@ Namespace IRC.Customize
                 For Each _DataItem As ListViewDataItem In _RadListView.Items
                     If _DataItem.Text = lServers.sServer(lServers.sIndex).sDescription Then
                         n = t
+                        Exit For
                     End If
                     t = t + 1
                 Next _DataItem
@@ -562,14 +561,132 @@ Namespace IRC.Customize
         End Sub
         Public Sub Apply_Servers(_ServersListView As RadListView, _SelectedNetwork As String)
             'Try
-            If _ServersListView.SelectedItem.Item(1).ToString() <> Nothing Then lServers.sIndex = FindServerIndexByIp(_ServersListView.SelectedItem.Item(1).ToString)
-            If _SelectedNetwork <> Nothing Then lNetworks.nIndex = FindNetworkIndex(_SelectedNetwork)
+            If _ServersListView.SelectedItem IsNot Nothing Then lServers.sIndex = FindServerIndexByIp(_ServersListView.SelectedItem.Item(1).ToString)
+            lNetworks.nIndex = FindNetworkIndex(_SelectedNetwork)
             'Catch ex As Exception
             'ProcessError(ex.Message, "Public Sub Apply_Servers(_ServersListView As RadListView, _NetworksDropDown As RadDropDownList)")
             'End Try
         End Sub
+        Public Sub Apply_Settings_Startup(
+                                 _AutoConnect As Boolean,
+                                 _ShowCustomize As Boolean,
+                                 _ShowBrowser As Boolean
+                                 )
+            'Try
+            With lIRC.iSettings
+                .sAutoConnect = _AutoConnect
+                .sCustomizeOnStartup = _ShowCustomize
+                .sShowBrowser = _ShowBrowser
+            End With
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Public Sub Apply_Settings_Startup")
+            'End Try
+        End Sub
+        Public Sub Apply_Settings_IRC(
+                                 _NoIrcMessages As Boolean,
+                                 _ExtendedMessages As Boolean,
+                                 _ShowUserAddresses As Boolean,
+                                 _HideMotds As Boolean
+        )
+            'Try
+            With lIRC.iSettings
+                .sNoIRCMessages = _NoIrcMessages
+                .sExtendedMessages = _ExtendedMessages
+                .sShowUserAddresses = _ShowUserAddresses
+                .sHideMOTD = _HideMotds
+            End With
 
-        'Public Sub Apply_()
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Public Sub Apply_Settings_IRC")
+            'End Try
+        End Sub
+        Public Sub Apply_Settings_ServerModes(
+                                 _Invisible As Boolean,
+                                 _Wallops As Boolean,
+                                 _Restricted As Boolean,
+                                 _Operator As Boolean,
+                                 _LocalOp As Boolean,
+                                 _ServerNotices As Boolean
+        )
+            'Try
+            With lIRC.iModes
+                .mInvisible = _Invisible
+                .mLocalOperator = _LocalOp
+                .mOperator = _Operator
+                .mRestricted = _Restricted
+                .mServerNotices = _ServerNotices
+                .mWallops = _Wallops
+            End With
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Public Sub Apply_Settings_ServerModes()")
+            'End Try
+        End Sub
+        Public Sub Apply_Settings_Interface(
+                                 _Prompts As Boolean,
+                                 _AutoShowWindows As Boolean,
+                                 _HideStatusOnClose As Boolean,
+                                 _AutoMaximized As Boolean,
+                                 _PopupChannelFolder As Boolean,
+                                 _VideoBackground As Boolean,
+                                 _ShowNickNameWindow As Boolean,
+                                 _CloseChannelFolder As Boolean,
+                                 _AddToChannelFolder As Boolean,
+                                 _BrowseChannelUrls As Boolean,
+                                 _CloseStatusWindow As Boolean,
+                                 _ShowRawWindow As Boolean,
+                                 _MotdInOwnWindow As Boolean,
+                                 _NoticesInOwnWindow As Boolean)
+            'Try
+            With lIRC.iSettings
+                .sPrompts = _Prompts
+                .sShowWindowsAutomatically = _AutoShowWindows
+                .sHideStatusOnClose = _HideStatusOnClose
+                .sAutoMaximize = _AutoMaximized
+                .sPopupChannelFolders = _PopupChannelFolder
+                .sVideoBackground = _VideoBackground
+                '.sCloseWindowOnDisconnect = _CloseOnDisconnect
+                .sChangeNickNameWindow = _ShowNickNameWindow
+                .sChannelFolderCloseOnJoin = _CloseChannelFolder
+                .sAutoAddToChannelFolder = _AddToChannelFolder
+                .sAutoNavigateChannelUrls = _BrowseChannelUrls
+                .sHideStatusOnClose = _CloseStatusWindow
+                .sShowRawWindow = _ShowRawWindow
+                .sMOTDInOwnWindow = _MotdInOwnWindow
+                .sNoticesInOwnWindow = _NoticesInOwnWindow
+                If lBrowserEnabled = True And .sShowBrowser = False Then
+                    mdiMain.CloseBrowser()
+                ElseIf lBrowserEnabled = False And .sShowBrowser = True Then
+                    mdiMain.BrowseURL(lIRC.iSettings.sURL, False)
+                    mdiMain.ResizeBrowser()
+                End If
+            End With
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Public Sub Apply_Settings(_Prompts As Boolean, _AutoShowWindows As Boolean, _HideStatusOnClose As Boolean, _AutoMaximized As Boolean)")
+            'End Try
+        End Sub
+        Public Sub Apply_User(_NickNamesDropDownList As RadDropDownList, _HomePage As String)
+            'Try
+            Dim _SelectedNick As String = "", _LastSelectedNickName As String = ""
+            If lIRC.iNicks.nIndex <> 0 Then _LastSelectedNickName = lIRC.iNicks.nNick(lIRC.iNicks.nIndex).nNick
+            lIRC.iNicks = New gNicks()
+            ReDim lIRC.iNicks.nNick(lArraySizes.aNickNames)
+            For i As Integer = 0 To _NickNamesDropDownList.Items.Count - 1
+                lIRC.iNicks.nNick(i + 1).nNick = _NickNamesDropDownList.Items(i).Text
+                If (i = _NickNamesDropDownList.SelectedIndex) Then
+                    _SelectedNick = _NickNamesDropDownList.Items(i).Text
+                End If
+            Next i
+            lIRC.iNicks.nCount = _NickNamesDropDownList.Items.Count + 1
+            If (_SelectedNick.Length <> 0) Then
+                lIRC.iNicks.nIndex = FindNickNameIndex(_SelectedNick)
+            Else
+                lIRC.iNicks.nIndex = FindNickNameIndex(_LastSelectedNickName)
+            End If
+            lIRC.iSettings.sURL = _HomePage
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Public Sub Apply_User(_NickNamesDropDownList As RadDropDownList, _HomePage As String)")
+            'End Try
+        End Sub
         Public Sub txtNotifyNickname_TextChanged(_NotifyNickName As String, _NotifyListView As RadListView)
             'Try
             If (_NotifyListView.SelectedItem IsNot Nothing) Then

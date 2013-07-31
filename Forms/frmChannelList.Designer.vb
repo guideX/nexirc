@@ -22,11 +22,11 @@ Partial Class frmChannelList
         Me.lvwChannels = New System.Windows.Forms.ListView()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.cmdRefresh = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.cmdAddToChannelFolder = New System.Windows.Forms.ToolStripButton()
         Me.cmdAddToAutoJoin = New System.Windows.Forms.ToolStripButton()
-        Me.cmdClose = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmdClose = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -63,6 +63,11 @@ Partial Class frmChannelList
         Me.cmdRefresh.Size = New System.Drawing.Size(23, 22)
         Me.cmdRefresh.Text = "Refresh"
         '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
+        '
         'cmdAddToChannelFolder
         '
         Me.cmdAddToChannelFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -81,6 +86,11 @@ Partial Class frmChannelList
         Me.cmdAddToAutoJoin.Size = New System.Drawing.Size(23, 22)
         Me.cmdAddToAutoJoin.Text = "Add to Auto Join"
         '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
+        '
         'cmdClose
         '
         Me.cmdClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -89,16 +99,6 @@ Partial Class frmChannelList
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.Size = New System.Drawing.Size(23, 22)
         Me.cmdClose.Text = "Close"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
         '
         'frmChannelList
         '

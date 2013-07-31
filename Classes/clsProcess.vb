@@ -77,7 +77,6 @@ Public Class clsProcess
         'Try
         lProcessTimer = New Timer
         lProcesses = New List(Of gProcess)
-        'If lProcessTimer.Interval <> lIRC.iSettings.sTextSpeed Then lProcessTimer.Interval = lIRC.iSettings.sTextSpeed
         'Catch ex As Exception
         'RaiseEvent ProcessError(ex.Message, "Public Sub Initialize()")
         'End Try

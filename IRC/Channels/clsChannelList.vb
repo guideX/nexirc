@@ -4,9 +4,10 @@ Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
 Imports nexIRC.Classes.IO
 Public Class clsChannelListUI
+    Public lSortOrder As SortOrder
     Private lCurrentChannel As String
     Private lMeIndex As Integer
-    Private lChannelListUI As New clsChannelListUI
+    'Private lChannelListUI As New clsChannelList
     Public WriteOnly Property MeIndex() As Integer
         Set(_MeIndex As Integer)
             'Try
@@ -196,10 +197,11 @@ Public Class clsChannelList
         With lChannelLists.cChannelList(_ChannelListIndex)
             '.cWindow.Text = "Channel List [" & lStatusObjects.sStatusObject(lStatusIndex).sDescription & "]"
             .cWindow = New frmChannelList()
-            .cWindow.Text = "Channel List [" & .cStatusDescription & "]"
+            .cWindow.Text = "Channel List [" & lStatus.Window(.cStatusIndex).Text & "]"
             .cWindow.lvwChannels.Items.Clear()
             clsAnimate.Animate(.cWindow, clsAnimate.Effect.Center, 200, 1)
             SetItems(_ChannelListIndex)
+            .cWindow.MeIndex = _ChannelListIndex
         End With
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Shared Sub Display(_ChannelList As gChannelList, _StatusDescription As String)")
@@ -248,6 +250,8 @@ Public Class clsChannelList
             If .cVisible = False Then
                 Display(_ChannelListIndex)
             Else
+                .cWindow.Focus()
+                Exit Sub
             End If
         End With
         With lChannelLists.cChannelList(_ChannelListIndex)

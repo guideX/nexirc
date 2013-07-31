@@ -25,6 +25,22 @@ Public Class frmChannelList
         'ProcessError(ex.Message, "Private Sub frmChannelList_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize")
         'End Try
     End Sub
+    Private Sub ListView_ColumnClick(sender As Object, e As Windows.Forms.ColumnClickEventArgs)
+        If (lChannelListUI.lSortOrder = SortOrder.Ascending) Then
+            lChannelListUI.lSortOrder = SortOrder.Descending
+        Else
+            lChannelListUI.lSortOrder = SortOrder.Ascending
+        End If
+        lvwChannels.ListViewItemSorter = New ListViewItemComparer(e.Column, lChannelListUI.lSortOrder)
+    End Sub
+    Private Sub lvwChannels_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lvwChannels.ColumnClick
+        Try
+            'lChannelListUI.ColumnClick()
+            AddHandler lvwChannels.ColumnClick, AddressOf ListView_ColumnClick
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub lvwChannels_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lvwChannels.ColumnClick")
+        End Try
+    End Sub
     Private Sub lvwChannels_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwChannels.DoubleClick
         'Try
         lChannelListUI.DoubleClick(lvwChannels)
@@ -55,4 +71,8 @@ Public Class frmChannelList
             'End Try
         End Set
     End Property
+
+    Private Sub lvwChannels_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lvwChannels.SelectedIndexChanged
+
+    End Sub
 End Class

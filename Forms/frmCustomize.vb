@@ -12,8 +12,49 @@ Public Class frmCustomize
     Public WithEvents lCustomize As New clsCustomize
     Public Sub EventApply()
         'Try
-        Dim _SelectedIndex As Integer = cboNetworks.SelectedIndex
-        lCustomize.Apply_Servers(lvwServers, cboNetworks.Items(_SelectedIndex).Text)
+        Dim _SelectedIndex As Integer = 0
+        lCustomize.Apply_Servers(lvwServers, cboNetworks.Text)
+        lCustomize.Apply_User(cboMyNickNames, txtURL.Text)
+        lCustomize.Apply_Settings_Interface(
+            chkShowPrompts.Checked,
+            chkShowWindowsAutomatically.Checked,
+            chkHideStatusOnClose.Checked,
+            chkAutoMaximize.Checked,
+            chkPopupChannelFolder.Checked,
+            chkVideoBackground.Checked,
+            chkShowNicknameWindow.Checked,
+            chkCloseChannelFolder.Checked,
+            chkAddToChannelFolder.Checked,
+            chkBrowseChannelURLs.Checked,
+            chkCloseStatusWindow.Checked,
+            chkShowRawWindow.Checked,
+            chkMOTDInOwnWindow.Checked,
+            chkNoticesInOwnWindow.Checked
+        )
+        lCustomize.Apply_Settings_Startup(
+            chkAutoConnect.Checked,
+            chkShowCustomize.Checked,
+            chkShowBrowser.Checked
+        )
+        lCustomize.Apply_Settings_Startup(
+            chkAutoConnect.Checked,
+            chkShowCustomize.Checked,
+            chkShowBrowser.Checked
+        )
+        lCustomize.Apply_Settings_ServerModes(
+            chkInvisible.Checked,
+            chkWallops.Checked,
+            chkRestricted.Checked,
+            chkOperator.Checked,
+            chkLocalOp.Checked,
+            chkServerNotices.Checked
+        )
+        lCustomize.Apply_Settings_IRC(
+            chkNoIRCMessages.Checked,
+            chkExtendedMessages.Checked,
+            chkShowUserAddresses.Checked,
+            chkHideMOTDs.Checked
+        )
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub EventApply()")
         'End Try
@@ -79,7 +120,7 @@ Public Class frmCustomize
             ElseIf rdbUnsupportedHide.IsChecked = True Then
                 .sUnsupported = eUnsupportedIn.uHide
             End If
-            .sServerInNotices = CBool(chkServerInNotices.Checked)
+            '.sServerInNotices = CBool(chkServerInNotices.Checked)
         End With
         With lIRC.iModes
             .mInvisible = chkInvisible.Checked
@@ -93,36 +134,7 @@ Public Class frmCustomize
         'lNetworks.nSelected = cboNetworks.SelectedItem
         'lNetworks.nIndex = FindNetworkIndex(cboNetworks.Text)
         'If lvwServers.SelectedItem.Item(1) <> Nothing then lServers.sIndex = FindServerIndexByIp(lvwServers.SelectedItem.Item(1).ToString)
-        With lIRC.iSettings
-            .sAutoCloseSupportingWindows = chkAutoCloseSupportingWindows.Checked
-            .sChannelFolderCloseOnJoin = chkCloseChannelFolder.Checked
-            .sAutoAddToChannelFolder = chkAddToChannelFolder.Checked
-            .sCloseWindowOnDisconnect = chkCloseStatusWindow.Checked
-            .sAutoNavigateChannelUrls = chkBrowseChannelURLs.Checked
-            .sShowUserAddresses = chkShowUserAddresses.Checked
-            .sHideMOTD = chkHideMOTDs.Checked
-            .sPrompts = chkShowPrompts.Checked
-            .sExtendedMessages = chkExtendedMessages.Checked
-            .sNoIRCMessages = chkNoIRCMessages.Checked
-            .sCustomizeOnStartup = chkShowCustomize.Checked
-            .sPopupChannelFolders = chkPopupChannelFolder.Checked
-            .sChangeNickNameWindow = chkShowNicknameWindow.Checked
-            .sShowBrowser = chkShowBrowser.Checked
-            .sURL = txtURL.Text
-            .sShowWindowsAutomatically = chkShowWindowsAutomatically.Checked
-            .sTextSpeed = 10
-            .sHammerTime = 10
-            .sAutoMaximize = chkAutoMaximize.Checked
-            .sHideStatusOnClose = chkHideStatusOnClose.Checked
-            .sVideoBackground = chkVideoBackground.Checked
-            .sAutoConnect = chkAutoConnect.Checked
-            If lCustomize.lBrowserEnabled = True And .sShowBrowser = False Then
-                mdiMain.CloseBrowser()
-            ElseIf lCustomize.lBrowserEnabled = False And .sShowBrowser = True Then
-                mdiMain.BrowseURL(lIRC.iSettings.sURL, False)
-                mdiMain.ResizeBrowser()
-            End If
-        End With
+
         PopulateNotifyByListView(lvwNotify)
         i = lStatus.ActiveIndex()
         'lStatus.NickName(i, False) = cboMyNickNames.Text
@@ -186,7 +198,7 @@ Public Class frmCustomize
                 Case eUnsupportedIn.uHide
                     rdbUnsupportedHide.IsChecked = True
             End Select
-            chkServerInNotices.Checked = .sServerInNotices
+            'chkServerInNotices.Checked = .sServerInNotices
         End With
         With lIRC.iModes
             chkInvisible.Checked = .mInvisible
@@ -257,7 +269,7 @@ Public Class frmCustomize
             lCustomize.lBrowserEnabled = .sShowBrowser
             chkAutoConnect.Checked = .sAutoConnect
             chkVideoBackground.Checked = .sVideoBackground
-            chkAutoCloseSupportingWindows.Checked = .sAutoCloseSupportingWindows
+            'chkCloseOnDisconnect.Checked = .sCloseOnDisconnect
         End With
         If lNetworks.nCount <> 0 Then
             For i = 1 To lNetworks.nCount
@@ -268,9 +280,9 @@ Public Class frmCustomize
                 End With
             Next i
             cboNetworks.Text = lNetworks.nNetwork(lNetworks.nIndex).nDescription
+            lCustomize.RefreshServers(lvwServers, lNetworks.nIndex)
         End If
         lServers.sIndex = Convert.ToInt32(clsFiles.ReadINI(lINI.iServers, "Settings", "Index", "0"))
-        lCustomize.RefreshServers(lvwServers)
         chkMOTDInOwnWindow.Checked = lIRC.iSettings.sMOTDInOwnWindow
         chkNoticesInOwnWindow.Checked = lIRC.iSettings.sNoticesInOwnWindow
         chkShowRawWindow.Checked = lIRC.iSettings.sShowRawWindow
@@ -308,9 +320,6 @@ Public Class frmCustomize
     End Sub
     Private Sub cmdAddServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdServerAdd.Click
         lCustomize.lnkAddServer_Click(cboNetworks.SelectedItem.Text)
-    End Sub
-    Private Sub cmdAddAlternateNickname_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddMyNickName.Click
-        lCustomize.cmdAddNickName_Click()
     End Sub
     Private Sub cmdNotifyAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNotifyAdd.Click
         lCustomize.cmdNotifyAdd_Click(lvwNotify)
@@ -444,6 +453,8 @@ Public Class frmCustomize
         If lCustomize.cmdOK_Click(chkNewStatus.Checked, Me) Then
             EventApply()
         End If
+        SaveSettings()
+        Me.Close()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click")
         'End Try
@@ -460,7 +471,7 @@ Public Class frmCustomize
         lCustomize.cmdCancelNow_Click(Me)
     End Sub
     Private Sub cboNetworks_SelectedIndexChanged(sender As System.Object, e As Telerik.WinControls.UI.Data.PositionChangedEventArgs) Handles cboNetworks.SelectedIndexChanged
-        If cboNetworks.SelectedItem IsNot Nothing Then lCustomize.cboNetworks_SelectedIndexChanged(cboNetworks.SelectedItem.Text, lvwServers)
+        lCustomize.cboNetworks_SelectedIndexChanged(cboNetworks.SelectedItem.Text, lvwServers)
     End Sub
     Private Sub cmdAddMyNickName_Click(sender As System.Object, e As System.EventArgs) Handles cmdAddMyNickName.Click
         lCustomize.cmdAddNickName_Click()

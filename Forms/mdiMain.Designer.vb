@@ -20,7 +20,6 @@ Partial Class mdiMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.DoubleBuffered = True
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(mdiMain))
         Me.nicSystray = New System.Windows.Forms.NotifyIcon(Me.components)
@@ -739,7 +738,7 @@ Partial Class mdiMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BackgroundImage = Global.nexIRC.My.Resources.Resources.background
+        Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(819, 356)
         Me.Controls.Add(Me.tspQueryPrompt)
@@ -749,6 +748,7 @@ Partial Class mdiMain
         Me.Controls.Add(Me.tspMain)
         Me.Controls.Add(Me.tspWindows)
         Me.Controls.Add(Me.cmdLeftBar)
+        Me.DoubleBuffered = True
         Me.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.IsMdiContainer = True

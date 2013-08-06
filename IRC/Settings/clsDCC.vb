@@ -40,6 +40,7 @@ Namespace nexIRC.IRC.Settings
             Public dAutoIgnore As Boolean
             Public dAutoCloseDialogs As Boolean
             Public dDownloadDirectory As String
+            Public dPopupDownloadManager As Boolean
         End Structure
         Public lDCC As gDCC
         Public Sub LoadDCCSettings()
@@ -63,13 +64,14 @@ Namespace nexIRC.IRC.Settings
                 ElseIf n = 3 Then
                     .dSendPrompt = eDCCPrompt.eIgnore
                 End If
+                .dPopupDownloadManager = Convert.ToBoolean(clsFiles.ReadINI(lINI.iDCC, "Settings", "PopupDownloadManager", "False"))
                 .dDownloadDirectory = clsFiles.ReadINI(lINI.iDCC, "Settings", "DownloadDirectory", "")
-                If Len(.dDownloadDirectory) = 0 Then .dDownloadDirectory = Application.StartupPath & "\"
+                If String.IsNullOrEmpty(.dDownloadDirectory) = True Then .dDownloadDirectory = Application.StartupPath & "\"
                 .dDownloadDirectory = Replace(.dDownloadDirectory, "\\", "")
                 .dBufferSize = CLng(Trim(clsFiles.ReadINI(lINI.iDCC, "Settings", "BufferSize", "1024")))
                 .dUseIpAddress = CBool(Trim(clsFiles.ReadINI(lINI.iDCC, "Settings", "UseIpAddress", "False")))
                 .dCustomIpAddress = clsFiles.ReadINI(lINI.iDCC, "Settings", "CustomIpAddress", "")
-                If Len(.dCustomIpAddress) = 0 Then .dCustomIpAddress = New WebClient().DownloadString("http://www.whatismyip.com/automation/n09230945.asp")
+                If Len(.dCustomIpAddress) = 0 Then .dCustomIpAddress = ReturnOutsideIPAddress()
                 .dIgnorelist.dCount = CInt(Trim(clsFiles.ReadINI(lINI.iDCC, "Settings", "IgnoreCount", "0")))
                 .dSendPort = clsFiles.ReadINI(lINI.iDCC, "Settings", "SendPort", "1024")
                 .dRandomizePort = CBool(Trim(clsFiles.ReadINI(lINI.iDCC, "Settings", "RandomizePort", "True")))
@@ -92,9 +94,28 @@ Namespace nexIRC.IRC.Settings
                 End With
             Next i
         End Sub
+        Public Function ReturnOutsideIPAddress() As String
+            'Try
+            Dim client As New WebClient, baseurl As String = "http://checkip.dyndns.org:8245/", data As System.IO.Stream, reader As System.IO.StreamReader, s As String
+            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR1.0.3705;)")
+            data = client.OpenRead(baseurl)
+            reader = New System.IO.StreamReader(data)
+            s = reader.ReadToEnd
+            data.Close()
+            reader.Close()
+            s = s.Replace("<html><head><title>Current IP Check</title></head><body>", "").Replace("</body></html>", "").ToString()
+            s = s.Replace("Current IP Address: ", "")
+            Return s
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Public Function ReturnOutsideIPAddress() As String")
+            'Return ""
+            'End Try
+        End Function
         Public Sub SaveDCCSettings()
+            'Try
             Dim i As Integer
             With lDCC
+                clsFiles.WriteINI(lINI.iDCC, "Settings", "PopupDownloadManager", .dPopupDownloadManager.ToString())
                 clsFiles.WriteINI(lINI.iDCC, "Settings", "DownloadDirectory", .dDownloadDirectory)
                 clsFiles.WriteINI(lINI.iDCC, "Settings", "FileExistsAction", Trim(CType(.dFileExistsAction, Integer).ToString))
                 clsFiles.WriteINI(lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
@@ -125,6 +146,9 @@ Namespace nexIRC.IRC.Settings
                 clsFiles.WriteINI(lINI.iDCC, "Settings", "AutoIgnore", Trim(.dAutoIgnore.ToString))
                 clsFiles.WriteINI(lINI.iDCC, "Settings", "AutoCloseDialogs", Trim(.dAutoCloseDialogs.ToString))
             End With
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Public Sub SaveDCCSettings()")
+            'End Try
         End Sub
     End Class
 End Namespace

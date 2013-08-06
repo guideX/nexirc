@@ -4,10 +4,10 @@ Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
 Imports nexIRC.Classes.IO
 Public Class clsChannelListUI
+    Public Event SaveColumnWidths()
     Public lSortOrder As SortOrder
     Private lCurrentChannel As String
     Private lMeIndex As Integer
-    'Private lChannelListUI As New clsChannelList
     Public WriteOnly Property MeIndex() As Integer
         Set(_MeIndex As Integer)
             'Try
@@ -18,16 +18,14 @@ Public Class clsChannelListUI
             'End Try
         End Set
     End Property
-    Public Sub FormClosed(Form As Form, _ChannelsListView As ListView)
+    Public Sub FormClosed(_ChannelsListView As ListView, _FormLeft As Integer, _FormTop As Integer, _FormWidth As Integer, _FormHeight As Integer)
         'Try
-        clsFiles.WriteINI(lINI.iIRC, "ChannelList", "Left", Form.Left.ToString)
-        clsFiles.WriteINI(lINI.iIRC, "ChannelList", "Top", Form.Top.ToString)
-        clsFiles.WriteINI(lINI.iIRC, "ChannelList", "Width", Form.Width.ToString)
-        clsFiles.WriteINI(lINI.iIRC, "ChannelList", "Height", Form.Height.ToString)
-        For i As Integer = 1 To 3
-            clsFiles.WriteINI(lINI.iIRC, "lvwChannels_ColumnWidth", i.ToString, _ChannelsListView.Columns(i - 1).Width.ToString)
-        Next i
+        clsFiles.WriteINI(lINI.iIRC, "ChannelList", "Left", _FormLeft.ToString)
+        clsFiles.WriteINI(lINI.iIRC, "ChannelList", "Top", _FormTop.ToString)
+        clsFiles.WriteINI(lINI.iIRC, "ChannelList", "Width", _FormWidth.ToString)
+        clsFiles.WriteINI(lINI.iIRC, "ChannelList", "Height", _FormHeight.ToString)
         lChannelLists.SetClosed(lMeIndex)
+        RaiseEvent SaveColumnWidths()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmChannelList_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed")
         'End Try

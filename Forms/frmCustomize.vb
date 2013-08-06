@@ -12,9 +12,15 @@ Public Class frmCustomize
     Public WithEvents lCustomize As New clsCustomize
     Public Sub EventApply()
         'Try
-        Dim _SelectedIndex As Integer = 0
-        lCustomize.Apply_Servers(lvwServers, cboNetworks.Text)
-        lCustomize.Apply_User(cboMyNickNames, txtURL.Text)
+        lCustomize.Apply_Settings_Servers(lvwServers, cboNetworks.Text)
+        lCustomize.Apply_Settings_User(cboMyNickNames,
+            txtURL.Text,
+            txtUserEmail.Text,
+            txtPassword.Text,
+            txtRealName.Text,
+            txtOperName.Text,
+            txtOperPassword.Text
+        )
         lCustomize.Apply_Settings_Interface(
             chkShowPrompts.Checked,
             chkShowWindowsAutomatically.Checked,
@@ -55,100 +61,29 @@ Public Class frmCustomize
             chkShowUserAddresses.Checked,
             chkHideMOTDs.Checked
         )
+        lCustomize.Apply_Settings_Text(rdbUnknownTextStatus.IsChecked,
+            rdbUnknownTextOwn.IsChecked,
+            rdbUnknownTextHide.IsChecked,
+            rdbUnsupportedStatus.IsChecked,
+            rdbUnsupportedOwn.IsChecked,
+            rdbUnsupportedHide.IsChecked
+        )
+        lCustomize.Apply_Settings_DCC(optDccChatPrompt.IsChecked,
+            optDccChatAcceptAll.IsChecked,
+            optDccChatIgnore.IsChecked,
+            optDccSendPrompt.IsChecked,
+            optDccSendAcceptAll.IsChecked,
+            optDccSendIgnore.IsChecked,
+            chkAutoCloseDialogs.Checked,
+            chkAutoIgnoreExceptNotify.Checked,
+            chkPopupDownloadManager.Checked,
+            txtDownloadDirectory.Text
+        )
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub EventApply()")
         'End Try
     End Sub
-    Public Sub EventApply1()
-        'Try
-        'NETWORKS/SERVERS
-        Dim i As Integer
-        lIRC.iSettings.sMOTDInOwnWindow = chkMOTDInOwnWindow.Checked
-        lIRC.iSettings.sNoticesInOwnWindow = chkNoticesInOwnWindow.Checked
-        lIRC.iSettings.sShowRawWindow = chkShowRawWindow.Checked
-        With lSettings_DCC.lDCC
-            .dDownloadDirectory = txtDownloadDirectory.Text
-            '.dFileExistsAction = CType(cboDCCFileExists.SelectedIndex + 1, eDCCFileExistsAction)
-            If optDccChatPrompt.IsChecked = True Then
-                .dChatPrompt = eDCCPrompt.ePrompt
-            ElseIf optDccChatAcceptAll.IsChecked = True Then
-                .dChatPrompt = eDCCPrompt.eAcceptAll
-            ElseIf optDccChatIgnore.IsChecked = True Then
-                .dChatPrompt = eDCCPrompt.eIgnore
-            End If
-            If optDccSendPrompt.IsChecked = True Then
-                .dSendPrompt = eDCCPrompt.ePrompt
-            ElseIf optDccSendAcceptAll.IsChecked = True Then
-                .dSendPrompt = eDCCPrompt.eAcceptAll
-            ElseIf optDccSendIgnore.IsChecked = True Then
-                .dSendPrompt = eDCCPrompt.eIgnore
-            End If
-            .dIgnorelist.dCount = 0
-            .dAutoIgnore = chkAutoIgnoreExceptNotify.Checked
-            .dAutoCloseDialogs = chkAutoCloseDialogs.Checked
-            'If lstDCCIgnoreItems.Items.Count <> Nothing Then
-            'If lstDCCIgnoreItems.Items.Count <> 0 Then
-            'For i = 0 To lstDCCIgnoreItems.Items.Count - 1
-            'If Len(lstDCCIgnoreItems.Items(i).ToString) <> 0 Then
-            '.dIgnorelist.dCount = .dIgnorelist.dCount + 1
-            '.dIgnorelist.dItem(.dIgnorelist.dCount).dData = lstDCCIgnoreItems.Items(i).ToString
-            '.dIgnorelist.dItem(.dIgnorelist.dCount).dType = gDCCIgnoreType.dNicknames
-            'End If
-            'Next i
-            'For i = 0 To lstIgnoreExtensions.Items.Count - 1
-            'If Len(lstIgnoreExtensions.Items(i).ToString) <> 0 Then
-            '.dIgnorelist.dCount = .dIgnorelist.dCount + 1
-            '.dIgnorelist.dItem(.dIgnorelist.dCount).dData = lstIgnoreExtensions.Items(i).ToString
-            '.dIgnorelist.dItem(.dIgnorelist.dCount).dType = gDCCIgnoreType.dFileTypes
-            'End If
-            'Next i
-            'End If
-            'End If
-        End With
-        With lIRC.iSettings.sStringSettings
-            If rdbUnknownTextStatus.IsChecked = True Then
-                .sUnknowns = eUnknownsIn.uStatusWindow
-            ElseIf rdbUnknownTextOwn.IsChecked = True Then
-                .sUnknowns = eUnknownsIn.uOwnWindow
-            ElseIf rdbUnknownTextHide.IsChecked = True Then
-                .sUnknowns = eUnknownsIn.uHide
-            End If
-            If rdbUnsupportedStatus.IsChecked = True Then
-                .sUnsupported = eUnsupportedIn.uStatusWindow
-            ElseIf rdbUnknownTextOwn.IsChecked = True Then
-                .sUnsupported = eUnsupportedIn.uOwnWindow
-            ElseIf rdbUnsupportedHide.IsChecked = True Then
-                .sUnsupported = eUnsupportedIn.uHide
-            End If
-            '.sServerInNotices = CBool(chkServerInNotices.Checked)
-        End With
-        With lIRC.iModes
-            .mInvisible = chkInvisible.Checked
-            .mLocalOperator = chkLocalOp.Checked
-            .mOperator = chkOperator.Checked
-            .mRestricted = chkRestricted.Checked
-            .mServerNotices = chkServerNotices.Checked
-            .mWallops = chkWallops.Checked
-        End With
-        'lIRC.iNicks.nIndex = ReturnNickIndex(cboMyNickNames.Text)
-        'lNetworks.nSelected = cboNetworks.SelectedItem
-        'lNetworks.nIndex = FindNetworkIndex(cboNetworks.Text)
-        'If lvwServers.SelectedItem.Item(1) <> Nothing then lServers.sIndex = FindServerIndexByIp(lvwServers.SelectedItem.Item(1).ToString)
-
-        PopulateNotifyByListView(lvwNotify)
-        i = lStatus.ActiveIndex()
-        'lStatus.NickName(i, False) = cboMyNickNames.Text
-        lStatus.Email(i) = lIRC.iEMail
-        lStatus.Pass(i) = lIRC.iPass
-        lStatus.RealName(i) = lIRC.iRealName
-        lStatus.SetOperSettings(i, lIRC.iOperName, lIRC.iOperPass)
-        If lStatus.Connected(i) = False Then
-            lStatus.SetStatus(i)
-        End If
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub EventApply()")
-        'End Try
-    End Sub
+    
     Public ReadOnly Property ServersListView() As RadListView
         Get
             'Try
@@ -161,7 +96,16 @@ Public Class frmCustomize
     End Property
     Private Sub InitSettings()
         'Try
-        Dim i As Integer
+        Dim i As Integer, _ListViewItem As ListViewDataItem
+        For i = 1 To lCompatibility.cCount
+            If (lCompatibility.cCompatibility(i).cEnabled = True) Then
+                _ListViewItem = New ListViewDataItem()
+                _ListViewItem.SubItems.Add(lCompatibility.cCompatibility(i).cDescription)
+                _ListViewItem.SubItems.Add(lCompatibility.cCompatibility(i).cEnabled.ToString())
+                lvwCompatibility.Items.Add(_ListViewItem)
+            End If
+        Next i
+        lvwCompatibility.SelectedIndex = 0
         PopulateListViewWithStrings(lvwStrings)
         For i = 1 To lNetworks.nCount
             With lNetworks.nNetwork(i)
@@ -181,25 +125,6 @@ Public Class frmCustomize
             End With
         Next i
         cboMyNickNames.Text = lIRC.iNicks.nNick(lIRC.iNicks.nIndex).nNick
-        With lIRC.iSettings.sStringSettings
-            Select Case .sUnknowns
-                Case eUnknownsIn.uStatusWindow
-                    rdbUnknownTextStatus.IsChecked = True
-                Case eUnknownsIn.uOwnWindow
-                    rdbUnknownTextOwn.IsChecked = True
-                Case eUnknownsIn.uHide
-                    rdbUnknownTextHide.IsChecked = True
-            End Select
-            Select Case .sUnsupported
-                Case eUnsupportedIn.uStatusWindow
-                    rdbUnsupportedStatus.IsChecked = True
-                Case eUnsupportedIn.uOwnWindow
-                    rdbUnsupportedOwn.IsChecked = True
-                Case eUnsupportedIn.uHide
-                    rdbUnsupportedHide.IsChecked = True
-            End Select
-            'chkServerInNotices.Checked = .sServerInNotices
-        End With
         With lIRC.iModes
             chkInvisible.Checked = .mInvisible
             chkLocalOp.Checked = .mLocalOperator
@@ -228,6 +153,7 @@ Public Class frmCustomize
             txtDownloadDirectory.Text = lSettings_DCC.lDCC.dDownloadDirectory
             chkAutoIgnoreExceptNotify.Checked = lSettings_DCC.lDCC.dAutoIgnore
             chkAutoCloseDialogs.Checked = lSettings_DCC.lDCC.dAutoCloseDialogs
+            chkPopupDownloadManager.Checked = lSettings_DCC.lDCC.dPopupDownloadManager
             Select Case .dFileExistsAction
                 Case eDCCFileExistsAction.dPrompt
                     cboDCCFileExists.SelectedIndex = 0
@@ -269,7 +195,6 @@ Public Class frmCustomize
             lCustomize.lBrowserEnabled = .sShowBrowser
             chkAutoConnect.Checked = .sAutoConnect
             chkVideoBackground.Checked = .sVideoBackground
-            'chkCloseOnDisconnect.Checked = .sCloseOnDisconnect
         End With
         If lNetworks.nCount <> 0 Then
             For i = 1 To lNetworks.nCount
@@ -280,12 +205,36 @@ Public Class frmCustomize
                 End With
             Next i
             cboNetworks.Text = lNetworks.nNetwork(lNetworks.nIndex).nDescription
+            lCustomize.lStartupNetwork = lNetworks.nNetwork(lNetworks.nIndex).nDescription
             lCustomize.RefreshServers(lvwServers, lNetworks.nIndex)
         End If
         lServers.sIndex = Convert.ToInt32(clsFiles.ReadINI(lINI.iServers, "Settings", "Index", "0"))
         chkMOTDInOwnWindow.Checked = lIRC.iSettings.sMOTDInOwnWindow
         chkNoticesInOwnWindow.Checked = lIRC.iSettings.sNoticesInOwnWindow
         chkShowRawWindow.Checked = lIRC.iSettings.sShowRawWindow
+        With lIRC
+            txtUserEmail.Text = .iEMail
+            txtPassword.Text = .iPass
+            txtRealName.Text = .iRealName
+            txtOperName.Text = .iOperName
+            txtOperPassword.Text = .iOperPass
+        End With
+        Select Case lIRC.iSettings.sStringSettings.sUnsupported
+            Case eUnsupportedIn.uOwnWindow
+                rdbUnsupportedOwn.IsChecked = True
+            Case eUnsupportedIn.uHide
+                rdbUnsupportedHide.IsChecked = True
+            Case eUnsupportedIn.uStatusWindow
+                rdbUnsupportedStatus.IsChecked = True
+        End Select
+        Select Case lIRC.iSettings.sStringSettings.sUnknowns
+            Case eUnknownsIn.uStatusWindow
+                rdbUnknownTextStatus.IsChecked = True
+            Case eUnknownsIn.uHide
+                rdbUnknownTextHide.IsChecked = True
+            Case eUnknownsIn.uOwnWindow
+                rdbUnknownTextOwn.IsChecked = True
+        End Select
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub InitSettings()")
         'End Try
@@ -319,7 +268,15 @@ Public Class frmCustomize
         lCustomize.lnkNetworkAdd_Click()
     End Sub
     Private Sub cmdAddServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdServerAdd.Click
-        lCustomize.lnkAddServer_Click(cboNetworks.SelectedItem.Text)
+        'Try
+        If (cboNetworks.SelectedItem IsNot Nothing) Then
+            lCustomize.lnkAddServer_Click(cboNetworks.SelectedItem.Text)
+        Else
+            lCustomize.lnkAddServer_Click("")
+        End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub cmdAddServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdServerAdd.Click")
+        'End Try
     End Sub
     Private Sub cmdNotifyAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNotifyAdd.Click
         lCustomize.cmdNotifyAdd_Click(lvwNotify)
@@ -360,13 +317,6 @@ Public Class frmCustomize
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdDCCIgnoreRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDCCIgnoreRemove.Click")
         'End Try
-    End Sub
-    Private Sub cmdCompatibility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCompatibility.Click
-        Try
-            lCustomize.cmdCompatibility_Click()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdCompatibility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCompatibility.Click")
-        End Try
     End Sub
     Private Sub cmdRemoveNotify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNotifyRemove.Click
         'Try
@@ -418,13 +368,6 @@ Public Class frmCustomize
         'ProcessError(ex.Message, "Private Sub cmdServerDelete_Click(sender As System.Object, e As System.EventArgs) Handles cmdServerDelete.Click")
         'End Try
     End Sub
-    Private Sub cmdServerAdd_Click(sender As System.Object, e As System.EventArgs) Handles cmdServerAdd.Click
-        'Try
-        lCustomize.cmdServerAdd_Click()
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmdServerAdd_Click(sender As System.Object, e As System.EventArgs) Handles cmdServerAdd.Click")
-        'End Try
-    End Sub
     Private Sub cmdServersClear_Click(sender As System.Object, e As System.EventArgs) Handles cmdServersClear.Click
         'Try
         lCustomize.cmdServersClear_Click(cboNetworks.Text, lvwServers)
@@ -434,7 +377,9 @@ Public Class frmCustomize
     End Sub
     Private Sub cmdServersMove_Click(sender As System.Object, e As System.EventArgs) Handles cmdServersMove.Click
         'Try
-        lCustomize.cmdServersMove_Click(cboNetworks.Text, lvwServers.SelectedItem.Item(1).ToString)
+        If (lvwServers.SelectedItem IsNot Nothing) Then
+            lCustomize.cmdServersMove_Click(cboNetworks.Text, lvwServers.SelectedItem.Item(1).ToString)
+        End If
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdServersMove_Click(sender As System.Object, e As System.EventArgs) Handles cmdServersMove.Click")
         'End Try
@@ -482,9 +427,6 @@ Public Class frmCustomize
     Private Sub cmdClearMyNickName_Click(sender As System.Object, e As System.EventArgs) Handles cmdClearMyNickName.Click
         lCustomize.cmdClearMyNickName_Click(cboMyNickNames)
     End Sub
-    Private Sub cmdEditUserSettings_Click(sender As System.Object, e As System.EventArgs) Handles cmdEditUserSettings.Click
-        lCustomize.cmdEditUserSettings_Click()
-    End Sub
     Private Sub cmdQuerySettings_Click(sender As System.Object, e As System.EventArgs) Handles cmdQuerySettings.Click
         lCustomize.cmdQuerySettings_Click()
     End Sub
@@ -514,5 +456,11 @@ Public Class frmCustomize
     End Sub
     Private Sub lCustomize_Apply() Handles lCustomize.Apply
         EventApply()
+    End Sub
+    Private Sub cmdCompatibilityEnable_Click(sender As System.Object, e As System.EventArgs) Handles cmdCompatibilityEnable.Click
+        lCustomize.cmdCompatibilityEnable_Click(lvwCompatibility.SelectedItem.Item(0).ToString(), lvwCompatibility.SelectedItem)
+    End Sub
+    Private Sub cmdCompatibilityDisable_Click(sender As Object, e As System.EventArgs) Handles cmdCompatibilityDisable.Click
+        lCustomize.cmdCompatibilityDisable_Click(lvwCompatibility.SelectedItem.Item(0).ToString(), lvwCompatibility.SelectedItem)
     End Sub
 End Class

@@ -16,6 +16,16 @@ Namespace Modules
         Public lSettings_DCC As New nexIRC.IRC.Settings.clsDCC
         Public lSettings_Services As New nexIRC.IRC.Settings.clsServices
 
+        Public Sub SetSelectedRadComboBoxItem(_RadComboBox As RadDropDownList, _Text As String)
+            Dim i As Integer
+            For i = 0 To _RadComboBox.Items.Count - 1
+                If (_Text.ToLower().Trim() = _RadComboBox.Items(i).ToString().ToLower().Trim()) Then
+                    _RadComboBox.SelectedIndex = i
+                    Exit For
+                End If
+            Next i
+        End Sub
+
         Public Function ReturnFirstSelectedListViewItem(ByVal lListView As ListView) As ListViewItem
             Dim i As Integer
             ReturnFirstSelectedListViewItem = Nothing
@@ -40,7 +50,6 @@ Namespace Modules
                 End With
             Next i
         End Function
-
         Public Function ReturnRadListBoxIndex(ByVal lListBox As RadListControl, ByVal lData As String) As Integer
             Dim i As Integer
             For i = 0 To lListBox.Items.Count
@@ -50,7 +59,6 @@ Namespace Modules
                 End If
             Next i
         End Function
-
         Public Function ReturnListBoxIndex(ByVal lListBox As ListBox, ByVal lData As String) As Integer
             Dim i As Integer
             For i = 0 To lListBox.Items.Count

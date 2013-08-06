@@ -6,16 +6,49 @@ Imports Telerik.WinControls.UI
 Public Class clsSharedAdd
     Public Enum eSharedAddType
         sAddNetwork = 1
+        sAddNickName = 2
     End Enum
-    Public lSharedAddType As eSharedAddType
-    Private Sub OK_Button(_DescriptionTextBox As RadTextBox, _Form As Form)
+    Private lSharedAddType As eSharedAddType
+    Public Event ChangeCaption(_Data As String)
+    Public Event CloseForm()
+    Public Event FocusTextBox()
+    Public Property SharedAddType() As eSharedAddType
+        Get
+            'Try
+            Return lSharedAddType
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Public Property SharedAddType() As eSharedAddType")
+            'Return nothing
+            'End Try
+        End Get
+        Set(_SharedAddType As eSharedAddType)
+            'Try
+            lSharedAddType = _SharedAddType
+            Select Case _SharedAddType
+                Case eSharedAddType.sAddNetwork
+                    RaiseEvent ChangeCaption("nexIRC - Add Network")
+                Case eSharedAddType.sAddNickName
+                    RaiseEvent ChangeCaption("nexIRC - Add Nickname")
+            End Select
+            'Catch ex As Exception
+            'ProcessError(ex.Message, "Public Property SharedAddType() As eSharedAddType")
+            'End Try
+        End Set
+    End Property
+    Private Sub OK_Button(_Value As String)
         'Try
         Select Case lSharedAddType
+            Case eSharedAddType.sAddNickName
+                If (Not _Value.Length = 0) Then
+                    AddNickName(_Value)
+                    frmCustomize.cboMyNickNames.Items.Add(_Value)
+                    RaiseEvent CloseForm()
+                End If
             Case eSharedAddType.sAddNetwork
-                If Len(_DescriptionTextBox.Text) <> 0 Then
-                    AddNetwork(_DescriptionTextBox.Text)
+                If _Value.Length <> 0 Then
+                    AddNetwork(_Value)
                     frmCustomize.ClearServers()
-                    _Form.Close()
+                    RaiseEvent CloseForm()
                 Else
                     If lIRC.iSettings.sPrompts = True Then MsgBox("Please type a network description", MsgBoxStyle.Exclamation)
                 End If
@@ -24,17 +57,17 @@ Public Class clsSharedAdd
         'ProcessError(ex.Message, "Private Sub OK_Button()")
         'End Try
     End Sub
-    Public Sub cmdCancel_Click(_Form As Form)
+    Public Sub cmdCancel_Click()
         'Try
-        _Form.Close()
+        RaiseEvent CloseForm()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
         'End Try
     End Sub
-    Public Sub Form_Load(_Form As Form, _DescriptionTextBox As RadTextBox)
+    Public Sub Form_Load()
         'Try
         lWinVisible.wAddNetwork = True
-        _DescriptionTextBox.Focus()
+        RaiseEvent FocusTextBox()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmAddNetwork_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
         'End Try
@@ -43,25 +76,25 @@ Public Class clsSharedAdd
         'Try
         If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Return) Then
             e.Handled = True
-            OK_Button(_DescriptionTextBox, _Form)
+            OK_Button(_DescriptionTextBox.Text)
         End If
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtNetworkDescription_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtNetworkDescription.KeyPress")
         'End Try
     End Sub
-    Public Sub mnuExit_Click(_Form As Form)
+    Public Sub mnuExit_Click()
         'Try
-        _Form.Close()
+        RaiseEvent CloseForm()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub mnuExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
         'End Try
     End Sub
-    Public Sub cmdOK_Click(_DescriptionTextBox As RadTextBox, _Form As Form)
-        OK_Button(_DescriptionTextBox, _Form)
+    Public Sub cmdOK_Click(_Value As String, _Form As Form)
+        OK_Button(_Value)
     End Sub
-    Public Sub ExitToolStripMenuItem_Click(_Form As Form)
+    Public Sub ExitToolStripMenuItem_Click()
         'Try
-        _Form.Close()
+        RaiseEvent CloseForm()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
         'End Try

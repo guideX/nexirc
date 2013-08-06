@@ -10,6 +10,17 @@ Imports System.Linq
 Public Class clsChannelFolderUI
     Private lStatusIndex As Integer
     Private lLastFocused As Control = Nothing
+    Public Event FormClosed()
+    Public Event AddChannelToListBox(_Channel As String)
+    Public Event ClearNetworkComboBox()
+    Public Event AddNetworkComboBoxItem(_Network As String)
+    Public Event SetDefaultNetwork(_Network As String)
+    Public Event SetPopupChannelFoldersCheckBoxValue(_Value As Boolean)
+    Public Event SetAutoCloseCheckBoxValue(_Value As Boolean)
+    Public Event SetChannelTextBoxTextToListBoxText()
+    Public Event RemoveChannelListBoxItem(_Channel As String)
+    Public Event ClearChannelsListBox()
+    Public Event ChannelTextBoxSelectAll()
     Public Sub SetStatusIndex(ByVal _StatusIndex As Integer)
         'Try
         lStatusIndex = _StatusIndex
@@ -17,19 +28,19 @@ Public Class clsChannelFolderUI
         'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
         'End Try
     End Sub
-    Public Sub lstChannels_DoubleClick(_Channel As String, _AutoClose As Boolean, _Form As Form)
+    Public Sub lstChannels_DoubleClick(_Channel As String, _AutoClose As Boolean)
         'Try
         lChannels.Join(lStatusIndex, _Channel)
-        If _AutoClose = True Then _Form.Close()
+        If _AutoClose = True Then RaiseEvent FormClosed()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub lstChannels_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstChannels.DoubleClick")
         'End Try
     End Sub
-    Public Sub cmdAdd_Click(_Channel As String, _ListBox As RadListControl, _Network As String)
+    Public Sub cmdAdd_Click(_Channel As String, _Network As String)
         'Try
         Dim i As Integer
         If Len(_Channel) <> 0 Then
-            _ListBox.Items.Add(_Channel)
+            RaiseEvent AddChannelToListBox(_Channel)
             i = FindNetworkIndex(_Network)
             If i <> 0 Then
                 AddToChannelFolders(_Channel, i)
@@ -39,52 +50,40 @@ Public Class clsChannelFolderUI
         'ProcessError(ex.Message, "Private Sub cmdAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAdd.Click")
         'End Try
     End Sub
-    Public Sub Init(_NetworksComboBox As RadDropDownList, _PopupOnConnectCheckBox As RadCheckBox, _AutoCloseCheckBox As RadCheckBox)
+    Public Sub Init()
         'Try
         Dim i As Integer, msg As String
-        _NetworksComboBox.Items.Clear()
+        RaiseEvent ClearNetworkComboBox()
         For i = 1 To lNetworks.nCount
             With lNetworks.nNetwork(i)
-                If Len(.nDescription.Trim) <> 0 Then _NetworksComboBox.Items.Add(.nDescription)
+                If Len(.nDescription.Trim) <> 0 Then RaiseEvent AddNetworkComboBoxItem(.nDescription)
             End With
         Next i
         msg = lNetworks.nNetwork(lStatus.NetworkIndex(lStatus.ActiveIndex())).nDescription
-        For i = 0 To _NetworksComboBox.Items.Count - 1
-            If LCase(Trim(msg)) = LCase(Trim(_NetworksComboBox.Items(i).ToString)) Then
-                _NetworksComboBox.SelectedIndex = i
-                Exit For
-            End If
-        Next i
+        RaiseEvent SetDefaultNetwork(msg)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub Init(_NetworksComboBox As RadDropDownList, _PopupOnConnectCheckBox As RadCheckBox, _AutoCloseCheckBox As RadCheckBox)")
         'End Try
     End Sub
-    Public Sub Form_Load(_Form As Form, _NetworksComboBox As RadDropDownList, _PopupOnConnectCheckBox As RadCheckBox, _AutoCloseCheckBox As RadCheckBox)
+    Public Sub Form_Load()
         'Try
-        Init(_NetworksComboBox, _PopupOnConnectCheckBox, _AutoCloseCheckBox)
-        _PopupOnConnectCheckBox.Checked = lIRC.iSettings.sPopupChannelFolders
-        _AutoCloseCheckBox.Checked = lIRC.iSettings.sChannelFolderCloseOnJoin
+        Init()
+        RaiseEvent SetPopupChannelFoldersCheckBoxValue(lIRC.iSettings.sPopupChannelFolders)
+        RaiseEvent SetAutoCloseCheckBoxValue(lIRC.iSettings.sChannelFolderCloseOnJoin)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmChannelFolder_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
         'End Try
     End Sub
-    Public Sub lstChannels_SelectedIndexChanged(_RadListBox As RadListControl, _ChannelTextBox As RadTextBox)
+    Public Sub lstChannels_SelectedIndexChanged()
         'Try
-        If (_RadListBox.SelectedItem IsNot Nothing) Then
-            _ChannelTextBox.Text = _RadListBox.SelectedItem.Text
-        End If
+        RaiseEvent SetChannelTextBoxTextToListBoxText()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub lstChannels_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstChannels.SelectedIndexChanged")
         'End Try
     End Sub
-    Public Sub cmdRemove_Click(_Channel As String, _ChannelsListBox As RadListControl)
+    Public Sub cmdRemove_Click(_Channel As String)
         'Try
-        Dim i As Integer
-        If Len(_Channel) <> 0 Then
-            RemoveChannelFolder(FindChannelFolderIndex(_Channel))
-            i = ReturnRadListBoxIndex(_ChannelsListBox, _ChannelsListBox.SelectedItem().ToString)
-            _ChannelsListBox.Items.RemoveAt(i)
-        End If
+        RaiseEvent RemoveChannelListBoxItem(_Channel)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemove.Click")
         'End Try
@@ -105,13 +104,13 @@ Public Class clsChannelFolderUI
         'ProcessError(ex.Message, "Private Function ReturnListOfChannels(network As String) As String")
         'End Try
     End Function
-    Public Sub cboNetwork_SelectedIndexChanged(_ChannelsListBox As RadListControl, _Network As String)
+    Public Sub cboNetwork_SelectedIndexChanged(_Network As String)
         'Try
         Dim channels As List(Of String)
-        _ChannelsListBox.Items.Clear()
+        RaiseEvent ClearChannelsListBox()
         channels = ReturnListOfChannels(_Network)
         For Each channel As String In channels
-            _ChannelsListBox.Items.Add(channel)
+            RaiseEvent AddChannelToListBox(channel)
         Next channel
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cboNetwork_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboNetwork.SelectedIndexChanged")
@@ -125,29 +124,29 @@ Public Class clsChannelFolderUI
         'ProcessError(ex.Message, "Public Sub frmChannelFolder_FormClosed(_PopupOnConnect As Boolean, _AutoClose As Boolean, _Left As Integer, _Top As Integer)")
         'End Try
     End Sub
-    Public Sub cmdClose_Click(_Form As Form)
+    Public Sub cmdClose_Click()
         'Try
         SaveChannelFolders()
-        clsAnimate.Animate(_Form, clsAnimate.Effect.Center, 200, 1)
+        RaiseEvent AnimateClose()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub Form_Closed(lCloseWindow As Boolean)")
         'End Try
     End Sub
-    Public Sub cmdJoin_Click(_Channel As String, _AutoClose As Boolean, _Form As Form)
+    Public Sub cmdJoin_Click(_Channel As String, _AutoClose As Boolean)
         'Try
         If Len(_Channel) <> 0 Then
-            If _AutoClose = True Then _Form.Close()
+            If _AutoClose = True Then RaiseEvent FormClosed()
             lChannels.Join(lStatusIndex, _Channel)
         End If
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdJoin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdJoin.Click")
         'End Try
     End Sub
-    Public Sub lnkJumpToChannelList_LinkClicked(_Form As Form)
+    Public Event AnimateClose()
+    Public Sub lnkJumpToChannelList_LinkClicked()
         'Try
         ProcessReplaceCommand(lStatusIndex, eCommandTypes.cLIST, lStatus.Description(lStatus.ActiveIndex))
-        clsAnimate.Animate(_Form, clsAnimate.Effect.Center, 200, 1)
-        _Form.Close()
+        RaiseEvent AnimateClose()
         'Catch ex As Exception
         'ProcessError(ex.Message, "lnkJumpToChannelList_LinkClicked")
         'End Try
@@ -168,7 +167,7 @@ Public Class clsChannelFolderUI
     End Sub
     Private Sub txtChannel_GotFocus(_ChannelTextBox As RadTextBox)
         'Try
-        _ChannelTextBox.SelectAll()
+        RaiseEvent ChannelTextBoxSelectAll()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub txtChannel_GotFocus(sender As Object, e As System.EventArgs) Handles txtChannel.GotFocus")
         'End Try

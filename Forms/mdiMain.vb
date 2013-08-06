@@ -37,7 +37,7 @@ Public Class mdiMain
         lMainWindowUI.BrowseURL(_Url, _Startup, Me)
     End Sub
     Private Sub mdiMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        lMainWindowUI.FormClosed(Me, nicSystray)
+        lMainWindowUI.FormClosed(Me, nicSystray, Me.pnlLeftNav.Visible)
     End Sub
     Private Sub mdiMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         lMainWindowUI.FormClosing(e, Me, tmrWaitForQuit)

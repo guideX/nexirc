@@ -246,7 +246,7 @@ Public Module mdlSettings
     End Structure
 
     Structure gSettings
-        'Public sCloseOnDisconnect As Boolean
+        Public sNetworkAvailability As Boolean
         Public sAutoAddToChannelFolder As Boolean
         Public sWindowSizes As gInitialWindowSizes
         Public sShowBrowser As Boolean
@@ -265,8 +265,6 @@ Public Module mdlSettings
         Public sShowUserAddresses As Boolean
         Public sShowRawWindow As Boolean
         Public sShowWindowsAutomatically As Boolean
-        'Public sTextSpeed As Integer
-        'Public sHammerTime As Long
         Public sAutoMaximize As Boolean
         Public sQuitMessage As String
         Public sHideStatusOnClose As Boolean
@@ -976,26 +974,22 @@ Public Module mdlSettings
             mdiMain.SetLoadingFormProgress("Loading IRC Settings", 70)
             With lIRC.iSettings
                 .sChannelFolderCloseOnJoin = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ChannelFolderCloseOnJoin", "True"))
-                '.sCloseOnDisconnect = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "AutoCloseSupportingWindows", "True"))
                 .sShowUserAddresses = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowUserAddresses", "True"))
                 .sHideMOTD = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "HideMOTD", "True"))
                 .sPrompts = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "Prompts", "True"))
-                .sShowBrowser = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowBrowser", "True"))
+                .sShowBrowser = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowBrowser", "False"))
                 .sShowRawWindow = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowRawWindow", "False"))
                 .sExtendedMessages = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ExtendedMessages", "True"))
                 .sNoIRCMessages = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "NoIRCMessages", "False"))
-                .sCustomizeOnStartup = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", "True"))
+                .sCustomizeOnStartup = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", "False"))
                 .sPopupChannelFolders = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "PopupChannelFolders", "True"))
                 .sMOTDInOwnWindow = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "MOTDInOwnWindow", "True"))
-                '.sAntiConnectHammer = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "AntiConnectHammer", "False"))
                 .sChangeNickNameWindow = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", "True"))
-                .sNoticesInOwnWindow = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", "False"))
-                .sURL = clsFiles.ReadINI(lINI.iIRC, "Settings", "URL", "http://www.team-nexgen.org")
+                .sNoticesInOwnWindow = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", "True"))
+                .sURL = clsFiles.ReadINI(lINI.iIRC, "Settings", "URL", "http://www.bing.com")
                 .sShowWindowsAutomatically = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", "False"))
-                '.sTextSpeed = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "Settings", "TextSpeed", "300")))
-                '                .sHammerTime = CLng(clsFiles.ReadINI(lINI.iIRC, "Settings", "HammerTime", "10"))
                 .sAutoMaximize = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "AutoMaximize", "False"))
-                .sQuitMessage = clsFiles.ReadINI(lINI.iIRC, "Settings", "QuitMessage", "Quit")
+                .sQuitMessage = clsFiles.ReadINI(lINI.iIRC, "Settings", "QuitMessage", "nexIRC - http://www.team-nexgen.org/")
                 .sHideStatusOnClose = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "HideStatusOnClose", "False"))
                 .sAutoConnect = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "AutoConnect", "False"))
                 .sVideoBackground = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "VideoBackground", "True"))
@@ -1010,9 +1004,9 @@ Public Module mdlSettings
                 .sWindowSizes.iNotice.wHeight = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "Settings", "InitialNoticeHeight", "200")))
             End With
             With lIRC
-                .iEMail = clsFiles.ReadINI(lINI.iIRC, "Settings", "EMail", "")
+                .iEMail = clsFiles.ReadINI(lINI.iIRC, "Settings", "EMail", "user@team-nexgen.org")
                 .iPass = clsFiles.ReadINI(lINI.iIRC, "Settings", "Password", "")
-                .iRealName = clsFiles.ReadINI(lINI.iIRC, "Settings", "RealName", "")
+                .iRealName = clsFiles.ReadINI(lINI.iIRC, "Settings", "RealName", "nexIRC User")
                 .iOperName = clsFiles.ReadINI(lINI.iIRC, "Settings", "OperName", "")
                 .iOperPass = clsFiles.ReadINI(lINI.iIRC, "Settings", "OperPass", "")
             End With
@@ -1166,13 +1160,11 @@ Public Module mdlSettings
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", Trim(.sCustomizeOnStartup.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "NoIRCMessages", Trim(.sNoIRCMessages.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ExtendedMessages", Trim(.sExtendedMessages.ToString))
-            'clsFiles.WriteINI(lINI.iIRC, "Settings", "HammerTime", Trim(CStr(.sHammerTime)))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", Trim(.sChangeNickNameWindow.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", Trim(.sNoticesInOwnWindow.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "HideMOTD", Trim(.sHideMOTD.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowRawWindow", Trim(.sShowRawWindow.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", Trim(.sShowWindowsAutomatically.ToString))
-            'clsFiles.WriteINI(lINI.iIRC, "Settings", "TextSpeed", Trim(.sTextSpeed.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "AutoMaximize", Trim(.sAutoMaximize.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "HideStatusOnClose", Trim(.sHideStatusOnClose.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "AutoConnect", Trim(.sAutoConnect.ToString))
@@ -1182,7 +1174,6 @@ Public Module mdlSettings
         With lIRC.iSettings.sStringSettings
             clsFiles.WriteINI(lINI.iStringSettings, "Settings", "Unknowns", Trim(Str(.sUnknowns)))
             clsFiles.WriteINI(lINI.iStringSettings, "Settings", "Unsupported", Trim(Str(.sUnsupported)))
-            'clsFiles.WriteINI(lINI.iStringSettings, "Settings", "ServerInNotices", Trim(.sServerInNotices.ToString))
         End With
         With lIRC.iModes
             clsFiles.WriteINI(lINI.iIRC, "Settings", "Invisible", Trim(.mInvisible.ToString))
@@ -1351,6 +1342,7 @@ Public Module mdlSettings
     End Sub
 
     Public Sub FillComboWithNetworks(ByVal lCombo As ComboBox, Optional ByVal lClearCombo As Boolean = False)
+        'Try
         Dim i As Integer
         If lClearCombo = True Then lCombo.Items.Clear()
         For i = 1 To lNetworks.nCount
@@ -1362,9 +1354,13 @@ Public Module mdlSettings
                 End If
             End With
         Next i
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub FillComboWithNetworks(ByVal lCombo As ComboBox, Optional ByVal lClearCombo As Boolean = False)")
+        'End Try
     End Sub
 
     Public Function FindNickNameIndex(ByVal lNickName As String) As Integer
+        'Try
         Dim i As Integer
         If Len(lNickName) <> 0 Then
             For i = 1 To lIRC.iNicks.nCount
@@ -1376,9 +1372,13 @@ Public Module mdlSettings
                 End With
             Next i
         End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function FindNickNameIndex(ByVal lNickName As String) As Integer")
+        'End Try
     End Function
 
     Public Function AddNickName(ByVal lNickName As String) As Integer
+        'Try
         If Len(lNickName) <> 0 Then
             If FindNickNameIndex(lNickName) <> 0 Then Exit Function
             lIRC.iNicks.nCount = lIRC.iNicks.nCount + 1
@@ -1389,14 +1389,22 @@ Public Module mdlSettings
             SaveNickNames()
             If lWinVisible.wCustomize = True Then frmCustomize.cboMyNickNames.Items.Add(lNickName)
         End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function AddNickName(ByVal lNickName As String) As Integer")
+        'End Try
     End Function
 
     Public Sub RemoveNetwork(ByVal lIndex As Integer)
+        'Try
         lNetworks.nNetwork(lIndex).nDescription = ""
         CleanUpNetworks()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub RemoveNetwork(ByVal lIndex As Integer)")
+        'End Try
     End Sub
 
     Public Sub CleanUpNetworks()
+        'Try
         Dim msg() As String, c As Integer, i As Integer
         ReDim msg(lArraySizes.aNetworks)
         For i = 1 To lArraySizes.aNetworks
@@ -1414,15 +1422,23 @@ Public Module mdlSettings
                 .nDescription = msg(i)
             End With
         Next i
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub CleanUpNetworks()")
+        'End Try
     End Sub
 
     Public Function ShowPrompts() As Boolean
+        'Try
         With lIRC.iSettings
             ShowPrompts = .sPrompts
         End With
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Function ShowPrompts() As Boolean")
+        'End Try
     End Function
 
     Public Sub LoadModes()
+        'Try
         With lIRC.iModes
             .mInvisible = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "Invisible", "True"))
             .mLocalOperator = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "LocalOperator", "False"))
@@ -1430,9 +1446,13 @@ Public Module mdlSettings
             .mRestricted = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "Restricted", "False"))
             .mServerNotices = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ServerNotices", "True"))
         End With
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub LoadModes()")
+        'End Try
     End Sub
 
     Public Sub LoadChannelFolders()
+        'Try
         Dim i As Integer
         ReDim lChannelFolders.cChannelFolder(lArraySizes.aChannelFolder)
         lChannelFolders.cCount = CInt(Trim(clsFiles.ReadINI(lINI.iChannelFolders, "Settings", "Count", "0")))
@@ -1442,9 +1462,13 @@ Public Module mdlSettings
                 .cNetwork = clsFiles.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Network", "")
             End With
         Next i
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub LoadChannelFolders()")
+        'End Try
     End Sub
 
     Public Sub SaveChannelFolders()
+        'Try
         Dim i As Integer
         clsFiles.WriteINI(lINI.iChannelFolders, "Settings", "Count", Trim(Str(lChannelFolders.cCount)))
         For i = 1 To lChannelFolders.cCount
@@ -1453,6 +1477,9 @@ Public Module mdlSettings
                 clsFiles.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Network", .cNetwork)
             End With
         Next i
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub SaveChannelFolders()")
+        'End Try
     End Sub
 
     Public Sub AddToChannelFolders(ByVal lChannel As String, ByVal lNetworkIndex As Integer)

@@ -150,12 +150,6 @@
     <Compile Include="Forms\frmAbout.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmAddNickName.Designer.vb">
-      <DependentUpon>frmAddNickName.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmAddNickName.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\frmAddServer.Designer.vb">
       <DependentUpon>frmAddServer.vb</DependentUpon>
     </Compile>
@@ -172,12 +166,6 @@
       <DependentUpon>frmChooseNetwork.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmChooseNetwork.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmCompatibility.Designer.vb">
-      <DependentUpon>frmCompatibility.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmCompatibility.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmSharedAdd.Designer.vb">
@@ -305,12 +293,6 @@
     <Compile Include="Forms\frmEditString.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmEditUserProfile.Designer.vb">
-      <DependentUpon>frmEditUserProfile.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmEditUserProfile.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\frmIdentdSettings.Designer.vb">
       <DependentUpon>frmIdentdSettings.vb</DependentUpon>
     </Compile>
@@ -407,9 +389,6 @@
     <EmbeddedResource Include="Forms\frmAbout.resx">
       <DependentUpon>frmAbout.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmAddNickName.resx">
-      <DependentUpon>frmAddNickName.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAddServer.resx">
       <DependentUpon>frmAddServer.vb</DependentUpon>
     </EmbeddedResource>
@@ -418,9 +397,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChooseNetwork.resx">
       <DependentUpon>frmChooseNetwork.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmCompatibility.resx">
-      <DependentUpon>frmCompatibility.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSharedAdd.resx">
       <DependentUpon>frmSharedAdd.vb</DependentUpon>
@@ -487,10 +463,6 @@
     <EmbeddedResource Include="Forms\frmEditString.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmEditString.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmEditUserProfile.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmEditUserProfile.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmIdentdSettings.resx">
       <DependentUpon>frmIdentdSettings.vb</DependentUpon>
@@ -587,7 +559,6 @@
     <Content Include="bin\Debug\data\images\channel2.bmp" />
     <Content Include="bin\Debug\data\images\channel_blue.bmp" />
     <Content Include="bin\Debug\data\images\chat.ico" />
-    <Content Include="bin\Debug\data\images\chat.png" />
     <Content Include="bin\Debug\data\images\close.png" />
     <Content Include="bin\Debug\data\images\configure.png" />
     <Content Include="bin\Debug\data\images\copy.png" />

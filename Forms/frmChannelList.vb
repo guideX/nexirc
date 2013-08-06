@@ -2,11 +2,12 @@
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
+Imports nexIRC.Classes.IO
 Public Class frmChannelList
     Private WithEvents lChannelListUI As New clsChannelListUI
     Private Sub frmChannelList_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         'Try
-        lChannelListUI.FormClosed(Me, lvwChannels)
+        lChannelListUI.FormClosed(lvwChannels, Me.Left, Me.Top, Me.Width, Me.Height)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub frmChannelList_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed")
         'End Try
@@ -71,8 +72,13 @@ Public Class frmChannelList
             'End Try
         End Set
     End Property
-
-    Private Sub lvwChannels_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lvwChannels.SelectedIndexChanged
-
+    Private Sub lChannelListUI_SaveColumnWidths() Handles lChannelListUI.SaveColumnWidths
+        'Try
+        For i As Integer = 1 To 3
+            clsFiles.WriteINI(lINI.iIRC, "lvwChannels_ColumnWidth", i.ToString, lvwChannels.Columns(i - 1).Width.ToString)
+        Next i
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Private Sub lChannelListUI_SaveColumnWidths() Handles lChannelListUI.SaveColumnWidths")
+        'End Try
     End Sub
 End Class

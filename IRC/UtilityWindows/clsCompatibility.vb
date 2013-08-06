@@ -18,7 +18,6 @@ Namespace IRC.UtilityWindows
             'ProcessError(ex.Message, "Public Sub cmdOK_Click(_Form As Form)")
             'End Try
         End Sub
-
         Private Sub SetListViewToCompatibility(ByVal _RadListView As RadListView)
             Dim _ListViewItem As ListViewDataItem
             'Try
@@ -32,6 +31,7 @@ Namespace IRC.UtilityWindows
                     '_ListViewItem.Text = .cDescription
                     _ListViewItem.Item(0) = .cDescription
                     _ListViewItem.Item(1) = .cEnabled.ToString
+                    _RadListView.Items.Add(_ListViewItem)
                 End With
             Next i
             'Catch ex As Exception

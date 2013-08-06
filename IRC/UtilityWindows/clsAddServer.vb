@@ -5,24 +5,6 @@ Imports nexIRC.Modules
 Namespace IRC.UtilityWindows
     Public Class clsAddServer
         Public lConnectSetting As Boolean
-        Private lNetwork As String
-        Public Property Network() As String
-            Get
-                'Try
-                Return lNetwork
-                'Catch ex As Exception
-                'ProcessError(ex.Message, "Public Property lNetwork() As String")
-                'Return Nothing
-                'End Try
-            End Get
-            Set(_Network As String)
-                'Try
-                lNetwork = _Network
-                'Catch ex As Exception
-                'ProcessError(ex.Message, "Public Property lNetwork() As String")
-                'End Try
-            End Set
-        End Property
         Public Sub cmdCancel_Click(_Form As Form)
             'Try
             _Form.Close()

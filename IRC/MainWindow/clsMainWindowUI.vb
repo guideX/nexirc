@@ -100,7 +100,7 @@ Namespace nexIRC.MainWindow
         End Sub
         Public Sub TriggerBrowserResize()
             'Try
-            lBrowser.bWindow.lBrowserUI.TriggerResize(lBrowser.bWindow)
+            lBrowser.bWindow.lBrowserUI.TriggerResize()
             'Catch ex As Exception
             'ProcessError(ex.Message, "Public Sub TriggerBrowserResize()")
             'End Try
@@ -170,13 +170,14 @@ Namespace nexIRC.MainWindow
             'ProcessError(ex.Message, "Public Sub BrowseURL(ByVal lURL As String, Optional ByVal lStartup As Boolean = False)")
             'End Try
         End Sub
-        Public Sub FormClosed(_Form As Form, _NotifyIcon As NotifyIcon)
+        Public Sub FormClosed(_Form As Form, _NotifyIcon As NotifyIcon, _SideBarShown As Boolean)
             'Try
             If _Form.WindowState = FormWindowState.Minimized Then _NotifyIcon.Visible = True
-            clsFiles.WriteINI(lINI.iIRC, "mdiMain", "Left", Str(Trim(CStr(_Form.Left))))
-            clsFiles.WriteINI(lINI.iIRC, "mdiMain", "Top", Str(Trim(CStr(_Form.Top))))
-            clsFiles.WriteINI(lINI.iIRC, "mdiMain", "Width", Str(Trim(Trim(CStr(_Form.Width)))))
-            clsFiles.WriteINI(lINI.iIRC, "mdiMain", "Height", Str(Trim(Trim(CStr(_Form.Height)))))
+            clsFiles.WriteINI(lINI.iIRC, "mdiMain", "Left", _Form.Left.ToString().Trim())
+            clsFiles.WriteINI(lINI.iIRC, "mdiMain", "Top", _Form.Top.ToString().Trim())
+            clsFiles.WriteINI(lINI.iIRC, "mdiMain", "Width", _Form.Width.ToString().Trim())
+            clsFiles.WriteINI(lINI.iIRC, "mdiMain", "Height", _Form.Height.ToString().Trim())
+            clsFiles.WriteINI(lINI.iIRC, "mdiMain", "SideBarShown", _SideBarShown.ToString())
             'Catch ex As Exception
             'ProcessError(ex.Message, "Private Sub mdiMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed")
             'End Try
@@ -248,8 +249,10 @@ Namespace nexIRC.MainWindow
             _TimerStartupSettings.Interval = 500
             _TimerStartupSettings.Enabled = True
             _Form.Text = "nexIRC v" & Application.ProductVersion
-            _LeftBarButton.Left = 0
-            _LeftNav.Visible = False
+            If (Convert.ToBoolean(clsFiles.ReadINI(lINI.iIRC, "Settings", "SideBarShown", "False")) = False) Then
+                _LeftBarButton.Left = 0
+                _LeftNav.Visible = False
+            End If
             Form_Resize(_Form, _LeftBarButton, _LeftNav, _ToolStrip, _WindowsToolStrip)
             'Catch ex As Exception
             'ProcessError(ex.Message, "Public Sub Form_Load(_Form As Form, _NotifyIcon As NotifyIcon, _TimerStartupSettings As Timer, _LeftBarButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)")
@@ -287,7 +290,7 @@ Namespace nexIRC.MainWindow
                 End If
             End If
             ResizeBrowser(_Form, _LeftNav, _ToolStrip, _WindowsToolStrip)
-            _Form.Refresh()
+            '_Form.Refresh()
             clsLockWindowUpdate.LockWindowUpdate(System.IntPtr.Zero)
             'Catch ex As Exception
             'ProcessError(ex.Message, "Private Sub Form_Resize(_Form As Form)")
@@ -364,18 +367,17 @@ Namespace nexIRC.MainWindow
             'End Try
         End Sub
         Public Sub WindowsToolStrip_ItemClicked(ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs)
-            Dim _ChannelIndex As Integer, _MeIndex As Integer
+            Dim _ChannelIndex As Integer = 0, _MeIndex As Integer
             'Try
             If (IsNumeric(e.ClickedItem.Tag.ToString()) = True) Then
                 _MeIndex = CType(e.ClickedItem.Tag.ToString(), Integer)
                 If DoLeft(e.ClickedItem.Text, 1) = "#" Then
-                    If (lChannels.Visible(lChannels.Find(_MeIndex, e.ClickedItem.Tag.ToString)) = True) Then
-                        _ChannelIndex = lChannels.Find(_MeIndex, e.ClickedItem.Text)
+                    _ChannelIndex = lChannels.Find(_MeIndex, e.ClickedItem.Text.ToString)
+                    If (lChannels.Visible(_ChannelIndex) = True) Then
                         lChannels.ToggleChannelWindowState(_ChannelIndex, lChannels.Window(_ChannelIndex).lMdiChildWindow.lForeMost)
                     Else
-                        lChannels.Form_Load(lChannels.Find(_MeIndex, e.ClickedItem.Tag.ToString))
-                        mdiMain.SetWindowFocus(lChannels.Window(lChannels.Find(_MeIndex, e.ClickedItem.Tag.ToString)))
-                        lChannels.Form_Load(lChannels.Find(_MeIndex, e.ClickedItem.Tag.ToString))
+                        lChannels.Form_Load(_ChannelIndex)
+                        mdiMain.SetWindowFocus(lChannels.Window(_ChannelIndex))
                     End If
                 ElseIf InStr(e.ClickedItem.Text, "(") <> 0 And InStr(e.ClickedItem.Text, ")") <> 0 Then
                     If (lStatus.Window(_MeIndex) IsNot Nothing) Then

@@ -637,13 +637,20 @@ Namespace IRC.Status
                         If lIRC.iNicks.nNick(_NickNameIndex).nNick.ToLower() = _NickName Then _Exists = True
                     Next _NickNameIndex
                     If _Exists = False Then AddNickName(_NickName)
-                    Caption(_StatusIndex) = _NickName & " on " & lStatus.StatusServerName(_StatusIndex)
+                    UpdateCaption(_StatusIndex, _NickName, lStatus.StatusServerName(_StatusIndex))
                 End With
                 'Catch ex As Exception
                 'RaiseEvent ProcessError(ex.Message, "Public Property NickName(_StatusIndex As Integer) As String")
                 'End Try
             End Set
         End Property
+        Public Sub UpdateCaption(_StatusIndex As Integer, _NickName As String, _Server As String)
+            'Try
+            Caption(_StatusIndex) = _NickName & " on " & _Server
+            'Catch ex As Exception
+            'RaiseEvent ProcessError(ex.Message, "Public Sub UpdateCaption(_StatusIndex As Integer, _NickName As String, _Server As String)")
+            'End Try
+        End Sub
         Public Property StatusServerName(ByVal lIndex As Integer) As String
             Get
                 'Try
@@ -943,7 +950,7 @@ Namespace IRC.Status
                                 .sMotdWindow.mVisible = True
                                 .sMotdWindow.mWindow.SetStatusIndex(n)
                                 .sMotdWindow.mWindow.Text = StatusServerName(.sWindow.lMdiChildWindow.MeIndex) & " - MOTD"
-                                mdiMain.Refresh()
+                                'mdiMain.Refresh()
                                 .sMotdWindow.mWindow.SetMotdWindow(True)
                                 .sMotdWindow.mWindow.SetNoticeWindow(False)
                                 .sMotdWindow.mWindow.SetUnknownsWindow(False)
@@ -1254,11 +1261,19 @@ Namespace IRC.Status
                     .pWindow = New frmNoticeWindow
                     .pWindow.SetPrivateMessageWindow(True, _NickName)
                     .pWindow.SetStatusIndex(_StatusIndex)
-                    .pWindow.Text = .pName & " (" & .pHost & ")"
+                    If (String.IsNullOrEmpty(.pHost)) Then
+                        .pWindow.Text = .pName
+                    Else
+                        .pWindow.Text = .pName & " (" & .pHost & ")"
+                    End If
                     .pWindow.txtOutgoing.Visible = True
                     .pWindow.TriggerResize()
                     .pWindow.Show()
-                    .pWindow.DoNoticeColor(.pIncomingText)
+                    If (Not String.IsNullOrEmpty(.pIncomingText)) Then
+                        .pIncomingText = .pIncomingText.Replace("<12" & _NickName & "> $message" & vbLf, "")
+                        .pIncomingText = .pIncomingText.Replace("<12" & _NickName & "> $message", "")
+                        .pWindow.DoNoticeColor(.pIncomingText.Replace("$message", ""))
+                    End If
                     _CreateToolStripItem = True
                     For Each _ToolStripItem As ToolStripItem In mdiMain.tspWindows.Items
                         If (_ToolStripItem.Text = .pName And _ToolStripItem.Tag.ToString = .pStatusIndex.ToString) Then

@@ -23,17 +23,19 @@ Partial Class frmCustomize
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewDetailColumn12 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
-        Dim ListViewDetailColumn13 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Server")
-        Dim ListViewDetailColumn14 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Port")
+        Dim ListViewDetailColumn14 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
+        Dim ListViewDetailColumn15 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Server")
+        Dim ListViewDetailColumn16 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Port")
         Dim ListViewDetailColumn1 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
         Dim ListViewDetailColumn2 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Message")
         Dim ListViewDetailColumn3 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Network")
-        Dim ListViewDetailColumn4 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
-        Dim ListViewDetailColumn5 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Support")
-        Dim ListViewDetailColumn6 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Syntax")
-        Dim ListViewDetailColumn15 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 3", "Numeric")
-        Dim ListViewDetailColumn16 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 4", "Data")
+        Dim ListViewDetailColumn4 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
+        Dim ListViewDetailColumn5 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Enabled")
+        Dim ListViewDetailColumn6 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
+        Dim ListViewDetailColumn7 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Support")
+        Dim ListViewDetailColumn8 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Syntax")
+        Dim ListViewDetailColumn17 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 3", "Numeric")
+        Dim ListViewDetailColumn18 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 4", "Data")
         Dim RadListDataItem4 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
         Dim RadListDataItem5 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
         Dim RadListDataItem6 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
@@ -50,13 +52,20 @@ Partial Class frmCustomize
         Me.lnkNetworkDelete = New System.Windows.Forms.LinkLabel()
         Me.cmdServerEdit = New Telerik.WinControls.UI.RadButton()
         Me.RadPageViewPage2 = New Telerik.WinControls.UI.RadPageViewPage()
+        Me.txtOperPassword = New Telerik.WinControls.UI.RadTextBox()
+        Me.txtOperName = New Telerik.WinControls.UI.RadTextBox()
+        Me.RadLabel19 = New Telerik.WinControls.UI.RadLabel()
+        Me.txtPassword = New Telerik.WinControls.UI.RadTextBox()
+        Me.RadLabel18 = New Telerik.WinControls.UI.RadLabel()
+        Me.txtRealName = New Telerik.WinControls.UI.RadTextBox()
+        Me.RadLabel17 = New Telerik.WinControls.UI.RadLabel()
+        Me.txtUserEmail = New Telerik.WinControls.UI.RadTextBox()
+        Me.RadLabel16 = New Telerik.WinControls.UI.RadLabel()
         Me.RadLabel3 = New Telerik.WinControls.UI.RadLabel()
-        Me.RadLabel2 = New Telerik.WinControls.UI.RadLabel()
         Me.RadLabel1 = New Telerik.WinControls.UI.RadLabel()
         Me.txtURL = New Telerik.WinControls.UI.RadTextBox()
         Me.lblHomePage = New Telerik.WinControls.UI.RadLabel()
         Me.cmdIdentdEdit = New Telerik.WinControls.UI.RadButton()
-        Me.cmdEditUserSettings = New Telerik.WinControls.UI.RadButton()
         Me.cboMyNickNames = New Telerik.WinControls.UI.RadDropDownList()
         Me.cmdClearMyNickName = New Telerik.WinControls.UI.RadButton()
         Me.cmdRemoveMyNickName = New Telerik.WinControls.UI.RadButton()
@@ -108,7 +117,9 @@ Partial Class frmCustomize
         Me.RadLabel4 = New Telerik.WinControls.UI.RadLabel()
         Me.lvwNotify = New Telerik.WinControls.UI.RadListView()
         Me.RadPageViewPage5 = New Telerik.WinControls.UI.RadPageViewPage()
-        Me.cmdCompatibility = New Telerik.WinControls.UI.RadButton()
+        Me.cmdCompatibilityDisable = New Telerik.WinControls.UI.RadButton()
+        Me.cmdCompatibilityEnable = New Telerik.WinControls.UI.RadButton()
+        Me.lvwCompatibility = New Telerik.WinControls.UI.RadListView()
         Me.cmdEditString = New Telerik.WinControls.UI.RadButton()
         Me.RadLabel9 = New Telerik.WinControls.UI.RadLabel()
         Me.RadPanel2 = New Telerik.WinControls.UI.RadPanel()
@@ -169,13 +180,20 @@ Partial Class frmCustomize
         CType(Me.cmdServerDelete, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdServerEdit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RadPageViewPage2.SuspendLayout()
+        CType(Me.txtOperPassword, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtOperName, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RadLabel19, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtPassword, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RadLabel18, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtRealName, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RadLabel17, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtUserEmail, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RadLabel16, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadLabel3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RadLabel2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadLabel1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtURL, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.lblHomePage, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdIdentdEdit, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cmdEditUserSettings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboMyNickNames, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdClearMyNickName, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdRemoveMyNickName, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -228,7 +246,9 @@ Partial Class frmCustomize
         CType(Me.RadLabel4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.lvwNotify, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RadPageViewPage5.SuspendLayout()
-        CType(Me.cmdCompatibility, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cmdCompatibilityDisable, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cmdCompatibilityEnable, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.lvwCompatibility, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdEditString, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadLabel9, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadPanel2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -315,13 +335,13 @@ Partial Class frmCustomize
         'lvwServers
         '
         Me.lvwServers.AllowEdit = False
-        ListViewDetailColumn12.HeaderText = "Description"
-        ListViewDetailColumn12.Width = 365.0!
-        ListViewDetailColumn13.HeaderText = "Server"
-        ListViewDetailColumn13.Width = 75.0!
-        ListViewDetailColumn14.HeaderText = "Port"
-        ListViewDetailColumn14.Width = 75.0!
-        Me.lvwServers.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn12, ListViewDetailColumn13, ListViewDetailColumn14})
+        ListViewDetailColumn14.HeaderText = "Description"
+        ListViewDetailColumn14.Width = 300.0!
+        ListViewDetailColumn15.HeaderText = "Server"
+        ListViewDetailColumn15.Width = 75.0!
+        ListViewDetailColumn16.HeaderText = "Port"
+        ListViewDetailColumn16.Width = 75.0!
+        Me.lvwServers.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn14, ListViewDetailColumn15, ListViewDetailColumn16})
         Me.lvwServers.EnableColumnSort = True
         Me.lvwServers.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwServers.ItemSize = New System.Drawing.Size(200, 20)
@@ -440,13 +460,20 @@ Partial Class frmCustomize
         '
         'RadPageViewPage2
         '
+        Me.RadPageViewPage2.Controls.Add(Me.txtOperPassword)
+        Me.RadPageViewPage2.Controls.Add(Me.txtOperName)
+        Me.RadPageViewPage2.Controls.Add(Me.RadLabel19)
+        Me.RadPageViewPage2.Controls.Add(Me.txtPassword)
+        Me.RadPageViewPage2.Controls.Add(Me.RadLabel18)
+        Me.RadPageViewPage2.Controls.Add(Me.txtRealName)
+        Me.RadPageViewPage2.Controls.Add(Me.RadLabel17)
+        Me.RadPageViewPage2.Controls.Add(Me.txtUserEmail)
+        Me.RadPageViewPage2.Controls.Add(Me.RadLabel16)
         Me.RadPageViewPage2.Controls.Add(Me.RadLabel3)
-        Me.RadPageViewPage2.Controls.Add(Me.RadLabel2)
         Me.RadPageViewPage2.Controls.Add(Me.RadLabel1)
         Me.RadPageViewPage2.Controls.Add(Me.txtURL)
         Me.RadPageViewPage2.Controls.Add(Me.lblHomePage)
         Me.RadPageViewPage2.Controls.Add(Me.cmdIdentdEdit)
-        Me.RadPageViewPage2.Controls.Add(Me.cmdEditUserSettings)
         Me.RadPageViewPage2.Controls.Add(Me.cboMyNickNames)
         Me.RadPageViewPage2.Controls.Add(Me.cmdClearMyNickName)
         Me.RadPageViewPage2.Controls.Add(Me.cmdRemoveMyNickName)
@@ -457,6 +484,84 @@ Partial Class frmCustomize
         Me.RadPageViewPage2.Size = New System.Drawing.Size(521, 333)
         Me.RadPageViewPage2.Text = "User"
         '
+        'txtOperPassword
+        '
+        Me.txtOperPassword.Location = New System.Drawing.Point(349, 223)
+        Me.txtOperPassword.Name = "txtOperPassword"
+        Me.txtOperPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtOperPassword.Size = New System.Drawing.Size(166, 20)
+        Me.txtOperPassword.TabIndex = 75
+        Me.txtOperPassword.TabStop = False
+        '
+        'txtOperName
+        '
+        Me.txtOperName.Location = New System.Drawing.Point(140, 223)
+        Me.txtOperName.Name = "txtOperName"
+        Me.txtOperName.Size = New System.Drawing.Size(203, 20)
+        Me.txtOperName.TabIndex = 73
+        Me.txtOperName.TabStop = False
+        '
+        'RadLabel19
+        '
+        Me.RadLabel19.BackColor = System.Drawing.Color.Transparent
+        Me.RadLabel19.Location = New System.Drawing.Point(7, 225)
+        Me.RadLabel19.Name = "RadLabel19"
+        Me.RadLabel19.Size = New System.Drawing.Size(111, 18)
+        Me.RadLabel19.TabIndex = 74
+        Me.RadLabel19.Text = "Oper User/Password:"
+        '
+        'txtPassword
+        '
+        Me.txtPassword.Location = New System.Drawing.Point(140, 197)
+        Me.txtPassword.Name = "txtPassword"
+        Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtPassword.Size = New System.Drawing.Size(375, 20)
+        Me.txtPassword.TabIndex = 71
+        Me.txtPassword.TabStop = False
+        '
+        'RadLabel18
+        '
+        Me.RadLabel18.BackColor = System.Drawing.Color.Transparent
+        Me.RadLabel18.Location = New System.Drawing.Point(7, 199)
+        Me.RadLabel18.Name = "RadLabel18"
+        Me.RadLabel18.Size = New System.Drawing.Size(56, 18)
+        Me.RadLabel18.TabIndex = 72
+        Me.RadLabel18.Text = "Password:"
+        '
+        'txtRealName
+        '
+        Me.txtRealName.Location = New System.Drawing.Point(140, 171)
+        Me.txtRealName.Name = "txtRealName"
+        Me.txtRealName.Size = New System.Drawing.Size(375, 20)
+        Me.txtRealName.TabIndex = 69
+        Me.txtRealName.TabStop = False
+        '
+        'RadLabel17
+        '
+        Me.RadLabel17.BackColor = System.Drawing.Color.Transparent
+        Me.RadLabel17.Location = New System.Drawing.Point(7, 173)
+        Me.RadLabel17.Name = "RadLabel17"
+        Me.RadLabel17.Size = New System.Drawing.Size(63, 18)
+        Me.RadLabel17.TabIndex = 70
+        Me.RadLabel17.Text = "Real Name:"
+        '
+        'txtUserEmail
+        '
+        Me.txtUserEmail.Location = New System.Drawing.Point(140, 145)
+        Me.txtUserEmail.Name = "txtUserEmail"
+        Me.txtUserEmail.Size = New System.Drawing.Size(375, 20)
+        Me.txtUserEmail.TabIndex = 67
+        Me.txtUserEmail.TabStop = False
+        '
+        'RadLabel16
+        '
+        Me.RadLabel16.BackColor = System.Drawing.Color.Transparent
+        Me.RadLabel16.Location = New System.Drawing.Point(7, 147)
+        Me.RadLabel16.Name = "RadLabel16"
+        Me.RadLabel16.Size = New System.Drawing.Size(40, 18)
+        Me.RadLabel16.TabIndex = 68
+        Me.RadLabel16.Text = "E-mail:"
+        '
         'RadLabel3
         '
         Me.RadLabel3.BackColor = System.Drawing.Color.Transparent
@@ -465,15 +570,6 @@ Partial Class frmCustomize
         Me.RadLabel3.Size = New System.Drawing.Size(59, 18)
         Me.RadLabel3.TabIndex = 66
         Me.RadLabel3.Text = "Nickname:"
-        '
-        'RadLabel2
-        '
-        Me.RadLabel2.BackColor = System.Drawing.Color.Transparent
-        Me.RadLabel2.Location = New System.Drawing.Point(7, 65)
-        Me.RadLabel2.Name = "RadLabel2"
-        Me.RadLabel2.Size = New System.Drawing.Size(74, 18)
-        Me.RadLabel2.TabIndex = 66
-        Me.RadLabel2.Text = "User Settings:"
         '
         'RadLabel1
         '
@@ -508,14 +604,6 @@ Partial Class frmCustomize
         Me.cmdIdentdEdit.Size = New System.Drawing.Size(121, 24)
         Me.cmdIdentdEdit.TabIndex = 63
         Me.cmdIdentdEdit.Text = "Edit"
-        '
-        'cmdEditUserSettings
-        '
-        Me.cmdEditUserSettings.Location = New System.Drawing.Point(394, 59)
-        Me.cmdEditUserSettings.Name = "cmdEditUserSettings"
-        Me.cmdEditUserSettings.Size = New System.Drawing.Size(121, 24)
-        Me.cmdEditUserSettings.TabIndex = 60
-        Me.cmdEditUserSettings.Text = "Edit"
         '
         'cboMyNickNames
         '
@@ -1013,7 +1101,9 @@ Partial Class frmCustomize
         '
         'RadPageViewPage5
         '
-        Me.RadPageViewPage5.Controls.Add(Me.cmdCompatibility)
+        Me.RadPageViewPage5.Controls.Add(Me.cmdCompatibilityDisable)
+        Me.RadPageViewPage5.Controls.Add(Me.cmdCompatibilityEnable)
+        Me.RadPageViewPage5.Controls.Add(Me.lvwCompatibility)
         Me.RadPageViewPage5.Controls.Add(Me.cmdEditString)
         Me.RadPageViewPage5.Controls.Add(Me.RadLabel9)
         Me.RadPageViewPage5.Controls.Add(Me.RadPanel2)
@@ -1026,17 +1116,43 @@ Partial Class frmCustomize
         Me.RadPageViewPage5.Size = New System.Drawing.Size(521, 333)
         Me.RadPageViewPage5.Text = "Text"
         '
-        'cmdCompatibility
+        'cmdCompatibilityDisable
         '
-        Me.cmdCompatibility.Location = New System.Drawing.Point(260, 306)
-        Me.cmdCompatibility.Name = "cmdCompatibility"
-        Me.cmdCompatibility.Size = New System.Drawing.Size(130, 24)
-        Me.cmdCompatibility.TabIndex = 18
-        Me.cmdCompatibility.Text = "Compatibility"
+        Me.cmdCompatibilityDisable.Location = New System.Drawing.Point(261, 306)
+        Me.cmdCompatibilityDisable.Name = "cmdCompatibilityDisable"
+        Me.cmdCompatibilityDisable.Size = New System.Drawing.Size(130, 24)
+        Me.cmdCompatibilityDisable.TabIndex = 21
+        Me.cmdCompatibilityDisable.Text = "Disable"
+        '
+        'cmdCompatibilityEnable
+        '
+        Me.cmdCompatibilityEnable.Location = New System.Drawing.Point(124, 306)
+        Me.cmdCompatibilityEnable.Name = "cmdCompatibilityEnable"
+        Me.cmdCompatibilityEnable.Size = New System.Drawing.Size(130, 24)
+        Me.cmdCompatibilityEnable.TabIndex = 20
+        Me.cmdCompatibilityEnable.Text = "Enable"
+        '
+        'lvwCompatibility
+        '
+        ListViewDetailColumn4.HeaderText = "Name"
+        ListViewDetailColumn4.Width = 180.0!
+        ListViewDetailColumn5.HeaderText = "Enabled"
+        ListViewDetailColumn5.Width = 190.0!
+        Me.lvwCompatibility.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn4, ListViewDetailColumn5})
+        Me.lvwCompatibility.EnableColumnSort = True
+        Me.lvwCompatibility.EnableSorting = True
+        Me.lvwCompatibility.GroupItemSize = New System.Drawing.Size(200, 20)
+        Me.lvwCompatibility.ItemSize = New System.Drawing.Size(200, 20)
+        Me.lvwCompatibility.ItemSpacing = -1
+        Me.lvwCompatibility.Location = New System.Drawing.Point(124, 190)
+        Me.lvwCompatibility.Name = "lvwCompatibility"
+        Me.lvwCompatibility.Size = New System.Drawing.Size(394, 110)
+        Me.lvwCompatibility.TabIndex = 19
+        Me.lvwCompatibility.ViewType = Telerik.WinControls.UI.ListViewType.DetailsView
         '
         'cmdEditString
         '
-        Me.cmdEditString.Location = New System.Drawing.Point(124, 306)
+        Me.cmdEditString.Location = New System.Drawing.Point(124, 160)
         Me.cmdEditString.Name = "cmdEditString"
         Me.cmdEditString.Size = New System.Drawing.Size(130, 24)
         Me.cmdEditString.TabIndex = 17
@@ -1134,17 +1250,17 @@ Partial Class frmCustomize
         '
         'lvwStrings
         '
-        ListViewDetailColumn4.HeaderText = "Description"
-        ListViewDetailColumn4.Width = 175.0!
-        ListViewDetailColumn5.HeaderText = "Support"
-        ListViewDetailColumn5.Width = 50.0!
-        ListViewDetailColumn6.HeaderText = "Syntax"
-        ListViewDetailColumn6.Width = 50.0!
-        ListViewDetailColumn15.HeaderText = "Numeric"
-        ListViewDetailColumn15.Width = 50.0!
-        ListViewDetailColumn16.HeaderText = "Data"
-        ListViewDetailColumn16.Width = 50.0!
-        Me.lvwStrings.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn4, ListViewDetailColumn5, ListViewDetailColumn6, ListViewDetailColumn15, ListViewDetailColumn16})
+        ListViewDetailColumn6.HeaderText = "Description"
+        ListViewDetailColumn6.Width = 150.0!
+        ListViewDetailColumn7.HeaderText = "Support"
+        ListViewDetailColumn7.Width = 50.0!
+        ListViewDetailColumn8.HeaderText = "Syntax"
+        ListViewDetailColumn8.Width = 50.0!
+        ListViewDetailColumn17.HeaderText = "Numeric"
+        ListViewDetailColumn17.Width = 50.0!
+        ListViewDetailColumn18.HeaderText = "Data"
+        ListViewDetailColumn18.Width = 68.0!
+        Me.lvwStrings.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn6, ListViewDetailColumn7, ListViewDetailColumn8, ListViewDetailColumn17, ListViewDetailColumn18})
         Me.lvwStrings.EnableColumnSort = True
         Me.lvwStrings.EnableSorting = True
         Me.lvwStrings.GroupItemSize = New System.Drawing.Size(200, 20)
@@ -1152,7 +1268,7 @@ Partial Class frmCustomize
         Me.lvwStrings.ItemSpacing = -1
         Me.lvwStrings.Location = New System.Drawing.Point(124, 11)
         Me.lvwStrings.Name = "lvwStrings"
-        Me.lvwStrings.Size = New System.Drawing.Size(394, 289)
+        Me.lvwStrings.Size = New System.Drawing.Size(394, 144)
         Me.lvwStrings.TabIndex = 13
         Me.lvwStrings.ViewType = Telerik.WinControls.UI.ListViewType.DetailsView
         '
@@ -1425,7 +1541,7 @@ Partial Class frmCustomize
         '
         'chkNewStatus
         '
-        Me.chkNewStatus.Location = New System.Drawing.Point(120, 399)
+        Me.chkNewStatus.Location = New System.Drawing.Point(92, 388)
         Me.chkNewStatus.Name = "chkNewStatus"
         Me.chkNewStatus.Size = New System.Drawing.Size(121, 18)
         Me.chkNewStatus.TabIndex = 27
@@ -1454,7 +1570,7 @@ Partial Class frmCustomize
         'cmdApplyNow
         '
         Me.cmdApplyNow.Image = Global.nexIRC.My.Resources.Resources.accept
-        Me.cmdApplyNow.Location = New System.Drawing.Point(363, 388)
+        Me.cmdApplyNow.Location = New System.Drawing.Point(363, 382)
         Me.cmdApplyNow.Name = "cmdApplyNow"
         Me.cmdApplyNow.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
         '
@@ -1469,7 +1585,7 @@ Partial Class frmCustomize
         'cmdOK
         '
         Me.cmdOK.Image = Global.nexIRC.My.Resources.Resources.accept
-        Me.cmdOK.Location = New System.Drawing.Point(271, 388)
+        Me.cmdOK.Location = New System.Drawing.Point(271, 382)
         Me.cmdOK.Name = "cmdOK"
         Me.cmdOK.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
         '
@@ -1484,7 +1600,7 @@ Partial Class frmCustomize
         'cmdConnectNow
         '
         Me.cmdConnectNow.Image = Global.nexIRC.My.Resources.Resources.network1
-        Me.cmdConnectNow.Location = New System.Drawing.Point(0, 388)
+        Me.cmdConnectNow.Location = New System.Drawing.Point(0, 382)
         Me.cmdConnectNow.Name = "cmdConnectNow"
         Me.cmdConnectNow.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
         '
@@ -1499,7 +1615,7 @@ Partial Class frmCustomize
         'cmdCancelNow
         '
         Me.cmdCancelNow.Image = Global.nexIRC.My.Resources.Resources.cancel
-        Me.cmdCancelNow.Location = New System.Drawing.Point(456, 388)
+        Me.cmdCancelNow.Location = New System.Drawing.Point(456, 382)
         Me.cmdCancelNow.Name = "cmdCancelNow"
         Me.cmdCancelNow.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
         '
@@ -1515,15 +1631,14 @@ Partial Class frmCustomize
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(543, 417)
+        Me.ClientSize = New System.Drawing.Size(543, 414)
         Me.Controls.Add(Me.RadPageView1)
         Me.Controls.Add(Me.chkNewStatus)
         Me.Controls.Add(Me.cmdApplyNow)
         Me.Controls.Add(Me.cmdOK)
         Me.Controls.Add(Me.cmdConnectNow)
         Me.Controls.Add(Me.cmdCancelNow)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "frmCustomize"
         '
         '
@@ -1543,13 +1658,20 @@ Partial Class frmCustomize
         CType(Me.cmdServerEdit, System.ComponentModel.ISupportInitialize).EndInit()
         Me.RadPageViewPage2.ResumeLayout(False)
         Me.RadPageViewPage2.PerformLayout()
+        CType(Me.txtOperPassword, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtOperName, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RadLabel19, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtPassword, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RadLabel18, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtRealName, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RadLabel17, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtUserEmail, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RadLabel16, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadLabel3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RadLabel2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadLabel1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtURL, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.lblHomePage, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdIdentdEdit, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cmdEditUserSettings, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboMyNickNames, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdClearMyNickName, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdRemoveMyNickName, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1609,7 +1731,9 @@ Partial Class frmCustomize
         CType(Me.lvwNotify, System.ComponentModel.ISupportInitialize).EndInit()
         Me.RadPageViewPage5.ResumeLayout(False)
         Me.RadPageViewPage5.PerformLayout()
-        CType(Me.cmdCompatibility, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cmdCompatibilityDisable, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cmdCompatibilityEnable, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.lvwCompatibility, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdEditString, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadLabel9, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadPanel2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1666,7 +1790,6 @@ Partial Class frmCustomize
     End Sub
     Friend WithEvents RadPageViewPage6 As Telerik.WinControls.UI.RadPageViewPage
     Friend WithEvents chkShowRawWindow As Telerik.WinControls.UI.RadCheckBox
-    Friend WithEvents RadLabel2 As Telerik.WinControls.UI.RadLabel
     Friend WithEvents chkMOTDInOwnWindow As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents RadLabel1 As Telerik.WinControls.UI.RadLabel
     Friend WithEvents RadLabel3 As Telerik.WinControls.UI.RadLabel
@@ -1678,7 +1801,6 @@ Partial Class frmCustomize
     Friend WithEvents cmdIdentdEdit As Telerik.WinControls.UI.RadButton
     Friend WithEvents chkShowWindowsAutomatically As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents chkHideStatusOnClose As Telerik.WinControls.UI.RadCheckBox
-    Friend WithEvents cmdEditUserSettings As Telerik.WinControls.UI.RadButton
     Friend WithEvents cboMyNickNames As Telerik.WinControls.UI.RadDropDownList
     Friend WithEvents RadPageViewPage7 As Telerik.WinControls.UI.RadPageViewPage
     Friend WithEvents chkBrowseChannelURLs As Telerik.WinControls.UI.RadCheckBox
@@ -1747,7 +1869,6 @@ Partial Class frmCustomize
     Friend WithEvents rdbUnknownTextHide As Telerik.WinControls.UI.RadRadioButton
     Friend WithEvents rdbUnknownTextStatus As Telerik.WinControls.UI.RadRadioButton
     Friend WithEvents lvwStrings As Telerik.WinControls.UI.RadListView
-    Friend WithEvents cmdCompatibility As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdEditString As Telerik.WinControls.UI.RadButton
     Friend WithEvents RadLabel9 As Telerik.WinControls.UI.RadLabel
     Friend WithEvents RadPanel2 As Telerik.WinControls.UI.RadPanel
@@ -1784,5 +1905,17 @@ Partial Class frmCustomize
     Friend WithEvents cmdDCCIgnoreAdd As Telerik.WinControls.UI.RadButton
     Friend WithEvents lstDCCIgnoreItems As Telerik.WinControls.UI.RadListControl
     Friend WithEvents RadLabel15 As Telerik.WinControls.UI.RadLabel
+    Friend WithEvents cmdCompatibilityDisable As Telerik.WinControls.UI.RadButton
+    Friend WithEvents cmdCompatibilityEnable As Telerik.WinControls.UI.RadButton
+    Friend WithEvents lvwCompatibility As Telerik.WinControls.UI.RadListView
+    Friend WithEvents txtUserEmail As Telerik.WinControls.UI.RadTextBox
+    Friend WithEvents RadLabel16 As Telerik.WinControls.UI.RadLabel
+    Friend WithEvents txtRealName As Telerik.WinControls.UI.RadTextBox
+    Friend WithEvents RadLabel17 As Telerik.WinControls.UI.RadLabel
+    Friend WithEvents txtPassword As Telerik.WinControls.UI.RadTextBox
+    Friend WithEvents RadLabel18 As Telerik.WinControls.UI.RadLabel
+    Friend WithEvents txtOperPassword As Telerik.WinControls.UI.RadTextBox
+    Friend WithEvents txtOperName As Telerik.WinControls.UI.RadTextBox
+    Friend WithEvents RadLabel19 As Telerik.WinControls.UI.RadLabel
 End Class
 

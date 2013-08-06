@@ -83,7 +83,7 @@ Public Class clsProcessNumeric
         splt = Split(lData, " ")
         If InStr(lData, " 001 ") <> 0 And Left(lData, 1) = ":" Or InStr(lData, " 433 ") <> 0 And Left(lData, 1) = ":" Then
             lStatus.StatusServerName(lStatusIndex) = Replace(splt(0), ":", "")
-            lStatus.Caption(lStatusIndex) = lStatus.NickName(lStatusIndex) & " on " & lStatus.StatusServerName(lStatusIndex)
+            lStatus.UpdateCaption(lStatusIndex, lStatus.NickName(lStatusIndex), lStatus.StatusServerName(lStatusIndex))
         End If
         If Left(lData, 1) = ":" Then
             If UBound(splt) > 2 Then

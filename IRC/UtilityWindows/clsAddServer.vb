@@ -64,7 +64,7 @@ Namespace IRC.UtilityWindows
         End Sub
         Public Sub mnuServerLists_Click()
             'Try
-            mdiMain.BrowseURL("http://www.irchelp.org/irchelp/networks/servers/index.html")
+            'mdiMain.BrowseURL("http://www.irchelp.org/irchelp/networks/servers/index.html")
             'Catch ex As Exception
             'ProcessError(ex.Message, "Public Sub mnuServerLists_Click()")
             'End Try

@@ -31,7 +31,7 @@ Public Class frmCustomize
             chkShowNicknameWindow.Checked,
             chkCloseChannelFolder.Checked,
             chkAddToChannelFolder.Checked,
-            chkBrowseChannelURLs.Checked,
+            False,
             chkCloseStatusWindow.Checked,
             chkShowRawWindow.Checked,
             chkMOTDInOwnWindow.Checked,
@@ -40,12 +40,12 @@ Public Class frmCustomize
         lCustomize.Apply_Settings_Startup(
             chkAutoConnect.Checked,
             chkShowCustomize.Checked,
-            chkShowBrowser.Checked
+            False
         )
         lCustomize.Apply_Settings_Startup(
             chkAutoConnect.Checked,
             chkShowCustomize.Checked,
-            chkShowBrowser.Checked
+            False
         )
         lCustomize.Apply_Settings_ServerModes(
             chkInvisible.Checked,
@@ -83,7 +83,7 @@ Public Class frmCustomize
         'ProcessError(ex.Message, "Public Sub EventApply()")
         'End Try
     End Sub
-    
+
     Public ReadOnly Property ServersListView() As RadListView
         Get
             'Try
@@ -178,7 +178,7 @@ Public Class frmCustomize
             chkCloseChannelFolder.Checked = .sChannelFolderCloseOnJoin
             chkAddToChannelFolder.Checked = .sAutoAddToChannelFolder
             chkCloseStatusWindow.Checked = .sCloseWindowOnDisconnect
-            chkBrowseChannelURLs.Checked = .sAutoNavigateChannelUrls
+            'chkBrowseChannelURLs.Checked = .sAutoNavigateChannelUrls
             chkHideStatusOnClose.Checked = .sHideStatusOnClose
             chkShowUserAddresses.Checked = .sShowUserAddresses
             chkHideMOTDs.Checked = .sHideMOTD
@@ -188,7 +188,7 @@ Public Class frmCustomize
             chkShowCustomize.Checked = .sCustomizeOnStartup
             chkPopupChannelFolder.Checked = .sPopupChannelFolders
             chkShowNicknameWindow.Checked = .sChangeNickNameWindow
-            chkShowBrowser.Checked = .sShowBrowser
+            'chkShowBrowser.Checked = .sShowBrowser
             chkShowWindowsAutomatically.Checked = .sShowWindowsAutomatically
             chkAutoMaximize.Checked = .sAutoMaximize
             chkHideStatusOnClose.Checked = .sHideStatusOnClose

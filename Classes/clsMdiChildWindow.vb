@@ -308,16 +308,16 @@ Public Class clsMdiChildWindow
         'ProcessError(ex.Message, "Public Sub cmdListChannels()")
         'End Try
     End Sub
-    Public Sub cmdUrl_Click()
-        'Try
-        Select Case lFormType
-            Case eFormTypes.fChannel
-                mdiMain.BrowseURL(lChannels.URL(lMeIndex), False)
-        End Select
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Sub cmdUrl_Click()")
-        'End Try
-    End Sub
+    'Public Sub cmdUrl_Click()
+    'Try
+    'Select Case lFormType
+    'Case eFormTypes.fChannel
+    'mdiMain.BrowseURL(lChannels.URL(lMeIndex), False)
+    'End Select
+    'Catch ex As Exception
+    'ProcessError(ex.Message, "Public Sub cmdUrl_Click()")
+    'End Try
+    'End Sub
     Public Sub cmdPart_Click(_Form As Form)
         'Try
         Select Case lFormType
@@ -356,7 +356,7 @@ Public Class clsMdiChildWindow
     End Sub
     Public Sub TextBox_LinkClicked(_Link As String)
         'Try
-        mdiMain.BrowseURL(_Link, False)
+        'mdiMain.BrowseURL(_Link, False)
         'Catch ex As Exception
         'ProcessError(ex.Message, "Public Sub TextBox_LinkClicked(_Link As String)")
         'End Try

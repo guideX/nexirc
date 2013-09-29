@@ -15,7 +15,7 @@ Namespace nexIRC.MainWindow
             Public vVisible As Boolean
         End Structure
         Public Structure gBrowser
-            Public bWindow As frmBrowser
+            'Public bWindow As frmBrowser
             Public bURL As String
             Public bVisible As Boolean
         End Structure
@@ -91,20 +91,20 @@ Namespace nexIRC.MainWindow
             'ProcessError(ex.Message, "Public Sub ClearWindowBar()")
             'End Try
         End Sub
-        Public Sub CloseBrowser()
-            'Try
-            lBrowser.bWindow.Close()
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Public Sub CloseBrowser()")
-            'End Try
-        End Sub
-        Public Sub TriggerBrowserResize()
-            'Try
-            lBrowser.bWindow.lBrowserUI.TriggerResize()
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Public Sub TriggerBrowserResize()")
-            'End Try
-        End Sub
+        'Public Sub CloseBrowser()
+        'Try
+        'lBrowser.bWindow.Close()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub CloseBrowser()")
+        'End Try
+        'End Sub
+        'Public Sub TriggerBrowserResize()
+        'Try
+        'lBrowser.bWindow.lBrowserUI.TriggerResize()
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub TriggerBrowserResize()")
+        'End Try
+        'End Sub
         Public Sub PlayVideo(ByVal lFile As String)
             'Try
             If Len(lFile) <> 0 And clsFiles.DoesFileExist(lFile) = True Then
@@ -146,24 +146,24 @@ Namespace nexIRC.MainWindow
                     End If
                 End If
                 If lBrowser.bVisible = False Then
-                    lBrowser.bWindow = Nothing
-                    lBrowser.bWindow = New frmBrowser
-                    lBrowser.bWindow.MdiParent = _Form
-                    lBrowser.bWindow.Show()
-                    lBrowser.bVisible = True
+                    'lBrowser.bWindow = Nothing
+                    'lBrowser.bWindow = New frmBrowser
+                    'lBrowser.bWindow.MdiParent = _Form
+                    'lBrowser.bWindow.Show()
+                    'lBrowser.bVisible = True
                 End If
                 lBrowser.bURL = _URL
-                lBrowser.bWindow.WebBrowser1.Navigate(_URL)
+                'lBrowser.bWindow.WebBrowser1.Navigate(_URL)
                 If Err.Number = 5 Then
-                    lBrowser.bWindow = Nothing
-                    lBrowser.bWindow = New frmBrowser
-                    lBrowser.bWindow.MdiParent = _Form
-                    clsAnimate.Animate(lBrowser.bWindow, clsAnimate.Effect.Center, 200, 1)
-                    lBrowser.bVisible = True
-                    lBrowser.bURL = _URL
-                    lBrowser.bWindow.WebBrowser1.Navigate(_URL)
-                    lBrowser.bWindow.Width = _Form.Width
-                    lBrowser.bWindow.Height = _Form.Width
+                    'lBrowser.bWindow = Nothing
+                    'lBrowser.bWindow = New frmBrowser
+                    'lBrowser.bWindow.MdiParent = _Form
+                    'clsAnimate.Animate(lBrowser.bWindow, clsAnimate.Effect.Center, 200, 1)
+                    'lBrowser.bVisible = True
+                    'lBrowser.bURL = _URL
+                    'lBrowser.bWindow.WebBrowser1.Navigate(_URL)
+                    'lBrowser.bWindow.Width = _Form.Width
+                    'lBrowser.bWindow.Height = _Form.Width
                 End If
             End If
             'Catch ex As Exception
@@ -289,39 +289,39 @@ Namespace nexIRC.MainWindow
                     End If
                 End If
             End If
-            ResizeBrowser(_Form, _LeftNav, _ToolStrip, _WindowsToolStrip)
+            'ResizeBrowser(_Form, _LeftNav, _ToolStrip, _WindowsToolStrip)
             '_Form.Refresh()
             clsLockWindowUpdate.LockWindowUpdate(System.IntPtr.Zero)
             'Catch ex As Exception
             'ProcessError(ex.Message, "Private Sub Form_Resize(_Form As Form)")
             'End Try
         End Sub
-        Public Sub ResizeBrowser(_Form As Form, _LeftPanel As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
-            'Try
-            If lBrowser.bVisible = True Then
-                If _LeftPanel.Visible = True Then
-                    lBrowser.bWindow.Width = _Form.ClientSize.Width - (_LeftPanel.ClientSize.Width + 4)
-                Else
-                    lBrowser.bWindow.Width = _Form.ClientSize.Width - (4)
-                End If
-                If _WindowsToolStrip.Visible = True Then
-                    If _ToolStrip.Visible = True Then
-                        lBrowser.bWindow.Height = _Form.ClientSize.Height - (_ToolStrip.ClientSize.Height + _WindowsToolStrip.ClientSize.Height + 4)
-                    Else
-                        lBrowser.bWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + 4)
-                    End If
-                Else
-                    If _ToolStrip.Visible = True Then
-                        lBrowser.bWindow.Height = _Form.ClientSize.Height - (_ToolStrip.ClientSize.Height + 6)
-                    Else
-                        lBrowser.bWindow.Height = _Form.ClientSize.Height - 6
-                    End If
-                End If
-            End If
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Public Sub ResizeBrowser()")
-            'End Try
-        End Sub
+        'Public Sub ResizeBrowser(_Form As Form, _LeftPanel As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
+        'Try
+        'If lBrowser.bVisible = True Then
+        'If _LeftPanel.Visible = True Then
+        'lBrowser.bWindow.Width = _Form.ClientSize.Width - (_LeftPanel.ClientSize.Width + 4)
+        'Else
+        'lBrowser.bWindow.Width = _Form.ClientSize.Width - (4)
+        'End If
+        'If _WindowsToolStrip.Visible = True Then
+        'If _ToolStrip.Visible = True Then
+        'lBrowser.bWindow.Height = _Form.ClientSize.Height - (_ToolStrip.ClientSize.Height + _WindowsToolStrip.ClientSize.Height + 4)
+        'Else
+        'lBrowser.bWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + 4)
+        'End If
+        'Else
+        'If _ToolStrip.Visible = True Then
+        'lBrowser.bWindow.Height = _Form.ClientSize.Height - (_ToolStrip.ClientSize.Height + 6)
+        'Else
+        'lBrowser.bWindow.Height = _Form.ClientSize.Height - 6
+        'End If
+        'End If
+        'End If
+        'Catch ex As Exception
+        'ProcessError(ex.Message, "Public Sub ResizeBrowser()")
+        'End Try
+        'End Sub
         Public Sub SetWindowFocus(ByVal _Form As Form)
             Try
                 If _Form.WindowState = FormWindowState.Minimized Then _Form.WindowState = FormWindowState.Normal

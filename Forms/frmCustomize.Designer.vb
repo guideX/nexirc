@@ -23,22 +23,22 @@ Partial Class frmCustomize
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewDetailColumn14 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
-        Dim ListViewDetailColumn15 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Server")
-        Dim ListViewDetailColumn16 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Port")
-        Dim ListViewDetailColumn1 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
-        Dim ListViewDetailColumn2 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Message")
-        Dim ListViewDetailColumn3 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Network")
+        Dim ListViewDetailColumn1 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
+        Dim ListViewDetailColumn2 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Server")
+        Dim ListViewDetailColumn3 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Port")
         Dim ListViewDetailColumn4 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
-        Dim ListViewDetailColumn5 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Enabled")
-        Dim ListViewDetailColumn6 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
-        Dim ListViewDetailColumn7 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Support")
-        Dim ListViewDetailColumn8 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Syntax")
-        Dim ListViewDetailColumn17 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 3", "Numeric")
-        Dim ListViewDetailColumn18 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 4", "Data")
-        Dim RadListDataItem4 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
-        Dim RadListDataItem5 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
-        Dim RadListDataItem6 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim ListViewDetailColumn5 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Message")
+        Dim ListViewDetailColumn6 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Network")
+        Dim ListViewDetailColumn7 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
+        Dim ListViewDetailColumn8 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Enabled")
+        Dim ListViewDetailColumn9 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
+        Dim ListViewDetailColumn10 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Support")
+        Dim ListViewDetailColumn11 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Syntax")
+        Dim ListViewDetailColumn12 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 3", "Numeric")
+        Dim ListViewDetailColumn13 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 4", "Data")
+        Dim RadListDataItem1 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim RadListDataItem2 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim RadListDataItem3 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCustomize))
         Me.RadPageView1 = New Telerik.WinControls.UI.RadPageView()
         Me.RadPageViewPage1 = New Telerik.WinControls.UI.RadPageViewPage()
@@ -80,7 +80,6 @@ Partial Class frmCustomize
         Me.chkShowWindowsAutomatically = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkCloseStatusWindow = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkHideStatusOnClose = New Telerik.WinControls.UI.RadCheckBox()
-        Me.chkBrowseChannelURLs = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkAddToChannelFolder = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkCloseChannelFolder = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkShowNicknameWindow = New Telerik.WinControls.UI.RadCheckBox()
@@ -90,7 +89,6 @@ Partial Class frmCustomize
         Me.RadPageViewPage8 = New Telerik.WinControls.UI.RadPageViewPage()
         Me.chkAutoConnect = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkShowCustomize = New Telerik.WinControls.UI.RadCheckBox()
-        Me.chkShowBrowser = New Telerik.WinControls.UI.RadCheckBox()
         Me.RadPageViewPage9 = New Telerik.WinControls.UI.RadPageViewPage()
         Me.chkInvisible = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkWallops = New Telerik.WinControls.UI.RadCheckBox()
@@ -209,7 +207,6 @@ Partial Class frmCustomize
         CType(Me.chkShowWindowsAutomatically, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkCloseStatusWindow, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkHideStatusOnClose, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.chkBrowseChannelURLs, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkAddToChannelFolder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkCloseChannelFolder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkShowNicknameWindow, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -219,7 +216,6 @@ Partial Class frmCustomize
         Me.RadPageViewPage8.SuspendLayout()
         CType(Me.chkAutoConnect, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkShowCustomize, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.chkShowBrowser, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RadPageViewPage9.SuspendLayout()
         CType(Me.chkInvisible, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkWallops, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -335,13 +331,13 @@ Partial Class frmCustomize
         'lvwServers
         '
         Me.lvwServers.AllowEdit = False
-        ListViewDetailColumn14.HeaderText = "Description"
-        ListViewDetailColumn14.Width = 300.0!
-        ListViewDetailColumn15.HeaderText = "Server"
-        ListViewDetailColumn15.Width = 75.0!
-        ListViewDetailColumn16.HeaderText = "Port"
-        ListViewDetailColumn16.Width = 75.0!
-        Me.lvwServers.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn14, ListViewDetailColumn15, ListViewDetailColumn16})
+        ListViewDetailColumn1.HeaderText = "Description"
+        ListViewDetailColumn1.Width = 300.0!
+        ListViewDetailColumn2.HeaderText = "Server"
+        ListViewDetailColumn2.Width = 75.0!
+        ListViewDetailColumn3.HeaderText = "Port"
+        ListViewDetailColumn3.Width = 75.0!
+        Me.lvwServers.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn1, ListViewDetailColumn2, ListViewDetailColumn3})
         Me.lvwServers.EnableColumnSort = True
         Me.lvwServers.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwServers.ItemSize = New System.Drawing.Size(200, 20)
@@ -672,7 +668,6 @@ Partial Class frmCustomize
         Me.RadPageViewPage7.Controls.Add(Me.chkShowWindowsAutomatically)
         Me.RadPageViewPage7.Controls.Add(Me.chkCloseStatusWindow)
         Me.RadPageViewPage7.Controls.Add(Me.chkHideStatusOnClose)
-        Me.RadPageViewPage7.Controls.Add(Me.chkBrowseChannelURLs)
         Me.RadPageViewPage7.Controls.Add(Me.chkAddToChannelFolder)
         Me.RadPageViewPage7.Controls.Add(Me.chkCloseChannelFolder)
         Me.RadPageViewPage7.Controls.Add(Me.chkShowNicknameWindow)
@@ -732,7 +727,7 @@ Partial Class frmCustomize
         'chkCloseStatusWindow
         '
         Me.chkCloseStatusWindow.BackColor = System.Drawing.Color.Transparent
-        Me.chkCloseStatusWindow.Location = New System.Drawing.Point(166, 27)
+        Me.chkCloseStatusWindow.Location = New System.Drawing.Point(166, 3)
         Me.chkCloseStatusWindow.Name = "chkCloseStatusWindow"
         Me.chkCloseStatusWindow.Size = New System.Drawing.Size(125, 18)
         Me.chkCloseStatusWindow.TabIndex = 62
@@ -746,15 +741,6 @@ Partial Class frmCustomize
         Me.chkHideStatusOnClose.Size = New System.Drawing.Size(124, 18)
         Me.chkHideStatusOnClose.TabIndex = 58
         Me.chkHideStatusOnClose.Text = "Hide Status on Close"
-        '
-        'chkBrowseChannelURLs
-        '
-        Me.chkBrowseChannelURLs.BackColor = System.Drawing.Color.Transparent
-        Me.chkBrowseChannelURLs.Location = New System.Drawing.Point(166, 3)
-        Me.chkBrowseChannelURLs.Name = "chkBrowseChannelURLs"
-        Me.chkBrowseChannelURLs.Size = New System.Drawing.Size(130, 18)
-        Me.chkBrowseChannelURLs.TabIndex = 63
-        Me.chkBrowseChannelURLs.Text = "Browse Channel URL's"
         '
         'chkAddToChannelFolder
         '
@@ -814,7 +800,6 @@ Partial Class frmCustomize
         '
         Me.RadPageViewPage8.Controls.Add(Me.chkAutoConnect)
         Me.RadPageViewPage8.Controls.Add(Me.chkShowCustomize)
-        Me.RadPageViewPage8.Controls.Add(Me.chkShowBrowser)
         Me.RadPageViewPage8.Location = New System.Drawing.Point(10, 37)
         Me.RadPageViewPage8.Name = "RadPageViewPage8"
         Me.RadPageViewPage8.Size = New System.Drawing.Size(500, 285)
@@ -837,15 +822,6 @@ Partial Class frmCustomize
         Me.chkShowCustomize.Size = New System.Drawing.Size(103, 18)
         Me.chkShowCustomize.TabIndex = 60
         Me.chkShowCustomize.Text = "Show Customize"
-        '
-        'chkShowBrowser
-        '
-        Me.chkShowBrowser.BackColor = System.Drawing.Color.Transparent
-        Me.chkShowBrowser.Location = New System.Drawing.Point(3, 51)
-        Me.chkShowBrowser.Name = "chkShowBrowser"
-        Me.chkShowBrowser.Size = New System.Drawing.Size(90, 18)
-        Me.chkShowBrowser.TabIndex = 61
-        Me.chkShowBrowser.Text = "Show Browser"
         '
         'RadPageViewPage9
         '
@@ -1082,13 +1058,13 @@ Partial Class frmCustomize
         '
         'lvwNotify
         '
-        ListViewDetailColumn1.HeaderText = "Name"
-        ListViewDetailColumn1.Width = 363.0!
-        ListViewDetailColumn2.HeaderText = "Message"
-        ListViewDetailColumn2.Width = 75.0!
-        ListViewDetailColumn3.HeaderText = "Network"
-        ListViewDetailColumn3.Width = 75.0!
-        Me.lvwNotify.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn1, ListViewDetailColumn2, ListViewDetailColumn3})
+        ListViewDetailColumn4.HeaderText = "Name"
+        ListViewDetailColumn4.Width = 363.0!
+        ListViewDetailColumn5.HeaderText = "Message"
+        ListViewDetailColumn5.Width = 75.0!
+        ListViewDetailColumn6.HeaderText = "Network"
+        ListViewDetailColumn6.Width = 75.0!
+        Me.lvwNotify.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn4, ListViewDetailColumn5, ListViewDetailColumn6})
         Me.lvwNotify.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwNotify.ItemSize = New System.Drawing.Size(200, 20)
         Me.lvwNotify.ItemSpacing = -1
@@ -1134,11 +1110,11 @@ Partial Class frmCustomize
         '
         'lvwCompatibility
         '
-        ListViewDetailColumn4.HeaderText = "Name"
-        ListViewDetailColumn4.Width = 180.0!
-        ListViewDetailColumn5.HeaderText = "Enabled"
-        ListViewDetailColumn5.Width = 190.0!
-        Me.lvwCompatibility.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn4, ListViewDetailColumn5})
+        ListViewDetailColumn7.HeaderText = "Name"
+        ListViewDetailColumn7.Width = 180.0!
+        ListViewDetailColumn8.HeaderText = "Enabled"
+        ListViewDetailColumn8.Width = 190.0!
+        Me.lvwCompatibility.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn7, ListViewDetailColumn8})
         Me.lvwCompatibility.EnableColumnSort = True
         Me.lvwCompatibility.EnableSorting = True
         Me.lvwCompatibility.GroupItemSize = New System.Drawing.Size(200, 20)
@@ -1250,17 +1226,17 @@ Partial Class frmCustomize
         '
         'lvwStrings
         '
-        ListViewDetailColumn6.HeaderText = "Description"
-        ListViewDetailColumn6.Width = 150.0!
-        ListViewDetailColumn7.HeaderText = "Support"
-        ListViewDetailColumn7.Width = 50.0!
-        ListViewDetailColumn8.HeaderText = "Syntax"
-        ListViewDetailColumn8.Width = 50.0!
-        ListViewDetailColumn17.HeaderText = "Numeric"
-        ListViewDetailColumn17.Width = 50.0!
-        ListViewDetailColumn18.HeaderText = "Data"
-        ListViewDetailColumn18.Width = 68.0!
-        Me.lvwStrings.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn6, ListViewDetailColumn7, ListViewDetailColumn8, ListViewDetailColumn17, ListViewDetailColumn18})
+        ListViewDetailColumn9.HeaderText = "Description"
+        ListViewDetailColumn9.Width = 150.0!
+        ListViewDetailColumn10.HeaderText = "Support"
+        ListViewDetailColumn10.Width = 50.0!
+        ListViewDetailColumn11.HeaderText = "Syntax"
+        ListViewDetailColumn11.Width = 50.0!
+        ListViewDetailColumn12.HeaderText = "Numeric"
+        ListViewDetailColumn12.Width = 50.0!
+        ListViewDetailColumn13.HeaderText = "Data"
+        ListViewDetailColumn13.Width = 68.0!
+        Me.lvwStrings.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn9, ListViewDetailColumn10, ListViewDetailColumn11, ListViewDetailColumn12, ListViewDetailColumn13})
         Me.lvwStrings.EnableColumnSort = True
         Me.lvwStrings.EnableSorting = True
         Me.lvwStrings.GroupItemSize = New System.Drawing.Size(200, 20)
@@ -1417,15 +1393,15 @@ Partial Class frmCustomize
         'cboDCCFileExists
         '
         Me.cboDCCFileExists.DropDownAnimationEnabled = True
-        RadListDataItem4.Text = "Prompt"
-        RadListDataItem4.TextWrap = True
-        RadListDataItem5.Text = "Overwrite"
-        RadListDataItem5.TextWrap = True
-        RadListDataItem6.Text = "Ignore"
-        RadListDataItem6.TextWrap = True
-        Me.cboDCCFileExists.Items.Add(RadListDataItem4)
-        Me.cboDCCFileExists.Items.Add(RadListDataItem5)
-        Me.cboDCCFileExists.Items.Add(RadListDataItem6)
+        RadListDataItem1.Text = "Prompt"
+        RadListDataItem1.TextWrap = True
+        RadListDataItem2.Text = "Overwrite"
+        RadListDataItem2.TextWrap = True
+        RadListDataItem3.Text = "Ignore"
+        RadListDataItem3.TextWrap = True
+        Me.cboDCCFileExists.Items.Add(RadListDataItem1)
+        Me.cboDCCFileExists.Items.Add(RadListDataItem2)
+        Me.cboDCCFileExists.Items.Add(RadListDataItem3)
         Me.cboDCCFileExists.Location = New System.Drawing.Point(125, 303)
         Me.cboDCCFileExists.Name = "cboDCCFileExists"
         Me.cboDCCFileExists.ShowImageInEditorArea = True
@@ -1689,7 +1665,6 @@ Partial Class frmCustomize
         CType(Me.chkShowWindowsAutomatically, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkCloseStatusWindow, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkHideStatusOnClose, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.chkBrowseChannelURLs, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkAddToChannelFolder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkCloseChannelFolder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkShowNicknameWindow, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1700,7 +1675,6 @@ Partial Class frmCustomize
         Me.RadPageViewPage8.PerformLayout()
         CType(Me.chkAutoConnect, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkShowCustomize, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.chkShowBrowser, System.ComponentModel.ISupportInitialize).EndInit()
         Me.RadPageViewPage9.ResumeLayout(False)
         Me.RadPageViewPage9.PerformLayout()
         CType(Me.chkInvisible, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1803,7 +1777,6 @@ Partial Class frmCustomize
     Friend WithEvents chkHideStatusOnClose As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents cboMyNickNames As Telerik.WinControls.UI.RadDropDownList
     Friend WithEvents RadPageViewPage7 As Telerik.WinControls.UI.RadPageViewPage
-    Friend WithEvents chkBrowseChannelURLs As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents chkAddToChannelFolder As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents chkCloseChannelFolder As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents chkShowNicknameWindow As Telerik.WinControls.UI.RadCheckBox
@@ -1814,7 +1787,6 @@ Partial Class frmCustomize
     Friend WithEvents RadPageViewPage8 As Telerik.WinControls.UI.RadPageViewPage
     Friend WithEvents chkAutoConnect As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents chkShowCustomize As Telerik.WinControls.UI.RadCheckBox
-    Friend WithEvents chkShowBrowser As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents RadPageViewPage9 As Telerik.WinControls.UI.RadPageViewPage
     Friend WithEvents chkInvisible As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents chkWallops As Telerik.WinControls.UI.RadCheckBox

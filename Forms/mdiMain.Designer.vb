@@ -133,7 +133,7 @@ Partial Class mdiMain
         'cboAllServers
         '
         Me.cboAllServers.Name = "cboAllServers"
-        Me.cboAllServers.Size = New System.Drawing.Size(121, 21)
+        Me.cboAllServers.Size = New System.Drawing.Size(121, 23)
         '
         'FontDialog1
         '

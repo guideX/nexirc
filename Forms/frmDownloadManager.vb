@@ -70,9 +70,9 @@ Public Class frmDownloadManager
                 v = True
         End Select
         If p = True Then
-            If lIRC.iSettings.sShowBrowser = True Then
-                mdiMain.BrowseURL(ReturnDownloadManagerFullPath(msg))
-            End If
+            'If lIRC.iSettings.sShowBrowser = True Then
+            'mdiMain.BrowseURL(ReturnDownloadManagerFullPath(msg))
+            'End If
         End If
         If v = True Then
             If lIRC.iSettings.sVideoBackground = True Then

@@ -24,18 +24,18 @@ Public Class mdiMain
     Public Sub ClearWindowBar()
         lMainWindowUI.ClearWindowBar(tspWindows)
     End Sub
-    Public Sub CloseBrowser()
-        lMainWindowUI.CloseBrowser()
-    End Sub
-    Public Sub TriggerBrowserResize()
-        lMainWindowUI.TriggerBrowserResize()
-    End Sub
+    'Public Sub CloseBrowser()
+    'lMainWindowUI.CloseBrowser()
+    'End Sub
+    'Public Sub TriggerBrowserResize()
+    'lMainWindowUI.TriggerBrowserResize()
+    'End Sub
     Public Sub PlayVideo(_File As String)
         lMainWindowUI.PlayVideo(_File)
     End Sub
-    Public Sub BrowseURL(_Url As String, Optional _Startup As Boolean = False)
-        lMainWindowUI.BrowseURL(_Url, _Startup, Me)
-    End Sub
+    'Public Sub BrowseURL(_Url As String, Optional _Startup As Boolean = False)
+    '   lMainWindowUI.BrowseURL(_Url, _Startup, Me)
+    'End Sub
     Private Sub mdiMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         lMainWindowUI.FormClosed(Me, nicSystray, Me.pnlLeftNav.Visible)
     End Sub
@@ -48,9 +48,9 @@ Public Class mdiMain
     Public Function OpenDialogFileNames(_InitDir As String, _Title As String, _File As String) As String()
         Return lMainWindowUI.OpenDialogFileNames(fdgOpen, _InitDir, _Title, _File)
     End Function
-    Public Sub ResizeBrowser()
-        lMainWindowUI.ResizeBrowser(Me, pnlLeftNav, tspMain, tspWindows)
-    End Sub
+    'Public Sub ResizeBrowser()
+    'lMainWindowUI.ResizeBrowser(Me, pnlLeftNav, tspMain, tspWindows)
+    'End Sub
     Public Sub SetWindowFocus(ByVal _Form As Form)
         lMainWindowUI.SetWindowFocus(Me)
     End Sub

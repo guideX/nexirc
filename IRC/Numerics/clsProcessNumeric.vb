@@ -549,7 +549,7 @@ Public Class clsProcessNumeric
                                     lStatus.AddText(msg, lStatusIndex)
                                 End If
                             End If
-                            If lIRC.iSettings.sAutoNavigateChannelUrls = True And lIRC.iSettings.sShowBrowser = True Then mdiMain.BrowseURL(msg2)
+                            'If lIRC.iSettings.sAutoNavigateChannelUrls = True And lIRC.iSettings.sShowBrowser = True Then mdiMain.BrowseURL(msg2)
                             Exit Sub
                         Case 330
 

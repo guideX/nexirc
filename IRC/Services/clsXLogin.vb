@@ -40,9 +40,9 @@ Public Class clsXLoginUI
         'ProcessError(ex.Message, "Public Sub cmdLogin_Click()")
         'End Try
     End Sub
-    Public Sub lblCreateAnAccount_Click()
-        mdiMain.BrowseURL(lSettings_Services.lX.xCreateAnAccountURL)
-    End Sub
+    'Public Sub lblCreateAnAccount_Click()
+    '(lSettings_Services.lX.xCreateAnAccountURL)
+    'End Sub
     Public Sub cmdCancel_Click()
         'Try
         lForm.Close()

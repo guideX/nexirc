@@ -192,7 +192,6 @@
     <Compile Include="Forms\frmCustomize.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IRC\Browser\clsBrowserUI.vb" />
     <Compile Include="IRC\Channels\clsChannelFolder.vb" />
     <Compile Include="IRC\Customize\clsCustomize.vb" />
     <Compile Include="IRC\DCC\clsDccChat.vb" />
@@ -232,12 +231,6 @@
     <Compile Include="Modules\mdlObjects.vb" />
     <Compile Include="User Controls\clsVideo.vb">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Forms\frmBrowser.Designer.vb">
-      <DependentUpon>frmBrowser.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmBrowser.vb">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmChannelList.Designer.vb">
       <DependentUpon>frmChannelList.vb</DependentUpon>
@@ -424,10 +417,6 @@
       <DependentUpon>clsVideo.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmBrowser.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmBrowser.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChannelList.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmChannelList.vb</DependentUpon>
@@ -547,7 +536,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\data\config\notepad.txt" />
     <Content Include="bin\Debug\data\images\accept.png" />
     <Content Include="bin\Debug\data\images\add.png" />
     <Content Include="bin\Debug\data\images\announce.png" />
@@ -660,6 +648,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\data\images\bkup\" />
+    <Folder Include="IRC\Browser\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

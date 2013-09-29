@@ -17,7 +17,7 @@ Public Class frmXLogin
         lXLogin.cmdLogin_Click()
     End Sub
     Private Sub lblCreateAnAccount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblCreateAnAccount.Click
-        lXLogin.lblCreateAnAccount_Click()
+        'lXLogin.lblCreateAnAccount_Click()
     End Sub
     Private Sub cmdCancel_Click(sender As Object, e As System.EventArgs) Handles cmdCancel.Click
         lXLogin.cmdCancel_Click()

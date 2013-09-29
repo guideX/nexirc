@@ -63,7 +63,7 @@ Public Class frmChannel
     End Sub
     Private Sub cmdURL_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdURL.Click
         'Try
-        lMdiChildWindow.cmdUrl_Click()
+        'lMdiChildWindow.cmdUrl_Click()
         'Catch ex As Exception
         'ProcessError(ex.Message, "Private Sub cmdURL_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_URL.Click")
         'End Try

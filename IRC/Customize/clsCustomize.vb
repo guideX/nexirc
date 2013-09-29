@@ -700,12 +700,12 @@ Namespace IRC.Customize
                 .sShowRawWindow = _ShowRawWindow
                 .sMOTDInOwnWindow = _MotdInOwnWindow
                 .sNoticesInOwnWindow = _NoticesInOwnWindow
-                If lBrowserEnabled = True And .sShowBrowser = False Then
-                    mdiMain.CloseBrowser()
-                ElseIf lBrowserEnabled = False And .sShowBrowser = True Then
-                    mdiMain.BrowseURL(lIRC.iSettings.sURL, False)
-                    mdiMain.ResizeBrowser()
-                End If
+                'If lBrowserEnabled = True And .sShowBrowser = False Then
+                'mdiMain.CloseBrowser()
+                'ElseIf lBrowserEnabled = False And .sShowBrowser = True Then
+                'mdiMain.BrowseURL(lIRC.iSettings.sURL, False)
+                'mdiMain.ResizeBrowser()
+                'End If
             End With
             'Catch ex As Exception
             'ProcessError(ex.Message, "Public Sub Apply_Settings(_Prompts As Boolean, _AutoShowWindows As Boolean, _HideStatusOnClose As Boolean, _AutoMaximized As Boolean)")

@@ -3,7 +3,7 @@
 Option Explicit On
 Option Strict On
 Public Class frmBrowser
-    Public WithEvents lBrowserUI As New clsBrowserUI
+    'Public WithEvents lBrowserUI As New clsBrowserUI
     Private Sub WebBrowser1_DocumentTitleChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles WebBrowser1.DocumentTitleChanged
         lBrowserUI.DocumentTitleChanged(WebBrowser1.DocumentTitle)
     End Sub

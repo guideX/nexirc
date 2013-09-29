@@ -100,6 +100,6 @@ Public Class clsSharedAdd
         'End Try
     End Sub
     Public Sub ServerListToolStripMenuItem_Click()
-        mdiMain.BrowseURL("http://www.irchelp.org/irchelp/networks/servers/index.html")
+        'mdiMain.BrowseURL("http://www.irchelp.org/irchelp/networks/servers/index.html")
     End Sub
 End Class

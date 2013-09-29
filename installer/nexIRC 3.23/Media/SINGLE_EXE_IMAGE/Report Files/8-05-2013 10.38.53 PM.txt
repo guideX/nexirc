@@ -1,0 +1,376 @@
+//////////////////////////////////////////////////////////////////////
+/////////////////////////////// Summary //////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+		Features:  			        13
+		Components:			        19
+		Number of Files:		        94
+		Size of Files:   		       5960215
+		Size in Library:		       4627655
+
+
+		<Support>
+			Engine
+				Log
+				Kernel
+			Main Installation
+				Script
+				Setup
+				StrTbl
+				RunTime
+				Resource
+		<Data>
+			Disk<1>
+			DefaultFeature
+
+
+//////////////////////////////////////////////////////////////////////
+///////////////////////////// Features ///////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+*<Support>*
+
+		Component
+		------------------------------------------------------
+
+*<Support>\Engine*
+
+		Component
+		------------------------------------------------------
+
+*<Support>\Engine\Log*
+
+		Component
+		------------------------------------------------------
+
+*<Support>\Engine\Kernel*
+
+		Component
+		------------------------------------------------------
+		"<Engine>Kernel Placeholder"
+		"<Engine>EngineCommonPlaceHolderSelfReg"
+
+*<Support>\Main Installation*
+
+		Component
+		------------------------------------------------------
+
+*<Support>\Main Installation\Script*
+
+		Component
+		------------------------------------------------------
+		"<Support>Script"
+
+*<Support>\Main Installation\Setup*
+
+		Component
+		------------------------------------------------------
+		"<Support>Language Independent OS Independent Files"
+		"<Support>0x0409 OS Independent Files"
+		"<Support>Build Generated Support Files"
+		"<Support>Misc Support Files"
+		"<Support>Misc i64 Support Files"
+		"<Support>Misc x64 Support Files"
+
+*<Support>\Main Installation\StrTbl*
+
+		Component
+		------------------------------------------------------
+		"<Support>0x0409 String Tables"
+
+*<Support>\Main Installation\RunTime*
+
+		Component
+		------------------------------------------------------
+		"<Support>Non-SelfRegistering"
+
+*<Support>\Main Installation\Resource*
+
+		Component
+		------------------------------------------------------
+		"<Support>0x0409 Files"
+
+*<Data>*
+
+		Component
+		------------------------------------------------------
+
+*<Data>\Disk<1>*
+
+		Component
+		------------------------------------------------------
+		"<Disk1>Disk1 Files(1)"
+		"<Disk1>Disk1 Files(2)"
+		"<Disk1>Disk1 Files(3)"
+		"<Disk1>Disk1 Files(4)"
+
+*<Data>\DefaultFeature*
+
+		Component
+		------------------------------------------------------
+		"DefaultComponent"
+		"AssemblyFiles"
+		"Files"
+
+
+//////////////////////////////////////////////////////////////////////
+///////////////////////////// Components ////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+><Engine>Kernel Placeholder<
+
+		Size of Files:   		             0
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+
+><Engine>EngineCommonPlaceHolderSelfReg<
+
+		Size of Files:   		             0
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+
+><Support>Script<
+
+		Size of Files:   		        223258
+		Size in Library:		        223258
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"setup.inx"                                             08/05/2013  10:38:46 PM       223258  ""                 "A"           "df2c3c1b6b7795c323ff0da1f0f3dd58"      "c:\nexirc 3.23\nexirc 3.23\script files\setup.inx"
+
+><Support>Language Independent OS Independent Files<
+
+		Size of Files:   		         11493
+		Size in Library:		          2605
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"license.rtf"                                           11/28/2004  09:52:18 AM        11493  ""                 "A"           "e7eb45e877c8cb80f56e9dbc9504e757"      "c:\program files (x86)\installshield\2010\redist\0409\license.rtf"
+
+><Support>0x0409 OS Independent Files<
+
+		Size of Files:   		             0
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+
+><Support>Build Generated Support Files<
+
+		Size of Files:   		           125
+		Size in Library:		            99
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"fontdata.ini"                                          08/05/2013  10:38:50 PM           39  ""                 "A"           "00f313e3e007599349a0c4d81c7807c4"      "c:\users\giuidex\appdata\local\temp\fontdata.ini"
+		"difxdata.ini"                                          08/05/2013  10:38:50 PM           86  ""                 "A"           "10baa5b67536f4433f37534b9c8bb828"      "c:\users\giuidex\appdata\local\temp\difxdata.ini"
+
+><Support>Misc Support Files<
+
+		Size of Files:   		         76583
+		Size in Library:		         17909
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"corecomp.ini"                                          03/06/2006  11:55:04 PM        65503  ""                 "A"           "09d38ceca6a012f4ce5b54f03db9b21a"      "c:\program files (x86)\installshield\2010\redist\language independent\i386\corecomp.ini"
+		"dotnetinstaller.exe"                                   06/10/2009  02:57:52 PM        11080  "16.0.0.328"       "A"           "94b6f434210bfad6abdcf818b8cf350f"      "c:\program files (x86)\installshield\2010\redist\language independent\i386\dotnetinstaller.exe"
+
+><Support>Misc i64 Support Files<
+
+		Size of Files:   		        239416
+		Size in Library:		        103979
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"isbew64.exe"                                           06/10/2009  02:59:18 PM       239416  "16.0.0.328"       "A"           "38eb6c08e3e7e385255119c8c732fa99"      "c:\program files (x86)\installshield\2010\redist\language independent\i64\isbew64.exe"
+
+><Support>Misc x64 Support Files<
+
+		Size of Files:   		        107320
+		Size in Library:		         52026
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"isbew64.exe"                                           06/10/2009  02:59:18 PM       107320  "16.0.0.328"       "A"           "41cb698f967b4d9f2580ea2a21a5a710"      "c:\program files (x86)\installshield\2010\redist\language independent\x64\isbew64.exe"
+
+><Support>0x0409 String Tables<
+
+		Size of Files:   		           376
+		Size in Library:		           184
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"stringtable_0x0409.ips"                                08/05/2013  10:38:46 PM          376  ""                 "A"           "dfeb37307e18d8edd8b1078630c84dd9"      "c:\nexirc 3.23\nexirc 3.23\string tables\stringtable_0x0409.ips"
+
+><Support>Non-SelfRegistering<
+
+		Size of Files:   		        262592
+		Size in Library:		        253568
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"isrt.dll"                                              09/22/2009  01:08:46 AM       261424  "16.0.0.400"       "A"           "ed5aa645392883b21507c8d097fda277"      "c:\program files (x86)\installshield\2010\redist\language independent\i386\isrt.dll"
+		"default.pal"                                           03/06/2006  11:55:02 PM         1168  ""                 "A"           "0abafe3f69d053494405061de2629c82"      "c:\program files (x86)\installshield\2010\redist\language independent\i386\default.pal"
+
+><Support>0x0409 Files<
+
+		Size of Files:   		        389120
+		Size in Library:		         93551
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"_isres_0x0409.dll"                                     06/10/2009  02:18:52 PM       389120  "16.0.0.328"       "A"           "799988f2074c157a0f8b6c48ab975612"      "c:\program files (x86)\installshield\2010\redist\language independent\i386\skins\_isres_0x0409.dll"
+
+><Disk1>Disk1 Files(1)<
+
+		Size of Files:   		             0
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"layout.bin"                                            11/28/2004  10:32:10 AM            0  ""                 "A"           "d41d8cd98f00b204e9800998ecf8427e"      "c:\program files (x86)\installshield\2010\support\build\layout.bin"
+		"data1.hdr"                                             11/28/2004  10:32:10 AM            0  ""                 "A"           "d41d8cd98f00b204e9800998ecf8427e"      "c:\program files (x86)\installshield\2010\support\build\data1.hdr"
+		"data1.cab"                                             11/28/2004  10:32:10 AM            0  ""                 "A"           "d41d8cd98f00b204e9800998ecf8427e"      "c:\program files (x86)\installshield\2010\support\build\data1.cab"
+
+><Disk1>Disk1 Files(2)<
+
+		Size of Files:   		       1485611
+		Size in Library:		       1485611
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"setup.exe"                                             08/05/2013  10:38:50 PM       802816  "16.0.0.400"       "A"           "07c90b494645f1a143d934139f49264a"      "c:\nexirc 3.23\nexirc 3.23\media\single_exe_image\disk images\disk1\setup.exe"
+		"issetup.dll"                                           09/22/2009  01:08:46 AM       577024  "16.0.0.400"       ""            "1bf0fc52d41be3f3c1025b3971bc49a0"      "c:\nexirc 3.23\nexirc 3.23\media\single_exe_image\disk images\disk1\issetup.dll"
+		"0x0409.ini"                                            05/21/2009  03:53:56 PM        21494  ""                 "A"           "36affbd6ff77d1515cfc1c5e998fbaf9"      "c:\nexirc 3.23\nexirc 3.23\media\single_exe_image\disk images\disk1\0x0409.ini"
+		"setup.isn"                                             06/10/2009  02:29:36 PM        84277  ""                 "A"           "edf0b1f943cf7d52d67709a811b70592"      "c:\nexirc 3.23\nexirc 3.23\media\single_exe_image\disk images\disk1\setup.isn"
+
+><Disk1>Disk1 Files(3)<
+
+		Size of Files:   		        223258
+		Size in Library:		        223258
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"setup.inx"                                             08/05/2013  10:38:46 PM       223258  ""                 "A"           "df2c3c1b6b7795c323ff0da1f0f3dd58"      "c:\nexirc 3.23\nexirc 3.23\script files\setup.inx"
+
+><Disk1>Disk1 Files(4)<
+
+		Size of Files:   		          1221
+		Size in Library:		          1221
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"setup.ini"                                             08/05/2013  10:38:48 PM         1221  ""                 "A"           "10bf7dfa2b4eb1481c7065028f5a6d6b"      "c:\nexirc 3.23\nexirc 3.23\media\single_exe_image\disk images\disk1\setup.ini"
+
+>DefaultComponent<
+
+		Size of Files:   		          3262
+		Size in Library:		           382
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"nexgen.ico"                                            05/04/2013  12:05:46 AM         3262  ""                 "A"           "98f11c4c0077f007101b4e128759048f"      "c:\dev\nexirc\nexgen.ico"
+
+>AssemblyFiles<
+
+		Size of Files:   		       2752512
+		Size in Library:		       2105185
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"nexirc.exe"                                            08/05/2013  10:15:30 PM      2752512  "3.0.0.23"         "A"           "3978a33d84049096054e9a9c4c357b62"      "c:\dev\nexirc\bin\debug\nexirc.exe"
+
+>Files<
+
+		Size of Files:   		        184068
+		Size in Library:		         64819
+
+
+		File                                                    Date        Time         Size         Version            Attributes    MD5                                     Source file
+		------------------------------------------------------  ----------  -----------  -----------  -----------------  ------------  --------------------------------------  ------------------------------------------------
+		"config\ident.ini"                                      08/05/2013  10:08:36 PM           64  ""                 "A"           "60673d4bcea2f6b7c31e0c528726912f"      "c:\dev\nexirc\bin\debug\data\config\ident.ini"
+		"config\channelfolders.ini"                             08/05/2013  10:08:06 PM           62  ""                 "A"           "86a2cdec36ea7704e54daf2eafdf1c39"      "c:\dev\nexirc\bin\debug\data\config\channelfolders.ini"
+		"config\commands.ini"                                   03/24/2012  04:36:46 PM         2110  ""                 "A"           "dd67beb2ffcda36be20edd4a6d32d2dc"      "c:\dev\nexirc\bin\debug\data\config\commands.ini"
+		"config\compatibility.ini"                              02/19/2012  01:10:24 PM          927  ""                 "A"           "39721fc468828955de78d7e5e6d230d1"      "c:\dev\nexirc\bin\debug\data\config\compatibility.ini"
+		"config\dcc.ini"                                        08/05/2013  10:08:36 PM          732  ""                 "A"           "884585323daa8bcbe01c33d3478d2213"      "c:\dev\nexirc\bin\debug\data\config\dcc.ini"
+		"config\errors.ini"                                     08/05/2013  10:08:40 PM          481  ""                 "A"           "a7ccbcb2f9c7f7d900d7916b7f2a2abe"      "c:\dev\nexirc\bin\debug\data\config\errors.ini"
+		"config\extensions.ini"                                 02/23/2008  08:11:20 PM           63  ""                 "A"           "6f6eb4a3cb419d5a4e7dde5d48ccf8a2"      "c:\dev\nexirc\bin\debug\data\config\extensions.ini"
+		"config\identd.ini"                                     03/31/2012  04:24:44 PM           82  ""                 "A"           "6d445ab019ac48cd0dfb9184d2907519"      "c:\dev\nexirc\bin\debug\data\config\identd.ini"
+		"config\networks.ini"                                   08/05/2013  10:08:36 PM          450  ""                 "A"           "2c4afdad8bae2027be825626cb63a01b"      "c:\dev\nexirc\bin\debug\data\config\networks.ini"
+		"config\nicknames.ini"                                  08/05/2013  10:08:36 PM           48  ""                 "A"           "48fe74dba8eddb08d91d2df05edc0d8c"      "c:\dev\nexirc\bin\debug\data\config\nicknames.ini"
+		"config\notify.ini"                                     08/05/2013  10:08:36 PM           77  ""                 "A"           "1b7969aaa26a3a506c0548ccf2373312"      "c:\dev\nexirc\bin\debug\data\config\notify.ini"
+		"config\query.ini"                                      08/05/2013  10:08:36 PM          451  ""                 "A"           "df0f265fb12707893f683ad621f4eca3"      "c:\dev\nexirc\bin\debug\data\config\query.ini"
+		"config\recientservers.ini"                             08/05/2013  10:08:36 PM           37  ""                 "A"           "e8577d490720c25d16f7a0a4c6d534cd"      "c:\dev\nexirc\bin\debug\data\config\recientservers.ini"
+		"config\servermenu.ini"                                 03/18/2012  07:23:38 PM            0  ""                 "A"           "d41d8cd98f00b204e9800998ecf8427e"      "c:\dev\nexirc\bin\debug\data\config\servermenu.ini"
+		"config\servers.ini"                                    08/05/2013  10:08:36 PM        21415  ""                 "A"           "c8d6d532b5c1be45d5c73f79f7c6f895"      "c:\dev\nexirc\bin\debug\data\config\servers.ini"
+		"config\services.ini"                                   08/05/2013  10:08:36 PM          621  ""                 "A"           "a86d5bcd1be87ecfc5f3d8d75ae35472"      "c:\dev\nexirc\bin\debug\data\config\services.ini"
+		"config\settings.ini"                                   08/05/2013  10:15:46 PM          964  ""                 "A"           "07790b450046596df3c7291cd9ae90c3"      "c:\dev\nexirc\bin\debug\data\config\settings.ini"
+		"config\stringsettings.ini"                             08/05/2013  10:08:36 PM           39  ""                 "A"           "c1136ec47c18cb63174cff0928b342bd"      "c:\dev\nexirc\bin\debug\data\config\stringsettings.ini"
+		"config\text.ini"                                       07/21/2013  11:35:26 PM        39957  ""                 "A"           "64b4bb5357802746d2935cfe6ec9413c"      "c:\dev\nexirc\bin\debug\data\config\text.ini"
+		"images\accept.png"                                     02/19/2012  01:42:30 PM          846  ""                 "A"           "bb1e8b2ac365f73680fc6991339f9966"      "c:\dev\nexirc\bin\debug\data\images\accept.png"
+		"images\add.png"                                        02/19/2012  01:15:22 PM          750  ""                 "A"           "aa95f30691c1f6f2f75deb1ae9c857c6"      "c:\dev\nexirc\bin\debug\data\images\add.png"
+		"images\announce.png"                                   02/19/2012  02:40:32 PM          798  ""                 "A"           "3d2a842d9d21f626f6b84c6152b95fab"      "c:\dev\nexirc\bin\debug\data\images\announce.png"
+		"images\applications.png"                               02/19/2012  02:45:02 PM          923  ""                 "A"           "6ee552feee4b5ecd81aca03d45e447f1"      "c:\dev\nexirc\bin\debug\data\images\applications.png"
+		"images\back.png"                                       02/19/2012  02:56:14 PM          792  ""                 "A"           "7fe2e99d839e20ed306568fe2bc619c4"      "c:\dev\nexirc\bin\debug\data\images\back.png"
+		"images\black_server.bmp"                               06/12/2013  11:29:50 PM          824  ""                 "A"           "3059cdb5f2bf9954305e3911b63de397"      "c:\dev\nexirc\bin\debug\data\images\black_server.bmp"
+		"images\black_serverblue.bmp"                           06/12/2013  11:31:06 PM          824  ""                 "A"           "3757b165efa114377f7e36a715851aef"      "c:\dev\nexirc\bin\debug\data\images\black_serverblue.bmp"
+		"images\cancel.png"                                     02/19/2012  01:43:26 PM          861  ""                 "A"           "2e1db800b8f9bfab593d6183b1591ab5"      "c:\dev\nexirc\bin\debug\data\images\cancel.png"
+		"images\channel (2).bmp"                                11/06/2007  11:27:22 PM          680  ""                 "A"           "a4ea43aa83ab66daf219ba427a9bafb5"      "c:\dev\nexirc\bin\debug\data\images\channel (2).bmp"
+		"images\channel.bmp"                                    10/29/2007  09:56:46 PM          680  ""                 "A"           "01b4fa2ccf5f862e7a3ba9795a81218a"      "c:\dev\nexirc\bin\debug\data\images\channel.bmp"
+		"images\channel2.bmp"                                   11/07/2007  12:04:10 AM          824  ""                 "A"           "0d0b66280cbd6d893fba76e44a56f46e"      "c:\dev\nexirc\bin\debug\data\images\channel2.bmp"
+		"images\channel_blue.bmp"                               01/21/2008  11:40:30 AM          824  ""                 "A"           "5f8d3b63dfd398937a17a34034a4d3c2"      "c:\dev\nexirc\bin\debug\data\images\channel_blue.bmp"
+		"images\chat.ico"                                       04/29/2008  04:45:48 PM        67646  ""                 "A"           "843a47e096284bfaefdd07f2524b3f8e"      "c:\dev\nexirc\bin\debug\data\images\chat.ico"
+		"images\close.png"                                      02/19/2012  01:15:48 PM          856  ""                 "A"           "e29fefc3823524ffef6f6dc609d8da43"      "c:\dev\nexirc\bin\debug\data\images\close.png"
+		"images\configure.png"                                  02/19/2012  01:48:04 PM          843  ""                 "A"           "f5246c4c12634a2e93562fabf061c200"      "c:\dev\nexirc\bin\debug\data\images\configure.png"
+		"images\copy.png"                                       02/19/2012  02:45:22 PM          732  ""                 "A"           "a8b95546ca26b86b3259d969eeed8e4d"      "c:\dev\nexirc\bin\debug\data\images\copy.png"
+		"images\delete.png"                                     02/19/2012  01:23:42 PM          829  ""                 "A"           "fa96760199e3923cbe326b3225df438e"      "c:\dev\nexirc\bin\debug\data\images\delete.png"
+		"images\documents.png"                                  02/19/2012  02:42:28 PM          812  ""                 "A"           "374389a0faaeef0775fcea746610c377"      "c:\dev\nexirc\bin\debug\data\images\documents.png"
+		"images\edit (1).png"                                   02/19/2012  01:18:22 PM          813  ""                 "A"           "ccb04dc25c55782b205bc3bd02380044"      "c:\dev\nexirc\bin\debug\data\images\edit (1).png"
+		"images\edit.png"                                       02/19/2012  01:17:48 PM        10767  ""                 "A"           "a15ac6014baae4b9e5d259fd589f7544"      "c:\dev\nexirc\bin\debug\data\images\edit.png"
+		"images\film.png"                                       02/19/2012  04:11:02 PM          921  ""                 "A"           "afb5be62a810800d683137a89fd4c809"      "c:\dev\nexirc\bin\debug\data\images\film.png"
+		"images\forward.png"                                    02/19/2012  02:57:14 PM          778  ""                 "A"           "e804fdf4920a6412d9f1e57559aad840"      "c:\dev\nexirc\bin\debug\data\images\forward.png"
+		"images\home.png"                                       02/19/2012  02:58:28 PM          799  ""                 "A"           "7245f15e265d8c5493e69c73b422f8c6"      "c:\dev\nexirc\bin\debug\data\images\home.png"
+		"images\move.png"                                       02/19/2012  01:40:12 PM          855  ""                 "A"           "8c2535638727801c1a584ac810728f52"      "c:\dev\nexirc\bin\debug\data\images\move.png"
+		"images\network.png"                                    02/19/2012  01:49:08 PM          768  ""                 "A"           "d7e729e30bcd14066f50a9add2ef5a38"      "c:\dev\nexirc\bin\debug\data\images\network.png"
+		"images\notice.bmp"                                     11/07/2007  12:26:28 AM          824  ""                 "A"           "dafe223d6b087cd3ae1e3c5a8eb0def3"      "c:\dev\nexirc\bin\debug\data\images\notice.bmp"
+		"images\noticesblue.bmp"                                11/11/2007  12:01:02 AM          824  ""                 "A"           "3a0d6a66b0d44cc1d47eaffdc597c382"      "c:\dev\nexirc\bin\debug\data\images\noticesblue.bmp"
+		"images\preferences (1).png"                            02/19/2012  02:46:52 PM          752  ""                 "A"           "b60423154a53e45d1d42669c29718ad2"      "c:\dev\nexirc\bin\debug\data\images\preferences (1).png"
+		"images\preferences.png"                                02/19/2012  01:55:28 PM          752  ""                 "A"           "b60423154a53e45d1d42669c29718ad2"      "c:\dev\nexirc\bin\debug\data\images\preferences.png"
+		"images\raw.bmp"                                        11/10/2007  11:04:02 PM          824  ""                 "A"           "e654973a6b05f8cec20597d363ebee01"      "c:\dev\nexirc\bin\debug\data\images\raw.bmp"
+		"images\rawblue.bmp"                                    11/10/2007  11:50:20 PM          824  ""                 "A"           "956bb91181fac3c4585560603c4e0ebd"      "c:\dev\nexirc\bin\debug\data\images\rawblue.bmp"
+		"images\refresh.png"                                    02/19/2012  02:59:40 PM          860  ""                 "A"           "39139f70f0354643f5314a3f3b0a8687"      "c:\dev\nexirc\bin\debug\data\images\refresh.png"
+		"images\remove.png"                                     02/19/2012  01:16:58 PM          720  ""                 "A"           "3e39be0ec090401af5138cd87a486d30"      "c:\dev\nexirc\bin\debug\data\images\remove.png"
+		"images\save.png"                                       02/19/2012  01:55:56 PM          740  ""                 "A"           "6e543a758e7f1fde260e4df6bf6f62ac"      "c:\dev\nexirc\bin\debug\data\images\save.png"
+		"images\server.bmp"                                     11/06/2007  11:39:08 PM          824  ""                 "A"           "f590e67812b69cfa9bc315f40393a96d"      "c:\dev\nexirc\bin\debug\data\images\server.bmp"
+		"images\server2.bmp"                                    11/06/2007  11:54:30 PM          824  ""                 "A"           "aca8978d2aa685dc68296dc43d886fbd"      "c:\dev\nexirc\bin\debug\data\images\server2.bmp"
+		"images\serverblue.bmp"                                 11/11/2007  12:21:34 AM          824  ""                 "A"           "24d3b786a0d379541d4c4078e88d4170"      "c:\dev\nexirc\bin\debug\data\images\serverblue.bmp"
+		"images\status (2).bmp"                                 11/06/2007  11:29:30 PM          680  ""                 "A"           "81710e5c20d70116b880a1dcdbef44d5"      "c:\dev\nexirc\bin\debug\data\images\status (2).bmp"
+		"images\status copy.bmp"                                11/06/2007  11:28:52 PM          680  ""                 "A"           "81710e5c20d70116b880a1dcdbef44d5"      "c:\dev\nexirc\bin\debug\data\images\status copy.bmp"
+		"images\status.bmp"                                     10/29/2007  09:56:10 PM          680  ""                 "A"           "47f03c67b8dd669b44b067b9861c4697"      "c:\dev\nexirc\bin\debug\data\images\status.bmp"
+		"images\status.ico"                                     11/07/2007  12:01:50 AM          824  ""                 "A"           "b4bdfb4d38b8a8ad1d3918d93ef91daa"      "c:\dev\nexirc\bin\debug\data\images\status.ico"
+		"images\status2.bmp"                                    11/07/2007  12:01:50 AM          824  ""                 "A"           "b4bdfb4d38b8a8ad1d3918d93ef91daa"      "c:\dev\nexirc\bin\debug\data\images\status2.bmp"
+		"images\status_blue.bmp"                                11/12/2007  11:17:48 PM          824  ""                 "A"           "d6e8b9b7cb052b9f67cc83fd0b4a8061"      "c:\dev\nexirc\bin\debug\data\images\status_blue.bmp"
+		"images\tools.png"                                      02/19/2012  04:07:30 PM          843  ""                 "A"           "ea0ffc128621bca7ab47cf451af1e997"      "c:\dev\nexirc\bin\debug\data\images\tools.png"
+		"images\user.png"                                       02/19/2012  01:47:12 PM          781  ""                 "A"           "0f0823861096ced1b9da0fd29402fe23"      "c:\dev\nexirc\bin\debug\data\images\user.png"
+		"images\web.png"                                        02/19/2012  01:21:06 PM          874  ""                 "A"           "e36d9932622fbd28491454baa4cf53e2"      "c:\dev\nexirc\bin\debug\data\images\web.png"
+		"logs\query.txt"                                        01/19/2008  11:09:40 PM            0  ""                 "A"           "d41d8cd98f00b204e9800998ecf8427e"      "c:\dev\nexirc\bin\debug\data\logs\query.txt"
+		"script\nirc.txt"                                       07/05/2008  04:15:28 PM         1679  ""                 "A"           "89452fe56767d2c54a5886b806ed8bcb"      "c:\dev\nexirc\bin\debug\data\script\nirc.txt"
+		"script\status.txt"                                     07/05/2008  11:42:08 PM          162  ""                 "A"           "7e6257bd43985f1697c86fe82ce983ab"      "c:\dev\nexirc\bin\debug\data\script\status.txt"

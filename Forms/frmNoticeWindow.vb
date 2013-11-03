@@ -87,14 +87,14 @@ Public Class frmNoticeWindow
     End Sub
 
     Private Sub frmNoticeWindow_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        'Try
-        Me.Icon = mdiMain.Icon
-        Me.MdiParent = mdiMain
-        Me.Width = lIRC.iSettings.sWindowSizes.iNotice.wWidth
-        Me.Height = lIRC.iSettings.sWindowSizes.iNotice.wHeight
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub frmNoticeWindow_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
-        'End Try
+        Try
+            Me.Icon = mdiMain.Icon
+            Me.MdiParent = mdiMain
+            Me.Width = lIRC.iSettings.sWindowSizes.iNotice.wWidth
+            Me.Height = lIRC.iSettings.sWindowSizes.iNotice.wHeight
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub frmNoticeWindow_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+        End Try
         ''On Error Resume Next
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub frmNoticeWindow_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
     End Sub
@@ -115,30 +115,30 @@ Public Class frmNoticeWindow
     End Sub
 
     Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown
-        'Try
-        Dim msg As String
-        If e.KeyCode = 13 Then
-            If LeftRight(txtOutgoing.Text, 0, 1) = "/" Then
-                msg = txtOutgoing.Text
-                txtOutgoing.Text = ""
-                lStatus.ProcessUserInput(lStatusIndex, msg)
-                e.Handled = True
-            Else
-                If Len(txtOutgoing.Text) <> 0 Then
-                    If lPrivateMessage = True Then
-                        msg = txtOutgoing.Text
-                        lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & lPMNick & " :" & msg)
-                        txtOutgoing.Text = ""
-                        e.Handled = True
-                        DoNoticeColor(ReturnReplacedString(clsIrcNumerics.eStringTypes.sPRIVMSG, lStatus.NickName(lStatusIndex), msg))
-                        lStatus.PrivateMessage_AddToConversation(lStatus.NickName(lStatusIndex), msg, lStatusIndex, lStatus.PrivateMessage_Find(lStatusIndex, lPMNick))
+        Try
+            Dim msg As String
+            If e.KeyCode = 13 Then
+                If LeftRight(txtOutgoing.Text, 0, 1) = "/" Then
+                    msg = txtOutgoing.Text
+                    txtOutgoing.Text = ""
+                    lStatus.ProcessUserInput(lStatusIndex, msg)
+                    e.Handled = True
+                Else
+                    If Len(txtOutgoing.Text) <> 0 Then
+                        If lPrivateMessage = True Then
+                            msg = txtOutgoing.Text
+                            lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & lPMNick & " :" & msg)
+                            txtOutgoing.Text = ""
+                            e.Handled = True
+                            DoNoticeColor(ReturnReplacedString(clsIrcNumerics.eStringTypes.sPRIVMSG, lStatus.NickName(lStatusIndex), msg))
+                            lStatus.PrivateMessage_AddToConversation(lStatus.NickName(lStatusIndex), msg, lStatusIndex, lStatus.PrivateMessage_Find(lStatusIndex, lPMNick))
+                        End If
                     End If
                 End If
             End If
-        End If
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown")
-        'End Try
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown")
+        End Try
     End Sub
 
     Private Sub txtIncomingColor_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.GotFocus
@@ -192,10 +192,10 @@ Public Class frmNoticeWindow
     End Sub
 
     Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
-        'Try
-        lMdiWindow.txtOutgoing_GotFocus(Me)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
-        'End Try
+        Try
+            lMdiWindow.txtOutgoing_GotFocus(Me)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
+        End Try
     End Sub
 End Class

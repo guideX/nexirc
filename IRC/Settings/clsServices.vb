@@ -37,6 +37,7 @@ Namespace nexIRC.IRC.Settings
             Public xLongName As String
         End Structure
         Public Structure gNickServ
+            Public nLoginNickname As String
             Public nLoginPassword As String
             Public nShowOnConnect As Boolean
             Public nLoginOnConnect As Boolean
@@ -114,6 +115,7 @@ Namespace nexIRC.IRC.Settings
             End With
             With lNickServ
                 '.nEnable = CBool(clsFiles.ReadINI(lINI.iServices, "NickServ", "Enable", "False"))
+                .nLoginNickname = clsFiles.ReadINI(lINI.iServices, "NickServ", "LoginNickname", "")
                 .nLoginPassword = clsFiles.ReadINI(lINI.iServices, "NickServ", "LoginPassword", "")
                 .nLoginOnConnect = CBool(clsFiles.ReadINI(lINI.iServices, "NickServ", "LoginOnConnect", "False"))
                 .nShowOnConnect = CBool(clsFiles.ReadINI(lINI.iServices, "NickServ", "ShowOnConnect", "True"))
@@ -147,6 +149,7 @@ Namespace nexIRC.IRC.Settings
             clsFiles.WriteINI(lINI.iServices, "X", "LoginOnConnect", CStr(lX.xLoginOnConnect))
             clsFiles.WriteINI(lINI.iServices, "X", "ShowOnConnect", CStr(lX.xShowOnConnect))
             clsFiles.WriteINI(lINI.iServices, "X", "LongName", lX.xLongName)
+            clsFiles.WriteINI(lINI.iServices, "NickServ", "LoginNickname", lNickServ.nLoginNickname)
             clsFiles.WriteINI(lINI.iServices, "NickServ", "LoginPassword", lNickServ.nLoginPassword)
             clsFiles.WriteINI(lINI.iServices, "NickServ", "LoginOnConnect", CStr(lNickServ.nLoginOnConnect))
             clsFiles.WriteINI(lINI.iServices, "NickServ", "ShowOnConnect", CStr(lNickServ.nShowOnConnect))

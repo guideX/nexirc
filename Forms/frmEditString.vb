@@ -43,28 +43,28 @@ Public Class frmEditString
     End Sub
 
     Private Sub cmdAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAdd.Click
-        'Try
-        Dim msg As String
-        msg = InputBox("Add Text String Parameter")
-        If Len(msg) <> 0 Then
-            AddTextStringParameter(CType(cboNumeric.Text, Integer), msg)
-            lstParameters.Items.Add(msg)
-        Else
-            If lIRC.iSettings.sPrompts = True Then
-                MsgBox("Warning: No items were added!", MsgBoxStyle.Critical)
+        Try
+            Dim msg As String
+            msg = InputBox("Add Text String Parameter")
+            If Len(msg) <> 0 Then
+                AddTextStringParameter(CType(cboNumeric.Text, Integer), msg)
+                lstParameters.Items.Add(msg)
+            Else
+                If lIRC.iSettings.sPrompts = True Then
+                    MsgBox("Warning: No items were added!", MsgBoxStyle.Critical)
+                End If
             End If
-        End If
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmdAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAdd.Click")
-        'End Try
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub cmdAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAdd.Click")
+        End Try
     End Sub
 
     Private Sub cmdDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdDelete.Click
-        'Try
-        RemoveTextStringParameter(CType(cboNumeric.Text, Integer), lstParameters.Text)
-        lstParameters.Items.RemoveAt(lstParameters.SelectedIndex)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmdDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdDelete.Click")
-        'End Try
+        Try
+            RemoveTextStringParameter(CType(cboNumeric.Text, Integer), lstParameters.Text)
+            lstParameters.Items.RemoveAt(lstParameters.SelectedIndex)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub cmdDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdDelete.Click")
+        End Try
     End Sub
 End Class

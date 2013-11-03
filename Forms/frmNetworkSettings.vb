@@ -7,14 +7,14 @@ Imports nexIRC.Modules
 
 Public Class frmNetworkSettings
     Private Function ReturnIpAddress() As String
-        'Try
-        Dim h As String
-        h = System.Net.Dns.GetHostName()
-        Return System.Net.Dns.GetHostByName(h).AddressList(0).ToString()
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Public Class frmNetworkSettings")
-        'Return Nothing
-        'End Try
+        Try
+            Dim h As String
+            h = System.Net.Dns.GetHostName()
+            Return System.Net.Dns.GetHostByName(h).AddressList(0).ToString()
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Class frmNetworkSettings")
+            Return Nothing
+        End Try
     End Function
 
     Private Sub frmNetworkSettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -71,19 +71,19 @@ Public Class frmNetworkSettings
     End Sub
 
     Private Sub cmdFind_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFind.Click
-        'Try
-        Dim client As New WebClient, baseurl As String = "http://checkip.dyndns.org:8245/", data As System.IO.Stream, reader As System.IO.StreamReader, s As String
-        client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR1.0.3705;)")
-        data = client.OpenRead(baseurl)
-        reader = New System.IO.StreamReader(data)
-        s = reader.ReadToEnd
-        data.Close()
-        reader.Close()
-        s = s.Replace("<html><head><title>Current IP Check</title></head><body>", "").Replace("</body></html>", "").ToString()
-        s = s.Replace("Current IP Address: ", "")
-        txtCustomIpAddress.Text = s
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmdFind_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFind.Click")
-        'End Try
+        Try
+            Dim client As New WebClient, baseurl As String = "http://checkip.dyndns.org:8245/", data As System.IO.Stream, reader As System.IO.StreamReader, s As String
+            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR1.0.3705;)")
+            data = client.OpenRead(baseurl)
+            reader = New System.IO.StreamReader(data)
+            s = reader.ReadToEnd
+            data.Close()
+            reader.Close()
+            s = s.Replace("<html><head><title>Current IP Check</title></head><body>", "").Replace("</body></html>", "").ToString()
+            s = s.Replace("Current IP Address: ", "")
+            txtCustomIpAddress.Text = s
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub cmdFind_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFind.Click")
+        End Try
     End Sub
 End Class

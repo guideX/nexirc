@@ -7,37 +7,37 @@ Public Class clsServerInfo
 
     Public Property CHANTYPES() As String
         Get
-            'Try
-            Return _CHANTYPES
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Public Property CHANTYPES() As String")
-            'Return Nothing
-            'End Try
+            Try
+                Return _CHANTYPES
+            Catch ex As Exception
+                ProcessError(ex.Message, "Public Property CHANTYPES() As String")
+                Return Nothing
+            End Try
         End Get
         Set(lCHANTYPES As String)
-            'Try
-            _CHANTYPES = lCHANTYPES
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Public Property CHANTYPES() As String")
-            'End Try
+            Try
+                _CHANTYPES = lCHANTYPES
+            Catch ex As Exception
+                ProcessError(ex.Message, "Public Property CHANTYPES() As String")
+            End Try
         End Set
     End Property
 
     Public Property PREFIX() As String
         Get
-            'Try
-            Return _PREFIX
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Public Property PREFIX() As String")
-            'Return Nothing
-            'End Try
+            Try
+                Return _PREFIX
+            Catch ex As Exception
+                ProcessError(ex.Message, "Public Property PREFIX() As String")
+                Return Nothing
+            End Try
         End Get
         Set(lPREFIX As String)
-            'Try
-            _PREFIX = lPREFIX
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Public Property PREFIX() As String")
-            'End Try
+            Try
+                _PREFIX = lPREFIX
+            Catch ex As Exception
+                ProcessError(ex.Message, "Public Property PREFIX() As String")
+            End Try
         End Set
     End Property
 End Class

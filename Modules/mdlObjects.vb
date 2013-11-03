@@ -98,37 +98,37 @@ Namespace Modules
         End Function
 
         Public Function DoesItemExistInRadDropDown(_RadDropDownList As RadDropDownList, _Text As String) As Boolean
-            'Try
-            For Each _Item As RadListDataItem In _RadDropDownList.Items
-                If (_Item.Text.Trim().ToLower() = _Text.Trim().ToLower()) Then
-                    Return True
-                End If
-            Next _Item
-            Return False
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Public Function DoesItemExistInRadDropDown(_RadDropDownList As RadDropDownList, _Text As String) As Boolean")
-            'End Try
+            Try
+                For Each _Item As RadListDataItem In _RadDropDownList.Items
+                    If (_Item.Text.Trim().ToLower() = _Text.Trim().ToLower()) Then
+                        Return True
+                    End If
+                Next _Item
+                Return False
+            Catch ex As Exception
+                ProcessError(ex.Message, "Public Function DoesItemExistInRadDropDown(_RadDropDownList As RadDropDownList, _Text As String) As Boolean")
+            End Try
         End Function
 
         Public Function FindRadComboIndex(ByVal _RadDropDownList As RadDropDownList, ByVal _Text As String) As Integer
-            'Try
-            Dim i As Integer
-            If Len(_Text) <> 0 Then
-                If (DoesItemExistInRadDropDown(_RadDropDownList, _Text)) = True Then
-                    FindRadComboIndex = 0
-                    With _RadDropDownList
-                        For i = 0 To _RadDropDownList.Items.Count
-                            If Trim(LCase(.Items(i).ToString)) = Trim(LCase(_Text)) Then
-                                FindRadComboIndex = i
-                                Exit For
-                            End If
-                        Next i
-                    End With
+            Try
+                Dim i As Integer
+                If Len(_Text) <> 0 Then
+                    If (DoesItemExistInRadDropDown(_RadDropDownList, _Text)) = True Then
+                        FindRadComboIndex = 0
+                        With _RadDropDownList
+                            For i = 0 To _RadDropDownList.Items.Count
+                                If Trim(LCase(.Items(i).ToString)) = Trim(LCase(_Text)) Then
+                                    FindRadComboIndex = i
+                                    Exit For
+                                End If
+                            Next i
+                        End With
+                    End If
                 End If
-            End If
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Public Function FindRadComboIndex(ByVal _RadDropDownList As RadDropDownList, ByVal _Text As String) As Integer")
-            'End Try
+            Catch ex As Exception
+                ProcessError(ex.Message, "Public Function FindRadComboIndex(ByVal _RadDropDownList As RadDropDownList, ByVal _Text As String) As Integer")
+            End Try
         End Function
 
         Public Function FindComboIndex(ByVal lComboBox As ComboBox, ByVal lText As String) As Integer

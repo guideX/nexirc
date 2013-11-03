@@ -95,60 +95,60 @@ Namespace nexIRC.IRC.Settings
             Next i
         End Sub
         Public Function ReturnOutsideIPAddress() As String
-            'Try
-            Dim client As New WebClient, baseurl As String = "http://checkip.dyndns.org:8245/", data As System.IO.Stream, reader As System.IO.StreamReader, s As String
-            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR1.0.3705;)")
-            data = client.OpenRead(baseurl)
-            reader = New System.IO.StreamReader(data)
-            s = reader.ReadToEnd
-            data.Close()
-            reader.Close()
-            s = s.Replace("<html><head><title>Current IP Check</title></head><body>", "").Replace("</body></html>", "").ToString()
-            s = s.Replace("Current IP Address: ", "")
-            Return s
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Public Function ReturnOutsideIPAddress() As String")
-            'Return ""
-            'End Try
+            Try
+                Dim client As New WebClient, baseurl As String = "http://checkip.dyndns.org:8245/", data As System.IO.Stream, reader As System.IO.StreamReader, s As String
+                client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR1.0.3705;)")
+                data = client.OpenRead(baseurl)
+                reader = New System.IO.StreamReader(data)
+                s = reader.ReadToEnd
+                data.Close()
+                reader.Close()
+                s = s.Replace("<html><head><title>Current IP Check</title></head><body>", "").Replace("</body></html>", "").ToString()
+                s = s.Replace("Current IP Address: ", "")
+                Return s
+            Catch ex As Exception
+                ProcessError(ex.Message, "Public Function ReturnOutsideIPAddress() As String")
+                Return ""
+            End Try
         End Function
         Public Sub SaveDCCSettings()
-            'Try
-            Dim i As Integer
-            With lDCC
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "PopupDownloadManager", .dPopupDownloadManager.ToString())
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "DownloadDirectory", .dDownloadDirectory)
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "FileExistsAction", Trim(CType(.dFileExistsAction, Integer).ToString))
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
-                For i = 1 To lDCC.dIgnorelist.dCount
-                    clsFiles.WriteINI(lINI.iDCC, Trim(i.ToString), "Data", .dIgnorelist.dItem(i).dData)
-                    clsFiles.WriteINI(lINI.iDCC, Trim(i.ToString), "Type", Trim(CType(.dIgnorelist.dItem(i).dType, Integer).ToString))
-                Next i
-                If .dChatPrompt = eDCCPrompt.ePrompt Then
-                    clsFiles.WriteINI(lINI.iDCC, "Settings", "ChatPrompt", "1")
-                ElseIf .dChatPrompt = eDCCPrompt.eAcceptAll Then
-                    clsFiles.WriteINI(lINI.iDCC, "Settings", "ChatPrompt", "2")
-                ElseIf .dChatPrompt = eDCCPrompt.eIgnore Then
-                    clsFiles.WriteINI(lINI.iDCC, "Settings", "ChatPrompt", "3")
-                End If
-                If .dSendPrompt = eDCCPrompt.ePrompt Then
-                    clsFiles.WriteINI(lINI.iDCC, "Settings", "SendPrompt", "1")
-                ElseIf .dSendPrompt = eDCCPrompt.eAcceptAll Then
-                    clsFiles.WriteINI(lINI.iDCC, "Settings", "SendPrompt", "2")
-                ElseIf .dSendPrompt = eDCCPrompt.eIgnore Then
-                    clsFiles.WriteINI(lINI.iDCC, "Settings", "SendPrompt", "3")
-                End If
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "UseIpAddress", Trim(.dUseIpAddress.ToString))
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "CustomIpAddress", Trim(.dCustomIpAddress))
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "SendPort", Trim(.dSendPort.ToString))
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "RandomizePort", (Trim(.dRandomizePort.ToString)))
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "BufferSize", (Trim(.dBufferSize.ToString)))
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "AutoIgnore", Trim(.dAutoIgnore.ToString))
-                clsFiles.WriteINI(lINI.iDCC, "Settings", "AutoCloseDialogs", Trim(.dAutoCloseDialogs.ToString))
-            End With
-            'Catch ex As Exception
-            'ProcessError(ex.Message, "Public Sub SaveDCCSettings()")
-            'End Try
+            Try
+                Dim i As Integer
+                With lDCC
+                    clsFiles.WriteINI(lINI.iDCC, "Settings", "PopupDownloadManager", .dPopupDownloadManager.ToString())
+                    clsFiles.WriteINI(lINI.iDCC, "Settings", "DownloadDirectory", .dDownloadDirectory)
+                    clsFiles.WriteINI(lINI.iDCC, "Settings", "FileExistsAction", Trim(CType(.dFileExistsAction, Integer).ToString))
+                    clsFiles.WriteINI(lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
+                    For i = 1 To lDCC.dIgnorelist.dCount
+                        clsFiles.WriteINI(lINI.iDCC, Trim(i.ToString), "Data", .dIgnorelist.dItem(i).dData)
+                        clsFiles.WriteINI(lINI.iDCC, Trim(i.ToString), "Type", Trim(CType(.dIgnorelist.dItem(i).dType, Integer).ToString))
+                    Next i
+                    If .dChatPrompt = eDCCPrompt.ePrompt Then
+                        clsFiles.WriteINI(lINI.iDCC, "Settings", "ChatPrompt", "1")
+                    ElseIf .dChatPrompt = eDCCPrompt.eAcceptAll Then
+                        clsFiles.WriteINI(lINI.iDCC, "Settings", "ChatPrompt", "2")
+                    ElseIf .dChatPrompt = eDCCPrompt.eIgnore Then
+                        clsFiles.WriteINI(lINI.iDCC, "Settings", "ChatPrompt", "3")
+                    End If
+                    If .dSendPrompt = eDCCPrompt.ePrompt Then
+                        clsFiles.WriteINI(lINI.iDCC, "Settings", "SendPrompt", "1")
+                    ElseIf .dSendPrompt = eDCCPrompt.eAcceptAll Then
+                        clsFiles.WriteINI(lINI.iDCC, "Settings", "SendPrompt", "2")
+                    ElseIf .dSendPrompt = eDCCPrompt.eIgnore Then
+                        clsFiles.WriteINI(lINI.iDCC, "Settings", "SendPrompt", "3")
+                    End If
+                    clsFiles.WriteINI(lINI.iDCC, "Settings", "UseIpAddress", Trim(.dUseIpAddress.ToString))
+                    clsFiles.WriteINI(lINI.iDCC, "Settings", "CustomIpAddress", Trim(.dCustomIpAddress))
+                    clsFiles.WriteINI(lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
+                    clsFiles.WriteINI(lINI.iDCC, "Settings", "SendPort", Trim(.dSendPort.ToString))
+                    clsFiles.WriteINI(lINI.iDCC, "Settings", "RandomizePort", (Trim(.dRandomizePort.ToString)))
+                    clsFiles.WriteINI(lINI.iDCC, "Settings", "BufferSize", (Trim(.dBufferSize.ToString)))
+                    clsFiles.WriteINI(lINI.iDCC, "Settings", "AutoIgnore", Trim(.dAutoIgnore.ToString))
+                    clsFiles.WriteINI(lINI.iDCC, "Settings", "AutoCloseDialogs", Trim(.dAutoCloseDialogs.ToString))
+                End With
+            Catch ex As Exception
+                ProcessError(ex.Message, "Public Sub SaveDCCSettings()")
+            End Try
         End Sub
     End Class
 End Namespace

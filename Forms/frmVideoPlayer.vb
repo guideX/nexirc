@@ -402,19 +402,19 @@ Public Class frmVideoPlayer
     End Sub
 
     Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged
-        'Try
-        If ChkMuteLeft.Checked = True And ChkMuteRight.Checked = True Then
-            lVideo.Mute = clsVideo.Channels.Both
-        ElseIf ChkMuteLeft.Checked = True And ChkMuteRight.Checked = False Then
-            lVideo.Mute = clsVideo.Channels.Left
-        ElseIf ChkMuteLeft.Checked = False And ChkMuteRight.Checked = True Then
-            lVideo.Mute = clsVideo.Channels.Right
-        Else
-            lVideo.Mute = clsVideo.Channels.None
-        End If
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged")
-        'End Try
+        Try
+            If ChkMuteLeft.Checked = True And ChkMuteRight.Checked = True Then
+                lVideo.Mute = clsVideo.Channels.Both
+            ElseIf ChkMuteLeft.Checked = True And ChkMuteRight.Checked = False Then
+                lVideo.Mute = clsVideo.Channels.Left
+            ElseIf ChkMuteLeft.Checked = False And ChkMuteRight.Checked = True Then
+                lVideo.Mute = clsVideo.Channels.Right
+            Else
+                lVideo.Mute = clsVideo.Channels.None
+            End If
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged")
+        End Try
     End Sub
 
     Private Sub TrackVolume_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrackVolume.Scroll

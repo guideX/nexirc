@@ -6,24 +6,24 @@ Imports nexIRC.IRC.UtilityWindows
 Public Class frmChooseNetwork
     Public WithEvents lChooseNetwork As New clsChooseNetwork
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
-        'Try
-        lChooseNetwork.cmdCancel_Click(Me)
-        'Catch ex As Exception
-        'ProcessError(ex.Message, "Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click")
-        'End Try
+        Try
+            lChooseNetwork.cmdCancel_Click(Me)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click")
+        End Try
     End Sub
     Private Sub frmChooseNetwork_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        'Try
-        lChooseNetwork.Form_Load(cboNetworks, Me)
-        'Catch ex As Exception
-        'ProcessError(ex.Message,"Private Sub frmChooseNetwork_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
-        'End Try
+        Try
+            lChooseNetwork.Form_Load(cboNetworks, Me)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub frmChooseNetwork_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
+        End Try
     End Sub
     Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click
-        'Try
-        lChooseNetwork.cmdOK_Click(Me, cboNetworks.Text)
-        'Catch ex As Exception
-        'ProcessError(ex.Message,"Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click")
-        'End Try
+        Try
+            lChooseNetwork.cmdOK_Click(Me, cboNetworks.Text)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click")
+        End Try
     End Sub
 End Class

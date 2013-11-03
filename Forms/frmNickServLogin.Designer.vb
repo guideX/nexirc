@@ -30,6 +30,8 @@ Partial Class frmNickServLogin
         Me.chkXEnable = New System.Windows.Forms.CheckBox()
         Me.cmdLogin = New System.Windows.Forms.Button()
         Me.cmdCancel = New System.Windows.Forms.Button()
+        Me.txtNickname = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'lblCreateAnAccount
@@ -38,7 +40,7 @@ Partial Class frmNickServLogin
         Me.lblCreateAnAccount.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lblCreateAnAccount.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCreateAnAccount.ForeColor = System.Drawing.Color.Blue
-        Me.lblCreateAnAccount.Location = New System.Drawing.Point(224, 56)
+        Me.lblCreateAnAccount.Location = New System.Drawing.Point(224, 96)
         Me.lblCreateAnAccount.Name = "lblCreateAnAccount"
         Me.lblCreateAnAccount.Size = New System.Drawing.Size(95, 13)
         Me.lblCreateAnAccount.TabIndex = 15
@@ -48,7 +50,7 @@ Partial Class frmNickServLogin
         'chkShowOnConnect
         '
         Me.chkShowOnConnect.AutoSize = True
-        Me.chkShowOnConnect.Location = New System.Drawing.Point(15, 102)
+        Me.chkShowOnConnect.Location = New System.Drawing.Point(15, 142)
         Me.chkShowOnConnect.Name = "chkShowOnConnect"
         Me.chkShowOnConnect.Size = New System.Drawing.Size(110, 17)
         Me.chkShowOnConnect.TabIndex = 13
@@ -58,7 +60,7 @@ Partial Class frmNickServLogin
         'chkLoginOnConnect
         '
         Me.chkLoginOnConnect.AutoSize = True
-        Me.chkLoginOnConnect.Location = New System.Drawing.Point(15, 79)
+        Me.chkLoginOnConnect.Location = New System.Drawing.Point(15, 119)
         Me.chkLoginOnConnect.Name = "chkLoginOnConnect"
         Me.chkLoginOnConnect.Size = New System.Drawing.Size(109, 17)
         Me.chkLoginOnConnect.TabIndex = 12
@@ -67,7 +69,7 @@ Partial Class frmNickServLogin
         '
         'txtPassword
         '
-        Me.txtPassword.Location = New System.Drawing.Point(15, 25)
+        Me.txtPassword.Location = New System.Drawing.Point(15, 65)
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPassword.Size = New System.Drawing.Size(304, 21)
@@ -76,7 +78,7 @@ Partial Class frmNickServLogin
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 9)
+        Me.Label2.Location = New System.Drawing.Point(12, 49)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(57, 13)
         Me.Label2.TabIndex = 9
@@ -85,7 +87,7 @@ Partial Class frmNickServLogin
         'chkXEnable
         '
         Me.chkXEnable.AutoSize = True
-        Me.chkXEnable.Location = New System.Drawing.Point(15, 56)
+        Me.chkXEnable.Location = New System.Drawing.Point(15, 96)
         Me.chkXEnable.Name = "chkXEnable"
         Me.chkXEnable.Size = New System.Drawing.Size(58, 17)
         Me.chkXEnable.TabIndex = 11
@@ -98,7 +100,7 @@ Partial Class frmNickServLogin
         Me.cmdLogin.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdLogin.Image = Global.nexIRC.My.Resources.Resources.accept
         Me.cmdLogin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cmdLogin.Location = New System.Drawing.Point(145, 92)
+        Me.cmdLogin.Location = New System.Drawing.Point(145, 132)
         Me.cmdLogin.Name = "cmdLogin"
         Me.cmdLogin.Size = New System.Drawing.Size(84, 27)
         Me.cmdLogin.TabIndex = 17
@@ -111,7 +113,7 @@ Partial Class frmNickServLogin
         Me.cmdCancel.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancel.Image = Global.nexIRC.My.Resources.Resources.cancel
         Me.cmdCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cmdCancel.Location = New System.Drawing.Point(235, 92)
+        Me.cmdCancel.Location = New System.Drawing.Point(235, 132)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.Size = New System.Drawing.Size(84, 27)
         Me.cmdCancel.TabIndex = 16
@@ -119,11 +121,30 @@ Partial Class frmNickServLogin
         Me.cmdCancel.Text = "&Cancel"
         Me.cmdCancel.UseVisualStyleBackColor = True
         '
+        'txtNickname
+        '
+        Me.txtNickname.Location = New System.Drawing.Point(15, 25)
+        Me.txtNickname.Name = "txtNickname"
+        Me.txtNickname.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtNickname.Size = New System.Drawing.Size(304, 21)
+        Me.txtNickname.TabIndex = 19
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(12, 9)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(56, 13)
+        Me.Label1.TabIndex = 18
+        Me.Label1.Text = "Nickname:"
+        '
         'frmNickServLogin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(331, 130)
+        Me.ClientSize = New System.Drawing.Size(331, 168)
+        Me.Controls.Add(Me.txtNickname)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.cmdLogin)
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.lblCreateAnAccount)
@@ -151,4 +172,6 @@ Partial Class frmNickServLogin
     Friend WithEvents chkXEnable As System.Windows.Forms.CheckBox
     Friend WithEvents cmdLogin As System.Windows.Forms.Button
     Friend WithEvents cmdCancel As System.Windows.Forms.Button
+    Friend WithEvents txtNickname As System.Windows.Forms.TextBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class

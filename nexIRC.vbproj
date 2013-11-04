@@ -504,7 +504,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="bin\Debug\data\config\channelfolders.ini" />
     <None Include="bin\Debug\data\config\commands.ini" />
     <None Include="bin\Debug\data\config\compatibility.ini" />
     <None Include="bin\Debug\data\config\dcc.ini" />

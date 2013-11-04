@@ -46,14 +46,15 @@ Partial Class frmChannelsList
         Me.lvwChannels.Size = New System.Drawing.Size(533, 210)
         Me.lvwChannels.TabIndex = 0
         Me.lvwChannels.ViewType = Telerik.WinControls.UI.ListViewType.DetailsView
+        Me.lvwChannels.Visible = False
         '
         'frmChannelsList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Black
         Me.ClientSize = New System.Drawing.Size(883, 353)
         Me.Controls.Add(Me.lvwChannels)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
         Me.Name = "frmChannelsList"
         '
         '

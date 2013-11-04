@@ -54,7 +54,7 @@ Public Class clsChannelListUI
             _Form.Width = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "ChannelList", "Width", "300")))
             _Form.Height = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "ChannelList", "Height", "300")))
             _Form.MdiParent() = mdiMain
-            _Form.Icon = mdiMain.Icon
+            '_Form.Icon = mdiMain.Icon
             ResetList(_ListView)
             _ListView.ListViewElement.BackColor = Color.Black
             _ListView.ListViewElement.ForeColor = Color.White
@@ -216,7 +216,7 @@ Public Class clsChannelList
     Private Sub SetItems(_ChannelListIndex As Integer)
         Try
             Dim item As ListViewDataItem, values(2) As String
-            clsLockWindowUpdate.LockWindowUpdate(lChannelLists.cChannelList(_ChannelListIndex).cWindow.lvwChannels.Handle)
+            'clsLockWindowUpdate.LockWindowUpdate(lChannelLists.cChannelList(_ChannelListIndex).cWindow.lvwChannels.Handle)
             With lChannelLists.cChannelList(_ChannelListIndex)
                 .cWindow.lvwChannels.Items.Clear()
                 For i As Integer = 1 To .cItem.cCount
@@ -227,7 +227,8 @@ Public Class clsChannelList
                     .cWindow.lvwChannels.Items.Add(item)
                 Next i
             End With
-            clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
+            'clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
+            lChannelLists.cChannelList(_ChannelListIndex).cWindow.lvwChannels.Visible = True
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub SetItems(_ChannelListIndex As Integer)")
         End Try

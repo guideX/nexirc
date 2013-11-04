@@ -23,9 +23,9 @@ Partial Class frmChannelsList
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewDetailColumn4 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Channel")
-        Dim ListViewDetailColumn5 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Topic")
-        Dim ListViewDetailColumn6 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "User Count")
+        Dim ListViewDetailColumn1 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Channel")
+        Dim ListViewDetailColumn2 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Topic")
+        Dim ListViewDetailColumn3 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "User Count")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmChannelsList))
         Me.lvwChannels = New Telerik.WinControls.UI.RadListView()
         Me.RadCommandBar1 = New Telerik.WinControls.UI.RadCommandBar()
@@ -40,10 +40,10 @@ Partial Class frmChannelsList
         '
         'lvwChannels
         '
-        ListViewDetailColumn4.HeaderText = "Channel"
-        ListViewDetailColumn5.HeaderText = "Topic"
-        ListViewDetailColumn6.HeaderText = "User Count"
-        Me.lvwChannels.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn4, ListViewDetailColumn5, ListViewDetailColumn6})
+        ListViewDetailColumn1.HeaderText = "Channel"
+        ListViewDetailColumn2.HeaderText = "Topic"
+        ListViewDetailColumn3.HeaderText = "User Count"
+        Me.lvwChannels.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn1, ListViewDetailColumn2, ListViewDetailColumn3})
         Me.lvwChannels.EnableColumnSort = True
         Me.lvwChannels.EnableSorting = True
         Me.lvwChannels.GroupItemSize = New System.Drawing.Size(200, 20)

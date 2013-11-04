@@ -19,29 +19,6 @@ Public Class frmChannelsList
             ProcessError(ex.Message, "Private Sub frmChannelList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
         End Try
     End Sub
-    'Private Sub ListView_ColumnClick(sender As Object, e As Windows.Forms.ColumnClickEventArgs)
-    'If (lChannelListUI.lSortOrder = SortOrder.Ascending) Then
-    'lChannelListUI.lSortOrder = SortOrder.Descending
-    'Else
-    'lChannelListUI.lSortOrder = SortOrder.Ascending
-    'End If
-    'lvwChannels.ListViewItemSorter = New ListViewItemComparer(e.Column, lChannelListUI.lSortOrder)
-    'End Sub
-    'Private Sub lvwChannels_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lvwChannels.ColumnClick
-    'Try
-    'lChannelListUI.ColumnClick()
-    'AddHandler lvwChannels.ColumnClick, AddressOf ListView_ColumnClick
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub lvwChannels_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lvwChannels.ColumnClick")
-    'End Try
-    'End Sub
-    'Private Sub lvwChannels_ItemSelectionChanged(ByVal sender As Object, ByVal e As System.Windows.Forms.ListViewItemSelectionChangedEventArgs) Handles lvwChannels.ItemSelectionChanged
-    'Try
-    'lChannelListUI.ItemSelectionChanged(lvwChannels, e.ItemIndex)
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub lvwChannels_ItemSelectionChanged(ByVal sender As Object, ByVal e As System.Windows.Forms.ListViewItemSelectionChangedEventArgs) Handles lvwChannels.ItemSelectionChanged")
-    'End Try
-    'End Sub
     Public WriteOnly Property MeIndex() As Integer
         Set(_Index As Integer)
             Try
@@ -72,6 +49,13 @@ Public Class frmChannelsList
             lChannelListUI.DoubleClick(lvwChannels)
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub lvwChannels_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwChannels.DoubleClick")
+        End Try
+    End Sub
+    Private Sub lvwChannels_ItemMouseDoubleClick(sender As Object, e As Telerik.WinControls.UI.ListViewItemEventArgs) Handles lvwChannels.ItemMouseDoubleClick
+        Try
+            lChannelListUI.DoubleClick(lvwChannels)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub lvwChannels_ItemMouseDoubleClick(sender As Object, e As Telerik.WinControls.UI.ListViewItemEventArgs) Handles lvwChannels.ItemMouseDoubleClick")
         End Try
     End Sub
     Private Sub lvwChannels_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles lvwChannels.MouseDown

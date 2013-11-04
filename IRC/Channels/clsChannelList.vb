@@ -83,10 +83,7 @@ Public Class clsChannelListUI
     End Sub
     Public Sub DoubleClick(_ListView As RadListView)
         Try
-            Dim i As Integer
-            For i = 0 To _ListView.SelectedItems.Count
-                lChannels.Join(lChannelLists.ReturnStatusIndex(lMeIndex), lCurrentChannel)
-            Next i
+            lChannels.Join(lChannelLists.ReturnStatusIndex(lMeIndex), _ListView.SelectedItem.Text)
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub DoubleClick()")
         End Try

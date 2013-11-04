@@ -22,31 +22,84 @@ Partial Class frmChannelsList
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ListViewDetailColumn1 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Channel")
-        Dim ListViewDetailColumn2 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Topic")
-        Dim ListViewDetailColumn3 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "User Count")
+        Me.components = New System.ComponentModel.Container()
+        Dim ListViewDetailColumn4 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Channel")
+        Dim ListViewDetailColumn5 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Topic")
+        Dim ListViewDetailColumn6 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "User Count")
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmChannelsList))
         Me.lvwChannels = New Telerik.WinControls.UI.RadListView()
+        Me.RadCommandBar1 = New Telerik.WinControls.UI.RadCommandBar()
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.CommandBarRowElement1 = New Telerik.WinControls.UI.CommandBarRowElement()
+        Me.CommandBarStripElement1 = New Telerik.WinControls.UI.CommandBarStripElement()
+        Me.cmdRefresh = New Telerik.WinControls.UI.CommandBarButton()
         CType(Me.lvwChannels, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RadCommandBar1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lvwChannels
         '
-        ListViewDetailColumn1.HeaderText = "Channel"
-        ListViewDetailColumn2.HeaderText = "Topic"
-        ListViewDetailColumn3.HeaderText = "User Count"
-        Me.lvwChannels.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn1, ListViewDetailColumn2, ListViewDetailColumn3})
+        ListViewDetailColumn4.HeaderText = "Channel"
+        ListViewDetailColumn5.HeaderText = "Topic"
+        ListViewDetailColumn6.HeaderText = "User Count"
+        Me.lvwChannels.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn4, ListViewDetailColumn5, ListViewDetailColumn6})
         Me.lvwChannels.EnableColumnSort = True
         Me.lvwChannels.EnableSorting = True
         Me.lvwChannels.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwChannels.ItemSize = New System.Drawing.Size(200, 20)
         Me.lvwChannels.ItemSpacing = -1
-        Me.lvwChannels.Location = New System.Drawing.Point(0, 0)
+        Me.lvwChannels.Location = New System.Drawing.Point(0, 30)
         Me.lvwChannels.Name = "lvwChannels"
         Me.lvwChannels.Size = New System.Drawing.Size(533, 210)
         Me.lvwChannels.TabIndex = 0
         Me.lvwChannels.ViewType = Telerik.WinControls.UI.ListViewType.DetailsView
         Me.lvwChannels.Visible = False
+        '
+        'RadCommandBar1
+        '
+        Me.RadCommandBar1.AutoSize = True
+        Me.RadCommandBar1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.RadCommandBar1.ImageList = Me.ImageList1
+        Me.RadCommandBar1.Location = New System.Drawing.Point(0, 0)
+        Me.RadCommandBar1.Name = "RadCommandBar1"
+        Me.RadCommandBar1.Rows.AddRange(New Telerik.WinControls.UI.CommandBarRowElement() {Me.CommandBarRowElement1})
+        Me.RadCommandBar1.Size = New System.Drawing.Size(883, 30)
+        Me.RadCommandBar1.TabIndex = 1
+        Me.RadCommandBar1.Text = "RadCommandBar1"
+        '
+        'ImageList1
+        '
+        Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
+        Me.ImageList1.Images.SetKeyName(0, "refresh.png")
+        '
+        'CommandBarRowElement1
+        '
+        Me.CommandBarRowElement1.BorderBoxStyle = Telerik.WinControls.BorderBoxStyle.SingleBorder
+        Me.CommandBarRowElement1.DisplayName = Nothing
+        Me.CommandBarRowElement1.MinSize = New System.Drawing.Size(25, 25)
+        Me.CommandBarRowElement1.Strips.AddRange(New Telerik.WinControls.UI.CommandBarStripElement() {Me.CommandBarStripElement1})
+        '
+        'CommandBarStripElement1
+        '
+        Me.CommandBarStripElement1.DisplayName = "CommandBarStripElement1"
+        Me.CommandBarStripElement1.FloatingForm = Nothing
+        Me.CommandBarStripElement1.Items.AddRange(New Telerik.WinControls.UI.RadCommandBarBaseItem() {Me.cmdRefresh})
+        Me.CommandBarStripElement1.Name = "CommandBarStripElement1"
+        Me.CommandBarStripElement1.Text = ""
+        '
+        'cmdRefresh
+        '
+        Me.cmdRefresh.AccessibleDescription = "Refresh"
+        Me.cmdRefresh.AccessibleName = "Refresh"
+        Me.cmdRefresh.DisplayName = "CommandBarButton1"
+        Me.cmdRefresh.Image = CType(resources.GetObject("cmdRefresh.Image"), System.Drawing.Image)
+        Me.cmdRefresh.ImageIndex = 0
+        Me.cmdRefresh.Name = "cmdRefresh"
+        Me.cmdRefresh.Text = "Refresh"
+        Me.cmdRefresh.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmdRefresh.VisibleInOverflowMenu = True
         '
         'frmChannelsList
         '
@@ -54,18 +107,28 @@ Partial Class frmChannelsList
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
         Me.ClientSize = New System.Drawing.Size(883, 353)
+        Me.Controls.Add(Me.RadCommandBar1)
         Me.Controls.Add(Me.lvwChannels)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmChannelsList"
         '
         '
         '
         Me.RootElement.ApplyShapeToControl = True
+        Me.ShowIcon = False
         Me.Text = "Channel List"
         CType(Me.lvwChannels, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RadCommandBar1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents lvwChannels As Telerik.WinControls.UI.RadListView
+    Friend WithEvents RadCommandBar1 As Telerik.WinControls.UI.RadCommandBar
+    Friend WithEvents CommandBarRowElement1 As Telerik.WinControls.UI.CommandBarRowElement
+    Friend WithEvents CommandBarStripElement1 As Telerik.WinControls.UI.CommandBarStripElement
+    Friend WithEvents cmdRefresh As Telerik.WinControls.UI.CommandBarButton
+    Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
 End Class
 

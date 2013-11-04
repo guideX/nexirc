@@ -81,4 +81,11 @@ Public Class frmChannelsList
             ProcessError(ex.Message, "Private Sub lvwChannels_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lvwChannels.MouseDown")
         End Try
     End Sub
+    Private Sub cmdRefresh_Click(sender As System.Object, e As System.EventArgs) Handles cmdRefresh.Click
+        Try
+            lChannelListUI.cmdRefresh_Click(Me)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub cmdRefresh_Click(sender As System.Object, e As System.EventArgs) Handles cmdRefresh.Click")
+        End Try
+    End Sub
 End Class

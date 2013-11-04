@@ -4,12 +4,21 @@ Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
 Imports nexIRC.Classes.IO
 Imports Telerik.WinControls.UI
-
+Imports nexIRC.clsCommandTypes
 Public Class clsChannelListUI
     Public Event SaveColumnWidths()
     Public lSortOrder As SortOrder
     Private lCurrentChannel As String
     Private lMeIndex As Integer
+    Public Sub cmdRefresh_Click(form As Form)
+        Try
+            Dim n As Integer = lStatus.ActiveIndex
+            ProcessReplaceCommand(n, eCommandTypes.cLIST, lStatus.ServerDescription(n))
+            form.Close()
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub cmdRefresh_Click()")
+        End Try
+    End Sub
     Public WriteOnly Property MeIndex() As Integer
         Set(_MeIndex As Integer)
             Try
@@ -67,7 +76,7 @@ Public Class clsChannelListUI
     Public Sub Resize(_ListView As RadListView, _Form As Form)
         Try
             _ListView.Width = _Form.ClientSize.Width
-            _ListView.Height = _Form.ClientSize.Height
+            _ListView.Height = _Form.ClientSize.Height - 30
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub Resize()")
         End Try

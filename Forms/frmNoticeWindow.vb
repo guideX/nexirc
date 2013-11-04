@@ -148,11 +148,6 @@ Public Class frmNoticeWindow
     End Sub
 
     Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked
-        'On Error Resume Next
-        'If lIRC.iSettings.sShowBrowser = True Then
-        'mdiMain.BrowseURL(e.LinkText)
-        'End If
-        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked")
     End Sub
 
     Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown

@@ -1899,7 +1899,7 @@ Namespace IRC.Status
                 End With
             End If
         End Sub
-        Public Sub Notices_Add(ByVal lIndex As Integer, ByVal lData As String)
+        Public Sub Notices_Add(ByVal lIndex As Integer, ByVal lData As String, Optional lData2 As String = "")
             Try
                 If lIRC.iSettings.sNoticesInOwnWindow = True Then
                     If Len(lData) <> 0 Then
@@ -1932,7 +1932,11 @@ Namespace IRC.Status
                         End With
                     End If
                 Else
-                    ProcessReplaceString(lIndex, eStringTypes.sNOTICE, lData)
+                    If (lData2.Length <> 0) Then
+                        ProcessReplaceString(lIndex, eStringTypes.sNOTICE, lData, lData2)
+                    Else
+                        ProcessReplaceString(lIndex, eStringTypes.sNOTICE, lData)
+                    End If
                 End If
             Catch ex As Exception
                 RaiseEvent ProcessError(ex.Message, "Public Sub AddToNotices(ByVal lIndex As Integer, ByVal lData As String)")

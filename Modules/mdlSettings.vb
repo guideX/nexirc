@@ -249,7 +249,6 @@ Public Module mdlSettings
         Public sNetworkAvailability As Boolean
         Public sAutoAddToChannelFolder As Boolean
         Public sWindowSizes As gInitialWindowSizes
-        Public sShowBrowser As Boolean
         Public sPrompts As Boolean
         Public sOper As Boolean
         Public sExtendedMessages As Boolean
@@ -648,7 +647,6 @@ Public Module mdlSettings
         End With
     End Sub
 
-
     Public Sub PopulateNotifyByListView(ByVal lListView As RadListView)
         Try
             Dim i As Integer, n As Integer
@@ -792,27 +790,27 @@ Public Module mdlSettings
     Private Sub SetINIFiles()
         With lINI
             .iBasePath = clsFiles.GetFilePath(Application.ExecutablePath)
-            .iNotepad = lINI.iBasePath & "data/config/notepad.txt"
-            .iPlaylists = lINI.iBasePath & "data/config/playlists.ini"
-            .iQueryLogs = lINI.iBasePath & "data/logs/query.txt"
-            .iNotify = lINI.iBasePath & "data/config/notify.ini"
-            .iStringSettings = lINI.iBasePath & "data/config/stringsettings.ini"
-            .iNetworks = lINI.iBasePath & "data/config/networks.ini"
-            .iDCC = lINI.iBasePath & "data/config/dcc.ini"
-            .iQuery = lINI.iBasePath & "data/config/query.ini"
-            .iServers = lINI.iBasePath & "data/config/servers.ini"
-            .iIRC = lINI.iBasePath & "data/config/settings.ini"
-            .iNicks = lINI.iBasePath & "data/config/nicknames.ini"
-            .iIdent = lINI.iBasePath & "data/config/Ident.ini"
-            .iErrors = lINI.iBasePath & "data/config/errors.ini"
-            .iChannelFolders = lINI.iBasePath & "data/config/channelfolders.ini"
-            .iText = lINI.iBasePath & "data/config/text.ini"
-            .iCommands = lINI.iBasePath & "data/config/commands.ini"
-            .iServices = lINI.iBasePath & "data/config/services.ini"
-            .iDownloadManager = lINI.iBasePath & "data/config/downloadmanager.ini"
-            .iRecientServers = lINI.iBasePath & "data/config/recientservers.ini"
-            .iMedia = lINI.iBasePath & "data/config/media.ini"
-            .iCompatibility = lINI.iBasePath & "data/config/compatibility.ini"
+            .iNotepad = lINI.iBasePath & "data\config\notepad.txt"
+            .iPlaylists = lINI.iBasePath & "data\config\playlists.ini"
+            .iQueryLogs = lINI.iBasePath & "data\logs\query.txt"
+            .iNotify = lINI.iBasePath & "data\config\notify.ini"
+            .iStringSettings = lINI.iBasePath & "data\config\stringsettings.ini"
+            .iNetworks = lINI.iBasePath & "data\config\networks.ini"
+            .iDCC = lINI.iBasePath & "data\config\dcc.ini"
+            .iQuery = lINI.iBasePath & "data\config\query.ini"
+            .iServers = lINI.iBasePath & "data\config\servers.ini"
+            .iIRC = lINI.iBasePath & "data\config\settings.ini"
+            .iNicks = lINI.iBasePath & "data\config\nicknames.ini"
+            .iIdent = lINI.iBasePath & "data\config\Ident.ini"
+            .iErrors = lINI.iBasePath & "data\config\errors.ini"
+            .iChannelFolders = lINI.iBasePath & "data\config\channelfolders.ini"
+            .iText = lINI.iBasePath & "data\config\text.ini"
+            .iCommands = lINI.iBasePath & "data\config\commands.ini"
+            .iServices = lINI.iBasePath & "data\config\services.ini"
+            .iDownloadManager = lINI.iBasePath & "data\config\downloadmanager.ini"
+            .iRecientServers = lINI.iBasePath & "data\config\recientservers.ini"
+            .iMedia = lINI.iBasePath & "data\config\media.ini"
+            .iCompatibility = lINI.iBasePath & "data\config\compatibility.ini"
         End With
     End Sub
     Private Sub LoadNickNames()
@@ -977,7 +975,6 @@ Public Module mdlSettings
                 .sShowUserAddresses = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowUserAddresses", "True"))
                 .sHideMOTD = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "HideMOTD", "True"))
                 .sPrompts = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "Prompts", "True"))
-                .sShowBrowser = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowBrowser", "False"))
                 .sShowRawWindow = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowRawWindow", "False"))
                 .sExtendedMessages = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ExtendedMessages", "True"))
                 .sNoIRCMessages = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "NoIRCMessages", "False"))
@@ -1154,7 +1151,6 @@ Public Module mdlSettings
             clsFiles.WriteINI(lINI.iIRC, "Settings", "Prompts", Trim(.sPrompts.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowUserAddresses", Trim(.sShowUserAddresses.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "URL", .sURL)
-            clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowBrowser", Trim(.sShowBrowser.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "MOTDInOwnWindow", Trim(.sMOTDInOwnWindow.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "PopupChannelFolders", Trim(.sPopupChannelFolders.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", Trim(.sCustomizeOnStartup.ToString))

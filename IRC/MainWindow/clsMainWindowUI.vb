@@ -6,7 +6,6 @@ Namespace nexIRC.MainWindow
     Public Class clsMainWindowUI
         Public WithEvents lProcesses As New clsProcess
         Public lVideo As New gVideo
-        Public lBrowser As gBrowser
         Private lLoadingForm As New frmLoading
         Private lFlashesLeft As Integer
         Public Structure gVideo
@@ -119,44 +118,6 @@ Namespace nexIRC.MainWindow
                 ProcessError(ex.Message, "Private Function IsPageExempt(ByVal lURL As String) As Boolean")
             End Try
         End Function
-        Public Sub BrowseURL(ByVal _URL As String, ByVal _Startup As Boolean, _Form As Form)
-            Try
-                Dim mbox As MsgBoxResult
-                If Len(_URL) = 0 Then Exit Sub
-                If lIRC.iSettings.sShowBrowser = True Then
-                    If IsPageExempt(_URL) = False Then
-                        If _Startup = False Then
-                            If lIRC.iSettings.sPrompts = True Then
-                                mbox = MsgBox("nexIRC would like to browse a webpage. Would you like to browse this page?" & vbCrLf & vbCrLf & "Details: " & _URL, MsgBoxStyle.YesNoCancel)
-                                If mbox = MsgBoxResult.No Or mbox = MsgBoxResult.Cancel Then Exit Sub
-                            End If
-                        End If
-                    End If
-                    If lBrowser.bVisible = False Then
-                        'lBrowser.bWindow = Nothing
-                        'lBrowser.bWindow = New frmBrowser
-                        'lBrowser.bWindow.MdiParent = _Form
-                        'lBrowser.bWindow.Show()
-                        'lBrowser.bVisible = True
-                    End If
-                    lBrowser.bURL = _URL
-                    'lBrowser.bWindow.WebBrowser1.Navigate(_URL)
-                    If Err.Number = 5 Then
-                        'lBrowser.bWindow = Nothing
-                        'lBrowser.bWindow = New frmBrowser
-                        'lBrowser.bWindow.MdiParent = _Form
-                        'clsAnimate.Animate(lBrowser.bWindow, clsAnimate.Effect.Center, 200, 1)
-                        'lBrowser.bVisible = True
-                        'lBrowser.bURL = _URL
-                        'lBrowser.bWindow.WebBrowser1.Navigate(_URL)
-                        'lBrowser.bWindow.Width = _Form.Width
-                        'lBrowser.bWindow.Height = _Form.Width
-                    End If
-                End If
-            Catch ex As Exception
-                ProcessError(ex.Message, "Public Sub BrowseURL(ByVal lURL As String, Optional ByVal lStartup As Boolean = False)")
-            End Try
-        End Sub
         Public Sub FormClosed(_Form As Form, _NotifyIcon As NotifyIcon, _SideBarShown As Boolean)
             Try
                 If _Form.WindowState = FormWindowState.Minimized Then _NotifyIcon.Visible = True
@@ -222,7 +183,6 @@ Namespace nexIRC.MainWindow
                 SetLoadingFormProgress("Loading Settings", 7)
                 LoadSettings()
                 SetLoadingFormProgress("Browsing URL", 95)
-                BrowseURL(lIRC.iSettings.sURL, True, _Form)
                 lLoadingForm.Focus()
                 If lServers.sIndex <> 0 Then lStatus.Create(lIRC, lServers)
                 _Form.Left = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Left", CStr(_Form.Left))))

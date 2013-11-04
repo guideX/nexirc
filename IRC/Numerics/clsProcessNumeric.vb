@@ -45,7 +45,12 @@ Public Class clsProcessNumeric
             End If
             If InStr(LCase(lData), "notice auth :", CompareMethod.Text) <> 0 Then
                 splt2 = Split(lData, ":")
-                lStatus.Notices_Add(lStatusIndex, splt2(1))
+                Select Case UBound(splt2)
+                    Case 1
+                        lStatus.Notices_Add(lStatusIndex, splt2(1))
+                    Case 2
+                        lStatus.Notices_Add(lStatusIndex, splt2(1), splt2(2))
+                End Select
                 Exit Sub
             End If
             If Left(LCase(Trim(lData)), 10) = "*** notice" Then
@@ -549,7 +554,6 @@ Public Class clsProcessNumeric
                                         lStatus.AddText(msg, lStatusIndex)
                                     End If
                                 End If
-                                'If lIRC.iSettings.sAutoNavigateChannelUrls = True And lIRC.iSettings.sShowBrowser = True Then mdiMain.BrowseURL(msg2)
                                 Exit Sub
                             Case 330
 

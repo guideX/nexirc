@@ -10,6 +10,13 @@ Public Class clsChannelListUI
     Public lSortOrder As SortOrder
     Private lCurrentChannel As String
     Private lMeIndex As Integer
+    Public Sub cmdAddToChannelFolder_Click(channel As String)
+        Try
+            AddToChannelFolders(channel, lNetworks.nIndex)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Sub cmdAddToChannelFolder_Click(channel As String, network As Integer)")
+        End Try
+    End Sub
     Public Sub cmdRefresh_Click(form As Form)
         Try
             Dim n As Integer = lStatus.ActiveIndex
@@ -107,7 +114,7 @@ Public Class clsChannelList
         Public cChannelListItem() As gChannelListItem
     End Structure
     Public Structure gChannelList
-        Public cWindow As frmChannelsList
+        Public cWindow As frmChannelList
         Public cVisible As Boolean
         Public cTreeNode As TreeNode
         Public cTreeNodeVisible As Boolean
@@ -158,12 +165,12 @@ Public Class clsChannelList
                     .cStatusIndex = _StatusIndex
                     .cTreeNodeVisible = True
                     .cTreeNode = lStatus.GetObject(_StatusIndex).sTreeNode.Nodes.Add("Channel List", "Channel List", 1)
-                    .cWindow = New frmChannelsList
+                    .cWindow = New frmChannelList
                 End With
             Else
                 With lChannelLists.cChannelList(_ChannelListIndex)
                     .cStatusIndex = _StatusIndex
-                    .cWindow = New frmChannelsList
+                    .cWindow = New frmChannelList
                     .cItem = New gChannelListItems()
                     .cWindow.MeIndex = _ChannelListIndex
                 End With
@@ -208,7 +215,7 @@ Public Class clsChannelList
     Public Sub Display(_ChannelListIndex As Integer)
         Try
             With lChannelLists.cChannelList(_ChannelListIndex)
-                .cWindow = New frmChannelsList()
+                .cWindow = New frmChannelList()
                 .cWindow.Text = "Channel List [" & lStatus.Window(.cStatusIndex).Text & "]"
                 .cWindow.lvwChannels.Items.Clear()
                 clsAnimate.Animate(.cWindow, clsAnimate.Effect.Center, 200, 1)

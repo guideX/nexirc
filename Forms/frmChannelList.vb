@@ -3,7 +3,7 @@
 Option Explicit On
 Option Strict On
 Imports nexIRC.Classes.IO
-Public Class frmChannelsList
+Public Class frmChannelList
     Private WithEvents lChannelListUI As New clsChannelListUI
     Private Sub frmChannelsList_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         Try
@@ -70,6 +70,13 @@ Public Class frmChannelsList
             lChannelListUI.cmdRefresh_Click(Me)
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub cmdRefresh_Click(sender As System.Object, e As System.EventArgs) Handles cmdRefresh.Click")
+        End Try
+    End Sub
+    Private Sub cmdAddToChannelFolder_Click(sender As System.Object, e As System.EventArgs) Handles cmdAddToChannelFolder.Click
+        Try
+            lChannelListUI.cmdAddToChannelFolder_Click(Me.lvwChannels.SelectedItem.Text)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub cmdAddToChannelFolder_Click(sender As System.Object, e As System.EventArgs) Handles cmdAddToChannelFolder.Click")
         End Try
     End Sub
 End Class

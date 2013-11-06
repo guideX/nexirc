@@ -19,7 +19,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>http://localhost/nexIRC/</PublishUrl>
     <Install>true</Install>
@@ -66,6 +66,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -74,6 +75,7 @@
       <HintPath>..\..\telerik\Bin\Telerik.WinControls.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.GridView, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.RichTextBox, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.Themes.Aqua">
       <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Aqua.dll</HintPath>
     </Reference>
@@ -161,10 +163,16 @@
     <Compile Include="Forms\frmChangeNickName.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmChannelsList.Designer.vb">
-      <DependentUpon>frmChannelsList.vb</DependentUpon>
+    <Compile Include="Forms\frmChannel.Designer.vb">
+      <DependentUpon>frmChannel.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmChannelsList.vb">
+    <Compile Include="Forms\frmChannel.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChannelList.Designer.vb">
+      <DependentUpon>frmChannelList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChannelList.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmChooseNetwork.Designer.vb">
@@ -177,12 +185,6 @@
       <DependentUpon>frmSharedAdd.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmSharedAdd.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmChannel.Designer.vb">
-      <DependentUpon>frmChannel.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmChannel.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmChannelFolder.Designer.vb">
@@ -387,18 +389,17 @@
     <EmbeddedResource Include="Forms\frmChangeNickName.resx">
       <DependentUpon>frmChangeNickName.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmChannelsList.resx">
-      <DependentUpon>frmChannelsList.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\frmChannel.resx">
+      <DependentUpon>frmChannel.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChannelList.resx">
+      <DependentUpon>frmChannelList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChooseNetwork.resx">
       <DependentUpon>frmChooseNetwork.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSharedAdd.resx">
       <DependentUpon>frmSharedAdd.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmChannel.resx">
-      <DependentUpon>frmChannel.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChannelFolder.resx">
       <DependentUpon>frmChannelFolder.vb</DependentUpon>

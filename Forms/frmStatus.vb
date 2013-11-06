@@ -7,14 +7,13 @@ Public Class frmStatus
     Public WithEvents lMdiChildWindow As New clsMdiChildWindow
     Public WithEvents lAutoConnectDelayTimer As New Timer
 
-    Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked
-        Try
-            lMdiChildWindow.TextBox_LinkClicked(e.LinkText)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked")
-        End Try
-    End Sub
-
+    'Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked
+    'Try
+    'lMdiChildWindow.TextBox_LinkClicked(e.LinkText)
+    'Catch ex As Exception
+    'ProcessError(ex.Message, "Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked")
+    'End Try
+    'End Sub
     Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown
         Try
             lMdiChildWindow.txtIncomingColor_MouseDown(Me, txtOutgoing)
@@ -26,7 +25,7 @@ Public Class frmStatus
 
     Private Sub txtOutgoing_GotFocus(sender As Object, e As System.EventArgs) Handles txtOutgoing.GotFocus
         Try
-            lMdiChildWindow.txtOutgoing_GotFocus(Me)
+            lMdiChildWindow.txtOutgoing_GotFocus()
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub txtOutgoing_GotFocus(sender As Object, e As System.EventArgs) Handles txtOutgoing.GotFocus")
         End Try
@@ -159,6 +158,13 @@ Public Class frmStatus
             lMdiChildWindow.Form_Load(txtIncomingColor, txtOutgoing, Me, clsMdiChildWindow.eFormTypes.fStatus)
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_BringToFront() Handles lMdiChildWindow.BringToFront
+        Try
+            Me.BringToFront()
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub lMdiChildWindow_BringToFront() Handles lMdiChildWindow.BringToFront")
         End Try
     End Sub
 End Class

@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmStatus
-    Inherits System.Windows.Forms.Form
+    Inherits Telerik.WinControls.UI.RadForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -22,197 +22,84 @@ Partial Class frmStatus
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStatus))
-        Me.tspChannel = New System.Windows.Forms.ToolStrip()
-        Me.cmdConnection = New System.Windows.Forms.ToolStripSplitButton()
-        Me.cmdConnect = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmdDisconnect = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.cmdChangeConnection = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmdChannels = New System.Windows.Forms.ToolStripSplitButton()
-        Me.tspListChannels = New System.Windows.Forms.ToolStripMenuItem()
-        Me.txtOutgoing = New System.Windows.Forms.TextBox()
-        Me.tmrWaitForChannelList = New System.Windows.Forms.Timer(Me.components)
-        Me.tmrCheckChannelList = New System.Windows.Forms.Timer(Me.components)
-        Me.tmrWaitForLUsers = New System.Windows.Forms.Timer(Me.components)
-        Me.tmrWaitForWhois = New System.Windows.Forms.Timer(Me.components)
-        Me.txtIncomingColor = New System.Windows.Forms.RichTextBox()
-        Me.tspChannel.SuspendLayout()
+        Me.txtIncoming = New Telerik.WinControls.RichTextBox.RadRichTextBox()
+        Me.tspStatus = New Telerik.WinControls.UI.RadCommandBar()
+        Me.CommandBarRowElement1 = New Telerik.WinControls.UI.CommandBarRowElement()
+        Me.CommandBarStripElement1 = New Telerik.WinControls.UI.CommandBarStripElement()
+        Me.txtOutgoing = New Telerik.WinControls.UI.RadTextBox()
+        CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tspStatus, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'tspChannel
+        'txtIncoming
         '
-        Me.tspChannel.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.tspChannel.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tspChannel.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.tspChannel.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdConnection, Me.cmdChannels})
-        Me.tspChannel.Location = New System.Drawing.Point(0, 0)
-        Me.tspChannel.Name = "tspChannel"
-        Me.tspChannel.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.tspChannel.ShowItemToolTips = False
-        Me.tspChannel.Size = New System.Drawing.Size(260, 25)
-        Me.tspChannel.TabIndex = 10
+        Me.txtIncoming.Location = New System.Drawing.Point(0, 30)
+        Me.txtIncoming.Name = "txtIncoming"
+        Me.txtIncoming.Size = New System.Drawing.Size(300, 100)
+        Me.txtIncoming.TabIndex = 0
+        Me.txtIncoming.Text = "RadRichTextBox1"
         '
-        'cmdConnection
+        'tspStatus
         '
-        Me.cmdConnection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmdConnection.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdConnect, Me.cmdDisconnect, Me.ToolStripSeparator3, Me.cmdChangeConnection, Me.ToolStripSeparator1, Me.ToolStripMenuItem1, Me.ToolStripMenuItem2, Me.ToolStripMenuItem3})
-        Me.cmdConnection.Image = CType(resources.GetObject("cmdConnection.Image"), System.Drawing.Image)
-        Me.cmdConnection.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.cmdConnection.Name = "cmdConnection"
-        Me.cmdConnection.Size = New System.Drawing.Size(32, 22)
-        Me.cmdConnection.Text = "Connection"
+        Me.tspStatus.AutoSize = True
+        Me.tspStatus.Dock = System.Windows.Forms.DockStyle.Top
+        Me.tspStatus.Location = New System.Drawing.Point(0, 0)
+        Me.tspStatus.Name = "tspStatus"
+        Me.tspStatus.Rows.AddRange(New Telerik.WinControls.UI.CommandBarRowElement() {Me.CommandBarRowElement1})
+        Me.tspStatus.Size = New System.Drawing.Size(304, 30)
+        Me.tspStatus.TabIndex = 1
+        Me.tspStatus.Text = "RadCommandBar1"
         '
-        'cmdConnect
+        'CommandBarRowElement1
         '
-        Me.cmdConnect.Image = Global.nexIRC.My.Resources.Resources.network1
-        Me.cmdConnect.Name = "cmdConnect"
-        Me.cmdConnect.Size = New System.Drawing.Size(195, 22)
-        Me.cmdConnect.Text = "Connect"
+        Me.CommandBarRowElement1.DisplayName = Nothing
+        Me.CommandBarRowElement1.MinSize = New System.Drawing.Size(25, 25)
+        Me.CommandBarRowElement1.Strips.AddRange(New Telerik.WinControls.UI.CommandBarStripElement() {Me.CommandBarStripElement1})
         '
-        'cmdDisconnect
+        'CommandBarStripElement1
         '
-        Me.cmdDisconnect.Image = Global.nexIRC.My.Resources.Resources.network1
-        Me.cmdDisconnect.Name = "cmdDisconnect"
-        Me.cmdDisconnect.Size = New System.Drawing.Size(195, 22)
-        Me.cmdDisconnect.Text = "Disconnect"
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(192, 6)
-        '
-        'cmdChangeConnection
-        '
-        Me.cmdChangeConnection.Image = CType(resources.GetObject("cmdChangeConnection.Image"), System.Drawing.Image)
-        Me.cmdChangeConnection.Name = "cmdChangeConnection"
-        Me.cmdChangeConnection.Size = New System.Drawing.Size(195, 22)
-        Me.cmdChangeConnection.Text = "Change Connection"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(192, 6)
-        '
-        'ToolStripMenuItem1
-        '
-        Me.ToolStripMenuItem1.Image = CType(resources.GetObject("ToolStripMenuItem1.Image"), System.Drawing.Image)
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(195, 22)
-        Me.ToolStripMenuItem1.Text = "Change Nickname"
-        '
-        'ToolStripMenuItem2
-        '
-        Me.ToolStripMenuItem2.Image = CType(resources.GetObject("ToolStripMenuItem2.Image"), System.Drawing.Image)
-        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(195, 22)
-        Me.ToolStripMenuItem2.Text = "Send PrivMsg"
-        '
-        'ToolStripMenuItem3
-        '
-        Me.ToolStripMenuItem3.Image = Global.nexIRC.My.Resources.Resources.chat
-        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(195, 22)
-        Me.ToolStripMenuItem3.Text = "Send Notice"
-        '
-        'cmdChannels
-        '
-        Me.cmdChannels.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmdChannels.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tspListChannels})
-        Me.cmdChannels.Image = Global.nexIRC.My.Resources.Resources.applications
-        Me.cmdChannels.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.cmdChannels.Name = "cmdChannels"
-        Me.cmdChannels.Size = New System.Drawing.Size(32, 22)
-        Me.cmdChannels.Text = "Channels"
-        Me.cmdChannels.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        '
-        'tspListChannels
-        '
-        Me.tspListChannels.Name = "tspListChannels"
-        Me.tspListChannels.Size = New System.Drawing.Size(157, 22)
-        Me.tspListChannels.Text = "List Channels"
+        Me.CommandBarStripElement1.DisplayName = "CommandBarStripElement1"
+        Me.CommandBarStripElement1.FloatingForm = Nothing
+        Me.CommandBarStripElement1.Name = "CommandBarStripElement1"
+        Me.CommandBarStripElement1.Text = ""
         '
         'txtOutgoing
         '
-        Me.txtOutgoing.BackColor = System.Drawing.Color.Navy
-        Me.txtOutgoing.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOutgoing.ForeColor = System.Drawing.Color.White
-        Me.txtOutgoing.Location = New System.Drawing.Point(0, 114)
+        Me.txtOutgoing.Location = New System.Drawing.Point(0, 136)
         Me.txtOutgoing.Name = "txtOutgoing"
-        Me.txtOutgoing.Size = New System.Drawing.Size(249, 19)
-        Me.txtOutgoing.TabIndex = 8
-        '
-        'tmrWaitForChannelList
-        '
-        Me.tmrWaitForChannelList.Interval = 10000
-        '
-        'tmrCheckChannelList
-        '
-        Me.tmrCheckChannelList.Interval = 2000
-        '
-        'tmrWaitForLUsers
-        '
-        Me.tmrWaitForLUsers.Interval = 2000
-        '
-        'tmrWaitForWhois
-        '
-        Me.tmrWaitForWhois.Interval = 2000
-        '
-        'txtIncomingColor
-        '
-        Me.txtIncomingColor.BackColor = System.Drawing.Color.Black
-        Me.txtIncomingColor.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtIncomingColor.Cursor = System.Windows.Forms.Cursors.Arrow
-        Me.txtIncomingColor.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtIncomingColor.ForeColor = System.Drawing.Color.White
-        Me.txtIncomingColor.Location = New System.Drawing.Point(0, 25)
-        Me.txtIncomingColor.Name = "txtIncomingColor"
-        Me.txtIncomingColor.Size = New System.Drawing.Size(249, 83)
-        Me.txtIncomingColor.TabIndex = 9
-        Me.txtIncomingColor.Text = ""
+        Me.txtOutgoing.Size = New System.Drawing.Size(300, 20)
+        Me.txtOutgoing.TabIndex = 2
+        Me.txtOutgoing.TabStop = False
         '
         'frmStatus
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(260, 155)
-        Me.Controls.Add(Me.tspChannel)
+        Me.ClientSize = New System.Drawing.Size(304, 191)
         Me.Controls.Add(Me.txtOutgoing)
-        Me.Controls.Add(Me.txtIncomingColor)
-        Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Controls.Add(Me.tspStatus)
+        Me.Controls.Add(Me.txtIncoming)
         Me.Name = "frmStatus"
-        Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
+        '
+        '
+        '
+        Me.RootElement.ApplyShapeToControl = True
+        Me.ShowIcon = False
         Me.Text = "Status"
-        Me.tspChannel.ResumeLayout(False)
-        Me.tspChannel.PerformLayout()
+        CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tspStatus, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents tspChannel As System.Windows.Forms.ToolStrip
-    Friend WithEvents cmdConnection As System.Windows.Forms.ToolStripSplitButton
-    Friend WithEvents cmdConnect As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents cmdDisconnect As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents cmdChangeConnection As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents txtOutgoing As System.Windows.Forms.TextBox
-    Friend WithEvents tmrWaitForChannelList As System.Windows.Forms.Timer
-    Friend WithEvents tmrCheckChannelList As System.Windows.Forms.Timer
-    Friend WithEvents tmrWaitForLUsers As System.Windows.Forms.Timer
-    Friend WithEvents tmrWaitForWhois As System.Windows.Forms.Timer
-    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem3 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents cmdChannels As System.Windows.Forms.ToolStripSplitButton
-    Friend WithEvents tspListChannels As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents txtIncomingColor As System.Windows.Forms.RichTextBox
+    Friend WithEvents txtIncoming As Telerik.WinControls.RichTextBox.RadRichTextBox
+    Friend WithEvents tspStatus As Telerik.WinControls.UI.RadCommandBar
+    Friend WithEvents CommandBarRowElement1 As Telerik.WinControls.UI.CommandBarRowElement
+    Friend WithEvents CommandBarStripElement1 As Telerik.WinControls.UI.CommandBarStripElement
+    Friend WithEvents txtOutgoing As Telerik.WinControls.UI.RadTextBox
 End Class
+

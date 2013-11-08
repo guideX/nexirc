@@ -199,6 +199,12 @@
     <Compile Include="Forms\frmCustomize.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmStatus.Designer.vb">
+      <DependentUpon>frmStatus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmStatus.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="IRC\Channels\clsChannelFolder.vb" />
     <Compile Include="IRC\Customize\clsCustomize.vb" />
     <Compile Include="IRC\DCC\clsDccChat.vb" />
@@ -323,12 +329,6 @@
     <Compile Include="Forms\frmQuerySettings.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmStatus.Designer.vb">
-      <DependentUpon>frmStatus.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmStatus.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\frmServerLinks.Designer.vb">
       <DependentUpon>frmServerLinks.vb</DependentUpon>
     </Compile>
@@ -413,6 +413,9 @@
     <EmbeddedResource Include="Forms\frmSendNotice.resx">
       <DependentUpon>frmSendNotice.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmStatus.resx">
+      <DependentUpon>frmStatus.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmVideoPlayer.resx">
       <DependentUpon>frmVideoPlayer.vb</DependentUpon>
     </EmbeddedResource>
@@ -475,10 +478,6 @@
     <EmbeddedResource Include="Forms\frmQuerySettings.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmQuerySettings.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmStatus.resx">
-      <DependentUpon>frmStatus.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmServerLinks.resx">
       <SubType>Designer</SubType>

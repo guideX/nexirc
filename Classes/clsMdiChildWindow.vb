@@ -120,6 +120,7 @@ Public Class clsMdiChildWindow
     End Sub
     Public Sub txtIncomingColor_MouseDown()
         Try
+            lStatus.ActiveIndex = MeIndex
             RaiseEvent BringToFront()
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub txtIncomingColor_MouseDown()")
@@ -239,7 +240,7 @@ Public Class clsMdiChildWindow
             RaiseEvent SetOutgoingColors(Color.Blue, Color.White)
             Select Case _FormType
                 Case eFormTypes.fStatus
-                    'Form_Resize(_IncomingTextBox, _OutgoingTextBox, _Form)
+                    lStatus.Window_Resize(lMeIndex)
                 Case eFormTypes.fChannel
                     lChannels.Window_Resize(lMeIndex)
                     RaiseEvent SetNicklistColors(Color.Blue, Color.White)
@@ -299,7 +300,7 @@ Public Class clsMdiChildWindow
             ProcessError(ex.Message, "Public Sub Form_GotFocus()")
         End Try
     End Sub
-    Public Sub Form_FormClosing(Optional ByRef _Form As frmStatus = Nothing, Optional ByRef e As System.Windows.Forms.FormClosingEventArgs = Nothing)
+    Public Sub Form_FormClosing(Optional ByRef _Form As FrmStatus = Nothing, Optional ByRef e As System.Windows.Forms.FormClosingEventArgs = Nothing)
         Try
             Select Case lFormType
                 Case eFormTypes.fStatus

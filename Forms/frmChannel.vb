@@ -211,6 +211,8 @@ Public Class frmChannel
         Try
             txtIncoming.RichTextBoxElement.PageBackground = backgroundColor
             txtIncoming.RichTextBoxElement.ForeColor = foregroundColor
+            txtIncoming.RichTextBoxElement.BorderWidth = 0
+            txtIncoming.RichTextBoxElement.BackColor = backgroundColor
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetIncomingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiChildWindow.SetIncomingColors")
         End Try
@@ -219,6 +221,8 @@ Public Class frmChannel
         Try
             lvwNicklist.ListViewElement.BackColor = backgroundColor
             lvwNicklist.ListViewElement.ForeColor = foregroundColor
+            lvwNicklist.ListViewElement.BorderColor = Color.Black
+            lvwNicklist.ListViewElement.BorderWidth = 0
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetNicklistColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiChildWindow.SetNicklistColors")
         End Try
@@ -227,6 +231,11 @@ Public Class frmChannel
         Try
             txtOutgoing.TextBoxElement.BackColor = backgroundColor
             txtOutgoing.TextBoxElement.ForeColor = foregroundColor
+            txtOutgoing.TextBoxElement.ShowBorder = False
+            txtOutgoing.TextBoxElement.Border.Width = 0
+            txtOutgoing.TextBoxElement.Border.BackColor = Color.Black
+            txtOutgoing.TextBoxElement.Border.ForeColor = Color.Black
+            txtOutgoing.TextBoxElement.Border.Visibility = Telerik.WinControls.ElementVisibility.Hidden
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiChildWindow.SetOutgoingColors")
         End Try

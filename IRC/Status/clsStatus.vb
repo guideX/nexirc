@@ -149,9 +149,21 @@ Namespace IRC.Status
 #Region "STATUS"
         Private Sub SocketError(_Error As String, _SocketIndex As Integer)
             Try
-                DoColor(_Error, lStatusObjects.sStatusObject(_SocketIndex).sWindow.txtIncomingColor)
+                Print(_Error, lStatusObjects.sStatusObject(_SocketIndex).sWindow.txtIncoming)
             Catch ex As Exception
                 RaiseEvent ProcessError(ex.Message, "Private Sub SocketError(_Error As String)")
+            End Try
+        End Sub
+        Public Sub Window_Resize(_ChannelIndex As Integer)
+            Try
+                With lStatus.Window(_ChannelIndex)
+                    .txtIncoming.Width = .ClientSize.Width
+                    .txtIncoming.Height = .ClientSize.Height - (.txtOutgoing.Height + .tspStatus.ClientSize.Height)
+                    .txtOutgoing.Width = .ClientSize.Width
+                    .txtOutgoing.Top = .txtIncoming.Height + .tspStatus.ClientSize.Height
+                End With
+            Catch ex As Exception
+                RaiseEvent ProcessError(ex.Message, "Public Sub Window_Resize(_ChannelIndex As Integer)")
             End Try
         End Sub
         Public Sub ResetForeMostWindows()
@@ -825,7 +837,7 @@ Namespace IRC.Status
                             If .sTreeNodeStatus.SelectedImageIndex <> 8 Then .sTreeNodeStatus.SelectedImageIndex = 8
                         End If
                         .sData = _Data & vbCrLf & .sData
-                        DoColor(_Data, .sWindow.txtIncomingColor)
+                        Print(_Data, .sWindow.txtIncoming)
                     End With
                 End If
             Catch ex As Exception
@@ -2496,40 +2508,40 @@ Namespace IRC.Status
         End Sub
 #End Region
 #Region "TIMERS"
-        Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean
-            Get
-                Try
-                    Return lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForWhois.Enabled
-                Catch ex As Exception
-                    RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean")
-                    Return Nothing
-                End Try
-            End Get
-            Set(ByVal _Value As Boolean)
-                Try
-                    lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForWhois.Enabled = _Value
-                Catch ex As Exception
-                    RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean")
-                End Try
-            End Set
-        End Property
-        Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean
-            Get
-                Try
-                    Return lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForLUsers.Enabled
-                Catch ex As Exception
-                    Return Nothing
-                    RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean")
-                End Try
-            End Get
-            Set(ByVal lValue As Boolean)
-                Try
-                    lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForLUsers.Enabled = lValue
-                Catch ex As Exception
-                    RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean")
-                End Try
-            End Set
-        End Property
+        'Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean
+        'Get
+        'Try
+        'Return lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForWhois.Enabled
+        'Catch ex As Exception
+        'RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean")
+        'Return Nothing
+        'End Try
+        'End Get
+        'Set(ByVal _Value As Boolean)
+        'Try
+        'lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForWhois.Enabled = _Value
+        'Catch ex As Exception
+        'RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean")
+        'End Try
+        'End Set
+        'End Property
+        'Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean
+        'Get
+        'Try
+        'Return lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForLUsers.Enabled
+        'Catch ex As Exception
+        'Return Nothing
+        'RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean")
+        'End Try
+        'End Get
+        'Set(ByVal lValue As Boolean)
+        'Try
+        'lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForLUsers.Enabled = lValue
+        'Catch ex As Exception
+        'RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean")
+        'End Try
+        'End Set
+        'End Property
 #End Region
     End Class
 End Namespace

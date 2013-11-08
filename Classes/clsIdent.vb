@@ -25,7 +25,7 @@ Public Class clsIdent
     End Sub
     Private Sub SendIdentInfo(ByVal lData As String)
         Try
-            Dim msg As String, msg2 As String, lForm As frmStatus
+            Dim msg As String, msg2 As String, lForm As FrmStatus
             lForm = lStatus.GetObject(lStatus.ActiveIndex).sWindow
             msg = Trim(lStatus.StatusSocketLocalPort(lForm.lMdiChildWindow.MeIndex).ToString) & ", " & Trim(lStatus.ReturnRemotePort(lForm.lMdiChildWindow.MeIndex).ToString) & " : USERID : " & lIRC.iIdent.iUserID
             msg2 = Trim(lStatus.StatusSocketLocalPort(lForm.lMdiChildWindow.MeIndex).ToString) & ", " & Trim(lStatus.ReturnRemotePort(lForm.lMdiChildWindow.MeIndex).ToString) & " : SYSTEM : " & lIRC.iIdent.iSystem

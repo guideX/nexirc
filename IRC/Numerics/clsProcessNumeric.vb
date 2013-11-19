@@ -344,32 +344,32 @@ Public Class clsProcessNumeric
                             Case 251
                                 If lIRC.iSettings.sNoIRCMessages = False Then
                                     lIrcNumericHelper.l251 = ReturnReplacedString(eStringTypes.sRPL_LUSERCLIENT, splt2(2))
-                                    'If lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
+                                    If lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
                                 End If
                                 Exit Sub
                             Case 252
                                 If lIRC.iSettings.sNoIRCMessages = False Then
                                     lIrcNumericHelper.l252 = ReturnReplacedString(eStringTypes.sRPL_LUSEROP, splt2(2))
-                                    'If lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
+                                    If lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
                                 End If
                                 Exit Sub
                             Case 253
                                 If lIRC.iSettings.sNoIRCMessages = False Then
                                     lIrcNumericHelper.l253 = ReturnReplacedString(eStringTypes.sRPL_LUSERUNKNOWN, splt2(2))
-                                    'If lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
+                                    If lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
                                 End If
                                 Exit Sub
                             Case 254
                                 If lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
                                     lIrcNumericHelper.l254 = ReturnReplacedString(eStringTypes.sRPL_LUSERCHANNELS, splt2(2))
-                                    'If lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
+                                    If lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
                                 End If
                                 Exit Sub
                             Case 255
                                 If lIRC.iSettings.sNoIRCMessages = False Then
                                     lIrcNumericHelper.l255 = ReturnReplacedString(eStringTypes.sRPL_LUSERME, splt2(2))
-                                    'If lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
+                                    If lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
                                 End If
                                 Exit Sub
                             Case 256
@@ -410,10 +410,10 @@ Public Class clsProcessNumeric
                                 Exit Sub
                             Case 265
                                 lIrcNumericHelper.l265 = ReturnReplacedString(eStringTypes.sRPL_LOCALUSERS, splt2(2) & ": " & splt2(3))
-                                'If lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
+                                If lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 266
-                                'lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False
+                                lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False
                                 lIrcNumericHelper.l266 = ReturnReplacedString(eStringTypes.sRPL_GLOBALUSERS, splt2(2) & ": " & splt2(3))
                                 If lIRC.iSettings.sNoIRCMessages = False Then
                                     If lIRC.iSettings.sNoIRCMessages = False Then

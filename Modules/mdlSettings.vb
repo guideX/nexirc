@@ -533,26 +533,26 @@ Public Module mdlSettings
 
     Public Sub RefreshRecientServersMenu()
         Try
-            mdiMain.cmd_RecientServer1.Text = lRecientServers.sItem(1)
-            mdiMain.cmd_RecientServer2.Text = lRecientServers.sItem(2)
-            mdiMain.cmd_RecientServer3.Text = lRecientServers.sItem(3)
-            If Len(mdiMain.cmd_RecientServer1.Text) = 0 Then
-                mdiMain.cmd_RecientServer1.Text = "(Empty)"
-                mdiMain.cmd_RecientServer1.Enabled = False
+            mdiMain.cmdRecentServer1.Text = lRecientServers.sItem(1)
+            mdiMain.cmdRecentServer2.Text = lRecientServers.sItem(2)
+            mdiMain.cmdRecentServer3.Text = lRecientServers.sItem(3)
+            If Len(mdiMain.cmdRecentServer1.Text) = 0 Then
+                mdiMain.cmdRecentServer1.Text = "(Empty)"
+                mdiMain.cmdRecentServer1.Enabled = False
             Else
-                mdiMain.cmd_RecientServer1.Enabled = True
+                mdiMain.cmdRecentServer1.Enabled = True
             End If
-            If Len(mdiMain.cmd_RecientServer2.Text) = 0 Then
-                mdiMain.cmd_RecientServer2.Text = "(Empty)"
-                mdiMain.cmd_RecientServer2.Enabled = False
+            If Len(mdiMain.cmdRecentServer2.Text) = 0 Then
+                mdiMain.cmdRecentServer2.Text = "(Empty)"
+                mdiMain.cmdRecentServer2.Enabled = False
             Else
-                mdiMain.cmd_RecientServer2.Enabled = True
+                mdiMain.cmdRecentServer2.Enabled = True
             End If
-            If Len(mdiMain.cmd_RecientServer3.Text) = 0 Then
-                mdiMain.cmd_RecientServer3.Text = "(Empty)"
-                mdiMain.cmd_RecientServer3.Enabled = False
+            If Len(mdiMain.cmdRecentServer3.Text) = 0 Then
+                mdiMain.cmdRecentServer3.Text = "(Empty)"
+                mdiMain.cmdRecentServer3.Enabled = False
             Else
-                mdiMain.cmd_RecientServer3.Enabled = True
+                mdiMain.cmdRecentServer3.Enabled = True
             End If
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub RefreshRecientServersMenu()")

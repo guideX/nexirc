@@ -2,6 +2,8 @@
 Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
+Imports Telerik.WinControls.UI
+Imports Telerik.WinControls
 Namespace nexIRC.MainWindow
     Public Class clsMainWindowUI
         Public WithEvents lProcesses As New clsProcess
@@ -32,12 +34,12 @@ Namespace nexIRC.MainWindow
             iNickServ_NickTaken = 5
             iNicknameInUse = 6
         End Enum
+        Public Event QueryBarPromptLabelVisible(text As String, tag As String)
+
         Public Sub ShowQueryBar(ByVal _Text As String, ByVal _Function As eInfoBar, _QueryPromptLabel As ToolStripLabel, _ToolStrip As ToolStrip)
             Try
                 If Len(_Text) <> 0 Then
-                    _QueryPromptLabel.Text = _Text
-                    _QueryPromptLabel.Visible = True
-                    _ToolStrip.Tag = Trim(CType(_Function, Integer).ToString)
+                    RaiseEvent QueryBarPromptLabelVisible(_Text, Trim(CType(_Function, Integer).ToString))
                 End If
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub ShowQueryBar(ByVal lText As String)")
@@ -51,9 +53,12 @@ Namespace nexIRC.MainWindow
                 ProcessError(ex.Message, "Public Sub SetFlashesLeft(ByVal lValue As Integer)")
             End Try
         End Sub
-        Public Function AddWindowBar(ByVal _Text As String, ByVal _ImageType As gWindowBarImageTypes, _ImageList As ImageList, _ToolStrip As ToolStrip) As ToolStripItem
+        'Public Function AddWindowBar(ByVal _Text As String, ByVal _ImageType As gWindowBarImageTypes, _ImageList As ImageList, _ToolStrip As RadStatusStrip) As Telerik.WinControls.RadItem
+        Public Function AddWindowBar(ByVal _Text As String, ByVal _ImageType As gWindowBarImageTypes, _ToolStrip As RadStatusStrip) As RadItem
             Try
-                Dim lImage As Image, i As Integer
+                'LEON
+                'IMAGE IS FUCKED, FIX IT!
+                Dim i As Integer ', lImage As Image
                 Select Case _ImageType
                     Case gWindowBarImageTypes.wStatus
                         i = 0
@@ -64,8 +69,11 @@ Namespace nexIRC.MainWindow
                     Case gWindowBarImageTypes.wNotice
                         i = 3
                 End Select
-                lImage = _ImageList.Images(i)
-                Return _ToolStrip.Items.Add(_Text, lImage)
+                'lImage = _ImageList.Images(i)
+                Dim radItem As New Telerik.WinControls.RadItem()
+                radItem.Text = _Text
+                _ToolStrip.Items.Add(radItem)
+                Return radItem
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Function AddWindowBar(ByVal lText As String, ByVal lImageType As gWindowBarImageTypes, ByVal lSender As Object, ByVal lEventArgs As System.EventArgs) As ToolStripItem")
                 Return Nothing
@@ -84,7 +92,7 @@ Namespace nexIRC.MainWindow
                 ProcessError(ex.Message, "Public Sub RemoveWindowBar(ByVal lText As String)")
             End Try
         End Sub
-        Public Sub ClearWindowBar(_ToolStrip As ToolStrip)
+        Public Sub ClearWindowBar(_ToolStrip As RadStatusStrip)
             Try
                 _ToolStrip.Items.Clear()
             Catch ex As Exception

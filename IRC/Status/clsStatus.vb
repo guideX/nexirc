@@ -8,6 +8,7 @@ Imports nexIRC.clsIrcNumerics
 Imports nexIRC.Modules
 Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
 Imports nexIRC.Classes.Communications
+Imports Telerik.WinControls.UI
 
 Namespace IRC.Status
     Public Class clsStatus
@@ -299,7 +300,8 @@ Namespace IRC.Status
                     .sPrimitives.sOperPass = lIRC.iOperPass
                     .sDescription = msg
                     .sPrimitives.sNetworkIndex = lServerSettings.sServer(lServerSettings.sIndex).sNetworkIndex
-                    .sTreeNode = mdiMain.tvwConnections.Nodes.Add("", .sDescription, 2, 2)
+                    '.sTreeNode = mdiMain.tvwLeft.Nodes.Add("", .sDescription, 2, 2)
+
                     .sTreeNodeVisible = True
                     .sTreeNodeStatus = .sTreeNode.Nodes.Add(lServerSettings.sServer(lServerSettings.sIndex).sIP, "Status", 0, 0)
                     .sTreeNode.Expand()
@@ -1353,7 +1355,7 @@ Namespace IRC.Status
                             If .sPrivateMessages.pPrivateMessage(n).pTreeNodeVisible = False Then
                                 .sPrivateMessages.pPrivateMessage(n).pTreeNodeVisible = True
                                 Dim _CreateTreeNode As Boolean = True
-                                For Each _TreeNode As TreeNode In mdiMain.tvwConnections.Nodes
+                                For Each _TreeNode As RadTreeNode In mdiMain.tvwLeft.Nodes
                                     If (_TreeNode.Tag IsNot Nothing) Then
                                         If (_TreeNode.Text = .sPrivateMessages.pPrivateMessage(n).pName And _TreeNode.Tag.ToString = .sPrivateMessages.pPrivateMessage(n).pStatusIndex.ToString) Then
                                             _CreateTreeNode = False
@@ -1384,7 +1386,7 @@ Namespace IRC.Status
                                 If .sPrivateMessages.pPrivateMessage(n).pTreeNode.SelectedImageIndex <> 6 Then .sPrivateMessages.pPrivateMessage(n).pTreeNode.SelectedImageIndex = 6
                             End If
                             Dim _CreateToolStripItem As Boolean = True
-                            For Each _ToolStripItem As ToolStripItem In mdiMain.tspWindows.Items
+                            For Each _ToolStripItem As RadTreeNode In mdiMain.tvwLeft.Nodes
                                 If (_ToolStripItem.Text = .sPrivateMessages.pPrivateMessage(n).pName And _ToolStripItem.Tag.ToString = .sPrivateMessages.pPrivateMessage(n).pStatusIndex.ToString) Then
                                     _CreateToolStripItem = False
                                 End If
@@ -2508,40 +2510,40 @@ Namespace IRC.Status
         End Sub
 #End Region
 #Region "TIMERS"
-        'Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean
-        'Get
-        'Try
-        'Return lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForWhois.Enabled
-        'Catch ex As Exception
-        'RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean")
-        'Return Nothing
-        'End Try
-        'End Get
-        'Set(ByVal _Value As Boolean)
-        'Try
-        'lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForWhois.Enabled = _Value
-        'Catch ex As Exception
-        'RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean")
-        'End Try
-        'End Set
-        'End Property
-        'Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean
-        'Get
-        'Try
-        'Return lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForLUsers.Enabled
-        'Catch ex As Exception
-        'Return Nothing
-        'RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean")
-        'End Try
-        'End Get
-        'Set(ByVal lValue As Boolean)
-        'Try
-        'lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForLUsers.Enabled = lValue
-        'Catch ex As Exception
-        'RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean")
-        'End Try
-        'End Set
-        'End Property
+        Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean
+            Get
+                Try
+                    Return lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForWhois.Enabled
+                Catch ex As Exception
+                    RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean")
+                    Return Nothing
+                End Try
+            End Get
+            Set(ByVal _Value As Boolean)
+                Try
+                    lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForWhois.Enabled = _Value
+                Catch ex As Exception
+                    RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean")
+                End Try
+            End Set
+        End Property
+        Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean
+            Get
+                Try
+                    Return lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForLUsers.Enabled
+                Catch ex As Exception
+                    Return Nothing
+                    RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean")
+                End Try
+            End Get
+            Set(ByVal lValue As Boolean)
+                Try
+                    lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForLUsers.Enabled = lValue
+                Catch ex As Exception
+                    RaiseEvent ProcessError(ex.Message, "Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean")
+                End Try
+            End Set
+        End Property
 #End Region
     End Class
 End Namespace

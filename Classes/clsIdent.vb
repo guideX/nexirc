@@ -39,7 +39,7 @@ Public Class clsIdent
     Private Sub lClientSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lClientSocket.socketDataArrival
         Try
             Dim lSendIdentInfo As New StringDelegate(AddressOf SendIdentInfo)
-            mdiMain.Invoke(lSendIdentInfo, SocketData)
+            MdiMain.Invoke(lSendIdentInfo, SocketData)
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub lClientSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String) Handles lClientSocket.socketDataArrival")
         End Try

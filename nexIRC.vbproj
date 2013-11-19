@@ -205,6 +205,12 @@
     <Compile Include="Forms\frmStatus.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\mdiMain.Designer.vb">
+      <DependentUpon>mdiMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\mdiMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="IRC\Channels\clsChannelFolder.vb" />
     <Compile Include="IRC\Customize\clsCustomize.vb" />
     <Compile Include="IRC\DCC\clsDccChat.vb" />
@@ -344,12 +350,6 @@
     <Compile Include="Forms\frmXLogin.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\mdiMain.Designer.vb">
-      <DependentUpon>mdiMain.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\mdiMain.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Modules\mdlSettings.vb" />
     <Compile Include="Modules\mdlStrings.vb">
       <SubType>Code</SubType>
@@ -419,6 +419,9 @@
     <EmbeddedResource Include="Forms\frmVideoPlayer.resx">
       <DependentUpon>frmVideoPlayer.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\mdiMain.resx">
+      <DependentUpon>mdiMain.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="User Controls\clsVideo.resx">
       <DependentUpon>clsVideo.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -486,10 +489,6 @@
     <EmbeddedResource Include="Forms\frmXLogin.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmXLogin.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\mdiMain.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>mdiMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

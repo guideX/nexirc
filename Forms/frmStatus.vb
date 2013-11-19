@@ -4,9 +4,65 @@ Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
 Public Class frmStatus
+#Region "Public Variables"
     Public WithEvents lMdiChildWindow As New clsMdiChildWindow
     Public WithEvents lAutoConnectDelayTimer As New Timer
+#End Region
 #Region "Window Events"
+    Private Sub cmdSendNotice_Click(sender As System.Object, e As System.EventArgs) Handles cmdSendNotice.Click
+        Try
+            lMdiChildWindow.cmdSendNewNotice_Click()
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub ToolStripMenuItem3_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem3.Click")
+        End Try
+    End Sub
+    Private Sub cmdNewPrivateMessage_Click(sender As System.Object, e As System.EventArgs) Handles cmdNewPrivateMessage.Click
+        Try
+            lMdiChildWindow.cmdNewPrivateMessage_Click()
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub ToolStripMenuItem2_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem2.Click")
+        End Try
+    End Sub
+    Private Sub cmdListChannels_Click(sender As System.Object, e As System.EventArgs) Handles cmdListChannels.Click
+        Try
+            lMdiChildWindow.cmdListChannels_Click()
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub tspListChannels_Click(sender As System.Object, e As System.EventArgs) Handles tspListChannels.Click")
+        End Try
+    End Sub
+    Private Sub cmdChangeNickname_Click(sender As System.Object, e As System.EventArgs) Handles cmdChangeNickname.Click
+        Try
+            lMdiChildWindow.cmdChangeNickName_Click()
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub ToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem1.Click")
+        End Try
+    End Sub
+    Private Sub cmdDisconnect_Click(sender As Object, e As System.EventArgs) Handles cmdDisconnect.Click
+        Try
+            lMdiChildWindow.cmdDisconnect_Click()
+            lStatus.CloseStatusConnection(lStatus.ActiveIndex, True)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub cmdDisconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDisconnect.Click")
+        End Try
+    End Sub
+    Private Sub cmdConnect_Click(sender As Object, e As System.EventArgs) Handles cmdConnect.Click
+        Try
+            lMdiChildWindow.cmdConnect_Click()
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click")
+        End Try
+    End Sub
+    Private Sub cmdConnection_Click(sender As System.Object, e As System.EventArgs) Handles cmdConnection.Click
+        Try
+            lMdiChildWindow.cmdToggleConnection_Click()
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub cmdConnection_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnection.ButtonClick")
+        End Try
+
+    End Sub
+    'Private Sub tmrWaitForLUsers_Tick(sender As Object, e As System.EventArgs) Handles tmrWaitForLUsers.Tick
+    'lMdiChildWindow.tmrWaitForLUsers_Tick()
+    'End Sub
     Private Sub lAutoConnectDelayTimer_Tick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lAutoConnectDelayTimer.Tick
         Try
             lMdiChildWindow.tmrConnectDelay_Tick()
@@ -108,13 +164,6 @@ Public Class frmStatus
             ProcessError(ex.Message, "Private Sub lMdiChildWindow_ClearIncomingTextBoxSelection() Handles lMdiChildWindow.ClearIncomingTextBoxSelection")
         End Try
     End Sub
-    'Private Sub lMdiChildWindow_ClearNickList() Handles lMdiChildWindow.ClearNickList
-    'Try
-    'lvwNicklist.Items.Clear()
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub lMdiChildWindow_ClearNickList() Handles lMdiChildWindow.ClearNickList")
-    'End Try
-    'End Sub
     Private Sub lMdiChildWindow_CloseForm() Handles lMdiChildWindow.CloseForm
         Try
             Me.Close()
@@ -122,13 +171,6 @@ Public Class frmStatus
             ProcessError(ex.Message, "Private Sub lMdiChildWindow_CloseForm() Handles lMdiChildWindow.CloseForm")
         End Try
     End Sub
-    'Private Sub lMdiChildWindow_DisableGetNamesTimer() Handles lMdiChildWindow.DisableGetNamesTimer
-    'Try
-    'tmrGetNames.Enabled = False
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub lMdiChildWindow_DisableGetNamesTimer() Handles lMdiChildWindow.DisableGetNamesTimer")
-    'End Try
-    'End Sub
     Private Sub lMdiChildWindow_EmptyOutgoingTextBox() Handles lMdiChildWindow.EmptyOutgoingTextBox
         Try
             txtOutgoing.Text = ""
@@ -204,17 +246,8 @@ Public Class frmStatus
             ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetIncomingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiChildWindow.SetIncomingColors")
         End Try
     End Sub
-    'Private Sub lMdiChildWindow_SetNicklistColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiChildWindow.SetNicklistColors
-    'Try
-    'lvwNicklist.ListViewElement.BackColor = backgroundColor
-    'lvwNicklist.ListViewElement.ForeColor = foregroundColor
-    'lvwNicklist.ListViewElement.BorderColor = Color.Black
-    'lvwNicklist.ListViewElement.BorderWidth = 0
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetNicklistColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiChildWindow.SetNicklistColors")
-    'End Try
-    'End Sub
     Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiChildWindow.SetOutgoingColors
+
         Try
             txtOutgoing.TextBoxElement.BackColor = backgroundColor
             txtOutgoing.TextBoxElement.ForeColor = foregroundColor
@@ -223,6 +256,9 @@ Public Class frmStatus
             txtOutgoing.TextBoxElement.Border.BackColor = Color.Black
             txtOutgoing.TextBoxElement.Border.ForeColor = Color.Black
             txtOutgoing.TextBoxElement.Border.Visibility = Telerik.WinControls.ElementVisibility.Hidden
+            'txtOutgoing.BackColor = Color.Black
+            txtOutgoing.TextBoxElement.BorderThickness = New System.Windows.Forms.Padding(0)
+
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiChildWindow.SetOutgoingColors")
         End Try
@@ -241,63 +277,5 @@ Public Class frmStatus
             ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetWindowState(windowState As System.Windows.Forms.FormWindowState) Handles lMdiChildWindow.SetWindowState")
         End Try
     End Sub
-#End Region
-#Region "Disconnected Code"
-    'Private Sub cmdDisconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDisconnect.Click
-    'Try
-    'lMdiChildWindow.cmdDisconnect_Click()
-    'lStatus.CloseStatusConnection(lStatus.ActiveIndex, True)
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub cmdDisconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDisconnect.Click")
-    'End Try
-    'End Sub
-
-    'Private Sub cmdConnection_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnection.ButtonClick
-    'Try
-    'lMdiChildWindow.cmdToggleConnection_Click()
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub cmdConnection_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnection.ButtonClick")
-    'End Try
-    'End Sub
-
-    'Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click
-    'Try
-    'lMdiChildWindow.cmdConnect_Click()
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click")
-    'End Try
-    'End Sub
-
-    'Private Sub ToolStripMenuItem3_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem3.Click
-    'Try
-    'lMdiChildWindow.cmdSendNewNotice_Click()
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub ToolStripMenuItem3_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem3.Click")
-    'End Try
-    'End Sub
-
-    'Private Sub ToolStripMenuItem2_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem2.Click
-    'Try
-    'lMdiChildWindow.cmdNewPrivateMessage_Click()
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub ToolStripMenuItem2_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem2.Click")
-    'End Try
-    'End Sub
-
-    'Private Sub tspListChannels_Click(sender As System.Object, e As System.EventArgs) Handles tspListChannels.Click
-    'Try
-    'lMdiChildWindow.cmdListChannels_Click()
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub tspListChannels_Click(sender As System.Object, e As System.EventArgs) Handles tspListChannels.Click")
-    'End Try
-    'End Sub
-
-    'Private Sub ToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem1.Click
-    'Try
-    'lMdiChildWindow.cmdChangeNickName_Click()
-    'Catch ex As Exception
-    'ProcessError(ex.Message, "Private Sub ToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem1.Click")
-    'End Try
-    'End Sub
 #End Region
 End Class

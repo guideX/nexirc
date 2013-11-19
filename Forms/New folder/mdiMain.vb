@@ -4,41 +4,35 @@ Option Explicit On
 Option Strict On
 Imports nexIRC.nexIRC.MainWindow
 Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
-Imports Telerik.WinControls.UI
-Imports Telerik.WinControls
-
 Public Class mdiMain
     Public WithEvents tmrFlashDCCToolBar As New Timer
     Public WithEvents tmrWaitForQuit As New Timer
     Public WithEvents tmrStartupSettings As New Timer
-    Private WithEvents lMainWindowUI As New clsMainWindowUI
+    Private lMainWindowUI As New clsMainWindowUI
     Public Sub New()
         InitializeComponent()
     End Sub
     Public Sub ShowQueryBar(_Text As String, _Function As eInfoBar)
-        MsgBox("SHOW QUERY BAR TODO INCOMPLETE FUCKED UP LEON!")
         'lMainWindowUI.ShowQueryBar(_Text, _Function, lblQueryPrompt, tspQueryPrompt)
     End Sub
     Public Sub SetFlashesLeft(_Value As Integer)
         lMainWindowUI.SetFlashesLeft(_Value, tmrFlashDCCToolBar)
     End Sub
-    Public Function AddWindowBar(_Text As String, _ImageType As gWindowBarImageTypes) As RadItem
-        Return lMainWindowUI.AddWindowBar(_Text, _ImageType, rcbTop)
-    End Function
+    'Public Function AddWindowBar(_Text As String, _ImageType As gWindowBarImageTypes) As ToolStripItem
+    'Return lMainWindowUI.AddWindowBar(_Text, _ImageType, ImageList1, tspWindows)
+    'End Function
     Public Sub RemoveWindowBar(_Text As String)
-        MsgBox("FRACKED! LEON!")
         'lMainWindowUI.RemoveWindowBar(_Text, tspWindows)
     End Sub
-    Public Sub ClearWindowBar()
-        lMainWindowUI.ClearWindowBar(rssBottom)
-    End Sub
+    'Public Sub ClearWindowBar()
+    'lMainWindowUI.ClearWindowBar(tspWindows)
+    'End Sub
     Public Sub PlayVideo(_File As String)
         lMainWindowUI.PlayVideo(_File)
     End Sub
-    Private Sub mdiMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs)
-        'lMainWindowUI.FormClosed(Me, nicSystray, Me.pnlLeftNav.Visible)
-        MsgBox("FRACKED LEON!")
-    End Sub
+    'Private Sub mdiMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs)
+    'lMainWindowUI.FormClosed(Me, nicSystray, Me.pnlLeftNav.Visible)
+    'End Sub
     Private Sub mdiMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs)
         lMainWindowUI.FormClosing(e, Me, tmrWaitForQuit)
     End Sub
@@ -60,15 +54,15 @@ Public Class mdiMain
     Private Sub tmrStartupSettings_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrStartupSettings.Tick
         lMainWindowUI.StartupSettingsTimer_Tick(tmrStartupSettings)
     End Sub
-    Private Sub mdiMain_Load(sender As System.Object, e As System.EventArgs)
-        'lMainWindowUI.Form_Load(Me, nicSystray, tmrStartupSettings, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
-    End Sub
+    'Private Sub mdiMain_Load(sender As System.Object, e As System.EventArgs)
+    'lMainWindowUI.Form_Load(Me, nicSystray, tmrStartupSettings, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
+    'End Sub
     'Private Sub mdiMain_Resize(sender As System.Object, e As System.EventArgs)
     'lMainWindowUI.Form_Resize(Me, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
     'End Sub
-    'Private Sub tspWindows_ItemClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles tspWindows.ItemClicked
-    'lMainWindowUI.WindowsToolStrip_ItemClicked(e)
-    'End Sub
+    Private Sub tspWindows_ItemClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles tspWindows.ItemClicked
+        lMainWindowUI.WindowsToolStrip_ItemClicked(e)
+    End Sub
     'Private Sub tvwConnections_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles tvwLeft.DoubleClick
     'lMainWindowUI.Connections_DoubleClick(tvwLeft.SelectedNode)
     'End Sub
@@ -157,7 +151,7 @@ Public Class mdiMain
     'lMainWindowUI.cmd_RecientServer3_Click(cmd_RecientServer3.Text)
     'End Sub
     'Private Sub cmdLeftBar_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdLeftBar.Click
-    'lMainWindowUI.cmdLeftBar_Click(mdiMain.ActiveForm, cmd_LeftBar, pnlLeftNav, Me)
+    'lMainWindowUI.cmdLeftBar_Click(_mdiMain.ActiveForm, cmd_LeftBar, pnlLeftNav, Me)
     'End Sub
     'Private Sub cmd_ServerLinks_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ServerLinks.Click
     'lMainWindowUI.cmd_ServerLinks_Click()
@@ -216,10 +210,4 @@ Public Class mdiMain
     'Private Sub tmrHideRedirect_Tick(sender As System.Object, e As System.EventArgs) Handles tmrHideRedirect.Tick
     'lMainWindowUI.tmrHideRedirect_Tick(tspRedirect, tmrHideRedirect)
     'End Sub
-
-    Private Sub lMainWindowUI_QueryBarPromptLabelVisible(text As String, tag As String) Handles lMainWindowUI.QueryBarPromptLabelVisible
-        '_QueryPromptLabel.Text = _Text
-        '_QueryPromptLabel.Visible = True
-        '_ToolStrip.Tag = Trim(CType(_Function, Integer).ToString)
-    End Sub
 End Class

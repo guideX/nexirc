@@ -8,6 +8,7 @@ Imports nexIRC.clsIrcNumerics.eStringTypes
 Imports nexIRC.Modules
 Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
 Imports Telerik.WinControls.UI
+Imports Telerik.WinControls
 
 Namespace IRC.Channels
     Public Class clsChannel
@@ -22,7 +23,7 @@ Namespace IRC.Channels
             Public cTreeNodeVisible As Boolean
             Public cIncomingText As String
             Public cStatusIndex As Integer
-            Public cWindowBarItem As ToolStripItem
+            Public cWindowBarItem As RadItem
             Public cWindowBarItemVisible As Boolean
         End Structure
         Public Structure gChannels
@@ -340,7 +341,7 @@ Namespace IRC.Channels
                         For Each lListViewItem As ListViewDataItem In lChannel.cWindow.lvwNicklist.Items
                             If (lListViewItem.Text = _OldNickName) Then
                                 lListViewItem.Text = _NickName
-                                'DoColor(ReturnReplacedString(eStringTypes.sNICK_CHANGE, _OldNickName, _HostName, _NickName), lChannel.cWindow.txtIncoming)
+                                Print(ReturnReplacedString(eStringTypes.sNICK_CHANGE, _OldNickName, _HostName, _NickName), lChannel.cWindow.txtIncoming)
                             End If
                         Next lListViewItem
                     End If
@@ -539,7 +540,7 @@ Namespace IRC.Channels
                 _Message = Right(_Data, Len(_Data) - splt(1).Length() - 2)
                 _ChannelIndex = Find(_StatusIndex, _Channel)
                 With lChannels.cChannel(_ChannelIndex)
-                    'DoColor(ReturnReplacedString(eStringTypes.sRPL_TOPIC, _Channel, _Message), .cWindow.txtIncoming)
+                    Print(ReturnReplacedString(eStringTypes.sRPL_TOPIC, _Channel, _Message), .cWindow.txtIncoming)
                     .cWindow.Text = _Channel & ": " & StripColorCodes(_Message)
                 End With
             Catch ex As Exception
@@ -560,7 +561,6 @@ Namespace IRC.Channels
                     .cWindowBarItemVisible = True
                 End With
                 Return lChannels.cCount
-                'NewChannelWindow(_StatusIndex, lChannels.cCount)
             Catch ex As Exception
                 RaiseEvent ProcessError(ex.Message, "Public Sub AddChannel(_Channel As gChannel)")
             End Try

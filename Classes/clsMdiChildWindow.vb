@@ -37,6 +37,9 @@ Public Class clsMdiChildWindow
     Public Event SetWindowState(windowState As FormWindowState)
     Private lMeIndex As Integer
     Private lFormType As eFormTypes
+    Public Sub tmrWaitForLUsers_Tick()
+
+    End Sub
     Public Sub SetFormType(_FormType As eFormTypes)
         Try
             lFormType = _FormType
@@ -234,8 +237,8 @@ Public Class clsMdiChildWindow
     Public Sub Form_Load(_FormType As eFormTypes)
         Try
             lFormType = _FormType
-            RaiseEvent FormIcon(mdiMain.Icon)
-            RaiseEvent SetParent(mdiMain)
+            RaiseEvent FormIcon(MdiMain.Icon)
+            RaiseEvent SetParent(MdiMain)
             RaiseEvent SetIncomingColors(Color.Black, Color.White)
             RaiseEvent SetOutgoingColors(Color.Blue, Color.White)
             Select Case _FormType
@@ -245,7 +248,7 @@ Public Class clsMdiChildWindow
                     lChannels.Window_Resize(lMeIndex)
                     RaiseEvent SetNicklistColors(Color.Blue, Color.White)
             End Select
-            RaiseEvent FormDimensions(Convert.ToInt32((mdiMain.Width / 10) * 8), Convert.ToInt32(mdiMain.Height / 2))
+            RaiseEvent FormDimensions(Convert.ToInt32((MdiMain.Width / 10) * 8), Convert.ToInt32(MdiMain.Height / 2))
             RaiseEvent FormFocus()
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub Form_Load(_FormName As String)")
@@ -254,8 +257,8 @@ Public Class clsMdiChildWindow
     Public Sub Form_Load(ByRef _IncomingTextBox As RichTextBox, ByRef _OutgoingTextBox As TextBox, _Form As Form, _FormType As eFormTypes)
         Try
             lFormType = _FormType
-            _Form.Icon = mdiMain.Icon
-            _Form.MdiParent = mdiMain
+            _Form.Icon = MdiMain.Icon
+            _Form.MdiParent = MdiMain
             Select Case _FormType
                 Case eFormTypes.fStatus
                     Form_Resize(_IncomingTextBox, _OutgoingTextBox, _Form)
@@ -265,8 +268,8 @@ Public Class clsMdiChildWindow
                     '_Form.Width = lIRC.iSettings.sWindowSizes.iNotice.wWidth
                     '_Form.Height = lIRC.iSettings.sWindowSizes.iNotice.wHeight
             End Select
-            _Form.Width = Convert.ToInt32((mdiMain.Width / 10) * 8)
-            _Form.Height = Convert.ToInt32(mdiMain.Height / 2)
+            _Form.Width = Convert.ToInt32((MdiMain.Width / 10) * 8)
+            _Form.Height = Convert.ToInt32(MdiMain.Height / 2)
             _Form.Focus()
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub Form_Load(_FormName As String)")

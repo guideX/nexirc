@@ -30,13 +30,13 @@ Partial Class frmChannel
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.CommandBarRowElement1 = New Telerik.WinControls.UI.CommandBarRowElement()
         Me.CommandBarStripElement1 = New Telerik.WinControls.UI.CommandBarStripElement()
+        Me.lvwNicklist = New Telerik.WinControls.UI.RadListView()
+        Me.tmrGetNames = New System.Windows.Forms.Timer(Me.components)
         Me.cmdPart = New Telerik.WinControls.UI.CommandBarButton()
         Me.cmdHide = New Telerik.WinControls.UI.CommandBarButton()
         Me.cmdNotice = New Telerik.WinControls.UI.CommandBarButton()
         Me.cmdAddToChannelFolder = New Telerik.WinControls.UI.CommandBarButton()
         Me.cmdNames = New Telerik.WinControls.UI.CommandBarButton()
-        Me.lvwNicklist = New Telerik.WinControls.UI.RadListView()
-        Me.tmrGetNames = New System.Windows.Forms.Timer(Me.components)
         CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tspChannel, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -47,6 +47,7 @@ Partial Class frmChannel
         'txtOutgoing
         '
         Me.txtOutgoing.AcceptsReturn = True
+        Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOutgoing.Location = New System.Drawing.Point(0, 230)
         Me.txtOutgoing.Multiline = True
         Me.txtOutgoing.Name = "txtOutgoing"
@@ -60,6 +61,7 @@ Partial Class frmChannel
         '
         'txtIncoming
         '
+        Me.txtIncoming.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtIncoming.ForeColor = System.Drawing.Color.White
         Me.txtIncoming.Location = New System.Drawing.Point(0, 30)
         Me.txtIncoming.Name = "txtIncoming"
@@ -106,6 +108,20 @@ Partial Class frmChannel
         Me.CommandBarStripElement1.Items.AddRange(New Telerik.WinControls.UI.RadCommandBarBaseItem() {Me.cmdPart, Me.cmdHide, Me.cmdNotice, Me.cmdAddToChannelFolder, Me.cmdNames})
         Me.CommandBarStripElement1.Name = "CommandBarStripElement1"
         Me.CommandBarStripElement1.Text = ""
+        '
+        'lvwNicklist
+        '
+        Me.lvwNicklist.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lvwNicklist.GroupItemSize = New System.Drawing.Size(200, 20)
+        Me.lvwNicklist.ItemSize = New System.Drawing.Size(200, 20)
+        Me.lvwNicklist.Location = New System.Drawing.Point(463, 30)
+        Me.lvwNicklist.Name = "lvwNicklist"
+        Me.lvwNicklist.Size = New System.Drawing.Size(120, 200)
+        Me.lvwNicklist.TabIndex = 3
+        Me.lvwNicklist.Text = "RadListView1"
+        '
+        'tmrGetNames
+        '
         '
         'cmdPart
         '
@@ -171,19 +187,6 @@ Partial Class frmChannel
         Me.cmdNames.ToolTipText = "Names"
         Me.cmdNames.Visibility = Telerik.WinControls.ElementVisibility.Visible
         Me.cmdNames.VisibleInOverflowMenu = True
-        '
-        'lvwNicklist
-        '
-        Me.lvwNicklist.GroupItemSize = New System.Drawing.Size(200, 20)
-        Me.lvwNicklist.ItemSize = New System.Drawing.Size(200, 20)
-        Me.lvwNicklist.Location = New System.Drawing.Point(463, 30)
-        Me.lvwNicklist.Name = "lvwNicklist"
-        Me.lvwNicklist.Size = New System.Drawing.Size(120, 200)
-        Me.lvwNicklist.TabIndex = 3
-        Me.lvwNicklist.Text = "RadListView1"
-        '
-        'tmrGetNames
-        '
         '
         'frmChannel
         '

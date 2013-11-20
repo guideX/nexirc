@@ -292,7 +292,8 @@ Namespace IRC.Channels
                 With lChannels.cChannel(_ChannelIndex)
                     .cTreeNode.Remove()
                     .cTreeNodeVisible = False
-                    mdiMain.tspWindows.Items.Remove(.cWindowBarItem)
+                    'mdiMain.tspWindows.Items.Remove(.cWindowBarItem)
+                    'LEON!! FUCKED!!
                 End With
             Catch ex As Exception
                 RaiseEvent ProcessError(ex.Message, "Public Shared Sub RemoveChannelTree(_Channel As gChannel)")
@@ -319,14 +320,15 @@ Namespace IRC.Channels
                 _ChannelA = splt(3)
                 _ChannelB = splt(4)
                 If (_NickName.ToLower = lStatus.NickName(_StatusIndex).ToLower()) Then
-                    If (lIRC.iSettings.sPrompts = True) Then
-                        mdiMain.lblRedirectMessage.Text = "Notice: You have been redirected from '" & _ChannelA & "' to '" & _ChannelB & "'."
-                        mdiMain.lblRedirectMessage.Tag = _StatusIndex.ToString()
-                        mdiMain.tmrHideRedirect.Enabled = True
-                        mdiMain.tspRedirect.Visible = True
-                    Else
-                        Join(_StatusIndex, _ChannelB)
-                    End If
+                    'LEON!! FUCKED!
+                    'If (lIRC.iSettings.sPrompts = True) Then
+                    'mdiMain.lblRedirectMessage.Text = "Notice: You have been redirected from '" & _ChannelA & "' to '" & _ChannelB & "'."
+                    'mdiMain.lblRedirectMessage.Tag = _StatusIndex.ToString()
+                    'mdiMain.tmrHideRedirect.Enabled = True
+                    'mdiMain.tspRedirect.Visible = True
+                    'Else
+                    Join(_StatusIndex, _ChannelB)
+                    'End If
                     If lIRC.iSettings.sNoIRCMessages = False Then ProcessReplaceString(_StatusIndex, eStringTypes.sERR_LINKCHANNEL, _ChannelA, _ChannelB)
                     'Join(_StatusIndex, _ChannelB)
                 End If

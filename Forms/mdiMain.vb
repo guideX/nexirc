@@ -23,7 +23,9 @@ Public Class mdiMain
         lMainWindowUI.SetFlashesLeft(_Value, tmrFlashDCCToolBar)
     End Sub
     Public Function AddWindowBar(_Text As String, _ImageType As gWindowBarImageTypes) As RadItem
-        Return lMainWindowUI.AddWindowBar(_Text, _ImageType, rcbTop)
+        'Return lMainWindowUI.AddWindowBar(_Text, _ImageType, rcbTop)
+        'LEON!! FUCKED!!!
+        Return Nothing
     End Function
     Public Sub RemoveWindowBar(_Text As String)
         MsgBox("FRACKED! LEON!")
@@ -35,11 +37,11 @@ Public Class mdiMain
     Public Sub PlayVideo(_File As String)
         lMainWindowUI.PlayVideo(_File)
     End Sub
-    Private Sub mdiMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs)
+    Private Sub mdiMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         'lMainWindowUI.FormClosed(Me, nicSystray, Me.pnlLeftNav.Visible)
         MsgBox("FRACKED LEON!")
     End Sub
-    Private Sub mdiMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs)
+    Private Sub mdiMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         lMainWindowUI.FormClosing(e, Me, tmrWaitForQuit)
     End Sub
     Public Sub SetLoadingFormProgress(ByVal _Data As String, ByVal _Value As Integer)
@@ -60,12 +62,12 @@ Public Class mdiMain
     Private Sub tmrStartupSettings_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrStartupSettings.Tick
         lMainWindowUI.StartupSettingsTimer_Tick(tmrStartupSettings)
     End Sub
-    Private Sub mdiMain_Load(sender As System.Object, e As System.EventArgs)
-        'lMainWindowUI.Form_Load(Me, nicSystray, tmrStartupSettings, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
+    Private Sub mdiMain_Load(sender As System.Object, e As System.EventArgs) Handles Me.Load
+        lMainWindowUI.Form_Load(Me.Left, Me.Top, Me.Width, Me.Height) 'Me, nicSystray, tmrStartupSettings, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
     End Sub
-    'Private Sub mdiMain_Resize(sender As System.Object, e As System.EventArgs)
-    'lMainWindowUI.Form_Resize(Me, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
-    'End Sub
+    Private Sub mdiMain_Resize(sender As System.Object, e As System.EventArgs) Handles Me.Resize
+        lMainWindowUI.Form_Resize()
+    End Sub
     'Private Sub tspWindows_ItemClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles tspWindows.ItemClicked
     'lMainWindowUI.WindowsToolStrip_ItemClicked(e)
     'End Sub
@@ -203,20 +205,26 @@ Public Class mdiMain
     'End Sub
     'Private Sub cmd_ShowAbout_Click(sender As System.Object, e As System.EventArgs) Handles cmd_ShowAbout.Click
     'lMainWindowUI.cmd_ShowAbout_Click()
+    'FUCKED! LEON!
     'End Sub
     'Private Sub cmdRedirectDeny_Click(sender As System.Object, e As System.EventArgs) Handles cmdRedirectDeny.Click
     'lMainWindowUI.cmdRedirectDeny_Click(tspRedirect)
+    'FUCKED! LEON!
     'End Sub
     'Public Sub cmdRedirectAccept_Click()
     'lMainWindowUI.cmdRedirectAccept_Click(tspRedirect, lblRedirectMessage)
+    'FUCKED! LEON!
     'End Sub
     Private Sub tmrWaitForQuit_Tick(sender As System.Object, e As System.EventArgs) Handles tmrWaitForQuit.Tick
         lMainWindowUI.tmrWaitForQuit_Tick()
     End Sub
+    Private Sub lMainWindowUI_EnableStartupSettingsTimer(tickInterval As Integer) Handles lMainWindowUI.EnableStartupSettingsTimer
+        tmrStartupSettings.Interval = tickInterval
+        tmrStartupSettings.Enabled = True
+    End Sub
     'Private Sub tmrHideRedirect_Tick(sender As System.Object, e As System.EventArgs) Handles tmrHideRedirect.Tick
     'lMainWindowUI.tmrHideRedirect_Tick(tspRedirect, tmrHideRedirect)
     'End Sub
-
     Private Sub lMainWindowUI_QueryBarPromptLabelVisible(text As String, tag As String) Handles lMainWindowUI.QueryBarPromptLabelVisible
         '_QueryPromptLabel.Text = _Text
         '_QueryPromptLabel.Visible = True

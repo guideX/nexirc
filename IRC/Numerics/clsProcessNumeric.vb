@@ -63,10 +63,12 @@ Public Class clsProcessNumeric
                     If Left(lData, 6) = "NOTICE" Then
                         If InStr(LCase(lData), "you are now identified for") <> 0 Then
                             ProcessReplaceString(lStatusIndex, eStringTypes.sNICKSERV_LOGIN, lIRC.iNicks.nNick(lIRC.iNicks.nIndex).nNick)
-                            mdiMain.tspQueryPrompt.Visible = False
+                            'mdiMain.tspQueryPrompt.Visible = False
+                            'LEON! FUCKED!
                         ElseIf InStr(LCase(lData), "nickname is registered") <> 0 Then
                             mdiMain.ShowQueryBar("This nickname is registered, proceed with NickServ login?", eInfoBar.iNickServ_NickTaken)
-                            mdiMain.lblQueryPrompt.Tag = 5
+                            'mdiMain.lblQueryPrompt.Tag = 5
+                            'LEON! FUCKED!
                         End If
                     End If
                     Exit Sub

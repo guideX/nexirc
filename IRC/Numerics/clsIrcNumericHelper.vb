@@ -292,16 +292,17 @@ Public Class clsIrcNumericHelper
             End If
             If IsNickNameInDCCIgnoreList(msg) = False Then
                 If ReturnIsFileTypeIgnored(Trim(splt(5))) = False Then
-                    If lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.ePrompt Then
-                        mdiMain.tspDCCToolBar.Items(0).Text = "Accept the file '" & Trim(splt(5)) & "' from the user '" & msg & "'?"
-                        mdiMain.tspDCCToolBar.Visible = True
-                        mdiMain.lblUser.Tag = msg & vbCrLf & Trim(splt(6)) & vbCrLf & Trim(splt(7)) & vbCrLf & Trim(splt(5)) & vbCrLf & Trim(splt(8))
-                    ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll Then
-                        lForm.InitDCCGet(Trim(msg), Trim(splt(6)), Trim(splt(7)), Trim(splt(5)), Trim(splt(8)))
-                        clsAnimate.Animate(lForm, clsAnimate.Effect.Center, 200, 1)
-                    ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eIgnore Then
-                        lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring all DCC connections")
-                    End If
+                    'LEON! FUCKED!
+                    'If lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.ePrompt Then
+                    'mdiMain.tspDCCToolBar.Items(0).Text = "Accept the file '" & Trim(splt(5)) & "' from the user '" & msg & "'?"
+                    'mdiMain.tspDCCToolBar.Visible = True
+                    'mdiMain.lblUser.Tag = msg & vbCrLf & Trim(splt(6)) & vbCrLf & Trim(splt(7)) & vbCrLf & Trim(splt(5)) & vbCrLf & Trim(splt(8))
+                    'ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll Then
+                    'lForm.InitDCCGet(Trim(msg), Trim(splt(6)), Trim(splt(7)), Trim(splt(5)), Trim(splt(8)))
+                    'clsAnimate.Animate(lForm, clsAnimate.Effect.Center, 200, 1)
+                    'ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eIgnore Then
+                    'lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring all DCC connections")
+                    'End If
                 Else
                     splt2 = Split(msg, ".")
                     lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring file type of '" & splt2(1) & "'.")

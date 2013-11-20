@@ -290,7 +290,8 @@ Namespace IRC.Status
                     NickName(i) = lIRC.iNicks.nNick(lIRC.iNicks.nIndex).nNick
                     .sWindow.Text = msg
                     .sPrimitives.sInitialText = msg
-                    .sWindowBarItem = mdiMain.AddWindowBar(msg, gWindowBarImageTypes.wStatus)
+                    '.sWindowBarItem = mdiMain.AddWindowBar(msg, gWindowBarImageTypes.wStatus)
+                    'LEON!!! FUCKED!!
                     .sWindowBarItem.Tag = Trim(i.ToString)
                     .sWindowBarItemSet = True
                     .sPrimitives.sEmail = lIRC.iEMail
@@ -1289,15 +1290,16 @@ Namespace IRC.Status
                             .pWindow.DoNoticeColor(.pIncomingText.Replace("$message", ""))
                         End If
                         _CreateToolStripItem = True
-                        For Each _ToolStripItem As ToolStripItem In mdiMain.tspWindows.Items
-                            If (_ToolStripItem.Text = .pName And _ToolStripItem.Tag.ToString = .pStatusIndex.ToString) Then
-                                _CreateToolStripItem = False
-                            End If
-                        Next _ToolStripItem
-                        If (_CreateToolStripItem = True) Then
-                            .pWindowBarItem = mdiMain.AddWindowBar(.pName, gWindowBarImageTypes.wNotice)
-                            .pWindowBarItem.Tag = Trim(_StatusIndex.ToString)
-                        End If
+                        'For Each _ToolStripItem As ToolStripItem In mdiMain.tspWindows.Items
+                        'If (_ToolStripItem.Text = .pName And _ToolStripItem.Tag.ToString = .pStatusIndex.ToString) Then
+                        '_CreateToolStripItem = False
+                        'End If
+                        'Next _ToolStripItem
+                        'If (_CreateToolStripItem = True) Then
+                        '.pWindowBarItem = mdiMain.AddWindowBar(.pName, gWindowBarImageTypes.wNotice)
+                        '.pWindowBarItem.Tag = Trim(_StatusIndex.ToString)
+                        'End If
+                        'LEON!!! FUCKED
                     End With
                 End If
             Catch ex As Exception
@@ -1343,14 +1345,14 @@ Namespace IRC.Status
                         If .sPrivateMessages.pPrivateMessage(n).pTreeNodeVisible = True Then _Prompt = False
                         PrivateMessage_AddToConversation(_Name, _Data, _StatusIndex, n)
                         If _Deny = True Then Exit Sub
-                        If mdiMain.lblQueryPrompt.Text = "Accept query from '" & .sPrivateMessages.pPrivateMessage(n).pName & "(" & .sPrivateMessages.pPrivateMessage(n).pHost & ")'?" Then
-                            If _Prompt = True Then
-                                mdiMain.tspQueryPrompt.Visible = True
-                                mdiMain.lblQueryPrompt.Text = "Accept query from '" & .sPrivateMessages.pPrivateMessage(n).pName & "(" & .sPrivateMessages.pPrivateMessage(n).pHost & ")'?"
-                                mdiMain.lblQueryPrompt.Tag = Trim(_StatusIndex.ToString) & ":" & Trim(n.ToString) & ":" & _Data
-                                Exit Sub
-                            End If
-                        End If
+                        'If mdiMain.lblQueryPrompt.Text = "Accept query from '" & .sPrivateMessages.pPrivateMessage(n).pName & "(" & .sPrivateMessages.pPrivateMessage(n).pHost & ")'?" Then
+                        'If _Prompt = True Then
+                        'mdiMain.tspQueryPrompt.Visible = True
+                        'mdiMain.lblQueryPrompt.Text = "Accept query from '" & .sPrivateMessages.pPrivateMessage(n).pName & "(" & .sPrivateMessages.pPrivateMessage(n).pHost & ")'?"
+                        'mdiMain.lblQueryPrompt.Tag = Trim(_StatusIndex.ToString) & ":" & Trim(n.ToString) & ":" & _Data
+                        'Exit Sub
+                        'End If
+                        'End If
                         If .sPrivateMessages.pPrivateMessage(n).pVisible = False Then
                             If .sPrivateMessages.pPrivateMessage(n).pTreeNodeVisible = False Then
                                 .sPrivateMessages.pPrivateMessage(n).pTreeNodeVisible = True
@@ -1392,7 +1394,8 @@ Namespace IRC.Status
                                 End If
                             Next _ToolStripItem
                             If (_CreateToolStripItem = True) Then
-                                .sPrivateMessages.pPrivateMessage(n).pWindowBarItem = mdiMain.AddWindowBar(.sPrivateMessages.pPrivateMessage(n).pName, gWindowBarImageTypes.wNotice)
+                                '.sPrivateMessages.pPrivateMessage(n).pWindowBarItem = mdiMain.AddWindowBar(.sPrivateMessages.pPrivateMessage(n).pName, gWindowBarImageTypes.wNotice)
+                                'LEON !!! FUCKED
                                 .sPrivateMessages.pPrivateMessage(n).pWindowBarItem.Tag = Trim(_StatusIndex.ToString)
                             End If
                         Else

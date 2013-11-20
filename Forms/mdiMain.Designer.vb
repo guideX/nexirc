@@ -70,7 +70,7 @@ Partial Class mdiMain
         Me.rcbTop.Location = New System.Drawing.Point(0, 0)
         Me.rcbTop.Name = "rcbTop"
         Me.rcbTop.Rows.AddRange(New Telerik.WinControls.UI.CommandBarRowElement() {Me.CommandBarRowElement1, Me.CommandBarRowElement2})
-        Me.rcbTop.Size = New System.Drawing.Size(772, 60)
+        Me.rcbTop.Size = New System.Drawing.Size(772, 55)
         Me.rcbTop.TabIndex = 1
         Me.rcbTop.Text = "RadCommandBar1"
         '
@@ -504,9 +504,9 @@ Partial Class mdiMain
         'tvwLeft
         '
         Me.tvwLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.tvwLeft.Location = New System.Drawing.Point(0, 60)
+        Me.tvwLeft.Location = New System.Drawing.Point(0, 55)
         Me.tvwLeft.Name = "tvwLeft"
-        Me.tvwLeft.Size = New System.Drawing.Size(150, 312)
+        Me.tvwLeft.Size = New System.Drawing.Size(150, 317)
         Me.tvwLeft.SpacingBetweenNodes = -1
         Me.tvwLeft.TabIndex = 3
         Me.tvwLeft.Text = "RadTreeView1"

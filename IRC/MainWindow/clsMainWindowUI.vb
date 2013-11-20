@@ -35,7 +35,9 @@ Namespace nexIRC.MainWindow
             iNicknameInUse = 6
         End Enum
         Public Event QueryBarPromptLabelVisible(text As String, tag As String)
-
+        Public Event SetDimensions(left As Integer, top As Integer, width As Integer, height As Integer)
+        Public Event EnableStartupSettingsTimer(tickInterval As Integer)
+        Public Event FormTitle(title As String)
         Public Sub ShowQueryBar(ByVal _Text As String, ByVal _Function As eInfoBar, _QueryPromptLabel As ToolStripLabel, _ToolStrip As ToolStrip)
             Try
                 If Len(_Text) <> 0 Then
@@ -174,11 +176,8 @@ Namespace nexIRC.MainWindow
                 Return Nothing
             End Try
         End Function
-        Public Sub Form_Load(_Form As Form, _NotifyIcon As NotifyIcon, _TimerStartupSettings As Timer, _LeftBarButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
+        Public Sub Form_Load(left As Integer, top As Integer, width As Integer, height As Integer)
             Try
-                _WindowsToolStrip.ForeColor = Color.White
-                _NotifyIcon.Visible = True
-                _NotifyIcon.Icon = _Form.Icon
                 lLoadingForm = New frmLoading
                 clsAnimate.Animate(lLoadingForm, clsAnimate.Effect.Center, 200, 1)
                 lLoadingForm.Focus()
@@ -193,57 +192,51 @@ Namespace nexIRC.MainWindow
                 SetLoadingFormProgress("Browsing URL", 95)
                 lLoadingForm.Focus()
                 If lServers.sIndex <> 0 Then lStatus.Create(lIRC, lServers)
-                _Form.Left = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Left", CStr(_Form.Left))))
-                _Form.Top = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Top", CStr(_Form.Top))))
-                _Form.Width = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Width", CStr(_Form.Width))))
-                _Form.Height = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Height", CStr(_Form.Height))))
+                RaiseEvent SetDimensions(CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Left", CStr(left)))), CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Top", CStr(top)))), CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Width", CStr(width)))), CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Height", CStr(height)))))
                 If lIRC.iIdent.iSettings.iEnabled = True Then
                     lIdent.InitListenSocket(113)
                 End If
                 SetLoadingFormProgress("Loading Complete", 100)
                 lLoadingForm.Close()
-                _TimerStartupSettings.Interval = 500
-                _TimerStartupSettings.Enabled = True
-                _Form.Text = "nexIRC v" & Application.ProductVersion
-                If (Convert.ToBoolean(clsFiles.ReadINI(lINI.iIRC, "Settings", "SideBarShown", "False")) = False) Then
-                    _LeftBarButton.Left = 0
-                    _LeftNav.Visible = False
-                End If
-                Form_Resize(_Form, _LeftBarButton, _LeftNav, _ToolStrip, _WindowsToolStrip)
+                RaiseEvent EnableStartupSettingsTimer(500)
+                RaiseEvent FormTitle("nexIRC v" & Application.ProductVersion)
+                Form_Resize()
+                'FUCKED!! LEON!!
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub Form_Load(_Form As Form, _NotifyIcon As NotifyIcon, _TimerStartupSettings As Timer, _LeftBarButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)")
             End Try
         End Sub
-        Public Sub Form_Resize(_Form As Form, _LeftButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
+        Public Sub Form_Resize()
             Try
+                'FUCKED! LEON!
                 'clsLockWindowUpdate.LockWindowUpdate(_Form.Handle)
-                _LeftButton.Top = CInt(_Form.ClientSize.Height / 2)
-                If _LeftNav.Visible = True Then
-                    _LeftButton.Left = _LeftNav.ClientSize.Width
-                Else
-                    _LeftButton.Left = 0
-                End If
+                '_LeftButton.Top = CInt(_Form.ClientSize.Height / 2)
+                'If _LeftNav.Visible = True Then
+                '_LeftButton.Left = _LeftNav.ClientSize.Width
+                'Else
+                '_LeftButton.Left = 0
+                'End If
                 If lVideo.vVisible = True Then
                     If lVideo.vWindow.Left <> 0 Then lVideo.vWindow.Left = 0
                     If lVideo.vWindow.Top <> 0 Then lVideo.vWindow.Top = 0
-                    If _LeftNav.Visible = True Then
-                        lVideo.vWindow.Width = _Form.ClientSize.Width - (_LeftNav.ClientSize.Width + 4)
-                    Else
-                        lVideo.vWindow.Width = _Form.ClientSize.Width - (4)
-                    End If
-                    If _WindowsToolStrip.Visible = True Then
-                        If _ToolStrip.Visible = True Then
-                            lVideo.vWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + _ToolStrip.ClientSize.Height + 4)
-                        Else
-                            lVideo.vWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + 4)
-                        End If
-                    Else
-                        If _ToolStrip.Visible = True Then
-                            lVideo.vWindow.Height = _Form.ClientSize.Height - (_ToolStrip.ClientSize.Height + 4)
-                        Else
-                            lVideo.vWindow.Height = _Form.ClientSize.Height - (4)
-                        End If
-                    End If
+                    'If _LeftNav.Visible = True Then
+                    'lVideo.vWindow.Width = _Form.ClientSize.Width - (_LeftNav.ClientSize.Width + 4)
+                    'Else
+                    'lVideo.vWindow.Width = _Form.ClientSize.Width - (4)
+                    'End If
+                    'If _WindowsToolStrip.Visible = True Then
+                    'If _ToolStrip.Visible = True Then
+                    'lVideo.vWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + _ToolStrip.ClientSize.Height + 4)
+                    'Else
+                    'lVideo.vWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + 4)
+                    'End If
+                    'Else
+                    'If _ToolStrip.Visible = True Then
+                    'lVideo.vWindow.Height = _Form.ClientSize.Height - (_ToolStrip.ClientSize.Height + 4)
+                    'Else
+                    'lVideo.vWindow.Height = _Form.ClientSize.Height - (4)
+                    'End If
+                    'End If
                 End If
                 'ResizeBrowser(_Form, _LeftNav, _ToolStrip, _WindowsToolStrip)
                 '_Form.Refresh()

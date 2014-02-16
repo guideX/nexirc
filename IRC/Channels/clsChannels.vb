@@ -7,8 +7,6 @@ Imports nexIRC.clsIrcNumerics
 Imports nexIRC.clsIrcNumerics.eStringTypes
 Imports nexIRC.Modules
 Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
-Imports Telerik.WinControls.UI
-Imports Telerik.WinControls
 
 Namespace IRC.Channels
     Public Class clsChannel
@@ -23,7 +21,7 @@ Namespace IRC.Channels
             Public cTreeNodeVisible As Boolean
             Public cIncomingText As String
             Public cStatusIndex As Integer
-            Public cWindowBarItem As RadItem
+            Public cWindowBarItem As ToolStripItem
             Public cWindowBarItemVisible As Boolean
         End Structure
         Public Structure gChannels
@@ -37,19 +35,25 @@ Namespace IRC.Channels
         End Structure
         Private lChannels As gChannels
         Public Sub AddToNickList(_ChannelIndex As Integer, ByVal _NickName As String)
-            Dim listViewDataItem As ListViewDataItem
             Try
-                With lChannels.cChannel(_ChannelIndex).cWindow.lvwNicklist
-                    listViewDataItem = New ListViewDataItem()
-                    listViewDataItem.Text = _NickName
-                    If InStr(listViewDataItem.Text, "@") <> 0 Then
-                        listViewDataItem.ForeColor = Color.Red
-                    ElseIf InStr(listViewDataItem.Text, "+") <> 0 Then
-                        listViewDataItem.ForeColor = Color.DarkGreen
-                    Else
-                        listViewDataItem.ForeColor = Color.White
+                Dim _NickListItem As ListViewItem, _Exists As Boolean = False
+                With lChannels.cChannel(_ChannelIndex)
+                    For Each _NickListItem In .cWindow.lvwNicklist.Items
+                        If (_NickListItem.Text.ToLower().Trim().Replace("@", "").Replace("@", "") = _NickName.ToLower().Trim().Replace("@", "").Replace("@", "")) Then
+                            _Exists = True
+                            Exit For
+                        End If
+                    Next _NickListItem
+                    If _Exists = False Then
+                        _NickListItem = .cWindow.lvwNicklist.Items.Add(_NickName)
+                        If InStr(_NickListItem.Text, "@") <> 0 Then
+                            _NickListItem.ForeColor = Color.Red
+                        ElseIf InStr(_NickListItem.Text, "+") <> 0 Then
+                            _NickListItem.ForeColor = Color.DarkGreen
+                        Else
+                            _NickListItem.ForeColor = Color.White
+                        End If
                     End If
-                    .Items.Add(listViewDataItem)
                 End With
             Catch ex As Exception
                 RaiseEvent ProcessError(ex.Message, "Public Sub AddToChannelNickList(ByVal lIndex As Integer, ByVal lNickName As String)")
@@ -96,7 +100,7 @@ Namespace IRC.Channels
                     .cIncomingText = .cIncomingText & Chr(10) & _Data.Trim()
                 End With
                 With lChannels.cChannel(_ChannelIndex)
-                    Print(_Data, .cWindow.txtIncoming)
+                    DoColor(_Data, .cWindow.txtIncomingColor)
                 End With
             Catch ex As Exception
                 RaiseEvent ProcessError(ex.Message, "Public Sub DoChannelColor(ByVal lStatusIndex As Integer, ByVal lChannelName As String, ByVal lData As String)")
@@ -124,13 +128,13 @@ Namespace IRC.Channels
                     .cWindow.Show()
                     .cWindow.lMdiChildWindow.SetFormType(clsMdiChildWindow.eFormTypes.fChannel)
                     .cWindow.lMdiChildWindow.MeIndex = _ChannelIndex
-                    .cWindow.lMdiChildWindow.Form_Load(clsMdiChildWindow.eFormTypes.fChannel)
-                    Print(.cIncomingText, .cWindow.txtIncoming)
+                    .cWindow.lMdiChildWindow.Form_Load(.cWindow.txtIncomingColor, .cWindow.txtOutgoing, .cWindow, clsMdiChildWindow.eFormTypes.fChannel)
+                    DoColor(.cIncomingText, .cWindow.txtIncomingColor)
                     .cWindow.Text = .cName
                     .cWindow.Icon = mdiMain.Icon
                     .cWindow.MdiParent = mdiMain
                     .cWindow.tmrGetNames.Enabled = True
-                    .cWindow.lvwNicklist.Columns.Add("Nickname")
+                    .cWindow.lvwNicklist.Columns.Add("Nickname", 80)
                     'clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
                 End With
             Catch ex As Exception
@@ -141,13 +145,13 @@ Namespace IRC.Channels
             Try
 
                 With lChannels.cChannel(_ChannelIndex).cWindow
-                    .txtIncoming.Width = .ClientSize.Width - .lvwNicklist.Width
-                    .txtIncoming.Height = .ClientSize.Height - (.txtOutgoing.Height + .tspChannel.ClientSize.Height)
+                    .txtIncomingColor.Width = .ClientSize.Width - .lvwNicklist.Width
+                    .txtIncomingColor.Height = .ClientSize.Height - (.txtOutgoing.Height + .tspChannel.ClientSize.Height)
                     .txtOutgoing.Width = .ClientSize.Width
-                    .txtOutgoing.Top = .txtIncoming.Height + .tspChannel.ClientSize.Height
-                    .lvwNicklist.Left = .txtIncoming.Width
-                    .lvwNicklist.Height = .txtIncoming.Height
-                    .lvwNicklist.Top = .txtIncoming.Top
+                    .txtOutgoing.Top = .txtIncomingColor.Height + .tspChannel.ClientSize.Height
+                    .lvwNicklist.Left = .txtIncomingColor.Width
+                    .lvwNicklist.Height = .txtIncomingColor.Height
+                    .lvwNicklist.Top = .txtIncomingColor.Top
                 End With
             Catch ex As Exception
                 RaiseEvent ProcessError(ex.Message, "Public Sub Window_Resize()")
@@ -292,8 +296,7 @@ Namespace IRC.Channels
                 With lChannels.cChannel(_ChannelIndex)
                     .cTreeNode.Remove()
                     .cTreeNodeVisible = False
-                    'mdiMain.tspWindows.Items.Remove(.cWindowBarItem)
-                    'LEON!! FUCKED!!
+                    mdiMain.tspWindows.Items.Remove(.cWindowBarItem)
                 End With
             Catch ex As Exception
                 RaiseEvent ProcessError(ex.Message, "Public Shared Sub RemoveChannelTree(_Channel As gChannel)")
@@ -320,15 +323,14 @@ Namespace IRC.Channels
                 _ChannelA = splt(3)
                 _ChannelB = splt(4)
                 If (_NickName.ToLower = lStatus.NickName(_StatusIndex).ToLower()) Then
-                    'LEON!! FUCKED!
-                    'If (lIRC.iSettings.sPrompts = True) Then
-                    'mdiMain.lblRedirectMessage.Text = "Notice: You have been redirected from '" & _ChannelA & "' to '" & _ChannelB & "'."
-                    'mdiMain.lblRedirectMessage.Tag = _StatusIndex.ToString()
-                    'mdiMain.tmrHideRedirect.Enabled = True
-                    'mdiMain.tspRedirect.Visible = True
-                    'Else
-                    Join(_StatusIndex, _ChannelB)
-                    'End If
+                    If (lIRC.iSettings.sPrompts = True) Then
+                        mdiMain.lblRedirectMessage.Text = "Notice: You have been redirected from '" & _ChannelA & "' to '" & _ChannelB & "'."
+                        mdiMain.lblRedirectMessage.Tag = _StatusIndex.ToString()
+                        mdiMain.tmrHideRedirect.Enabled = True
+                        mdiMain.tspRedirect.Visible = True
+                    Else
+                        Join(_StatusIndex, _ChannelB)
+                    End If
                     If lIRC.iSettings.sNoIRCMessages = False Then ProcessReplaceString(_StatusIndex, eStringTypes.sERR_LINKCHANNEL, _ChannelA, _ChannelB)
                     'Join(_StatusIndex, _ChannelB)
                 End If
@@ -340,10 +342,10 @@ Namespace IRC.Channels
             Try
                 For Each lChannel As gChannel In lChannels.cChannel
                     If (lChannel.cStatusIndex = _StatusIndex) Then
-                        For Each lListViewItem As ListViewDataItem In lChannel.cWindow.lvwNicklist.Items
+                        For Each lListViewItem As ListViewItem In lChannel.cWindow.lvwNicklist.Items
                             If (lListViewItem.Text = _OldNickName) Then
                                 lListViewItem.Text = _NickName
-                                Print(ReturnReplacedString(eStringTypes.sNICK_CHANGE, _OldNickName, _HostName, _NickName), lChannel.cWindow.txtIncoming)
+                                DoColor(ReturnReplacedString(eStringTypes.sNICK_CHANGE, _OldNickName, _HostName, _NickName), lChannel.cWindow.txtIncomingColor)
                             End If
                         Next lListViewItem
                     End If
@@ -542,7 +544,7 @@ Namespace IRC.Channels
                 _Message = Right(_Data, Len(_Data) - splt(1).Length() - 2)
                 _ChannelIndex = Find(_StatusIndex, _Channel)
                 With lChannels.cChannel(_ChannelIndex)
-                    Print(ReturnReplacedString(eStringTypes.sRPL_TOPIC, _Channel, _Message), .cWindow.txtIncoming)
+                    DoColor(ReturnReplacedString(eStringTypes.sRPL_TOPIC, _Channel, _Message), .cWindow.txtIncomingColor)
                     .cWindow.Text = _Channel & ": " & StripColorCodes(_Message)
                 End With
             Catch ex As Exception
@@ -563,6 +565,7 @@ Namespace IRC.Channels
                     .cWindowBarItemVisible = True
                 End With
                 Return lChannels.cCount
+                'NewChannelWindow(_StatusIndex, lChannels.cCount)
             Catch ex As Exception
                 RaiseEvent ProcessError(ex.Message, "Public Sub AddChannel(_Channel As gChannel)")
             End Try
@@ -682,7 +685,7 @@ Namespace IRC.Channels
                 Try
                     With lChannels.cChannel(lIndex)
                         .cURL = lValue
-                        '.cWindow.cmdURL.Visible = True
+                        .cWindow.cmdURL.Visible = True
                     End With
                 Catch ex As Exception
                     RaiseEvent ProcessError(ex.Message, "Public Property ChannelURL(ByVal lIndex As Integer) As String")

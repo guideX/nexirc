@@ -11,7 +11,7 @@ Public Class frmNoticeWindow
     Private lUnsupported As Boolean
     Private lPrivateMessage As Boolean
     Private lPMNick As String
-    Private WithEvents lMdiWindow As New clsMdiChildWindow
+    Private lMdiWindow As New clsMdiChildWindow
 
     Public Sub SetPrivateMessageWindow(ByVal lValue As Boolean, ByVal lNick As String)
         'On Error Resume Next
@@ -148,6 +148,11 @@ Public Class frmNoticeWindow
     End Sub
 
     Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked
+        'On Error Resume Next
+        'If lIRC.iSettings.sShowBrowser = True Then
+        'mdiMain.BrowseURL(e.LinkText)
+        'End If
+        'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked")
     End Sub
 
     Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown
@@ -188,17 +193,9 @@ Public Class frmNoticeWindow
 
     Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
         Try
-            lMdiWindow.txtOutgoing_GotFocus()
+            lMdiWindow.txtOutgoing_GotFocus(Me)
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
-        End Try
-    End Sub
-
-    Private Sub lMdiWindow_BringToFront() Handles lMdiWindow.BringToFront
-        Try
-            Me.BringToFront()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lMdiWindow_BringToFront() Handles lMdiWindow.BringToFront")
         End Try
     End Sub
 End Class

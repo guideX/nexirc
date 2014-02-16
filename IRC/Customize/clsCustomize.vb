@@ -7,6 +7,7 @@ Imports nexIRC.Modules
 Imports nexIRC.clsSharedAdd
 Namespace IRC.Customize
     Public Class clsCustomize
+        Public lBrowserEnabled As Boolean
         Public Event Apply()
         Public lStartupNetwork As String
         Public Sub cmdDCCIgnoreAdd_Click()
@@ -339,25 +340,28 @@ Namespace IRC.Customize
             End Try
         End Function
         Public Function cmdOK_Click(_NewStatus As Boolean, _Form As Form) As Boolean
-            Dim _Result As Boolean, mbox As MsgBoxResult
+            Dim _Result As Boolean
             Try
                 _Result = False
                 If _NewStatus = True Then
                     lStatus.Create(lIRC, lServers)
                     Application.DoEvents()
+                End If
+                If lStatus.Connected(lStatus.ActiveIndex) = False Then
+                    _Result = True
+                    'SaveSettings()
+                    '_Form.Close()
                 Else
-                    If lStatus.Connected(lStatus.ActiveIndex) = True Then
-                        If lIRC.iSettings.sPrompts = True Then
-                            mbox = MsgBox("You are currently connected on this status window, you will not be able to change the server settings if you continue, would you like to continue anyways?", MsgBoxStyle.YesNoCancel Or MsgBoxStyle.Question)
-                            If (mbox = MsgBoxResult.Yes) Then
-                                _Result = True
-                            Else
-                                _Result = False
-                            End If
-                        End If
-                    Else
-                        _Result = True
-                    End If
+                    'If lIRC.iSettings.sPrompts = True Then
+                    'mbox = MsgBox("You are currently connected on this status window, you will not be able to change the server settings if you continue, would you like to continue anyways?", MsgBoxStyle.YesNoCancel Or MsgBoxStyle.Question)
+                    'Else
+                    'mbox = MsgBoxResult.Yes
+                    'End If
+                    'If mbox = MsgBoxResult.Yes Then
+                    _Result = True
+                    'SaveSettings()
+                    '_Form.Close()
+                    'End If
                 End If
                 Return _Result
             Catch ex As Exception
@@ -580,25 +584,23 @@ Namespace IRC.Customize
         Public Sub Apply_Settings_Servers(_ServersListView As RadListView, _SelectedNetwork As String)
             Try
                 If (_ServersListView.SelectedItem IsNot Nothing) Then
-                    If (_ServersListView.SelectedItem IsNot Nothing) Then lServers.sIndex = FindServerIndexByIp(_ServersListView.SelectedItem.Item(1).ToString)
+                    If _ServersListView.SelectedItem IsNot Nothing Then lServers.sIndex = FindServerIndexByIp(_ServersListView.SelectedItem.Item(1).ToString)
                     lNetworks.nIndex = FindNetworkIndex(_SelectedNetwork)
-                    If Not (lStatus.Connected(lStatus.ActiveIndex)) Then
-                        lStatus.SetStatus(lStatus.ActiveIndex)
-                    End If
                 End If
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub Apply_Servers(_ServersListView As RadListView, _NetworksDropDown As RadDropDownList)")
             End Try
         End Sub
         Public Sub Apply_Settings_Startup(
-            _AutoConnect As Boolean,
-            _ShowCustomize As Boolean,
-            _ShowBrowser As Boolean
-        )
+                                 _AutoConnect As Boolean,
+                                 _ShowCustomize As Boolean,
+                                 _ShowBrowser As Boolean
+                                 )
             Try
                 With lIRC.iSettings
                     .sAutoConnect = _AutoConnect
                     .sCustomizeOnStartup = _ShowCustomize
+                    .sShowBrowser = _ShowBrowser
                 End With
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub Apply_Settings_Startup")

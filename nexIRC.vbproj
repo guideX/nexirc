@@ -19,7 +19,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>http://localhost/nexIRC/</PublishUrl>
     <Install>true</Install>
@@ -66,62 +66,67 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Telerik.WinControls">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.WinControls.GridView, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
-    <Reference Include="Telerik.WinControls.RichTextBox, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.GridView">
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.RichTextBox">
+      <HintPath>..\..\dev\bkup\Bin\Net40\Telerik.WinControls.RichTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.WinControls.Themes.Aqua">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Aqua.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.Aqua.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.Breeze">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Breeze.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.Breeze.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.Desert">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Desert.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.Desert.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.HighContrastBlack">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.HighContrastBlack.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.HighContrastBlack.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.Miscellaneous">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Miscellaneous.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.Miscellaneous.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.Office2007Black">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Office2007Black.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.Office2007Black.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.Office2007Silver">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Office2007Silver.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.Office2007Silver.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.Office2010Black">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Office2010Black.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.Office2010Black.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.Office2010Blue">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Office2010Blue.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.Office2010Blue.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.Office2010Silver">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Office2010Silver.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.Office2010Silver.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.Telerik">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Telerik.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.Telerik.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.TelerikMetro">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.TelerikMetro.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.TelerikMetro.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.Vista">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Vista.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.Vista.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.Windows7">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.Themes.Windows7.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.Themes.Windows7.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.UI">
-      <HintPath>..\..\telerik\Bin\Telerik.WinControls.UI.dll</HintPath>
+      <HintPath>..\..\dev\bkup\Bin\Telerik.WinControls.UI.dll</HintPath>
     </Reference>
-    <Reference Include="TelerikCommon, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="TelerikCommon">
+      <HintPath>..\..\dev\bkup\Bin\TelerikCommon.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -141,6 +146,7 @@
     <Compile Include="Classes\clsMdiChildWindow.vb" />
     <Compile Include="Classes\clsProcess.vb" />
     <Compile Include="Classes\UI\clsLockWindowUpdate.vb" />
+    <Compile Include="Classes\UI\clsRedrawSettings.vb" />
     <Compile Include="Classes\UI\clsScrollToBottom.vb" />
     <Compile Include="Classes\clsServerInfo.vb" />
     <Compile Include="Classes\Communications\clsSocket.vb" />
@@ -163,18 +169,6 @@
     <Compile Include="Forms\frmChangeNickName.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmChannel.Designer.vb">
-      <DependentUpon>frmChannel.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmChannel.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmChannelList.Designer.vb">
-      <DependentUpon>frmChannelList.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmChannelList.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\frmChooseNetwork.Designer.vb">
       <DependentUpon>frmChooseNetwork.vb</DependentUpon>
     </Compile>
@@ -187,6 +181,12 @@
     <Compile Include="Forms\frmSharedAdd.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmChannel.Designer.vb">
+      <DependentUpon>frmChannel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChannel.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmChannelFolder.Designer.vb">
       <DependentUpon>frmChannelFolder.vb</DependentUpon>
     </Compile>
@@ -197,18 +197,6 @@
       <DependentUpon>frmCustomize.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmCustomize.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmStatus.Designer.vb">
-      <DependentUpon>frmStatus.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmStatus.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\mdiMain.Designer.vb">
-      <DependentUpon>mdiMain.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\mdiMain.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IRC\Channels\clsChannelFolder.vb" />
@@ -250,6 +238,12 @@
     <Compile Include="Modules\mdlObjects.vb" />
     <Compile Include="User Controls\clsVideo.vb">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChannelList.Designer.vb">
+      <DependentUpon>frmChannelList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChannelList.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmDCCChat.Designer.vb">
       <DependentUpon>frmDCCChat.vb</DependentUpon>
@@ -335,6 +329,12 @@
     <Compile Include="Forms\frmQuerySettings.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmStatus.Designer.vb">
+      <DependentUpon>frmStatus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmStatus.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmServerLinks.Designer.vb">
       <DependentUpon>frmServerLinks.vb</DependentUpon>
     </Compile>
@@ -348,6 +348,12 @@
       <DependentUpon>frmXLogin.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmXLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\mdiMain.Designer.vb">
+      <DependentUpon>mdiMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\mdiMain.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modules\mdlSettings.vb" />
@@ -389,17 +395,15 @@
     <EmbeddedResource Include="Forms\frmChangeNickName.resx">
       <DependentUpon>frmChangeNickName.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmChannel.resx">
-      <DependentUpon>frmChannel.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmChannelList.resx">
-      <DependentUpon>frmChannelList.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChooseNetwork.resx">
       <DependentUpon>frmChooseNetwork.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmSharedAdd.resx">
       <DependentUpon>frmSharedAdd.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChannel.resx">
+      <DependentUpon>frmChannel.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChannelFolder.resx">
       <DependentUpon>frmChannelFolder.vb</DependentUpon>
@@ -413,18 +417,16 @@
     <EmbeddedResource Include="Forms\frmSendNotice.resx">
       <DependentUpon>frmSendNotice.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmStatus.resx">
-      <DependentUpon>frmStatus.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmVideoPlayer.resx">
       <DependentUpon>frmVideoPlayer.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\mdiMain.resx">
-      <DependentUpon>mdiMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User Controls\clsVideo.resx">
       <DependentUpon>clsVideo.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChannelList.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmChannelList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDCCChat.resx">
       <SubType>Designer</SubType>
@@ -482,6 +484,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmQuerySettings.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmStatus.resx">
+      <DependentUpon>frmStatus.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmServerLinks.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmServerLinks.vb</DependentUpon>
@@ -489,6 +495,10 @@
     <EmbeddedResource Include="Forms\frmXLogin.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmXLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\mdiMain.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>mdiMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -503,6 +513,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="bin\Debug\data\config\channelfolders.ini" />
     <None Include="bin\Debug\data\config\commands.ini" />
     <None Include="bin\Debug\data\config\compatibility.ini" />
     <None Include="bin\Debug\data\config\dcc.ini" />
@@ -646,6 +657,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\data\images\bkup\" />
+    <Folder Include="IRC\Browser\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

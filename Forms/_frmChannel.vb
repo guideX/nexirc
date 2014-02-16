@@ -2,7 +2,7 @@
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
-Public Class frmChannel
+Public Class _frmChannel
     Public lMdiChildWindow As New clsMdiChildWindow
     Private Sub txtOutgoing_GotFocus(sender As Object, e As System.EventArgs) Handles txtOutgoing.GotFocus
         Try
@@ -98,7 +98,7 @@ Public Class frmChannel
     End Sub
     Private Sub cmdNames_Click(sender As System.Object, e As System.EventArgs) Handles cmdNames.Click
         Try
-            lMdiChildWindow.cmdNames_Click(lvwNicklist)
+            lMdiChildWindow.cmdNames_Click()
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub cmdNames_Click(sender As System.Object, e As System.EventArgs) Handles cmdNames.Click")
         End Try
@@ -116,5 +116,9 @@ Public Class frmChannel
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub frmChannel_Resize(sender As Object, e As System.EventArgs) Handles Me.Resize")
         End Try
+    End Sub
+
+    Private Sub _frmChannel_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+
     End Sub
 End Class

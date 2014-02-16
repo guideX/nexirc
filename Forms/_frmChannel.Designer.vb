@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmChannel
+Partial Class _frmChannel
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -23,7 +23,7 @@ Partial Class frmChannel
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmChannel))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(_frmChannel))
         Me.lvwNicklist = New System.Windows.Forms.ListView()
         Me.txtIncomingColor = New System.Windows.Forms.RichTextBox()
         Me.txtOutgoing = New System.Windows.Forms.TextBox()
@@ -146,7 +146,7 @@ Partial Class frmChannel
         'tmrGetNames
         '
         '
-        'frmChannel
+        '_frmChannel
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -157,7 +157,7 @@ Partial Class frmChannel
         Me.Controls.Add(Me.txtIncomingColor)
         Me.Controls.Add(Me.txtOutgoing)
         Me.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Name = "frmChannel"
+        Me.Name = "_frmChannel"
         Me.Text = "frmChannel"
         Me.tspChannel.ResumeLayout(False)
         Me.tspChannel.PerformLayout()

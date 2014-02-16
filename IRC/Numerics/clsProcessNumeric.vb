@@ -45,12 +45,7 @@ Public Class clsProcessNumeric
             End If
             If InStr(LCase(lData), "notice auth :", CompareMethod.Text) <> 0 Then
                 splt2 = Split(lData, ":")
-                Select Case UBound(splt2)
-                    Case 1
-                        lStatus.Notices_Add(lStatusIndex, splt2(1))
-                    Case 2
-                        lStatus.Notices_Add(lStatusIndex, splt2(1), splt2(2))
-                End Select
+                lStatus.Notices_Add(lStatusIndex, splt2(1))
                 Exit Sub
             End If
             If Left(LCase(Trim(lData)), 10) = "*** notice" Then
@@ -63,12 +58,10 @@ Public Class clsProcessNumeric
                     If Left(lData, 6) = "NOTICE" Then
                         If InStr(LCase(lData), "you are now identified for") <> 0 Then
                             ProcessReplaceString(lStatusIndex, eStringTypes.sNICKSERV_LOGIN, lIRC.iNicks.nNick(lIRC.iNicks.nIndex).nNick)
-                            'mdiMain.tspQueryPrompt.Visible = False
-                            'LEON! FUCKED!
+                            mdiMain.tspQueryPrompt.Visible = False
                         ElseIf InStr(LCase(lData), "nickname is registered") <> 0 Then
                             mdiMain.ShowQueryBar("This nickname is registered, proceed with NickServ login?", eInfoBar.iNickServ_NickTaken)
-                            'mdiMain.lblQueryPrompt.Tag = 5
-                            'LEON! FUCKED!
+                            mdiMain.lblQueryPrompt.Tag = 5
                         End If
                     End If
                     Exit Sub
@@ -481,49 +474,49 @@ Public Class clsProcessNumeric
                                     lIrcNumericHelper.l311 = ReturnReplacedString(eStringTypes.sRPL_WHOISUSER, splt3(0), Replace(splt3(1), "n=", ""), splt3(2), "unknown")
                                 End If
                                 lIrcNumericHelper.lWhoisUser = splt3(0)
-                                ''If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
+                                If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 312
                                 splt3 = Split(splt2(2), ":")
                                 If UBound(splt3) <> 0 Then
                                     lIrcNumericHelper.l312 = ReturnReplacedString(eStringTypes.sRPL_WHOISSERVER, Trim(Replace(splt3(1), ":", "")))
-                                    'If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
+                                    If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 End If
                                 Exit Sub
                             Case 313
                                 splt3 = Split(splt2(2), ":")
                                 lIrcNumericHelper.l313 = ReturnReplacedString(eStringTypes.sRPL_WHOISOPERATOR, splt3(0), splt3(1))
-                                'If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
+                                If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 314
                                 splt3 = Split(splt2(2), " ")
                                 If UBound(splt3) = 4 Then ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_WHOWASUSER, splt3(0), splt3(1), splt3(2), Trim(Replace(splt3(4), ":", "")))
-                                'If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
+                                If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 315
                                 splt3 = Split(splt2(2), ":")
                                 ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFWHO, splt3(0))
-                                'If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
+                                If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 316
                                 lIrcNumericHelper.l316 = ReturnReplacedString(eStringTypes.sRPL_WHOISCHANOP, splt2(2))
-                                'If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
+                                If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 317
                                 splt3 = Split(splt2(2), " ")
                                 lIrcNumericHelper.l317 = ReturnReplacedString(eStringTypes.sRPL_WHOISIDLE, Replace(splt3(1), ":", ""))
-                                'If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
+                                If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 318
                                 lIrcNumericHelper.ProcessWhoisCommand(lStatusIndex)
-                                'lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False
+                                lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False
                                 Exit Sub
                             Case 319
                                 splt3 = Split(splt2(2), ":")
                                 If UBound(splt3) <> 0 Then
                                     lIrcNumericHelper.l319 = ReturnReplacedString(eStringTypes.sRPL_WHOISCHANNELS, splt3(1))
                                 End If
-                                'If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
+                                If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 321
                                 lChannelLists.NewChannelList(lStatusIndex)
@@ -556,6 +549,7 @@ Public Class clsProcessNumeric
                                         lStatus.AddText(msg, lStatusIndex)
                                     End If
                                 End If
+                                'If lIRC.iSettings.sAutoNavigateChannelUrls = True And lIRC.iSettings.sShowBrowser = True Then mdiMain.BrowseURL(msg2)
                                 Exit Sub
                             Case 330
 
@@ -769,7 +763,7 @@ Public Class clsProcessNumeric
                                 End If
                                 Exit Sub
                             Case 401
-                                'lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False
+                                lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False
                                 ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOSUCHNICK, splt2(2))
                                 Exit Sub
                             Case 402
@@ -1066,11 +1060,11 @@ Public Class clsProcessNumeric
                                 Exit Sub
                             Case 615
                                 lIrcNumericHelper.l615 = ReturnReplacedString(eStringTypes.sRPL_WHOISMODES2, splt2(3))
-                                'If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
+                                If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 616
                                 lIrcNumericHelper.l616 = ReturnReplacedString(eStringTypes.sRPL_WHOISHOST2, splt2(3))
-                                'If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
+                                If lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 999
                                 If lIRC.iSettings.sNoIRCMessages = False Then

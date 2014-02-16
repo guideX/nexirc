@@ -12,12 +12,8 @@ Public Class frmCustomize
     Public WithEvents lCustomize As New clsCustomize
     Public Sub EventApply()
         Try
-            lCustomize.Apply_Settings_Servers(
-                lvwServers,
-                cboNetworks.Text
-            )
-            lCustomize.Apply_Settings_User(
-                cboMyNickNames,
+            lCustomize.Apply_Settings_Servers(lvwServers, cboNetworks.Text)
+            lCustomize.Apply_Settings_User(cboMyNickNames,
                 txtURL.Text,
                 txtUserEmail.Text,
                 txtPassword.Text,
@@ -65,16 +61,14 @@ Public Class frmCustomize
                 chkShowUserAddresses.Checked,
                 chkHideMOTDs.Checked
             )
-            lCustomize.Apply_Settings_Text(
-                rdbUnknownTextStatus.IsChecked,
+            lCustomize.Apply_Settings_Text(rdbUnknownTextStatus.IsChecked,
                 rdbUnknownTextOwn.IsChecked,
                 rdbUnknownTextHide.IsChecked,
                 rdbUnsupportedStatus.IsChecked,
                 rdbUnsupportedOwn.IsChecked,
                 rdbUnsupportedHide.IsChecked
             )
-            lCustomize.Apply_Settings_DCC(
-                optDccChatPrompt.IsChecked,
+            lCustomize.Apply_Settings_DCC(optDccChatPrompt.IsChecked,
                 optDccChatAcceptAll.IsChecked,
                 optDccChatIgnore.IsChecked,
                 optDccSendPrompt.IsChecked,
@@ -89,6 +83,7 @@ Public Class frmCustomize
             ProcessError(ex.Message, "Public Sub EventApply()")
         End Try
     End Sub
+
     Public ReadOnly Property ServersListView() As RadListView
         Get
             Try
@@ -183,6 +178,8 @@ Public Class frmCustomize
                 chkCloseChannelFolder.Checked = .sChannelFolderCloseOnJoin
                 chkAddToChannelFolder.Checked = .sAutoAddToChannelFolder
                 chkCloseStatusWindow.Checked = .sCloseWindowOnDisconnect
+                'chkBrowseChannelURLs.Checked = .sAutoNavigateChannelUrls
+                chkHideStatusOnClose.Checked = .sHideStatusOnClose
                 chkShowUserAddresses.Checked = .sShowUserAddresses
                 chkHideMOTDs.Checked = .sHideMOTD
                 chkShowPrompts.Checked = .sPrompts
@@ -191,9 +188,11 @@ Public Class frmCustomize
                 chkShowCustomize.Checked = .sCustomizeOnStartup
                 chkPopupChannelFolder.Checked = .sPopupChannelFolders
                 chkShowNicknameWindow.Checked = .sChangeNickNameWindow
+                'chkShowBrowser.Checked = .sShowBrowser
                 chkShowWindowsAutomatically.Checked = .sShowWindowsAutomatically
                 chkAutoMaximize.Checked = .sAutoMaximize
                 chkHideStatusOnClose.Checked = .sHideStatusOnClose
+                lCustomize.lBrowserEnabled = .sShowBrowser
                 chkAutoConnect.Checked = .sAutoConnect
                 chkVideoBackground.Checked = .sVideoBackground
             End With
@@ -398,8 +397,8 @@ Public Class frmCustomize
         Try
             If lCustomize.cmdOK_Click(chkNewStatus.Checked, Me) Then
                 EventApply()
-                SaveSettings()
             End If
+            SaveSettings()
             Me.Close()
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click")

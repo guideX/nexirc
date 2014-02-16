@@ -3,6 +3,8 @@
   - dcc get broken
   - dcc chat broken 
   - dcc accept chat broken
+- browser
+  - on start, if browser is enabled and customize window is shown, the customize window falls behind the main window, when the page is finished loading
 - channel folder
   - join button doesn't work
   - double click on listview doesn't work

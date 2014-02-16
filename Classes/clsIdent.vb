@@ -25,7 +25,7 @@ Public Class clsIdent
     End Sub
     Private Sub SendIdentInfo(ByVal lData As String)
         Try
-            Dim msg As String, msg2 As String, lForm As FrmStatus
+            Dim msg As String, msg2 As String, lForm As frmStatus
             lForm = lStatus.GetObject(lStatus.ActiveIndex).sWindow
             msg = Trim(lStatus.StatusSocketLocalPort(lForm.lMdiChildWindow.MeIndex).ToString) & ", " & Trim(lStatus.ReturnRemotePort(lForm.lMdiChildWindow.MeIndex).ToString) & " : USERID : " & lIRC.iIdent.iUserID
             msg2 = Trim(lStatus.StatusSocketLocalPort(lForm.lMdiChildWindow.MeIndex).ToString) & ", " & Trim(lStatus.ReturnRemotePort(lForm.lMdiChildWindow.MeIndex).ToString) & " : SYSTEM : " & lIRC.iIdent.iSystem
@@ -39,7 +39,7 @@ Public Class clsIdent
     Private Sub lClientSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lClientSocket.socketDataArrival
         Try
             Dim lSendIdentInfo As New StringDelegate(AddressOf SendIdentInfo)
-            MdiMain.Invoke(lSendIdentInfo, SocketData)
+            mdiMain.Invoke(lSendIdentInfo, SocketData)
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub lClientSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String) Handles lClientSocket.socketDataArrival")
         End Try

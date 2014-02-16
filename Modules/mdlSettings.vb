@@ -249,6 +249,7 @@ Public Module mdlSettings
         Public sNetworkAvailability As Boolean
         Public sAutoAddToChannelFolder As Boolean
         Public sWindowSizes As gInitialWindowSizes
+        Public sShowBrowser As Boolean
         Public sPrompts As Boolean
         Public sOper As Boolean
         Public sExtendedMessages As Boolean
@@ -533,26 +534,26 @@ Public Module mdlSettings
 
     Public Sub RefreshRecientServersMenu()
         Try
-            mdiMain.cmdRecentServer1.Text = lRecientServers.sItem(1)
-            mdiMain.cmdRecentServer2.Text = lRecientServers.sItem(2)
-            mdiMain.cmdRecentServer3.Text = lRecientServers.sItem(3)
-            If Len(mdiMain.cmdRecentServer1.Text) = 0 Then
-                mdiMain.cmdRecentServer1.Text = "(Empty)"
-                mdiMain.cmdRecentServer1.Enabled = False
+            mdiMain.cmd_RecientServer1.Text = lRecientServers.sItem(1)
+            mdiMain.cmd_RecientServer2.Text = lRecientServers.sItem(2)
+            mdiMain.cmd_RecientServer3.Text = lRecientServers.sItem(3)
+            If Len(mdiMain.cmd_RecientServer1.Text) = 0 Then
+                mdiMain.cmd_RecientServer1.Text = "(Empty)"
+                mdiMain.cmd_RecientServer1.Enabled = False
             Else
-                mdiMain.cmdRecentServer1.Enabled = True
+                mdiMain.cmd_RecientServer1.Enabled = True
             End If
-            If Len(mdiMain.cmdRecentServer2.Text) = 0 Then
-                mdiMain.cmdRecentServer2.Text = "(Empty)"
-                mdiMain.cmdRecentServer2.Enabled = False
+            If Len(mdiMain.cmd_RecientServer2.Text) = 0 Then
+                mdiMain.cmd_RecientServer2.Text = "(Empty)"
+                mdiMain.cmd_RecientServer2.Enabled = False
             Else
-                mdiMain.cmdRecentServer2.Enabled = True
+                mdiMain.cmd_RecientServer2.Enabled = True
             End If
-            If Len(mdiMain.cmdRecentServer3.Text) = 0 Then
-                mdiMain.cmdRecentServer3.Text = "(Empty)"
-                mdiMain.cmdRecentServer3.Enabled = False
+            If Len(mdiMain.cmd_RecientServer3.Text) = 0 Then
+                mdiMain.cmd_RecientServer3.Text = "(Empty)"
+                mdiMain.cmd_RecientServer3.Enabled = False
             Else
-                mdiMain.cmdRecentServer3.Enabled = True
+                mdiMain.cmd_RecientServer3.Enabled = True
             End If
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub RefreshRecientServersMenu()")
@@ -646,6 +647,7 @@ Public Module mdlSettings
             Next i
         End With
     End Sub
+
 
     Public Sub PopulateNotifyByListView(ByVal lListView As RadListView)
         Try
@@ -858,33 +860,35 @@ Public Module mdlSettings
         Dim msg As String, msg2 As String, splt() As String, splt2() As String
         Dim lIndex As Integer
         ReDim lServers.sServer(lArraySizes.aServers)
-        msg2 = My.Computer.FileSystem.ReadAllText(lINI.iServers)
-        splt = Split(msg2, vbCrLf)
-        For Each msg In splt
-            If LCase(msg) = "[settings]" Then
-            Else
-                If Left(msg, 1) = "[" And Right(msg, 1) = "]" Then
-                    lIndex = CInt(Trim(ParseData(msg, "[", "]")))
-                    lServers.sCount = lIndex
+        If (System.IO.File.Exists(lINI.iServers)) Then
+            msg2 = My.Computer.FileSystem.ReadAllText(lINI.iServers)
+            splt = Split(msg2, vbCrLf)
+            For Each msg In splt
+                If LCase(msg) = "[settings]" Then
                 Else
-                    splt2 = Split(msg, "=")
-                    Select Case LCase(splt2(0))
-                        Case "count"
-                            lServers.sCount = CInt(Trim(splt2(1)))
-                        Case "index"
-                            lServers.sIndex = CInt(Trim(splt2(1)))
-                        Case "description"
-                            lServers.sServer(lIndex).sDescription = splt2(1).ToString
-                        Case "ip"
-                            lServers.sServer(lIndex).sIP = splt2(1).ToString
-                        Case "networkindex"
-                            lServers.sServer(lIndex).sNetworkIndex = CInt(Trim(splt2(1)))
-                        Case "port"
-                            lServers.sServer(lIndex).sPort = CInt(Trim(splt2(1).ToString))
-                    End Select
+                    If Left(msg, 1) = "[" And Right(msg, 1) = "]" Then
+                        lIndex = CInt(Trim(ParseData(msg, "[", "]")))
+                        lServers.sCount = lIndex
+                    Else
+                        splt2 = Split(msg, "=")
+                        Select Case LCase(splt2(0))
+                            Case "count"
+                                lServers.sCount = CInt(Trim(splt2(1)))
+                            Case "index"
+                                lServers.sIndex = CInt(Trim(splt2(1)))
+                            Case "description"
+                                lServers.sServer(lIndex).sDescription = splt2(1).ToString
+                            Case "ip"
+                                lServers.sServer(lIndex).sIP = splt2(1).ToString
+                            Case "networkindex"
+                                lServers.sServer(lIndex).sNetworkIndex = CInt(Trim(splt2(1)))
+                            Case "port"
+                                lServers.sServer(lIndex).sPort = CInt(Trim(splt2(1).ToString))
+                        End Select
+                    End If
                 End If
-            End If
-        Next msg
+            Next msg
+        End If
         If Err.Number <> 0 Then MsgBox(Err.Description)
     End Sub
 
@@ -975,6 +979,7 @@ Public Module mdlSettings
                 .sShowUserAddresses = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowUserAddresses", "True"))
                 .sHideMOTD = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "HideMOTD", "True"))
                 .sPrompts = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "Prompts", "True"))
+                .sShowBrowser = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowBrowser", "False"))
                 .sShowRawWindow = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowRawWindow", "False"))
                 .sExtendedMessages = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ExtendedMessages", "True"))
                 .sNoIRCMessages = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "NoIRCMessages", "False"))
@@ -1151,6 +1156,7 @@ Public Module mdlSettings
             clsFiles.WriteINI(lINI.iIRC, "Settings", "Prompts", Trim(.sPrompts.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowUserAddresses", Trim(.sShowUserAddresses.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "URL", .sURL)
+            clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowBrowser", Trim(.sShowBrowser.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "MOTDInOwnWindow", Trim(.sMOTDInOwnWindow.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "PopupChannelFolders", Trim(.sPopupChannelFolders.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", Trim(.sCustomizeOnStartup.ToString))

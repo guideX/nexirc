@@ -1,18 +1,16 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class mdiMain
-    Inherits Telerik.WinControls.UI.RadForm
+    Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-        Try
-            If disposing AndAlso components IsNot Nothing Then
-                components.Dispose()
-            End If
-        Finally
-            MyBase.Dispose(disposing)
-        End Try
+        If disposing AndAlso components IsNot Nothing Then
+            components.Dispose()
+        End If
+        MyBase.Dispose(disposing)
     End Sub
+
 
     'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
@@ -22,552 +20,877 @@ Partial Class mdiMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(mdiMain))
-        Me.rcbTop = New Telerik.WinControls.UI.RadCommandBar()
-        Me.CommandBarRowElement1 = New Telerik.WinControls.UI.CommandBarRowElement()
-        Me.CommandBarStripElement1 = New Telerik.WinControls.UI.CommandBarStripElement()
-        Me.cmdConnection = New Telerik.WinControls.UI.CommandBarDropDownButton()
-        Me.cmdRecentServers = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdRecentServer1 = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdRecentServer2 = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdRecentServer3 = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdSep4 = New Telerik.WinControls.UI.RadMenuSeparatorItem()
-        Me.cmdClearHistory = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdNewStatusWindow = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdSep5 = New Telerik.WinControls.UI.RadMenuSeparatorItem()
-        Me.cmdCommands = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdAwayMenu = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdAwayMenuAway = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdAwayMenuBack = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdSep6 = New Telerik.WinControls.UI.RadMenuSeparatorItem()
-        Me.cmdServerLinks = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdWhois = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdWhowas = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdTime = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdStats = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdSep1 = New Telerik.WinControls.UI.RadMenuSeparatorItem()
-        Me.cmdConnect = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdDisconnect = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdQuit = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdSep2 = New Telerik.WinControls.UI.RadMenuSeparatorItem()
-        Me.cmdSelectAServer = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdChangeConnection = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.cmdSep3 = New Telerik.WinControls.UI.RadMenuSeparatorItem()
-        Me.cmdCloseStatus = New Telerik.WinControls.UI.RadMenuButtonItem()
-        Me.CommandBarRowElement2 = New Telerik.WinControls.UI.CommandBarRowElement()
-        Me.rssBottom = New Telerik.WinControls.UI.RadStatusStrip()
-        Me.tvwLeft = New Telerik.WinControls.UI.RadTreeView()
-        CType(Me.rcbTop, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.rssBottom, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tvwLeft, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.nicSystray = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.tmrFlashDCCToolBar = New System.Windows.Forms.Timer(Me.components)
+        Me.cmdLeftBar = New System.Windows.Forms.Button()
+        Me.cboAllServers = New System.Windows.Forms.ToolStripComboBox()
+        Me.FontDialog1 = New System.Windows.Forms.FontDialog()
+        Me.tspWindows = New System.Windows.Forms.ToolStrip()
+        Me.tmrStartupSettings = New System.Windows.Forms.Timer(Me.components)
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
+        Me.tspMain = New System.Windows.Forms.ToolStrip()
+        Me.cmd_Connection = New System.Windows.Forms.ToolStripSplitButton()
+        Me.cmd_RecientServers = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_RecientServer1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_RecientServer2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_RecientServer3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Sep2387682 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmd_ClearHistory = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_NewStatusWindow = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Sep398269823 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mnu_Commands = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_AwayMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Away = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Back = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_ServerLinks = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Whois = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Whowas = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Time = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Stats = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Sep39879803269 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmd_Connect = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Disconnect = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_CloseConnection = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_SelectAServer = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_ChangeConnection = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Sep3298079802 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmd_CloseStatus = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Sep398792 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmd_Exit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Customize = New System.Windows.Forms.ToolStripButton()
+        Me.cmd_Media = New System.Windows.Forms.ToolStripSplitButton()
+        Me.cmd_PlayVideo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_DCC = New System.Windows.Forms.ToolStripSplitButton()
+        Me.cmd_DCCSend = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_DCCChat = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Sep908372 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmd_DownloadManager = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmd_Channels = New System.Windows.Forms.ToolStripSplitButton()
+        Me.cmd_ChannelFolder = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_ListChannels = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmd_View = New System.Windows.Forms.ToolStripSplitButton()
+        Me.cmd_LeftBar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_WindowBar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmd_Notepad = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Window = New System.Windows.Forms.ToolStripSplitButton()
+        Me.cmd_TileHorizontal = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_TileVertical = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Cascade = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Sep3869626 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmd_ArrangeIcons = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmd_ShowAbout = New System.Windows.Forms.ToolStripMenuItem()
+        Me.pnlLeftNav = New System.Windows.Forms.Panel()
+        Me.tvwConnections = New System.Windows.Forms.TreeView()
+        Me.lblQueryPrompt = New System.Windows.Forms.ToolStripLabel()
+        Me.tspQueryPrompt = New System.Windows.Forms.ToolStrip()
+        Me.cmdAcceptQuery = New System.Windows.Forms.ToolStripButton()
+        Me.cmdDeclineQuery = New System.Windows.Forms.ToolStripButton()
+        Me.lblUser = New System.Windows.Forms.ToolStripLabel()
+        Me.tspDCCToolBar = New System.Windows.Forms.ToolStrip()
+        Me.cmdAccept = New System.Windows.Forms.ToolStripButton()
+        Me.cmdDeny = New System.Windows.Forms.ToolStripButton()
+        Me.fdgOpen = New System.Windows.Forms.OpenFileDialog()
+        Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.tspRedirect = New System.Windows.Forms.ToolStrip()
+        Me.lblRedirectMessage = New System.Windows.Forms.ToolStripLabel()
+        Me.cmdRedirectAccept = New System.Windows.Forms.ToolStripButton()
+        Me.cmdRedirectDeny = New System.Windows.Forms.ToolStripButton()
+        Me.tmrWaitForQuit = New System.Windows.Forms.Timer(Me.components)
+        Me.tmrHideRedirect = New System.Windows.Forms.Timer(Me.components)
+        Me.tspMain.SuspendLayout()
+        Me.pnlLeftNav.SuspendLayout()
+        Me.tspQueryPrompt.SuspendLayout()
+        Me.tspDCCToolBar.SuspendLayout()
+        Me.tspRedirect.SuspendLayout()
         Me.SuspendLayout()
         '
-        'rcbTop
+        'nicSystray
+        '
+        Me.nicSystray.Text = "nexIRC"
+        Me.nicSystray.Visible = True
+        '
+        'tmrFlashDCCToolBar
+        '
+        Me.tmrFlashDCCToolBar.Interval = 700
+        '
+        'cmdLeftBar
+        '
+        Me.cmdLeftBar.BackColor = System.Drawing.Color.White
+        Me.cmdLeftBar.Location = New System.Drawing.Point(175, 204)
+        Me.cmdLeftBar.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmdLeftBar.Name = "cmdLeftBar"
+        Me.cmdLeftBar.Size = New System.Drawing.Size(15, 39)
+        Me.cmdLeftBar.TabIndex = 11
+        Me.cmdLeftBar.UseVisualStyleBackColor = False
+        '
+        'cboAllServers
         '
-        Me.rcbTop.AutoSize = True
-        Me.rcbTop.Dock = System.Windows.Forms.DockStyle.Top
-        Me.rcbTop.Location = New System.Drawing.Point(0, 0)
-        Me.rcbTop.Name = "rcbTop"
-        Me.rcbTop.Rows.AddRange(New Telerik.WinControls.UI.CommandBarRowElement() {Me.CommandBarRowElement1, Me.CommandBarRowElement2})
-        Me.rcbTop.Size = New System.Drawing.Size(772, 55)
-        Me.rcbTop.TabIndex = 1
-        Me.rcbTop.Text = "RadCommandBar1"
+        Me.cboAllServers.Name = "cboAllServers"
+        Me.cboAllServers.Size = New System.Drawing.Size(121, 23)
         '
-        'CommandBarRowElement1
+        'FontDialog1
         '
-        Me.CommandBarRowElement1.DisplayName = Nothing
-        Me.CommandBarRowElement1.MinSize = New System.Drawing.Size(25, 25)
-        Me.CommandBarRowElement1.Strips.AddRange(New Telerik.WinControls.UI.CommandBarStripElement() {Me.CommandBarStripElement1})
+        Me.FontDialog1.Color = System.Drawing.SystemColors.ControlText
         '
-        'CommandBarStripElement1
+        'tspWindows
         '
-        Me.CommandBarStripElement1.DisplayName = "CommandBarStripElement1"
-        Me.CommandBarStripElement1.FloatingForm = Nothing
-        Me.CommandBarStripElement1.Items.AddRange(New Telerik.WinControls.UI.RadCommandBarBaseItem() {Me.cmdConnection})
-        Me.CommandBarStripElement1.Name = "CommandBarStripElement1"
-        Me.CommandBarStripElement1.Text = ""
+        Me.tspWindows.BackColor = System.Drawing.Color.Black
+        Me.tspWindows.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.tspWindows.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.tspWindows.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tspWindows.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.tspWindows.Location = New System.Drawing.Point(0, 331)
+        Me.tspWindows.Name = "tspWindows"
+        Me.tspWindows.Padding = New System.Windows.Forms.Padding(0)
+        Me.tspWindows.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
+        Me.tspWindows.ShowItemToolTips = False
+        Me.tspWindows.Size = New System.Drawing.Size(819, 25)
+        Me.tspWindows.TabIndex = 23
+        Me.tspWindows.Text = "ToolStrip1"
         '
-        'cmdConnection
+        'tmrStartupSettings
         '
-        Me.cmdConnection.AccessibleDescription = "Connection"
-        Me.cmdConnection.AccessibleName = "Connection"
-        Me.cmdConnection.DisplayName = "CommandBarDropDownButton1"
-        Me.cmdConnection.Image = Global.nexIRC.My.Resources.Resources.network
-        Me.cmdConnection.Items.AddRange(New Telerik.WinControls.RadItem() {Me.cmdRecentServers, Me.cmdNewStatusWindow, Me.cmdSep5, Me.cmdCommands, Me.cmdSep1, Me.cmdConnect, Me.cmdDisconnect, Me.cmdQuit, Me.cmdSep2, Me.cmdSelectAServer, Me.cmdChangeConnection, Me.cmdSep3, Me.cmdCloseStatus})
-        Me.cmdConnection.Name = "cmdConnection"
-        Me.cmdConnection.Text = "Connection"
-        Me.cmdConnection.ToolTipText = "Connection"
-        Me.cmdConnection.Visibility = Telerik.WinControls.ElementVisibility.Visible
-        Me.cmdConnection.VisibleInOverflowMenu = True
+        Me.tmrStartupSettings.Interval = 200
         '
-        'cmdRecentServers
+        'ImageList1
         '
-        Me.cmdRecentServers.AccessibleDescription = "Recent Servers"
-        Me.cmdRecentServers.AccessibleName = "Recent Servers"
+        Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
+        Me.ImageList1.Images.SetKeyName(0, "black_status.jpg")
+        Me.ImageList1.Images.SetKeyName(1, "black_channel.jpg")
+        Me.ImageList1.Images.SetKeyName(2, "black_server.jpg")
+        Me.ImageList1.Images.SetKeyName(3, "black_notice.jpg")
+        Me.ImageList1.Images.SetKeyName(4, "black_raw.jpg")
+        Me.ImageList1.Images.SetKeyName(5, "black_rawblue.jpg")
+        Me.ImageList1.Images.SetKeyName(6, "black_noticeblue.jpg")
+        Me.ImageList1.Images.SetKeyName(7, "black_serverblue.jpg")
+        Me.ImageList1.Images.SetKeyName(8, "black_statusblue.jpg")
+        Me.ImageList1.Images.SetKeyName(9, "black_channelblue.jpg")
         '
+        'tspMain
         '
+        Me.tspMain.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.tspMain.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.tspMain.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tspMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.tspMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_Connection, Me.cmd_Customize, Me.cmd_Media, Me.cmd_DCC, Me.ToolStripSeparator1, Me.cmd_Channels, Me.ToolStripSeparator2, Me.cmd_View, Me.cmd_Window})
+        Me.tspMain.Location = New System.Drawing.Point(0, 0)
+        Me.tspMain.Name = "tspMain"
+        Me.tspMain.Padding = New System.Windows.Forms.Padding(0)
+        Me.tspMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
+        Me.tspMain.Size = New System.Drawing.Size(819, 25)
+        Me.tspMain.TabIndex = 22
         '
-        Me.cmdRecentServers.ButtonElement.AccessibleDescription = "Recent Servers"
-        Me.cmdRecentServers.ButtonElement.AccessibleName = "Recent Servers"
-        Me.cmdRecentServers.Items.AddRange(New Telerik.WinControls.RadItem() {Me.cmdRecentServer1, Me.cmdRecentServer2, Me.cmdRecentServer3, Me.cmdSep4, Me.cmdClearHistory})
-        Me.cmdRecentServers.Name = "cmdRecentServers"
-        Me.cmdRecentServers.Text = "Recent Servers"
-        Me.cmdRecentServers.ToolTipText = "Recent Servers"
-        Me.cmdRecentServers.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        'cmd_Connection
         '
-        'cmdRecentServer1
+        Me.cmd_Connection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmd_Connection.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_RecientServers, Me.cmd_NewStatusWindow, Me.cmd_Sep398269823, Me.mnu_Commands, Me.cmd_Sep39879803269, Me.cmd_Connect, Me.cmd_Disconnect, Me.cmd_CloseConnection, Me.cmd_SelectAServer, Me.cmd_ChangeConnection, Me.cmd_Sep3298079802, Me.cmd_CloseStatus, Me.cmd_Sep398792, Me.cmd_Exit})
+        Me.cmd_Connection.Image = Global.nexIRC.My.Resources.Resources.network1
+        Me.cmd_Connection.ImageTransparentColor = System.Drawing.Color.White
+        Me.cmd_Connection.Name = "cmd_Connection"
+        Me.cmd_Connection.Size = New System.Drawing.Size(32, 22)
+        Me.cmd_Connection.Text = "Network"
         '
-        Me.cmdRecentServer1.AccessibleDescription = "(None)"
-        Me.cmdRecentServer1.AccessibleName = "(None)"
+        'cmd_RecientServers
         '
+        Me.cmd_RecientServers.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_RecientServer1, Me.cmd_RecientServer2, Me.cmd_RecientServer3, Me.cmd_Sep2387682, Me.cmd_ClearHistory})
+        Me.cmd_RecientServers.Image = Global.nexIRC.My.Resources.Resources.configure
+        Me.cmd_RecientServers.ImageTransparentColor = System.Drawing.Color.White
+        Me.cmd_RecientServers.Name = "cmd_RecientServers"
+        Me.cmd_RecientServers.Size = New System.Drawing.Size(222, 22)
+        Me.cmd_RecientServers.Text = "Recient Servers"
         '
+        'cmd_RecientServer1
         '
-        Me.cmdRecentServer1.ButtonElement.AccessibleDescription = "(None)"
-        Me.cmdRecentServer1.ButtonElement.AccessibleName = "(None)"
-        Me.cmdRecentServer1.Enabled = False
-        Me.cmdRecentServer1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdRecentServer1.Image = Global.nexIRC.My.Resources.Resources.network
-        Me.cmdRecentServer1.Name = "cmdRecentServer1"
-        Me.cmdRecentServer1.Text = "(None)"
-        Me.cmdRecentServer1.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_RecientServer1.Name = "cmd_RecientServer1"
+        Me.cmd_RecientServer1.Size = New System.Drawing.Size(155, 22)
+        Me.cmd_RecientServer1.Text = "(Empty)"
         '
-        'cmdRecentServer2
+        'cmd_RecientServer2
         '
-        Me.cmdRecentServer2.AccessibleDescription = "(None)"
-        Me.cmdRecentServer2.AccessibleName = "(None)"
+        Me.cmd_RecientServer2.Name = "cmd_RecientServer2"
+        Me.cmd_RecientServer2.Size = New System.Drawing.Size(155, 22)
+        Me.cmd_RecientServer2.Text = "(Empty)"
         '
+        'cmd_RecientServer3
         '
+        Me.cmd_RecientServer3.Name = "cmd_RecientServer3"
+        Me.cmd_RecientServer3.Size = New System.Drawing.Size(155, 22)
+        Me.cmd_RecientServer3.Text = "(Empty)"
         '
-        Me.cmdRecentServer2.ButtonElement.AccessibleDescription = "(None)"
-        Me.cmdRecentServer2.ButtonElement.AccessibleName = "(None)"
-        Me.cmdRecentServer2.Enabled = False
-        Me.cmdRecentServer2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdRecentServer2.Image = Global.nexIRC.My.Resources.Resources.network
-        Me.cmdRecentServer2.Name = "cmdRecentServer2"
-        Me.cmdRecentServer2.Text = "(None)"
-        Me.cmdRecentServer2.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        'cmd_Sep2387682
         '
-        'cmdRecentServer3
+        Me.cmd_Sep2387682.Name = "cmd_Sep2387682"
+        Me.cmd_Sep2387682.Size = New System.Drawing.Size(152, 6)
         '
-        Me.cmdRecentServer3.AccessibleDescription = "Recent Server 3"
-        Me.cmdRecentServer3.AccessibleName = "Recent Server 3"
+        'cmd_ClearHistory
         '
+        Me.cmd_ClearHistory.Name = "cmd_ClearHistory"
+        Me.cmd_ClearHistory.Size = New System.Drawing.Size(155, 22)
+        Me.cmd_ClearHistory.Text = "Clear History"
         '
+        'cmd_NewStatusWindow
         '
-        Me.cmdRecentServer3.ButtonElement.AccessibleDescription = "(None)"
-        Me.cmdRecentServer3.ButtonElement.AccessibleName = "(None)"
-        Me.cmdRecentServer3.Enabled = False
-        Me.cmdRecentServer3.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdRecentServer3.Image = Global.nexIRC.My.Resources.Resources.network
-        Me.cmdRecentServer3.Name = "cmdRecentServer3"
-        Me.cmdRecentServer3.Text = "(None)"
-        Me.cmdRecentServer3.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_NewStatusWindow.Image = Global.nexIRC.My.Resources.Resources.add1
+        Me.cmd_NewStatusWindow.Name = "cmd_NewStatusWindow"
+        Me.cmd_NewStatusWindow.Size = New System.Drawing.Size(222, 22)
+        Me.cmd_NewStatusWindow.Text = "New Status Window"
         '
-        'cmdSep4
+        'cmd_Sep398269823
         '
-        Me.cmdSep4.AccessibleDescription = "cmdSep4"
-        Me.cmdSep4.AccessibleName = "cmdSep4"
-        Me.cmdSep4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSep4.Name = "cmdSep4"
-        Me.cmdSep4.Text = "cmdSep4"
-        Me.cmdSep4.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_Sep398269823.Name = "cmd_Sep398269823"
+        Me.cmd_Sep398269823.Size = New System.Drawing.Size(219, 6)
         '
-        'cmdClearHistory
+        'mnu_Commands
         '
-        Me.cmdClearHistory.AccessibleDescription = "Clear History"
-        Me.cmdClearHistory.AccessibleName = "Clear History"
+        Me.mnu_Commands.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_AwayMenu, Me.cmd_ServerLinks, Me.cmd_Whois, Me.cmd_Whowas, Me.cmd_Time, Me.cmd_Stats})
+        Me.mnu_Commands.Image = Global.nexIRC.My.Resources.Resources.tools
+        Me.mnu_Commands.Name = "mnu_Commands"
+        Me.mnu_Commands.Size = New System.Drawing.Size(222, 22)
+        Me.mnu_Commands.Text = "Commands"
         '
+        'cmd_AwayMenu
         '
+        Me.cmd_AwayMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_Away, Me.cmd_Back})
+        Me.cmd_AwayMenu.Name = "cmd_AwayMenu"
+        Me.cmd_AwayMenu.Size = New System.Drawing.Size(150, 22)
+        Me.cmd_AwayMenu.Text = "Away"
         '
-        Me.cmdClearHistory.ButtonElement.AccessibleDescription = "Clear History"
-        Me.cmdClearHistory.ButtonElement.AccessibleName = "Clear History"
-        Me.cmdClearHistory.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdClearHistory.Image = Global.nexIRC.My.Resources.Resources.close
-        Me.cmdClearHistory.Name = "cmdClearHistory"
-        Me.cmdClearHistory.Text = "Clear History"
-        Me.cmdClearHistory.ToolTipText = "Clear History"
-        Me.cmdClearHistory.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        'cmd_Away
         '
-        'cmdNewStatusWindow
+        Me.cmd_Away.Name = "cmd_Away"
+        Me.cmd_Away.Size = New System.Drawing.Size(110, 22)
+        Me.cmd_Away.Text = "Away"
         '
-        Me.cmdNewStatusWindow.AccessibleDescription = "New Status Window"
-        Me.cmdNewStatusWindow.AccessibleName = "New Status Window"
+        'cmd_Back
         '
+        Me.cmd_Back.Name = "cmd_Back"
+        Me.cmd_Back.Size = New System.Drawing.Size(110, 22)
+        Me.cmd_Back.Text = "Back"
         '
+        'cmd_ServerLinks
         '
-        Me.cmdNewStatusWindow.ButtonElement.AccessibleDescription = "New Status Window"
-        Me.cmdNewStatusWindow.ButtonElement.AccessibleName = "New Status Window"
-        Me.cmdNewStatusWindow.DisplayStyle = Telerik.WinControls.DisplayStyle.Image
-        Me.cmdNewStatusWindow.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdNewStatusWindow.Image = Global.nexIRC.My.Resources.Resources.add
-        Me.cmdNewStatusWindow.Name = "cmdNewStatusWindow"
-        Me.cmdNewStatusWindow.Text = "New Status Window"
-        Me.cmdNewStatusWindow.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_ServerLinks.Name = "cmd_ServerLinks"
+        Me.cmd_ServerLinks.Size = New System.Drawing.Size(150, 22)
+        Me.cmd_ServerLinks.Text = "Server Links"
         '
-        'cmdSep5
+        'cmd_Whois
         '
-        Me.cmdSep5.AccessibleDescription = "cmdSep5"
-        Me.cmdSep5.AccessibleName = "cmdSep5"
-        Me.cmdSep5.Name = "cmdSep5"
-        Me.cmdSep5.Text = "cmdSep5"
-        Me.cmdSep5.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_Whois.Name = "cmd_Whois"
+        Me.cmd_Whois.Size = New System.Drawing.Size(150, 22)
+        Me.cmd_Whois.Text = "Whois"
         '
-        'cmdCommands
+        'cmd_Whowas
         '
-        Me.cmdCommands.AccessibleDescription = "Commands"
-        Me.cmdCommands.AccessibleName = "Commands"
+        Me.cmd_Whowas.Name = "cmd_Whowas"
+        Me.cmd_Whowas.Size = New System.Drawing.Size(150, 22)
+        Me.cmd_Whowas.Text = "Whowas"
         '
+        'cmd_Time
         '
+        Me.cmd_Time.Name = "cmd_Time"
+        Me.cmd_Time.Size = New System.Drawing.Size(150, 22)
+        Me.cmd_Time.Text = "Time"
         '
-        Me.cmdCommands.ButtonElement.AccessibleDescription = "Commands"
-        Me.cmdCommands.ButtonElement.AccessibleName = "Commands"
-        Me.cmdCommands.Image = Global.nexIRC.My.Resources.Resources.forward
-        Me.cmdCommands.Items.AddRange(New Telerik.WinControls.RadItem() {Me.cmdAwayMenu, Me.cmdSep6, Me.cmdServerLinks, Me.cmdWhois, Me.cmdWhowas, Me.cmdTime, Me.cmdStats})
-        Me.cmdCommands.Name = "cmdCommands"
-        Me.cmdCommands.Text = "Commands"
-        Me.cmdCommands.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        'cmd_Stats
         '
-        'cmdAwayMenu
+        Me.cmd_Stats.Name = "cmd_Stats"
+        Me.cmd_Stats.Size = New System.Drawing.Size(150, 22)
+        Me.cmd_Stats.Text = "Stats"
         '
-        Me.cmdAwayMenu.AccessibleDescription = "Away Menu"
-        Me.cmdAwayMenu.AccessibleName = "Away Menu"
+        'cmd_Sep39879803269
         '
+        Me.cmd_Sep39879803269.Name = "cmd_Sep39879803269"
+        Me.cmd_Sep39879803269.Size = New System.Drawing.Size(219, 6)
         '
+        'cmd_Connect
         '
-        Me.cmdAwayMenu.ButtonElement.AccessibleDescription = "Away Menu"
-        Me.cmdAwayMenu.ButtonElement.AccessibleName = "Away Menu"
-        Me.cmdAwayMenu.DisplayStyle = Telerik.WinControls.DisplayStyle.Image
-        Me.cmdAwayMenu.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdAwayMenu.Image = Global.nexIRC.My.Resources.Resources.forward
-        Me.cmdAwayMenu.Items.AddRange(New Telerik.WinControls.RadItem() {Me.cmdAwayMenuAway, Me.cmdAwayMenuBack})
-        Me.cmdAwayMenu.Name = "cmdAwayMenu"
-        Me.cmdAwayMenu.Text = "Away Menu"
-        Me.cmdAwayMenu.ToolTipText = "Away Menu"
-        Me.cmdAwayMenu.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_Connect.Image = Global.nexIRC.My.Resources.Resources.network
+        Me.cmd_Connect.ImageTransparentColor = System.Drawing.Color.White
+        Me.cmd_Connect.Name = "cmd_Connect"
+        Me.cmd_Connect.Size = New System.Drawing.Size(222, 22)
+        Me.cmd_Connect.Text = "Connect"
         '
-        'cmdAwayMenuAway
+        'cmd_Disconnect
         '
-        Me.cmdAwayMenuAway.AccessibleDescription = "Away"
-        Me.cmdAwayMenuAway.AccessibleName = "Away"
+        Me.cmd_Disconnect.Image = Global.nexIRC.My.Resources.Resources.close
+        Me.cmd_Disconnect.ImageTransparentColor = System.Drawing.Color.White
+        Me.cmd_Disconnect.Name = "cmd_Disconnect"
+        Me.cmd_Disconnect.Size = New System.Drawing.Size(222, 22)
+        Me.cmd_Disconnect.Text = "Disconnect"
         '
+        'cmd_CloseConnection
         '
+        Me.cmd_CloseConnection.Name = "cmd_CloseConnection"
+        Me.cmd_CloseConnection.Size = New System.Drawing.Size(222, 22)
+        Me.cmd_CloseConnection.Text = "Quit"
         '
-        Me.cmdAwayMenuAway.ButtonElement.AccessibleDescription = "Away"
-        Me.cmdAwayMenuAway.ButtonElement.AccessibleName = "Away"
-        Me.cmdAwayMenuAway.DisplayStyle = Telerik.WinControls.DisplayStyle.Image
-        Me.cmdAwayMenuAway.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdAwayMenuAway.Image = Global.nexIRC.My.Resources.Resources.accept
-        Me.cmdAwayMenuAway.Name = "cmdAwayMenuAway"
-        Me.cmdAwayMenuAway.Text = "Away"
-        Me.cmdAwayMenuAway.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        'cmd_SelectAServer
         '
-        'cmdAwayMenuBack
+        Me.cmd_SelectAServer.Name = "cmd_SelectAServer"
+        Me.cmd_SelectAServer.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
+        Me.cmd_SelectAServer.Size = New System.Drawing.Size(222, 22)
+        Me.cmd_SelectAServer.Text = "Select a Server ..."
         '
-        Me.cmdAwayMenuBack.AccessibleDescription = "Back"
-        Me.cmdAwayMenuBack.AccessibleName = "Back"
+        'cmd_ChangeConnection
         '
+        Me.cmd_ChangeConnection.Name = "cmd_ChangeConnection"
+        Me.cmd_ChangeConnection.Size = New System.Drawing.Size(222, 22)
+        Me.cmd_ChangeConnection.Text = "Change Connection"
         '
+        'cmd_Sep3298079802
         '
-        Me.cmdAwayMenuBack.ButtonElement.AccessibleDescription = "Back"
-        Me.cmdAwayMenuBack.ButtonElement.AccessibleName = "Back"
-        Me.cmdAwayMenuBack.DisplayStyle = Telerik.WinControls.DisplayStyle.Image
-        Me.cmdAwayMenuBack.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdAwayMenuBack.Image = Global.nexIRC.My.Resources.Resources.accept
-        Me.cmdAwayMenuBack.Name = "cmdAwayMenuBack"
-        Me.cmdAwayMenuBack.Text = "Back"
-        Me.cmdAwayMenuBack.ToolTipText = "Back"
-        Me.cmdAwayMenuBack.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_Sep3298079802.Name = "cmd_Sep3298079802"
+        Me.cmd_Sep3298079802.Size = New System.Drawing.Size(219, 6)
         '
-        'cmdSep6
+        'cmd_CloseStatus
         '
-        Me.cmdSep6.AccessibleDescription = "RadMenuSeparatorItem1"
-        Me.cmdSep6.AccessibleName = "RadMenuSeparatorItem1"
-        Me.cmdSep6.Name = "cmdSep6"
-        Me.cmdSep6.Text = "RadMenuSeparatorItem1"
-        Me.cmdSep6.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_CloseStatus.Image = Global.nexIRC.My.Resources.Resources.close
+        Me.cmd_CloseStatus.ImageTransparentColor = System.Drawing.Color.White
+        Me.cmd_CloseStatus.Name = "cmd_CloseStatus"
+        Me.cmd_CloseStatus.Size = New System.Drawing.Size(222, 22)
+        Me.cmd_CloseStatus.Text = "Close Status"
         '
-        'cmdServerLinks
+        'cmd_Sep398792
         '
-        Me.cmdServerLinks.AccessibleDescription = "Server Links"
-        Me.cmdServerLinks.AccessibleName = "Server Links"
+        Me.cmd_Sep398792.Name = "cmd_Sep398792"
+        Me.cmd_Sep398792.Size = New System.Drawing.Size(219, 6)
         '
+        'cmd_Exit
         '
+        Me.cmd_Exit.Image = Global.nexIRC.My.Resources.Resources.delete
+        Me.cmd_Exit.ImageTransparentColor = System.Drawing.Color.White
+        Me.cmd_Exit.Name = "cmd_Exit"
+        Me.cmd_Exit.Size = New System.Drawing.Size(222, 22)
+        Me.cmd_Exit.Text = "Exit nexIRC"
         '
-        Me.cmdServerLinks.ButtonElement.AccessibleDescription = "Server Links"
-        Me.cmdServerLinks.ButtonElement.AccessibleName = "Server Links"
-        Me.cmdServerLinks.DisplayStyle = Telerik.WinControls.DisplayStyle.Image
-        Me.cmdServerLinks.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdServerLinks.Image = Global.nexIRC.My.Resources.Resources.forward
-        Me.cmdServerLinks.Name = "cmdServerLinks"
-        Me.cmdServerLinks.Text = "Server Links"
-        Me.cmdServerLinks.ToolTipText = "Server Links"
-        Me.cmdServerLinks.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        'cmd_Customize
         '
-        'cmdWhois
+        Me.cmd_Customize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmd_Customize.Image = Global.nexIRC.My.Resources.Resources.applications
+        Me.cmd_Customize.ImageTransparentColor = System.Drawing.Color.White
+        Me.cmd_Customize.Name = "cmd_Customize"
+        Me.cmd_Customize.Size = New System.Drawing.Size(23, 22)
+        Me.cmd_Customize.Text = "Customize"
         '
-        Me.cmdWhois.AccessibleDescription = "Whois"
-        Me.cmdWhois.AccessibleName = "Whois"
+        'cmd_Media
         '
+        Me.cmd_Media.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmd_Media.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_PlayVideo})
+        Me.cmd_Media.Image = Global.nexIRC.My.Resources.Resources.film
+        Me.cmd_Media.ImageTransparentColor = System.Drawing.Color.White
+        Me.cmd_Media.Name = "cmd_Media"
+        Me.cmd_Media.Size = New System.Drawing.Size(32, 22)
+        Me.cmd_Media.Text = "Media"
         '
+        'cmd_PlayVideo
         '
-        Me.cmdWhois.ButtonElement.AccessibleDescription = "Whois"
-        Me.cmdWhois.ButtonElement.AccessibleName = "Whois"
-        Me.cmdWhois.DisplayStyle = Telerik.WinControls.DisplayStyle.Image
-        Me.cmdWhois.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdWhois.Name = "cmdWhois"
-        Me.cmdWhois.Text = "Whois"
-        Me.cmdWhois.ToolTipText = "Whois"
-        Me.cmdWhois.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_PlayVideo.Name = "cmd_PlayVideo"
+        Me.cmd_PlayVideo.Size = New System.Drawing.Size(142, 22)
+        Me.cmd_PlayVideo.Text = "Play Video"
         '
-        'cmdWhowas
+        'cmd_DCC
         '
-        Me.cmdWhowas.AccessibleDescription = "RadMenuButtonItem1"
-        Me.cmdWhowas.AccessibleName = "RadMenuButtonItem1"
+        Me.cmd_DCC.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmd_DCC.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_DCCSend, Me.cmd_DCCChat, Me.cmd_Sep908372, Me.cmd_DownloadManager})
+        Me.cmd_DCC.Image = Global.nexIRC.My.Resources.Resources.tools
+        Me.cmd_DCC.ImageTransparentColor = System.Drawing.Color.White
+        Me.cmd_DCC.Name = "cmd_DCC"
+        Me.cmd_DCC.Size = New System.Drawing.Size(32, 22)
+        Me.cmd_DCC.Text = "DCC"
         '
+        'cmd_DCCSend
         '
+        Me.cmd_DCCSend.Name = "cmd_DCCSend"
+        Me.cmd_DCCSend.Size = New System.Drawing.Size(196, 22)
+        Me.cmd_DCCSend.Text = "DCC Send"
         '
-        Me.cmdWhowas.ButtonElement.AccessibleDescription = "RadMenuButtonItem1"
-        Me.cmdWhowas.ButtonElement.AccessibleName = "RadMenuButtonItem1"
-        Me.cmdWhowas.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdWhowas.Name = "cmdWhowas"
-        Me.cmdWhowas.Text = "RadMenuButtonItem1"
-        Me.cmdWhowas.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        'cmd_DCCChat
         '
-        'cmdTime
+        Me.cmd_DCCChat.Name = "cmd_DCCChat"
+        Me.cmd_DCCChat.Size = New System.Drawing.Size(196, 22)
+        Me.cmd_DCCChat.Text = "DCC Chat"
         '
-        Me.cmdTime.AccessibleDescription = "RadMenuButtonItem2"
-        Me.cmdTime.AccessibleName = "RadMenuButtonItem2"
+        'cmd_Sep908372
         '
+        Me.cmd_Sep908372.Name = "cmd_Sep908372"
+        Me.cmd_Sep908372.Size = New System.Drawing.Size(193, 6)
         '
+        'cmd_DownloadManager
         '
-        Me.cmdTime.ButtonElement.AccessibleDescription = "RadMenuButtonItem2"
-        Me.cmdTime.ButtonElement.AccessibleName = "RadMenuButtonItem2"
-        Me.cmdTime.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdTime.Name = "cmdTime"
-        Me.cmdTime.Text = "RadMenuButtonItem2"
-        Me.cmdTime.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_DownloadManager.Name = "cmd_DownloadManager"
+        Me.cmd_DownloadManager.Size = New System.Drawing.Size(196, 22)
+        Me.cmd_DownloadManager.Text = "Download Manager"
         '
-        'cmdStats
+        'ToolStripSeparator1
         '
-        Me.cmdStats.AccessibleDescription = "RadMenuButtonItem3"
-        Me.cmdStats.AccessibleName = "RadMenuButtonItem3"
+        Me.ToolStripSeparator1.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
+        'cmd_Channels
         '
+        Me.cmd_Channels.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmd_Channels.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_ChannelFolder, Me.cmd_ListChannels})
+        Me.cmd_Channels.Image = Global.nexIRC.My.Resources.Resources.web
+        Me.cmd_Channels.ImageTransparentColor = System.Drawing.Color.White
+        Me.cmd_Channels.Name = "cmd_Channels"
+        Me.cmd_Channels.Size = New System.Drawing.Size(32, 22)
+        Me.cmd_Channels.Text = "Channels"
         '
-        Me.cmdStats.ButtonElement.AccessibleDescription = "RadMenuButtonItem3"
-        Me.cmdStats.ButtonElement.AccessibleName = "RadMenuButtonItem3"
-        Me.cmdStats.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdStats.Name = "cmdStats"
-        Me.cmdStats.Text = "RadMenuButtonItem3"
-        Me.cmdStats.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        'cmd_ChannelFolder
         '
-        'cmdSep1
+        Me.cmd_ChannelFolder.Name = "cmd_ChannelFolder"
+        Me.cmd_ChannelFolder.Size = New System.Drawing.Size(170, 22)
+        Me.cmd_ChannelFolder.Text = "Channel Folder"
         '
-        Me.cmdSep1.AccessibleDescription = "RadMenuSeparatorItem1"
-        Me.cmdSep1.AccessibleName = "RadMenuSeparatorItem1"
-        Me.cmdSep1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSep1.Name = "cmdSep1"
-        Me.cmdSep1.Text = "RadMenuSeparatorItem1"
-        Me.cmdSep1.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        'cmd_ListChannels
         '
-        'cmdConnect
+        Me.cmd_ListChannels.Name = "cmd_ListChannels"
+        Me.cmd_ListChannels.Size = New System.Drawing.Size(170, 22)
+        Me.cmd_ListChannels.Text = "List Channels"
         '
-        Me.cmdConnect.AccessibleDescription = "Connect"
-        Me.cmdConnect.AccessibleName = "Connect"
+        'ToolStripSeparator2
         '
+        Me.ToolStripSeparator2.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
         '
+        'cmd_View
         '
-        Me.cmdConnect.ButtonElement.AccessibleDescription = "Connect"
-        Me.cmdConnect.ButtonElement.AccessibleName = "Connect"
-        Me.cmdConnect.DisplayStyle = Telerik.WinControls.DisplayStyle.Image
-        Me.cmdConnect.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdConnect.Image = Global.nexIRC.My.Resources.Resources.network
-        Me.cmdConnect.Name = "cmdConnect"
-        Me.cmdConnect.Text = "Connect"
-        Me.cmdConnect.ToolTipText = "Connect"
-        Me.cmdConnect.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_View.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmd_View.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_LeftBar, Me.cmd_WindowBar, Me.ToolStripSeparator3, Me.cmd_Notepad})
+        Me.cmd_View.Image = Global.nexIRC.My.Resources.Resources.tools
+        Me.cmd_View.ImageTransparentColor = System.Drawing.Color.White
+        Me.cmd_View.Name = "cmd_View"
+        Me.cmd_View.Size = New System.Drawing.Size(32, 22)
+        Me.cmd_View.Text = "Tools"
         '
-        'cmdDisconnect
+        'cmd_LeftBar
         '
-        Me.cmdDisconnect.AccessibleDescription = "Disconnect"
-        Me.cmdDisconnect.AccessibleName = "Disconnect"
+        Me.cmd_LeftBar.Checked = True
+        Me.cmd_LeftBar.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.cmd_LeftBar.Name = "cmd_LeftBar"
+        Me.cmd_LeftBar.Size = New System.Drawing.Size(151, 22)
+        Me.cmd_LeftBar.Text = "Left Bar"
         '
+        'cmd_WindowBar
         '
+        Me.cmd_WindowBar.Checked = True
+        Me.cmd_WindowBar.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.cmd_WindowBar.Name = "cmd_WindowBar"
+        Me.cmd_WindowBar.Size = New System.Drawing.Size(151, 22)
+        Me.cmd_WindowBar.Text = "Window Bar"
         '
-        Me.cmdDisconnect.ButtonElement.AccessibleDescription = "Disconnect"
-        Me.cmdDisconnect.ButtonElement.AccessibleName = "Disconnect"
-        Me.cmdDisconnect.DisplayStyle = Telerik.WinControls.DisplayStyle.Image
-        Me.cmdDisconnect.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdDisconnect.Image = Global.nexIRC.My.Resources.Resources.close
-        Me.cmdDisconnect.Name = "cmdDisconnect"
-        Me.cmdDisconnect.Text = "Disconnect"
-        Me.cmdDisconnect.ToolTipText = "Disconnect"
-        Me.cmdDisconnect.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        'ToolStripSeparator3
         '
-        'cmdQuit
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(148, 6)
         '
-        Me.cmdQuit.AccessibleDescription = "Quit"
-        Me.cmdQuit.AccessibleName = "Quit"
+        'cmd_Notepad
         '
+        Me.cmd_Notepad.Name = "cmd_Notepad"
+        Me.cmd_Notepad.Size = New System.Drawing.Size(151, 22)
+        Me.cmd_Notepad.Text = "Notepad"
         '
+        'cmd_Window
         '
-        Me.cmdQuit.ButtonElement.AccessibleDescription = "Quit"
-        Me.cmdQuit.ButtonElement.AccessibleName = "Quit"
-        Me.cmdQuit.DisplayStyle = Telerik.WinControls.DisplayStyle.Image
-        Me.cmdQuit.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdQuit.Image = Global.nexIRC.My.Resources.Resources.close
-        Me.cmdQuit.Name = "cmdQuit"
-        Me.cmdQuit.Text = "Quit"
-        Me.cmdQuit.ToolTipText = "Quit"
-        Me.cmdQuit.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_Window.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmd_Window.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_TileHorizontal, Me.cmd_TileVertical, Me.cmd_Cascade, Me.cmd_Sep3869626, Me.cmd_ArrangeIcons, Me.ToolStripSeparator4, Me.cmd_ShowAbout})
+        Me.cmd_Window.Image = CType(resources.GetObject("cmd_Window.Image"), System.Drawing.Image)
+        Me.cmd_Window.ImageTransparentColor = System.Drawing.Color.White
+        Me.cmd_Window.Name = "cmd_Window"
+        Me.cmd_Window.Size = New System.Drawing.Size(32, 22)
+        Me.cmd_Window.Text = "Window"
         '
-        'cmdSep2
+        'cmd_TileHorizontal
         '
-        Me.cmdSep2.AccessibleDescription = "sep2"
-        Me.cmdSep2.AccessibleName = "RadMenuSeparatorItem1"
-        Me.cmdSep2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSep2.Name = "cmdSep2"
-        Me.cmdSep2.Text = "RadMenuSeparatorItem1"
-        Me.cmdSep2.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_TileHorizontal.Name = "cmd_TileHorizontal"
+        Me.cmd_TileHorizontal.Size = New System.Drawing.Size(166, 22)
+        Me.cmd_TileHorizontal.Text = "Tile Horizontal"
         '
-        'cmdSelectAServer
+        'cmd_TileVertical
         '
-        Me.cmdSelectAServer.AccessibleDescription = "Select a Server"
-        Me.cmdSelectAServer.AccessibleName = "Select a Server"
+        Me.cmd_TileVertical.Name = "cmd_TileVertical"
+        Me.cmd_TileVertical.Size = New System.Drawing.Size(166, 22)
+        Me.cmd_TileVertical.Text = "Tile Vertical"
         '
+        'cmd_Cascade
         '
+        Me.cmd_Cascade.Name = "cmd_Cascade"
+        Me.cmd_Cascade.Size = New System.Drawing.Size(166, 22)
+        Me.cmd_Cascade.Text = "Cascade"
         '
-        Me.cmdSelectAServer.ButtonElement.AccessibleDescription = "Select a Server"
-        Me.cmdSelectAServer.ButtonElement.AccessibleName = "Select a Server"
-        Me.cmdSelectAServer.DisplayStyle = Telerik.WinControls.DisplayStyle.Image
-        Me.cmdSelectAServer.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSelectAServer.Image = Global.nexIRC.My.Resources.Resources.preferences
-        Me.cmdSelectAServer.Name = "cmdSelectAServer"
-        Me.cmdSelectAServer.Text = "Select a Server"
-        Me.cmdSelectAServer.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        'cmd_Sep3869626
         '
-        'cmdChangeConnection
+        Me.cmd_Sep3869626.Name = "cmd_Sep3869626"
+        Me.cmd_Sep3869626.Size = New System.Drawing.Size(163, 6)
         '
-        Me.cmdChangeConnection.AccessibleDescription = "Change Connection"
-        Me.cmdChangeConnection.AccessibleName = "Change Connection"
+        'cmd_ArrangeIcons
         '
+        Me.cmd_ArrangeIcons.Name = "cmd_ArrangeIcons"
+        Me.cmd_ArrangeIcons.Size = New System.Drawing.Size(166, 22)
+        Me.cmd_ArrangeIcons.Text = "Arrange Icons"
         '
+        'ToolStripSeparator4
         '
-        Me.cmdChangeConnection.ButtonElement.AccessibleDescription = "Change Connection"
-        Me.cmdChangeConnection.ButtonElement.AccessibleName = "Change Connection"
-        Me.cmdChangeConnection.DisplayStyle = Telerik.WinControls.DisplayStyle.Image
-        Me.cmdChangeConnection.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdChangeConnection.Image = Global.nexIRC.My.Resources.Resources.tools
-        Me.cmdChangeConnection.Name = "cmdChangeConnection"
-        Me.cmdChangeConnection.Text = "Change Connection"
-        Me.cmdChangeConnection.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(163, 6)
         '
-        'cmdSep3
+        'cmd_ShowAbout
         '
-        Me.cmdSep3.AccessibleDescription = "RadMenuSeparatorItem1"
-        Me.cmdSep3.AccessibleName = "RadMenuSeparatorItem1"
-        Me.cmdSep3.Name = "cmdSep3"
-        Me.cmdSep3.Text = "RadMenuSeparatorItem1"
-        Me.cmdSep3.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        Me.cmd_ShowAbout.Name = "cmd_ShowAbout"
+        Me.cmd_ShowAbout.Size = New System.Drawing.Size(166, 22)
+        Me.cmd_ShowAbout.Text = "Show About"
         '
-        'cmdCloseStatus
+        'pnlLeftNav
         '
-        Me.cmdCloseStatus.AccessibleDescription = "Close Status"
-        Me.cmdCloseStatus.AccessibleName = "Close Status"
+        Me.pnlLeftNav.BackColor = System.Drawing.Color.Black
+        Me.pnlLeftNav.Controls.Add(Me.tvwConnections)
+        Me.pnlLeftNav.Cursor = System.Windows.Forms.Cursors.Default
+        Me.pnlLeftNav.Dock = System.Windows.Forms.DockStyle.Left
+        Me.pnlLeftNav.Location = New System.Drawing.Point(0, 25)
+        Me.pnlLeftNav.Margin = New System.Windows.Forms.Padding(4)
+        Me.pnlLeftNav.Name = "pnlLeftNav"
+        Me.pnlLeftNav.Padding = New System.Windows.Forms.Padding(1)
+        Me.pnlLeftNav.Size = New System.Drawing.Size(167, 306)
+        Me.pnlLeftNav.TabIndex = 25
         '
+        'tvwConnections
         '
+        Me.tvwConnections.BackColor = System.Drawing.Color.Black
+        Me.tvwConnections.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.tvwConnections.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tvwConnections.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tvwConnections.ForeColor = System.Drawing.Color.White
+        Me.tvwConnections.FullRowSelect = True
+        Me.tvwConnections.ImageIndex = 0
+        Me.tvwConnections.ImageList = Me.ImageList1
+        Me.tvwConnections.Indent = 15
+        Me.tvwConnections.ItemHeight = 18
+        Me.tvwConnections.LineColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tvwConnections.Location = New System.Drawing.Point(1, 1)
+        Me.tvwConnections.Margin = New System.Windows.Forms.Padding(0)
+        Me.tvwConnections.Name = "tvwConnections"
+        Me.tvwConnections.SelectedImageIndex = 0
+        Me.tvwConnections.Size = New System.Drawing.Size(165, 304)
+        Me.tvwConnections.TabIndex = 13
         '
-        Me.cmdCloseStatus.ButtonElement.AccessibleDescription = "Close Status"
-        Me.cmdCloseStatus.ButtonElement.AccessibleName = "Close Status"
-        Me.cmdCloseStatus.DisplayStyle = Telerik.WinControls.DisplayStyle.Image
-        Me.cmdCloseStatus.Image = Global.nexIRC.My.Resources.Resources.close
-        Me.cmdCloseStatus.Name = "cmdCloseStatus"
-        Me.cmdCloseStatus.Text = "Close Status"
-        Me.cmdCloseStatus.Visibility = Telerik.WinControls.ElementVisibility.Visible
+        'lblQueryPrompt
         '
-        'CommandBarRowElement2
+        Me.lblQueryPrompt.ForeColor = System.Drawing.Color.Black
+        Me.lblQueryPrompt.Name = "lblQueryPrompt"
+        Me.lblQueryPrompt.Size = New System.Drawing.Size(155, 22)
+        Me.lblQueryPrompt.Text = "Accept Query from (user)?"
         '
-        Me.CommandBarRowElement2.DisplayName = Nothing
-        Me.CommandBarRowElement2.MinSize = New System.Drawing.Size(25, 25)
+        'tspQueryPrompt
         '
-        'rssBottom
+        Me.tspQueryPrompt.BackColor = System.Drawing.Color.Yellow
+        Me.tspQueryPrompt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.tspQueryPrompt.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tspQueryPrompt.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.tspQueryPrompt.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblQueryPrompt, Me.cmdAcceptQuery, Me.cmdDeclineQuery})
+        Me.tspQueryPrompt.Location = New System.Drawing.Point(167, 25)
+        Me.tspQueryPrompt.Name = "tspQueryPrompt"
+        Me.tspQueryPrompt.Padding = New System.Windows.Forms.Padding(0)
+        Me.tspQueryPrompt.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
+        Me.tspQueryPrompt.ShowItemToolTips = False
+        Me.tspQueryPrompt.Size = New System.Drawing.Size(652, 25)
+        Me.tspQueryPrompt.TabIndex = 27
+        Me.tspQueryPrompt.Visible = False
         '
-        Me.rssBottom.AutoSize = True
-        Me.rssBottom.LayoutStyle = Telerik.WinControls.UI.RadStatusBarLayoutStyle.Stack
-        Me.rssBottom.Location = New System.Drawing.Point(0, 372)
-        Me.rssBottom.Name = "rssBottom"
-        Me.rssBottom.Size = New System.Drawing.Size(772, 24)
-        Me.rssBottom.TabIndex = 2
-        Me.rssBottom.Text = "RadStatusStrip1"
+        'cmdAcceptQuery
         '
-        'tvwLeft
+        Me.cmdAcceptQuery.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.cmdAcceptQuery.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.cmdAcceptQuery.ForeColor = System.Drawing.Color.Blue
+        Me.cmdAcceptQuery.Image = CType(resources.GetObject("cmdAcceptQuery.Image"), System.Drawing.Image)
+        Me.cmdAcceptQuery.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdAcceptQuery.Name = "cmdAcceptQuery"
+        Me.cmdAcceptQuery.Size = New System.Drawing.Size(50, 22)
+        Me.cmdAcceptQuery.Text = "Accept"
         '
-        Me.tvwLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.tvwLeft.Location = New System.Drawing.Point(0, 55)
-        Me.tvwLeft.Name = "tvwLeft"
-        Me.tvwLeft.Size = New System.Drawing.Size(150, 317)
-        Me.tvwLeft.SpacingBetweenNodes = -1
-        Me.tvwLeft.TabIndex = 3
-        Me.tvwLeft.Text = "RadTreeView1"
+        'cmdDeclineQuery
+        '
+        Me.cmdDeclineQuery.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.cmdDeclineQuery.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.cmdDeclineQuery.ForeColor = System.Drawing.Color.Blue
+        Me.cmdDeclineQuery.Image = CType(resources.GetObject("cmdDeclineQuery.Image"), System.Drawing.Image)
+        Me.cmdDeclineQuery.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdDeclineQuery.Name = "cmdDeclineQuery"
+        Me.cmdDeclineQuery.Size = New System.Drawing.Size(39, 22)
+        Me.cmdDeclineQuery.Text = "Deny"
+        '
+        'lblUser
+        '
+        Me.lblUser.BackColor = System.Drawing.Color.Yellow
+        Me.lblUser.ForeColor = System.Drawing.Color.Black
+        Me.lblUser.Name = "lblUser"
+        Me.lblUser.Size = New System.Drawing.Size(254, 22)
+        Me.lblUser.Text = "Download the file (file) from the user (user)?"
+        '
+        'tspDCCToolBar
+        '
+        Me.tspDCCToolBar.BackColor = System.Drawing.Color.Yellow
+        Me.tspDCCToolBar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.tspDCCToolBar.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tspDCCToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.tspDCCToolBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblUser, Me.cmdAccept, Me.cmdDeny})
+        Me.tspDCCToolBar.Location = New System.Drawing.Point(167, 25)
+        Me.tspDCCToolBar.Name = "tspDCCToolBar"
+        Me.tspDCCToolBar.Padding = New System.Windows.Forms.Padding(0)
+        Me.tspDCCToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
+        Me.tspDCCToolBar.ShowItemToolTips = False
+        Me.tspDCCToolBar.Size = New System.Drawing.Size(652, 25)
+        Me.tspDCCToolBar.TabIndex = 29
+        Me.tspDCCToolBar.Visible = False
+        '
+        'cmdAccept
+        '
+        Me.cmdAccept.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.cmdAccept.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.cmdAccept.ForeColor = System.Drawing.Color.Blue
+        Me.cmdAccept.Image = CType(resources.GetObject("cmdAccept.Image"), System.Drawing.Image)
+        Me.cmdAccept.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdAccept.Name = "cmdAccept"
+        Me.cmdAccept.Size = New System.Drawing.Size(50, 22)
+        Me.cmdAccept.Text = "Accept"
+        '
+        'cmdDeny
+        '
+        Me.cmdDeny.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.cmdDeny.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.cmdDeny.ForeColor = System.Drawing.Color.Blue
+        Me.cmdDeny.Image = CType(resources.GetObject("cmdDeny.Image"), System.Drawing.Image)
+        Me.cmdDeny.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdDeny.Name = "cmdDeny"
+        Me.cmdDeny.Size = New System.Drawing.Size(39, 22)
+        Me.cmdDeny.Text = "Deny"
+        '
+        'fdgOpen
+        '
+        Me.fdgOpen.Title = "nexIRC - Open"
+        '
+        'tspRedirect
+        '
+        Me.tspRedirect.BackColor = System.Drawing.Color.Yellow
+        Me.tspRedirect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.tspRedirect.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tspRedirect.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.tspRedirect.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblRedirectMessage, Me.cmdRedirectAccept, Me.cmdRedirectDeny})
+        Me.tspRedirect.Location = New System.Drawing.Point(167, 25)
+        Me.tspRedirect.Name = "tspRedirect"
+        Me.tspRedirect.Padding = New System.Windows.Forms.Padding(0)
+        Me.tspRedirect.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
+        Me.tspRedirect.ShowItemToolTips = False
+        Me.tspRedirect.Size = New System.Drawing.Size(652, 25)
+        Me.tspRedirect.TabIndex = 31
+        Me.tspRedirect.Visible = False
+        '
+        'lblRedirectMessage
+        '
+        Me.lblRedirectMessage.ForeColor = System.Drawing.Color.Black
+        Me.lblRedirectMessage.Name = "lblRedirectMessage"
+        Me.lblRedirectMessage.Size = New System.Drawing.Size(362, 22)
+        Me.lblRedirectMessage.Text = "Notice: You've been redirected from (Channel A) to (Channel B)"
+        '
+        'cmdRedirectAccept
+        '
+        Me.cmdRedirectAccept.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.cmdRedirectAccept.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.cmdRedirectAccept.ForeColor = System.Drawing.Color.Blue
+        Me.cmdRedirectAccept.Image = CType(resources.GetObject("cmdRedirectAccept.Image"), System.Drawing.Image)
+        Me.cmdRedirectAccept.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdRedirectAccept.Name = "cmdRedirectAccept"
+        Me.cmdRedirectAccept.Size = New System.Drawing.Size(27, 22)
+        Me.cmdRedirectAccept.Text = "OK"
+        '
+        'cmdRedirectDeny
+        '
+        Me.cmdRedirectDeny.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.cmdRedirectDeny.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.cmdRedirectDeny.ForeColor = System.Drawing.Color.Blue
+        Me.cmdRedirectDeny.Image = CType(resources.GetObject("cmdRedirectDeny.Image"), System.Drawing.Image)
+        Me.cmdRedirectDeny.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdRedirectDeny.Name = "cmdRedirectDeny"
+        Me.cmdRedirectDeny.Size = New System.Drawing.Size(39, 22)
+        Me.cmdRedirectDeny.Text = "Deny"
+        Me.cmdRedirectDeny.Visible = False
+        '
+        'tmrWaitForQuit
+        '
+        Me.tmrWaitForQuit.Interval = 1500
+        '
+        'tmrHideRedirect
+        '
+        Me.tmrHideRedirect.Interval = 6000
         '
         'mdiMain
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AccessibleRole = System.Windows.Forms.AccessibleRole.Window
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(772, 396)
-        Me.Controls.Add(Me.tvwLeft)
-        Me.Controls.Add(Me.rssBottom)
-        Me.Controls.Add(Me.rcbTop)
+        Me.BackColor = System.Drawing.Color.Black
+        Me.BackgroundImage = Global.nexIRC.My.Resources.Resources.bg
+        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ClientSize = New System.Drawing.Size(819, 356)
+        Me.Controls.Add(Me.tspQueryPrompt)
+        Me.Controls.Add(Me.tspDCCToolBar)
+        Me.Controls.Add(Me.tspRedirect)
+        Me.Controls.Add(Me.pnlLeftNav)
+        Me.Controls.Add(Me.tspMain)
+        Me.Controls.Add(Me.tspWindows)
+        Me.Controls.Add(Me.cmdLeftBar)
+        Me.DoubleBuffered = True
+        Me.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.IsMdiContainer = True
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "mdiMain"
-        '
-        '
-        '
-        Me.RootElement.ApplyShapeToControl = True
         Me.Text = "nexIRC"
-        CType(Me.rcbTop, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.rssBottom, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tvwLeft, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tspMain.ResumeLayout(False)
+        Me.tspMain.PerformLayout()
+        Me.pnlLeftNav.ResumeLayout(False)
+        Me.tspQueryPrompt.ResumeLayout(False)
+        Me.tspQueryPrompt.PerformLayout()
+        Me.tspDCCToolBar.ResumeLayout(False)
+        Me.tspDCCToolBar.PerformLayout()
+        Me.tspRedirect.ResumeLayout(False)
+        Me.tspRedirect.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents rcbTop As Telerik.WinControls.UI.RadCommandBar
-    Friend WithEvents CommandBarRowElement1 As Telerik.WinControls.UI.CommandBarRowElement
-    Friend WithEvents CommandBarStripElement1 As Telerik.WinControls.UI.CommandBarStripElement
-    Friend WithEvents rssBottom As Telerik.WinControls.UI.RadStatusStrip
-    Friend WithEvents tvwLeft As Telerik.WinControls.UI.RadTreeView
-    Friend WithEvents cmdConnection As Telerik.WinControls.UI.CommandBarDropDownButton
-    Friend WithEvents cmdConnect As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdDisconnect As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdNewStatusWindow As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdSep1 As Telerik.WinControls.UI.RadMenuSeparatorItem
-    Friend WithEvents cmdQuit As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdSep2 As Telerik.WinControls.UI.RadMenuSeparatorItem
-    Friend WithEvents cmdSelectAServer As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdChangeConnection As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdSep3 As Telerik.WinControls.UI.RadMenuSeparatorItem
-    Friend WithEvents cmdCloseStatus As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdRecentServers As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdRecentServer1 As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdRecentServer2 As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdRecentServer3 As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdSep4 As Telerik.WinControls.UI.RadMenuSeparatorItem
-    Friend WithEvents cmdClearHistory As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdSep5 As Telerik.WinControls.UI.RadMenuSeparatorItem
-    Friend WithEvents cmdCommands As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdAwayMenu As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdServerLinks As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdWhois As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdAwayMenuAway As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdAwayMenuBack As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdSep6 As Telerik.WinControls.UI.RadMenuSeparatorItem
-    Friend WithEvents cmdWhowas As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdTime As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents cmdStats As Telerik.WinControls.UI.RadMenuButtonItem
-    Friend WithEvents CommandBarRowElement2 As Telerik.WinControls.UI.CommandBarRowElement
+    Friend WithEvents nicSystray As System.Windows.Forms.NotifyIcon
+    Friend WithEvents tmrFlashDCCToolBar As System.Windows.Forms.Timer
+    Friend WithEvents cmdLeftBar As System.Windows.Forms.Button
+    Friend WithEvents cboAllServers As System.Windows.Forms.ToolStripComboBox
+    Friend WithEvents FontDialog1 As System.Windows.Forms.FontDialog
+    Friend WithEvents tspWindows As System.Windows.Forms.ToolStrip
+    Friend WithEvents tmrStartupSettings As System.Windows.Forms.Timer
+    Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
+    Friend WithEvents tspMain As System.Windows.Forms.ToolStrip
+    Friend WithEvents cmd_Connection As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents cmd_RecientServers As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_RecientServer1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_RecientServer2 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_RecientServer3 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Sep2387682 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents cmd_ClearHistory As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_NewStatusWindow As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Sep398269823 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents mnu_Commands As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_AwayMenu As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Away As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Back As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_ServerLinks As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Whois As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Whowas As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Time As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Stats As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Sep39879803269 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents cmd_Connect As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Disconnect As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_CloseConnection As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_SelectAServer As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_ChangeConnection As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Sep3298079802 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents cmd_CloseStatus As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Sep398792 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents cmd_Exit As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Customize As System.Windows.Forms.ToolStripButton
+    Friend WithEvents cmd_Media As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents cmd_PlayVideo As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_DCC As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents cmd_DCCSend As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_DCCChat As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Sep908372 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents cmd_DownloadManager As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents cmd_Channels As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents cmd_ChannelFolder As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_ListChannels As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents cmd_View As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents cmd_LeftBar As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_WindowBar As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents cmd_Notepad As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Window As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents cmd_TileHorizontal As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_TileVertical As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Cascade As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmd_Sep3869626 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents cmd_ArrangeIcons As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents pnlLeftNav As System.Windows.Forms.Panel
+    Friend WithEvents tvwConnections As System.Windows.Forms.TreeView
+    Friend WithEvents lblQueryPrompt As System.Windows.Forms.ToolStripLabel
+    Friend WithEvents cmdAcceptQuery As System.Windows.Forms.ToolStripButton
+    Friend WithEvents cmdDeclineQuery As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tspQueryPrompt As System.Windows.Forms.ToolStrip
+    Friend WithEvents lblUser As System.Windows.Forms.ToolStripLabel
+    Friend WithEvents cmdAccept As System.Windows.Forms.ToolStripButton
+    Friend WithEvents cmdDeny As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tspDCCToolBar As System.Windows.Forms.ToolStrip
+    Friend WithEvents fdgOpen As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents ToolTip As System.Windows.Forms.ToolTip
+    Friend WithEvents ToolStripSeparator4 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents cmd_ShowAbout As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Timer1 As System.Windows.Forms.Timer
+    Friend WithEvents tspRedirect As System.Windows.Forms.ToolStrip
+    Friend WithEvents lblRedirectMessage As System.Windows.Forms.ToolStripLabel
+    Friend WithEvents cmdRedirectAccept As System.Windows.Forms.ToolStripButton
+    Friend WithEvents cmdRedirectDeny As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tmrWaitForQuit As System.Windows.Forms.Timer
+    Friend WithEvents tmrHideRedirect As System.Windows.Forms.Timer
+    'Friend WithEvents cmdConnection As System.Windows.Forms.ToolStripSplitButton
+    'Friend WithEvents mnuNewStatusWindow As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuSep76829639 As System.Windows.Forms.ToolStripSeparator
+    'Friend WithEvents mnuConnect As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuDisconnect As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuSep63574325 As System.Windows.Forms.ToolStripSeparator
+    'Friend WithEvents cmdDownloadManager As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuServerLinks As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuSep36587263875 As System.Windows.Forms.ToolStripSeparator
+    'Friend WithEvents mnuUnloadActive As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuExit As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents cmdChannels As System.Windows.Forms.ToolStripSplitButton
+    'Friend WithEvents mnuJoinChannel As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
+    'Friend WithEvents mnuChannelList As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuChannelFolder As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents cmdCustomize As System.Windows.Forms.ToolStripButton
+    'Friend WithEvents cmdDCC As System.Windows.Forms.ToolStripSplitButton
+    'Friend WithEvents mnuSendFile As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuDCCChat As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    'Friend WithEvents cmdWindow As System.Windows.Forms.ToolStripSplitButton
+    'Friend WithEvents mnuCascade As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuTileHorizontally As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuTileVertically As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuArrangeIcons As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuConnection As System.Windows.Forms.ContextMenuStrip
+    'Friend WithEvents mnuConnectionsConnect As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuConnectionsDisconnect As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuStatus As System.Windows.Forms.ContextMenuStrip
+    'Friend WithEvents mnuStatusExit As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuStatusListChannels As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuNetworkSettings As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuRecientServers As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuRecientServerList1 As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuRecientServerList2 As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuRecientServerList3 As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents mnuSep3982698372 As System.Windows.Forms.ToolStripSeparator
+    'Friend WithEvents mnuSep234987639 As System.Windows.Forms.ToolStripSeparator
+    'Friend WithEvents mnuClearHistory As System.Windows.Forms.ToolStripMenuItem
+    'Friend WithEvents ToolStripSeparator6 As System.Windows.Forms.ToolStripSeparator
+    'Friend WithEvents ToolStripSeparator7 As System.Windows.Forms.ToolStripSeparator
+    'Friend WithEvents ToolStripSeparator9 As System.Windows.Forms.ToolStripSeparator
 End Class
-

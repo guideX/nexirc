@@ -28,6 +28,7 @@
   - (Disabled) Help menu
 
  mdiMain (Strict):
+  - (Needs attention) Browser's Y2 isn't resizing far down enough to hide minimized windows
   - (Needs attention) Toggle sidebar button doesn't resize browser
   - (Needs attention) Window bar doesn't show all channels joined
   - (Needs attention) Window bar fuzzy match errors when two channels with the same name happens and the user tries to go to one 

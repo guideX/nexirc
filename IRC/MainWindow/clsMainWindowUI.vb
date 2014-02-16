@@ -2,12 +2,11 @@
 Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
-Imports Telerik.WinControls.UI
-Imports Telerik.WinControls
 Namespace nexIRC.MainWindow
     Public Class clsMainWindowUI
         Public WithEvents lProcesses As New clsProcess
         Public lVideo As New gVideo
+        Public lBrowser As gBrowser
         Private lLoadingForm As New frmLoading
         Private lFlashesLeft As Integer
         Public Structure gVideo
@@ -34,14 +33,12 @@ Namespace nexIRC.MainWindow
             iNickServ_NickTaken = 5
             iNicknameInUse = 6
         End Enum
-        Public Event QueryBarPromptLabelVisible(text As String, tag As String)
-        Public Event SetDimensions(left As Integer, top As Integer, width As Integer, height As Integer)
-        Public Event EnableStartupSettingsTimer(tickInterval As Integer)
-        Public Event FormTitle(title As String)
         Public Sub ShowQueryBar(ByVal _Text As String, ByVal _Function As eInfoBar, _QueryPromptLabel As ToolStripLabel, _ToolStrip As ToolStrip)
             Try
                 If Len(_Text) <> 0 Then
-                    RaiseEvent QueryBarPromptLabelVisible(_Text, Trim(CType(_Function, Integer).ToString))
+                    _QueryPromptLabel.Text = _Text
+                    _QueryPromptLabel.Visible = True
+                    _ToolStrip.Tag = Trim(CType(_Function, Integer).ToString)
                 End If
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub ShowQueryBar(ByVal lText As String)")
@@ -55,12 +52,9 @@ Namespace nexIRC.MainWindow
                 ProcessError(ex.Message, "Public Sub SetFlashesLeft(ByVal lValue As Integer)")
             End Try
         End Sub
-        'Public Function AddWindowBar(ByVal _Text As String, ByVal _ImageType As gWindowBarImageTypes, _ImageList As ImageList, _ToolStrip As RadStatusStrip) As Telerik.WinControls.RadItem
-        Public Function AddWindowBar(ByVal _Text As String, ByVal _ImageType As gWindowBarImageTypes, _ToolStrip As RadStatusStrip) As RadItem
+        Public Function AddWindowBar(ByVal _Text As String, ByVal _ImageType As gWindowBarImageTypes, _ImageList As ImageList, _ToolStrip As ToolStrip) As ToolStripItem
             Try
-                'LEON
-                'IMAGE IS FUCKED, FIX IT!
-                Dim i As Integer ', lImage As Image
+                Dim lImage As Image, i As Integer
                 Select Case _ImageType
                     Case gWindowBarImageTypes.wStatus
                         i = 0
@@ -71,11 +65,8 @@ Namespace nexIRC.MainWindow
                     Case gWindowBarImageTypes.wNotice
                         i = 3
                 End Select
-                'lImage = _ImageList.Images(i)
-                Dim radItem As New Telerik.WinControls.RadItem()
-                radItem.Text = _Text
-                _ToolStrip.Items.Add(radItem)
-                Return radItem
+                lImage = _ImageList.Images(i)
+                Return _ToolStrip.Items.Add(_Text, lImage)
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Function AddWindowBar(ByVal lText As String, ByVal lImageType As gWindowBarImageTypes, ByVal lSender As Object, ByVal lEventArgs As System.EventArgs) As ToolStripItem")
                 Return Nothing
@@ -94,7 +85,7 @@ Namespace nexIRC.MainWindow
                 ProcessError(ex.Message, "Public Sub RemoveWindowBar(ByVal lText As String)")
             End Try
         End Sub
-        Public Sub ClearWindowBar(_ToolStrip As RadStatusStrip)
+        Public Sub ClearWindowBar(_ToolStrip As ToolStrip)
             Try
                 _ToolStrip.Items.Clear()
             Catch ex As Exception
@@ -128,6 +119,44 @@ Namespace nexIRC.MainWindow
                 ProcessError(ex.Message, "Private Function IsPageExempt(ByVal lURL As String) As Boolean")
             End Try
         End Function
+        Public Sub BrowseURL(ByVal _URL As String, ByVal _Startup As Boolean, _Form As Form)
+            Try
+                Dim mbox As MsgBoxResult
+                If Len(_URL) = 0 Then Exit Sub
+                If lIRC.iSettings.sShowBrowser = True Then
+                    If IsPageExempt(_URL) = False Then
+                        If _Startup = False Then
+                            If lIRC.iSettings.sPrompts = True Then
+                                mbox = MsgBox("nexIRC would like to browse a webpage. Would you like to browse this page?" & vbCrLf & vbCrLf & "Details: " & _URL, MsgBoxStyle.YesNoCancel)
+                                If mbox = MsgBoxResult.No Or mbox = MsgBoxResult.Cancel Then Exit Sub
+                            End If
+                        End If
+                    End If
+                    If lBrowser.bVisible = False Then
+                        'lBrowser.bWindow = Nothing
+                        'lBrowser.bWindow = New frmBrowser
+                        'lBrowser.bWindow.MdiParent = _Form
+                        'lBrowser.bWindow.Show()
+                        'lBrowser.bVisible = True
+                    End If
+                    lBrowser.bURL = _URL
+                    'lBrowser.bWindow.WebBrowser1.Navigate(_URL)
+                    If Err.Number = 5 Then
+                        'lBrowser.bWindow = Nothing
+                        'lBrowser.bWindow = New frmBrowser
+                        'lBrowser.bWindow.MdiParent = _Form
+                        'clsAnimate.Animate(lBrowser.bWindow, clsAnimate.Effect.Center, 200, 1)
+                        'lBrowser.bVisible = True
+                        'lBrowser.bURL = _URL
+                        'lBrowser.bWindow.WebBrowser1.Navigate(_URL)
+                        'lBrowser.bWindow.Width = _Form.Width
+                        'lBrowser.bWindow.Height = _Form.Width
+                    End If
+                End If
+            Catch ex As Exception
+                ProcessError(ex.Message, "Public Sub BrowseURL(ByVal lURL As String, Optional ByVal lStartup As Boolean = False)")
+            End Try
+        End Sub
         Public Sub FormClosed(_Form As Form, _NotifyIcon As NotifyIcon, _SideBarShown As Boolean)
             Try
                 If _Form.WindowState = FormWindowState.Minimized Then _NotifyIcon.Visible = True
@@ -176,8 +205,11 @@ Namespace nexIRC.MainWindow
                 Return Nothing
             End Try
         End Function
-        Public Sub Form_Load(left As Integer, top As Integer, width As Integer, height As Integer)
+        Public Sub Form_Load(_Form As Form, _NotifyIcon As NotifyIcon, _TimerStartupSettings As Timer, _LeftBarButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
             Try
+                _WindowsToolStrip.ForeColor = Color.White
+                _NotifyIcon.Visible = True
+                _NotifyIcon.Icon = _Form.Icon
                 lLoadingForm = New frmLoading
                 clsAnimate.Animate(lLoadingForm, clsAnimate.Effect.Center, 200, 1)
                 lLoadingForm.Focus()
@@ -190,53 +222,60 @@ Namespace nexIRC.MainWindow
                 SetLoadingFormProgress("Loading Settings", 7)
                 LoadSettings()
                 SetLoadingFormProgress("Browsing URL", 95)
+                BrowseURL(lIRC.iSettings.sURL, True, _Form)
                 lLoadingForm.Focus()
                 If lServers.sIndex <> 0 Then lStatus.Create(lIRC, lServers)
-                RaiseEvent SetDimensions(CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Left", CStr(left)))), CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Top", CStr(top)))), CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Width", CStr(width)))), CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Height", CStr(height)))))
+                _Form.Left = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Left", CStr(_Form.Left))))
+                _Form.Top = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Top", CStr(_Form.Top))))
+                _Form.Width = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Width", CStr(_Form.Width))))
+                _Form.Height = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Height", CStr(_Form.Height))))
                 If lIRC.iIdent.iSettings.iEnabled = True Then
                     lIdent.InitListenSocket(113)
                 End If
                 SetLoadingFormProgress("Loading Complete", 100)
                 lLoadingForm.Close()
-                RaiseEvent EnableStartupSettingsTimer(500)
-                RaiseEvent FormTitle("nexIRC v" & Application.ProductVersion)
-                Form_Resize()
-                'FUCKED!! LEON!!
+                _TimerStartupSettings.Interval = 500
+                _TimerStartupSettings.Enabled = True
+                _Form.Text = "nexIRC v" & Application.ProductVersion
+                If (Convert.ToBoolean(clsFiles.ReadINI(lINI.iIRC, "Settings", "SideBarShown", "False")) = False) Then
+                    _LeftBarButton.Left = 0
+                    _LeftNav.Visible = False
+                End If
+                Form_Resize(_Form, _LeftBarButton, _LeftNav, _ToolStrip, _WindowsToolStrip)
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub Form_Load(_Form As Form, _NotifyIcon As NotifyIcon, _TimerStartupSettings As Timer, _LeftBarButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)")
             End Try
         End Sub
-        Public Sub Form_Resize()
+        Public Sub Form_Resize(_Form As Form, _LeftButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
             Try
-                'FUCKED! LEON!
                 'clsLockWindowUpdate.LockWindowUpdate(_Form.Handle)
-                '_LeftButton.Top = CInt(_Form.ClientSize.Height / 2)
-                'If _LeftNav.Visible = True Then
-                '_LeftButton.Left = _LeftNav.ClientSize.Width
-                'Else
-                '_LeftButton.Left = 0
-                'End If
+                _LeftButton.Top = CInt(_Form.ClientSize.Height / 2)
+                If _LeftNav.Visible = True Then
+                    _LeftButton.Left = _LeftNav.ClientSize.Width
+                Else
+                    _LeftButton.Left = 0
+                End If
                 If lVideo.vVisible = True Then
                     If lVideo.vWindow.Left <> 0 Then lVideo.vWindow.Left = 0
                     If lVideo.vWindow.Top <> 0 Then lVideo.vWindow.Top = 0
-                    'If _LeftNav.Visible = True Then
-                    'lVideo.vWindow.Width = _Form.ClientSize.Width - (_LeftNav.ClientSize.Width + 4)
-                    'Else
-                    'lVideo.vWindow.Width = _Form.ClientSize.Width - (4)
-                    'End If
-                    'If _WindowsToolStrip.Visible = True Then
-                    'If _ToolStrip.Visible = True Then
-                    'lVideo.vWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + _ToolStrip.ClientSize.Height + 4)
-                    'Else
-                    'lVideo.vWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + 4)
-                    'End If
-                    'Else
-                    'If _ToolStrip.Visible = True Then
-                    'lVideo.vWindow.Height = _Form.ClientSize.Height - (_ToolStrip.ClientSize.Height + 4)
-                    'Else
-                    'lVideo.vWindow.Height = _Form.ClientSize.Height - (4)
-                    'End If
-                    'End If
+                    If _LeftNav.Visible = True Then
+                        lVideo.vWindow.Width = _Form.ClientSize.Width - (_LeftNav.ClientSize.Width + 4)
+                    Else
+                        lVideo.vWindow.Width = _Form.ClientSize.Width - (4)
+                    End If
+                    If _WindowsToolStrip.Visible = True Then
+                        If _ToolStrip.Visible = True Then
+                            lVideo.vWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + _ToolStrip.ClientSize.Height + 4)
+                        Else
+                            lVideo.vWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + 4)
+                        End If
+                    Else
+                        If _ToolStrip.Visible = True Then
+                            lVideo.vWindow.Height = _Form.ClientSize.Height - (_ToolStrip.ClientSize.Height + 4)
+                        Else
+                            lVideo.vWindow.Height = _Form.ClientSize.Height - (4)
+                        End If
+                    End If
                 End If
                 'ResizeBrowser(_Form, _LeftNav, _ToolStrip, _WindowsToolStrip)
                 '_Form.Refresh()

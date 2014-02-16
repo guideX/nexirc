@@ -3,29 +3,11 @@ Option Strict On
 Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
 Imports nexIRC.Classes.IO
-Imports Telerik.WinControls.UI
-Imports nexIRC.clsCommandTypes
 Public Class clsChannelListUI
     Public Event SaveColumnWidths()
     Public lSortOrder As SortOrder
     Private lCurrentChannel As String
     Private lMeIndex As Integer
-    Public Sub cmdAddToChannelFolder_Click(channel As String)
-        Try
-            AddToChannelFolders(channel, lNetworks.nIndex)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub cmdAddToChannelFolder_Click(channel As String, network As Integer)")
-        End Try
-    End Sub
-    Public Sub cmdRefresh_Click(form As Form)
-        Try
-            Dim n As Integer = lStatus.ActiveIndex
-            ProcessReplaceCommand(n, eCommandTypes.cLIST, lStatus.ServerDescription(n))
-            form.Close()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdRefresh_Click()")
-        End Try
-    End Sub
     Public WriteOnly Property MeIndex() As Integer
         Set(_MeIndex As Integer)
             Try
@@ -36,7 +18,7 @@ Public Class clsChannelListUI
             End Try
         End Set
     End Property
-    Public Sub FormClosed(_ChannelsListView As RadListView, _FormLeft As Integer, _FormTop As Integer, _FormWidth As Integer, _FormHeight As Integer)
+    Public Sub FormClosed(_ChannelsListView As ListView, _FormLeft As Integer, _FormTop As Integer, _FormWidth As Integer, _FormHeight As Integer)
         Try
             clsFiles.WriteINI(lINI.iIRC, "ChannelList", "Left", _FormLeft.ToString)
             clsFiles.WriteINI(lINI.iIRC, "ChannelList", "Top", _FormTop.ToString)
@@ -48,54 +30,50 @@ Public Class clsChannelListUI
             ProcessError(ex.Message, "Private Sub frmChannelList_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed")
         End Try
     End Sub
-    Public Sub ResetList(_ListView As RadListView)
+    Public Sub ResetList(_ListView As ListView)
         Try
             _ListView.Items.Clear()
-            _ListView.ViewType = ListViewType.DetailsView
-            _ListView.Columns.Clear()
-            _ListView.Columns.Add("Channel")
-            _ListView.Columns.Add("Topic")
-            _ListView.Columns.Add("User Count")
-            _ListView.Columns(0).Width = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "lvwChannels_ColumnWidth", "1", "150")))
-            _ListView.Columns(1).Width = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "lvwChannels_ColumnWidth", "2", "350")))
-            _ListView.Columns(2).Width = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "lvwChannels_ColumnWidth", "3", "100")))
+            _ListView.View = View.Details
+            _ListView.HeaderStyle = ColumnHeaderStyle.Clickable
+            _ListView.Columns.Add("Channel", CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "lvwChannels_ColumnWidth", "1", "150"))), HorizontalAlignment.Left)
+            _ListView.Columns.Add("Topic", CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "lvwChannels_ColumnWidth", "2", "350"))), HorizontalAlignment.Left)
+            _ListView.Columns.Add("Users", CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "lvwChannels_ColumnWidth", "3", "100"))), HorizontalAlignment.Left)
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub ResetList()")
         End Try
     End Sub
-    Public Sub Load(_Form As Form, _ListView As RadListView)
+    Public Sub Load(_Form As Form, _ListView As ListView)
         Try
             _Form.Left = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "ChannelList", "Left", "300")))
             _Form.Top = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "ChannelList", "Top", "300")))
             _Form.Width = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "ChannelList", "Width", "300")))
             _Form.Height = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "ChannelList", "Height", "300")))
             _Form.MdiParent() = mdiMain
-            '_Form.Icon = mdiMain.Icon
+            _Form.Icon = mdiMain.Icon
             ResetList(_ListView)
-            _ListView.ListViewElement.BackColor = Color.Black
-            _ListView.ListViewElement.ForeColor = Color.White
-            mdiMain.Refresh()
-            Application.DoEvents()
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub frmChannelList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
         End Try
     End Sub
-    Public Sub Resize(_ListView As RadListView, _Form As Form)
+    Public Sub Resize(_ListView As ListView, _Form As Form, _ToolStripHeight As Integer)
         Try
             _ListView.Width = _Form.ClientSize.Width
-            _ListView.Height = _Form.ClientSize.Height - 30
+            _ListView.Height = _Form.ClientSize.Height - _ToolStripHeight
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub Resize()")
         End Try
     End Sub
-    Public Sub DoubleClick(_ListView As RadListView)
+    Public Sub DoubleClick(_ListView As ListView)
         Try
-            lChannels.Join(lChannelLists.ReturnStatusIndex(lMeIndex), _ListView.SelectedItem.Text)
+            Dim i As Integer
+            For i = 0 To _ListView.SelectedItems.Count
+                lChannels.Join(lChannelLists.ReturnStatusIndex(lMeIndex), lCurrentChannel)
+            Next i
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub DoubleClick()")
         End Try
     End Sub
-    Public Sub ItemSelectionChanged(_ListView As RadListView, _ItemIndex As Integer)
+    Public Sub ItemSelectionChanged(_ListView As ListView, _ItemIndex As Integer)
         Try
             lCurrentChannel = _ListView.Items(_ItemIndex).Text
         Catch ex As Exception
@@ -182,7 +160,7 @@ Public Class clsChannelList
     Public Sub Clear(_ChannelListIndex As Integer)
         Try
             With lChannelLists.cChannelList(_ChannelListIndex)
-                .cWindow.lvwChannels.Items.Clear()
+                .cWindow.lvwChannels.Clear()
             End With
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub ClearChannelListItems(lStatusIndex As Integer)")
@@ -215,6 +193,7 @@ Public Class clsChannelList
     Public Sub Display(_ChannelListIndex As Integer)
         Try
             With lChannelLists.cChannelList(_ChannelListIndex)
+                '.cWindow.Text = "Channel List [" & lStatusObjects.sStatusObject(lStatusIndex).sDescription & "]"
                 .cWindow = New frmChannelList()
                 .cWindow.Text = "Channel List [" & lStatus.Window(.cStatusIndex).Text & "]"
                 .cWindow.lvwChannels.Items.Clear()
@@ -228,20 +207,16 @@ Public Class clsChannelList
     End Sub
     Private Sub SetItems(_ChannelListIndex As Integer)
         Try
-            Dim item As ListViewDataItem, values(2) As String
+            Dim _Item As ListViewItem
             'clsLockWindowUpdate.LockWindowUpdate(lChannelLists.cChannelList(_ChannelListIndex).cWindow.lvwChannels.Handle)
             With lChannelLists.cChannelList(_ChannelListIndex)
-                .cWindow.lvwChannels.Items.Clear()
                 For i As Integer = 1 To .cItem.cCount
-                    values(0) = .cItem.cChannelListItem(i).cChannel
-                    values(1) = .cItem.cChannelListItem(i).cTopic
-                    values(2) = .cItem.cChannelListItem(i).cUserCount.ToString
-                    item = New ListViewDataItem(.cItem.cChannelListItem(i).cChannel, values)
-                    .cWindow.lvwChannels.Items.Add(item)
+                    _Item = .cWindow.lvwChannels.Items.Add(.cItem.cChannelListItem(i).cChannel)
+                    _Item.SubItems.Add(.cItem.cChannelListItem(i).cTopic)
+                    _Item.SubItems.Add(.cItem.cChannelListItem(i).cUserCount.ToString)
                 Next i
             End With
             'clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
-            lChannelLists.cChannelList(_ChannelListIndex).cWindow.lvwChannels.Visible = True
         Catch ex As Exception
             ProcessError(ex.Message, "Private Sub SetItems(_ChannelListIndex As Integer)")
         End Try

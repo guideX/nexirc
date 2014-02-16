@@ -1,17 +1,14 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmChannelList
-    Inherits Telerik.WinControls.UI.RadForm
+    Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-        Try
-            If disposing AndAlso components IsNot Nothing Then
-                components.Dispose()
-            End If
-        Finally
-            MyBase.Dispose(disposing)
-        End Try
+        If disposing AndAlso components IsNot Nothing Then
+            components.Dispose()
+        End If
+        MyBase.Dispose(disposing)
     End Sub
 
     'Required by the Windows Form Designer
@@ -22,129 +19,110 @@ Partial Class frmChannelList
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Dim ListViewDetailColumn4 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Channel")
-        Dim ListViewDetailColumn5 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Topic")
-        Dim ListViewDetailColumn6 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "User Count")
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmChannelList))
-        Me.lvwChannels = New Telerik.WinControls.UI.RadListView()
-        Me.RadCommandBar1 = New Telerik.WinControls.UI.RadCommandBar()
-        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.CommandBarRowElement1 = New Telerik.WinControls.UI.CommandBarRowElement()
-        Me.CommandBarStripElement1 = New Telerik.WinControls.UI.CommandBarStripElement()
-        Me.cmdRefresh = New Telerik.WinControls.UI.CommandBarButton()
-        Me.cmdAddToChannelFolder = New Telerik.WinControls.UI.CommandBarButton()
-        CType(Me.lvwChannels, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RadCommandBar1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.lvwChannels = New System.Windows.Forms.ListView()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.cmdRefresh = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmdAddToChannelFolder = New System.Windows.Forms.ToolStripButton()
+        Me.cmdAddToAutoJoin = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmdClose = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'lvwChannels
         '
-        ListViewDetailColumn4.HeaderText = "Channel"
-        ListViewDetailColumn5.HeaderText = "Topic"
-        ListViewDetailColumn6.HeaderText = "User Count"
-        Me.lvwChannels.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn4, ListViewDetailColumn5, ListViewDetailColumn6})
-        Me.lvwChannels.EnableColumnSort = True
-        Me.lvwChannels.EnableSorting = True
-        Me.lvwChannels.GroupItemSize = New System.Drawing.Size(200, 20)
-        Me.lvwChannels.ItemSize = New System.Drawing.Size(200, 20)
-        Me.lvwChannels.ItemSpacing = -1
-        Me.lvwChannels.Location = New System.Drawing.Point(0, 30)
+        Me.lvwChannels.BackColor = System.Drawing.Color.Black
+        Me.lvwChannels.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.lvwChannels.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lvwChannels.ForeColor = System.Drawing.Color.DeepSkyBlue
+        Me.lvwChannels.FullRowSelect = True
+        Me.lvwChannels.Location = New System.Drawing.Point(0, 25)
         Me.lvwChannels.Name = "lvwChannels"
-        Me.lvwChannels.Size = New System.Drawing.Size(533, 210)
+        Me.lvwChannels.Size = New System.Drawing.Size(274, 113)
         Me.lvwChannels.TabIndex = 0
-        Me.lvwChannels.ViewType = Telerik.WinControls.UI.ListViewType.DetailsView
-        Me.lvwChannels.Visible = False
+        Me.lvwChannels.UseCompatibleStateImageBehavior = False
         '
-        'RadCommandBar1
+        'ToolStrip1
         '
-        Me.RadCommandBar1.AutoSize = True
-        Me.RadCommandBar1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.RadCommandBar1.ImageList = Me.ImageList1
-        Me.RadCommandBar1.Location = New System.Drawing.Point(0, 0)
-        Me.RadCommandBar1.Name = "RadCommandBar1"
-        Me.RadCommandBar1.Rows.AddRange(New Telerik.WinControls.UI.CommandBarRowElement() {Me.CommandBarRowElement1})
-        Me.RadCommandBar1.Size = New System.Drawing.Size(883, 55)
-        Me.RadCommandBar1.TabIndex = 1
-        Me.RadCommandBar1.Text = "RadCommandBar1"
-        '
-        'ImageList1
-        '
-        Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
-        Me.ImageList1.Images.SetKeyName(0, "refresh.png")
-        Me.ImageList1.Images.SetKeyName(1, "add.png")
-        '
-        'CommandBarRowElement1
-        '
-        Me.CommandBarRowElement1.BorderBoxStyle = Telerik.WinControls.BorderBoxStyle.SingleBorder
-        Me.CommandBarRowElement1.DisplayName = Nothing
-        Me.CommandBarRowElement1.MinSize = New System.Drawing.Size(25, 25)
-        Me.CommandBarRowElement1.Strips.AddRange(New Telerik.WinControls.UI.CommandBarStripElement() {Me.CommandBarStripElement1})
-        '
-        'CommandBarStripElement1
-        '
-        Me.CommandBarStripElement1.DisplayName = "CommandBarStripElement1"
-        Me.CommandBarStripElement1.FloatingForm = Nothing
-        Me.CommandBarStripElement1.Items.AddRange(New Telerik.WinControls.UI.RadCommandBarBaseItem() {Me.cmdRefresh, Me.cmdAddToChannelFolder})
-        Me.CommandBarStripElement1.Name = "CommandBarStripElement1"
-        Me.CommandBarStripElement1.Text = ""
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdRefresh, Me.ToolStripSeparator1, Me.cmdAddToChannelFolder, Me.cmdAddToAutoJoin, Me.ToolStripSeparator2, Me.cmdClose})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
+        Me.ToolStrip1.Size = New System.Drawing.Size(345, 25)
+        Me.ToolStrip1.TabIndex = 1
+        Me.ToolStrip1.Text = "ToolStrip1"
         '
         'cmdRefresh
         '
-        Me.cmdRefresh.AccessibleDescription = "Refresh"
-        Me.cmdRefresh.AccessibleName = "Refresh"
-        Me.cmdRefresh.DisplayName = "CommandBarButton1"
-        Me.cmdRefresh.Image = CType(resources.GetObject("cmdRefresh.Image"), System.Drawing.Image)
-        Me.cmdRefresh.ImageIndex = 0
+        Me.cmdRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmdRefresh.Image = Global.nexIRC.My.Resources.Resources.network
+        Me.cmdRefresh.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdRefresh.Name = "cmdRefresh"
+        Me.cmdRefresh.Size = New System.Drawing.Size(23, 22)
         Me.cmdRefresh.Text = "Refresh"
-        Me.cmdRefresh.Visibility = Telerik.WinControls.ElementVisibility.Visible
-        Me.cmdRefresh.VisibleInOverflowMenu = True
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
         'cmdAddToChannelFolder
         '
-        Me.cmdAddToChannelFolder.AccessibleDescription = "Add to Channel Folder"
-        Me.cmdAddToChannelFolder.AccessibleName = "Add to Channel Folder"
-        Me.cmdAddToChannelFolder.DisplayName = "CommandBarButton1"
-        Me.cmdAddToChannelFolder.Image = CType(resources.GetObject("cmdAddToChannelFolder.Image"), System.Drawing.Image)
-        Me.cmdAddToChannelFolder.ImageIndex = 1
+        Me.cmdAddToChannelFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmdAddToChannelFolder.Image = Global.nexIRC.My.Resources.Resources.add
+        Me.cmdAddToChannelFolder.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdAddToChannelFolder.Name = "cmdAddToChannelFolder"
+        Me.cmdAddToChannelFolder.Size = New System.Drawing.Size(23, 22)
         Me.cmdAddToChannelFolder.Text = "Add to Channel Folder"
-        Me.cmdAddToChannelFolder.ToolTipText = "Add to Channel Folder"
-        Me.cmdAddToChannelFolder.Visibility = Telerik.WinControls.ElementVisibility.Visible
-        Me.cmdAddToChannelFolder.VisibleInOverflowMenu = True
         '
-        'frmChannelsList
+        'cmdAddToAutoJoin
+        '
+        Me.cmdAddToAutoJoin.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmdAddToAutoJoin.Image = Global.nexIRC.My.Resources.Resources.add
+        Me.cmdAddToAutoJoin.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdAddToAutoJoin.Name = "cmdAddToAutoJoin"
+        Me.cmdAddToAutoJoin.Size = New System.Drawing.Size(23, 22)
+        Me.cmdAddToAutoJoin.Text = "Add to Auto Join"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
+        '
+        'cmdClose
+        '
+        Me.cmdClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmdClose.Image = Global.nexIRC.My.Resources.Resources.close
+        Me.cmdClose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdClose.Name = "cmdClose"
+        Me.cmdClose.Size = New System.Drawing.Size(23, 22)
+        Me.cmdClose.Text = "Close"
+        '
+        'frmChannelList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(883, 353)
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ClientSize = New System.Drawing.Size(345, 159)
+        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.lvwChannels)
-        Me.Controls.Add(Me.RadCommandBar1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "frmChannelsList"
-        '
-        '
-        '
-        Me.RootElement.ApplyShapeToControl = True
-        Me.ShowIcon = False
+        Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Name = "frmChannelList"
         Me.Text = "Channel List"
-        CType(Me.lvwChannels, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RadCommandBar1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents lvwChannels As Telerik.WinControls.UI.RadListView
-    Friend WithEvents RadCommandBar1 As Telerik.WinControls.UI.RadCommandBar
-    Friend WithEvents CommandBarRowElement1 As Telerik.WinControls.UI.CommandBarRowElement
-    Friend WithEvents CommandBarStripElement1 As Telerik.WinControls.UI.CommandBarStripElement
-    Friend WithEvents cmdRefresh As Telerik.WinControls.UI.CommandBarButton
-    Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
-    Friend WithEvents cmdAddToChannelFolder As Telerik.WinControls.UI.CommandBarButton
+    Friend WithEvents lvwChannels As System.Windows.Forms.ListView
+    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
+    Friend WithEvents cmdRefresh As System.Windows.Forms.ToolStripButton
+    Friend WithEvents cmdAddToChannelFolder As System.Windows.Forms.ToolStripButton
+    Friend WithEvents cmdAddToAutoJoin As System.Windows.Forms.ToolStripButton
+    Friend WithEvents cmdClose As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
 End Class
-

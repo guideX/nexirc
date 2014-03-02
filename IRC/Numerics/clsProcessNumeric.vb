@@ -45,7 +45,12 @@ Public Class clsProcessNumeric
             End If
             If InStr(LCase(lData), "notice auth :", CompareMethod.Text) <> 0 Then
                 splt2 = Split(lData, ":")
-                lStatus.Notices_Add(lStatusIndex, splt2(1))
+                Select Case UBound(splt2)
+                    Case 1
+                        lStatus.Notices_Add(lStatusIndex, splt2(1))
+                    Case 2
+                        lStatus.Notices_Add(lStatusIndex, splt2(1), splt2(2))
+                End Select
                 Exit Sub
             End If
             If Left(LCase(Trim(lData)), 10) = "*** notice" Then
@@ -866,7 +871,7 @@ Public Class clsProcessNumeric
                                     Dim f As New frmChangeNickName
                                     f = New frmChangeNickName
                                     f.lChangeNickName.lServerIndex = lStatusIndex
-                                    clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
+                                    f.Show()
                                 Else
                                     mdiMain.ShowQueryBar("Nickname in use", eInfoBar.iNicknameInUse)
                                 End If

@@ -4,8 +4,14 @@ Option Explicit On
 Option Strict On
 Imports nexIRC.nexIRC.MainWindow
 Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
+Imports Telerik.WinControls.UI
+Imports Telerik.WinControls
+
 Public Class mdiMain
-    Private lMainWindowUI As New clsMainWindowUI
+    'Public WithEvents tmrFlashDCCToolBar As New Timer
+    'Public WithEvents tmrWaitForQuit As New Timer
+    'Public WithEvents tmrStartupSettings As New Timer
+    Private WithEvents lMainWindowUI As New clsMainWindowUI
     Public Sub New()
         InitializeComponent()
     End Sub
@@ -24,18 +30,9 @@ Public Class mdiMain
     Public Sub ClearWindowBar()
         lMainWindowUI.ClearWindowBar(tspWindows)
     End Sub
-    'Public Sub CloseBrowser()
-    'lMainWindowUI.CloseBrowser()
-    'End Sub
-    'Public Sub TriggerBrowserResize()
-    'lMainWindowUI.TriggerBrowserResize()
-    'End Sub
     Public Sub PlayVideo(_File As String)
         lMainWindowUI.PlayVideo(_File)
     End Sub
-    'Public Sub BrowseURL(_Url As String, Optional _Startup As Boolean = False)
-    '   lMainWindowUI.BrowseURL(_Url, _Startup, Me)
-    'End Sub
     Private Sub mdiMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         lMainWindowUI.FormClosed(Me, nicSystray, Me.pnlLeftNav.Visible)
     End Sub
@@ -48,9 +45,6 @@ Public Class mdiMain
     Public Function OpenDialogFileNames(_InitDir As String, _Title As String, _File As String) As String()
         Return lMainWindowUI.OpenDialogFileNames(fdgOpen, _InitDir, _Title, _File)
     End Function
-    'Public Sub ResizeBrowser()
-    'lMainWindowUI.ResizeBrowser(Me, pnlLeftNav, tspMain, tspWindows)
-    'End Sub
     Public Sub SetWindowFocus(ByVal _Form As Form)
         lMainWindowUI.SetWindowFocus(Me)
     End Sub
@@ -65,6 +59,8 @@ Public Class mdiMain
     End Sub
     Private Sub mdiMain_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         lMainWindowUI.Form_Load(Me, nicSystray, tmrStartupSettings, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
+		'From newer version
+		'lMainWindowUI.Form_Load(Me.Left, Me.Top, Me.Width, Me.Height) 'Me, nicSystray, tmrStartupSettings, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
     End Sub
     Private Sub mdiMain_Resize(sender As System.Object, e As System.EventArgs) Handles MyBase.Resize
         lMainWindowUI.Form_Resize(Me, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
@@ -75,7 +71,7 @@ Public Class mdiMain
     Private Sub tvwConnections_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles tvwConnections.DoubleClick
         lMainWindowUI.Connections_DoubleClick(tvwConnections.SelectedNode)
     End Sub
-    Private Sub cmdAcceptQuery_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub cmdAcceptQuery_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAcceptQuery.Click
         lMainWindowUI.cmdAcceptQuery_Click(lblQueryPrompt, tspQueryPrompt)
     End Sub
     Private Sub cmdDeclineQuery_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeclineQuery.Click
@@ -216,7 +212,16 @@ Public Class mdiMain
     Private Sub tmrWaitForQuit_Tick(sender As System.Object, e As System.EventArgs) Handles tmrWaitForQuit.Tick
         lMainWindowUI.tmrWaitForQuit_Tick()
     End Sub
+    Private Sub lMainWindowUI_EnableStartupSettingsTimer(tickInterval As Integer) Handles lMainWindowUI.EnableStartupSettingsTimer
+        tmrStartupSettings.Interval = tickInterval
+        tmrStartupSettings.Enabled = True
+    End Sub
     Private Sub tmrHideRedirect_Tick(sender As System.Object, e As System.EventArgs) Handles tmrHideRedirect.Tick
         lMainWindowUI.tmrHideRedirect_Tick(tspRedirect, tmrHideRedirect)
+    End Sub
+    Private Sub lMainWindowUI_QueryBarPromptLabelVisible(text As String, tag As String) Handles lMainWindowUI.QueryBarPromptLabelVisible
+        '_QueryPromptLabel.Text = _Text
+        '_QueryPromptLabel.Visible = True
+        '_ToolStrip.Tag = Trim(CType(_Function, Integer).ToString)
     End Sub
 End Class

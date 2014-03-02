@@ -192,7 +192,6 @@ Public Class frmCustomize
                 chkShowWindowsAutomatically.Checked = .sShowWindowsAutomatically
                 chkAutoMaximize.Checked = .sAutoMaximize
                 chkHideStatusOnClose.Checked = .sHideStatusOnClose
-                lCustomize.lBrowserEnabled = .sShowBrowser
                 chkAutoConnect.Checked = .sAutoConnect
                 chkVideoBackground.Checked = .sVideoBackground
             End With

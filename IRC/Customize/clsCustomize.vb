@@ -7,7 +7,6 @@ Imports nexIRC.Modules
 Imports nexIRC.clsSharedAdd
 Namespace IRC.Customize
     Public Class clsCustomize
-        Public lBrowserEnabled As Boolean
         Public Event Apply()
         Public lStartupNetwork As String
         Public Sub cmdDCCIgnoreAdd_Click()
@@ -209,7 +208,7 @@ Namespace IRC.Customize
                 If (_ListView.SelectedItem IsNot Nothing) Then
                     i = FindServerIndexByIp(_ListView.SelectedItem.Item(1).ToString)
                     If (i <> 0) Then
-                        clsAnimate.Animate(frmEditServer, clsAnimate.Effect.Center, 200, 1)
+                        frmEditServer.Show()
                         frmEditServer.SetServerInfo(i)
                     End If
                 End If
@@ -240,7 +239,7 @@ Namespace IRC.Customize
             Dim f As frmAddServer
             Try
                 f = New frmAddServer()
-                clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
+                f.Show()
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub cmdServerAdd_Click()")
             End Try
@@ -316,7 +315,7 @@ Namespace IRC.Customize
                 With f
                     .lChooseNetwork.lNetworkIndex = FindNetworkIndex(_Network)
                     .lChooseNetwork.lServerToChange = FindServerIndexByIp(_Server)
-                    clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
+                    f.Show()
                 End With
             Catch ex As Exception
                 ProcessError(ex.Message, "Private Sub cmdServersMove_Click(sender As System.Object, e As System.EventArgs) Handles cmdServersMove.Click")
@@ -340,28 +339,25 @@ Namespace IRC.Customize
             End Try
         End Function
         Public Function cmdOK_Click(_NewStatus As Boolean, _Form As Form) As Boolean
-            Dim _Result As Boolean
+            Dim _Result As Boolean, mbox As MsgBoxResult
             Try
                 _Result = False
                 If _NewStatus = True Then
                     lStatus.Create(lIRC, lServers)
                     Application.DoEvents()
-                End If
-                If lStatus.Connected(lStatus.ActiveIndex) = False Then
-                    _Result = True
-                    'SaveSettings()
-                    '_Form.Close()
                 Else
-                    'If lIRC.iSettings.sPrompts = True Then
-                    'mbox = MsgBox("You are currently connected on this status window, you will not be able to change the server settings if you continue, would you like to continue anyways?", MsgBoxStyle.YesNoCancel Or MsgBoxStyle.Question)
-                    'Else
-                    'mbox = MsgBoxResult.Yes
-                    'End If
-                    'If mbox = MsgBoxResult.Yes Then
-                    _Result = True
-                    'SaveSettings()
-                    '_Form.Close()
-                    'End If
+                    If lStatus.Connected(lStatus.ActiveIndex) = True Then
+                        If lIRC.iSettings.sPrompts = True Then
+                            mbox = MsgBox("You are currently connected on this status window, you will not be able to change the server settings if you continue, would you like to continue anyways?", MsgBoxStyle.YesNoCancel Or MsgBoxStyle.Question)
+                            If (mbox = MsgBoxResult.Yes) Then
+                                _Result = True
+                            Else
+                                _Result = False
+                            End If
+                        End If
+                    Else
+                        _Result = True
+                    End If
                 End If
                 Return _Result
             Catch ex As Exception
@@ -378,7 +374,6 @@ Namespace IRC.Customize
         End Sub
         Public Sub cmdCancelNow_Click(_Form As Form)
             Try
-                clsAnimate.Animate(_Form, clsAnimate.Effect.Center, 200, 1)
                 _Form.Close()
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub cmdCancelNow_Click()")
@@ -403,7 +398,7 @@ Namespace IRC.Customize
             Try
                 _AddNickName = New frmSharedAdd
                 _AddNickName.lSharedAddUI.SharedAddType = eSharedAddType.sAddNickName
-                clsAnimate.Animate(_AddNickName, clsAnimate.Effect.Center, 200, 1)
+                _AddNickName.Show()
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub cmdAddNickName_Click(_NickName As String)")
             End Try
@@ -457,11 +452,11 @@ Namespace IRC.Customize
             Try
                 If (Not String.IsNullOrEmpty(_Network)) Then
                     addServer = New frmAddServer
-                    clsAnimate.Animate(addServer, clsAnimate.Effect.Center, 200, 1)
+                    addServer.Show()
                     addServer.cboNetwork.Text = _Network
                 Else
                     addServer = New frmAddServer
-                    clsAnimate.Animate(addServer, clsAnimate.Effect.Center, 200, 1)
+                    addServer.Show()
                     addServer.cboNetwork.Text = lStartupNetwork
                 End If
             Catch ex As Exception
@@ -471,7 +466,7 @@ Namespace IRC.Customize
         Public Sub lnkNetworkAdd_Click()
             Try
                 Dim lSharedAdd As New frmSharedAdd
-                clsAnimate.Animate(lSharedAdd, clsAnimate.Effect.Center, 200, 1)
+                lSharedAdd.Show()
                 lSharedAdd.lSharedAddUI.SharedAddType = eSharedAddType.sAddNetwork
             Catch ex As Exception
                 ProcessError(ex.Message, "Private Sub lnkNetworkAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddNetwork.Click")
@@ -584,23 +579,25 @@ Namespace IRC.Customize
         Public Sub Apply_Settings_Servers(_ServersListView As RadListView, _SelectedNetwork As String)
             Try
                 If (_ServersListView.SelectedItem IsNot Nothing) Then
-                    If _ServersListView.SelectedItem IsNot Nothing Then lServers.sIndex = FindServerIndexByIp(_ServersListView.SelectedItem.Item(1).ToString)
+                    If (_ServersListView.SelectedItem IsNot Nothing) Then lServers.sIndex = FindServerIndexByIp(_ServersListView.SelectedItem.Item(1).ToString)
                     lNetworks.nIndex = FindNetworkIndex(_SelectedNetwork)
+                    If Not (lStatus.Connected(lStatus.ActiveIndex)) Then
+                        lStatus.SetStatus(lStatus.ActiveIndex)
+                    End If
                 End If
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub Apply_Servers(_ServersListView As RadListView, _NetworksDropDown As RadDropDownList)")
             End Try
         End Sub
         Public Sub Apply_Settings_Startup(
-                                 _AutoConnect As Boolean,
-                                 _ShowCustomize As Boolean,
-                                 _ShowBrowser As Boolean
-                                 )
+            _AutoConnect As Boolean,
+            _ShowCustomize As Boolean,
+            _ShowBrowser As Boolean
+        )
             Try
                 With lIRC.iSettings
                     .sAutoConnect = _AutoConnect
                     .sCustomizeOnStartup = _ShowCustomize
-                    .sShowBrowser = _ShowBrowser
                 End With
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub Apply_Settings_Startup")

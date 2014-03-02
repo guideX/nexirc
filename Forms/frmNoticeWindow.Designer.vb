@@ -19,48 +19,45 @@ Partial Class frmNoticeWindow
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.txtIncomingColor = New System.Windows.Forms.RichTextBox()
-        Me.txtOutgoing = New System.Windows.Forms.TextBox()
+        Me.txtIncoming = New Telerik.WinControls.RichTextBox.RadRichTextBox()
+        Me.txtOutgoing = New Telerik.WinControls.UI.RadTextBox()
+        CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'txtIncomingColor
+        'txtIncoming
         '
-        Me.txtIncomingColor.BackColor = System.Drawing.Color.Black
-        Me.txtIncomingColor.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtIncomingColor.Cursor = System.Windows.Forms.Cursors.Arrow
-        Me.txtIncomingColor.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtIncomingColor.Location = New System.Drawing.Point(0, 0)
-        Me.txtIncomingColor.Name = "txtIncomingColor"
-        Me.txtIncomingColor.Size = New System.Drawing.Size(172, 76)
-        Me.txtIncomingColor.TabIndex = 1
-        Me.txtIncomingColor.Text = ""
+        Me.txtIncoming.Location = New System.Drawing.Point(0, 0)
+        Me.txtIncoming.Name = "txtIncoming"
+        Me.txtIncoming.Size = New System.Drawing.Size(429, 103)
+        Me.txtIncoming.TabIndex = 15
+        Me.txtIncoming.Text = "RadRichTextBox1"
         '
         'txtOutgoing
         '
-        Me.txtOutgoing.BackColor = System.Drawing.Color.Navy
-        Me.txtOutgoing.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtOutgoing.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOutgoing.ForeColor = System.Drawing.Color.White
-        Me.txtOutgoing.Location = New System.Drawing.Point(0, 82)
+        Me.txtOutgoing.Location = New System.Drawing.Point(0, 109)
         Me.txtOutgoing.Name = "txtOutgoing"
-        Me.txtOutgoing.Size = New System.Drawing.Size(172, 16)
-        Me.txtOutgoing.TabIndex = 2
+        Me.txtOutgoing.Size = New System.Drawing.Size(429, 20)
+        Me.txtOutgoing.TabIndex = 16
+        Me.txtOutgoing.TabStop = False
         '
         'frmNoticeWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(180, 105)
+        Me.ClientSize = New System.Drawing.Size(434, 136)
         Me.Controls.Add(Me.txtOutgoing)
-        Me.Controls.Add(Me.txtIncomingColor)
+        Me.Controls.Add(Me.txtIncoming)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Name = "frmNoticeWindow"
         Me.Text = "Notice Window"
+        CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents txtIncomingColor As System.Windows.Forms.RichTextBox
-    Friend WithEvents txtOutgoing As System.Windows.Forms.TextBox
+    Friend WithEvents txtIncoming As Telerik.WinControls.RichTextBox.RadRichTextBox
+    Friend WithEvents txtOutgoing As Telerik.WinControls.UI.RadTextBox
 End Class

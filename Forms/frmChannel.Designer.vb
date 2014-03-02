@@ -24,9 +24,6 @@ Partial Class frmChannel
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmChannel))
-        Me.lvwNicklist = New System.Windows.Forms.ListView()
-        Me.txtIncomingColor = New System.Windows.Forms.RichTextBox()
-        Me.txtOutgoing = New System.Windows.Forms.TextBox()
         Me.tspChannel = New System.Windows.Forms.ToolStrip()
         Me.cmdPart = New System.Windows.Forms.ToolStripButton()
         Me.cmdHide = New System.Windows.Forms.ToolStripButton()
@@ -35,45 +32,14 @@ Partial Class frmChannel
         Me.cmdNames = New System.Windows.Forms.ToolStripButton()
         Me.cmdURL = New System.Windows.Forms.ToolStripButton()
         Me.tmrGetNames = New System.Windows.Forms.Timer(Me.components)
+        Me.txtIncoming = New Telerik.WinControls.RichTextBox.RadRichTextBox()
+        Me.txtOutgoing = New Telerik.WinControls.UI.RadTextBox()
+        Me.lvwNickList = New Telerik.WinControls.UI.RadListView()
         Me.tspChannel.SuspendLayout()
+        CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.lvwNickList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'lvwNicklist
-        '
-        Me.lvwNicklist.BackColor = System.Drawing.Color.Black
-        Me.lvwNicklist.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.lvwNicklist.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lvwNicklist.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.lvwNicklist.Location = New System.Drawing.Point(334, 25)
-        Me.lvwNicklist.Name = "lvwNicklist"
-        Me.lvwNicklist.Size = New System.Drawing.Size(96, 109)
-        Me.lvwNicklist.Sorting = System.Windows.Forms.SortOrder.Ascending
-        Me.lvwNicklist.TabIndex = 9
-        Me.lvwNicklist.UseCompatibleStateImageBehavior = False
-        Me.lvwNicklist.View = System.Windows.Forms.View.Details
-        '
-        'txtIncomingColor
-        '
-        Me.txtIncomingColor.BackColor = System.Drawing.Color.Black
-        Me.txtIncomingColor.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtIncomingColor.Cursor = System.Windows.Forms.Cursors.Arrow
-        Me.txtIncomingColor.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtIncomingColor.Location = New System.Drawing.Point(0, 25)
-        Me.txtIncomingColor.Name = "txtIncomingColor"
-        Me.txtIncomingColor.Size = New System.Drawing.Size(328, 109)
-        Me.txtIncomingColor.TabIndex = 8
-        Me.txtIncomingColor.Text = ""
-        '
-        'txtOutgoing
-        '
-        Me.txtOutgoing.BackColor = System.Drawing.Color.Navy
-        Me.txtOutgoing.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOutgoing.ForeColor = System.Drawing.Color.White
-        Me.txtOutgoing.Location = New System.Drawing.Point(0, 134)
-        Me.txtOutgoing.Name = "txtOutgoing"
-        Me.txtOutgoing.Size = New System.Drawing.Size(430, 19)
-        Me.txtOutgoing.TabIndex = 7
         '
         'tspChannel
         '
@@ -146,28 +112,57 @@ Partial Class frmChannel
         'tmrGetNames
         '
         '
+        'txtIncoming
+        '
+        Me.txtIncoming.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIncoming.Location = New System.Drawing.Point(0, 25)
+        Me.txtIncoming.Name = "txtIncoming"
+        Me.txtIncoming.Size = New System.Drawing.Size(316, 103)
+        Me.txtIncoming.TabIndex = 13
+        Me.txtIncoming.Text = "RadRichTextBox1"
+        '
+        'txtOutgoing
+        '
+        Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOutgoing.Location = New System.Drawing.Point(0, 134)
+        Me.txtOutgoing.Name = "txtOutgoing"
+        Me.txtOutgoing.Size = New System.Drawing.Size(429, 25)
+        Me.txtOutgoing.TabIndex = 17
+        Me.txtOutgoing.TabStop = False
+        '
+        'lvwNickList
+        '
+        Me.lvwNickList.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lvwNickList.GroupItemSize = New System.Drawing.Size(200, 20)
+        Me.lvwNickList.ItemSize = New System.Drawing.Size(200, 20)
+        Me.lvwNickList.Location = New System.Drawing.Point(322, 25)
+        Me.lvwNickList.Name = "lvwNickList"
+        Me.lvwNickList.Size = New System.Drawing.Size(107, 103)
+        Me.lvwNickList.TabIndex = 18
+        Me.lvwNickList.Text = "RadListView1"
+        '
         'frmChannel
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
         Me.ClientSize = New System.Drawing.Size(439, 165)
-        Me.Controls.Add(Me.tspChannel)
-        Me.Controls.Add(Me.lvwNicklist)
-        Me.Controls.Add(Me.txtIncomingColor)
+        Me.Controls.Add(Me.lvwNickList)
         Me.Controls.Add(Me.txtOutgoing)
+        Me.Controls.Add(Me.txtIncoming)
+        Me.Controls.Add(Me.tspChannel)
         Me.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Name = "frmChannel"
         Me.Text = "frmChannel"
         Me.tspChannel.ResumeLayout(False)
         Me.tspChannel.PerformLayout()
+        CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.lvwNickList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents lvwNicklist As System.Windows.Forms.ListView
-    Friend WithEvents txtIncomingColor As System.Windows.Forms.RichTextBox
-    Friend WithEvents txtOutgoing As System.Windows.Forms.TextBox
     Friend WithEvents tspChannel As System.Windows.Forms.ToolStrip
     Friend WithEvents cmdURL As System.Windows.Forms.ToolStripButton
     Friend WithEvents tmrGetNames As System.Windows.Forms.Timer
@@ -176,4 +171,7 @@ Partial Class frmChannel
     Friend WithEvents cmdNames As System.Windows.Forms.ToolStripButton
     Friend WithEvents cmdPart As System.Windows.Forms.ToolStripButton
     Friend WithEvents cmdHide As System.Windows.Forms.ToolStripButton
+    Friend WithEvents txtIncoming As Telerik.WinControls.RichTextBox.RadRichTextBox
+    Friend WithEvents txtOutgoing As Telerik.WinControls.UI.RadTextBox
+    Friend WithEvents lvwNickList As Telerik.WinControls.UI.RadListView
 End Class

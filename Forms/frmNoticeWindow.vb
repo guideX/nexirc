@@ -53,7 +53,7 @@ Public Class frmNoticeWindow
 
     Public Sub DoNoticeColor(ByVal lData As String)
         'On Error Resume Next
-        DoColor(lData, txtIncomingColor)
+        Print(lData, txtIncoming)
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Public Sub DoNoticeColor(ByVal lData As String, ByVal lTextBox As TextBox, ByVal lTextBoxColor As System.Windows.Forms.RichTextBox)")
     End Sub
 
@@ -101,10 +101,10 @@ Public Class frmNoticeWindow
 
     Private Sub frmNoticeWindow_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
         'On Error Resume Next
-        txtIncomingColor.Width = Me.ClientSize.Width
-        txtIncomingColor.Height = Me.ClientSize.Height - txtOutgoing.Height
-        txtOutgoing.Width = txtIncomingColor.Width
-        txtOutgoing.Top = txtIncomingColor.Height
+        txtIncoming.Width = Me.ClientSize.Width
+        txtIncoming.Height = Me.ClientSize.Height - txtOutgoing.Height
+        txtOutgoing.Width = txtIncoming.Width
+        txtOutgoing.Top = txtIncoming.Height
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub frmNoticeWindow_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize")
     End Sub
 
@@ -114,7 +114,7 @@ Public Class frmNoticeWindow
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtNotice_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtNotice.GotFocus")
     End Sub
 
-    Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown
+    Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs)
         Try
             Dim msg As String
             If e.KeyCode = 13 Then
@@ -141,13 +141,13 @@ Public Class frmNoticeWindow
         End Try
     End Sub
 
-    Private Sub txtIncomingColor_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.GotFocus
+    Private Sub txtIncomingColor_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs)
         'On Error Resume Next
         txtOutgoing.Focus()
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtIncomingColor_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.GotFocus")
     End Sub
 
-    Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked
+    Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs)
         'On Error Resume Next
         'If lIRC.iSettings.sShowBrowser = True Then
         'mdiMain.BrowseURL(e.LinkText)
@@ -155,25 +155,25 @@ Public Class frmNoticeWindow
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked")
     End Sub
 
-    Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown
+    Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
         'On Error Resume Next
         Me.Focus()
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown")
     End Sub
 
-    Private Sub txtIncomingColor_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseUp
+    Private Sub txtIncomingColor_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
         'On Error Resume Next
-        If Len(txtIncomingColor.SelectedText) <> 0 Then
-            Clipboard.Clear()
-            Clipboard.SetText(txtIncomingColor.Text)
-        End If
+        'If Len(txtIncoming.SelectedText) <> 0 Then
+        'Clipboard.Clear()
+        'Clipboard.SetText(txtIncoming.Text)
+        'End If
         txtOutgoing.Focus()
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtIncomingColor_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseUp")
     End Sub
 
-    Private Sub txtIncomingColor_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.TextChanged
+    Private Sub txtIncomingColor_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs)
         'On Error Resume Next
-        txtIncomingColor.ScrollToCaret()
+        'txtIncoming.ScrollToCaret()
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtIncomingColor_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.TextChanged")
     End Sub
 
@@ -183,7 +183,7 @@ Public Class frmNoticeWindow
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtIncomingColor_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.TextChanged")
     End Sub
 
-    Private Sub txtOutgoing_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtOutgoing.KeyPress
+    Private Sub txtOutgoing_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
         'On Error Resume Next
         If e.KeyChar = Chr(13) Then
             e.Handled = True
@@ -191,7 +191,7 @@ Public Class frmNoticeWindow
         'If Err.Number <> 0 Then ProcessError(ex.Message, "Private Sub txtOutgoing_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtOutgoing.KeyPress")
     End Sub
 
-    Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
+    Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
         Try
             lMdiWindow.txtOutgoing_GotFocus(Me)
         Catch ex As Exception

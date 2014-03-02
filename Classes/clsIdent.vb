@@ -27,8 +27,8 @@ Public Class clsIdent
         Try
             Dim msg As String, msg2 As String, lForm As frmStatus
             lForm = lStatus.GetObject(lStatus.ActiveIndex).sWindow
-            msg = Trim(lStatus.StatusSocketLocalPort(lForm.lMdiChildWindow.MeIndex).ToString) & ", " & Trim(lStatus.ReturnRemotePort(lForm.lMdiChildWindow.MeIndex).ToString) & " : USERID : " & lIRC.iIdent.iUserID
-            msg2 = Trim(lStatus.StatusSocketLocalPort(lForm.lMdiChildWindow.MeIndex).ToString) & ", " & Trim(lStatus.ReturnRemotePort(lForm.lMdiChildWindow.MeIndex).ToString) & " : SYSTEM : " & lIRC.iIdent.iSystem
+            msg = Trim(lStatus.StatusSocketLocalPort(lForm.mdiChildWindow.MeIndex).ToString) & ", " & Trim(lStatus.ReturnRemotePort(lForm.mdiChildWindow.MeIndex).ToString) & " : USERID : " & lIRC.iIdent.iUserID
+            msg2 = Trim(lStatus.StatusSocketLocalPort(lForm.mdiChildWindow.MeIndex).ToString) & ", " & Trim(lStatus.ReturnRemotePort(lForm.mdiChildWindow.MeIndex).ToString) & " : SYSTEM : " & lIRC.iIdent.iSystem
             lClientSocket.Send(msg & vbCrLf)
             lClientSocket.Send(msg2 & vbCrLf)
             lClientSocket.Close()

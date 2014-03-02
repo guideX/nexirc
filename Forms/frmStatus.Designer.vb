@@ -24,7 +24,7 @@ Partial Class frmStatus
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStatus))
-        Me.tspChannel = New System.Windows.Forms.ToolStrip()
+        Me.tspStatus = New System.Windows.Forms.ToolStrip()
         Me.cmdConnection = New System.Windows.Forms.ToolStripSplitButton()
         Me.cmdConnect = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmdDisconnect = New System.Windows.Forms.ToolStripMenuItem()
@@ -36,27 +36,29 @@ Partial Class frmStatus
         Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmdChannels = New System.Windows.Forms.ToolStripSplitButton()
         Me.tspListChannels = New System.Windows.Forms.ToolStripMenuItem()
-        Me.txtOutgoing = New System.Windows.Forms.TextBox()
         Me.tmrWaitForChannelList = New System.Windows.Forms.Timer(Me.components)
         Me.tmrCheckChannelList = New System.Windows.Forms.Timer(Me.components)
         Me.tmrWaitForLUsers = New System.Windows.Forms.Timer(Me.components)
         Me.tmrWaitForWhois = New System.Windows.Forms.Timer(Me.components)
-        Me.txtIncomingColor = New System.Windows.Forms.RichTextBox()
-        Me.tspChannel.SuspendLayout()
+        Me.txtIncoming = New Telerik.WinControls.RichTextBox.RadRichTextBox()
+        Me.txtOutgoing = New Telerik.WinControls.UI.RadTextBox()
+        Me.tspStatus.SuspendLayout()
+        CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'tspChannel
+        'tspStatus
         '
-        Me.tspChannel.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.tspChannel.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tspChannel.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.tspChannel.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdConnection, Me.cmdChannels})
-        Me.tspChannel.Location = New System.Drawing.Point(0, 0)
-        Me.tspChannel.Name = "tspChannel"
-        Me.tspChannel.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.tspChannel.ShowItemToolTips = False
-        Me.tspChannel.Size = New System.Drawing.Size(260, 25)
-        Me.tspChannel.TabIndex = 10
+        Me.tspStatus.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.tspStatus.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tspStatus.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.tspStatus.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdConnection, Me.cmdChannels})
+        Me.tspStatus.Location = New System.Drawing.Point(0, 0)
+        Me.tspStatus.Name = "tspStatus"
+        Me.tspStatus.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
+        Me.tspStatus.ShowItemToolTips = False
+        Me.tspStatus.Size = New System.Drawing.Size(441, 25)
+        Me.tspStatus.TabIndex = 10
         '
         'cmdConnection
         '
@@ -137,17 +139,6 @@ Partial Class frmStatus
         Me.tspListChannels.Size = New System.Drawing.Size(157, 22)
         Me.tspListChannels.Text = "List Channels"
         '
-        'txtOutgoing
-        '
-        Me.txtOutgoing.BackColor = System.Drawing.Color.Navy
-        Me.txtOutgoing.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOutgoing.ForeColor = System.Drawing.Color.White
-        Me.txtOutgoing.Location = New System.Drawing.Point(0, 114)
-        Me.txtOutgoing.Name = "txtOutgoing"
-        Me.txtOutgoing.Size = New System.Drawing.Size(249, 19)
-        Me.txtOutgoing.TabIndex = 8
-        '
         'tmrWaitForChannelList
         '
         Me.tmrWaitForChannelList.Interval = 10000
@@ -164,46 +155,52 @@ Partial Class frmStatus
         '
         Me.tmrWaitForWhois.Interval = 2000
         '
-        'txtIncomingColor
+        'txtIncoming
         '
-        Me.txtIncomingColor.BackColor = System.Drawing.Color.Black
-        Me.txtIncomingColor.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtIncomingColor.Cursor = System.Windows.Forms.Cursors.Arrow
-        Me.txtIncomingColor.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtIncomingColor.ForeColor = System.Drawing.Color.White
-        Me.txtIncomingColor.Location = New System.Drawing.Point(0, 25)
-        Me.txtIncomingColor.Name = "txtIncomingColor"
-        Me.txtIncomingColor.Size = New System.Drawing.Size(249, 83)
-        Me.txtIncomingColor.TabIndex = 9
-        Me.txtIncomingColor.Text = ""
+        Me.txtIncoming.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIncoming.Location = New System.Drawing.Point(0, 25)
+        Me.txtIncoming.Name = "txtIncoming"
+        Me.txtIncoming.Size = New System.Drawing.Size(429, 103)
+        Me.txtIncoming.TabIndex = 14
+        Me.txtIncoming.Text = "RadRichTextBox1"
+        '
+        'txtOutgoing
+        '
+        Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOutgoing.Location = New System.Drawing.Point(0, 134)
+        Me.txtOutgoing.Name = "txtOutgoing"
+        Me.txtOutgoing.Size = New System.Drawing.Size(429, 24)
+        Me.txtOutgoing.TabIndex = 17
+        Me.txtOutgoing.TabStop = False
         '
         'frmStatus
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(260, 155)
-        Me.Controls.Add(Me.tspChannel)
+        Me.ClientSize = New System.Drawing.Size(441, 164)
         Me.Controls.Add(Me.txtOutgoing)
-        Me.Controls.Add(Me.txtIncomingColor)
+        Me.Controls.Add(Me.txtIncoming)
+        Me.Controls.Add(Me.tspStatus)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Name = "frmStatus"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Status"
-        Me.tspChannel.ResumeLayout(False)
-        Me.tspChannel.PerformLayout()
+        Me.tspStatus.ResumeLayout(False)
+        Me.tspStatus.PerformLayout()
+        CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents tspChannel As System.Windows.Forms.ToolStrip
+    Friend WithEvents tspStatus As System.Windows.Forms.ToolStrip
     Friend WithEvents cmdConnection As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents cmdConnect As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmdDisconnect As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents cmdChangeConnection As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents txtOutgoing As System.Windows.Forms.TextBox
     Friend WithEvents tmrWaitForChannelList As System.Windows.Forms.Timer
     Friend WithEvents tmrCheckChannelList As System.Windows.Forms.Timer
     Friend WithEvents tmrWaitForLUsers As System.Windows.Forms.Timer
@@ -214,5 +211,6 @@ Partial Class frmStatus
     Friend WithEvents ToolStripMenuItem3 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmdChannels As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents tspListChannels As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents txtIncomingColor As System.Windows.Forms.RichTextBox
+    Friend WithEvents txtIncoming As Telerik.WinControls.RichTextBox.RadRichTextBox
+    Friend WithEvents txtOutgoing As Telerik.WinControls.UI.RadTextBox
 End Class

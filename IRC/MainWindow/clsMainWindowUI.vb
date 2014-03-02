@@ -2,11 +2,12 @@
 Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
+Imports Telerik.WinControls.UI
+Imports Telerik.WinControls
 Namespace nexIRC.MainWindow
     Public Class clsMainWindowUI
         Public WithEvents lProcesses As New clsProcess
         Public lVideo As New gVideo
-        Public lBrowser As gBrowser
         Private lLoadingForm As New frmLoading
         Private lFlashesLeft As Integer
         Public Structure gVideo
@@ -33,12 +34,17 @@ Namespace nexIRC.MainWindow
             iNickServ_NickTaken = 5
             iNicknameInUse = 6
         End Enum
+        Public Event QueryBarPromptLabelVisible(text As String, tag As String)
+        Public Event SetDimensions(left As Integer, top As Integer, width As Integer, height As Integer)
+        Public Event EnableStartupSettingsTimer(tickInterval As Integer)
+        Public Event FormTitle(title As String)
         Public Sub ShowQueryBar(ByVal _Text As String, ByVal _Function As eInfoBar, _QueryPromptLabel As ToolStripLabel, _ToolStrip As ToolStrip)
             Try
                 If Len(_Text) <> 0 Then
-                    _QueryPromptLabel.Text = _Text
-                    _QueryPromptLabel.Visible = True
-                    _ToolStrip.Tag = Trim(CType(_Function, Integer).ToString)
+                    RaiseEvent QueryBarPromptLabelVisible(_Text, Trim(CType(_Function, Integer).ToString))
+                    '_QueryPromptLabel.Text = _Text
+                    '_QueryPromptLabel.Visible = True
+                    '_ToolStrip.Tag = Trim(CType(_Function, Integer).ToString)
                 End If
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub ShowQueryBar(ByVal lText As String)")
@@ -119,44 +125,6 @@ Namespace nexIRC.MainWindow
                 ProcessError(ex.Message, "Private Function IsPageExempt(ByVal lURL As String) As Boolean")
             End Try
         End Function
-        Public Sub BrowseURL(ByVal _URL As String, ByVal _Startup As Boolean, _Form As Form)
-            Try
-                Dim mbox As MsgBoxResult
-                If Len(_URL) = 0 Then Exit Sub
-                If lIRC.iSettings.sShowBrowser = True Then
-                    If IsPageExempt(_URL) = False Then
-                        If _Startup = False Then
-                            If lIRC.iSettings.sPrompts = True Then
-                                mbox = MsgBox("nexIRC would like to browse a webpage. Would you like to browse this page?" & vbCrLf & vbCrLf & "Details: " & _URL, MsgBoxStyle.YesNoCancel)
-                                If mbox = MsgBoxResult.No Or mbox = MsgBoxResult.Cancel Then Exit Sub
-                            End If
-                        End If
-                    End If
-                    If lBrowser.bVisible = False Then
-                        'lBrowser.bWindow = Nothing
-                        'lBrowser.bWindow = New frmBrowser
-                        'lBrowser.bWindow.MdiParent = _Form
-                        'lBrowser.bWindow.Show()
-                        'lBrowser.bVisible = True
-                    End If
-                    lBrowser.bURL = _URL
-                    'lBrowser.bWindow.WebBrowser1.Navigate(_URL)
-                    If Err.Number = 5 Then
-                        'lBrowser.bWindow = Nothing
-                        'lBrowser.bWindow = New frmBrowser
-                        'lBrowser.bWindow.MdiParent = _Form
-                        'clsAnimate.Animate(lBrowser.bWindow, clsAnimate.Effect.Center, 200, 1)
-                        'lBrowser.bVisible = True
-                        'lBrowser.bURL = _URL
-                        'lBrowser.bWindow.WebBrowser1.Navigate(_URL)
-                        'lBrowser.bWindow.Width = _Form.Width
-                        'lBrowser.bWindow.Height = _Form.Width
-                    End If
-                End If
-            Catch ex As Exception
-                ProcessError(ex.Message, "Public Sub BrowseURL(ByVal lURL As String, Optional ByVal lStartup As Boolean = False)")
-            End Try
-        End Sub
         Public Sub FormClosed(_Form As Form, _NotifyIcon As NotifyIcon, _SideBarShown As Boolean)
             Try
                 If _Form.WindowState = FormWindowState.Minimized Then _NotifyIcon.Visible = True
@@ -211,7 +179,7 @@ Namespace nexIRC.MainWindow
                 _NotifyIcon.Visible = True
                 _NotifyIcon.Icon = _Form.Icon
                 lLoadingForm = New frmLoading
-                clsAnimate.Animate(lLoadingForm, clsAnimate.Effect.Center, 200, 1)
+                lLoadingForm.Show()
                 lLoadingForm.Focus()
                 Application.DoEvents()
                 SetLoadingFormProgress("Initializing Status Windows", 2)
@@ -221,8 +189,6 @@ Namespace nexIRC.MainWindow
                 lProcesses.Initialize()
                 SetLoadingFormProgress("Loading Settings", 7)
                 LoadSettings()
-                SetLoadingFormProgress("Browsing URL", 95)
-                BrowseURL(lIRC.iSettings.sURL, True, _Form)
                 lLoadingForm.Focus()
                 If lServers.sIndex <> 0 Then lStatus.Create(lIRC, lServers)
                 _Form.Left = CInt(Trim(clsFiles.ReadINI(lINI.iIRC, "mdiMain", "Left", CStr(_Form.Left))))
@@ -336,7 +302,7 @@ Namespace nexIRC.MainWindow
                     If DoLeft(e.ClickedItem.Text, 1) = "#" Then
                         _ChannelIndex = lChannels.Find(_MeIndex, e.ClickedItem.Text.ToString)
                         If (lChannels.Visible(_ChannelIndex) = True) Then
-                            lChannels.ToggleChannelWindowState(_ChannelIndex, lChannels.Window(_ChannelIndex).lMdiChildWindow.lForeMost)
+                            lChannels.ToggleChannelWindowState(_ChannelIndex, lChannels.Window(_ChannelIndex).mdiChildWindow.lForeMost)
                         Else
                             lChannels.Form_Load(_ChannelIndex)
                             mdiMain.SetWindowFocus(lChannels.Window(_ChannelIndex))
@@ -344,7 +310,7 @@ Namespace nexIRC.MainWindow
                     ElseIf InStr(e.ClickedItem.Text, "(") <> 0 And InStr(e.ClickedItem.Text, ")") <> 0 Then
                         If (lStatus.Window(_MeIndex) IsNot Nothing) Then
                             If (lStatus.Window(_MeIndex).Visible) = True Then
-                                lStatus.ToggleStatusWindowState(_MeIndex, lStatus.Window(_MeIndex).lMdiChildWindow.lForeMost)
+                                lStatus.ToggleStatusWindowState(_MeIndex, lStatus.Window(_MeIndex).mdiChildWindow.lForeMost)
                             End If
                         End If
                     Else
@@ -372,7 +338,7 @@ Namespace nexIRC.MainWindow
                 If Len(_QueryPromptLabel.Tag.ToString) = 1 Then
                     Select Case CType(CType(_QueryPromptLabel.Tag.ToString, Integer), eInfoBar)
                         Case eInfoBar.iNickServ_NickTaken
-                            clsAnimate.Animate(frmNickServLogin, clsAnimate.Effect.Center, 200, 1)
+                            frmNickServLogin.Show()
                             frmNickServLogin.SetStatusIndex(lStatus.ActiveIndex)
                     End Select
                 ElseIf InStr(_QueryPromptLabel.Tag.ToString, ":") <> 0 Then
@@ -568,7 +534,7 @@ Namespace nexIRC.MainWindow
         End Sub
         Public Sub cmd_DownloadManager_Click()
             Try
-                clsAnimate.Animate(frmDownloadManager, clsAnimate.Effect.Center, 200, 1)
+                frmDownloadManager.Show()
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub cmd_DownloadManager_Click()")
             End Try
@@ -714,7 +680,7 @@ Namespace nexIRC.MainWindow
                 _DCCToolBarToolStrip.Visible = False
                 _ToolStrip.Visible = True
                 lForm.InitDCCGet(splt(0), splt(1), splt(2), splt(3), splt(4))
-                clsAnimate.Animate(lForm, clsAnimate.Effect.Center, 200, 1)
+                lForm.Show()
             Catch ex As Exception
                 ProcessError(ex.Message, "Public Sub cmdAccept_Click()")
             End Try
@@ -745,7 +711,7 @@ Namespace nexIRC.MainWindow
         End Sub
         Public Sub cmd_ShowAbout_Click()
             Try
-                clsAnimate.Animate(frmAbout, clsAnimate.Effect.Slide, 200, 1)
+                frmAbout.Show()
             Catch ex As Exception
                 ProcessError(ex.Message, "Private Sub cmd_ShowAbout_Click(sender As System.Object, e As System.EventArgs) Handles cmd_ShowAbout.Click")
             End Try

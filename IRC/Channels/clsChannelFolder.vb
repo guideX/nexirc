@@ -200,7 +200,7 @@ Public Class clsChannelFolder
             lWindow = New frmChannelFolder
             'lWindow.Left = CInt(Trim(clsFiles.ReadINI(lINI.iChannelFolders, "Settings", "Left", "300")))
             'lWindow.Top = CInt(Trim(clsFiles.ReadINI(lINI.iChannelFolders, "Settings", "Top", "300")))
-            clsAnimate.Animate(lWindow, clsAnimate.Effect.Center, 200, 1)
+            lWindow.Show()
             lVisible = True
             'lWindow.Show()
         Catch ex As Exception

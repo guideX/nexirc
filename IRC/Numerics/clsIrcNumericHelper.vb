@@ -79,7 +79,7 @@ Public Class clsIrcNumericHelper
             Dim f As frmDCCChat
             f = New frmDCCChat
             f.lDccChatUI.SetStatusIndex(lStatus.ActiveIndex)
-            clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
+            f.Show()
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub NewDCCChat()")
         End Try
@@ -89,7 +89,7 @@ Public Class clsIrcNumericHelper
             Dim f As frmDCCSend
             f = New frmDCCSend
             f.SetStatusIndex(lStatus.ActiveIndex)
-            clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
+            f.Show()
         Catch ex As Exception
             ProcessError(ex.Message, "Public Sub NewDCCSend()")
         End Try
@@ -233,12 +233,12 @@ Public Class clsIrcNumericHelper
                     Dim lDCCChatPrompt As New frmDCCChatPrompt
                     lDCCChatPrompt.SetInfo(Trim(msg), splt(6), splt(7))
                     lDCCChatPrompt.SetStatusIndex(lStatusIndex)
-                    clsAnimate.Animate(lDCCChatPrompt, clsAnimate.Effect.Center, 200, 1)
+                    lDCCChatPrompt.Show()
                 ElseIf lSettings_DCC.lDCC.dChatPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll Then
                     Dim lDCCChat As New frmDCCChat
                     lDCCChat.cboUsers.Text = Trim(msg)
                     lDCCChat.lDccChatUI.SetInfo(splt(6), Trim(splt(7)))
-                    clsAnimate.Animate(lDCCChat, clsAnimate.Effect.Center, 200, 1)
+                    lDCCChat.Show()
                 ElseIf lSettings_DCC.lDCC.dChatPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eIgnore Then
                 End If
             End If
@@ -298,7 +298,8 @@ Public Class clsIrcNumericHelper
                         mdiMain.lblUser.Tag = msg & vbCrLf & Trim(splt(6)) & vbCrLf & Trim(splt(7)) & vbCrLf & Trim(splt(5)) & vbCrLf & Trim(splt(8))
                     ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll Then
                         lForm.InitDCCGet(Trim(msg), Trim(splt(6)), Trim(splt(7)), Trim(splt(5)), Trim(splt(8)))
-                        clsAnimate.Animate(lForm, clsAnimate.Effect.Center, 200, 1)
+                        'clsAnimate.Animate(lForm, clsAnimate.Effect.Center, 200, 1)
+                        lForm.Show()
                     ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eIgnore Then
                         lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring all DCC connections")
                     End If

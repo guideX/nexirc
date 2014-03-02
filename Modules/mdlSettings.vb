@@ -249,7 +249,6 @@ Public Module mdlSettings
         Public sNetworkAvailability As Boolean
         Public sAutoAddToChannelFolder As Boolean
         Public sWindowSizes As gInitialWindowSizes
-        Public sShowBrowser As Boolean
         Public sPrompts As Boolean
         Public sOper As Boolean
         Public sExtendedMessages As Boolean
@@ -860,35 +859,33 @@ Public Module mdlSettings
         Dim msg As String, msg2 As String, splt() As String, splt2() As String
         Dim lIndex As Integer
         ReDim lServers.sServer(lArraySizes.aServers)
-        If (System.IO.File.Exists(lINI.iServers)) Then
-            msg2 = My.Computer.FileSystem.ReadAllText(lINI.iServers)
-            splt = Split(msg2, vbCrLf)
-            For Each msg In splt
-                If LCase(msg) = "[settings]" Then
+        msg2 = My.Computer.FileSystem.ReadAllText(lINI.iServers)
+        splt = Split(msg2, vbCrLf)
+        For Each msg In splt
+            If LCase(msg) = "[settings]" Then
+            Else
+                If Left(msg, 1) = "[" And Right(msg, 1) = "]" Then
+                    lIndex = CInt(Trim(ParseData(msg, "[", "]")))
+                    lServers.sCount = lIndex
                 Else
-                    If Left(msg, 1) = "[" And Right(msg, 1) = "]" Then
-                        lIndex = CInt(Trim(ParseData(msg, "[", "]")))
-                        lServers.sCount = lIndex
-                    Else
-                        splt2 = Split(msg, "=")
-                        Select Case LCase(splt2(0))
-                            Case "count"
-                                lServers.sCount = CInt(Trim(splt2(1)))
-                            Case "index"
-                                lServers.sIndex = CInt(Trim(splt2(1)))
-                            Case "description"
-                                lServers.sServer(lIndex).sDescription = splt2(1).ToString
-                            Case "ip"
-                                lServers.sServer(lIndex).sIP = splt2(1).ToString
-                            Case "networkindex"
-                                lServers.sServer(lIndex).sNetworkIndex = CInt(Trim(splt2(1)))
-                            Case "port"
-                                lServers.sServer(lIndex).sPort = CInt(Trim(splt2(1).ToString))
-                        End Select
-                    End If
+                    splt2 = Split(msg, "=")
+                    Select Case LCase(splt2(0))
+                        Case "count"
+                            lServers.sCount = CInt(Trim(splt2(1)))
+                        Case "index"
+                            lServers.sIndex = CInt(Trim(splt2(1)))
+                        Case "description"
+                            lServers.sServer(lIndex).sDescription = splt2(1).ToString
+                        Case "ip"
+                            lServers.sServer(lIndex).sIP = splt2(1).ToString
+                        Case "networkindex"
+                            lServers.sServer(lIndex).sNetworkIndex = CInt(Trim(splt2(1)))
+                        Case "port"
+                            lServers.sServer(lIndex).sPort = CInt(Trim(splt2(1).ToString))
+                    End Select
                 End If
-            Next msg
-        End If
+            End If
+        Next msg
         If Err.Number <> 0 Then MsgBox(Err.Description)
     End Sub
 
@@ -979,7 +976,6 @@ Public Module mdlSettings
                 .sShowUserAddresses = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowUserAddresses", "True"))
                 .sHideMOTD = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "HideMOTD", "True"))
                 .sPrompts = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "Prompts", "True"))
-                .sShowBrowser = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowBrowser", "False"))
                 .sShowRawWindow = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ShowRawWindow", "False"))
                 .sExtendedMessages = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "ExtendedMessages", "True"))
                 .sNoIRCMessages = CBool(clsFiles.ReadINI(lINI.iIRC, "Settings", "NoIRCMessages", "False"))
@@ -1069,7 +1065,7 @@ Public Module mdlSettings
                     .dNickName = lNickname
                 End With
                 SaveDownloadManagerSettings()
-                If lShowDownloadManager = True Then clsAnimate.Animate(frmDownloadManager, clsAnimate.Effect.Center, 200, 1)
+                If lShowDownloadManager = True Then frmDownloadManager.Show()
             End If
         End If
     End Sub
@@ -1156,7 +1152,6 @@ Public Module mdlSettings
             clsFiles.WriteINI(lINI.iIRC, "Settings", "Prompts", Trim(.sPrompts.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowUserAddresses", Trim(.sShowUserAddresses.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "URL", .sURL)
-            clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowBrowser", Trim(.sShowBrowser.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "MOTDInOwnWindow", Trim(.sMOTDInOwnWindow.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "PopupChannelFolders", Trim(.sPopupChannelFolders.ToString))
             clsFiles.WriteINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", Trim(.sCustomizeOnStartup.ToString))
@@ -1507,6 +1502,7 @@ Public Module mdlSettings
 
     Public Sub ProcessError(ByVal lErrorDescription As String, ByVal lSub As String)
         Try
+            MessageBox.Show(lSub & " - " & lErrorDescription)
             Dim i As Integer, msg As String
             Err.Clear()
             If Len(lErrorDescription) <> 0 Then

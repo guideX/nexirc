@@ -8,7 +8,7 @@ Imports nexIRC.clsIrcNumerics
 Imports nexIRC.Modules
 Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
 Imports nexIRC.Classes.Communications
-
+Imports Telerik.WinControls.UI
 Namespace IRC.Status
     Public Class clsStatus
         Public Event ProcessError(_Error As String, _Sub As String)
@@ -149,15 +149,27 @@ Namespace IRC.Status
 #Region "STATUS"
         Private Sub SocketError(_Error As String, _SocketIndex As Integer)
             Try
-                DoColor(_Error, lStatusObjects.sStatusObject(_SocketIndex).sWindow.txtIncomingColor)
+                Print(_Error, lStatusObjects.sStatusObject(_SocketIndex).sWindow.txtIncoming)
             Catch ex As Exception
                 RaiseEvent ProcessError(ex.Message, "Private Sub SocketError(_Error As String)")
+            End Try
+        End Sub
+        Public Sub Window_Resize(_ChannelIndex As Integer)
+            Try
+                With lStatus.Window(_ChannelIndex)
+                    .txtIncoming.Width = .ClientSize.Width
+                    .txtIncoming.Height = .ClientSize.Height - (.txtOutgoing.Height + .tspStatus.ClientSize.Height)
+                    .txtOutgoing.Width = .ClientSize.Width
+                    .txtOutgoing.Top = .txtIncoming.Height + .tspStatus.ClientSize.Height
+                End With
+            Catch ex As Exception
+                RaiseEvent ProcessError(ex.Message, "Public Sub Window_Resize(_ChannelIndex As Integer)")
             End Try
         End Sub
         Public Sub ResetForeMostWindows()
             Try
                 For i As Integer = 1 To lStatusObjects.sCount
-                    lStatusObjects.sStatusObject(i).sWindow.lMdiChildWindow.lForeMost = False
+                    lStatusObjects.sStatusObject(i).sWindow.mdiChildWindow.lForeMost = False
                 Next i
             Catch ex As Exception
                 RaiseEvent ProcessError(ex.Message, "Public Sub ResetForeMostWindows()")
@@ -261,12 +273,12 @@ Namespace IRC.Status
                     .sServerIndex = lServerSettings.sIndex
                     .sWindow = New frmStatus
                     .sWindow.Show()
-                    .sWindow.lMdiChildWindow.MeIndex = i
+                    .sWindow.mdiChildWindow.MeIndex = i
                     .sVisible = True
                     .sWindow.Icon = mdiMain.Icon
                     .sWindow.MdiParent = mdiMain
                     .sWindow.Visible = True
-                    ActiveIndex = .sWindow.lMdiChildWindow.MeIndex
+                    ActiveIndex = .sWindow.mdiChildWindow.MeIndex
                     mdiMain.SetWindowFocus(.sWindow)
                     .sWindow.Width = lIRC.iSettings.sWindowSizes.lStatus.wWidth
                     .sWindow.Height = lIRC.iSettings.sWindowSizes.lStatus.wHeight
@@ -825,7 +837,7 @@ Namespace IRC.Status
                             If .sTreeNodeStatus.SelectedImageIndex <> 8 Then .sTreeNodeStatus.SelectedImageIndex = 8
                         End If
                         .sData = _Data & vbCrLf & .sData
-                        DoColor(_Data, .sWindow.txtIncomingColor)
+                        Print(_Data, .sWindow.txtIncoming)
                     End With
                 End If
             Catch ex As Exception
@@ -949,7 +961,7 @@ Namespace IRC.Status
                                     .sMotdWindow.mWindow.Show()
                                     .sMotdWindow.mVisible = True
                                     .sMotdWindow.mWindow.SetStatusIndex(n)
-                                    .sMotdWindow.mWindow.Text = StatusServerName(.sWindow.lMdiChildWindow.MeIndex) & " - MOTD"
+                                    .sMotdWindow.mWindow.Text = StatusServerName(.sWindow.mdiChildWindow.MeIndex) & " - MOTD"
                                     'mdiMain.Refresh()
                                     .sMotdWindow.mWindow.SetMotdWindow(True)
                                     .sMotdWindow.mWindow.SetNoticeWindow(False)
@@ -970,7 +982,7 @@ Namespace IRC.Status
                         If n <> 0 Then
                             With lStatusObjects.sStatusObject(n)
                                 If .sServerLinks.sVisible = False Then
-                                    t = NetworkIndex(.sWindow.lMdiChildWindow.MeIndex)
+                                    t = NetworkIndex(.sWindow.mdiChildWindow.MeIndex)
                                     .sServerLinks.sVisible = True
                                     .sServerLinks.sWindow = New frmServerLinks
                                     .sServerLinks.sWindow.Show()
@@ -1099,7 +1111,7 @@ Namespace IRC.Status
                                         .sWindow.WindowState = FormWindowState.Normal
                                     End If
                                 End If
-                                ActiveIndex = .sWindow.lMdiChildWindow.MeIndex
+                                ActiveIndex = .sWindow.mdiChildWindow.MeIndex
                                 mdiMain.SetWindowFocus(.sWindow)
                                 .sWindow.Focus()
                             End With
@@ -1549,7 +1561,7 @@ Namespace IRC.Status
                                     .sMotdWindow.mWindow.Show()
                                     .sMotdWindow.mWindow.SetStatusIndex(lIndex)
                                     .sMotdWindow.mVisible = True
-                                    .sMotdWindow.mWindow.Text = StatusServerName(.sWindow.lMdiChildWindow.MeIndex) & " - MOTD"
+                                    .sMotdWindow.mWindow.Text = StatusServerName(.sWindow.mdiChildWindow.MeIndex) & " - MOTD"
                                     .sMotdWindow.mWindow.SetMotdWindow(True)
                                     .sMotdWindow.mWindow.SetNoticeWindow(False)
                                     .sMotdWindow.mWindow.SetUnknownsWindow(False)
@@ -1719,7 +1731,7 @@ Namespace IRC.Status
                         _AddServer.lAddServer.lConnectSetting = True
                         _AddServer.txtIP.Text = _Server
                         _AddServer.txtPort.Text = _Port.ToString().Trim()
-                        clsAnimate.Animate(_AddServer, clsAnimate.Effect.Center, 200, 1)
+                        _AddServer.Show()
                     End If
                 End If
             Catch ex As Exception
@@ -1899,7 +1911,7 @@ Namespace IRC.Status
                 End With
             End If
         End Sub
-        Public Sub Notices_Add(ByVal lIndex As Integer, ByVal lData As String)
+        Public Sub Notices_Add(ByVal lIndex As Integer, ByVal lData As String, Optional lData2 As String = "")
             Try
                 If lIRC.iSettings.sNoticesInOwnWindow = True Then
                     If Len(lData) <> 0 Then
@@ -1920,7 +1932,7 @@ Namespace IRC.Status
                                     .sNoticesWindow.nWindow.SetNoticeWindow(True)
                                     .sNoticesWindow.nWindow.SetUnknownsWindow(False)
                                     .sNoticesWindow.nWindow.SetMotdWindow(False)
-                                    .sNoticesWindow.nWindow.Text = StatusServerName(.sWindow.lMdiChildWindow.MeIndex) & " - Notices"
+                                    .sNoticesWindow.nWindow.Text = StatusServerName(.sWindow.mdiChildWindow.MeIndex) & " - Notices"
                                     .sNoticesWindow.nWindow.DoNoticeColor(.sNoticesWindow.nData)
                                 Else
                                     If .sNoticesWindow.nTreeNode.ImageIndex <> 6 Then .sNoticesWindow.nTreeNode.ImageIndex = 6
@@ -1932,7 +1944,11 @@ Namespace IRC.Status
                         End With
                     End If
                 Else
-                    ProcessReplaceString(lIndex, eStringTypes.sNOTICE, lData)
+                    If (lData2.Length <> 0) Then
+                        ProcessReplaceString(lIndex, eStringTypes.sNOTICE, lData, lData2)
+                    Else
+                        ProcessReplaceString(lIndex, eStringTypes.sNOTICE, lData)
+                    End If
                 End If
             Catch ex As Exception
                 RaiseEvent ProcessError(ex.Message, "Public Sub AddToNotices(ByVal lIndex As Integer, ByVal lData As String)")
@@ -1960,14 +1976,14 @@ Namespace IRC.Status
                     Exit Sub
                 End If
                 If lIRC.iSettings.sPrompts = True Then
-                    If Len(lStatus.StatusServerName(_Form.lMdiChildWindow.MeIndex)) <> 0 Then
-                        If lStatus.Connected(_Form.lMdiChildWindow.MeIndex) = True Then
-                            mBox = MsgBox("Are you sure, close this status window '" & lStatus.StatusServerName(_Form.lMdiChildWindow.MeIndex) & "'?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question, "nexIRC - Close Server?")
+                    If Len(lStatus.StatusServerName(_Form.mdiChildWindow.MeIndex)) <> 0 Then
+                        If lStatus.Connected(_Form.mdiChildWindow.MeIndex) = True Then
+                            mBox = MsgBox("Are you sure, close this status window '" & lStatus.StatusServerName(_Form.mdiChildWindow.MeIndex) & "'?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question, "nexIRC - Close Server?")
                         Else
                             mBox = MsgBoxResult.Yes
                         End If
                     Else
-                        If lStatus.Connected(_Form.lMdiChildWindow.MeIndex) = True Then
+                        If lStatus.Connected(_Form.mdiChildWindow.MeIndex) = True Then
                             mBox = MsgBox("Are you sure, close this server window?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question, "nexIRC - Close Server?")
                         Else
                             mBox = MsgBoxResult.Yes
@@ -1978,13 +1994,13 @@ Namespace IRC.Status
                 End If
                 If mBox = MsgBoxResult.Yes Then
                     If lStatus.Connected(_MeIndex) Then
-                        lStatus.CloseSocket(_Form.lMdiChildWindow.MeIndex)
+                        lStatus.CloseSocket(_Form.mdiChildWindow.MeIndex)
                     End If
                     lStatus.ActiveIndex = 0
-                    lStatus.RemoveTreeView(_Form.lMdiChildWindow.MeIndex)
-                    lStatus.Clear(_Form.lMdiChildWindow.MeIndex)
-                    lStatus.Open(_Form.lMdiChildWindow.MeIndex) = False
-                    mdiMain.RemoveWindowBar(lStatus.InitialText(_Form.lMdiChildWindow.MeIndex))
+                    lStatus.RemoveTreeView(_Form.mdiChildWindow.MeIndex)
+                    lStatus.Clear(_Form.mdiChildWindow.MeIndex)
+                    lStatus.Open(_Form.mdiChildWindow.MeIndex) = False
+                    mdiMain.RemoveWindowBar(lStatus.InitialText(_Form.mdiChildWindow.MeIndex))
                 Else
                     e.Cancel = True
                     Beep()
@@ -2124,14 +2140,14 @@ Namespace IRC.Status
                     End If
                     If .sServerLinks.sVisible = False Then
                         If lIRC.iSettings.sShowWindowsAutomatically = True Then
-                            i = NetworkIndex(.sWindow.lMdiChildWindow.MeIndex)
+                            i = NetworkIndex(.sWindow.mdiChildWindow.MeIndex)
                             .sServerLinks.sVisible = True
                             .sServerLinks.sWindow = New frmServerLinks
                             'clsAnimate.Animate(.sServerLinks.sWindow, clsAnimate.Effect.Center, 200, 1)
                             .sServerLinks.sWindow.Show()
                             .sServerLinks.sWindow.lServerLinksUI.SetStatusIndex(lIndex)
                             .sServerLinks.sWindow.lServerLinksUI.SetNetworkIndex(i, .sServerLinks.sWindow.cboNetworks)
-                            .sServerLinks.sWindow.Text = "nexIRC " & StatusServerName(.sWindow.lMdiChildWindow.MeIndex) & " - Links"
+                            .sServerLinks.sWindow.Text = "nexIRC " & StatusServerName(.sWindow.mdiChildWindow.MeIndex) & " - Links"
                         Else
                             If .sServerLinks.sTreeNode.ImageIndex <> 6 Then .sServerLinks.sTreeNode.ImageIndex = 6
                             If .sServerLinks.sTreeNode.SelectedImageIndex <> 6 Then .sServerLinks.sTreeNode.SelectedImageIndex = 6
@@ -2302,7 +2318,7 @@ Namespace IRC.Status
                     If lSettings_Services.lX.xShowOnConnect = True Then
                         f = New frmXLogin
                         f.lXLogin.SetStatusIndex(lStatusIndex)
-                        clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
+                        f.Show()
                     End If
                 End If
             End If
@@ -2328,7 +2344,7 @@ Namespace IRC.Status
                     If lSettings_Services.lNickServ.nShowOnConnect = True Then
                         f = New frmNickServLogin
                         f.SetStatusIndex(lStatusIndex)
-                        clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
+                        f.Show()
                     End If
                 End If
             Catch ex As Exception
@@ -2346,7 +2362,8 @@ Namespace IRC.Status
                         Dim f As frmXLogin
                         f = New frmXLogin
                         f.lXLogin.SetStatusIndex(ActiveIndex)
-                        clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
+                        f.Show()
+                        'clsAnimate.Animate(f, clsAnimate.Effect.Center, 200, 1)
                         Exit Sub
                     End If
                     If DoLeft(LCase(_Data), 4) = "exit" Then

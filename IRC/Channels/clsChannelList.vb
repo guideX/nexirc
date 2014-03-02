@@ -3,11 +3,29 @@ Option Strict On
 Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
 Imports nexIRC.Classes.IO
+Imports Telerik.WinControls.UI
+Imports nexIRC.clsCommandTypes
 Public Class clsChannelListUI
     Public Event SaveColumnWidths()
     Public lSortOrder As SortOrder
     Private lCurrentChannel As String
     Private lMeIndex As Integer
+    Public Sub cmdAddToChannelFolder_Click(channel As String)
+        Try
+            AddToChannelFolders(channel, lNetworks.nIndex)
+        Catch ex As Exception
+            ProcessError(ex.Message, "Public Sub cmdAddToChannelFolder_Click(channel As String, network As Integer)")
+        End Try
+    End Sub
+    Public Sub cmdRefresh_Click(form As Form)
+        Try
+            Dim n As Integer = lStatus.ActiveIndex
+            ProcessReplaceCommand(n, eCommandTypes.cLIST, lStatus.ServerDescription(n))
+            form.Close()
+        Catch ex As Exception
+            ProcessError(ex.Message, "Private Sub cmdRefresh_Click()")
+        End Try
+    End Sub
     Public WriteOnly Property MeIndex() As Integer
         Set(_MeIndex As Integer)
             Try
@@ -197,7 +215,7 @@ Public Class clsChannelList
                 .cWindow = New frmChannelList()
                 .cWindow.Text = "Channel List [" & lStatus.Window(.cStatusIndex).Text & "]"
                 .cWindow.lvwChannels.Items.Clear()
-                clsAnimate.Animate(.cWindow, clsAnimate.Effect.Center, 200, 1)
+                .cWindow.Show()
                 SetItems(_ChannelListIndex)
                 .cWindow.MeIndex = _ChannelListIndex
             End With

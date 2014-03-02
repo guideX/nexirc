@@ -26,11 +26,11 @@ Public Class frmChannelFolder
             ProcessError(ex.Message, "Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click")
         End Try
     End Sub
-    Private Sub frmChannelFolder_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs)
+    Private Sub frmChannelFolder_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         Try
             lChannelFolderWindow.Form_FormClosed(chkPopupOnConnect.Checked, chkCloseOnJoin.Checked, Me.Left, Me.Top)
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub frmChannelFolder_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs)")
+            ProcessError(ex.Message, "Private Sub frmChannelFolder_FormClosed1(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed")
         End Try
     End Sub
     Private Sub frmChannelFolder_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -124,7 +124,7 @@ Public Class frmChannelFolder
         cboNetwork.Items.Add(_Network)
     End Sub
     Private Sub lChannelFolderWindow_AnimateClose() Handles lChannelFolderWindow.AnimateClose
-        clsAnimate.Animate(Me, clsAnimate.Effect.Center, 200, 1)
+        'clsAnimate.Animate(Me, clsAnimate.Effect.Center, 200, 1)
         Me.Close()
     End Sub
     Private Sub lChannelFolderWindow_ChannelTextBoxSelectAll() Handles lChannelFolderWindow.ChannelTextBoxSelectAll

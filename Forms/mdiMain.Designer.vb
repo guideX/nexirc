@@ -75,8 +75,6 @@ Partial Class mdiMain
         Me.cmd_View = New System.Windows.Forms.ToolStripSplitButton()
         Me.cmd_LeftBar = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmd_WindowBar = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.cmd_Notepad = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmd_Window = New System.Windows.Forms.ToolStripSplitButton()
         Me.cmd_TileHorizontal = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmd_TileVertical = New System.Windows.Forms.ToolStripMenuItem()
@@ -466,7 +464,7 @@ Partial Class mdiMain
         'cmd_View
         '
         Me.cmd_View.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmd_View.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_LeftBar, Me.cmd_WindowBar, Me.ToolStripSeparator3, Me.cmd_Notepad})
+        Me.cmd_View.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_LeftBar, Me.cmd_WindowBar})
         Me.cmd_View.Image = Global.nexIRC.My.Resources.Resources.tools
         Me.cmd_View.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_View.Name = "cmd_View"
@@ -478,7 +476,7 @@ Partial Class mdiMain
         Me.cmd_LeftBar.Checked = True
         Me.cmd_LeftBar.CheckState = System.Windows.Forms.CheckState.Checked
         Me.cmd_LeftBar.Name = "cmd_LeftBar"
-        Me.cmd_LeftBar.Size = New System.Drawing.Size(151, 22)
+        Me.cmd_LeftBar.Size = New System.Drawing.Size(152, 22)
         Me.cmd_LeftBar.Text = "Left Bar"
         '
         'cmd_WindowBar
@@ -486,19 +484,8 @@ Partial Class mdiMain
         Me.cmd_WindowBar.Checked = True
         Me.cmd_WindowBar.CheckState = System.Windows.Forms.CheckState.Checked
         Me.cmd_WindowBar.Name = "cmd_WindowBar"
-        Me.cmd_WindowBar.Size = New System.Drawing.Size(151, 22)
+        Me.cmd_WindowBar.Size = New System.Drawing.Size(152, 22)
         Me.cmd_WindowBar.Text = "Window Bar"
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(148, 6)
-        '
-        'cmd_Notepad
-        '
-        Me.cmd_Notepad.Name = "cmd_Notepad"
-        Me.cmd_Notepad.Size = New System.Drawing.Size(151, 22)
-        Me.cmd_Notepad.Text = "Notepad"
         '
         'cmd_Window
         '
@@ -738,7 +725,6 @@ Partial Class mdiMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.BackgroundImage = Global.nexIRC.My.Resources.Resources.bg
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(819, 356)
         Me.Controls.Add(Me.tspQueryPrompt)
@@ -821,8 +807,6 @@ Partial Class mdiMain
     Friend WithEvents cmd_View As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents cmd_LeftBar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmd_WindowBar As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents cmd_Notepad As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmd_Window As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents cmd_TileHorizontal As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmd_TileVertical As System.Windows.Forms.ToolStripMenuItem

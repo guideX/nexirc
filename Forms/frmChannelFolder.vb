@@ -1,182 +1,240 @@
-﻿'nexIRC 3.0.23
+﻿'nexIRC 3.0.26
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.Classes.UI
+Imports nexIRC.Modules
 Public Class frmChannelFolder
-    Private WithEvents lChannelFolderWindow As New clsChannelFolderUI
+    Private WithEvents channelFolderWindow As New clsChannelFolderUI
+#Region "Window Subs"
     Public Sub Init()
-        Try
-            lChannelFolderWindow.Init()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub Init()")
-        End Try
+        'Try
+        channelFolderWindow.Init()
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
-    Public Sub SetStatusIndex(_StatusIndex As Integer)
-        Try
-            lChannelFolderWindow.SetStatusIndex(_StatusIndex)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub SetStatusIndex(_StatusIndex As Integer)")
-        End Try
+
+    Public Sub SetStatusIndex(statusId As Integer)
+        'Try
+        channelFolderWindow.SetStatusIndex(statusId)
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click
-        Try
-            lChannelFolderWindow.cmdClose_Click()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click")
-        End Try
+        'Try
+        channelFolderWindow.cmdClose_Click()
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub frmChannelFolder_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        Try
-            lChannelFolderWindow.Form_FormClosed(chkPopupOnConnect.Checked, chkCloseOnJoin.Checked, Me.Left, Me.Top)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub frmChannelFolder_FormClosed1(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed")
-        End Try
+        'Try
+        channelFolderWindow.Form_FormClosed(chkPopupOnConnect.Checked, chkCloseOnJoin.Checked, Me.Left, Me.Top)
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub frmChannelFolder_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
-        Try
-            lChannelFolderWindow.Form_Load()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub frmChannelFolder_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load")
-        End Try
+        'Try
+        channelFolderWindow.Form_Load()
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub cmdJoin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdJoin.Click
-        Try
-            lChannelFolderWindow.cmdJoin_Click(txtChannel.Text, chkCloseOnJoin.Checked)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdJoin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdJoin.Click")
-        End Try
+        'Try
+        channelFolderWindow.cmdJoin_Click(txtChannel.Text, chkCloseOnJoin.Checked)
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub cmdAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAdd.Click
-        Try
-            lChannelFolderWindow.cmdAdd_Click(txtChannel.Text, cboNetwork.Text)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAdd.Click")
-        End Try
+        'Try
+        channelFolderWindow.cmdAdd_Click(txtChannel.Text, cboNetwork.Text)
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub lstChannels_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstChannels.DoubleClick
-        Try
-            lChannelFolderWindow.lstChannels_DoubleClick(lstChannels.SelectedItem.Text, chkCloseOnJoin.Checked)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lstChannels_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstChannels.DoubleClick")
-        End Try
+        'Try
+        channelFolderWindow.lstChannels_DoubleClick(lstChannels.SelectedItem.Text, chkCloseOnJoin.Checked)
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub lstChannels_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstChannels.SelectedIndexChanged
-        Try
-            lChannelFolderWindow.lstChannels_SelectedIndexChanged()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lstChannels_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstChannels.SelectedIndexChanged")
-        End Try
+        'Try
+        channelFolderWindow.lstChannels_SelectedIndexChanged()
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub cmdRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemove.Click
-        Try
-            lChannelFolderWindow.cmdRemove_Click(txtChannel.Text)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemove.Click")
-        End Try
+        'Try
+        channelFolderWindow.cmdRemove_Click(txtChannel.Text)
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub cboNetwork_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboNetwork.SelectedIndexChanged
-        Try
-            lChannelFolderWindow.cboNetwork_SelectedIndexChanged(cboNetwork.Text)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cboNetwork_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboNetwork.SelectedIndexChanged")
-        End Try
+        'Try
+        channelFolderWindow.cboNetwork_SelectedIndexChanged(cboNetwork.Text)
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub lnkJumpToChannelList_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkJumpToChannelList.LinkClicked
-        Try
-            lChannelFolderWindow.lnkJumpToChannelList_LinkClicked()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lnkJumpToChannelList_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkJumpToChannelList.LinkClicked")
-        End Try
+        'Try
+        channelFolderWindow.lnkJumpToChannelList_LinkClicked()
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub txtChannel_Enter(sender As Object, e As System.EventArgs) Handles txtChannel.Enter
-        Try
-            lChannelFolderWindow.txtChannel_Enter(MouseButtons, sender)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub txtChannel_Enter(sender As Object, e As System.EventArgs) Handles txtChannel.Enter")
-        End Try
+        'Try
+        channelFolderWindow.txtChannel_Enter(MouseButtons, sender)
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub txtChannel_GotFocus(sender As Object, e As System.EventArgs) Handles txtChannel.GotFocus
-        Try
-            lChannelFolderWindow.txtChannel_Enter(MouseButtons, sender)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub txtChannel_GotFocus(sender As Object, e As System.EventArgs) Handles txtChannel.GotFocus")
-        End Try
+        'Try
+        channelFolderWindow.txtChannel_Enter(MouseButtons, sender)
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub txtChannel_Leave(sender As Object, e As System.EventArgs) Handles txtChannel.Leave
-        Try
-            lChannelFolderWindow.txtChannel_Leave()
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub txtChannel_Leave(sender As Object, e As System.EventArgs) Handles txtChannel.Leave")
-        End Try
+        'Try
+        channelFolderWindow.txtChannel_Leave()
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+
     Private Sub txtChannel_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtChannel.MouseUp
-        Try
-            lChannelFolderWindow.txtChannel_MouseUp(sender)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub txtChannel_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtChannel.MouseUp")
-        End Try
+        'Try
+        channelFolderWindow.txtChannel_MouseUp(sender)
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
-    Private Sub lChannelFolderWindow_AddChannelToListBox(_Channel As String) Handles lChannelFolderWindow.AddChannelToListBox
+#End Region
+#Region "Events"
+    Private Sub channelFolderWindow_AddChannelToListBox(_Channel As String) Handles channelFolderWindow.AddChannelToListBox
+        'Try
         lstChannels.Items.Add(_Channel)
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
-    Private Sub lChannelFolderWindow_AddNetworkComboBoxItem(_Network As String) Handles lChannelFolderWindow.AddNetworkComboBoxItem
+
+    Private Sub channelFolderWindow_AddNetworkComboBoxItem(_Network As String) Handles channelFolderWindow.AddNetworkComboBoxItem
+        'Try
         cboNetwork.Items.Add(_Network)
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
-    Private Sub lChannelFolderWindow_AnimateClose() Handles lChannelFolderWindow.AnimateClose
-        'clsAnimate.Animate(Me, clsAnimate.Effect.Center, 200, 1)
-        Me.Close()
+
+    Private Sub channelFolderWindow_AnimateClose() Handles channelFolderWindow.AnimateClose
+        'Try
+        channelFolderWindow.cmdClose_Click()
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
-    Private Sub lChannelFolderWindow_ChannelTextBoxSelectAll() Handles lChannelFolderWindow.ChannelTextBoxSelectAll
+
+    Private Sub channelFolderWindow_ChannelTextBoxSelectAll() Handles channelFolderWindow.ChannelTextBoxSelectAll
+        'Try
         txtChannel.SelectAll()
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
-    Private Sub lChannelFolderWindow_ClearChannelsListBox() Handles lChannelFolderWindow.ClearChannelsListBox
+
+    Private Sub channelFolderWindow_ClearChannelsListBox() Handles channelFolderWindow.ClearChannelsListBox
+        'Try
         lstChannels.Items.Clear()
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
-    Private Sub lChannelFolderWindow_ClearNetworkComboBox() Handles lChannelFolderWindow.ClearNetworkComboBox
+
+    Private Sub channelFolderWindow_ClearNetworkComboBox() Handles channelFolderWindow.ClearNetworkComboBox
+        'Try
         cboNetwork.Items.Clear()
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
-    Private Sub lChannelFolderWindow_FormClosed() Handles lChannelFolderWindow.FormClosed
+
+    Private Sub channelFolderWindow_FormClosed() Handles channelFolderWindow.FormClosed
+        'Try
         Me.Close()
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
-    Private Sub lChannelFolderWindow_RemoveChannelListBoxItem(_Channel As String) Handles lChannelFolderWindow.RemoveChannelListBoxItem
-        Try
-            If Len(_Channel) <> 0 Then
-                RemoveChannelFolder(FindChannelFolderIndex(_Channel))
-                lstChannels.Items.RemoveAt(Modules.ReturnRadListBoxIndex(lstChannels, lstChannels.SelectedItem().ToString))
-            End If
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lChannelFolderWindow_RemoveChannelListBoxItem(_Channel As String) Handles lChannelFolderWindow.RemoveChannelListBoxItem")
-        End Try
+
+    Private Sub channelFolderWindow_RemoveChannelListBoxItem(channel As String) Handles channelFolderWindow.RemoveChannelListBoxItem
+        'Try
+        If (Not String.IsNullOrEmpty(channel)) Then
+            lSettings.RemoveChannelFolder(lSettings.FindChannelFolderIndex(channel))
+            lstChannels.Items.RemoveAt(Modules.ReturnRadListBoxIndex(lstChannels, lstChannels.SelectedItem().ToString))
+        End If
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
-    Private Sub lChannelFolderWindow_SetAutoCloseCheckBoxValue(_Value As Boolean) Handles lChannelFolderWindow.SetAutoCloseCheckBoxValue
-        Try
-            chkCloseOnJoin.Checked = _Value
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lChannelFolderWindow_SetAutoCloseCheckBoxValue(_Value As Boolean) Handles lChannelFolderWindow.SetAutoCloseCheckBoxValue")
-        End Try
+
+    Private Sub channelFolderWindow_SetAutoCloseCheckBoxValue(_Value As Boolean) Handles channelFolderWindow.SetAutoCloseCheckBoxValue
+        'Try
+        chkCloseOnJoin.Checked = _Value
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
-    Private Sub lChannelFolderWindow_SetChannelTextBoxTextToListBoxText() Handles lChannelFolderWindow.SetChannelTextBoxTextToListBoxText
-        Try
-            If (lstChannels.SelectedItem IsNot Nothing) Then
-                txtChannel.Text = lstChannels.SelectedItem.Text
-            End If
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lChannelFolderWindow_SetChannelTextBoxTextToListBoxText() Handles lChannelFolderWindow.SetChannelTextBoxTextToListBoxText")
-        End Try
+
+    Private Sub channelFolderWindow_SetChannelTextBoxTextToListBoxText() Handles channelFolderWindow.SetChannelTextBoxTextToListBoxText
+        'Try
+        If (lstChannels.SelectedItem IsNot Nothing) Then
+            txtChannel.Text = lstChannels.SelectedItem.Text
+        End If
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
-    Private Sub lChannelFolderWindow_SetDefaultNetwork(_Network As String) Handles lChannelFolderWindow.SetDefaultNetwork
-        Try
-            Modules.SetSelectedRadComboBoxItem(cboNetwork, _Network)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lChannelFolderWindow_SetDefaultNetwork(_Network As String) Handles lChannelFolderWindow.SetDefaultNetwork")
-        End Try
+
+    Private Sub channelFolderWindow_SetDefaultNetwork(network As String) Handles channelFolderWindow.SetDefaultNetwork
+        'Try
+        Modules.SetSelectedRadComboBoxItem(cboNetwork, network)
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
-    Private Sub lChannelFolderWindow_SetPopupChannelFoldersCheckBoxValue(_Value As Boolean) Handles lChannelFolderWindow.SetPopupChannelFoldersCheckBoxValue
-        Try
-            chkPopupOnConnect.Checked = _Value
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lChannelFolderWindow_SetPopupChannelFoldersCheckBoxValue(_Value As Boolean) Handles lChannelFolderWindow.SetPopupChannelFoldersCheckBoxValue")
-        End Try
+
+    Private Sub channelFolderWindow_SetPopupChannelFoldersCheckBoxValue(_Value As Boolean) Handles channelFolderWindow.SetPopupChannelFoldersCheckBoxValue
+        'Try
+        chkPopupOnConnect.Checked = _Value
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
+#End Region
 End Class

@@ -1,4 +1,4 @@
-﻿'nexIRC 3.0.23
+﻿'nexIRC 3.0.26
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
@@ -14,7 +14,7 @@ Public Class frmPrivateMessage
             Try
                 lStatusIndex = _StatusIndex
             Catch ex As Exception
-                ProcessError(ex.Message, "Public WriteOnly Property StatusIndex() As Integer")
+                Throw ex 'ProcessError(ex.Message, "Public WriteOnly Property StatusIndex() As Integer")
             End Try
         End Set
     End Property
@@ -22,11 +22,11 @@ Public Class frmPrivateMessage
     Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click
         Try
             If Len(txtMessage.Text) <> 0 Then
-                ProcessReplaceCommand(lStatus.ActiveIndex, eCommandTypes.cPRIVMSG, txtNickName.Text, txtMessage.Text)
+                lStrings.ProcessReplaceCommand(lStatus.ActiveIndex, eCommandTypes.cPRIVMSG, txtNickName.Text, txtMessage.Text)
                 txtMessage.Text = ""
             End If
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click")
+            Throw ex 'ProcessError(ex.Message, "Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click")
         End Try
     End Sub
 
@@ -34,7 +34,7 @@ Public Class frmPrivateMessage
         Try
             Me.Close()
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click")
+            Throw ex 'ProcessError(ex.Message, "Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click")
         End Try
     End Sub
 
@@ -42,7 +42,7 @@ Public Class frmPrivateMessage
         Try
             Me.Icon = mdiMain.Icon
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub frmPrivateMessage_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
+            Throw ex 'ProcessError(ex.Message, "Private Sub frmPrivateMessage_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
         End Try
     End Sub
 End Class

@@ -3,6 +3,8 @@ Option Strict On
 Public Class clsIrcNumerics
     Public Enum eStringTypes
         'sDUMMY = -100
+        sCOULD_NOT_CONNECT = -44
+        ' COULD NOT CONNECT TO SERVER
         sCHANNEL_LIST_WAIT = -43
         ' TELL YOU TO WAIT DURING A CHANNEL LIST
         sNICKSERV_LOGIN = -42

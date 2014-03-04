@@ -43,8 +43,9 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
     <DocumentationFile>nexIRC.xml</DocumentationFile>
-    <NoWarn>42353,42354,42355</NoWarn>
-    <WarningsAsErrors>41998,42004,42020,42021,42022,42024,42025,42026,42029,42030,42031,42104,42105,42106,42107,42108,42109</WarningsAsErrors>
+    <NoWarn>
+    </NoWarn>
+    <WarningsAsErrors>41998,42004,42020,42021,42022,42024,42025,42026,42029,42030,42031,42099,42104,42105,42106,42107,42108,42109,42353,42354,42355</WarningsAsErrors>
     <WarningLevel>1</WarningLevel>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <PlatformTarget>x86</PlatformTarget>
@@ -56,10 +57,12 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DocumentationFile>nexIRC.xml</DocumentationFile>
-    <NoWarn>42353,42354,42355</NoWarn>
-    <WarningsAsErrors>41998,42004,42020,42021,42022,42024,42025,42026,42029,42030,42031,42104,42105,42106,42107,42108,42109</WarningsAsErrors>
+    <NoWarn>
+    </NoWarn>
+    <WarningsAsErrors>41998,42004,42020,42021,42022,42024,42025,42026,42029,42030,42031,42099,42104,42105,42106,42107,42108,42109,42353,42354,42355</WarningsAsErrors>
     <WarningLevel>1</WarningLevel>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
@@ -138,18 +141,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="Classes\IO\clsFiles.vb" />
-    <Compile Include="Classes\UI\clsAnimate.vb" />
-    <Compile Include="Classes\UI\clsFlashWindow.vb" />
-    <Compile Include="Classes\clsIdent.vb" />
-    <Compile Include="Classes\clsMdiChildWindow.vb" />
-    <Compile Include="Classes\clsProcess.vb" />
-    <Compile Include="Classes\UI\clsLockWindowUpdate.vb" />
-    <Compile Include="Classes\UI\clsRedrawSettings.vb" />
-    <Compile Include="Classes\UI\clsScrollToBottom.vb" />
-    <Compile Include="Classes\clsServerInfo.vb" />
-    <Compile Include="Classes\Communications\clsSocket.vb" />
-    <Compile Include="Classes\UI\listViewSorter.vb" />
+    <Compile Include="Classes\IO\Files.vb" />
+    <Compile Include="Classes\UI\Animate.vb" />
+    <Compile Include="Classes\Ident.vb" />
+    <Compile Include="Classes\MdiChildWindow.vb" />
+    <Compile Include="Classes\IrcProcess.vb" />
+    <Compile Include="Classes\UI\ListViewSorter.vb" />
+    <Compile Include="Classes\UI\ScrollToBottom.vb" />
+    <Compile Include="Classes\Communications\AsyncSocket.vb" />
     <Compile Include="Forms\frmAbout.Designer.vb">
       <DependentUpon>frmAbout.vb</DependentUpon>
     </Compile>
@@ -206,13 +205,15 @@
     <Compile Include="IRC\Numerics\clsIrcNumericHelper.vb" />
     <Compile Include="IRC\Numerics\clsIrcNumerics.vb" />
     <Compile Include="IRC\Numerics\clsProcessNumeric.vb" />
+    <Compile Include="IRC\Numerics\IrcStrings.vb" />
     <Compile Include="IRC\SendNotice\clsSendNotice.vb" />
     <Compile Include="IRC\ServerLinks\clsServerLinks.vb" />
     <Compile Include="IRC\Services\clsXLogin.vb" />
     <Compile Include="IRC\Settings\clsDCC.vb" />
     <Compile Include="IRC\Settings\clsServices.vb" />
+    <Compile Include="IRC\Settings\Settings.vb" />
     <Compile Include="IRC\Status\clsStatus.vb" />
-    <Compile Include="Classes\Communications\clsStatusSocket.vb" />
+    <Compile Include="Classes\Communications\StatusSocket.vb" />
     <Compile Include="Forms\frmPrivateMessage.Designer.vb">
       <DependentUpon>frmPrivateMessage.vb</DependentUpon>
     </Compile>
@@ -356,9 +357,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modules\mdlSettings.vb" />
-    <Compile Include="Modules\mdlStrings.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -382,8 +380,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Classes\clsMdiChildWindow.resx">
-      <DependentUpon>clsMdiChildWindow.vb</DependentUpon>
+    <EmbeddedResource Include="Classes\MdiChildWindow.resx">
+      <DependentUpon>MdiChildWindow.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAbout.resx">
       <DependentUpon>frmAbout.vb</DependentUpon>

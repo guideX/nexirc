@@ -1,4 +1,4 @@
-'nexIRC 3.0.23
+'nexIRC 3.0.26
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
@@ -386,12 +386,12 @@ Public Class frmVideoPlayer
         Dim TotalSec As Long = CLng(lVideo.TotalTime() / 1000)
         Dim CurrentSec As Long = lVideo.CurrentTime()
         If CurrentSec >= TrackOffset.Minimum And CurrentSec <= TrackOffset.Maximum Then
-            TrackOffset.Value = CInt(CurrentSec)
+            TrackOffset.Value = Convert.ToInt32(CurrentSec)
         Else
             TrackOffset.Value = TrackOffset.Minimum
         End If
         CurrentSec = CLng(CurrentSec / 1000)
-        lblTime.Text = "   Total time = " & CStr(Int(TotalSec / 60)).PadLeft(2, CChar("0")) & ":" & CStr(CInt(TotalSec Mod 60)).PadLeft(2, CChar("0")) & "     Time = " & CStr(Int(CurrentSec / 60)).PadLeft(2, CChar("0")) & ":" & CStr(CInt(CurrentSec Mod 60)).PadLeft(2, CChar("0"))
+        lblTime.Text = "   Total time = " & Convert.ToString(Int(TotalSec / 60)).PadLeft(2, CChar("0")) & ":" & Convert.ToString(Convert.ToInt32(TotalSec Mod 60)).PadLeft(2, CChar("0")) & "     Time = " & Convert.ToString(Int(CurrentSec / 60)).PadLeft(2, CChar("0")) & ":" & Convert.ToString(Convert.ToInt32(CurrentSec Mod 60)).PadLeft(2, CChar("0"))
     End Sub
 
     Private Sub TrackOffset_Scroll(ByVal sender As Object, ByVal e As System.EventArgs) Handles TrackOffset.Scroll
@@ -413,7 +413,7 @@ Public Class frmVideoPlayer
                 lVideo.Mute = clsVideo.Channels.None
             End If
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged")
+            Throw ex 'ProcessError(ex.Message, "Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged")
         End Try
     End Sub
 
@@ -453,12 +453,12 @@ Public Class frmVideoPlayer
     End Sub
 
     Public Sub OpenAndPlay(ByVal lFileName As String)
-        If clsFiles.DoesFileExist(lFileName) = True Then
+        If (System.IO.File.Exists(lFileName)) Then
             lVideo.Open(lFileName)
             If lVideo.TotalTime >= 0 Then
                 TrackOffset.Value = 0
                 TrackOffset.Minimum = 0
-                TrackOffset.Maximum = CInt(lVideo.TotalTime)
+                TrackOffset.Maximum = Convert.ToInt32(lVideo.TotalTime)
             End If
             lVideo.Play()
         End If
@@ -476,7 +476,7 @@ Public Class frmVideoPlayer
             If lVideo.TotalTime >= 0 Then
                 TrackOffset.Value = 0
                 TrackOffset.Minimum = 0
-                TrackOffset.Maximum = CInt(lVideo.TotalTime)
+                TrackOffset.Maximum = Convert.ToInt32(lVideo.TotalTime)
             End If
             lVideo.Play()
         End If

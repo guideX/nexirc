@@ -1,4 +1,4 @@
-'nexIRC 3.0.23
+'nexIRC 3.0.26
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
@@ -46,7 +46,7 @@ Public Class frmDCCSend
             If .fFileLength - Loc(.fFileNumber) <= .fBufferSize Then .fBufferSize = (.fFileLength - Loc(.fFileNumber))
             If .fBufferSize = 0 Then Exit Sub
             .fBytesSent = .fBytesSent + .fBufferSize
-            msg = Space(CInt(.fBufferSize))
+            msg = Space(Convert.ToInt32(.fBufferSize))
             FileGet(.fFileNumber, msg)
             lSocket.Send(msg)
             Me.Invoke(lSetProgress, .fBytesSent, .fFileLength)
@@ -55,7 +55,7 @@ Public Class frmDCCSend
     Private Sub SetProgress(ByVal lBytesSent As Long, ByVal lLength As Long)
         Dim i As Long
         i = CLng(lBytesSent / lLength * 100)
-        ProgressBar1.Value = CInt(i)
+        ProgressBar1.Value = Convert.ToInt32(i)
         If i <> 100 Then
             lblStatus.Text = "Sent: " & Format(lBytesSent, "###,###,###") & " bytes"
         Else
@@ -67,15 +67,15 @@ Public Class frmDCCSend
         lStatusIndex = lIndex
     End Sub
     Private Sub frmDCCSend_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        clsFiles.WriteINI(lINI.iDCC, "Settings", "DCCSendLastNick", cboNickname.Text)
+        Files.WriteINI(lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", cboNickname.Text)
         If lFileOpen = True Then FileClose(lFile.fFileNumber)
     End Sub
     Private Sub frmDCCSend_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim i As Integer
-        cboNickname.Text = clsFiles.ReadINI(lINI.iDCC, "Settings", "DCCSendLastNick", "")
+        cboNickname.Text = Files.ReadINI(lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", "")
         Me.Icon = mdiMain.Icon
-        For i = 1 To lNotify.nCount
-            cboNickname.Items.Add(lNotify.nNotify(i).nNickName)
+        For i = 1 To lSettings.lNotify.nCount
+            cboNickname.Items.Add(lSettings.lNotify.nNotify(i).nNickName)
         Next i
         For i = 128 To 9999
             cboPort.Items.Add(Trim(i.ToString))
@@ -83,7 +83,7 @@ Public Class frmDCCSend
         cboPort.Text = Trim(lProcessNumeric.lIrcNumericHelper.ReturnDCCPort().ToString)
     End Sub
     Private Sub InitSendListenSocket(ByVal lPort As Integer)
-        lListen = New AsyncServer(CInt(lPort))
+        lListen = New AsyncServer(Convert.ToInt32(lPort))
         lListen.Start()
     End Sub
     Private Sub cmdSend_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSend.Click
@@ -97,14 +97,14 @@ Public Class frmDCCSend
                     cboPort.Enabled = False
                     Me.Invoke(lSetLabel, "Requesting Connection")
                     lSocket = New AsyncSocket
-                    InitSendListenSocket(CInt(Trim(cboPort.Text)))
+                    InitSendListenSocket(Convert.ToInt32(Trim(cboPort.Text)))
                     If lSettings_DCC.lDCC.dUseIpAddress = True Then
                         msg = lSettings_DCC.lDCC.dCustomIpAddress
                     Else
                         msg = lProcessNumeric.lIrcNumericHelper.ReturnMyIp()
                     End If
-                    msg3 = Replace(GetFileTitle(txtFilename.Text), " ", "_")
-                    msg2 = "PRIVMSG " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " " & EncodeIPAddr(msg) & " " & Trim(cboPort.Text) & " " & (FileLen(txtFilename.Text)) & ""
+                    msg3 = Replace(lStrings.GetFileTitle(txtFilename.Text), " ", "_")
+                    msg2 = "PRIVMSG " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " " & lStrings.EncodeIPAddr(msg) & " " & Trim(cboPort.Text) & " " & (FileLen(txtFilename.Text)) & ""
                     lStatus.DoStatusSocket(lStatusIndex, "NOTICE " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " (" & msg & ")")
                     lStatus.DoStatusSocket(lStatusIndex, msg2)
                 End If
@@ -122,10 +122,6 @@ Public Class frmDCCSend
     Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lSocket.socketDataArrival
         Dim l As New StringDelegate(AddressOf SendFileChunk)
         Me.Invoke(l, SocketData)
-    End Sub
-    Private Sub lSocket_socketError(ByVal lData As String) Handles lSocket.socketError
-        Dim lSetLabel As New StringDelegate(AddressOf SetLabel)
-        Me.Invoke(lSetLabel, lData)
     End Sub
     Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click
         Me.Close()

@@ -1,4 +1,4 @@
-﻿'nexIRC 3.0.23
+﻿'nexIRC 3.0.26
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
@@ -29,20 +29,20 @@ Public Class clsDccChat
         Try
             lStatusIndex = lIndex
         Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
         End Try
     End Sub
     Public Sub AddText(_Text As String)
         Try
             If Len(_Text) <> 0 Then
-                If DoRight(_Text, 1) <> vbCrLf Then
+                If lStrings.DoRight(_Text, 1) <> vbCrLf Then
                     lIncomingTextBox.Text = _Text & vbCrLf & lIncomingTextBox.Text
                 Else
                     lIncomingTextBox.Text = _Text & lIncomingTextBox.Text
                 End If
             End If
         Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub AddText(_Text As String)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub AddText(_Text As String)")
         End Try
     End Sub
     Private Sub SendData(ByVal lTempSocket As AsyncSocket, ByVal lData As String)
@@ -51,22 +51,22 @@ Public Class clsDccChat
                 lTempSocket.Send(lData & vbCrLf)
             End If
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub SendData(ByVal lTempSocket As AsyncSocket, ByVal lData As String)")
+            Throw ex 'ProcessError(ex.Message, "Private Sub SendData(ByVal lTempSocket As AsyncSocket, ByVal lData As String)")
         End Try
     End Sub
     Private Sub InitDCCListenSocket(Optional ByVal _Port As Long = 0)
         Try
-            lListen = New AsyncServer(CInt(_Port))
+            lListen = New AsyncServer(Convert.ToInt32(_Port))
             lListen.Start()
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub InitDCCListenSocket(Optional ByVal _Port As Long = 0)")
+            Throw ex 'ProcessError(ex.Message, "Private Sub InitDCCListenSocket(Optional ByVal _Port As Long = 0)")
         End Try
     End Sub
     Public Sub ConnectToDCCChat(ByVal _Ip As String, ByVal _Port As Long)
         Try
             lSocket.Connect(_Ip, _Port)
         Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub ConnectToDCCChat(ByVal _Ip As String, ByVal _Port As Long)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub ConnectToDCCChat(ByVal _Ip As String, ByVal _Port As Long)")
         End Try
     End Sub
     Public Sub SetInfo(ByVal _Ip As String, ByVal _Port As String)
@@ -75,7 +75,7 @@ Public Class clsDccChat
             lRemotePort = _Port
             lAutoConnect = True
         Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub SetInfo(ByVal _Ip As String, ByVal _Port As String)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub SetInfo(ByVal _Ip As String, ByVal _Port As String)")
         End Try
     End Sub
     Public Sub Form_Load(_Form As Form, _UsersDropDownList As ToolStripComboBox, _ConnectButton As ToolStripButton, _DisconnectButton As ToolStripButton, _IncomingTextBox As RichTextBox, _ToolStrip As ToolStrip, _OutgoingTextBox As TextBox)
@@ -89,14 +89,14 @@ Public Class clsDccChat
             lOutgoingTextBox = _OutgoingTextBox
             _Form.Icon = mdiMain.Icon
             _Form.MdiParent = mdiMain
-            For i = 1 To lNotify.nCount
-                With lNotify.nNotify(i)
+            For i = 1 To lSettings.lNotify.nCount
+                With lSettings.lNotify.nNotify(i)
                     _UsersDropDownList.Items.Add(.nNickName)
                 End With
             Next i
             If lAutoConnect = True Then
                 lSocket = New AsyncSocket
-                lRemoteIp = DecodeLongIPAddr(lRemoteIp)
+                lRemoteIp = lStrings.DecodeLongIPAddr(lRemoteIp)
                 lPort = CLng(Replace(Trim(lRemotePort), "", ""))
                 _UsersDropDownList.Enabled = False
                 _ConnectButton.Enabled = False
@@ -104,7 +104,7 @@ Public Class clsDccChat
                 _Form.Invoke(lConnect, lRemoteIp, lPort)
             End If
         Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub Form_Load(_Form As Form, _UsersListBox As ToolStripComboBox, _ConnectButton As ToolStripButton, _DisconnectButton As ToolStripButton)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub Form_Load(_Form As Form, _UsersListBox As ToolStripComboBox, _ConnectButton As ToolStripButton, _DisconnectButton As ToolStripButton)")
         End Try
     End Sub
     Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As AsyncSocket) Handles lListen.ConnectionAccept
@@ -113,7 +113,7 @@ Public Class clsDccChat
             lInvokeForm.Invoke(lAddText, "Connection Accepted")
             lSocket = tmp_Socket
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As AsyncSocket) Handles lListen.ConnectionAccept")
+            Throw ex 'ProcessError(ex.Message, "Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As AsyncSocket) Handles lListen.ConnectionAccept")
         End Try
     End Sub
     Private Sub lSocket_socketConnected(ByVal SocketID As String) Handles lSocket.socketConnected
@@ -164,7 +164,7 @@ Public Class clsDccChat
                 End If
                 msg = msg.Replace(Chr(10), "").Replace(Chr(13), "").Replace(vbCrLf, "").Trim
                 lStatus.DoStatusSocket(lStatusIndex, "NOTICE " & lUsersDropDownList.Text & " :DCC CHAT (" & msg & ")")
-                lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & lUsersDropDownList.Text & " :DCC CHAT chat " & EncodeIPAddr(msg) & " " & Trim(p.ToString) & "")
+                lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & lUsersDropDownList.Text & " :DCC CHAT chat " & lStrings.EncodeIPAddr(msg) & " " & Trim(p.ToString) & "")
                 lInvokeForm.Invoke(lAddText, "Attempting Connection")
                 lUsersDropDownList.Enabled = False
                 lConnectButton.Enabled = False
@@ -178,7 +178,7 @@ Public Class clsDccChat
             'lOutgoingTextBox.Width = lIncomingTextBox.Width
             'lOutgoingTextBox.Top = lOutgoingTextBox.Height + lToolStrip.Height
         Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub frmDCCChat_Resize()")
+            Throw ex 'ProcessError(ex.Message, "Public Sub frmDCCChat_Resize()")
         End Try
     End Sub
     Public Sub cmdDisconnect_Click()
@@ -188,7 +188,7 @@ Public Class clsDccChat
             lDisconnectButton.Enabled = False
             lConnectButton.Enabled = False
         Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub cmdDisconnect_Click()")
+            Throw ex 'ProcessError(ex.Message, "Public Sub cmdDisconnect_Click()")
         End Try
     End Sub
     Public Sub txtIncoming_MouseDown()
@@ -198,7 +198,7 @@ Public Class clsDccChat
         lIncomingTextBox.ScrollToCaret()
     End Sub
     Public Sub txtOutgoing_GotFocus()
-        If lIRC.iSettings.sAutoMaximize = True Then lInvokeForm.WindowState = FormWindowState.Maximized
+        If lSettings.lIRC.iSettings.sAutoMaximize = True Then lInvokeForm.WindowState = FormWindowState.Maximized
     End Sub
     Public Sub txtOutgoing_KeyDown(e As System.Windows.Forms.KeyEventArgs)
         Dim msg As String
@@ -217,7 +217,7 @@ Public Class clsDccChat
         Try
             If e.KeyChar = Chr(13) Then e.Handled = True
         Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub txtOutgoing_KeyPress(e As System.Windows.Forms.KeyPressEventArgs)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub txtOutgoing_KeyPress(e As System.Windows.Forms.KeyPressEventArgs)")
         End Try
     End Sub
     Private Sub SocketErrorProc(ByVal _Data As String)
@@ -229,22 +229,14 @@ Public Class clsDccChat
                 lClientConnected = False
             End If
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub SocketErrorProc(ByVal lData As String)")
-        End Try
-    End Sub
-    Private Sub lSocket_socketError(ByVal lData As String) Handles lSocket.socketError
-        Try
-            Dim lSocketErrorProc As New StringDelegate(AddressOf SocketErrorProc)
-            lInvokeForm.Invoke(lSocketErrorProc, lData)
-        Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lSocket_socketError(ByVal lData As String) Handles lSocket.socketError")
+            Throw ex 'ProcessError(ex.Message, "Private Sub SocketErrorProc(ByVal lData As String)")
         End Try
     End Sub
     Public Sub txtOutgoing_MouseDown()
         Try
             lInvokeForm.Focus()
         Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub txtOutgoing_MouseDown()")
+            Throw ex 'ProcessError(ex.Message, "Public Sub txtOutgoing_MouseDown()")
         End Try
     End Sub
 End Class

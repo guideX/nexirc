@@ -3,7 +3,7 @@ Option Strict On
 Imports System.Windows.Forms
 Imports System.Runtime.InteropServices
 Namespace Classes.UI
-    Public NotInheritable Class clsAnimate
+    Public NotInheritable Class Animate
         Private Sub New()
         End Sub
 
@@ -18,15 +18,15 @@ Namespace Classes.UI
             Blend
         End Enum
 
-        Public Shared Sub Animate(ctl As Control, effect__1 As Effect, msec As Integer, angle As Integer)
-            Dim flags As Integer = effmap(CInt(effect__1))
+        Public Shared Sub Animate(ctl As Control, effect1 As Effect, msec As Integer, angle As Integer)
+            Dim flags As Integer = effmap(Convert.ToInt32(effect1))
             If ctl.Visible Then
                 flags = flags Or &H10000
                 angle += 180
             Else
                 If ctl.TopLevelControl Is ctl Then
                     flags = flags Or &H20000
-                ElseIf effect__1 = Effect.Blend Then
+                ElseIf effect1 = Effect.Blend Then
                     Throw New ArgumentException()
                 End If
             End If

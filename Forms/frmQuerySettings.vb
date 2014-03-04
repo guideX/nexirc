@@ -1,4 +1,4 @@
-'nexIRC 3.0.23
+'nexIRC 3.0.26
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
@@ -8,7 +8,7 @@ Public Class frmQuerySettings
         Try
             Dim i As Integer
             Me.Icon = mdiMain.Icon
-            With lQuerySettings
+            With lSettings.lQuerySettings
                 lStatus.SetListBoxToConnections(lstConnections)
                 txtStandbyMessage.Text = .qStandByMessage
                 txtDeclineMessage.Text = .qDeclineMessage
@@ -16,19 +16,19 @@ Public Class frmQuerySettings
                 chkSpamFilter.Checked = .qEnableSpamFilter
                 chkAutoShowWindow.Checked = .qAutoShowWindow
                 Select Case .qAutoAllow
-                    Case eQueryAutoAllow.qList
+                    Case Settings.eQueryAutoAllow.qList
                         optAutoAllow1.Checked = True
-                    Case eQueryAutoAllow.qEveryOne
+                    Case Settings.eQueryAutoAllow.qEveryOne
                         optAutoAllow2.Checked = True
-                    Case eQueryAutoAllow.qNoOne
+                    Case Settings.eQueryAutoAllow.qNoOne
                         optAutoAllow3.Checked = True
                 End Select
                 Select Case .qAutoDeny
-                    Case eQueryAutoDeny.qList
+                    Case Settings.eQueryAutoDeny.qList
                         optAutoDeny1.Checked = True
-                    Case eQueryAutoDeny.qEveryOne
+                    Case Settings.eQueryAutoDeny.qEveryOne
                         optAutoDeny2.Checked = True
-                    Case eQueryAutoDeny.qNoOne
+                    Case Settings.eQueryAutoDeny.qNoOne
                         optAutoDeny3.Checked = True
                 End Select
                 For i = 1 To .qAutoAllowCount
@@ -42,7 +42,7 @@ Public Class frmQuerySettings
                 Next i
             End With
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub frmSecureQuerySettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+            Throw ex 'ProcessError(ex.Message, "Private Sub frmSecureQuerySettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
         End Try
     End Sub
 
@@ -52,7 +52,7 @@ Public Class frmQuerySettings
             msg = InputBox("Add to Auto Allow List")
             If Len(msg) <> 0 Then lstAutoAllowList.Items.Add(msg)
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdAddToAutoAllowList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddToAutoAllowList.Click")
+            Throw ex
         End Try
     End Sub
 
@@ -60,7 +60,7 @@ Public Class frmQuerySettings
         Try
             lstAutoAllowList.Items.RemoveAt(lstAutoAllowList.SelectedIndex)
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdRemoveFromAutoAllowList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveFromAutoAllowList.Click")
+            Throw ex
         End Try
     End Sub
 
@@ -70,7 +70,7 @@ Public Class frmQuerySettings
             msg = InputBox("Add to Auto Deny List")
             If Len(msg) <> 0 Then lstAutoDenyList.Items.Add(msg)
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdAddToAutoDenyList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddToAutoDenyList.Click")
+            Throw ex
         End Try
     End Sub
 
@@ -78,7 +78,7 @@ Public Class frmQuerySettings
         Try
             lstAutoDenyList.Items.RemoveAt(lstAutoDenyList.SelectedIndex)
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdRemoveFromAutoDenyList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveFromAutoDenyList.Click")
+            Throw ex
         End Try
     End Sub
 
@@ -87,7 +87,7 @@ Public Class frmQuerySettings
             lstQueryLog.Items.Clear()
             txtQueryLog.Text = ""
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdClearLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClearLog.Click")
+            Throw ex
         End Try
     End Sub
 
@@ -97,7 +97,7 @@ Public Class frmQuerySettings
             msg = InputBox("Add to Phrases")
             If Len(msg) <> 0 Then lstSpamPhrases.Items.Add(msg)
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdAddToSpamPhrases_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddToSpamPhrases.Click")
+            Throw ex
         End Try
     End Sub
 
@@ -105,13 +105,13 @@ Public Class frmQuerySettings
         Try
             lstSpamPhrases.Items.RemoveAt(lstSpamPhrases.SelectedIndex)
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdRemoveFromSpamPhrases_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveFromSpamPhrases.Click")
+            Throw ex
         End Try
     End Sub
 
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
         Try
-            With lQuerySettings
+            With lSettings.lQuerySettings
                 Dim i As Integer, n As Integer
                 For i = 0 To lstAutoAllowList.Items.Count - 1
                     If Len(lstAutoAllowList.Items(i)) <> 0 Then
@@ -142,23 +142,23 @@ Public Class frmQuerySettings
                 .qPromptUser = chkPromptUser.Checked
                 .qEnableSpamFilter = chkSpamFilter.Checked
                 If optAutoAllow1.Checked = True Then
-                    .qAutoAllow = eQueryAutoAllow.qList
+                    .qAutoAllow = Settings.eQueryAutoAllow.qList
                 ElseIf optAutoAllow2.Checked = True Then
-                    .qAutoAllow = eQueryAutoAllow.qEveryOne
+                    .qAutoAllow = Settings.eQueryAutoAllow.qEveryOne
                 ElseIf optAutoAllow3.Checked = True Then
-                    .qAutoAllow = eQueryAutoAllow.qNoOne
+                    .qAutoAllow = Settings.eQueryAutoAllow.qNoOne
                 End If
                 If optAutoDeny1.Checked = True Then
-                    .qAutoDeny = eQueryAutoDeny.qList
+                    .qAutoDeny = Settings.eQueryAutoDeny.qList
                 ElseIf optAutoDeny2.Checked = True Then
-                    .qAutoDeny = eQueryAutoDeny.qEveryOne
+                    .qAutoDeny = Settings.eQueryAutoDeny.qEveryOne
                 ElseIf optAutoDeny3.Checked = True Then
-                    .qAutoDeny = eQueryAutoDeny.qNoOne
+                    .qAutoDeny = Settings.eQueryAutoDeny.qNoOne
                 End If
             End With
             Me.Close()
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdRemoveFromSpamPhrases_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveFromSpamPhrases.Click")
+            Throw ex
         End Try
     End Sub
 
@@ -166,7 +166,7 @@ Public Class frmQuerySettings
         Try
             Me.Close()
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
+            Throw ex
         End Try
     End Sub
 
@@ -178,7 +178,7 @@ Public Class frmQuerySettings
             i = lStatus.FindByInitialText(lstConnections.Text)
             If i <> 0 Then lStatus.PrivateMessage_SetListBox(i, lstQueryLog)
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lstConnections_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstConnections.SelectedIndexChanged")
+            Throw ex
         End Try
     End Sub
 
@@ -187,9 +187,9 @@ Public Class frmQuerySettings
             Dim i As Integer, n As Integer
             i = lStatus.FindByInitialText(lstConnections.Text)
             n = lStatus.PrivateMessage_Find(i, lstQueryLog.Text)
-            DoColor(lStatus.PrivateMessage_IncomingText(i, n), txtQueryLog)
+            lStrings.DoColor(lStatus.PrivateMessage_IncomingText(i, n), txtQueryLog)
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub lstQueryLog_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstQueryLog.SelectedIndexChanged")
+            Throw ex
         End Try
     End Sub
 
@@ -197,11 +197,7 @@ Public Class frmQuerySettings
         Try
             Me.Close()
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click")
+            Throw ex
         End Try
-    End Sub
-
-    Private Sub mnuFile_ItemClicked(sender As System.Object, e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles mnuFile.ItemClicked
-
     End Sub
 End Class

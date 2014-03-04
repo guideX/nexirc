@@ -1,4 +1,4 @@
-﻿'nexIRC 3.0.23
+﻿'nexIRC 3.0.26
 '06-13-2013 - guideX
 Option Explicit On
 Option Strict On
@@ -9,16 +9,16 @@ Public Class clsServerLinks
     Public Sub SetNetworkIndex(ByVal lIndex As Integer, _ComboBox As ComboBox)
         Try
             lNetworkIndex = lIndex
-            _ComboBox.Text = lNetworks.nNetwork(lIndex).nDescription
+            _ComboBox.Text = lSettings.lNetworks.nNetwork(lIndex).nDescription
         Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub SetNetworkIndex(ByVal lIndex As Integer)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub SetNetworkIndex(ByVal lIndex As Integer)")
         End Try
     End Sub
     Public Sub SetStatusIndex(ByVal lIndex As Integer)
         Try
             lStatusIndex = lIndex
         Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
         End Try
     End Sub
     Public Sub AddToLinks(ByVal lServerIP As String, ByVal lPort As String, _ListView As ListView)
@@ -29,7 +29,7 @@ Public Class clsServerLinks
             lItem.SubItems.Add(lPort)
             lItem.Checked = True
         Catch ex As Exception
-            ProcessError(ex.Message, "Public Sub AddToLinks(ByVal lServerIP As String, ByVal lPort As String)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub AddToLinks(ByVal lServerIP As String, ByVal lPort As String)")
         End Try
     End Sub
     Public Sub frmServerLinks_FormClosing(_ListView As ListView)
@@ -43,16 +43,16 @@ Public Class clsServerLinks
                 End With
             Next i
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub frmServerLinks_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing")
+            Throw ex 'ProcessError(ex.Message, "Private Sub frmServerLinks_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing")
         End Try
     End Sub
     Public Sub Form_Load(_Form As Form, _ComboBox As ComboBox, _ListView As ListView)
         Try
             Dim i As Integer
             _Form.Icon = mdiMain.Icon
-            For i = 1 To lNetworks.nCount
-                With lNetworks.nNetwork(i)
-                    If Len(lNetworks.nNetwork(i).nDescription) <> 0 Then
+            For i = 1 To lSettings.lNetworks.nCount
+                With lSettings.lNetworks.nNetwork(i)
+                    If Len(lSettings.lNetworks.nNetwork(i).nDescription) <> 0 Then
                         _ComboBox.Items.Add(.nDescription)
                     End If
                 End With
@@ -62,13 +62,13 @@ Public Class clsServerLinks
                 .Add("Port", 140)
             End With
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub frmServerLinks_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+            Throw ex 'ProcessError(ex.Message, "Private Sub frmServerLinks_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
         End Try
     End Sub
     Public Sub cmdOK_Click(_Form As Form, _ListView As ListView, _ComboBox As ComboBox)
         Try
             Dim mbox As MsgBoxResult, i As Integer, lItem As ListViewItem
-            If lIRC.iSettings.sPrompts = True Then
+            If lSettings.lIRC.iSettings.sPrompts = True Then
                 mbox = MsgBox("Warning! You are about to add a range of servers to a network group via /LINKS command, are you sure you wish to proceed?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question)
             Else
                 mbox = MsgBoxResult.Yes
@@ -78,21 +78,21 @@ Public Class clsServerLinks
                     lItem = _ListView.Items(i)
                     If Len(lItem.Text) <> 0 Then
                         If lItem.Checked = True Then
-                            AddServer(_ComboBox.Text & ": " & lItem.Text, lItem.Text, FindNetworkIndex(_ComboBox.Text), CLng(Trim(lItem.SubItems(1).Text)))
+                            lSettings.AddServer(_ComboBox.Text & ": " & lItem.Text, lItem.Text, lSettings.FindNetworkIndex(_ComboBox.Text), CLng(Trim(lItem.SubItems(1).Text)))
                         End If
                     End If
                 Next i
             End If
             _Form.Close()
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click")
+            Throw ex 'ProcessError(ex.Message, "Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click")
         End Try
     End Sub
     Public Sub cmdCancel_Click(_Form As Form)
         Try
             _Form.Close()
         Catch ex As Exception
-            ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
+            Throw ex 'ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
         End Try
     End Sub
 End Class

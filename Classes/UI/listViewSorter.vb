@@ -1,30 +1,39 @@
-﻿Public Class ListViewItemComparer
+﻿'nexIRC 3.0.26
+'06-13-2013 - guideX
+Option Explicit On
+Option Strict On
+
+Public Class ListViewSorter
     Implements IComparer
     Private col As Integer
     Private order As SortOrder
 
     Public Sub New()
+        'Try
         col = 0
         order = SortOrder.Ascending
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
 
     Public Sub New(column As Integer, order As SortOrder)
+        'Try
         col = column
         Me.order = order
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
 
-    Public Function Compare(x As Object, y As Object) As Integer _
-                        Implements System.Collections.IComparer.Compare
+    Public Function Compare(x As Object, y As Object) As Integer Implements System.Collections.IComparer.Compare
+        'Try
         Dim returnVal As Integer = -1
-        returnVal = [String].Compare(CType(x,  _
-                        ListViewItem).SubItems(col).Text, _
-                        CType(y, ListViewItem).SubItems(col).Text)
-        ' Determine whether the sort order is descending.
-        If order = SortOrder.Descending Then
-            ' Invert the value returned by String.Compare.
-            returnVal *= -1
-        End If
-
+        returnVal = [String].Compare(CType(x, ListViewItem).SubItems(col).Text, CType(y, ListViewItem).SubItems(col).Text)
+        If (order = SortOrder.Descending) Then returnVal *= -1
         Return returnVal
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Function
 End Class

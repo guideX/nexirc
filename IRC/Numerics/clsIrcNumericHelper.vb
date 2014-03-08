@@ -77,14 +77,14 @@ Public Class clsIrcNumericHelper
         'End Try
     End Function
     Public Sub NewDCCChat()
-        Try
-            Dim f As frmDCCChat
-            f = New frmDCCChat
-            f.lDccChatUI.SetStatusIndex(lStatus.ActiveIndex)
-            f.Show()
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Try
+        Dim f As frmDCCChat
+        f = New frmDCCChat
+        f.lDccChatUI.SetStatusIndex(lStatus.ActiveIndex)
+        f.Show()
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
     Public Sub NewDCCSend()
         Try

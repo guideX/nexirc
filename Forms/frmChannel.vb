@@ -113,6 +113,10 @@ Public Class frmChannel
         'End 'Try
     End Sub
 
+    Private Sub frmChannel_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+
+    End Sub
+
     Private Sub frmChannel_Resize(sender As Object, e As System.EventArgs) Handles Me.Resize
         'Try
         MdiChildWindow.Form_Resize(Me.ClientSize.Width, Me.ClientSize.Height, txtOutgoing.Height, txtIncoming.Top)
@@ -226,7 +230,7 @@ Public Class frmChannel
         If (txtIncoming IsNot Nothing) Then
             If (txtIncoming.Document IsNot Nothing) Then
                 If (txtIncoming.Document.CaretPosition IsNot Nothing) Then
-                    txtIncoming.Document.CaretPosition.MoveToLastPositionInDocument()
+                    'txtIncoming.Document.CaretPosition.MoveToLastPositionInDocument()
                 End If
             End If
         End If
@@ -287,8 +291,4 @@ Public Class frmChannel
         'End 'Try
     End Sub
 #End Region
-
-    Private Sub frmChannel_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-
-    End Sub
 End Class

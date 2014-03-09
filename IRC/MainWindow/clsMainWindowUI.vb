@@ -328,8 +328,8 @@ Namespace nexIRC.MainWindow
                 If Len(_QueryPromptLabel.Tag.ToString) = 1 Then
                     Select Case CType(CType(_QueryPromptLabel.Tag.ToString, Integer), eInfoBar)
                         Case eInfoBar.iNickServ_NickTaken
-                            frmNickServLogin.Show()
-                            frmNickServLogin.SetStatusIndex(lStatus.ActiveIndex)
+                            'frmNickServLogin.Show()
+                            'frmNickServLogin.SetStatusIndex(lStatus.ActiveIndex)
                     End Select
                 ElseIf InStr(_QueryPromptLabel.Tag.ToString, ":") <> 0 Then
                     splt = Split(_QueryPromptLabel.Tag.ToString, ":")

@@ -102,7 +102,7 @@ Public Class frmDCCGet
             End If
         End If
         cmdOK.Enabled = False
-        lSocket.Connect(lStrings.DecodeLongIPAddr(lRemoteIp), CLng(Trim(lRemotePort)))
+        lSocket.Connect(lStrings.DecodeLongIPAddr(lRemoteIp), Convert.ToInt64(Trim(lRemotePort)))
         'Catch ex As Exception
         'Throw ex
         'End Try
@@ -142,7 +142,7 @@ Public Class frmDCCGet
                 lCBytes(i) = lBytes(i)
             Next i
             lBinaryWriter.Write(lCBytes)
-            lBytesRecievedCount = lBytesRecievedCount + CUInt(Len(lData))
+            lBytesRecievedCount = lBytesRecievedCount + CUInt(lData.Length)
             ProgressBar1.Value = Convert.ToInt32(lBytesRecievedCount)
             If Convert.ToInt32(lBytesRecievedCount) = Convert.ToInt32(lRemoteFileSize) Then
                 lSocket.SendBytes(BytesToChars(lBytesRecievedCount))
@@ -185,24 +185,24 @@ Public Class frmDCCGet
 
     Private Function BytesToChars(ByVal lBytes As Long) As Byte()
         'Try
-            Dim lLongValue As Long, lLongByte As Long, lSendBackByte() As Byte
-            lLongValue = htonl(CUInt(lBytes))
-            ReDim lSendBackByte(3)
-            lLongByte = lLongValue And &HFF&
-            lSendBackByte(0) = CByte(lLongByte)
-            lLongByte = CLng((lLongValue And &HFF00&) / &H100)
-            lLongByte = lLongByte And &HFF&
-            lSendBackByte(1) = CByte(lLongByte)
-            lLongByte = CLng((lLongValue And &HFF0000) / &H10000)
-            lLongByte = lLongByte And &HFF&
-            lSendBackByte(2) = CByte(lLongByte)
-            lLongByte = CLng((lLongValue And &HFF000000) / &H1000000)
-            lLongByte = lLongByte And &HFF&
-            lSendBackByte(3) = CByte(lLongByte)
-            BytesToChars = lSendBackByte
-            'Catch ex As Exception
-            'Throw ex
-            'End Try
+        Dim lLongValue As Long, lLongByte As Long, lSendBackByte() As Byte
+        lLongValue = htonl(CUInt(lBytes))
+        ReDim lSendBackByte(3)
+        lLongByte = lLongValue And &HFF&
+        lSendBackByte(0) = CByte(lLongByte)
+        lLongByte = Convert.ToInt64((lLongValue And &HFF00&) / &H100)
+        lLongByte = lLongByte And &HFF&
+        lSendBackByte(1) = CByte(lLongByte)
+        lLongByte = Convert.ToInt64((lLongValue And &HFF0000) / &H10000)
+        lLongByte = lLongByte And &HFF&
+        lSendBackByte(2) = CByte(lLongByte)
+        lLongByte = Convert.ToInt64((lLongValue And &HFF000000) / &H1000000)
+        lLongByte = lLongByte And &HFF&
+        lSendBackByte(3) = CByte(lLongByte)
+        BytesToChars = lSendBackByte
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Function
 
     Private Sub SocketDisconnectedProc()

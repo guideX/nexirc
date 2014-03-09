@@ -54,7 +54,7 @@ Public Class frmDCCSend
     End Sub
     Private Sub SetProgress(ByVal lBytesSent As Long, ByVal lLength As Long)
         Dim i As Long
-        i = CLng(lBytesSent / lLength * 100)
+        i = Convert.ToInt64(lBytesSent / lLength * 100)
         ProgressBar1.Value = Convert.ToInt32(i)
         If i <> 100 Then
             lblStatus.Text = "Sent: " & Format(lBytesSent, "###,###,###") & " bytes"
@@ -90,7 +90,7 @@ Public Class frmDCCSend
         Dim msg As String, msg2 As String, lSetLabel As New StringDelegate(AddressOf SetLabel), msg3 As String
         If lStatus.Connected(lStatusIndex) = True Then
             If System.IO.File.Exists(txtFilename.Text) = True Then
-                If Len(cboNickname.Text) <> 0 Then
+                If (Not String.IsNullOrEmpty(cboNickname.Text)) Then
                     cmdSend.Enabled = False
                     cboNickname.Enabled = False
                     txtFilename.Enabled = False

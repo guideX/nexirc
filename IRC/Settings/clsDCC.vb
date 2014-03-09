@@ -43,7 +43,9 @@ Namespace nexIRC.IRC.Settings
             Public dDownloadDirectory As String
             Public dPopupDownloadManager As Boolean
         End Structure
+
         Public lDCC As gDCC
+
         Public Sub LoadDCCSettings()
             Dim i As Integer, n As Integer
             With lDCC
@@ -69,7 +71,7 @@ Namespace nexIRC.IRC.Settings
                 .dDownloadDirectory = Files.ReadINI(lSettings.lINI.iDCC, "Settings", "DownloadDirectory", "")
                 If String.IsNullOrEmpty(.dDownloadDirectory) = True Then .dDownloadDirectory = Application.StartupPath & "\"
                 .dDownloadDirectory = Replace(.dDownloadDirectory, "\\", "")
-                .dBufferSize = CLng(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "BufferSize", "1024")))
+                .dBufferSize = Convert.ToInt64(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "BufferSize", "1024")))
                 .dUseIpAddress = Convert.ToBoolean(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "UseIpAddress", "False")))
                 .dCustomIpAddress = Files.ReadINI(lSettings.lINI.iDCC, "Settings", "CustomIpAddress", "")
                 If Len(.dCustomIpAddress) = 0 Then .dCustomIpAddress = ReturnOutsideIPAddress()
@@ -95,6 +97,7 @@ Namespace nexIRC.IRC.Settings
                 End With
             Next i
         End Sub
+
         Public Function ReturnOutsideIPAddress() As String
             Try
                 Dim client As New WebClient, baseurl As String = "http://checkip.dyndns.org:8245/", data As System.IO.Stream, reader As System.IO.StreamReader, s As String
@@ -111,6 +114,7 @@ Namespace nexIRC.IRC.Settings
                 Throw ex
             End Try
         End Function
+
         Public Sub SaveDCCSettings()
             Try
                 Dim i As Integer

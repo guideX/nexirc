@@ -52,7 +52,7 @@ Public Class clsIrcNumericHelper
                 splt = Split(lSettings_DCC.lDCC.dSendPort, "-")
                 p = lStrings.GetRnd(Convert.ToInt32(splt(0).Trim()), Convert.ToInt32(splt(1).Trim()))
             Else
-                p = CLng(lSettings_DCC.lDCC.dSendPort.Trim())
+                p = Convert.ToInt64(lSettings_DCC.lDCC.dSendPort.Trim())
             End If
         End If
         ReturnDCCPort = p
@@ -353,19 +353,19 @@ Public Class clsIrcNumericHelper
     End Sub
 
     Public Sub ProcessDataArrival(ByVal lStatusIndex As Integer, ByVal lData As String)
-        Try
-            Dim splt() As String, i As Integer
-            If InStr(lData, vbCrLf) <> 0 Then
-                splt = Split(lData, vbCrLf)
-                For i = 0 To UBound(splt)
-                    lProcessNumeric.ProcessDataArrivalLine(lStatusIndex, splt(i))
-                Next i
-            Else
-                lProcessNumeric.ProcessDataArrivalLine(lStatusIndex, lData)
-            End If
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Try
+        Dim splt() As String, i As Integer
+        If InStr(lData, vbCrLf) <> 0 Then
+            splt = Split(lData, vbCrLf)
+            For i = 0 To UBound(splt)
+                lProcessNumeric.ProcessDataArrivalLine(lStatusIndex, splt(i))
+            Next i
+        Else
+            lProcessNumeric.ProcessDataArrivalLine(lStatusIndex, lData)
+        End If
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
 
     Public Function IPToInteger(ByVal Expression As String) As Integer

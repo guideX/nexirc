@@ -29,11 +29,11 @@ Public Class frmEditServer
             If lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Unable to edit server")
             Exit Sub
         End If
-        If Len(txtDescription.Text) <> 0 And Len(txtPort.Text) <> 0 And Len(txtIp.Text) <> 0 And lServerIndex <> 0 Then
+        If (Not String.IsNullOrEmpty(txtDescription.Text) And Not String.IsNullOrEmpty(txtPort.Text) And Not String.IsNullOrEmpty(txtIp.Text) And lServerIndex <> 0) Then
             With lSettings.lServers.sServer(lServerIndex)
                 .sDescription = txtDescription.Text
                 .sIP = txtIp.Text
-                .sPort = CLng(Trim(txtPort.Text))
+                .sPort = Convert.ToInt64(Trim(txtPort.Text))
                 .sNetworkIndex = lSettings.FindNetworkIndex(cboNetwork.Text)
                 If lSettings.lWinVisible.wCustomize = True Then
                     frmCustomize.UpdateSelectedServer(txtDescription.Text, txtIp.Text, txtPort.Text)

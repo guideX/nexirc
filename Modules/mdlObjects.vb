@@ -5,6 +5,8 @@ Option Strict On
 Imports nexIRC.IRC.Channels
 Imports nexIRC.IRC.Status
 Imports Telerik.WinControls.UI
+Imports nexIRC.nexIRC.IRC.Settings
+
 Namespace Modules
     Public Module mdlObjects
         Public lSettings As New Settings
@@ -14,8 +16,8 @@ Namespace Modules
         Public lChannelLists As New clsChannelList
         Public lChannelFolder As New clsChannelFolder
         Public lProcessNumeric As New clsProcessNumeric
-        Public lSettings_DCC As New nexIRC.IRC.Settings.clsDCC
-        Public lSettings_Services As New nexIRC.IRC.Settings.clsServices
+        Public lSettings_DCC As New clsDCC
+        Public lSettings_Services As New clsServices
         Public lIdent As New Ident
 
         Public Sub SetSelectedRadComboBoxItem(_RadComboBox As RadDropDownList, _Text As String)

@@ -46,7 +46,7 @@ Public Class frmNetworkSettings
             End If
             .dRandomizePort = Convert.ToBoolean(chkRandomize.Checked)
             .dCustomIpAddress = txtCustomIpAddress.Text
-            .dBufferSize = CLng(Trim(txtBufferSize.Text))
+            .dBufferSize = Convert.ToInt64(Trim(txtBufferSize.Text))
         End With
         Me.Close()
         'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click")

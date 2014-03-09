@@ -97,7 +97,7 @@ Public Class clsDccChat
             If lAutoConnect = True Then
                 lSocket = New AsyncSocket
                 lRemoteIp = lStrings.DecodeLongIPAddr(lRemoteIp)
-                lPort = CLng(Replace(Trim(lRemotePort), "", ""))
+                lPort = Convert.ToInt64(Replace(Trim(lRemotePort), "", ""))
                 _UsersDropDownList.Enabled = False
                 _ConnectButton.Enabled = False
                 _DisconnectButton.Enabled = True

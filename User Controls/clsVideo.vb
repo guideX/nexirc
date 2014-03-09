@@ -299,7 +299,7 @@ Public Class clsVideo
                 If pLastError = MCIERR.MCIERR_NO_ERROR Then
                     Dim PosStr As String = Space(128)
                     pLastError = mciSendString("status " & pAlias & " position", PosStr, Len(PosStr), IntPtr.Zero)
-                    Return CLng(Trim(PosStr))
+                    Return Convert.ToInt64(Trim(PosStr))
                 End If
             End If
             Return -1
@@ -313,7 +313,7 @@ Public Class clsVideo
                 If pLastError = MCIERR.MCIERR_NO_ERROR Then
                     Dim PosStr As String = Space(128)
                     pLastError = mciSendString("status " & pAlias & " position", PosStr, Len(PosStr), IntPtr.Zero)
-                    Return CLng(Trim(PosStr))
+                    Return Convert.ToInt64(Trim(PosStr))
                 End If
             End If
             Return -1
@@ -562,7 +562,7 @@ Public Class clsVideo
                 Dim FrameStr As String = Space(128)
                 pLastError = mciSendString("status " & pAlias & " length", FrameStr, Len(FrameStr), IntPtr.Zero)
                 If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                    Return CLng(Trim(FrameStr))
+                    Return Convert.ToInt64(Trim(FrameStr))
                 End If
             End If
         End If
@@ -580,7 +580,7 @@ Public Class clsVideo
                 Dim TimeStr As String = Space(128)
                 pLastError = mciSendString("status " & pAlias & " length", TimeStr, Len(TimeStr), IntPtr.Zero)
                 If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                    Return CLng(Trim(TimeStr))
+                    Return Convert.ToInt64(Trim(TimeStr))
                 End If
             End If
         End If

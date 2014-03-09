@@ -55,7 +55,7 @@ Public Class frmEditString
         'Try
         Dim msg As String
         msg = InputBox("Add Text String Parameter")
-        If Len(msg) <> 0 Then
+        If (Not String.IsNullOrEmpty(msg)) Then
             lStrings.AddTextStringParameter(CType(cboNumeric.Text, Integer), msg)
             lstParameters.Items.Add(msg)
         Else

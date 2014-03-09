@@ -160,7 +160,9 @@ Namespace Classes.Communications
                 If (ex.Message.Contains("Cannot access a disposed object")) Then
                     RaiseEvent SocketDisconnected(SocketID)
                 Else
-                    Throw ex
+                    MessageBox.Show(ex.Message)
+                    'Throw ex
+                    'Something keeps going wrong in here
                 End If
             End Try
         End Sub
@@ -175,7 +177,7 @@ Namespace Classes.Communications
 
         Public Function ReturnLocalPort() As Long
             'Try
-            ReturnLocalPort = CLng(CType(_tempSocket.LocalEndPoint, IPEndPoint).Port)
+            ReturnLocalPort = Convert.ToInt64(CType(_tempSocket.LocalEndPoint, IPEndPoint).Port)
             'Catch ex As Exception
             'Throw ex
             'End Try

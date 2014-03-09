@@ -126,7 +126,7 @@ Public Class frmNoticeWindow
                 lStatus.ProcessUserInput(lStatusIndex, msg)
                 e.Handled = True
             Else
-                If Len(txtOutgoing.Text) <> 0 Then
+                If (Not String.IsNullOrEmpty(txtOutgoing.Text)) Then
                     If lPrivateMessage = True Then
                         msg = txtOutgoing.Text
                         lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & lPMNick & " :" & msg)
@@ -164,13 +164,11 @@ Public Class frmNoticeWindow
     End Sub
 
     Private Sub txtIncomingColor_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
-        'On Error Resume Next
-        'If Len(txtIncoming.SelectedText) <> 0 Then
-        'Clipboard.Clear()
-        'Clipboard.SetText(txtIncoming.Text)
-        'End If
+        'Try
         txtOutgoing.Focus()
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub txtIncomingColor_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseUp")
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
 
     Private Sub txtIncomingColor_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs)

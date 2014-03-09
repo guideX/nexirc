@@ -120,7 +120,7 @@ Public Class frmCustomize
         Next i
         For i = 1 To lSettings.lIRC.iNicks.nCount
             With lSettings.lIRC.iNicks.nNick(i)
-                If Len(.nNick) <> 0 Then
+                If (Not String.IsNullOrEmpty(.nNick)) Then
                     cboMyNickNames.Items.Add(.nNick)
                 End If
             End With
@@ -166,11 +166,11 @@ Public Class frmCustomize
             For i = 1 To .dIgnorelist.dCount
                 Select Case .dIgnorelist.dItem(i).dType
                     Case gDCCIgnoreType.dNicknames
-                        If Len(.dIgnorelist.dItem(i).dData) <> 0 Then lstDCCIgnoreItems.Items.Add(.dIgnorelist.dItem(i).dData)
+                        If (Not String.IsNullOrEmpty(.dIgnorelist.dItem(i).dData)) Then lstDCCIgnoreItems.Items.Add(.dIgnorelist.dItem(i).dData)
                     Case gDCCIgnoreType.dHostnames
-                        If Len(.dIgnorelist.dItem(i).dData) <> 0 Then lstDCCIgnoreItems.Items.Add(.dIgnorelist.dItem(i).dData)
+                        If (Not String.IsNullOrEmpty(.dIgnorelist.dItem(i).dData)) Then lstDCCIgnoreItems.Items.Add(.dIgnorelist.dItem(i).dData)
                     Case gDCCIgnoreType.dFileTypes
-                        If Len(.dIgnorelist.dItem(i).dData) <> 0 Then lstIgnoreExtensions.Items.Add(.dIgnorelist.dItem(i).dData)
+                        If (Not String.IsNullOrEmpty(.dIgnorelist.dItem(i).dData)) Then lstIgnoreExtensions.Items.Add(.dIgnorelist.dItem(i).dData)
                 End Select
             Next i
         End With
@@ -199,7 +199,7 @@ Public Class frmCustomize
         If lSettings.lNetworks.nCount <> 0 Then
             For i = 1 To lSettings.lNetworks.nCount
                 With lSettings.lNetworks.nNetwork(i)
-                    If Len(.nDescription) <> 0 Then
+                    If (Not String.IsNullOrEmpty(.nDescription)) Then
                         cboNetworks.Items.Add(.nDescription)
                     End If
                 End With

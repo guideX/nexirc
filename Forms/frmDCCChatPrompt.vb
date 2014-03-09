@@ -18,7 +18,7 @@ Public Class frmDCCChatPrompt
 
     Public Sub SetInfo(ByVal lNick As String, ByVal lAddr As String, ByVal lPrt As String)
         'Try
-        If Len(lNick) <> 0 And Len(lAddr) <> 0 And Len(lPrt) <> 0 Then
+        If (Not String.IsNullOrEmpty(lNick) And Not String.IsNullOrEmpty(lAddr) And Not String.IsNullOrEmpty(lPrt)) Then
             lNickName = lNick
             lAddress = lAddr
             lPort = lPrt

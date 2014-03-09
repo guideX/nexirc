@@ -853,7 +853,7 @@ Public Class Settings
             .iSettings.iEnabled = Convert.ToBoolean(Files.ReadINI(lINI.iIdent, "Settings", "Enabled", Convert.ToString(True)))
             If .iSettings.iEnabled = True Then
                 .iUserID = Files.ReadINI(lINI.iIdent, "Settings", "UserID", "")
-                .iPort = CLng(Files.ReadINI(lINI.iIdent, "Settings", "Port", "0"))
+                .iPort = Convert.ToInt64(Files.ReadINI(lINI.iIdent, "Settings", "Port", "0"))
                 .iSystem = Files.ReadINI(lINI.iIdent, "Settings", "System", "")
             End If
         End With

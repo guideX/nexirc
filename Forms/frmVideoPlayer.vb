@@ -383,14 +383,14 @@ Public Class frmVideoPlayer
 
 #End Region
     Private Sub TmrDisplay_Elapsed(ByVal sender As System.Object, ByVal e As System.Timers.ElapsedEventArgs) Handles TmrDisplay.Elapsed
-        Dim TotalSec As Long = CLng(lVideo.TotalTime() / 1000)
+        Dim TotalSec As Long = Convert.ToInt64(lVideo.TotalTime() / 1000)
         Dim CurrentSec As Long = lVideo.CurrentTime()
         If CurrentSec >= TrackOffset.Minimum And CurrentSec <= TrackOffset.Maximum Then
             TrackOffset.Value = Convert.ToInt32(CurrentSec)
         Else
             TrackOffset.Value = TrackOffset.Minimum
         End If
-        CurrentSec = CLng(CurrentSec / 1000)
+        CurrentSec = Convert.ToInt64(CurrentSec / 1000)
         lblTime.Text = "   Total time = " & Convert.ToString(Int(TotalSec / 60)).PadLeft(2, CChar("0")) & ":" & Convert.ToString(Convert.ToInt32(TotalSec Mod 60)).PadLeft(2, CChar("0")) & "     Time = " & Convert.ToString(Int(CurrentSec / 60)).PadLeft(2, CChar("0")) & ":" & Convert.ToString(Convert.ToInt32(CurrentSec Mod 60)).PadLeft(2, CChar("0"))
     End Sub
 

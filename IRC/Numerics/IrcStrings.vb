@@ -642,63 +642,90 @@ Public Class IrcStrings
         'Throw ex
         'End Try
     End Function
+
+    Enum ColorCode
+        White = 0
+        Black = 1
+        DarkBlue = 2
+        DarkGreen = 3
+        Red = 4
+        DarkRed = 5
+        DarkViolet = 6
+        Orange = 7
+        Yellow = 8
+        LightGreen = 9
+        Cyan = 10
+        LightCyan = 11
+        Blue = 12
+        Violet = 13
+        DarkGray = 14
+        LightGray = 15
+    End Enum
+
     Public Sub Print(data As String, richTextBox As RadRichTextBox)
-        Dim span As Span, i As Integer, msg As String, foreColor As Integer ', backColor As Integer
-        richTextBox.InsertLineBreak()
-        For i = 0 To data.Length
-            If (data.Length <> 0) Then
-                msg = Left(data, 1)
-                data = Right(data, data.Length - 1)
-                'If ((data) <> Environment.NewLine) Then
-                If msg = "" Then
-                    If IsNumeric(Left(data, 2)) = True And Not InStr(Left(data, 2), ",") <> 0 Then
-                        foreColor = Convert.ToInt32(Left(data, 2).ToString())
-                        data = Right(data, data.Length - 2)
-                    ElseIf IsNumeric(Left(data, 1)) Then
-                        foreColor = Convert.ToInt32(Left(data, 1).ToString())
-                        data = Right(data, data.Length - 1)
+        Dim ircChar As String = "", s As Span, mint As Integer, i As Integer, msg As String, currentText As String = "", subText1 As String = "", subText2 As String = "", b As Boolean = False
+        If (Not String.IsNullOrEmpty(data)) Then
+            richTextBox.InsertLineBreak()
+            If (Not data.Contains(ircChar)) Then
+                'richTextBox.InsertLineBreak()
+                s = New Span(data)
+                s.ForeColor = Color.White
+                richTextBox.InsertInline(s)
+            Else
+                s = New Span(data)
+                s.ForeColor = Color.White
+                For i = 0 To data.Length
+                    b = True
+                    msg = data.Substring(0, 1)
+                    subText2 = data.Substring(0, 2)
+                    subText1 = data.Substring(0, 1)
+                    If (msg = ircChar) Then
+                        If (Not b) Then
+                            data = data.Remove(0, 1)
+                            If (Integer.TryParse(subText2, mint)) Then
+                                data = data.Remove(0, 2)
+                                s.ForeColor = ConvertIntToSystemColor(mint, True)
+                            ElseIf (Integer.TryParse(subText1, mint)) Then
+                                data = data.Remove(0, 1)
+                                s.ForeColor = ConvertIntToSystemColor(mint, True)
+                            End If
+                            If (data.Substring(0, 1) = ",") Then
+                                subText2 = data.Substring(0, 2)
+                                subText1 = data.Substring(0, 1)
+                                If (Integer.TryParse(subText2, mint)) Then
+                                    data = data.Remove(0, 2)
+                                    's.BackColor = ConvertIntToSystemColor(mint, True)
+                                ElseIf (Integer.TryParse(subText1, mint)) Then
+                                    data = data.Remove(0, 1)
+                                    's.BackColor = ConvertIntToSystemColor(mint, True)
+                                End If
+                            End If
+                        Else
+                            If (Not String.IsNullOrEmpty(currentText)) Then
+                                'richTextBox.InsertLineBreak()
+                                s.Text = currentText
+                                richTextBox.InsertInline(s)
+                                currentText = ""
+                            End If
+                        End If
                     Else
-                        foreColor = 0
-                        'backColor = 16
-                        span = New Span(msg)
-                        span.ForeColor = ConvertIntToSystemColor(foreColor, True)
-                        'span.BackColor = ConvertIntToSystemColor(backColor)
-                        richTextBox.Document.CaretPosition.MoveToLastPositionInDocument()
-                        If msg <> "" Then
-                            richTextBox.InsertInline(span)
-                        End If
+                        data = data.Remove(0, 1)
+                        currentText = currentText & msg
                     End If
-                    If Left(data, 1) = "," Then
-                        data = Right(data, data.Length - 1)
-                        If IsNumeric(Left(data, 2)) = True And Not Left(data, 2).Contains(",") Then
-                            'backColor = Convert.ToInt32(Left(data, 2).Trim())
-                            data = Right(data, data.Length - 2)
-                        ElseIf IsNumeric(Left(data, 1)) Then
-                            'backColor = Convert.ToInt32(Left(data, 1).Trim())
-                            data = Right(data, data.Length - 1)
-                        End If
-                    End If
-                Else
-                    span = New Span(msg)
-                    span.ForeColor = ConvertIntToSystemColor(foreColor, True)
-                    'span.BackColor = ConvertIntToSystemColor(backColor)
-                    richTextBox.Document.CaretPosition.MoveToLastPositionInDocument()
-                    If msg <> "" Then
-                        richTextBox.InsertInline(span)
+                Next i
+                If (Not String.IsNullOrEmpty(currentText)) Then
+                    If (Not String.IsNullOrEmpty(currentText.Length)) Then
+                        'richTextBox.InsertLineBreak()
+                        s.Text = currentText
+                        richTextBox.InsertInline(s)
+                        currentText = ""
                     End If
                 End If
-                'Else
-                'span = New Span(msg)
-                'span.ForeColor = Color.Black
-                'span.BackColor = ConvertIntToSystemColor(backColor)
-                'richTextBox.Document.CaretPosition.MoveToLastPositionInDocument()
-                'If msg <> "" Then
-                'richTextBox.InsertInline(span)
-                'End If
-                'End If
             End If
-        Next i
+        End If
+        richTextBox.Document.CaretPosition.MoveToLastPositionInDocument()
     End Sub
+
     Public Sub DoColor(lData As String, lTextBox As RichTextBox, Optional _Black As Boolean = False)
         'Try
         _Black = True

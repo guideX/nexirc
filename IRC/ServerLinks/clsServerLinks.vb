@@ -78,7 +78,7 @@ Public Class clsServerLinks
                     lItem = _ListView.Items(i)
                     If Len(lItem.Text) <> 0 Then
                         If lItem.Checked = True Then
-                            lSettings.AddServer(_ComboBox.Text & ": " & lItem.Text, lItem.Text, lSettings.FindNetworkIndex(_ComboBox.Text), CLng(Trim(lItem.SubItems(1).Text)))
+                            lSettings.AddServer(_ComboBox.Text & ": " & lItem.Text, lItem.Text, lSettings.FindNetworkIndex(_ComboBox.Text), Convert.ToInt64(Trim(lItem.SubItems(1).Text)))
                         End If
                     End If
                 Next i

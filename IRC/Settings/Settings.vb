@@ -327,374 +327,378 @@ Public Class Settings
 
     Public Function FindCompatibilityIndex(ByVal lDescription As String) As Integer
         Dim result As Integer
-        'Try
-        For i As Integer = 1 To lCompatibility.cCount
-            With lCompatibility.cCompatibility(i)
-                If LCase(Trim(.cDescription)) = LCase(Trim(lDescription)) Then
-                    result = i
-                    Exit For
-                End If
-            End With
-        Next i
-        Return result
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
-    End Function
-
-    Public Sub SaveCompatibility()
-        'Try
-        Dim i As Integer
-        If lCompatibility.cModified = True Then
-            Files.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.cCount.ToString))
-            For i = 1 To lCompatibility.cCount
+        Try
+            For i As Integer = 1 To lCompatibility.cCount
                 With lCompatibility.cCompatibility(i)
-                    Files.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", .cDescription)
-                    Files.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", Trim(.cEnabled.ToString))
-                End With
-            Next i
-        End If
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
-    End Sub
-
-    Public Sub LoadCompatibility()
-        'Try
-        Dim i As Integer
-        lCompatibility.cCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iCompatibility, "Settings", "Count", "0")))
-        ReDim lCompatibility.cCompatibility(1000)
-        For i = 1 To lCompatibility.cCount
-            With lCompatibility.cCompatibility(i)
-                .cDescription = Files.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Description", "")
-                .cEnabled = Convert.ToBoolean(Files.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", "False"))
-            End With
-        Next i
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
-    End Sub
-
-    Public Sub AddToCompatibility(ByVal lDescription As String, ByVal lEnabled As Boolean)
-        'Try
-        If Len(lDescription) <> 0 Then
-            lCompatibility.cModified = True
-            lCompatibility.cCount = lCompatibility.cCount + 1
-            With lCompatibility.cCompatibility(lCompatibility.cCount)
-                .cDescription = lDescription
-                .cEnabled = lEnabled
-            End With
-        End If
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
-    End Sub
-
-    Public Sub RemoveFromCompatibility(ByVal lIndex As Integer)
-        'Try
-        lCompatibility.cModified = True
-        With lCompatibility.cCompatibility(lIndex)
-            .cEnabled = False
-            .cDescription = ""
-        End With
-        SortCompatibility()
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
-    End Sub
-
-    Public Sub SortCompatibility()
-        'Try
-        Dim lEnabled(lArraySizes.aCompatibility) As Boolean, lDescription(lArraySizes.aCompatibility) As String, i As Integer, c As Integer
-        For i = 1 To lCompatibility.cCount
-            With lCompatibility.cCompatibility(i)
-                lEnabled(i) = .cEnabled
-                lDescription(i) = .cDescription
-                .cEnabled = False
-                .cDescription = ""
-            End With
-        Next i
-        For i = 1 To lArraySizes.aCompatibility
-            If Len(lDescription(i)) <> 0 Then
-                c = c + 1
-                With lCompatibility.cCompatibility(c)
-                    .cDescription = lDescription(i)
-                    .cEnabled = lEnabled(i)
-                End With
-            End If
-        Next i
-        lCompatibility.cCount = c
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
-    End Sub
-
-    Public Sub LoadPlaylists()
-        'Try
-        Dim i As Integer
-        ReDim lPlaylists.pPlaylist(lArraySizes.aPlaylists)
-        lPlaylists.pCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, "Settings", "Count", "0")))
-        For i = 1 To lPlaylists.pCount
-            With lPlaylists.pPlaylist(i)
-                .pName = Files.ReadINI(lINI.iPlaylists, "Settings", Trim(i.ToString), "Name")
-                .pType = CType(Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, Trim(i.ToString), "Type", "0"))), ePlaylistType)
-            End With
-        Next i
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
-    End Sub
-
-    Public Sub NewPlaylist(ByVal lName As String)
-        'Try
-        lPlaylists.pCount = lPlaylists.pCount + 1
-        With lPlaylists.pPlaylist(lPlaylists.pCount)
-            .pName = lName
-        End With
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
-    End Sub
-
-    Public Sub LoadMediaFiles()
-        'Try
-        Dim i As Integer
-        With lMediaFiles
-            .mCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iMedia, "Settings", "Count", "0")))
-            For i = 1 To .mCount
-                .mFile(i) = Files.ReadINI(lINI.iMedia, Trim(i.ToString), "File", "")
-            Next i
-        End With
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
-    End Sub
-
-    Public Sub SaveMediaFiles()
-        'Try
-        Dim i As Integer
-        With lMediaFiles
-            Files.WriteINI(lINI.iMedia, "Settings", "Count", Trim(lMediaFiles.mCount.ToString))
-            For i = 1 To lMediaFiles.mCount
-                Files.WriteINI(lINI.iMedia, Trim(i.ToString), "File", .mFile(i))
-            Next i
-        End With
-        'Catch ex As Exception
-        'Throw ex 'ProcessError(ex.Message, "Public Sub SaveMediaFiles()")
-        'End Try
-    End Sub
-
-    Public Function ReturnDownloadManagerFullPath(ByVal lFileName As String) As String
-        'Try
-        Dim i As Integer, msg As String = ""
-        If Len(lFileName) <> 0 Then
-            For i = 0 To lDownloadManager.dCount
-                With lDownloadManager.dDownload(i)
-                    If LCase(Trim(.dFileName)) = LCase(Trim(lFileName)) Then
-                        msg = .dFilePath & .dFileName
+                    If LCase(Trim(.cDescription)) = LCase(Trim(lDescription)) Then
+                        result = i
+                        Exit For
                     End If
                 End With
             Next i
-        End If
-        Return msg
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+            Return result
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
+    End Function
+
+    Public Sub SaveCompatibility()
+        Try
+            Dim i As Integer
+            If lCompatibility.cModified = True Then
+                Files.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.cCount.ToString))
+                For i = 1 To lCompatibility.cCount
+                    With lCompatibility.cCompatibility(i)
+                        Files.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", .cDescription)
+                        Files.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", Trim(.cEnabled.ToString))
+                    End With
+                Next i
+            End If
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Public Sub LoadCompatibility()
+        Try
+            Dim i As Integer
+            lCompatibility.cCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iCompatibility, "Settings", "Count", "0")))
+            ReDim lCompatibility.cCompatibility(1000)
+            For i = 1 To lCompatibility.cCount
+                With lCompatibility.cCompatibility(i)
+                    .cDescription = Files.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Description", "")
+                    .cEnabled = Convert.ToBoolean(Files.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", "False"))
+                End With
+            Next i
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Public Sub AddToCompatibility(ByVal lDescription As String, ByVal lEnabled As Boolean)
+        Try
+            If Len(lDescription) <> 0 Then
+                lCompatibility.cModified = True
+                lCompatibility.cCount = lCompatibility.cCount + 1
+                With lCompatibility.cCompatibility(lCompatibility.cCount)
+                    .cDescription = lDescription
+                    .cEnabled = lEnabled
+                End With
+            End If
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Public Sub RemoveFromCompatibility(ByVal lIndex As Integer)
+        Try
+            lCompatibility.cModified = True
+            With lCompatibility.cCompatibility(lIndex)
+                .cEnabled = False
+                .cDescription = ""
+            End With
+            SortCompatibility()
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Public Sub SortCompatibility()
+        Try
+            Dim lEnabled(lArraySizes.aCompatibility) As Boolean, lDescription(lArraySizes.aCompatibility) As String, i As Integer, c As Integer
+            For i = 1 To lCompatibility.cCount
+                With lCompatibility.cCompatibility(i)
+                    lEnabled(i) = .cEnabled
+                    lDescription(i) = .cDescription
+                    .cEnabled = False
+                    .cDescription = ""
+                End With
+            Next i
+            For i = 1 To lArraySizes.aCompatibility
+                If Len(lDescription(i)) <> 0 Then
+                    c = c + 1
+                    With lCompatibility.cCompatibility(c)
+                        .cDescription = lDescription(i)
+                        .cEnabled = lEnabled(i)
+                    End With
+                End If
+            Next i
+            lCompatibility.cCount = c
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Public Sub LoadPlaylists()
+        Try
+            Dim i As Integer
+            ReDim lPlaylists.pPlaylist(lArraySizes.aPlaylists)
+            lPlaylists.pCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, "Settings", "Count", "0")))
+            For i = 1 To lPlaylists.pCount
+                With lPlaylists.pPlaylist(i)
+                    .pName = Files.ReadINI(lINI.iPlaylists, "Settings", Trim(i.ToString), "Name")
+                    .pType = CType(Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, Trim(i.ToString), "Type", "0"))), ePlaylistType)
+                End With
+            Next i
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Public Sub NewPlaylist(ByVal lName As String)
+        Try
+            lPlaylists.pCount = lPlaylists.pCount + 1
+            With lPlaylists.pPlaylist(lPlaylists.pCount)
+                .pName = lName
+            End With
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Public Sub LoadMediaFiles()
+        Try
+            Dim i As Integer
+            With lMediaFiles
+                .mCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iMedia, "Settings", "Count", "0")))
+                For i = 1 To .mCount
+                    .mFile(i) = Files.ReadINI(lINI.iMedia, Trim(i.ToString), "File", "")
+                Next i
+            End With
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Public Sub SaveMediaFiles()
+        Try
+            Dim i As Integer
+            With lMediaFiles
+                Files.WriteINI(lINI.iMedia, "Settings", "Count", Trim(lMediaFiles.mCount.ToString))
+                For i = 1 To lMediaFiles.mCount
+                    Files.WriteINI(lINI.iMedia, Trim(i.ToString), "File", .mFile(i))
+                Next i
+            End With
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Public Sub SaveMediaFiles()")
+        End Try
+    End Sub
+
+    Public Function ReturnDownloadManagerFullPath(ByVal lFileName As String) As String
+        Try
+            Dim i As Integer, msg As String = ""
+            If Len(lFileName) <> 0 Then
+                For i = 0 To lDownloadManager.dCount
+                    With lDownloadManager.dDownload(i)
+                        If LCase(Trim(.dFileName)) = LCase(Trim(lFileName)) Then
+                            msg = .dFilePath & .dFileName
+                        End If
+                    End With
+                Next i
+            End If
+            Return msg
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
 
     Public Sub AddToRecientServerList(ByVal lServerIndex As Integer)
-        'Try
-        Dim msg As String
-        If lServerIndex <> 0 Then
-            msg = lServers.sServer(lServerIndex).sIP
-            If msg = lRecientServers.sItem(1) Or msg = lRecientServers.sItem(2) Or msg = lRecientServers.sItem(3) Then Exit Sub
-            lRecientServers.sItem(3) = lRecientServers.sItem(2)
-            lRecientServers.sItem(2) = lRecientServers.sItem(1)
-            lRecientServers.sItem(1) = msg
-            RefreshRecientServersMenu()
-            SaveRecientServers()
-        End If
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim msg As String
+            If lServerIndex <> 0 Then
+                msg = lServers.sServer(lServerIndex).sIP
+                If msg = lRecientServers.sItem(1) Or msg = lRecientServers.sItem(2) Or msg = lRecientServers.sItem(3) Then Exit Sub
+                lRecientServers.sItem(3) = lRecientServers.sItem(2)
+                lRecientServers.sItem(2) = lRecientServers.sItem(1)
+                lRecientServers.sItem(1) = msg
+                RefreshRecientServersMenu()
+                SaveRecientServers()
+            End If
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Sub LoadRecientServers()
-        'Try
-        Dim i As Integer
-        lRecientServers.sCount = lArraySizes.aRecientServers
-        ReDim lRecientServers.sItem(lRecientServers.sCount)
-        For i = 1 To lRecientServers.sCount
-            lRecientServers.sItem(i) = Files.ReadINI(lINI.iRecientServers, "Items", Trim(i.ToString), "")
-        Next i
-        RefreshRecientServersMenu()
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim i As Integer
+            lRecientServers.sCount = lArraySizes.aRecientServers
+            ReDim lRecientServers.sItem(lRecientServers.sCount)
+            For i = 1 To lRecientServers.sCount
+                lRecientServers.sItem(i) = Files.ReadINI(lINI.iRecientServers, "Items", Trim(i.ToString), "")
+            Next i
+            RefreshRecientServersMenu()
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Sub RefreshRecientServersMenu()
-        'Try
-        mdiMain.cmd_RecientServer1.Text = lRecientServers.sItem(1)
-        mdiMain.cmd_RecientServer2.Text = lRecientServers.sItem(2)
-        mdiMain.cmd_RecientServer3.Text = lRecientServers.sItem(3)
-        If Len(mdiMain.cmd_RecientServer1.Text) = 0 Then
-            mdiMain.cmd_RecientServer1.Text = "(Empty)"
-            mdiMain.cmd_RecientServer1.Enabled = False
-        Else
-            mdiMain.cmd_RecientServer1.Enabled = True
-        End If
-        If Len(mdiMain.cmd_RecientServer2.Text) = 0 Then
-            mdiMain.cmd_RecientServer2.Text = "(Empty)"
-            mdiMain.cmd_RecientServer2.Enabled = False
-        Else
-            mdiMain.cmd_RecientServer2.Enabled = True
-        End If
-        If Len(mdiMain.cmd_RecientServer3.Text) = 0 Then
-            mdiMain.cmd_RecientServer3.Text = "(Empty)"
-            mdiMain.cmd_RecientServer3.Enabled = False
-        Else
-            mdiMain.cmd_RecientServer3.Enabled = True
-        End If
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            mdiMain.cmd_RecientServer1.Text = lRecientServers.sItem(1)
+            mdiMain.cmd_RecientServer2.Text = lRecientServers.sItem(2)
+            mdiMain.cmd_RecientServer3.Text = lRecientServers.sItem(3)
+            If Len(mdiMain.cmd_RecientServer1.Text) = 0 Then
+                mdiMain.cmd_RecientServer1.Text = "(Empty)"
+                mdiMain.cmd_RecientServer1.Enabled = False
+            Else
+                mdiMain.cmd_RecientServer1.Enabled = True
+            End If
+            If Len(mdiMain.cmd_RecientServer2.Text) = 0 Then
+                mdiMain.cmd_RecientServer2.Text = "(Empty)"
+                mdiMain.cmd_RecientServer2.Enabled = False
+            Else
+                mdiMain.cmd_RecientServer2.Enabled = True
+            End If
+            If Len(mdiMain.cmd_RecientServer3.Text) = 0 Then
+                mdiMain.cmd_RecientServer3.Text = "(Empty)"
+                mdiMain.cmd_RecientServer3.Enabled = False
+            Else
+                mdiMain.cmd_RecientServer3.Enabled = True
+            End If
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Sub SaveRecientServers()
-        'Try
-        Dim i As Integer
-        For i = 1 To lRecientServers.sCount
-            Files.WriteINI(lINI.iRecientServers, "Items", Trim(i.ToString), lRecientServers.sItem(i))
-        Next i
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim i As Integer
+            For i = 1 To lRecientServers.sCount
+                Files.WriteINI(lINI.iRecientServers, "Items", Trim(i.ToString), lRecientServers.sItem(i))
+            Next i
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Sub WriteTextFile(ByVal lFileName As String, ByVal lData As String)
-        'Try
-        Dim w As StreamWriter
-        w = New StreamWriter(lFileName)
-        w.Write(lData)
-        w.Close()
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim w As StreamWriter
+            w = New StreamWriter(lFileName)
+            w.Write(lData)
+            w.Close()
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Function ReadTextFile(ByVal lFileName As String) As String
-        'Try
-        Dim r As StreamReader, msg As String, msg2 As String
-        r = New StreamReader(lFileName)
-        msg = r.ReadLine
-        msg2 = ""
-        Do While Not msg Is Nothing
-            If Len(msg2) <> 0 Then
-                msg2 = msg2 & vbCrLf & msg
-            Else
-                msg2 = msg
-            End If
-        Loop
-        ReadTextFile = msg2
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim r As StreamReader, msg As String, msg2 As String
+            r = New StreamReader(lFileName)
+            msg = r.ReadLine
+            msg2 = ""
+            Do While Not msg Is Nothing
+                If Len(msg2) <> 0 Then
+                    msg2 = msg2 & Environment.Newline & msg
+                Else
+                    msg2 = msg
+                End If
+            Loop
+            ReadTextFile = msg2
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
 
     Public Sub LoadQuerySettings()
-        'Try
-        Dim i As Integer
-        With lQuerySettings
-            .qAutoAllow = CType(Files.ReadINI(lINI.iQuery, "Settings", "AutoAllow", "1"), eQueryAutoAllow)
-            .qAutoDeny = CType(Files.ReadINI(lINI.iQuery, "Settings", "AutoDeny", "1"), eQueryAutoDeny)
-            .qStandByMessage = Files.ReadINI(lINI.iQuery, "Settings", "StandByMessage", "")
-            .qDeclineMessage = Files.ReadINI(lINI.iQuery, "Settings", "DeclineMessage", "")
-            .qEnableSpamFilter = Convert.ToBoolean(Files.ReadINI(lINI.iQuery, "Settings", "EnableSpamFilter ", "True"))
-            .qPromptUser = Convert.ToBoolean(Files.ReadINI(lINI.iQuery, "Settings", "PromptUser", "False"))
-            .qAutoAllowCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iQuery, "Settings", "AutoAllowCount", "0")))
-            .qAutoDenyCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iQuery, "Settings", "AutoDenyCount", "0")))
-            .qSpamPhraseCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iQuery, "Settings", "SpamPhraseCount", "0")))
-            .qAutoShowWindow = Convert.ToBoolean(Trim(Files.ReadINI(lINI.iQuery, "Settings", "AutoShowWindow", "True")))
-            ReDim .qAutoAllowList(lArraySizes.aAutoAllowList)
-            ReDim .qAutoDenyList(lArraySizes.aAutoDenyList)
-            ReDim .qSpamPhrases(lArraySizes.aSpamFilterCount)
-            For i = 1 To .qAutoAllowCount
-                .qAutoAllowList(i) = Files.ReadINI(lINI.iQuery, "AutoAllowList", Trim(i.ToString), "")
-            Next i
-            For i = 1 To .qAutoDenyCount
-                .qAutoDenyList(i) = Files.ReadINI(lINI.iQuery, "AutoDenyList", Trim(i.ToString), "")
-            Next i
-            For i = 1 To .qSpamPhraseCount
-                .qSpamPhrases(i) = Files.ReadINI(lINI.iQuery, "SpamPhrases", Trim(i.ToString), "")
-            Next
-        End With
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim i As Integer
+            With lQuerySettings
+                .qAutoAllow = CType(Files.ReadINI(lINI.iQuery, "Settings", "AutoAllow", "1"), eQueryAutoAllow)
+                .qAutoDeny = CType(Files.ReadINI(lINI.iQuery, "Settings", "AutoDeny", "1"), eQueryAutoDeny)
+                .qStandByMessage = Files.ReadINI(lINI.iQuery, "Settings", "StandByMessage", "")
+                .qDeclineMessage = Files.ReadINI(lINI.iQuery, "Settings", "DeclineMessage", "")
+                .qEnableSpamFilter = Convert.ToBoolean(Files.ReadINI(lINI.iQuery, "Settings", "EnableSpamFilter ", "True"))
+                .qPromptUser = Convert.ToBoolean(Files.ReadINI(lINI.iQuery, "Settings", "PromptUser", "False"))
+                .qAutoAllowCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iQuery, "Settings", "AutoAllowCount", "0")))
+                .qAutoDenyCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iQuery, "Settings", "AutoDenyCount", "0")))
+                .qSpamPhraseCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iQuery, "Settings", "SpamPhraseCount", "0")))
+                .qAutoShowWindow = Convert.ToBoolean(Trim(Files.ReadINI(lINI.iQuery, "Settings", "AutoShowWindow", "True")))
+                ReDim .qAutoAllowList(lArraySizes.aAutoAllowList)
+                ReDim .qAutoDenyList(lArraySizes.aAutoDenyList)
+                ReDim .qSpamPhrases(lArraySizes.aSpamFilterCount)
+                For i = 1 To .qAutoAllowCount
+                    .qAutoAllowList(i) = Files.ReadINI(lINI.iQuery, "AutoAllowList", Trim(i.ToString), "")
+                Next i
+                For i = 1 To .qAutoDenyCount
+                    .qAutoDenyList(i) = Files.ReadINI(lINI.iQuery, "AutoDenyList", Trim(i.ToString), "")
+                Next i
+                For i = 1 To .qSpamPhraseCount
+                    .qSpamPhrases(i) = Files.ReadINI(lINI.iQuery, "SpamPhrases", Trim(i.ToString), "")
+                Next
+            End With
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Sub SaveQuerySettings()
-        'Try
-        Dim i As Integer
-        With lQuerySettings
-            Files.WriteINI(lINI.iQuery, "Settings", "AutoAllow", Trim(CType(.qAutoAllow, Integer).ToString))
-            Files.WriteINI(lINI.iQuery, "Settings", "AutoDeny", Trim(CType(.qAutoDeny, Integer).ToString))
-            Files.WriteINI(lINI.iQuery, "Settings", "StandByMessage", .qStandByMessage)
-            Files.WriteINI(lINI.iQuery, "Settings", "DeclineMessage", .qDeclineMessage)
-            Files.WriteINI(lINI.iQuery, "Settings", "EnableSpamFilter", Trim(.qEnableSpamFilter.ToString))
-            Files.WriteINI(lINI.iQuery, "Settings", "PromptUser", Trim(.qPromptUser.ToString))
-            Files.WriteINI(lINI.iQuery, "Settings", "AutoAllowCount", Trim(.qAutoAllowCount.ToString))
-            Files.WriteINI(lINI.iQuery, "Settings", "AutoDenyCount", Trim(.qAutoDenyCount.ToString))
-            Files.WriteINI(lINI.iQuery, "Settings", "SpamPhraseCount", Trim(.qSpamPhraseCount.ToString))
-            Files.WriteINI(lINI.iQuery, "Settings", "AutoShowWindow", Trim(.qAutoShowWindow.ToString))
-            For i = 1 To .qAutoAllowCount
-                Files.WriteINI(lINI.iQuery, "AutoAllowList", Trim(i.ToString), .qAutoAllowList(i))
-            Next i
-            For i = 1 To .qAutoDenyCount
-                Files.WriteINI(lINI.iQuery, "AutoDenyList", Trim(i.ToString), .qAutoDenyList(i))
-            Next i
-            For i = 1 To .qSpamPhraseCount
-                Files.WriteINI(lINI.iQuery, "SpamPhrases", Trim(i.ToString), .qSpamPhrases(i))
-            Next i
-        End With
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim i As Integer
+            With lQuerySettings
+                Files.WriteINI(lINI.iQuery, "Settings", "AutoAllow", Trim(CType(.qAutoAllow, Integer).ToString))
+                Files.WriteINI(lINI.iQuery, "Settings", "AutoDeny", Trim(CType(.qAutoDeny, Integer).ToString))
+                Files.WriteINI(lINI.iQuery, "Settings", "StandByMessage", .qStandByMessage)
+                Files.WriteINI(lINI.iQuery, "Settings", "DeclineMessage", .qDeclineMessage)
+                Files.WriteINI(lINI.iQuery, "Settings", "EnableSpamFilter", Trim(.qEnableSpamFilter.ToString))
+                Files.WriteINI(lINI.iQuery, "Settings", "PromptUser", Trim(.qPromptUser.ToString))
+                Files.WriteINI(lINI.iQuery, "Settings", "AutoAllowCount", Trim(.qAutoAllowCount.ToString))
+                Files.WriteINI(lINI.iQuery, "Settings", "AutoDenyCount", Trim(.qAutoDenyCount.ToString))
+                Files.WriteINI(lINI.iQuery, "Settings", "SpamPhraseCount", Trim(.qSpamPhraseCount.ToString))
+                Files.WriteINI(lINI.iQuery, "Settings", "AutoShowWindow", Trim(.qAutoShowWindow.ToString))
+                For i = 1 To .qAutoAllowCount
+                    Files.WriteINI(lINI.iQuery, "AutoAllowList", Trim(i.ToString), .qAutoAllowList(i))
+                Next i
+                For i = 1 To .qAutoDenyCount
+                    Files.WriteINI(lINI.iQuery, "AutoDenyList", Trim(i.ToString), .qAutoDenyList(i))
+                Next i
+                For i = 1 To .qSpamPhraseCount
+                    Files.WriteINI(lINI.iQuery, "SpamPhrases", Trim(i.ToString), .qSpamPhrases(i))
+                Next i
+            End With
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Sub PopulateNotifyByListView(ByVal lListView As RadListView)
-        'Try
-        Dim i As Integer, n As Integer
-        For i = 0 To (lListView.Items.Count - 1)
-            n = n + 1
-            With lListView.Items(i)
-                lNotify.nNotify(n).nNickName = .Text
-                lNotify.nNotify(n).nNetwork = .Item(2).ToString
-                lNotify.nNotify(n).nMessage = .Item(1).ToString
-            End With
-        Next i
-        lNotify.nCount = n
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim i As Integer, n As Integer
+            For i = 0 To (lListView.Items.Count - 1)
+                n = n + 1
+                With lListView.Items(i)
+                    lNotify.nNotify(n).nNickName = .Text
+                    lNotify.nNotify(n).nNetwork = .Item(2).ToString
+                    lNotify.nNotify(n).nMessage = .Item(1).ToString
+                End With
+            Next i
+            lNotify.nCount = n
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Function FindNotifyIndex(ByVal lNickName As String) As Integer
-        'Try
-        Dim i As Integer
-        FindNotifyIndex = 0
-        If Len(lNickName) <> 0 Then
-            For i = 1 To lNotify.nCount
-                If LCase(Trim(lNickName)) = LCase(Trim(lNotify.nNotify(i).nNickName)) Then
-                    FindNotifyIndex = i
-                    Exit For
-                End If
-            Next i
-        End If
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim i As Integer
+            FindNotifyIndex = 0
+            If Len(lNickName) <> 0 Then
+                For i = 1 To lNotify.nCount
+                    If LCase(Trim(lNickName)) = LCase(Trim(lNotify.nNotify(i).nNickName)) Then
+                        FindNotifyIndex = i
+                        Exit For
+                    End If
+                Next i
+            End If
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
 
     Public Function ReturnAwayStatus() As Boolean
@@ -879,7 +883,7 @@ Public Class Settings
         Dim lIndex As Integer
         ReDim lServers.sServer(lArraySizes.aServers)
         msg2 = My.Computer.FileSystem.ReadAllText(lINI.iServers)
-        splt = Split(msg2, vbCrLf)
+        splt = Split(msg2, Environment.Newline)
         For Each msg In splt
             If LCase(msg) = "[settings]" Then
             Else
@@ -1055,21 +1059,22 @@ Public Class Settings
 
     Public Function FindDownloadManagerIndexByFileName(ByVal fileName As String) As Integer
         Dim i As Integer, result As Integer
-        'Try
-        If (Not String.IsNullOrEmpty(fileName)) Then
-            For i = 1 To lDownloadManager.dCount
-                With lDownloadManager.dDownload(i)
-                    If LCase(fileName) = LCase(.dFileName) Then
-                        result = i
-                        Exit For
-                    End If
-                End With
-            Next i
-        End If
-        Return result
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            If (Not String.IsNullOrEmpty(fileName)) Then
+                For i = 1 To lDownloadManager.dCount
+                    With lDownloadManager.dDownload(i)
+                        If LCase(fileName) = LCase(.dFileName) Then
+                            result = i
+                            Exit For
+                        End If
+                    End With
+                Next i
+            End If
+            Return result
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
 
     Public Sub AddToDownloadManager(ByVal lFile As String, ByVal lNickname As String, Optional ByVal lShowDownloadManager As Boolean = False)
@@ -1136,21 +1141,22 @@ Public Class Settings
 
     Public Function ReturnNickIndex(ByVal nickName As String) As Integer
         Dim i As Integer, result As Integer
-        'Try
-        If (Not String.IsNullOrEmpty(nickName)) Then
-            For i = 1 To lIRC.iNicks.nCount
-                With lIRC.iNicks.nNick(i)
-                    If (nickName.ToLower() = .nNick.ToLower) Then
-                        result = i
-                        Exit For
-                    End If
-                End With
-            Next i
-        End If
-        Return result
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            If (Not String.IsNullOrEmpty(nickName)) Then
+                For i = 1 To lIRC.iNicks.nCount
+                    With lIRC.iNicks.nNick(i)
+                        If (nickName.ToLower() = .nNick.ToLower) Then
+                            result = i
+                            Exit For
+                        End If
+                    End With
+                Next i
+            End If
+            Return result
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
 
     Private Sub SaveNickNames()
@@ -1285,55 +1291,58 @@ Public Class Settings
 
     Public Function FindServerIndexByIp(ByVal lIp As String) As Integer
         Dim i As Integer, result As Integer
-        'Try
-        If (Not String.IsNullOrEmpty(lIp)) Then
-            For i = 1 To lServers.sCount
-                With lServers.sServer(i)
-                    If (.sIP.ToLower() = lIp.ToLower()) Then
-                        result = i
-                        Exit For
-                    End If
-                End With
-            Next i
-        End If
-        Return result
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            If (Not String.IsNullOrEmpty(lIp)) Then
+                For i = 1 To lServers.sCount
+                    With lServers.sServer(i)
+                        If (.sIP.ToLower() = lIp.ToLower()) Then
+                            result = i
+                            Exit For
+                        End If
+                    End With
+                Next i
+            End If
+            Return result
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
 
     Public Function FindServerIndex(ByVal lDescription As String) As Integer
         Dim i As Integer, result As Integer
-        'Try
-        If (Not String.IsNullOrEmpty(lDescription)) Then
-            For i = 1 To lServers.sCount
-                With lServers.sServer(i)
-                    If .sDescription.ToLower() = lDescription.ToLower() Then
-                        result = i
-                        Exit For
-                    End If
-                End With
-            Next i
-        End If
-        Return result
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            If (Not String.IsNullOrEmpty(lDescription)) Then
+                For i = 1 To lServers.sCount
+                    With lServers.sServer(i)
+                        If .sDescription.ToLower() = lDescription.ToLower() Then
+                            result = i
+                            Exit For
+                        End If
+                    End With
+                Next i
+            End If
+            Return result
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
 
     Public Function FindNetworkIndex(ByVal description As String) As Integer
         Dim i As Integer, result As Integer
-        'Try
-        For i = 1 To lNetworks.nCount
-            If (description.Trim().ToLower() = lNetworks.nNetwork(i).nDescription.Trim().ToLower()) Then
-                result = i
-                Exit For
-            End If
-        Next i
-        Return result
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            For i = 1 To lNetworks.nCount
+                If (description.Trim().ToLower() = lNetworks.nNetwork(i).nDescription.Trim().ToLower()) Then
+                    result = i
+                    Exit For
+                End If
+            Next i
+            Return result
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
 
     Public Sub FillComboWithServers(ByVal lCombo As ComboBox, Optional ByVal lNetworkIndex As Integer = 0, Optional ByVal lClearCombo As Boolean = False)
@@ -1413,6 +1422,7 @@ Public Class Settings
             Return result
         Catch ex As Exception
             Throw ex
+            Return Nothing
         End Try
     End Function
 
@@ -1432,6 +1442,7 @@ Public Class Settings
             Return result
         Catch ex As Exception
             Throw ex
+            Return Nothing
         End Try
     End Function
 
@@ -1469,122 +1480,124 @@ Public Class Settings
     End Sub
 
     Public Function ShowPrompts() As Boolean
-        'Try
-        With lIRC.iSettings
-            Return .sPrompts
-        End With
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            With lIRC.iSettings
+                Return .sPrompts
+            End With
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
 
     Public Sub LoadModes()
-        'Try
-        With lIRC.iModes
-            .mInvisible = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Invisible", "True"))
-            .mLocalOperator = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "LocalOperator", "False"))
-            .mOperator = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Operator", "False"))
-            .mRestricted = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Restricted", "False"))
-            .mServerNotices = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ServerNotices", "True"))
-        End With
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            With lIRC.iModes
+                .mInvisible = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Invisible", "True"))
+                .mLocalOperator = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "LocalOperator", "False"))
+                .mOperator = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Operator", "False"))
+                .mRestricted = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Restricted", "False"))
+                .mServerNotices = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ServerNotices", "True"))
+            End With
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Sub LoadChannelFolders()
-        'Try
-        Dim i As Integer
-        ReDim lChannelFolders.cChannelFolder(lArraySizes.aChannelFolder)
-        lChannelFolders.cCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iChannelFolders, "Settings", "Count", "0")))
-        For i = 1 To lChannelFolders.cCount
-            With lChannelFolders.cChannelFolder(i)
-                .cChannel = Files.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Channel", "")
-                .cNetwork = Files.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Network", "")
-            End With
-        Next i
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim i As Integer
+            ReDim lChannelFolders.cChannelFolder(lArraySizes.aChannelFolder)
+            lChannelFolders.cCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iChannelFolders, "Settings", "Count", "0")))
+            For i = 1 To lChannelFolders.cCount
+                With lChannelFolders.cChannelFolder(i)
+                    .cChannel = Files.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Channel", "")
+                    .cNetwork = Files.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Network", "")
+                End With
+            Next i
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Sub SaveChannelFolders()
-        'Try
-        Dim i As Integer
-        Files.WriteINI(lINI.iChannelFolders, "Settings", "Count", Trim(Str(lChannelFolders.cCount)))
-        For i = 1 To lChannelFolders.cCount
-            With lChannelFolders.cChannelFolder(i)
-                Files.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Channel", .cChannel)
-                Files.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Network", .cNetwork)
-            End With
-        Next i
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim i As Integer
+            Files.WriteINI(lINI.iChannelFolders, "Settings", "Count", Trim(Str(lChannelFolders.cCount)))
+            For i = 1 To lChannelFolders.cCount
+                With lChannelFolders.cChannelFolder(i)
+                    Files.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Channel", .cChannel)
+                    Files.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Network", .cNetwork)
+                End With
+            Next i
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Sub AddToChannelFolders(ByVal lChannel As String, ByVal lNetworkIndex As Integer)
-        'Try
-        Dim i As Integer
-        For i = 1 To lChannelFolders.cCount
-            If LCase(Trim(lChannel)) = LCase(Trim(lChannelFolders.cChannelFolder(i).cChannel)) And LCase(Trim(lNetworks.nNetwork(lNetworkIndex).nDescription)) = LCase(Trim(lChannelFolders.cChannelFolder(i).cNetwork)) Then
-                Exit Sub
+        Try
+            Dim i As Integer
+            For i = 1 To lChannelFolders.cCount
+                If LCase(Trim(lChannel)) = LCase(Trim(lChannelFolders.cChannelFolder(i).cChannel)) And LCase(Trim(lNetworks.nNetwork(lNetworkIndex).nDescription)) = LCase(Trim(lChannelFolders.cChannelFolder(i).cNetwork)) Then
+                    Exit Sub
+                End If
+            Next i
+            If Len(lChannel) <> 0 Then
+                lChannelFolders.cCount = lChannelFolders.cCount + 1
+                With lChannelFolders.cChannelFolder(lChannelFolders.cCount)
+                    .cChannel = lChannel
+                    .cNetwork = lNetworks.nNetwork(lNetworkIndex).nDescription
+                End With
+                SaveChannelFolders()
             End If
-        Next i
-        If Len(lChannel) <> 0 Then
-            lChannelFolders.cCount = lChannelFolders.cCount + 1
-            With lChannelFolders.cChannelFolder(lChannelFolders.cCount)
-                .cChannel = lChannel
-                .cNetwork = lNetworks.nNetwork(lNetworkIndex).nDescription
-            End With
-            SaveChannelFolders()
-        End If
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Sub RemoveChannelFolder(ByVal lIndex As Integer)
-        'Try
-        With lChannelFolders.cChannelFolder(lIndex)
-            .cChannel = ""
-        End With
-        SaveChannelFolders()
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            With lChannelFolders.cChannelFolder(lIndex)
+                .cChannel = ""
+            End With
+            SaveChannelFolders()
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Function FindChannelFolderIndex(ByVal lChannel As String) As Integer
         Dim result As Integer, i As Integer
-        'Try
-        For i = 1 To lChannelFolders.cCount
-            With lChannelFolders.cChannelFolder(i)
-                If LCase(Trim(.cChannel)) = LCase(Trim(lChannel)) Then
-                    result = i
-                    Exit For
-                End If
-            End With
-        Next i
-        Return result
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            For i = 1 To lChannelFolders.cCount
+                With lChannelFolders.cChannelFolder(i)
+                    If LCase(Trim(.cChannel)) = LCase(Trim(lChannel)) Then
+                        result = i
+                        Exit For
+                    End If
+                End With
+            Next i
+            Return result
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
 
     Public Sub RemoveServer(ByVal lIndex As Integer)
-        'Try
-        If lIndex <> 0 Then
-            lServers.sModified = True
-            With lServers.sServer(lIndex)
-                .sDescription = ""
-                .sIP = ""
-                .sNetworkIndex = 0
-                .sPort = 0
-            End With
-        End If
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            If lIndex <> 0 Then
+                lServers.sModified = True
+                With lServers.sServer(lIndex)
+                    .sDescription = ""
+                    .sIP = ""
+                    .sNetworkIndex = 0
+                    .sPort = 0
+                End With
+            End If
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 End Class

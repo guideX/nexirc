@@ -11,7 +11,7 @@ Public Class frmNoticeWindow
     Private lUnsupported As Boolean
     Private lPrivateMessage As Boolean
     Private lPMNick As String
-    Private lMdiWindow As New MdiChildWindow
+    Private WithEvents lMdiWindow As New MdiChildWindow
 
     Public Sub SetPrivateMessageWindow(ByVal lValue As Boolean, ByVal lNick As String)
         'On Error Resume Next
@@ -59,6 +59,7 @@ Public Class frmNoticeWindow
 
     Private Sub frmNoticeWindow_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         'On Error Resume Next
+        lMdiWindow.Form_FormClosing()
         lSettings.lIRC.iSettings.sWindowSizes.iNotice.wWidth = Me.Width
         lSettings.lIRC.iSettings.sWindowSizes.iNotice.wHeight = Me.Height
         lSettings.SaveWindowSizes()
@@ -87,60 +88,61 @@ Public Class frmNoticeWindow
     End Sub
 
     Private Sub frmNoticeWindow_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        'Try
-        Me.Icon = mdiMain.Icon
-        Me.MdiParent = mdiMain
-        Me.Width = lSettings.lIRC.iSettings.sWindowSizes.iNotice.wWidth
-        Me.Height = lSettings.lIRC.iSettings.sWindowSizes.iNotice.wHeight
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Me.Icon = mdiMain.Icon
+            Me.MdiParent = mdiMain
+            Me.Width = lSettings.lIRC.iSettings.sWindowSizes.iNotice.wWidth
+            Me.Height = lSettings.lIRC.iSettings.sWindowSizes.iNotice.wHeight
+            lMdiWindow.Form_Load(MdiChildWindow.FormTypes.NoticeWindow)
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Private Sub frmNoticeWindow_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
-        'Try
-        txtIncoming.Width = Me.ClientSize.Width
-        txtIncoming.Height = Me.ClientSize.Height - txtOutgoing.Height
-        txtOutgoing.Width = txtIncoming.Width
-        txtOutgoing.Top = txtIncoming.Height
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            txtIncoming.Width = Me.ClientSize.Width
+            txtIncoming.Height = Me.ClientSize.Height - txtOutgoing.Height
+            txtOutgoing.Width = txtIncoming.Width
+            txtOutgoing.Top = txtIncoming.Height
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Private Sub txtNotice_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs)
-        'Try
-        If lSettings.lIRC.iSettings.sAutoMaximize = True Then Me.WindowState = FormWindowState.Maximized
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            If lSettings.lIRC.iSettings.sAutoMaximize = True Then Me.WindowState = FormWindowState.Maximized
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs)
-        'Try
-        Dim msg As String
-        If e.KeyCode = 13 Then
-            If lStrings.LeftRight(txtOutgoing.Text, 0, 1) = "/" Then
-                msg = txtOutgoing.Text
-                txtOutgoing.Text = ""
-                lStatus.ProcessUserInput(lStatusIndex, msg)
-                e.Handled = True
-            Else
-                If (Not String.IsNullOrEmpty(txtOutgoing.Text)) Then
-                    If lPrivateMessage = True Then
-                        msg = txtOutgoing.Text
-                        lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & lPMNick & " :" & msg)
-                        txtOutgoing.Text = ""
-                        e.Handled = True
-                        DoNoticeColor(lStrings.ReturnReplacedString(clsIrcNumerics.eStringTypes.sPRIVMSG, lStatus.NickName(lStatusIndex), msg))
-                        lStatus.PrivateMessage_AddToConversation(lStatus.NickName(lStatusIndex), msg, lStatusIndex, lStatus.PrivateMessage_Find(lStatusIndex, lPMNick))
+        Try
+            Dim msg As String
+            If e.KeyCode = 13 Then
+                If lStrings.LeftRight(txtOutgoing.Text, 0, 1) = "/" Then
+                    msg = txtOutgoing.Text
+                    txtOutgoing.Text = ""
+                    lStatus.ProcessUserInput(lStatusIndex, msg)
+                    e.Handled = True
+                Else
+                    If (Not String.IsNullOrEmpty(txtOutgoing.Text)) Then
+                        If lPrivateMessage = True Then
+                            msg = txtOutgoing.Text
+                            lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & lPMNick & " :" & msg)
+                            txtOutgoing.Text = ""
+                            e.Handled = True
+                            DoNoticeColor(lStrings.ReturnReplacedString(clsIrcNumerics.eStringTypes.sPRIVMSG, lStatus.NickName(lStatusIndex), msg))
+                            lStatus.PrivateMessage_AddToConversation(lStatus.NickName(lStatusIndex), msg, lStatusIndex, lStatus.PrivateMessage_Find(lStatusIndex, lPMNick))
+                        End If
                     End If
                 End If
             End If
-        End If
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Private Sub txtIncomingColor_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -164,11 +166,11 @@ Public Class frmNoticeWindow
     End Sub
 
     Private Sub txtIncomingColor_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
-        'Try
-        txtOutgoing.Focus()
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            txtOutgoing.Focus()
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Private Sub txtIncomingColor_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -196,6 +198,132 @@ Public Class frmNoticeWindow
             lMdiWindow.txtOutgoing_GotFocus(Me)
         Catch ex As Exception
             Throw ex 'ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
+        End Try
+    End Sub
+
+    Private Sub lMdiChildWindow_BringToFront() Handles lMdiWindow.BringToFront
+        Try
+            Me.BringToFront()
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_BringToFront() Handles lMdiWindow.BringToFront")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_ClearIncomingTextBoxSelection() Handles lMdiWindow.ClearIncomingTextBoxSelection
+        Try
+            txtIncoming.Document.Selection.Clear()
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_ClearIncomingTextBoxSelection() Handles lMdiWindow.ClearIncomingTextBoxSelection")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_CloseForm() Handles lMdiWindow.CloseForm
+        Try
+            Me.Close()
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_CloseForm() Handles lMdiWindow.CloseForm")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_EmptyOutgoingTextBox() Handles lMdiWindow.EmptyOutgoingTextBox
+        Try
+            txtOutgoing.Text = ""
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_EmptyOutgoingTextBox() Handles lMdiWindow.EmptyOutgoingTextBox")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_FormDimensions(width As Integer, height As Integer) Handles lMdiWindow.FormDimensions
+        Try
+            Me.Width = width
+            Me.Height = height
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormDimensions(width As Integer, height As Integer) Handles lMdiWindow.FormDimensions")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_FormFocus() Handles lMdiWindow.FormFocus
+        Try
+            Me.Focus()
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormFocus() Handles lMdiWindow.FormFocus")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_FormIcon(icon As System.Drawing.Icon) Handles lMdiWindow.FormIcon
+        Try
+            Me.Icon = icon
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormIcon(icon As System.Drawing.Icon) Handles lMdiWindow.FormIcon")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_IncomingTextBoxDimensions(width As Integer, height As Integer) Handles lMdiWindow.IncomingTextBoxDimensions
+        Try
+            txtIncoming.Width = width
+            txtIncoming.Height = height
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_IncomingTextBoxDimensions(width As Integer, height As Integer) Handles lMdiWindow.IncomingTextBoxDimensions")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_OutgoingSetFocus() Handles lMdiWindow.OutgoingSetFocus
+        Try
+            txtOutgoing.Focus()
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_OutgoingSetFocus() Handles lMdiWindow.OutgoingSetFocus")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_OutgoingTextBoxDimensions(width As Integer, top As Integer) Handles lMdiWindow.OutgoingTextBoxDimensions
+        Try
+            txtOutgoing.Width = width
+            txtOutgoing.Top = top
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_OutgoingTextBoxDimensions(width As Integer, top As Integer) Handles lMdiWindow.OutgoingTextBoxDimensions")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_ScrollToCaret() Handles lMdiWindow.ScrollToCaret
+        Try
+            If (txtIncoming IsNot Nothing) Then
+                If (txtIncoming.Document IsNot Nothing) Then
+                    If (txtIncoming.Document.CaretPosition IsNot Nothing) Then
+                        txtIncoming.Document.CaretPosition.MoveToLastPositionInDocument()
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_ScrollToCaret() Handles lMdiWindow.ScrollToCaret")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_SetIncomingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetIncomingColors
+        Try
+            txtIncoming.RichTextBoxElement.PageBackground = backgroundColor
+            txtIncoming.RichTextBoxElement.ForeColor = foregroundColor
+            txtIncoming.RichTextBoxElement.BorderWidth = 0
+            txtIncoming.RichTextBoxElement.BackColor = backgroundColor
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetIncomingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetIncomingColors")
+        End Try
+    End Sub
+
+    Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetOutgoingColors
+        Try
+            txtOutgoing.TextBoxElement.BackColor = backgroundColor
+            txtOutgoing.TextBoxElement.ForeColor = foregroundColor
+            txtOutgoing.TextBoxElement.ShowBorder = False
+            txtOutgoing.TextBoxElement.Border.Width = 0
+            txtOutgoing.TextBoxElement.Border.BackColor = Color.Black
+            txtOutgoing.TextBoxElement.Border.ForeColor = Color.Black
+            txtOutgoing.TextBoxElement.Border.Visibility = Telerik.WinControls.ElementVisibility.Collapsed
+            txtOutgoing.TextBoxElement.BorderThickness = New System.Windows.Forms.Padding(0)
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetOutgoingColors")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_SetParent(parentForm As System.Windows.Forms.Form) Handles lMdiWindow.SetParent
+        Try
+            Me.MdiParent = parentForm
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetParent(parentForm As System.Windows.Forms.Form) Handles lMdiWindow.SetParent")
+        End Try
+    End Sub
+    Private Sub lMdiChildWindow_SetWindowState(windowState As System.Windows.Forms.FormWindowState) Handles lMdiWindow.SetWindowState
+        Try
+            Me.WindowState = windowState
+        Catch ex As Exception
+            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetWindowState(windowState As System.Windows.Forms.FormWindowState) Handles lMdiWindow.SetWindowState")
         End Try
     End Sub
 End Class

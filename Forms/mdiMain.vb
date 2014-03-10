@@ -8,9 +8,6 @@ Imports Telerik.WinControls.UI
 Imports Telerik.WinControls
 
 Public Class mdiMain
-    'Public WithEvents tmrFlashDCCToolBar As New Timer
-    'Public WithEvents tmrWaitForQuit As New Timer
-    'Public WithEvents tmrStartupSettings As New Timer
     Private WithEvents lMainWindowUI As New clsMainWindowUI
     Public Sub New()
         InitializeComponent()
@@ -59,8 +56,6 @@ Public Class mdiMain
     End Sub
     Private Sub mdiMain_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         lMainWindowUI.Form_Load(Me, nicSystray, tmrStartupSettings, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
-		'From newer version
-		'lMainWindowUI.Form_Load(Me.Left, Me.Top, Me.Width, Me.Height) 'Me, nicSystray, tmrStartupSettings, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
     End Sub
     Private Sub mdiMain_Resize(sender As System.Object, e As System.EventArgs) Handles MyBase.Resize
         lMainWindowUI.Form_Resize(Me, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
@@ -223,5 +218,21 @@ Public Class mdiMain
         '_QueryPromptLabel.Text = _Text
         '_QueryPromptLabel.Visible = True
         '_ToolStrip.Tag = Trim(CType(_Function, Integer).ToString)
+    End Sub
+
+    Private Sub lMainWindowUI_SetBackgroundColor() Handles lMainWindowUI.SetBackgroundColor
+        Try
+            Dim ctl As Control
+            Dim ctlMDI As MdiClient
+            For Each ctl In Me.Controls
+                Try
+                    ctlMDI = CType(ctl, MdiClient)
+                    ctlMDI.BackColor = Me.BackColor
+                Catch exc As InvalidCastException
+                End Try
+            Next ctl
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 End Class

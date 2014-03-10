@@ -42,7 +42,6 @@ Public Class clsSharedAdd
                 Case eSharedAddType.sAddNickName
                     If (Not _Value.Length = 0) Then
                         lSettings.AddNickName(_Value)
-                        frmCustomize.cboMyNickNames.Items.Add(_Value)
                         RaiseEvent CloseForm()
                     End If
                 Case eSharedAddType.sAddNetwork

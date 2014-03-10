@@ -23,22 +23,22 @@ Partial Class frmCustomize
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewDetailColumn1 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
-        Dim ListViewDetailColumn2 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Server")
-        Dim ListViewDetailColumn3 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Port")
+        Dim ListViewDetailColumn14 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
+        Dim ListViewDetailColumn15 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Server")
+        Dim ListViewDetailColumn16 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Port")
+        Dim ListViewDetailColumn1 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
+        Dim ListViewDetailColumn2 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Message")
+        Dim ListViewDetailColumn3 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Network")
         Dim ListViewDetailColumn4 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
-        Dim ListViewDetailColumn5 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Message")
-        Dim ListViewDetailColumn6 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Network")
-        Dim ListViewDetailColumn7 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
-        Dim ListViewDetailColumn8 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Enabled")
-        Dim ListViewDetailColumn9 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
-        Dim ListViewDetailColumn10 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Support")
-        Dim ListViewDetailColumn11 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Syntax")
-        Dim ListViewDetailColumn12 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 3", "Numeric")
-        Dim ListViewDetailColumn13 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 4", "Data")
-        Dim RadListDataItem1 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
-        Dim RadListDataItem2 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
-        Dim RadListDataItem3 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim ListViewDetailColumn5 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Enabled")
+        Dim ListViewDetailColumn6 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
+        Dim ListViewDetailColumn7 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Support")
+        Dim ListViewDetailColumn8 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Syntax")
+        Dim ListViewDetailColumn17 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 3", "Numeric")
+        Dim ListViewDetailColumn18 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 4", "Data")
+        Dim RadListDataItem4 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim RadListDataItem5 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim RadListDataItem6 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCustomize))
         Me.RadPageView1 = New Telerik.WinControls.UI.RadPageView()
         Me.RadPageViewPage1 = New Telerik.WinControls.UI.RadPageViewPage()
@@ -167,6 +167,7 @@ Partial Class frmCustomize
         Me.cmdOK = New Telerik.WinControls.UI.RadButton()
         Me.cmdConnectNow = New Telerik.WinControls.UI.RadButton()
         Me.cmdCancelNow = New Telerik.WinControls.UI.RadButton()
+        Me.tmrCloseMe = New System.Windows.Forms.Timer(Me.components)
         CType(Me.RadPageView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RadPageView1.SuspendLayout()
         Me.RadPageViewPage1.SuspendLayout()
@@ -331,13 +332,13 @@ Partial Class frmCustomize
         'lvwServers
         '
         Me.lvwServers.AllowEdit = False
-        ListViewDetailColumn1.HeaderText = "Description"
-        ListViewDetailColumn1.Width = 300.0!
-        ListViewDetailColumn2.HeaderText = "Server"
-        ListViewDetailColumn2.Width = 75.0!
-        ListViewDetailColumn3.HeaderText = "Port"
-        ListViewDetailColumn3.Width = 75.0!
-        Me.lvwServers.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn1, ListViewDetailColumn2, ListViewDetailColumn3})
+        ListViewDetailColumn14.HeaderText = "Description"
+        ListViewDetailColumn14.Width = 300.0!
+        ListViewDetailColumn15.HeaderText = "Server"
+        ListViewDetailColumn15.Width = 75.0!
+        ListViewDetailColumn16.HeaderText = "Port"
+        ListViewDetailColumn16.Width = 75.0!
+        Me.lvwServers.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn14, ListViewDetailColumn15, ListViewDetailColumn16})
         Me.lvwServers.EnableColumnSort = True
         Me.lvwServers.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwServers.ItemSize = New System.Drawing.Size(200, 20)
@@ -1058,13 +1059,13 @@ Partial Class frmCustomize
         '
         'lvwNotify
         '
-        ListViewDetailColumn4.HeaderText = "Name"
-        ListViewDetailColumn4.Width = 363.0!
-        ListViewDetailColumn5.HeaderText = "Message"
-        ListViewDetailColumn5.Width = 75.0!
-        ListViewDetailColumn6.HeaderText = "Network"
-        ListViewDetailColumn6.Width = 75.0!
-        Me.lvwNotify.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn4, ListViewDetailColumn5, ListViewDetailColumn6})
+        ListViewDetailColumn1.HeaderText = "Name"
+        ListViewDetailColumn1.Width = 363.0!
+        ListViewDetailColumn2.HeaderText = "Message"
+        ListViewDetailColumn2.Width = 75.0!
+        ListViewDetailColumn3.HeaderText = "Network"
+        ListViewDetailColumn3.Width = 75.0!
+        Me.lvwNotify.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn1, ListViewDetailColumn2, ListViewDetailColumn3})
         Me.lvwNotify.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwNotify.ItemSize = New System.Drawing.Size(200, 20)
         Me.lvwNotify.ItemSpacing = -1
@@ -1110,11 +1111,11 @@ Partial Class frmCustomize
         '
         'lvwCompatibility
         '
-        ListViewDetailColumn7.HeaderText = "Name"
-        ListViewDetailColumn7.Width = 180.0!
-        ListViewDetailColumn8.HeaderText = "Enabled"
-        ListViewDetailColumn8.Width = 190.0!
-        Me.lvwCompatibility.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn7, ListViewDetailColumn8})
+        ListViewDetailColumn4.HeaderText = "Name"
+        ListViewDetailColumn4.Width = 180.0!
+        ListViewDetailColumn5.HeaderText = "Enabled"
+        ListViewDetailColumn5.Width = 190.0!
+        Me.lvwCompatibility.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn4, ListViewDetailColumn5})
         Me.lvwCompatibility.EnableColumnSort = True
         Me.lvwCompatibility.EnableSorting = True
         Me.lvwCompatibility.GroupItemSize = New System.Drawing.Size(200, 20)
@@ -1226,17 +1227,17 @@ Partial Class frmCustomize
         '
         'lvwStrings
         '
-        ListViewDetailColumn9.HeaderText = "Description"
-        ListViewDetailColumn9.Width = 150.0!
-        ListViewDetailColumn10.HeaderText = "Support"
-        ListViewDetailColumn10.Width = 50.0!
-        ListViewDetailColumn11.HeaderText = "Syntax"
-        ListViewDetailColumn11.Width = 50.0!
-        ListViewDetailColumn12.HeaderText = "Numeric"
-        ListViewDetailColumn12.Width = 50.0!
-        ListViewDetailColumn13.HeaderText = "Data"
-        ListViewDetailColumn13.Width = 68.0!
-        Me.lvwStrings.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn9, ListViewDetailColumn10, ListViewDetailColumn11, ListViewDetailColumn12, ListViewDetailColumn13})
+        ListViewDetailColumn6.HeaderText = "Description"
+        ListViewDetailColumn6.Width = 150.0!
+        ListViewDetailColumn7.HeaderText = "Support"
+        ListViewDetailColumn7.Width = 50.0!
+        ListViewDetailColumn8.HeaderText = "Syntax"
+        ListViewDetailColumn8.Width = 50.0!
+        ListViewDetailColumn17.HeaderText = "Numeric"
+        ListViewDetailColumn17.Width = 50.0!
+        ListViewDetailColumn18.HeaderText = "Data"
+        ListViewDetailColumn18.Width = 68.0!
+        Me.lvwStrings.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn6, ListViewDetailColumn7, ListViewDetailColumn8, ListViewDetailColumn17, ListViewDetailColumn18})
         Me.lvwStrings.EnableColumnSort = True
         Me.lvwStrings.EnableSorting = True
         Me.lvwStrings.GroupItemSize = New System.Drawing.Size(200, 20)
@@ -1393,15 +1394,15 @@ Partial Class frmCustomize
         'cboDCCFileExists
         '
         Me.cboDCCFileExists.DropDownAnimationEnabled = True
-        RadListDataItem1.Text = "Prompt"
-        RadListDataItem1.TextWrap = True
-        RadListDataItem2.Text = "Overwrite"
-        RadListDataItem2.TextWrap = True
-        RadListDataItem3.Text = "Ignore"
-        RadListDataItem3.TextWrap = True
-        Me.cboDCCFileExists.Items.Add(RadListDataItem1)
-        Me.cboDCCFileExists.Items.Add(RadListDataItem2)
-        Me.cboDCCFileExists.Items.Add(RadListDataItem3)
+        RadListDataItem4.Text = "Prompt"
+        RadListDataItem4.TextWrap = True
+        RadListDataItem5.Text = "Overwrite"
+        RadListDataItem5.TextWrap = True
+        RadListDataItem6.Text = "Ignore"
+        RadListDataItem6.TextWrap = True
+        Me.cboDCCFileExists.Items.Add(RadListDataItem4)
+        Me.cboDCCFileExists.Items.Add(RadListDataItem5)
+        Me.cboDCCFileExists.Items.Add(RadListDataItem6)
         Me.cboDCCFileExists.Location = New System.Drawing.Point(125, 303)
         Me.cboDCCFileExists.Name = "cboDCCFileExists"
         Me.cboDCCFileExists.ShowImageInEditorArea = True
@@ -1602,6 +1603,10 @@ Partial Class frmCustomize
         Me.cmdCancelNow.TabIndex = 30
         Me.cmdCancelNow.Text = "Ca&ncel"
         Me.cmdCancelNow.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'tmrCloseMe
+        '
+        Me.tmrCloseMe.Interval = 200
         '
         'frmCustomize
         '
@@ -1889,5 +1894,6 @@ Partial Class frmCustomize
     Friend WithEvents txtOperPassword As Telerik.WinControls.UI.RadTextBox
     Friend WithEvents txtOperName As Telerik.WinControls.UI.RadTextBox
     Friend WithEvents RadLabel19 As Telerik.WinControls.UI.RadLabel
+    Friend WithEvents tmrCloseMe As System.Windows.Forms.Timer
 End Class
 

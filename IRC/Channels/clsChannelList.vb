@@ -14,7 +14,7 @@ Public Class clsChannelListUI
         Try
             lSettings.AddToChannelFolders(channel, lSettings.lNetworks.nIndex)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub cmdAddToChannelFolder_Click(channel As String, network As Integer)")
+            Throw ex
         End Try
     End Sub
     Public Sub cmdRefresh_Click(form As Form)
@@ -23,7 +23,7 @@ Public Class clsChannelListUI
             lStrings.ProcessReplaceCommand(n, eCommandTypes.cLIST, lStatus.ServerDescription(n))
             form.Close()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub cmdRefresh_Click()")
+            Throw ex
         End Try
     End Sub
     Public WriteOnly Property MeIndex() As Integer
@@ -32,7 +32,7 @@ Public Class clsChannelListUI
                 lMeIndex = _MeIndex
                 lChannelLists.SetOpen(lMeIndex)
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public WriteOnly Property MeIndex() As Integer")
+                Throw ex
             End Try
         End Set
     End Property
@@ -45,7 +45,7 @@ Public Class clsChannelListUI
             lChannelLists.SetClosed(lMeIndex)
             RaiseEvent SaveColumnWidths()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub frmChannelList_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed")
+            Throw ex
         End Try
     End Sub
     Public Sub ResetList(_ListView As ListView)
@@ -57,7 +57,7 @@ Public Class clsChannelListUI
             _ListView.Columns.Add("Topic", Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "2", "350"))), HorizontalAlignment.Left)
             _ListView.Columns.Add("Users", Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "3", "100"))), HorizontalAlignment.Left)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub ResetList()")
+            Throw ex
         End Try
     End Sub
     Public Sub Load(_Form As Form, _ListView As ListView)
@@ -70,7 +70,7 @@ Public Class clsChannelListUI
             _Form.Icon = mdiMain.Icon
             ResetList(_ListView)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub frmChannelList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+            Throw ex
         End Try
     End Sub
     Public Sub Resize(_ListView As ListView, _Form As Form, _ToolStripHeight As Integer)
@@ -78,7 +78,7 @@ Public Class clsChannelListUI
             _ListView.Width = _Form.ClientSize.Width
             _ListView.Height = _Form.ClientSize.Height - _ToolStripHeight
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub Resize()")
+            Throw ex
         End Try
     End Sub
     Public Sub DoubleClick(_ListView As ListView)
@@ -88,14 +88,14 @@ Public Class clsChannelListUI
                 lChannels.Join(lChannelLists.ReturnStatusIndex(lMeIndex), lCurrentChannel)
             Next i
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub DoubleClick()")
+            Throw ex
         End Try
     End Sub
     Public Sub ItemSelectionChanged(_ListView As ListView, _ItemIndex As Integer)
         Try
             lCurrentChannel = _ListView.Items(_ItemIndex).Text
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lvwChannels_ItemSelectionChanged(ByVal sender As Object, ByVal e As System.Windows.Forms.ListViewItemSelectionChangedEventArgs) Handles lvwChannels.ItemSelectionChanged")
+            Throw ex
         End Try
     End Sub
 End Class
@@ -133,15 +133,19 @@ Public Class clsChannelList
             Next i
             Return n
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Function ReturnChannelListIndex(_StatusIndex As Integer) As Integer")
+            Throw ex
             Return Nothing
         End Try
     End Function
     Public Function ReturnStatusIndex(_ChannelListIndex As Integer) As Integer
         Try
-            Return lChannelLists.cChannelList(_ChannelListIndex).cStatusIndex
+            If (lChannelLists.cChannelList IsNot Nothing) Then
+                Return lChannelLists.cChannelList(_ChannelListIndex).cStatusIndex
+            Else
+                Return 0
+            End If
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Function ReturnStatusIndex(_ChannelListIndex As Integer) As Integer")
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -172,7 +176,7 @@ Public Class clsChannelList
                 End With
             End If
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub NewChannelList(_StatusIndex As Integer)")
+            Throw ex
         End Try
     End Sub
     Public Sub Clear(_ChannelListIndex As Integer)
@@ -181,7 +185,7 @@ Public Class clsChannelList
                 .cWindow.lvwChannels.Clear()
             End With
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub ClearChannelListItems(lStatusIndex As Integer)")
+            Throw ex
         End Try
     End Sub
     Public Sub Unload(_ChannelListIndex As Integer)
@@ -196,7 +200,7 @@ Public Class clsChannelList
                 End With
             End If
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Shared Sub Unload(_ChannelList As gChannelList)")
+            Throw ex
         End Try
     End Sub
     Public WriteOnly Property StatusDescription(_ChannelListIndex As Integer) As String
@@ -204,7 +208,7 @@ Public Class clsChannelList
             Try
                 lChannelLists.cChannelList(_ChannelListIndex).cStatusDescription = _StatusDescription
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public WriteOnly Property StatusDescription() As String")
+                Throw ex
             End Try
         End Set
     End Property
@@ -220,13 +224,12 @@ Public Class clsChannelList
                 .cWindow.MeIndex = _ChannelListIndex
             End With
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Shared Sub Display(_ChannelList As gChannelList, _StatusDescription As String)")
+            Throw ex
         End Try
     End Sub
     Private Sub SetItems(_ChannelListIndex As Integer)
         Try
             Dim _Item As ListViewItem
-            'clsLockWindowUpdate.LockWindowUpdate(lChannelLists.cChannelList(_ChannelListIndex).cWindow.lvwChannels.Handle)
             With lChannelLists.cChannelList(_ChannelListIndex)
                 For i As Integer = 1 To .cItem.cCount
                     _Item = .cWindow.lvwChannels.Items.Add(.cItem.cChannelListItem(i).cChannel)
@@ -234,9 +237,8 @@ Public Class clsChannelList
                     _Item.SubItems.Add(.cItem.cChannelListItem(i).cUserCount.ToString)
                 Next i
             End With
-            'clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub SetItems(_ChannelListIndex As Integer)")
+            Throw ex
         End Try
     End Sub
     Public Sub Close(_ChannelListIndex As Integer)
@@ -245,7 +247,7 @@ Public Class clsChannelList
                 If .cVisible = True Then .cWindow.Close()
             End With
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub Close()")
+            Throw ex
         End Try
     End Sub
     Public Sub HideTreeNode(_ChannelListIndex As Integer)
@@ -257,7 +259,7 @@ Public Class clsChannelList
                 End If
             End With
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub HideTreeNode(_ChannelListIndex As Integer)")
+            Throw ex
         End Try
     End Sub
     Public Sub DoubleClick(_ChannelListIndex As Integer)
@@ -286,23 +288,24 @@ Public Class clsChannelList
                 End If
             End With
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub DoubleClick()")
+            Throw ex
         End Try
     End Sub
     Public Function DoesChannelExist(_ChannelListIndex As Integer, _Channel As String) As Boolean
-        'Try
-        Dim _Result As Boolean = False
-        With lChannelLists.cChannelList(_ChannelListIndex)
-            For i As Integer = 1 To .cItem.cCount
-                If .cItem.cChannelListItem(i).cChannel.ToLower() = _Channel.ToLower() = True Then
-                    _Result = True
-                End If
-            Next i
-        End With
-        Return _Result
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim _Result As Boolean = False
+            With lChannelLists.cChannelList(_ChannelListIndex)
+                For i As Integer = 1 To .cItem.cCount
+                    If .cItem.cChannelListItem(i).cChannel.ToLower() = _Channel.ToLower() = True Then
+                        _Result = True
+                    End If
+                Next i
+            End With
+            Return _Result
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
     Public Sub Add(_ChannelListIndex As Integer, ByVal _Data As String)
         Try
@@ -334,7 +337,7 @@ Public Class clsChannelList
                 End If
             End If
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub ProcessChannelListItem(ByVal lStatusIndex As Integer, ByVal lData As String)")
+            Throw ex
         End Try
     End Sub
     Public Sub SetOpen(_ChannelListIndex As Integer)
@@ -343,7 +346,7 @@ Public Class clsChannelList
                 .cVisible = True
             End With
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub SetChannelListClosed(ByVal lIndex As Integer)")
+            Throw ex
         End Try
     End Sub
     Public Sub SetClosed(_ChannelListIndex As Integer)
@@ -353,7 +356,7 @@ Public Class clsChannelList
                 .cWindow = Nothing
             End With
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub SetChannelListClosed(ByVal lIndex As Integer)")
+            Throw ex
         End Try
     End Sub
 End Class

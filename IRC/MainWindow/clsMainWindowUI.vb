@@ -34,6 +34,7 @@ Namespace nexIRC.MainWindow
             iNickServ_NickTaken = 5
             iNicknameInUse = 6
         End Enum
+        Public Event SetBackgroundColor()
         Public Event QueryBarPromptLabelVisible(text As String, tag As String)
         Public Event SetDimensions(left As Integer, top As Integer, width As Integer, height As Integer)
         Public Event EnableStartupSettingsTimer(tickInterval As Integer)
@@ -198,6 +199,7 @@ Namespace nexIRC.MainWindow
                     _LeftNav.Visible = False
                 End If
                 Form_Resize(_Form, _LeftBarButton, _LeftNav, _ToolStrip, _WindowsToolStrip)
+                RaiseEvent SetBackgroundColor()
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub Form_Load(_Form As Form, _NotifyIcon As NotifyIcon, _TimerStartupSettings As Timer, _LeftBarButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)")
             End Try
@@ -403,11 +405,11 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
         Public Sub cmd_Connection_ButtonClick()
-            'Try
-            lStatus.ToggleConnection(lStatus.ActiveIndex)
-            'Catch ex As Exception
-            'Throw ex 
-            'End Try
+            Try
+                lStatus.ToggleConnection(lStatus.ActiveIndex)
+            Catch ex As Exception
+                Throw ex
+            End Try
         End Sub
         Public Sub cmd_Customize_Click()
             Try
@@ -560,13 +562,13 @@ Namespace nexIRC.MainWindow
         Public Sub cmdLeftBar_Click(_ActiveForm As Form, _cmd_LeftBarButton As ToolStripMenuItem, _LeftPanel As Panel, _Form As Form)
             Try
                 If _cmd_LeftBarButton.Checked = True Then
-                    animate.Animate(_LeftPanel, animate.Effect.Slide, 200, 1)
+                    Animate.Animate(_LeftPanel, Animate.Effect.Slide, 200, 1)
                     _cmd_LeftBarButton.Checked = False
                     'Panel1.Visible = False
                 Else
                     _cmd_LeftBarButton.Checked = True
                     'Panel1.Visible = True
-                    animate.Animate(_LeftPanel, animate.Effect.Slide, 200, 1)
+                    Animate.Animate(_LeftPanel, Animate.Effect.Slide, 200, 1)
                 End If
                 _Form.Width = _Form.Width + 1
                 _ActiveForm.Focus()
@@ -665,7 +667,7 @@ Namespace nexIRC.MainWindow
         Public Sub cmdAccept_Click(_UserToolStripLabel As ToolStripLabel, _ToolStrip As ToolStrip, _DCCToolBarToolStrip As ToolStrip)
             Try
                 Dim splt() As String, lForm As New frmDCCGet
-                splt = Split(_UserToolStripLabel.Tag.ToString, vbCrLf)
+                splt = Split(_UserToolStripLabel.Tag.ToString, Environment.Newline)
                 _ToolStrip.Visible = False
                 _DCCToolBarToolStrip.Visible = False
                 _ToolStrip.Visible = True

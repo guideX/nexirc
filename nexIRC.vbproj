@@ -60,12 +60,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Telerik.WinControls, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.GridView, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
-    <Reference Include="Telerik.WinControls.RadChart, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.RadDock, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.RadMarkupEditor, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.RichTextBox, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.Scheduler, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
-    <Reference Include="Telerik.WinControls.SpellChecker, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.Themes.Aqua, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.Themes.Breeze, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.Themes.Desert, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
@@ -290,12 +288,6 @@
     <Compile Include="Forms\frmVideoPlayer.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmXLogin.Designer.vb">
-      <DependentUpon>frmXLogin.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmXLogin.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\mdiMain.Designer.vb">
       <DependentUpon>mdiMain.vb</DependentUpon>
     </Compile>
@@ -307,7 +299,6 @@
     <Compile Include="IRC\Channels\clsChannels.vb" />
     <Compile Include="IRC\Customize\clsCustomize.vb" />
     <Compile Include="IRC\DCC\clsDccChat.vb" />
-    <Compile Include="IRC\IrcMaster.vb" />
     <Compile Include="IRC\MainWindow\clsMainWindowUI.vb" />
     <Compile Include="IRC\Numerics\clsCommandTypes.vb" />
     <Compile Include="IRC\Numerics\clsIrcNumericHelper.vb" />
@@ -316,7 +307,7 @@
     <Compile Include="IRC\Numerics\IrcStrings.vb" />
     <Compile Include="IRC\SendNotice\clsSendNotice.vb" />
     <Compile Include="IRC\ServerLinks\clsServerLinks.vb" />
-    <Compile Include="IRC\Services\clsXLogin.vb" />
+    <Compile Include="IRC\Services\Bots.vb" />
     <Compile Include="IRC\Settings\clsDCC.vb" />
     <Compile Include="IRC\Settings\clsServices.vb" />
     <Compile Include="IRC\Settings\Settings.vb" />
@@ -445,9 +436,6 @@
     <EmbeddedResource Include="Forms\frmVideoPlayer.resx">
       <DependentUpon>frmVideoPlayer.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmXLogin.resx">
-      <DependentUpon>frmXLogin.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\mdiMain.resx">
       <DependentUpon>mdiMain.vb</DependentUpon>
     </EmbeddedResource>
@@ -508,6 +496,7 @@
     <Content Include="Resources\top-button-recientservers.gif" />
     <Content Include="Resources\web.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

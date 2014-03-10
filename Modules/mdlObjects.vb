@@ -45,107 +45,134 @@ Namespace Modules
 
         Public Function DoesListViewItemExist(ByVal lListView As ListView, ByVal lData As String) As Boolean
             Dim i As Integer, result As Boolean
-            'Try
-            For i = 0 To lListView.Items.Count - 1
-                With lListView.Items(i)
-                    If LCase(Trim(.Text)) = LCase(Trim(lData)) Then
-                        result = True
-                        Exit For
-                    End If
-                End With
-            Next i
-            Return result
-            'Catch ex As Exception
-            'Throw ex
-            'End Try
+            Try
+                For i = 0 To lListView.Items.Count - 1
+                    With lListView.Items(i)
+                        If .Text.ToLower().Trim() = lData.ToLower().Trim() Then
+                            result = True
+                            Exit For
+                        End If
+                    End With
+                Next i
+                Return result
+            Catch ex As Exception
+                Throw ex
+                Return Nothing
+            End Try
         End Function
         Public Function ReturnRadListBoxIndex(ByVal lListBox As RadListControl, ByVal lData As String) As Integer
             Dim i As Integer, result As Integer
-            'Try
-            For i = 0 To lListBox.Items.Count
-                If LCase(Trim(lData)) = LCase(Trim(lListBox.Items(i).ToString)) Then
-                    result = i
-                    Exit For
-                End If
-            Next i
-            Return result
-            'Catch ex As Exception
-            'Throw ex
-            'End Try
+            Try
+                For i = 0 To lListBox.Items.Count
+                    If lData.ToLower().Trim() = lListBox.Items(i).ToString.ToLower().Trim() Then
+                        result = i
+                        Exit For
+                    End If
+                Next i
+                Return result
+            Catch ex As Exception
+                Throw ex
+                Return Nothing
+            End Try
         End Function
         Public Function ReturnListBoxIndex(ByVal lListBox As ListBox, ByVal lData As String) As Integer
             Dim i As Integer, result As Integer
-            'Try
-            For i = 0 To lListBox.Items.Count
-                If LCase(Trim(lData)) = LCase(Trim(lListBox.Items(i).ToString)) Then
-                    result = i
-                    Exit For
-                End If
-            Next i
-            Return result
-            'Catch ex As Exception
-            'Throw ex
-            'End Try
+            Try
+                For i = 0 To lListBox.Items.Count
+                    If LCase(Trim(lData)) = LCase(Trim(lListBox.Items(i).ToString)) Then
+                        result = i
+                        Exit For
+                    End If
+                Next i
+                Return result
+            Catch ex As Exception
+                Throw ex
+                Return Nothing
+            End Try
         End Function
 
         Public Function FindListViewIndex(ByVal lListView As ListView, ByVal lText As String) As Integer
             Dim result As Integer, i As Integer
-            'Try
-            If Len(lText) <> 0 Then
-                For i = 0 To lListView.Items.Count - 1
-                    With lListView.Items(i)
-                        If LCase(Trim(.Text)) = LCase(Trim(lText)) Then
-                            result = i
-                            Exit For
-                        End If
-                    End With
-                Next i
-            End If
-            Return result
-            'Catch ex As Exception
-            'Throw ex
-            'End Try
+            Try
+                If Len(lText) <> 0 Then
+                    For i = 0 To lListView.Items.Count - 1
+                        With lListView.Items(i)
+                            If LCase(Trim(.Text)) = LCase(Trim(lText)) Then
+                                result = i
+                                Exit For
+                            End If
+                        End With
+                    Next i
+                End If
+                Return result
+            Catch ex As Exception
+                Throw ex
+                Return Nothing
+            End Try
         End Function
 
         Public Function FindRadListViewIndex(ByVal lListView As RadListView, ByVal lText As String) As Integer
-            'Try
-            Dim result As Integer, i As Integer
-            If Len(lText) <> 0 Then
-                For i = 0 To lListView.Items.Count - 1
-                    With lListView.Items(i)
-                        If LCase(Trim(.Text)) = LCase(Trim(lText)) Then
-                            result = i
-                            Exit For
-                        End If
-                    End With
-                Next i
-            End If
-            Return result
-            'Catch ex As Exception
-            'Throw ex
-            'End Try
+            Try
+                Dim result As Integer, i As Integer
+                If Len(lText) <> 0 Then
+                    For i = 0 To lListView.Items.Count - 1
+                        With lListView.Items(i)
+                            If LCase(Trim(.Text)) = LCase(Trim(lText)) Then
+                                result = i
+                                Exit For
+                            End If
+                        End With
+                    Next i
+                End If
+                Return result
+            Catch ex As Exception
+                Throw ex
+                Return Nothing
+            End Try
         End Function
 
         Public Function DoesItemExistInRadDropDown(_RadDropDownList As RadDropDownList, _Text As String) As Boolean
-            'Try
-            For Each _Item As RadListDataItem In _RadDropDownList.Items
-                If (_Item.Text.Trim().ToLower() = _Text.Trim().ToLower()) Then
-                    Return True
-                End If
-            Next _Item
-            Return False
-            'Catch ex As Exception
-            'Throw ex
-            'End Try
+            Try
+                For Each _Item As RadListDataItem In _RadDropDownList.Items
+                    If (_Item.Text.Trim().ToLower() = _Text.Trim().ToLower()) Then
+                        Return True
+                    End If
+                Next _Item
+                Return False
+            Catch ex As Exception
+                Throw ex
+                Return Nothing
+            End Try
         End Function
 
         Public Function FindRadComboIndex(ByVal _RadDropDownList As RadDropDownList, ByVal text As String) As Integer
             Dim i As Integer, result As Integer
-            'Try
-            If (Not String.IsNullOrEmpty(text)) Then
-                If (DoesItemExistInRadDropDown(_RadDropDownList, text)) = True Then
-                    With _RadDropDownList
-                        For i = 0 To _RadDropDownList.Items.Count
+            Try
+                If (Not String.IsNullOrEmpty(text)) Then
+                    If (DoesItemExistInRadDropDown(_RadDropDownList, text)) = True Then
+                        With _RadDropDownList
+                            For i = 0 To _RadDropDownList.Items.Count
+                                If (.Items(i).ToString().Trim().ToLower() = text.Trim().ToLower()) Then
+                                    result = i
+                                    Exit For
+                                End If
+                            Next i
+                        End With
+                    End If
+                End If
+                Return result
+            Catch ex As Exception
+                Throw ex
+                Return Nothing
+            End Try
+        End Function
+
+        Public Function FindComboIndex(ByVal comboBox As ComboBox, ByVal text As String) As Integer
+            Dim i As Integer, result As Integer
+            Try
+                If (Not String.IsNullOrEmpty(text)) Then
+                    With comboBox
+                        For i = 0 To comboBox.Items.Count
                             If (.Items(i).ToString().Trim().ToLower() = text.Trim().ToLower()) Then
                                 result = i
                                 Exit For
@@ -153,30 +180,11 @@ Namespace Modules
                         Next i
                     End With
                 End If
-            End If
-            Return result
-            'Catch ex As Exception
-            'Throw ex
-            'End Try
-        End Function
-
-        Public Function FindComboIndex(ByVal comboBox As ComboBox, ByVal text As String) As Integer
-            Dim i As Integer, result As Integer
-            'Try
-            If (Not String.IsNullOrEmpty(text)) Then
-                With comboBox
-                    For i = 0 To comboBox.Items.Count
-                        If (.Items(i).ToString().Trim().ToLower() = text.Trim().ToLower()) Then
-                            result = i
-                            Exit For
-                        End If
-                    Next i
-                End With
-            End If
-            Return result
-            'Catch ex As Exception
-            'Throw ex
-            'End Try
+                Return result
+            Catch ex As Exception
+                Throw ex
+                Return Nothing
+            End Try
         End Function
     End Module
 End Namespace

@@ -12,19 +12,19 @@ Namespace Classes.UI
         Private Shared ReadOnly WM_VSCROLL As Integer = 277
 
         Public Shared Sub ScrollToBottom(richTextBox As RichTextBox)
-            'Try
-            SendMessage(richTextBox.Handle, WM_VSCROLL, CType(7, IntPtr), IntPtr.Zero)
-            'Catch ex As Exception
-            'Throw ex
-            'End Try
+            Try
+                SendMessage(richTextBox.Handle, WM_VSCROLL, CType(7, IntPtr), IntPtr.Zero)
+            Catch ex As Exception
+                Throw ex
+            End Try
         End Sub
 
         Public Shared Sub ScrollToBottom(richTextBox As RadRichTextBox)
-            'Try
-            SendMessage(richTextBox.Handle, WM_VSCROLL, CType(7, IntPtr), IntPtr.Zero)
-            'Catch ex As Exception
-            'Throw ex
-            'End Try
+            Try
+                SendMessage(richTextBox.Handle, WM_VSCROLL, CType(7, IntPtr), IntPtr.Zero)
+            Catch ex As Exception
+                Throw ex
+            End Try
         End Sub
     End Class
 End Namespace

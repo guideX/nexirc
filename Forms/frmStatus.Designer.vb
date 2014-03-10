@@ -36,12 +36,17 @@ Partial Class frmStatus
         Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmdChannels = New System.Windows.Forms.ToolStripSplitButton()
         Me.tspListChannels = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmdBot = New System.Windows.Forms.ToolStripSplitButton()
+        Me.cmdBotLogin = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmdBotRegister = New System.Windows.Forms.ToolStripMenuItem()
         Me.tmrWaitForChannelList = New System.Windows.Forms.Timer(Me.components)
         Me.tmrCheckChannelList = New System.Windows.Forms.Timer(Me.components)
         Me.tmrWaitForLUsers = New System.Windows.Forms.Timer(Me.components)
         Me.tmrWaitForWhois = New System.Windows.Forms.Timer(Me.components)
         Me.txtIncoming = New Telerik.WinControls.RichTextBox.RadRichTextBox()
         Me.txtOutgoing = New Telerik.WinControls.UI.RadTextBox()
+        Me.cmdBotGhost = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.tspStatus.SuspendLayout()
         CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -52,7 +57,7 @@ Partial Class frmStatus
         Me.tspStatus.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.tspStatus.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tspStatus.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.tspStatus.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdConnection, Me.cmdChannels})
+        Me.tspStatus.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdConnection, Me.cmdChannels, Me.cmdBot})
         Me.tspStatus.Location = New System.Drawing.Point(0, 0)
         Me.tspStatus.Name = "tspStatus"
         Me.tspStatus.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
@@ -139,6 +144,28 @@ Partial Class frmStatus
         Me.tspListChannels.Size = New System.Drawing.Size(157, 22)
         Me.tspListChannels.Text = "List Channels"
         '
+        'cmdBot
+        '
+        Me.cmdBot.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdBotLogin, Me.cmdBotRegister, Me.ToolStripSeparator2, Me.cmdBotGhost})
+        Me.cmdBot.Image = Global.nexIRC.My.Resources.Resources.configure
+        Me.cmdBot.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdBot.Name = "cmdBot"
+        Me.cmdBot.Size = New System.Drawing.Size(75, 22)
+        Me.cmdBot.Text = "<Bot>"
+        Me.cmdBot.Visible = False
+        '
+        'cmdBotLogin
+        '
+        Me.cmdBotLogin.Name = "cmdBotLogin"
+        Me.cmdBotLogin.Size = New System.Drawing.Size(152, 22)
+        Me.cmdBotLogin.Text = "Identify"
+        '
+        'cmdBotRegister
+        '
+        Me.cmdBotRegister.Name = "cmdBotRegister"
+        Me.cmdBotRegister.Size = New System.Drawing.Size(152, 22)
+        Me.cmdBotRegister.Text = "Register"
+        '
         'tmrWaitForChannelList
         '
         Me.tmrWaitForChannelList.Interval = 10000
@@ -172,6 +199,17 @@ Partial Class frmStatus
         Me.txtOutgoing.Size = New System.Drawing.Size(429, 24)
         Me.txtOutgoing.TabIndex = 17
         Me.txtOutgoing.TabStop = False
+        '
+        'cmdBotGhost
+        '
+        Me.cmdBotGhost.Name = "cmdBotGhost"
+        Me.cmdBotGhost.Size = New System.Drawing.Size(152, 22)
+        Me.cmdBotGhost.Text = "Ghost"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(149, 6)
         '
         'frmStatus
         '
@@ -213,4 +251,9 @@ Partial Class frmStatus
     Friend WithEvents tspListChannels As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents txtIncoming As Telerik.WinControls.RichTextBox.RadRichTextBox
     Friend WithEvents txtOutgoing As Telerik.WinControls.UI.RadTextBox
+    Friend WithEvents cmdBot As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents cmdBotLogin As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmdBotRegister As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmdBotGhost As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
 End Class

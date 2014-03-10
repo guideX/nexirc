@@ -245,6 +245,16 @@ Public Class frmStatus
             Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetIncomingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles mdiChildWindow.SetIncomingColors")
         End Try
     End Sub
+
+    Private Sub mdiChildWindow_SetNickBotNickName(nickName As String) Handles mdiChildWindow.SetNickBotNickName
+        Try
+            cmdBot.Visible = True
+            cmdBot.Text = nickName
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
     Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles mdiChildWindow.SetOutgoingColors
         Try
             txtOutgoing.TextBoxElement.BackColor = backgroundColor
@@ -274,4 +284,44 @@ Public Class frmStatus
         End Try
     End Sub
 #End Region
+    Private Sub cmdBotLogin_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotLogin.Click
+        Try
+            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Login()
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+    Private Sub cmdBot_ButtonClick(sender As System.Object, e As System.EventArgs) Handles cmdBot.ButtonClick
+        Try
+            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.LoginForm()
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Private Sub cmdBotRegister_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotRegister.Click
+        Dim settings As BotSettings
+        Try
+            settings = New BotSettings()
+            settings.Email = InputBox("Email:")
+            If (Not String.IsNullOrEmpty(settings.Email)) Then
+                settings.Password = InputBox("Password:")
+                If (Not String.IsNullOrEmpty(settings.Password)) Then
+                    lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Register(settings)
+                End If
+            End If
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Private Sub cmdBotGhost_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotGhost.Click
+        Dim user As String
+        Try
+            user = InputBox("Nickname: ")
+            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Ghost(user)
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
 End Class

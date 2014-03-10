@@ -27,7 +27,6 @@ Partial Class frmNickServLogin
         Me.chkLoginOnConnect = New System.Windows.Forms.CheckBox()
         Me.txtPassword = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.chkXEnable = New System.Windows.Forms.CheckBox()
         Me.cmdLogin = New System.Windows.Forms.Button()
         Me.cmdCancel = New System.Windows.Forms.Button()
         Me.txtNickname = New System.Windows.Forms.TextBox()
@@ -83,16 +82,6 @@ Partial Class frmNickServLogin
         Me.Label2.Size = New System.Drawing.Size(57, 13)
         Me.Label2.TabIndex = 9
         Me.Label2.Text = "Password:"
-        '
-        'chkXEnable
-        '
-        Me.chkXEnable.AutoSize = True
-        Me.chkXEnable.Location = New System.Drawing.Point(15, 96)
-        Me.chkXEnable.Name = "chkXEnable"
-        Me.chkXEnable.Size = New System.Drawing.Size(58, 17)
-        Me.chkXEnable.TabIndex = 11
-        Me.chkXEnable.Text = "Enable"
-        Me.chkXEnable.UseVisualStyleBackColor = True
         '
         'cmdLogin
         '
@@ -150,7 +139,6 @@ Partial Class frmNickServLogin
         Me.Controls.Add(Me.lblCreateAnAccount)
         Me.Controls.Add(Me.chkShowOnConnect)
         Me.Controls.Add(Me.chkLoginOnConnect)
-        Me.Controls.Add(Me.chkXEnable)
         Me.Controls.Add(Me.txtPassword)
         Me.Controls.Add(Me.Label2)
         Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -169,7 +157,6 @@ Partial Class frmNickServLogin
     Friend WithEvents chkLoginOnConnect As System.Windows.Forms.CheckBox
     Friend WithEvents txtPassword As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents chkXEnable As System.Windows.Forms.CheckBox
     Friend WithEvents cmdLogin As System.Windows.Forms.Button
     Friend WithEvents cmdCancel As System.Windows.Forms.Button
     Friend WithEvents txtNickname As System.Windows.Forms.TextBox

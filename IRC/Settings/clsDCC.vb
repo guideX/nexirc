@@ -1,4 +1,6 @@
-﻿Option Explicit On
+﻿'nexIRC 3.0.26
+'06-13-2013 - guideX
+Option Explicit On
 Option Strict On
 Imports nexIRC.Classes.IO
 Imports nexIRC.Modules
@@ -112,6 +114,7 @@ Namespace nexIRC.IRC.Settings
                 Return s
             Catch ex As Exception
                 Throw ex
+                Return Nothing
             End Try
         End Function
 

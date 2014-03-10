@@ -28,7 +28,7 @@ Public Class frmDCCChat
     Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click
         lDccChatUI.cmdConnect_Click()
     End Sub
-    Private Sub frmDCCChat_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
-        lDccChatUI.frmDCCChat_Resize()
-    End Sub
+    'Private Sub frmDCCChat_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
+    'lDccChatUI.frmDCCChat_Resize()
+    'End Sub
 End Class

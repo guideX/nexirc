@@ -9,82 +9,84 @@ Imports nexIRC.Modules
 Public Class clsIrcNumericHelper
     Public l001 As String, l002 As String, l003 As String, l004 As String, l311 As String, l312 As String, l313 As String, l316 As String, l317 As String, l319 As String, l378 As String, l379 As String, l401 As String, l250 As String, l251 As String, l252 As String, l253 As String, l254 As String, l255 As String, l265 As String, l266 As String, l616 As String, l615 As String, lWhoisUser As String
     Public Sub ResetMessages()
-        'Try
-        l001 = ""
-        l002 = ""
-        l003 = ""
-        l004 = ""
-        l250 = ""
-        l251 = ""
-        l252 = ""
-        l253 = ""
-        l254 = ""
-        l255 = ""
-        l265 = ""
-        l266 = ""
-        l311 = ""
-        l312 = ""
-        l313 = ""
-        l316 = ""
-        l317 = ""
-        l319 = ""
-        l378 = ""
-        l379 = ""
-        l401 = ""
-        l615 = ""
-        l616 = ""
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            l001 = ""
+            l002 = ""
+            l003 = ""
+            l004 = ""
+            l250 = ""
+            l251 = ""
+            l252 = ""
+            l253 = ""
+            l254 = ""
+            l255 = ""
+            l265 = ""
+            l266 = ""
+            l311 = ""
+            l312 = ""
+            l313 = ""
+            l316 = ""
+            l317 = ""
+            l319 = ""
+            l378 = ""
+            l379 = ""
+            l401 = ""
+            l615 = ""
+            l616 = ""
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
     Public Function ReturnDCCPort() As Long
-        'Try
-        Dim splt() As String, p As Long
-        If lSettings_DCC.lDCC.dRandomizePort = True Then
-            If (lSettings_DCC.lDCC.dSendPort.Contains("-")) Then
-                splt = Split(lSettings_DCC.lDCC.dSendPort, "-")
-                p = lStrings.GetRnd(Convert.ToInt32(splt(0).Trim()), Convert.ToInt32(splt(1).Trim()))
+        Try
+            Dim splt() As String, p As Long
+            If lSettings_DCC.lDCC.dRandomizePort = True Then
+                If (lSettings_DCC.lDCC.dSendPort.Contains("-")) Then
+                    splt = Split(lSettings_DCC.lDCC.dSendPort, "-")
+                    p = lStrings.GetRnd(Convert.ToInt32(splt(0).Trim()), Convert.ToInt32(splt(1).Trim()))
+                Else
+                    p = lStrings.GetRnd(128, 9999)
+                End If
             Else
-                p = lStrings.GetRnd(128, 9999)
+                If (lSettings_DCC.lDCC.dSendPort.Contains("-")) Then
+                    splt = Split(lSettings_DCC.lDCC.dSendPort, "-")
+                    p = lStrings.GetRnd(Convert.ToInt32(splt(0).Trim()), Convert.ToInt32(splt(1).Trim()))
+                Else
+                    p = Convert.ToInt64(lSettings_DCC.lDCC.dSendPort.Trim())
+                End If
             End If
-        Else
-            If (lSettings_DCC.lDCC.dSendPort.Contains("-")) Then
-                splt = Split(lSettings_DCC.lDCC.dSendPort, "-")
-                p = lStrings.GetRnd(Convert.ToInt32(splt(0).Trim()), Convert.ToInt32(splt(1).Trim()))
-            Else
-                p = Convert.ToInt64(lSettings_DCC.lDCC.dSendPort.Trim())
-            End If
-        End If
-        ReturnDCCPort = p
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+            ReturnDCCPort = p
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
     Public Function ReturnRandomNetworkIndex(ByVal excludeIndex As Integer) As Integer
         Dim result As Integer
-        'Try
-        Dim n As Integer, b As Boolean
-        If (excludeIndex <> 0) Then
-            Do Until b = True
-                n = Convert.ToInt32(lStrings.GetRnd(1, lSettings.lNetworks.nCount))
-                If (n <> excludeIndex) Then b = True
-            Loop
-            result = n
-        End If
-        Return result
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim n As Integer, b As Boolean
+            If (excludeIndex <> 0) Then
+                Do Until b = True
+                    n = Convert.ToInt32(lStrings.GetRnd(1, lSettings.lNetworks.nCount))
+                    If (n <> excludeIndex) Then b = True
+                Loop
+                result = n
+            End If
+            Return result
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
     Public Sub NewDCCChat()
-        'Try
-        Dim f As frmDCCChat
-        f = New frmDCCChat
-        f.lDccChatUI.SetStatusIndex(lStatus.ActiveIndex)
-        f.Show()
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim f As frmDCCChat
+            f = New frmDCCChat
+            f.lDccChatUI.SetStatusIndex(lStatus.ActiveIndex)
+            f.Show()
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
     Public Sub NewDCCSend()
         Try
@@ -102,25 +104,26 @@ Public Class clsIrcNumericHelper
             ReturnMyIp = (CType(h.AddressList.GetValue(0), IPAddress).ToString)
         Catch ex As Exception
             Throw ex
+            Return Nothing
         End Try
     End Function
 
     Public Sub ProcessWhoisCommand(ByVal _StatusIndex As Integer)
         Try
             Dim msg As String = "", _Start As String, _End As String
-            _Start = lStrings.ReturnReplacedString(eStringTypes.sWHOIS_START).Trim & vbCrLf
+            _Start = lStrings.ReturnReplacedString(eStringTypes.sWHOIS_START).Trim & Environment.Newline
             _End = lStrings.ReturnReplacedString(eStringTypes.sWHOIS_END).Trim
-            If Len(l311) <> 0 Then msg = msg & l311 & vbCrLf
-            If Len(l312) <> 0 Then msg = msg & l312 & vbCrLf
-            If Len(l313) <> 0 Then msg = msg & l313 & vbCrLf
-            If Len(l316) <> 0 Then msg = msg & l316 & vbCrLf
-            If Len(l317) <> 0 Then msg = msg & l317 & vbCrLf
-            If Len(l319) <> 0 Then msg = msg & l319 & vbCrLf
-            If Len(l378) <> 0 Then msg = msg & l378 & vbCrLf
-            If Len(l379) <> 0 Then msg = msg & l379 & vbCrLf
-            If Len(l401) <> 0 Then msg = msg & l401 & vbCrLf
-            If Len(l615) <> 0 Then msg = msg & l615 & vbCrLf
-            If Len(l616) <> 0 Then msg = msg & l616 & vbCrLf
+            If Len(l311) <> 0 Then msg = msg & l311 & Environment.Newline
+            If Len(l312) <> 0 Then msg = msg & l312 & Environment.Newline
+            If Len(l313) <> 0 Then msg = msg & l313 & Environment.Newline
+            If Len(l316) <> 0 Then msg = msg & l316 & Environment.Newline
+            If Len(l317) <> 0 Then msg = msg & l317 & Environment.Newline
+            If Len(l319) <> 0 Then msg = msg & l319 & Environment.Newline
+            If Len(l378) <> 0 Then msg = msg & l378 & Environment.Newline
+            If Len(l379) <> 0 Then msg = msg & l379 & Environment.Newline
+            If Len(l401) <> 0 Then msg = msg & l401 & Environment.Newline
+            If Len(l615) <> 0 Then msg = msg & l615 & Environment.Newline
+            If Len(l616) <> 0 Then msg = msg & l616 & Environment.Newline
             If Len(msg) <> 0 Then
                 msg = _Start & msg & _End
                 If (lChannels.HaveChannels(_StatusIndex) = True) Then
@@ -139,7 +142,7 @@ Public Class clsIrcNumericHelper
             Dim msg As String, msg2 As String, msg3 As String
             msg2 = lStrings.ReturnReplacedString(eStringTypes.sLUSERS_BEGIN)
             msg3 = lStrings.ReturnReplacedString(eStringTypes.sLUSERS_END)
-            msg = "-" & vbCrLf & msg2 & Chr(13)
+            msg = "-" & Environment.Newline & msg2 & Chr(13)
             If Len(Trim(l251)) <> 0 Then msg = msg & l251 & Chr(13)
             If Len(Trim(l252)) <> 0 Then msg = msg & l252 & Chr(13)
             If Len(Trim(l254)) <> 0 Then msg = msg & l254 & Chr(13)
@@ -171,6 +174,7 @@ Public Class clsIrcNumericHelper
             Return d.ToString
         Catch ex As Exception
             Throw ex
+            Return Nothing
         End Try
     End Function
     Public Sub ProcessNickNameChange(_StatusIndex As Integer, _Data As String)
@@ -235,40 +239,42 @@ Public Class clsIrcNumericHelper
 
     Public Function ReturnIsFileTypeIgnored(ByVal fileName As String) As Boolean
         Dim result As Boolean
-        'Try
-        Dim i As Integer, splt() As String, msg As String
-        splt = Split(fileName, ".")
-        msg = splt(UBound(splt)).Trim().ToLower()
-        With lSettings_DCC.lDCC.dIgnorelist
-            For i = 1 To .dCount
-                If (.dItem(i).dType = nexIRC.IRC.Settings.clsDCC.gDCCIgnoreType.dFileTypes) Then
-                    If (.dItem(i).dData.Trim().ToLower() = msg.Trim().ToLower()) Then
-                        result = True
-                        Exit For
+        Try
+            Dim i As Integer, splt() As String, msg As String
+            splt = Split(fileName, ".")
+            msg = splt(UBound(splt)).Trim().ToLower()
+            With lSettings_DCC.lDCC.dIgnorelist
+                For i = 1 To .dCount
+                    If (.dItem(i).dType = nexIRC.IRC.Settings.clsDCC.gDCCIgnoreType.dFileTypes) Then
+                        If (.dItem(i).dData.Trim().ToLower() = msg.Trim().ToLower()) Then
+                            result = True
+                            Exit For
+                        End If
                     End If
-                End If
-            Next i
-        End With
-        Return result
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+                Next i
+            End With
+            Return result
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
 
     Public Function IsUserInNotifyList(ByVal lData As String) As Boolean
         Dim result As Boolean
-        'Try
-        Dim i As Integer
-        For i = 0 To lSettings.lNotify.nCount
-            If (lData.ToLower() = lSettings.lNotify.nNotify(i).nNickName.ToLower()) Then
-                result = True
-                Exit For
-            End If
-        Next i
-        Return result
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim i As Integer
+            For i = 0 To lSettings.lNotify.nCount
+                If (lData.ToLower() = lSettings.lNotify.nNotify(i).nNickName.ToLower()) Then
+                    result = True
+                    Exit For
+                End If
+            Next i
+            Return result
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
 
     Public Sub DCCSendProc(ByVal lData As String)
@@ -285,7 +291,7 @@ Public Class clsIrcNumericHelper
                     If lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.ePrompt Then
                         mdiMain.tspDCCToolBar.Items(0).Text = "Accept the file '" & Trim(splt(5)) & "' from the user '" & msg & "'?"
                         mdiMain.tspDCCToolBar.Visible = True
-                        mdiMain.lblUser.Tag = msg & vbCrLf & Trim(splt(6)) & vbCrLf & Trim(splt(7)) & vbCrLf & Trim(splt(5)) & vbCrLf & Trim(splt(8))
+                        mdiMain.lblUser.Tag = msg & Environment.Newline & Trim(splt(6)) & Environment.Newline & Trim(splt(7)) & Environment.Newline & Trim(splt(5)) & Environment.Newline & Trim(splt(8))
                     ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll Then
                         lForm.InitDCCGet(Trim(msg), Trim(splt(6)), Trim(splt(7)), Trim(splt(5)), Trim(splt(8)))
                         'animate.Animate(lForm, animate.Effect.Center, 200, 1)
@@ -307,22 +313,23 @@ Public Class clsIrcNumericHelper
 
     Public Function IsNickNameInDCCIgnoreList(ByVal lNickName As String) As Boolean
         Dim result As Boolean
-        'Try
-        Dim i As Integer
-        If lNickName.Length() <> 0 Then
-            For i = 1 To lSettings_DCC.lDCC.dIgnorelist.dCount
-                With lSettings_DCC.lDCC.dIgnorelist.dItem(i)
-                    If (.dData.ToLower() = lNickName.ToLower()) Then
-                        result = True
-                        Exit For
-                    End If
-                End With
-            Next i
-        End If
-        Return result
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim i As Integer
+            If lNickName.Length() <> 0 Then
+                For i = 1 To lSettings_DCC.lDCC.dIgnorelist.dCount
+                    With lSettings_DCC.lDCC.dIgnorelist.dItem(i)
+                        If (.dData.ToLower() = lNickName.ToLower()) Then
+                            result = True
+                            Exit For
+                        End If
+                    End With
+                Next i
+            End If
+            Return result
+        Catch ex As Exception
+            Throw ex
+            Return Nothing
+        End Try
     End Function
 
     Public Sub DoNotify(ByVal lStatusIndex As Integer)
@@ -353,19 +360,19 @@ Public Class clsIrcNumericHelper
     End Sub
 
     Public Sub ProcessDataArrival(ByVal lStatusIndex As Integer, ByVal lData As String)
-        'Try
-        Dim splt() As String, i As Integer
-        If InStr(lData, vbCrLf) <> 0 Then
-            splt = Split(lData, vbCrLf)
-            For i = 0 To UBound(splt)
-                lProcessNumeric.ProcessDataArrivalLine(lStatusIndex, splt(i))
-            Next i
-        Else
-            lProcessNumeric.ProcessDataArrivalLine(lStatusIndex, lData)
-        End If
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
+        Try
+            Dim splt() As String, i As Integer
+            If InStr(lData, Environment.Newline) <> 0 Then
+                splt = Split(lData, Environment.Newline)
+                For i = 0 To UBound(splt)
+                    lProcessNumeric.ProcessDataArrivalLine(lStatusIndex, splt(i))
+                Next i
+            Else
+                lProcessNumeric.ProcessDataArrivalLine(lStatusIndex, lData)
+            End If
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Public Function IPToInteger(ByVal Expression As String) As Integer

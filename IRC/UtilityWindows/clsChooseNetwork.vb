@@ -34,7 +34,7 @@ Namespace IRC.UtilityWindows
                     msg = _Network
                     i = lSettings.FindNetworkIndex(msg)
                     lSettings.lServers.sServer(lServerToChange).sNetworkIndex = i
-                    Files.WriteINI(lSettings.lINI.iServers, Trim(Str(lServerToChange)), "NetworkIndex", Trim(Str(i)))
+                    Files.WriteINI(lSettings.lINI.iServers, lServerToChange.ToString().Trim(), "NetworkIndex", i.ToString().Trim())
                     If lSettings.lWinVisible.wCustomize = True Then
                         frmCustomize.cboNetworks.Text = lSettings.lNetworks.nNetwork(i).nDescription
                     End If

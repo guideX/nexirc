@@ -40,7 +40,7 @@ Public Class frmDCCSend
     Public Sub SendFileChunk(ByVal lData As String)
         Dim msg As String, lSetProgress As New DoubleLongDelegate(AddressOf SetProgress)
         With lFile
-            lResponceData = lResponceData & vbCrLf & lData
+            lResponceData = lResponceData & Environment.Newline & lData
             Clipboard.Clear()
             Clipboard.SetText(lResponceData)
             If .fFileLength - Loc(.fFileNumber) <= .fBufferSize Then .fBufferSize = (.fFileLength - Loc(.fFileNumber))

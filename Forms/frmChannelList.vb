@@ -12,7 +12,7 @@ Public Class frmChannelList
         Try
             lChannelListUI.FormClosed(lvwChannels, Me.Left, Me.Top, Me.Width, Me.Height)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -20,7 +20,7 @@ Public Class frmChannelList
         Try
             lChannelListUI.Load(Me, lvwChannels)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -28,7 +28,7 @@ Public Class frmChannelList
         Try
             lChannelListUI.Resize(lvwChannels, Me, ToolStrip1.Height)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -41,7 +41,7 @@ Public Class frmChannelList
             End If
             lvwChannels.ListViewItemSorter = New ListViewSorter(e.Column, lChannelListUI.lSortOrder)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -49,7 +49,7 @@ Public Class frmChannelList
         Try
             AddHandler lvwChannels.ColumnClick, AddressOf ListView_ColumnClick
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -57,7 +57,7 @@ Public Class frmChannelList
         Try
             lChannelListUI.DoubleClick(lvwChannels)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -65,7 +65,7 @@ Public Class frmChannelList
         Try
             lChannelListUI.ItemSelectionChanged(lvwChannels, e.ItemIndex)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -73,7 +73,7 @@ Public Class frmChannelList
         Try
             Me.Focus()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -82,7 +82,7 @@ Public Class frmChannelList
             Try
                 lChannelListUI.MeIndex = _Index
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Set
     End Property
@@ -93,7 +93,7 @@ Public Class frmChannelList
                 Files.WriteINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", i.ToString, lvwChannels.Columns(i - 1).Width.ToString)
             Next i
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 End Class

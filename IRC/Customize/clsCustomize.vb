@@ -18,14 +18,14 @@ Namespace IRC.Customize
                 f.optNickName.Checked = True
                 f.Show()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdDCCIgnoreAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDCCIgnoreAdd.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdDCCIgnoreAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDCCIgnoreAdd.Click")
             End Try
         End Sub
         Public Sub lvwStrings_DoubleClick()
             Try
                 'cmdEditString_Click(sender, e)
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub lvwStrings_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwStrings.DoubleClick")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub lvwStrings_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwStrings.DoubleClick")
             End Try
         End Sub
         Public Sub lstDCCIgnoreItems_MouseClick(_ListBox As RadListControl)
@@ -41,7 +41,7 @@ Namespace IRC.Customize
                 End If
                 If Len(msg) <> 0 Then _ListBox.Enabled = True
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub lstDCCIgnoreItems_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lstDCCIgnoreItems.MouseClick")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub lstDCCIgnoreItems_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lstDCCIgnoreItems.MouseClick")
             End Try
         End Sub
         Public Sub cmdDCCIgnoreRemove_Click(_ListBox As RadListControl)
@@ -81,14 +81,14 @@ Namespace IRC.Customize
                     Next i
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdDCCIgnoreRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDCCIgnoreRemove.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdDCCIgnoreRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDCCIgnoreRemove.Click")
             End Try
         End Sub
         Public Sub cmdNetworkSettings_Click()
             Try
                 frmNetworkSettings.Show()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdNetworkSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNetworkSettings.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdNetworkSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNetworkSettings.Click")
             End Try
         End Sub
         Public Sub cmdCompatibilityEnable_Click(_Name As String, _ListItem As ListViewDataItem)
@@ -101,7 +101,7 @@ Namespace IRC.Customize
                     End If
                 Next i
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cmdCompatibilityEnable_Click()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdCompatibilityEnable_Click()")
             End Try
         End Sub
         Public Sub cmdCompatibilityDisable_Click(_Name As String, _ListItem As ListViewDataItem)
@@ -114,28 +114,28 @@ Namespace IRC.Customize
                     End If
                 Next i
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cmdCompatibilityDisable_Click()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdCompatibilityDisable_Click()")
             End Try
         End Sub
         Public Sub cmdRemoveNotify_Click(_NotifyListView As RadListView)
             Try
                 _NotifyListView.Items.Remove(_NotifyListView.SelectedItem)
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdRemoveNotify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveNotify.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdRemoveNotify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveNotify.Click")
             End Try
         End Sub
         Public Sub cmdEditIdentSettings_Click()
             Try
                 frmIdentdSettings.Show()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdEditIdentSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdEditIdentSettings.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdEditIdentSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdEditIdentSettings.Click")
             End Try
         End Sub
         Public Sub cmdRemoveIgnoreExtension_Click(_ListBox As RadListControl)
             Try
                 _ListBox.Items.RemoveAt(_ListBox.SelectedIndex)
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdRemoveIgnoreExtension_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveIgnoreExtension.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdRemoveIgnoreExtension_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveIgnoreExtension.Click")
             End Try
         End Sub
         Public Sub cmdAddIgnoreExtension_Click(_ListBox As RadListControl)
@@ -147,21 +147,21 @@ Namespace IRC.Customize
                     If lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Warning: No items were added!", MsgBoxStyle.Critical)
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdAddIgnoreExtension_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddIgnoreExtension.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdAddIgnoreExtension_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddIgnoreExtension.Click")
             End Try
         End Sub
         Public Sub lstDCCIgnoreItems_Click(_Button As RadButton)
             Try
                 _Button.Enabled = True
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub lstDCCIgnoreItems_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstDCCIgnoreItems.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub lstDCCIgnoreItems_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstDCCIgnoreItems.Click")
             End Try
         End Sub
         Public Sub lstIgnoreExtensions_SelectedIndexChanged(_RemoveButton As RadButton)
             Try
                 _RemoveButton.Enabled = True
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub lstIgnoreExtensions_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstIgnoreExtensions.SelectedIndexChanged")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub lstIgnoreExtensions_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstIgnoreExtensions.SelectedIndexChanged")
             End Try
         End Sub
         Public Sub lvwServers_DoubleClick(_CheckBox As RadCheckBox, _Form As Form)
@@ -177,7 +177,7 @@ Namespace IRC.Customize
                 End If
                 RaiseEvent Close()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub lvwServers_DoubleClick(sender As Object, e As System.EventArgs) Handles lvwServers.DoubleClick")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub lvwServers_DoubleClick(sender As Object, e As System.EventArgs) Handles lvwServers.DoubleClick")
             End Try
         End Sub
         Public Sub lnkNetworkDelete_LinkClicked(_DropDownList As RadDropDownList)
@@ -194,7 +194,7 @@ Namespace IRC.Customize
                     lSettings.RemoveNetwork(lSettings.FindNetworkIndex(msg))
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub lnkNetworkDelete_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkDelete.LinkClicked")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub lnkNetworkDelete_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkDelete.LinkClicked")
             End Try
         End Sub
         Public Sub lnkNetworkAdd_LinkClicked()
@@ -203,7 +203,7 @@ Namespace IRC.Customize
                 f.lSharedAddUI.SharedAddType = eSharedAddType.sAddNetwork
                 'animate.Animate(f, animate.Effect.Center, 200, 1)
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub lnkNetworkAdd_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkAdd.LinkClicked")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub lnkNetworkAdd_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkAdd.LinkClicked")
             End Try
         End Sub
         Public Sub cmdServerEdit_Click(_ListView As RadListView)
@@ -217,7 +217,7 @@ Namespace IRC.Customize
                     End If
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdServerEdit_Click(sender As System.Object, e As System.EventArgs) Handles cmdServerEdit.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdServerEdit_Click(sender As System.Object, e As System.EventArgs) Handles cmdServerEdit.Click")
             End Try
         End Sub
         Public Sub cmdServerDelete_Click(_ListView As RadListView)
@@ -236,7 +236,7 @@ Namespace IRC.Customize
                     End If
                 Next _Item
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cmdServerDelete_Click()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdServerDelete_Click()")
             End Try
         End Sub
         Public Sub cmdServerAdd_Click()
@@ -245,7 +245,7 @@ Namespace IRC.Customize
                 f = New frmAddServer()
                 f.Show()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cmdServerAdd_Click()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdServerAdd_Click()")
             End Try
         End Sub
         Public Sub UpdateSelectedServer(_ServerListView As RadListView, _Description As String, _Ip As String, _Port As String)
@@ -256,7 +256,7 @@ Namespace IRC.Customize
                     _ServerListView.SelectedItem.Item(2) = _Port
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub UpdateSelectedServer(_ServerListView As ListView, _Description As String, Ip As String, _Port As String, _Network As String)")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub UpdateSelectedServer(_ServerListView As ListView, _Description As String, Ip As String, _Port As String, _Network As String)")
             End Try
         End Sub
         Public Sub lvwNotify_SelectedIndexChanged(_NotifyListView As RadListView, _NotifyNickNameTextBox As RadTextBox, _NotifyMessageTextBox As RadTextBox, _NetworkNotifyDropDownList As RadDropDownList)
@@ -270,7 +270,7 @@ Namespace IRC.Customize
                     Exit For
                 Next i
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub lvwNotify_SelectedIndexChanged(_NotifyListView As RadListView, _NotifyNickNameTextBox As RadTextBox, _NotifyMessageTextBox As RadTextBox, _NetworkNotify As RadTextBox, _NetworkNotifyDropDownList As RadDropDownList)")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub lvwNotify_SelectedIndexChanged(_NotifyListView As RadListView, _NotifyNickNameTextBox As RadTextBox, _NotifyMessageTextBox As RadTextBox, _NetworkNotify As RadTextBox, _NetworkNotifyDropDownList As RadDropDownList)")
             End Try
         End Sub
         Public Sub cmdEditString_Click(_StringsListView As RadListView)
@@ -296,7 +296,7 @@ Namespace IRC.Customize
                     Next i
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cmdEditString_Click()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdEditString_Click()")
             End Try
         End Sub
         Public Sub cmdServersClear_Click(_Network As String, _RadListView As RadListView)
@@ -309,7 +309,7 @@ Namespace IRC.Customize
                     _RadListView.Items.Clear()
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdClearServers_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClearServers.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdClearServers_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClearServers.Click")
             End Try
         End Sub
         Public Sub cmdServersMove_Click(_Network As String, _Server As String)
@@ -322,7 +322,7 @@ Namespace IRC.Customize
                     f.Show()
                 End With
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdServersMove_Click(sender As System.Object, e As System.EventArgs) Handles cmdServersMove.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdServersMove_Click(sender As System.Object, e As System.EventArgs) Handles cmdServersMove.Click")
             End Try
         End Sub
         Public Function cmdConnectNow_Click(newStatus As Boolean, form As Form) As Boolean
@@ -340,7 +340,7 @@ Namespace IRC.Customize
                 form.Close()
                 Return result
             Catch ex As Exception
-                Throw ex
+                'Throw ex
                 Return Nothing
             End Try
         End Function
@@ -367,7 +367,7 @@ Namespace IRC.Customize
                 End If
                 Return _Result
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cmdOK_Click()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdOK_Click()")
                 Return Nothing
             End Try
         End Function
@@ -375,28 +375,28 @@ Namespace IRC.Customize
             Try
                 _Form.Close()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cmdApplyNow_Click()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdApplyNow_Click()")
             End Try
         End Sub
         Public Sub cmdCancelNow_Click(_Form As Form)
             Try
                 _Form.Close()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cmdCancelNow_Click()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdCancelNow_Click()")
             End Try
         End Sub
         Public Sub cboNetworks_SelectedIndexChanged(_Network As String, _ServersListView As RadListView)
             Try
                 RefreshServers(_ServersListView, lSettings.FindNetworkIndex(_Network))
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cboNetworks_SelectedIndexChanged()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub cboNetworks_SelectedIndexChanged()")
             End Try
         End Sub
         Public Sub frmCustomize_FormClosed()
             Try
                 lSettings.lWinVisible.wCustomize = False
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub frmCustomize_FormClosed()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub frmCustomize_FormClosed()")
             End Try
         End Sub
         Public Sub cmdAddNickName_Click()
@@ -406,21 +406,21 @@ Namespace IRC.Customize
                 _AddNickName.lSharedAddUI.SharedAddType = eSharedAddType.sAddNickName
                 _AddNickName.Show()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cmdAddNickName_Click(_NickName As String)")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdAddNickName_Click(_NickName As String)")
             End Try
         End Sub
         Public Sub cmdRemoveNickName(_RadDropDownList As RadDropDownList)
             Try
                 _RadDropDownList.Items.Remove(_RadDropDownList.SelectedItem)
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdRemove_Click(sender As System.Object, e As System.EventArgs)")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdRemove_Click(sender As System.Object, e As System.EventArgs)")
             End Try
         End Sub
         Public Sub cmdClearMyNickName_Click(_RadDropDownList As RadDropDownList)
             Try
                 _RadDropDownList.Items.Clear()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdClearMyNickName_Click(sender As System.Object, e As System.EventArgs) Handles cmdClearMyNickName.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdClearMyNickName_Click(sender As System.Object, e As System.EventArgs) Handles cmdClearMyNickName.Click")
             End Try
         End Sub
         Public Sub cmdQuerySettings_Click()
@@ -429,7 +429,7 @@ Namespace IRC.Customize
                 _QuerySettings = New frmQuerySettings
                 _QuerySettings.Show()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cmdQuerySettings_Click()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdQuerySettings_Click()")
             End Try
         End Sub
         Public Sub cmdClearNotify_Click(_NotifyListView As RadListView)
@@ -437,7 +437,7 @@ Namespace IRC.Customize
                 lSettings.lNotify.nModified = True
                 _NotifyListView.Items.Clear()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cmdClearNotify_Click()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdClearNotify_Click()")
             End Try
         End Sub
         Public Sub cmdNotifyAdd_Click(_NotifyListView As RadListView)
@@ -450,7 +450,7 @@ Namespace IRC.Customize
                 _Notify.nNetwork = "My Network"
                 lSettings.AddToNotifyList(_Notify)
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdAddNotify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddNotify.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdAddNotify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddNotify.Click")
             End Try
         End Sub
         Public Sub lnkAddServer_Click(_Network As String)
@@ -466,7 +466,7 @@ Namespace IRC.Customize
                     addServer.cboNetwork.Text = lStartupNetwork
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub lnkAddServer_Click(_NetworksDropDownList As RadDropDownList)")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub lnkAddServer_Click(_NetworksDropDownList As RadDropDownList)")
             End Try
         End Sub
         Public Sub lnkNetworkAdd_Click()
@@ -475,7 +475,7 @@ Namespace IRC.Customize
                 lSharedAdd.Show()
                 lSharedAdd.lSharedAddUI.SharedAddType = eSharedAddType.sAddNetwork
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub lnkNetworkAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddNetwork.Click")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub lnkNetworkAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddNetwork.Click")
             End Try
         End Sub
         Public Sub Form_Load(_Form As Form, _CancelButton As RadButton, _ServersListView As RadListView)
@@ -490,7 +490,7 @@ Namespace IRC.Customize
                 End With
                 _Form.Icon = mdiMain.Icon
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub Form_Load(_Form As Form, _CancelButton As RadButton, _ServersListView As RadListView)")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub Form_Load(_Form As Form, _CancelButton As RadButton, _ServersListView As RadListView)")
             End Try
         End Sub
         Public Sub AddToNotifyListView(ByVal lNickName As String, ByVal lMessage As String, ByVal lServerIP As String, _RadListView As RadListView)
@@ -504,14 +504,14 @@ Namespace IRC.Customize
                     _RadListView.Items.Add(_Item)
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub AddToNotifyListView(ByVal lNickName As String, ByVal lMessage As String)")
+                'Throw ex 'ProcessError(ex.Message, "Private Sub AddToNotifyListView(ByVal lNickName As String, ByVal lMessage As String)")
             End Try
         End Sub
         Public Sub ClearServers(_RadListView As RadListView)
             Try
                 _RadListView.Items.Clear()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub ClearServers(_RadListView As ListView)")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub ClearServers(_RadListView As ListView)")
             End Try
         End Sub
         Public Sub RefreshNetworks(_RadDropDownList As RadDropDownList)
@@ -526,7 +526,7 @@ Namespace IRC.Customize
                     End With
                 Next i
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub RefreshNetworks()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub RefreshNetworks()")
             End Try
         End Sub
         Public Sub RefreshServers(_RadListView As RadListView, _NetworkIndex As Integer)
@@ -559,7 +559,7 @@ Namespace IRC.Customize
                     _RadListView.SelectedIndex = n
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub RefreshServers(ByVal lFirstLoad As Boolean)")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub RefreshServers(ByVal lFirstLoad As Boolean)")
             End Try
         End Sub
         Public Sub txtNotifyNetwork_TextChanged(_NotifyNetwork As String, _NotifyListView As RadListView)
@@ -569,7 +569,7 @@ Namespace IRC.Customize
                     lSettings.lNotify.nModified = True
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub txtNotifyNetwork_TextChanged(_NotifyNetwork As String, _NotifyListView As RadListView)")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub txtNotifyNetwork_TextChanged(_NotifyNetwork As String, _NotifyListView As RadListView)")
             End Try
         End Sub
         Public Sub txtNotifyMessage_TextChanged(_NotifyMessage As String, _NotifyListView As RadListView)
@@ -579,7 +579,7 @@ Namespace IRC.Customize
                     lSettings.lNotify.nModified = True
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub txtNotifyMessage_TextChanged(_NotifyMessage As String, _NotifyListView As RadListView)")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub txtNotifyMessage_TextChanged(_NotifyMessage As String, _NotifyListView As RadListView)")
             End Try
         End Sub
         Public Sub Apply_Settings_Servers(_ServersListView As RadListView, _SelectedNetwork As String)
@@ -592,7 +592,7 @@ Namespace IRC.Customize
                     End If
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Servers(_ServersListView As RadListView, _NetworksDropDown As RadDropDownList)")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Servers(_ServersListView As RadListView, _NetworksDropDown As RadDropDownList)")
             End Try
         End Sub
         Public Sub Apply_Settings_Startup(
@@ -606,7 +606,7 @@ Namespace IRC.Customize
                     .sCustomizeOnStartup = _ShowCustomize
                 End With
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings_Startup")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings_Startup")
             End Try
         End Sub
         Public Sub Apply_Settings_Text(_UnknownTextStatus As Boolean,
@@ -631,7 +631,7 @@ Namespace IRC.Customize
                     lSettings.lIRC.iSettings.sStringSettings.sUnsupported = eUnsupportedIn.uHide
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings_Text")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings_Text")
             End Try
         End Sub
         Public Sub Apply_Settings_IRC(
@@ -648,7 +648,7 @@ Namespace IRC.Customize
                     .sHideMOTD = _HideMotds
                 End With
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings_IRC")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings_IRC")
             End Try
         End Sub
         Public Sub Apply_Settings_ServerModes(
@@ -669,7 +669,7 @@ Namespace IRC.Customize
                     .mWallops = _Wallops
                 End With
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings_ServerModes()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings_ServerModes()")
             End Try
         End Sub
         Public Sub Apply_Settings_Interface(
@@ -711,7 +711,7 @@ Namespace IRC.Customize
                     'End If
                 End With
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings(_Prompts As Boolean, _AutoShowWindows As Boolean, _HideStatusOnClose As Boolean, _AutoMaximized As Boolean)")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings(_Prompts As Boolean, _AutoShowWindows As Boolean, _HideStatusOnClose As Boolean, _AutoMaximized As Boolean)")
             End Try
         End Sub
         Public Sub Apply_Settings_DCC(_DccChatPrompt As Boolean,
@@ -744,7 +744,7 @@ Namespace IRC.Customize
                 lSettings_DCC.lDCC.dDownloadDirectory = _DownloadDirectory
                 lSettings_DCC.lDCC.dPopupDownloadManager = _PopupDownloadManager
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings_DCC()")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings_DCC()")
             End Try
         End Sub
         Public Sub Apply_Settings_User(_NickNamesDropDownList As RadDropDownList, _HomePage As String, _UserEmail As String, _Password As String, _RealName As String, _OperName As String, _OperPassword As String)
@@ -779,7 +779,7 @@ Namespace IRC.Customize
                     End If
                 End With
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub Apply_User(_NickNamesDropDownList As RadDropDownList, _HomePage As String)")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub Apply_User(_NickNamesDropDownList As RadDropDownList, _HomePage As String)")
             End Try
         End Sub
         Public Sub txtNotifyNickname_TextChanged(_NotifyNickName As String, _NotifyListView As RadListView)
@@ -789,7 +789,7 @@ Namespace IRC.Customize
                     lSettings.lNotify.nModified = True
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub txtNotifyNickname_TextChanged(_NotifyNickNameTextBox As RadTextBox, _NotifyListView As ListView)")
+                'Throw ex 'ProcessError(ex.Message, "Public Sub txtNotifyNickname_TextChanged(_NotifyNickNameTextBox As RadTextBox, _NotifyListView As ListView)")
             End Try
         End Sub
     End Class

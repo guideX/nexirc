@@ -45,7 +45,7 @@ Public Class MdiChildWindow
         Try
             _formType = formType
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -56,7 +56,7 @@ Public Class MdiChildWindow
                     lSettings.AddToChannelFolders(lChannels.Name(_meIndex), lChannels.StatusIndex(_meIndex))
             End Select
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -68,7 +68,7 @@ Public Class MdiChildWindow
                     lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cNAMES, lChannels.Name(_meIndex))
             End Select
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -79,7 +79,7 @@ Public Class MdiChildWindow
             lForeMost = True
             form.BringToFront()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -90,7 +90,7 @@ Public Class MdiChildWindow
             lForeMost = True
             RaiseEvent BringToFront()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -111,7 +111,7 @@ Public Class MdiChildWindow
                     End If
             End Select
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -134,7 +134,7 @@ Public Class MdiChildWindow
                     End If
             End Select
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -143,7 +143,7 @@ Public Class MdiChildWindow
             lStatus.ActiveIndex = MeIndex
             RaiseEvent BringToFront()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -151,7 +151,7 @@ Public Class MdiChildWindow
         Try
             form.BringToFront()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -164,7 +164,7 @@ Public Class MdiChildWindow
             End If
             RaiseEvent OutgoingSetFocus()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -177,7 +177,7 @@ Public Class MdiChildWindow
             End If
             RaiseEvent OutgoingSetFocus()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -197,7 +197,7 @@ Public Class MdiChildWindow
                         _meIndex = MeIndex
                 End Select
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Set
     End Property
@@ -217,13 +217,19 @@ Public Class MdiChildWindow
                     End If
             End Select
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
     Public Sub Form_Resize(ByRef incomingRichTextBox As RadRichTextBox, ByRef outgoingTextBox As RadTextBox, ByRef form As Form)
-        Try
+        'Try
+        If (form.WindowState <> FormWindowState.Minimized) Then
             Select Case _formType
+                Case FormTypes.NoticeWindow
+                    incomingRichTextBox.Width = form.ClientSize.Width
+                    incomingRichTextBox.Height = form.ClientSize.Height - (outgoingTextBox.Height + incomingRichTextBox.Top)
+                    outgoingTextBox.Width = incomingRichTextBox.Width
+                    outgoingTextBox.Top = incomingRichTextBox.Height + incomingRichTextBox.Top
                 Case FormTypes.Status
                     incomingRichTextBox.Width = form.ClientSize.Width
                     incomingRichTextBox.Height = form.ClientSize.Height - (outgoingTextBox.Height + incomingRichTextBox.Top)
@@ -234,9 +240,10 @@ Public Class MdiChildWindow
                         lChannels.Window_Resize(_meIndex)
                     End If
             End Select
-        Catch ex As Exception
-            Throw ex
-        End Try
+        End If
+        'Catch ex As Exception
+        ''Throw ex
+        'End Try
     End Sub
 
     Public Sub cmdChangeNickName_Click()
@@ -255,11 +262,12 @@ Public Class MdiChildWindow
                 f.Show()
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
     Public Event SetNickBotNickName(nickName As String)
+    Public Event SetNickListSortSettings()
 
     Public Sub Form_Load(formType As FormTypes)
         Try
@@ -275,11 +283,12 @@ Public Class MdiChildWindow
                 Case FormTypes.Channel
                     lChannels.Window_Resize(_meIndex)
                     RaiseEvent SetNicklistColors(Color.Blue, Color.White)
+                    RaiseEvent SetNickListSortSettings()
             End Select
             RaiseEvent FormDimensions(Convert.ToInt32((mdiMain.Width / 10) * 8), Convert.ToInt32(mdiMain.Height / 2))
             RaiseEvent FormFocus()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -301,7 +310,7 @@ Public Class MdiChildWindow
             form.Height = Convert.ToInt32(mdiMain.Height / 2)
             form.Focus()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -315,7 +324,7 @@ Public Class MdiChildWindow
                 lStatus.ActiveIndex = statusId
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -329,7 +338,7 @@ Public Class MdiChildWindow
                 Case FormTypes.PrivateMessage
             End Select
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -337,7 +346,7 @@ Public Class MdiChildWindow
         Try
             RaiseEvent ScrollToCaret()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -351,7 +360,7 @@ Public Class MdiChildWindow
             End Select
             RaiseEvent DisableGetNamesTimer()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -366,7 +375,7 @@ Public Class MdiChildWindow
             End Select
             Return id
         Catch ex As Exception
-            Throw ex
+            'Throw ex
             Return Nothing
         End Try
     End Function
@@ -377,7 +386,7 @@ Public Class MdiChildWindow
             form.lSendNoticeUI.StatusIndex = ReturnMeStatusIndex()
             form.Visible = True
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -387,7 +396,7 @@ Public Class MdiChildWindow
             form.StatusIndex = ReturnMeStatusIndex()
             form.Show()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -395,7 +404,7 @@ Public Class MdiChildWindow
         Try
             lStatus.ToggleConnection(ReturnMeStatusIndex())
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -403,7 +412,7 @@ Public Class MdiChildWindow
         Try
             lStatus.Connect(ReturnMeStatusIndex())
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -411,7 +420,7 @@ Public Class MdiChildWindow
         Try
             lStatus.Connect(ReturnMeStatusIndex())
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -419,7 +428,7 @@ Public Class MdiChildWindow
         Try
             lChannelFolder.Show(_meIndex)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -430,7 +439,7 @@ Public Class MdiChildWindow
                 lStatus.CloseStatusConnection(_StatusIndex, True)
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -441,7 +450,7 @@ Public Class MdiChildWindow
                     lChannels.NickList_DoubleClick(_meIndex)
             End Select
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -449,7 +458,7 @@ Public Class MdiChildWindow
         Try
             lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cLIST)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -462,7 +471,7 @@ Public Class MdiChildWindow
                     lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cPART, lChannels.Name(_meIndex))
             End Select
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -475,7 +484,7 @@ Public Class MdiChildWindow
                     lStatus.Minimize(_meIndex)
             End Select
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -488,7 +497,7 @@ Public Class MdiChildWindow
                     If (Not String.IsNullOrEmpty(message)) Then lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cNOTICE, lChannels.Name(MeIndex), message)
             End Select
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 End Class

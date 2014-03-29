@@ -132,6 +132,7 @@ Partial Class frmChannel
         '
         'lvwNickList
         '
+        Me.lvwNickList.EnableSorting = True
         Me.lvwNickList.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lvwNickList.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwNickList.ItemSize = New System.Drawing.Size(200, 20)

@@ -35,10 +35,11 @@ Partial Class frmNoticeWindow
         '
         'txtOutgoing
         '
+        Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOutgoing.Location = New System.Drawing.Point(0, 109)
         Me.txtOutgoing.Name = "txtOutgoing"
-        Me.txtOutgoing.Size = New System.Drawing.Size(429, 20)
-        Me.txtOutgoing.TabIndex = 16
+        Me.txtOutgoing.Size = New System.Drawing.Size(429, 24)
+        Me.txtOutgoing.TabIndex = 18
         Me.txtOutgoing.TabStop = False
         '
         'frmNoticeWindow

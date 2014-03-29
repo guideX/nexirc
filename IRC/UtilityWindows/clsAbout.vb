@@ -7,7 +7,7 @@ Namespace IRC.UtilityWindows
                 animate.Animate(_PictureBox, animate.Effect.Center, 200, 1)
                 animate.Animate(_RadPageView, animate.Effect.Center, 200, 1)
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Sub
     End Class

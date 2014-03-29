@@ -11,7 +11,7 @@ Public Class frmAbout
         Try
             lAbout.Form_Load(Me, Me.PictureBox1, Me.RadPageView1)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 End Class

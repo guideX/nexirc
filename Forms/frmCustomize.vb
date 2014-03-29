@@ -81,7 +81,7 @@ Public Class frmCustomize
                 txtDownloadDirectory.Text
             )
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -90,7 +90,7 @@ Public Class frmCustomize
             Try
                 Return lvwNotify
             Catch ex As Exception
-                Throw ex
+                'Throw ex
                 Return Nothing
             End Try
         End Get
@@ -237,7 +237,7 @@ Public Class frmCustomize
                     rdbUnknownTextOwn.IsChecked = True
             End Select
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -245,7 +245,7 @@ Public Class frmCustomize
         Try
             lCustomize.ClearServers(lvwServers)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -253,14 +253,14 @@ Public Class frmCustomize
         Try
             lCustomize.UpdateSelectedServer(lvwServers, _Description, _Ip, _Port)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub frmCustomize_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         Try
             lCustomize.frmCustomize_FormClosed()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub frmCustomize_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -268,14 +268,14 @@ Public Class frmCustomize
             lCustomize.Form_Load(Me, cmdCancelNow, lvwServers)
             InitSettings()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub lnkNetworkAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lnkNetworkAdd.Click
         Try
             lCustomize.lnkNetworkAdd_Click()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdAddServer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdServerAdd.Click
@@ -286,7 +286,7 @@ Public Class frmCustomize
                 lCustomize.lnkAddServer_Click("")
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdNotifyAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNotifyAdd.Click
@@ -305,56 +305,56 @@ Public Class frmCustomize
         Try
             lCustomize.cmdDCCIgnoreAdd_Click()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub lvwStrings_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwStrings.DoubleClick
         Try
             lCustomize.lvwStrings_DoubleClick()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub lstDCCIgnoreItems_MouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lstDCCIgnoreItems.MouseClick
         Try
             lCustomize.lstDCCIgnoreItems_MouseClick(lstDCCIgnoreItems)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdDCCIgnoreRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDCCIgnoreRemove.Click
         Try
             lCustomize.cmdDCCIgnoreRemove_Click(lstDCCIgnoreItems)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdRemoveNotify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNotifyRemove.Click
         Try
             lCustomize.cmdRemoveNotify_Click(lvwNotify)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdEditIdentSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdIdentdEdit.Click
         Try
             lCustomize.cmdEditIdentSettings_Click()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdNetworkSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNetworkSettings.Click
         Try
             lCustomize.cmdNetworkSettings_Click()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub lnkNetworkDelete_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkDelete.LinkClicked
         Try
             lCustomize.lnkNetworkDelete_LinkClicked(cboNetworks)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub lnkNetworkAdd_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkAdd.LinkClicked
@@ -362,28 +362,28 @@ Public Class frmCustomize
             lCustomize.lnkNetworkAdd_LinkClicked()
             'animate.Animate(f, animate.Effect.Center, 200, 1)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdServerEdit_Click(sender As System.Object, e As System.EventArgs) Handles cmdServerEdit.Click
         Try
             lCustomize.cmdServerEdit_Click(lvwServers)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdServerDelete_Click(sender As System.Object, e As System.EventArgs) Handles cmdServerDelete.Click
         Try
             lCustomize.cmdServerDelete_Click(lvwServers)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdServersClear_Click(sender As System.Object, e As System.EventArgs) Handles cmdServersClear.Click
         Try
             lCustomize.cmdServersClear_Click(cboNetworks.Text, lvwServers)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdServersMove_Click(sender As System.Object, e As System.EventArgs) Handles cmdServersMove.Click
@@ -392,7 +392,7 @@ Public Class frmCustomize
                 lCustomize.cmdServersMove_Click(cboNetworks.Text, lvwServers.SelectedItem.Item(1).ToString)
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdConnectNow_Click(sender As System.Object, e As System.EventArgs) Handles cmdConnectNow.Click
@@ -403,7 +403,7 @@ Public Class frmCustomize
             End If
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click
@@ -414,7 +414,7 @@ Public Class frmCustomize
             lSettings.SaveSettings()
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdApplyNow_Click(sender As System.Object, e As System.EventArgs) Handles cmdApplyNow.Click
@@ -422,98 +422,98 @@ Public Class frmCustomize
             EventApply()
             lCustomize.cmdApplyNow_Click(Me)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdCancelNow_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancelNow.Click
         Try
             lCustomize.cmdCancelNow_Click(Me)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cboNetworks_SelectedIndexChanged(sender As System.Object, e As Telerik.WinControls.UI.Data.PositionChangedEventArgs) Handles cboNetworks.SelectedIndexChanged
         Try
             lCustomize.cboNetworks_SelectedIndexChanged(cboNetworks.SelectedItem.Text, lvwServers)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdAddMyNickName_Click(sender As System.Object, e As System.EventArgs) Handles cmdAddMyNickName.Click
         Try
             lCustomize.cmdAddNickName_Click()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdRemove_Click(sender As System.Object, e As System.EventArgs) Handles cmdRemoveMyNickName.Click
         Try
             lCustomize.cmdRemoveNickName(cboMyNickNames)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdClearMyNickName_Click(sender As System.Object, e As System.EventArgs) Handles cmdClearMyNickName.Click
         Try
             lCustomize.cmdClearMyNickName_Click(cboMyNickNames)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdQuerySettings_Click(sender As System.Object, e As System.EventArgs) Handles cmdQuerySettings.Click
         Try
             lCustomize.cmdQuerySettings_Click()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub txtNotifyNickname_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtNotifyNickname.TextChanged
         Try
             lCustomize.txtNotifyNickname_TextChanged(txtNotifyNickname.Text, lvwNotify)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub txtNotifyMessage_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtNotifyMessage.TextChanged
         Try
             lCustomize.txtNotifyMessage_TextChanged(txtNotifyMessage.Text, lvwNotify)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cboNetworkNotify_SelectedIndexChanged(sender As System.Object, e As Telerik.WinControls.UI.Data.PositionChangedEventArgs) Handles cboNetworkNotify.SelectedIndexChanged
         Try
             lCustomize.txtNotifyNetwork_TextChanged(cboNetworkNotify.Text, lvwNotify)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdRemoveIgnoreExtension_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveIgnoreExtension.Click
         Try
             lCustomize.cmdRemoveIgnoreExtension_Click(lstIgnoreExtensions)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdAddIgnoreExtension_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddIgnoreExtension.Click
         Try
             lCustomize.cmdAddIgnoreExtension_Click(lstIgnoreExtensions)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub lstDCCIgnoreItems_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstDCCIgnoreItems.Click
         Try
             lCustomize.lstDCCIgnoreItems_Click(cmdDCCIgnoreAdd)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub lstIgnoreExtensions_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstIgnoreExtensions.SelectedIndexChanged
         Try
             lCustomize.lstIgnoreExtensions_SelectedIndexChanged(cmdDCCIgnoreRemove)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub lvwServers_DoubleClick(sender As Object, e As System.EventArgs) Handles lvwServers.DoubleClick
@@ -521,28 +521,28 @@ Public Class frmCustomize
             lCustomize.lvwServers_DoubleClick(chkNewStatus, Me)
             'Me.Close()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub lCustomize_Apply() Handles lCustomize.Apply
         Try
             EventApply()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdCompatibilityEnable_Click(sender As System.Object, e As System.EventArgs) Handles cmdCompatibilityEnable.Click
         Try
             lCustomize.cmdCompatibilityEnable_Click(lvwCompatibility.SelectedItem.Item(0).ToString(), lvwCompatibility.SelectedItem)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub cmdCompatibilityDisable_Click(sender As Object, e As System.EventArgs) Handles cmdCompatibilityDisable.Click
         Try
             lCustomize.cmdCompatibilityDisable_Click(lvwCompatibility.SelectedItem.Item(0).ToString(), lvwCompatibility.SelectedItem)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -555,7 +555,7 @@ Public Class frmCustomize
             tmrCloseMe.Interval = 200
             tmrCloseMe.Enabled = True
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -563,7 +563,7 @@ Public Class frmCustomize
         Try
             lSettings.SaveSettings()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -572,7 +572,7 @@ Public Class frmCustomize
             tmrCloseMe.Enabled = False
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 End Class

@@ -11,7 +11,7 @@ Public Class frmNickServLogin
         Try
             lStatusIndex = lIndex
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -24,7 +24,7 @@ Public Class frmNickServLogin
             chkShowOnConnect.Checked = lSettings_Services.lNickServ.nShowOnConnect
             'chkXEnable.Checked = lNickServ.nEnable
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -32,7 +32,7 @@ Public Class frmNickServLogin
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -51,7 +51,7 @@ Public Class frmNickServLogin
             lSettings_Services.SaveServices()
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 End Class

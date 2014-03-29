@@ -413,7 +413,7 @@ Public Class frmVideoPlayer
                 lVideo.Mute = clsVideo.Channels.None
             End If
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub ChkMute_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChkMuteRight.CheckedChanged, ChkMuteLeft.CheckedChanged")
         End Try
     End Sub
 

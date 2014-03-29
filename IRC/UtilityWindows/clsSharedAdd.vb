@@ -18,7 +18,7 @@ Public Class clsSharedAdd
             Try
                 Return lSharedAddType
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Property SharedAddType() As eSharedAddType")
+                'Throw ex 'ProcessError(ex.Message, "Public Property SharedAddType() As eSharedAddType")
                 Return Nothing
             End Try
         End Get
@@ -32,7 +32,7 @@ Public Class clsSharedAdd
                         RaiseEvent ChangeCaption("nexIRC - Add Nickname")
                 End Select
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Property SharedAddType() As eSharedAddType")
+                'Throw ex 'ProcessError(ex.Message, "Public Property SharedAddType() As eSharedAddType")
             End Try
         End Set
     End Property
@@ -54,14 +54,14 @@ Public Class clsSharedAdd
                     End If
             End Select
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub OK_Button()")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub OK_Button()")
         End Try
     End Sub
     Public Sub cmdCancel_Click()
         Try
             RaiseEvent CloseForm()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
         End Try
     End Sub
     Public Sub Form_Load()
@@ -69,7 +69,7 @@ Public Class clsSharedAdd
             lSettings.lWinVisible.wAddNetwork = True
             RaiseEvent FocusTextBox()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub frmAddNetwork_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub frmAddNetwork_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
         End Try
     End Sub
     Public Sub txtNetworkDescription_KeyPress(ByVal e As System.Windows.Forms.KeyPressEventArgs, _Form As Form, _DescriptionTextBox As RadTextBox)
@@ -79,14 +79,14 @@ Public Class clsSharedAdd
                 OK_Button(_DescriptionTextBox.Text)
             End If
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub txtNetworkDescription_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtNetworkDescription.KeyPress")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub txtNetworkDescription_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtNetworkDescription.KeyPress")
         End Try
     End Sub
     Public Sub mnuExit_Click()
         Try
             RaiseEvent CloseForm()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub mnuExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub mnuExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
         End Try
     End Sub
     Public Sub cmdOK_Click(_Value As String, _Form As Form)
@@ -96,7 +96,7 @@ Public Class clsSharedAdd
         Try
             RaiseEvent CloseForm()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
         End Try
     End Sub
     Public Sub ServerListToolStripMenuItem_Click()

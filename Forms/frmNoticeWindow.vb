@@ -17,44 +17,44 @@ Public Class frmNoticeWindow
         'On Error Resume Next
         lPrivateMessage = lValue
         lPMNick = lNick
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub SetPrivateMessageWindow(ByVal lValue As Boolean)")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub SetPrivateMessageWindow(ByVal lValue As Boolean)")
     End Sub
 
     Public Sub SetUnsupportedWindow(ByVal lValue As Boolean)
         'On Error Resume Next
         lUnsupported = lValue
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub SetUnknownsWindow(ByVal lValue As Boolean)")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub SetUnknownsWindow(ByVal lValue As Boolean)")
     End Sub
 
     Public Sub SetUnknownsWindow(ByVal lValue As Boolean)
         'On Error Resume Next
         lUnknowns = lValue
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub SetUnknownsWindow(ByVal lValue As Boolean)")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub SetUnknownsWindow(ByVal lValue As Boolean)")
     End Sub
 
     Public Sub SetMotdWindow(ByVal lValue As Boolean)
         'On Error Resume Next
         lMotdWindow = lValue
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub SetMotdWindow(ByVal lValue As Boolean)")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub SetMotdWindow(ByVal lValue As Boolean)")
     End Sub
 
     Public Sub SetNoticeWindow(ByVal lValue As Boolean)
         'On Error Resume Next
         lNoticeWindow = lValue
         txtOutgoing.Visible = True
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub SetNoticeWindow(ByVal lValue As Boolean)")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub SetNoticeWindow(ByVal lValue As Boolean)")
     End Sub
 
     Public Sub SetStatusIndex(ByVal lIndex As Integer)
         'On Error Resume Next
         lStatusIndex = lIndex
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
     End Sub
 
     Public Sub DoNoticeColor(ByVal lData As String)
         'On Error Resume Next
         lStrings.Print(lData, txtIncoming)
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub DoNoticeColor(ByVal lData As String, ByVal lTextBox As TextBox, ByVal lTextBoxColor As System.Windows.Forms.RichTextBox)")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub DoNoticeColor(ByVal lData As String, ByVal lTextBox As TextBox, ByVal lTextBoxColor As System.Windows.Forms.RichTextBox)")
     End Sub
 
     Private Sub frmNoticeWindow_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -72,19 +72,19 @@ Public Class frmNoticeWindow
         ElseIf lUnknowns = True Then
             lStatus.SetUnknownsClosed(lStatusIndex)
         End If
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub frmNoticeWindow_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub frmNoticeWindow_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing")
     End Sub
 
     Private Sub frmNoticeWindow_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.GotFocus
         'On Error Resume Next
         lStatus.ActiveIndex = lStatusIndex
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub frmNoticeWindow_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.GotFocus")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub frmNoticeWindow_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.GotFocus")
     End Sub
 
     Public Sub TriggerResize()
         'On Error Resume Next
         Me.Width = Me.Width + 1
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub TriggerResize()")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub TriggerResize()")
     End Sub
 
     Private Sub frmNoticeWindow_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -94,31 +94,21 @@ Public Class frmNoticeWindow
             Me.Width = lSettings.lIRC.iSettings.sWindowSizes.iNotice.wWidth
             Me.Height = lSettings.lIRC.iSettings.sWindowSizes.iNotice.wHeight
             lMdiWindow.Form_Load(MdiChildWindow.FormTypes.NoticeWindow)
+            lMdiWindow.Form_Resize(txtIncoming, txtOutgoing, Me)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
     Private Sub frmNoticeWindow_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
         Try
-            txtIncoming.Width = Me.ClientSize.Width
-            txtIncoming.Height = Me.ClientSize.Height - txtOutgoing.Height
-            txtOutgoing.Width = txtIncoming.Width
-            txtOutgoing.Top = txtIncoming.Height
+            lMdiWindow.Form_Resize(txtIncoming, txtOutgoing, Me)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
-    Private Sub txtNotice_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs)
-        Try
-            If lSettings.lIRC.iSettings.sAutoMaximize = True Then Me.WindowState = FormWindowState.Maximized
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-
-    Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs)
+    Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown
         Try
             Dim msg As String
             If e.KeyCode = 13 Then
@@ -141,63 +131,55 @@ Public Class frmNoticeWindow
                 End If
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
-    Private Sub txtIncomingColor_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub txtIncomingColor_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncoming.GotFocus
         'On Error Resume Next
         txtOutgoing.Focus()
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub txtIncomingColor_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.GotFocus")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub txtIncomingColor_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.GotFocus")
     End Sub
 
-    Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs)
-        'On Error Resume Next
-        'If lIRC.iSettings.sShowBrowser = True Then
-        'mdiMain.BrowseURL(e.LinkText)
-        'End If
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub txtIncomingColor_LinkClicked(ByVal sender As Object, ByVal e As System.Windows.Forms.LinkClickedEventArgs) Handles txtIncomingColor.LinkClicked")
-    End Sub
-
-    Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
+    Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncoming.MouseDown
         'On Error Resume Next
         Me.Focus()
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub txtIncomingColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncomingColor.MouseDown")
     End Sub
 
-    Private Sub txtIncomingColor_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
+    Private Sub txtIncomingColor_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncoming.MouseUp
         Try
             txtOutgoing.Focus()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
-    Private Sub txtIncomingColor_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub txtIncomingColor_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncoming.TextChanged
         'On Error Resume Next
         'txtIncoming.ScrollToCaret()
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub txtIncomingColor_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.TextChanged")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub txtIncomingColor_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.TextChanged")
     End Sub
 
-    Private Sub txtIncomingNoColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
+    Private Sub txtIncomingNoColor_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncoming.MouseDown
         'On Error Resume Next
         Me.Focus()
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub txtIncomingColor_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.TextChanged")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub txtIncomingColor_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtIncomingColor.TextChanged")
     End Sub
 
-    Private Sub txtOutgoing_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    Private Sub txtOutgoing_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtIncoming.KeyPress
         'On Error Resume Next
         If e.KeyChar = Chr(13) Then
             e.Handled = True
         End If
-        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub txtOutgoing_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtOutgoing.KeyPress")
+        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub txtOutgoing_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtOutgoing.KeyPress")
     End Sub
 
-    Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
+    Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
         Try
             lMdiWindow.txtOutgoing_GotFocus(Me)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
         End Try
     End Sub
 
@@ -205,28 +187,28 @@ Public Class frmNoticeWindow
         Try
             Me.BringToFront()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_BringToFront() Handles lMdiWindow.BringToFront")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_BringToFront() Handles lMdiWindow.BringToFront")
         End Try
     End Sub
     Private Sub lMdiChildWindow_ClearIncomingTextBoxSelection() Handles lMdiWindow.ClearIncomingTextBoxSelection
         Try
             txtIncoming.Document.Selection.Clear()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_ClearIncomingTextBoxSelection() Handles lMdiWindow.ClearIncomingTextBoxSelection")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_ClearIncomingTextBoxSelection() Handles lMdiWindow.ClearIncomingTextBoxSelection")
         End Try
     End Sub
     Private Sub lMdiChildWindow_CloseForm() Handles lMdiWindow.CloseForm
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_CloseForm() Handles lMdiWindow.CloseForm")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_CloseForm() Handles lMdiWindow.CloseForm")
         End Try
     End Sub
     Private Sub lMdiChildWindow_EmptyOutgoingTextBox() Handles lMdiWindow.EmptyOutgoingTextBox
         Try
             txtOutgoing.Text = ""
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_EmptyOutgoingTextBox() Handles lMdiWindow.EmptyOutgoingTextBox")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_EmptyOutgoingTextBox() Handles lMdiWindow.EmptyOutgoingTextBox")
         End Try
     End Sub
     Private Sub lMdiChildWindow_FormDimensions(width As Integer, height As Integer) Handles lMdiWindow.FormDimensions
@@ -234,21 +216,21 @@ Public Class frmNoticeWindow
             Me.Width = width
             Me.Height = height
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormDimensions(width As Integer, height As Integer) Handles lMdiWindow.FormDimensions")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormDimensions(width As Integer, height As Integer) Handles lMdiWindow.FormDimensions")
         End Try
     End Sub
     Private Sub lMdiChildWindow_FormFocus() Handles lMdiWindow.FormFocus
         Try
             Me.Focus()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormFocus() Handles lMdiWindow.FormFocus")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormFocus() Handles lMdiWindow.FormFocus")
         End Try
     End Sub
     Private Sub lMdiChildWindow_FormIcon(icon As System.Drawing.Icon) Handles lMdiWindow.FormIcon
         Try
             Me.Icon = icon
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormIcon(icon As System.Drawing.Icon) Handles lMdiWindow.FormIcon")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormIcon(icon As System.Drawing.Icon) Handles lMdiWindow.FormIcon")
         End Try
     End Sub
     Private Sub lMdiChildWindow_IncomingTextBoxDimensions(width As Integer, height As Integer) Handles lMdiWindow.IncomingTextBoxDimensions
@@ -256,14 +238,14 @@ Public Class frmNoticeWindow
             txtIncoming.Width = width
             txtIncoming.Height = height
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_IncomingTextBoxDimensions(width As Integer, height As Integer) Handles lMdiWindow.IncomingTextBoxDimensions")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_IncomingTextBoxDimensions(width As Integer, height As Integer) Handles lMdiWindow.IncomingTextBoxDimensions")
         End Try
     End Sub
     Private Sub lMdiChildWindow_OutgoingSetFocus() Handles lMdiWindow.OutgoingSetFocus
         Try
             txtOutgoing.Focus()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_OutgoingSetFocus() Handles lMdiWindow.OutgoingSetFocus")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_OutgoingSetFocus() Handles lMdiWindow.OutgoingSetFocus")
         End Try
     End Sub
     Private Sub lMdiChildWindow_OutgoingTextBoxDimensions(width As Integer, top As Integer) Handles lMdiWindow.OutgoingTextBoxDimensions
@@ -271,7 +253,7 @@ Public Class frmNoticeWindow
             txtOutgoing.Width = width
             txtOutgoing.Top = top
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_OutgoingTextBoxDimensions(width As Integer, top As Integer) Handles lMdiWindow.OutgoingTextBoxDimensions")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_OutgoingTextBoxDimensions(width As Integer, top As Integer) Handles lMdiWindow.OutgoingTextBoxDimensions")
         End Try
     End Sub
     Private Sub lMdiChildWindow_ScrollToCaret() Handles lMdiWindow.ScrollToCaret
@@ -284,7 +266,7 @@ Public Class frmNoticeWindow
                 End If
             End If
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_ScrollToCaret() Handles lMdiWindow.ScrollToCaret")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_ScrollToCaret() Handles lMdiWindow.ScrollToCaret")
         End Try
     End Sub
     Private Sub lMdiChildWindow_SetIncomingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetIncomingColors
@@ -294,7 +276,7 @@ Public Class frmNoticeWindow
             txtIncoming.RichTextBoxElement.BorderWidth = 0
             txtIncoming.RichTextBoxElement.BackColor = backgroundColor
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetIncomingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetIncomingColors")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetIncomingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetIncomingColors")
         End Try
     End Sub
 
@@ -309,21 +291,21 @@ Public Class frmNoticeWindow
             txtOutgoing.TextBoxElement.Border.Visibility = Telerik.WinControls.ElementVisibility.Collapsed
             txtOutgoing.TextBoxElement.BorderThickness = New System.Windows.Forms.Padding(0)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetOutgoingColors")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetOutgoingColors")
         End Try
     End Sub
     Private Sub lMdiChildWindow_SetParent(parentForm As System.Windows.Forms.Form) Handles lMdiWindow.SetParent
         Try
             Me.MdiParent = parentForm
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetParent(parentForm As System.Windows.Forms.Form) Handles lMdiWindow.SetParent")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetParent(parentForm As System.Windows.Forms.Form) Handles lMdiWindow.SetParent")
         End Try
     End Sub
     Private Sub lMdiChildWindow_SetWindowState(windowState As System.Windows.Forms.FormWindowState) Handles lMdiWindow.SetWindowState
         Try
             Me.WindowState = windowState
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetWindowState(windowState As System.Windows.Forms.FormWindowState) Handles lMdiWindow.SetWindowState")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetWindowState(windowState As System.Windows.Forms.FormWindowState) Handles lMdiWindow.SetWindowState")
         End Try
     End Sub
 End Class

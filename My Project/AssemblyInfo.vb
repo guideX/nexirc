@@ -13,7 +13,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("IRC Client")> 
 <Assembly: AssemblyCompany("Team Nexgen")> 
 <Assembly: AssemblyProduct("nexIRC")> 
-<Assembly: AssemblyCopyright("Copyright ©  2010")> 
+<Assembly: AssemblyCopyright("Copyright ©  2014")> 
 <Assembly: AssemblyTrademark("Team Nexgen (tm)")> 
 
 <Assembly: ComVisible(False)> 
@@ -32,7 +32,7 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("3.0.0.26")> 
-<Assembly: AssemblyFileVersion("3.0.0.26")> 
+<Assembly: AssemblyVersion("3.0.0.28")> 
+<Assembly: AssemblyFileVersion("3.0.0.28")> 
 
 <Assembly: NeutralResourcesLanguageAttribute("en")> 

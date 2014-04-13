@@ -39,14 +39,14 @@ Partial Class frmStatus
         Me.cmdBot = New System.Windows.Forms.ToolStripSplitButton()
         Me.cmdBotLogin = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmdBotRegister = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmdBotGhost = New System.Windows.Forms.ToolStripMenuItem()
         Me.tmrWaitForChannelList = New System.Windows.Forms.Timer(Me.components)
         Me.tmrCheckChannelList = New System.Windows.Forms.Timer(Me.components)
         Me.tmrWaitForLUsers = New System.Windows.Forms.Timer(Me.components)
         Me.tmrWaitForWhois = New System.Windows.Forms.Timer(Me.components)
         Me.txtIncoming = New Telerik.WinControls.RichTextBox.RadRichTextBox()
         Me.txtOutgoing = New Telerik.WinControls.UI.RadTextBox()
-        Me.cmdBotGhost = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.tspStatus.SuspendLayout()
         CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -54,7 +54,7 @@ Partial Class frmStatus
         '
         'tspStatus
         '
-        Me.tspStatus.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.tspStatus.BackColor = System.Drawing.Color.White
         Me.tspStatus.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tspStatus.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.tspStatus.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdConnection, Me.cmdChannels, Me.cmdBot})
@@ -157,14 +157,25 @@ Partial Class frmStatus
         'cmdBotLogin
         '
         Me.cmdBotLogin.Name = "cmdBotLogin"
-        Me.cmdBotLogin.Size = New System.Drawing.Size(152, 22)
+        Me.cmdBotLogin.Size = New System.Drawing.Size(127, 22)
         Me.cmdBotLogin.Text = "Identify"
         '
         'cmdBotRegister
         '
         Me.cmdBotRegister.Name = "cmdBotRegister"
-        Me.cmdBotRegister.Size = New System.Drawing.Size(152, 22)
+        Me.cmdBotRegister.Size = New System.Drawing.Size(127, 22)
         Me.cmdBotRegister.Text = "Register"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(124, 6)
+        '
+        'cmdBotGhost
+        '
+        Me.cmdBotGhost.Name = "cmdBotGhost"
+        Me.cmdBotGhost.Size = New System.Drawing.Size(127, 22)
+        Me.cmdBotGhost.Text = "Ghost"
         '
         'tmrWaitForChannelList
         '
@@ -199,17 +210,6 @@ Partial Class frmStatus
         Me.txtOutgoing.Size = New System.Drawing.Size(429, 24)
         Me.txtOutgoing.TabIndex = 17
         Me.txtOutgoing.TabStop = False
-        '
-        'cmdBotGhost
-        '
-        Me.cmdBotGhost.Name = "cmdBotGhost"
-        Me.cmdBotGhost.Size = New System.Drawing.Size(152, 22)
-        Me.cmdBotGhost.Text = "Ghost"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(149, 6)
         '
         'frmStatus
         '

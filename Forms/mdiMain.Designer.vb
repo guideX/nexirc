@@ -174,7 +174,7 @@ Partial Class mdiMain
         '
         'tspMain
         '
-        Me.tspMain.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.tspMain.BackColor = System.Drawing.Color.White
         Me.tspMain.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.tspMain.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tspMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden

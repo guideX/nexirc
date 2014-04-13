@@ -1,4 +1,8 @@
-﻿Imports nexIRC.Classes.IO
+﻿'nexIRC 3.0.26
+'06-13-2013 - guideX
+Option Explicit On
+Option Strict On
+Imports nexIRC.Classes.IO
 Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules

@@ -38,15 +38,15 @@ Partial Class frmCompatibility
         '
         Me.lvwCompatibility.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwCompatibility.ItemSize = New System.Drawing.Size(200, 20)
-        Me.lvwCompatibility.Location = New System.Drawing.Point(2, 3)
+        Me.lvwCompatibility.Location = New System.Drawing.Point(12, 12)
         Me.lvwCompatibility.Name = "lvwCompatibility"
-        Me.lvwCompatibility.Size = New System.Drawing.Size(243, 136)
+        Me.lvwCompatibility.Size = New System.Drawing.Size(290, 153)
         Me.lvwCompatibility.TabIndex = 0
         Me.lvwCompatibility.Text = "RadListView1"
         '
         'cmdOK
         '
-        Me.cmdOK.Location = New System.Drawing.Point(121, 145)
+        Me.cmdOK.Location = New System.Drawing.Point(178, 171)
         Me.cmdOK.Name = "cmdOK"
         Me.cmdOK.Size = New System.Drawing.Size(59, 24)
         Me.cmdOK.TabIndex = 1
@@ -54,7 +54,7 @@ Partial Class frmCompatibility
         '
         'cmdCancel
         '
-        Me.cmdCancel.Location = New System.Drawing.Point(186, 145)
+        Me.cmdCancel.Location = New System.Drawing.Point(243, 171)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.Size = New System.Drawing.Size(59, 24)
         Me.cmdCancel.TabIndex = 2
@@ -63,7 +63,7 @@ Partial Class frmCompatibility
         'lnkRemove
         '
         Me.lnkRemove.AutoSize = True
-        Me.lnkRemove.Location = New System.Drawing.Point(33, 152)
+        Me.lnkRemove.Location = New System.Drawing.Point(46, 171)
         Me.lnkRemove.Name = "lnkRemove"
         Me.lnkRemove.Size = New System.Drawing.Size(47, 13)
         Me.lnkRemove.TabIndex = 18
@@ -73,7 +73,7 @@ Partial Class frmCompatibility
         'lnkAdd
         '
         Me.lnkAdd.AutoSize = True
-        Me.lnkAdd.Location = New System.Drawing.Point(-1, 152)
+        Me.lnkAdd.Location = New System.Drawing.Point(12, 171)
         Me.lnkAdd.Name = "lnkAdd"
         Me.lnkAdd.Size = New System.Drawing.Size(28, 13)
         Me.lnkAdd.TabIndex = 19
@@ -84,7 +84,7 @@ Partial Class frmCompatibility
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(248, 174)
+        Me.ClientSize = New System.Drawing.Size(314, 207)
         Me.Controls.Add(Me.lnkAdd)
         Me.Controls.Add(Me.lnkRemove)
         Me.Controls.Add(Me.cmdCancel)

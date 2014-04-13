@@ -43,8 +43,9 @@ Partial Class frmChannel
         '
         'tspChannel
         '
-        Me.tspChannel.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.tspChannel.BackColor = System.Drawing.Color.White
         Me.tspChannel.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tspChannel.GripMargin = New System.Windows.Forms.Padding(0)
         Me.tspChannel.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.tspChannel.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdPart, Me.cmdHide, Me.cmdNotice, Me.cmdAddToChannelFolder, Me.cmdNames, Me.cmdURL})
         Me.tspChannel.Location = New System.Drawing.Point(0, 0)

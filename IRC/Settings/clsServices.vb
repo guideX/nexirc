@@ -68,7 +68,7 @@ Namespace nexIRC.IRC.Settings
                     End With
                 End If
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -112,15 +112,15 @@ Namespace nexIRC.IRC.Settings
                         End With
                     Next i
                 End If
-                With lX
-                    .xLoginNickName = Files.ReadINI(lSettings.lINI.iServices, "X", "LoginNickName", "")
-                    .xLoginPassword = Files.ReadINI(lSettings.lINI.iServices, "X", "LoginPassword", "")
-                    .xCreateAnAccountURL = Files.ReadINI(lSettings.lINI.iServices, "X", "CreateAnAccountURL", "http://cservice.undernet.org/live/newuser.php")
-                    .xEnable = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iServices, "X", "Enable", "True"))
-                    .xLoginOnConnect = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iServices, "X", "LoginOnConnect", "False"))
-                    .xShowOnConnect = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iServices, "X", "ShowOnConnect", "True"))
-                    .xLongName = Files.ReadINI(lSettings.lINI.iServices, "X", "LongName", "x@channels.undernet.org")
-                End With
+                'With lX
+                '.xLoginNickName = Files.ReadINI(lSettings.lINI.iServices, "X", "LoginNickName", "")
+                '.xLoginPassword = Files.ReadINI(lSettings.lINI.iServices, "X", "LoginPassword", "")
+                '.xCreateAnAccountURL = Files.ReadINI(lSettings.lINI.iServices, "X", "CreateAnAccountURL", "http://cservice.undernet.org/live/newuser.php")
+                '.xEnable = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iServices, "X", "Enable", "True"))
+                '.xLoginOnConnect = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iServices, "X", "LoginOnConnect", "False"))
+                '.xShowOnConnect = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iServices, "X", "ShowOnConnect", "True"))
+                '.xLongName = Files.ReadINI(lSettings.lINI.iServices, "X", "LongName", "x@channels.undernet.org")
+                'End With
                 With lNickServ
                     '.nEnable = Convert.ToBoolean(files.ReadINI(lINI.iServices, "NickServ", "Enable", "False"))
                     .nLoginNickname = Files.ReadINI(lSettings.lINI.iServices, "NickServ", "LoginNickname", "")
@@ -129,7 +129,7 @@ Namespace nexIRC.IRC.Settings
                     .nShowOnConnect = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iServices, "NickServ", "ShowOnConnect", "True"))
                 End With
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -145,18 +145,18 @@ Namespace nexIRC.IRC.Settings
                         End With
                     Next i
                 End If
-                Files.WriteINI(lSettings.lINI.iServices, "X", "LoginNickName", lX.xLoginNickName)
-                Files.WriteINI(lSettings.lINI.iServices, "X", "LoginPassword", lX.xLoginPassword)
-                Files.WriteINI(lSettings.lINI.iServices, "X", "Enable", Convert.ToString(lX.xEnable))
-                Files.WriteINI(lSettings.lINI.iServices, "X", "LoginOnConnect", Convert.ToString(lX.xLoginOnConnect))
-                Files.WriteINI(lSettings.lINI.iServices, "X", "ShowOnConnect", Convert.ToString(lX.xShowOnConnect))
-                Files.WriteINI(lSettings.lINI.iServices, "X", "LongName", lX.xLongName)
+                'Files.WriteINI(lSettings.lINI.iServices, "X", "LoginNickName", lX.xLoginNickName)
+                'Files.WriteINI(lSettings.lINI.iServices, "X", "LoginPassword", lX.xLoginPassword)
+                'Files.WriteINI(lSettings.lINI.iServices, "X", "Enable", Convert.ToString(lX.xEnable))
+                'Files.WriteINI(lSettings.lINI.iServices, "X", "LoginOnConnect", Convert.ToString(lX.xLoginOnConnect))
+                'Files.WriteINI(lSettings.lINI.iServices, "X", "ShowOnConnect", Convert.ToString(lX.xShowOnConnect))
+                'Files.WriteINI(lSettings.lINI.iServices, "X", "LongName", lX.xLongName)
                 Files.WriteINI(lSettings.lINI.iServices, "NickServ", "LoginNickname", lNickServ.nLoginNickname)
                 Files.WriteINI(lSettings.lINI.iServices, "NickServ", "LoginPassword", lNickServ.nLoginPassword)
                 Files.WriteINI(lSettings.lINI.iServices, "NickServ", "LoginOnConnect", Convert.ToString(lNickServ.nLoginOnConnect))
                 Files.WriteINI(lSettings.lINI.iServices, "NickServ", "ShowOnConnect", Convert.ToString(lNickServ.nShowOnConnect))
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
     End Class

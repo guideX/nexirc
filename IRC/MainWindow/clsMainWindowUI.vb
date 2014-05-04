@@ -52,7 +52,7 @@ Namespace nexIRC.MainWindow
                     '_ToolStrip.Tag = Trim(CType(_Function, Integer).ToString)
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ShowQueryBar(ByVal lText As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ShowQueryBar(ByVal lText As String)")
             End Try
         End Sub
         Public Sub SetFlashesLeft(ByVal _Value As Integer, _FlashDCCToolBarTimer As Timer)
@@ -60,7 +60,7 @@ Namespace nexIRC.MainWindow
                 lFlashesLeft = _Value
                 _FlashDCCToolBarTimer.Enabled = True
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SetFlashesLeft(ByVal lValue As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SetFlashesLeft(ByVal lValue As Integer)")
             End Try
         End Sub
         Public Function AddWindowBar(ByVal _Text As String, ByVal _ImageType As gWindowBarImageTypes, _ImageList As ImageList, _ToolStrip As ToolStrip) As ToolStripItem
@@ -79,7 +79,7 @@ Namespace nexIRC.MainWindow
                 lImage = _ImageList.Images(i)
                 Return _ToolStrip.Items.Add(_Text, lImage)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Function AddWindowBar(ByVal lText As String, ByVal lImageType As gWindowBarImageTypes, ByVal lSender As Object, ByVal lEventArgs As System.EventArgs) As ToolStripItem")
+                Throw ex 'ProcessError(ex.Message, "Public Function AddWindowBar(ByVal lText As String, ByVal lImageType As gWindowBarImageTypes, ByVal lSender As Object, ByVal lEventArgs As System.EventArgs) As ToolStripItem")
                 Return Nothing
             End Try
         End Function
@@ -93,14 +93,14 @@ Namespace nexIRC.MainWindow
                     End If
                 Next i
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub RemoveWindowBar(ByVal lText As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub RemoveWindowBar(ByVal lText As String)")
             End Try
         End Sub
         Public Sub ClearWindowBar(_ToolStrip As ToolStrip)
             Try
                 _ToolStrip.Items.Clear()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ClearWindowBar()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ClearWindowBar()")
             End Try
         End Sub
         Public Sub PlayVideo(ByVal file As String)
@@ -117,7 +117,7 @@ Namespace nexIRC.MainWindow
                     End If
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub PlayVideo(ByVal lFile As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub PlayVideo(ByVal lFile As String)")
             End Try
         End Sub
         Public Sub FormClosed(_Form As Form, _NotifyIcon As NotifyIcon, _SideBarShown As Boolean)
@@ -129,7 +129,7 @@ Namespace nexIRC.MainWindow
                 Files.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Height", _Form.Height.ToString().Trim())
                 Files.WriteINI(lSettings.lINI.iIRC, "mdiMain", "SideBarShown", _SideBarShown.ToString())
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub mdiMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed")
+                Throw ex 'ProcessError(ex.Message, "Private Sub mdiMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed")
             End Try
         End Sub
         Public Sub FormClosing(e As System.Windows.Forms.FormClosingEventArgs, _Form As Form, _WaitForQuitTimer As Timer)
@@ -141,7 +141,7 @@ Namespace nexIRC.MainWindow
                     _WaitForQuitTimer.Enabled = True
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub mdiMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing")
+                Throw ex 'ProcessError(ex.Message, "Private Sub mdiMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing")
             End Try
         End Sub
         Public Sub SetLoadingFormProgress(ByVal _Data As String, ByVal _Value As Integer)
@@ -150,7 +150,7 @@ Namespace nexIRC.MainWindow
                 lLoadingForm.Refresh()
                 Application.DoEvents()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SetLoadingFormProgress(ByVal _Data As String, ByVal _Value As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SetLoadingFormProgress(ByVal _Data As String, ByVal _Value As Integer)")
             End Try
         End Sub
         Public Function OpenDialogFileNames(_DialogOpen As OpenFileDialog, ByVal _InitDir As String, ByVal _Title As String, ByVal _Filter As String) As String()
@@ -164,7 +164,7 @@ Namespace nexIRC.MainWindow
                     Return .FileNames
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Function OpenDialogFileNames(ByVal lInitDir As String, ByVal lTitle As String, ByVal lFilter As String) As String()")
+                Throw ex 'ProcessError(ex.Message, "Public Function OpenDialogFileNames(ByVal lInitDir As String, ByVal lTitle As String, ByVal lFilter As String) As String()")
                 Return Nothing
             End Try
         End Function
@@ -205,7 +205,7 @@ Namespace nexIRC.MainWindow
                 Form_Resize(_Form, _LeftBarButton, _LeftNav, _ToolStrip, _WindowsToolStrip)
                 RaiseEvent SetBackgroundColor()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub Form_Load(_Form As Form, _NotifyIcon As NotifyIcon, _TimerStartupSettings As Timer, _LeftBarButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub Form_Load(_Form As Form, _NotifyIcon As NotifyIcon, _TimerStartupSettings As Timer, _LeftBarButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)")
             End Try
         End Sub
         Public Sub Form_Resize(_Form As Form, _LeftButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
@@ -243,7 +243,7 @@ Namespace nexIRC.MainWindow
                 '_Form.Refresh()
                 'clsLockWindowUpdate.LockWindowUpdate(System.IntPtr.Zero)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub Form_Resize(_Form As Form)")
+                Throw ex 'ProcessError(ex.Message, "Private Sub Form_Resize(_Form As Form)")
             End Try
         End Sub
         Public Sub SetWindowFocus(ByVal _Form As Form)
@@ -253,7 +253,7 @@ Namespace nexIRC.MainWindow
                 _Form.BringToFront()
                 _Form.Focus()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SetWindowFocus(ByVal _Form As Form)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SetWindowFocus(ByVal _Form As Form)")
             End Try
         End Sub
         Public Sub HideChildren(_Form As Form, ByVal _Except As Form, _ActiveForm As Form)
@@ -265,7 +265,7 @@ Namespace nexIRC.MainWindow
                 Next i
                 _Except.Visible = True
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub HideChildren(_Form As Form, ByVal _Except As Form, _ActiveForm As Form)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub HideChildren(_Form As Form, ByVal _Except As Form, _ActiveForm As Form)")
             End Try
         End Sub
         Public Sub StartupSettingsTimer_Tick(_Timer As Timer)
@@ -276,7 +276,7 @@ Namespace nexIRC.MainWindow
                     frmCustomize.Focus()
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub tmrStartupSettings_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrStartupSettings.Tick")
+                Throw ex 'ProcessError(ex.Message, "Private Sub tmrStartupSettings_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrStartupSettings.Tick")
             End Try
         End Sub
         Public Sub FlashDCCToolBarTimer_Tick(_Timer As Timer)
@@ -287,7 +287,7 @@ Namespace nexIRC.MainWindow
                 End If
                 lFlashesLeft = lFlashesLeft - 1
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub FlashDCCToolBarTimer_Tick(_Timer As Timer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub FlashDCCToolBarTimer_Tick(_Timer As Timer)")
             End Try
         End Sub
         Public Sub WindowsToolStrip_ItemClicked(ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs)
@@ -318,14 +318,14 @@ Namespace nexIRC.MainWindow
                     End If
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub tspWindows_ItemClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles tspWindows.ItemClicked")
+                Throw ex 'ProcessError(ex.Message, "Private Sub tspWindows_ItemClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles tspWindows.ItemClicked")
             End Try
         End Sub
         Public Sub Connections_DoubleClick(_SelectedNode As TreeNode)
             Try
                 lStatus.DblClickConnections(_SelectedNode)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub Connections_DoubleClick(_SelectedNode As TreeNode)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub Connections_DoubleClick(_SelectedNode As TreeNode)")
             End Try
         End Sub
         Public Sub cmdAcceptQuery_Click(_QueryPromptLabel As ToolStripItem, _QueryPromptToolStrip As ToolStrip)
@@ -347,14 +347,14 @@ Namespace nexIRC.MainWindow
                     _QueryPromptToolStrip.Visible = False
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdAcceptQuery_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAcceptQuery.Click")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmdAcceptQuery_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAcceptQuery.Click")
             End Try
         End Sub
         Public Sub cmdDeclineQuery_Click(_QueryPromptToolStrip As ToolStrip)
             Try
                 _QueryPromptToolStrip.Visible = False
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdDeclineQuery_Click(_QueryPromptToolStrip As ToolStrip)")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmdDeclineQuery_Click(_QueryPromptToolStrip As ToolStrip)")
             End Try
         End Sub
         Public Sub cmd_ClearHistory_Click(_Recent1 As ToolStripMenuItem, _Recent2 As ToolStripMenuItem, _Recent3 As ToolStripMenuItem)
@@ -370,20 +370,20 @@ Namespace nexIRC.MainWindow
                     lSettings.lRecientServers.sItem(i) = ""
                 Next i
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_ClearHistory_Click(_Recent1 As Button, _Recent2 As Button, _Recent3 As Button)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_ClearHistory_Click(_Recent1 As Button, _Recent2 As Button, _Recent3 As Button)")
             End Try
         End Sub
         Public Sub cmd_Connect_Click()
             Try
                 lStatus.ActiveStatusConnect()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Connect_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Connect_Click()")
             End Try
         End Sub
         Public Sub cmd_Disconnect_Click()
             'On Error Resume Next
             lStatus.CloseStatusConnection(lStatus.ActiveIndex, True)
-            'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub cmd_Connect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Connect.Click")
+            'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub cmd_Connect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Connect.Click")
         End Sub
         Public Sub cmd_CloseStatus_Click()
             Try
@@ -391,35 +391,35 @@ Namespace nexIRC.MainWindow
                 i = lStatus.ActiveIndex()
                 lStatus.CloseWindow(i)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_CloseStatus_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_CloseStatus_Click()")
             End Try
         End Sub
         Public Sub cmd_Exit_Click()
             Try
                 End
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmd_Exit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Exit.Click")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmd_Exit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Exit.Click")
             End Try
         End Sub
         Public Sub cmd_Channels_ButtonClick()
             Try
                 lChannelFolder.Show(lStatus.ActiveIndex)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmd_Channels_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Channels.ButtonClick")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmd_Channels_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Channels.ButtonClick")
             End Try
         End Sub
         Public Sub cmd_Connection_ButtonClick()
             Try
                 lStatus.ToggleConnection(lStatus.ActiveIndex)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
         Public Sub cmd_Customize_Click()
             Try
                 frmCustomize.Show()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmd_Customize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Customize.Click")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmd_Customize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Customize.Click")
             End Try
         End Sub
         Public Sub cmd_ListChannels_Click()
@@ -427,7 +427,7 @@ Namespace nexIRC.MainWindow
                 Dim n As Integer = lStatus.ActiveIndex
                 lStrings.ProcessReplaceCommand(n, eCommandTypes.cLIST, lStatus.ServerDescription(n))
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmd_ListChannels_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ListChannels.Click")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmd_ListChannels_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ListChannels.Click")
             End Try
         End Sub
         Public Sub cmd_LeftBar_Click(_LeftBarButton As ToolStripMenuItem, _LeftPanel As Panel, _Form As Form)
@@ -442,7 +442,7 @@ Namespace nexIRC.MainWindow
                     _Form.Width = _Form.Width + 1
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_LeftBar_Click(_LeftBarButton As Button, _LeftPanel As Panel)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_LeftBar_Click(_LeftBarButton As Button, _LeftPanel As Panel)")
             End Try
         End Sub
         Public Sub cmd_WindowBar_Click(_WindowBarButton As ToolStripMenuItem, _WindowsToolStrip As ToolStrip, _Form As Form)
@@ -456,111 +456,111 @@ Namespace nexIRC.MainWindow
                 End If
                 _Form.Width = _Form.Width + 1
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmd_WindowBar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_WindowBar.Click")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmd_WindowBar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_WindowBar.Click")
             End Try
         End Sub
         Public Sub cmd_Cascade_Click(_Form As Form)
             Try
                 _Form.LayoutMdi(MdiLayout.Cascade)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Cascade_Click(_Form As Form)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Cascade_Click(_Form As Form)")
             End Try
         End Sub
         Public Sub cmd_TileHorizontal_Click(_Form As Form)
             Try
                 _Form.LayoutMdi(MdiLayout.TileHorizontal)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_TileHorizontal_Click(_Form As Form)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_TileHorizontal_Click(_Form As Form)")
             End Try
         End Sub
         Public Sub cmd_TileVertical_Click(_Form As Form)
             Try
                 _Form.LayoutMdi(MdiLayout.TileVertical)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmd_TileVertical_Click(_Form As Form)")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmd_TileVertical_Click(_Form As Form)")
             End Try
         End Sub
         Public Sub cmd_ArrangeIcons_Click(_Form As Form)
             Try
                 _Form.LayoutMdi(MdiLayout.ArrangeIcons)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_ArrangeIcons_Click(_Form As Form)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_ArrangeIcons_Click(_Form As Form)")
             End Try
         End Sub
         Public Sub cmd_ChannelFolder_Click()
             Try
                 lChannelFolder.Show(lStatus.ActiveIndex)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmd_ChannelFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChannelFolder.Click")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmd_ChannelFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChannelFolder.Click")
             End Try
         End Sub
         Public Sub cmd_Window_ButtonClick(_Form As Form)
             Try
                 _Form.LayoutMdi(MdiLayout.Cascade)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Window_ButtonClick(_Form As Form)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Window_ButtonClick(_Form As Form)")
             End Try
         End Sub
         Public Sub cmd_NewStatusWindow_Click()
             Try
                 lStatus.Create(lSettings.lIRC, lSettings.lServers)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_NewStatusWindow_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_NewStatusWindow_Click()")
             End Try
         End Sub
         Public Sub cmd_View_ButtonClick()
             Try
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmd_View_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_View.ButtonClick")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmd_View_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_View.ButtonClick")
             End Try
         End Sub
         Public Sub cmd_DCCSend_Click()
             Try
                 lProcessNumeric.lIrcNumericHelper.NewDCCSend()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_DCCSend_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_DCCSend_Click()")
             End Try
         End Sub
         Public Sub cmd_DCCChat_Click()
             Try
                 lProcessNumeric.lIrcNumericHelper.NewDCCChat()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_DCCChat_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_DCCChat_Click()")
             End Try
         End Sub
         Public Sub cmd_DownloadManager_Click()
             Try
                 frmDownloadManager.Show()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_DownloadManager_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_DownloadManager_Click()")
             End Try
         End Sub
         Public Sub cmd_DCC_ButtonClick()
             Try
                 lProcessNumeric.lIrcNumericHelper.NewDCCSend()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_DCC_ButtonClick()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_DCC_ButtonClick()")
             End Try
         End Sub
         Public Sub cmd_RecientServer1_Click(_Recent1 As String)
             Try
                 If Len(_Recent1) <> 0 And _Recent1 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent1, 6667)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_RecientServer1_Click(_Recent1 As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_RecientServer1_Click(_Recent1 As String)")
             End Try
         End Sub
         Public Sub cmd_RecientServer2_Click(_Recent2 As String)
             Try
                 If Len(_Recent2) <> 0 And _Recent2 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent2, 6667)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_RecientServer2_Click(_Recent2 As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_RecientServer2_Click(_Recent2 As String)")
             End Try
         End Sub
         Public Sub cmd_RecientServer3_Click(_Recent3 As String)
             Try
                 If Len(_Recent3) <> 0 And _Recent3 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent3, 6667)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_RecientServer3_Click(_Recent3 As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_RecientServer3_Click(_Recent3 As String)")
             End Try
         End Sub
         Public Sub cmdLeftBar_Click(_ActiveForm As Form, _cmd_LeftBarButton As ToolStripMenuItem, _LeftPanel As Panel, _Form As Form)
@@ -577,14 +577,14 @@ Namespace nexIRC.MainWindow
                 _Form.Width = _Form.Width + 1
                 _ActiveForm.Focus()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdLeftBar_Click(_ActiveForm As Form)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmdLeftBar_Click(_ActiveForm As Form)")
             End Try
         End Sub
         Public Sub cmd_ServerLinks_Click()
             Try
                 lStatus.SendSocket(lStatus.ActiveIndex, "LINKS")
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmd_ServerLinks_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ServerLinks.Click")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmd_ServerLinks_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ServerLinks.Click")
             End Try
         End Sub
         Public Sub cmd_Whois_Click()
@@ -594,7 +594,7 @@ Namespace nexIRC.MainWindow
                 msg = InputBox("Enter whois nickname")
                 If Len(msg) <> 0 Then lStrings.ProcessReplaceCommand(i, eCommandTypes.cWHOIS, msg)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Whois_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Whois_Click()")
             End Try
         End Sub
         Public Sub cmd_Whowas_Click()
@@ -604,7 +604,7 @@ Namespace nexIRC.MainWindow
                 msg = InputBox("Enter whowas nickname")
                 If Len(msg) <> 0 Then lStrings.ProcessReplaceCommand(i, eCommandTypes.cWHOWAS, msg)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Whowas_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Whowas_Click()")
             End Try
         End Sub
         Public Sub cmd_Time_Click()
@@ -613,7 +613,7 @@ Namespace nexIRC.MainWindow
                 i = lStatus.ActiveIndex()
                 lStrings.ProcessReplaceCommand(i, eCommandTypes.cTIME)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Time_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Time_Click()")
             End Try
         End Sub
         Public Sub cmd_Stats_Click()
@@ -622,7 +622,7 @@ Namespace nexIRC.MainWindow
                 i = lStatus.ActiveIndex()
                 lStrings.ProcessReplaceCommand(i, eCommandTypes.cSTATS)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Stats_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Stats_Click()")
             End Try
         End Sub
         Public Sub cmd_Away_Click()
@@ -632,7 +632,7 @@ Namespace nexIRC.MainWindow
                 msg = InputBox("Enter away message:")
                 lStrings.ProcessReplaceCommand(i, eCommandTypes.cAWAY, msg)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Away_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Away_Click()")
             End Try
         End Sub
         Public Sub cmd_Back_Click()
@@ -641,7 +641,7 @@ Namespace nexIRC.MainWindow
                 i = lStatus.ActiveIndex()
                 lStrings.ProcessReplaceCommand(i, eCommandTypes.cBACK)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Back_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_Back_Click()")
             End Try
         End Sub
         Public Sub cmd_PlayVideo_Click(_OpenFileDialog As OpenFileDialog)
@@ -651,21 +651,21 @@ Namespace nexIRC.MainWindow
                 i = msg.Length - 1
                 If i <> -1 Then PlayVideo(msg(i))
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_PlayVideo_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_PlayVideo_Click()")
             End Try
         End Sub
         Public Sub mnuExit_Click(_Form As Form)
             Try
                 _Form.Close()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub mnuExit_Click(_Form As Form)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub mnuExit_Click(_Form As Form)")
             End Try
         End Sub
         Public Sub cmd_CloseConnection_Click()
             Try
                 lStatus.Quit(lStatus.ActiveIndex())
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmd_CloseConnection_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmd_CloseConnection_Click()")
             End Try
         End Sub
         Public Sub cmdAccept_Click(_UserToolStripLabel As ToolStripLabel, _ToolStrip As ToolStrip, _DCCToolBarToolStrip As ToolStrip)
@@ -678,16 +678,16 @@ Namespace nexIRC.MainWindow
                 lForm.InitDCCGet(splt(0), splt(1), splt(2), splt(3), splt(4))
                 lForm.Show()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdAccept_Click()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmdAccept_Click()")
             End Try
         End Sub
         Public Sub cmdDeny_Click(_DCCToolBarToolStrip As ToolStrip)
             Try
                 _DCCToolBarToolStrip.Visible = False
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdDeny_Click(_DCCToolBarToolStrip As ToolStrip)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmdDeny_Click(_DCCToolBarToolStrip As ToolStrip)")
             End Try
-            'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub cmdDeny_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeny.Click")
+            'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub cmdDeny_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeny.Click")
         End Sub
         Public Sub nicSystray_MouseDoubleClick(_Form As Form)
             Try
@@ -695,28 +695,28 @@ Namespace nexIRC.MainWindow
                 _Form.WindowState = FormWindowState.Normal
                 _Form.Focus()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub nicSystray_MouseDoubleClick(_Form As Form)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub nicSystray_MouseDoubleClick(_Form As Form)")
             End Try
         End Sub
         Public Sub cmd_SelectAServer_Click()
             Try
                 frmCustomize.Show()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmd_SelectAServer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmd_SelectAServer.Click")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmd_SelectAServer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmd_SelectAServer.Click")
             End Try
         End Sub
         Public Sub cmd_ShowAbout_Click()
             Try
                 frmAbout.Show()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmd_ShowAbout_Click(sender As System.Object, e As System.EventArgs) Handles cmd_ShowAbout.Click")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmd_ShowAbout_Click(sender As System.Object, e As System.EventArgs) Handles cmd_ShowAbout.Click")
             End Try
         End Sub
         Public Sub cmdRedirectDeny_Click(_RedirectToolStrip As ToolStrip)
             Try
                 _RedirectToolStrip.Visible = False
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub cmdRedirectDeny_Click(_RedirectToolStrip As ToolStrip)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub cmdRedirectDeny_Click(_RedirectToolStrip As ToolStrip)")
             End Try
         End Sub
         Public Sub cmdRedirectAccept_Click(_RedirectToolStrip As ToolStrip, _RedirectMessageLabel As ToolStripLabel)
@@ -728,14 +728,14 @@ Namespace nexIRC.MainWindow
                     lChannels.Join(Convert.ToInt32(_RedirectMessageLabel.Tag.ToString().Trim()), splt(3))
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub cmdRedirectAccept_Click(sender As System.Object, e As System.EventArgs) Handles cmdRedirectAccept.Click")
+                Throw ex 'ProcessError(ex.Message, "Private Sub cmdRedirectAccept_Click(sender As System.Object, e As System.EventArgs) Handles cmdRedirectAccept.Click")
             End Try
         End Sub
         Public Sub tmrWaitForQuit_Tick()
             Try
                 End
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub tmrWaitForQuit_Tick(sender As System.Object, e As System.EventArgs) Handles tmrWaitForQuit.Tick")
+                Throw ex 'ProcessError(ex.Message, "Private Sub tmrWaitForQuit_Tick(sender As System.Object, e As System.EventArgs) Handles tmrWaitForQuit.Tick")
             End Try
         End Sub
         Public Sub tmrHideRedirect_Tick(_RedirectToolStrip As ToolStrip, _HideRedirectTimer As Timer)
@@ -743,7 +743,7 @@ Namespace nexIRC.MainWindow
                 _RedirectToolStrip.Visible = False
                 _HideRedirectTimer.Enabled = False
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub tmrHideRedirect_Tick(sender As System.Object, e As System.EventArgs) Handles tmrHideRedirect.Tick")
+                Throw ex 'ProcessError(ex.Message, "Private Sub tmrHideRedirect_Tick(sender As System.Object, e As System.EventArgs) Handles tmrHideRedirect.Tick")
             End Try
         End Sub
     End Class

@@ -22,7 +22,7 @@ Namespace Classes.Communications
             Try
                 _socketPort = lPort
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -38,7 +38,7 @@ Namespace Classes.Communications
                 obj_Socket.Listen(100)
                 obj_Socket.BeginAccept(New AsyncCallback(AddressOf onIncomingConnection), obj_Socket)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -46,7 +46,7 @@ Namespace Classes.Communications
             Try
                 _closed = True
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -61,7 +61,7 @@ Namespace Classes.Communications
                 End If
                 obj_Socket.BeginAccept(New AsyncCallback(AddressOf onIncomingConnection), obj_Socket)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
     End Class
@@ -83,7 +83,7 @@ Namespace Classes.Communications
                 obj_SocketState.WorkSocket = obj_Socket
                 obj_Socket.BeginReceive(obj_SocketState.Buffer, 0, obj_SocketState.BufferSize, 0, New AsyncCallback(AddressOf onDataArrival), obj_SocketState)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -92,7 +92,7 @@ Namespace Classes.Communications
                 Try
                     Return (_tempSocket.Connected)
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                     Return Nothing
                 End Try
             End Get
@@ -102,7 +102,7 @@ Namespace Classes.Communications
             Try
                 _tempSocket = New Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -112,7 +112,7 @@ Namespace Classes.Communications
                 obj_StateObject.WorkSocket = _tempSocket
                 _tempSocket.BeginSend(Buffer, 0, Buffer.Length, 0, New AsyncCallback(AddressOf onSendComplete), obj_StateObject)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -123,7 +123,7 @@ Namespace Classes.Communications
                 Dim Buffer As Byte() = Encoding.UTF8.GetBytes(tmp_Data)
                 _tempSocket.BeginSend(Buffer, 0, Buffer.Length, 0, New AsyncCallback(AddressOf onSendComplete), obj_StateObject)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -132,7 +132,7 @@ Namespace Classes.Communications
                 _tempSocket.Shutdown(SocketShutdown.Both)
                 _tempSocket.Close()
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -142,7 +142,7 @@ Namespace Classes.Communications
                 Dim obj_Socket As Socket = _tempSocket
                 obj_Socket.BeginConnect(hostEndPoint, New AsyncCallback(AddressOf onConnectionComplete), obj_Socket)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -162,7 +162,7 @@ Namespace Classes.Communications
                     RaiseEvent SocketDisconnected(SocketID)
                 Else
                     MessageBox.Show(ex.Message)
-                    'Throw ex
+                    Throw ex
                     'Something keeps going wrong in here
                 End If
             End Try
@@ -172,7 +172,7 @@ Namespace Classes.Communications
             Try
                 ReturnLocalIp = New WebClient().DownloadString("http://www.whatismyip.com/automation/n09230945.asp")
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -181,7 +181,7 @@ Namespace Classes.Communications
             Try
                 ReturnLocalPort = Convert.ToInt64(CType(_tempSocket.LocalEndPoint, IPEndPoint).Port)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -190,7 +190,7 @@ Namespace Classes.Communications
             Try
                 Dim obj_SocketState As StateObject = CType(ar.AsyncState, StateObject), obj_Socket As Socket = obj_SocketState.WorkSocket
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -207,7 +207,7 @@ Namespace Classes.Communications
                     'Print(ProcessReplaceString(0,clsIrcNumerics.eStringTypes.sCONNECTION_CLOSED
                     RaiseEvent CouldNotConnect(SocketID)
                 Else
-                    'Throw ex
+                    Throw ex
                 End If
             End Try
         End Sub
@@ -217,7 +217,7 @@ Namespace Classes.Communications
                 Try
                     Return _socketId
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                     Return Nothing
                 End Try
             End Get
@@ -235,7 +235,7 @@ Namespace Classes.Communications
             Try
                 _serverSocket = New AsyncServer(tmp_Port)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -243,7 +243,7 @@ Namespace Classes.Communications
             Try
                 _serverSocket.Start()
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -251,7 +251,7 @@ Namespace Classes.Communications
             Try
                 _serverSocket.Close()
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -263,7 +263,7 @@ Namespace Classes.Communications
                     CType(_socketCol.Item(tmp_SocketID), AsyncSocket).Send(tmp_Data)
                 End If
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -271,7 +271,7 @@ Namespace Classes.Communications
             Try
                 CType(_socketCol.Item(tmp_SocketID), AsyncSocket).Close()
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -281,7 +281,7 @@ Namespace Classes.Communications
                 AddHandler tmp_Socket.socketDisconnected, AddressOf SocketDisconnected
                 AddHandler tmp_Socket.socketDataArrival, AddressOf SocketDataArrival
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -290,7 +290,7 @@ Namespace Classes.Communications
                 Try
                     Return CType(_socketCol(Key), AsyncSocket)
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                     Return Nothing
                 End Try
             End Get
@@ -301,8 +301,8 @@ Namespace Classes.Communications
                 Try
                     Return CType(_socketCol(_socketCol.GetKey(Key)), AsyncSocket)
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property ItembyIndex(ByVal Key As Integer) As AsyncSocket")
-                    'Throw ex
+                    Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property ItembyIndex(ByVal Key As Integer) As AsyncSocket")
+                    Throw ex
                     Return Nothing
                 End Try
             End Get
@@ -317,7 +317,7 @@ Namespace Classes.Communications
                     Return True
                 End If
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -327,7 +327,7 @@ Namespace Classes.Communications
                 Try
                     Return _socketCol.Count
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                     Return Nothing
                 End Try
             End Get
@@ -338,7 +338,7 @@ Namespace Classes.Communications
                 Add(tmp_Socket)
                 RaiseEvent onConnectionAccept(tmp_Socket.SocketID)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -347,7 +347,7 @@ Namespace Classes.Communications
                 _socketCol.Remove(SocketID)
                 RaiseEvent onSocketDisconnected(SocketID)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -355,7 +355,7 @@ Namespace Classes.Communications
             Try
                 RaiseEvent onDataArrival(SocketID, SocketData, lBytes, lBytesRecieved)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
     End Class

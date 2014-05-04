@@ -12,7 +12,7 @@ Public Class clsSendNoticeUI
             Try
                 lStatusIndex = _StatusIndex
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public WriteOnly Property StatusIndex() As Integer")
+                Throw ex 'ProcessError(ex.Message, "Public WriteOnly Property StatusIndex() As Integer")
             End Try
         End Set
     End Property
@@ -23,21 +23,21 @@ Public Class clsSendNoticeUI
                 _MessageTextBox.Text = ""
             End If
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click")
+            Throw ex 'ProcessError(ex.Message, "Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click")
         End Try
     End Sub
     Public Sub cmdCancel_Click(_Form As Form)
         Try
             _Form.Close()
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click")
+            Throw ex 'ProcessError(ex.Message, "Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click")
         End Try
     End Sub
     Public Sub Form_Load(_Form As Form)
         Try
             _Form.Icon = mdiMain.Icon
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Private Sub frmPrivateMessage_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
+            Throw ex 'ProcessError(ex.Message, "Private Sub frmPrivateMessage_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
         End Try
     End Sub
 End Class

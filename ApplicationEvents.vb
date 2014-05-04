@@ -12,7 +12,7 @@ Namespace My
                 'End If
                 lSettings.lIRC.iSettings.sNetworkAvailability = e.IsNetworkAvailable
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -28,25 +28,25 @@ Namespace My
             Try
                 e.BringToForeground = True
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
         Private Sub MyApplication_UnhandledException(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.UnhandledExceptionEventArgs) Handles Me.UnhandledException
             Try
-                Dim mbox As MsgBoxResult
-                If (lSettings.lIRC.iSettings.sPrompts) Then
-                    mbox = MsgBox("nexIRC encountered an unhandled exception." & Environment.Newline & "Description: " & e.Exception.Message & Environment.Newline & e.Exception.InnerException.ToString() & "Would you like to shutdown nexIRC?", MsgBoxStyle.YesNo)
-                    If mbox = MsgBoxResult.Yes Then
-                        e.ExitApplication = True
-                    Else
-                        e.ExitApplication = False
-                    End If
-                Else
-                    e.ExitApplication = False
-                End If
+                'Dim mbox As MsgBoxResult
+                'If (lSettings.lIRC.iSettings.sPrompts) Then
+                'mbox = MsgBox("nexIRC encountered an unhandled exception." & Environment.NewLine & "Description: " & e.Exception.Message & Environment.NewLine & e.Exception.InnerException.ToString() & "Would you like to shutdown nexIRC?", MsgBoxStyle.YesNo)
+                'If mbox = MsgBoxResult.Yes Then
+                'e.ExitApplication = True
+                'Else
+                'e.ExitApplication = False
+                'End If
+                'Else
+                'e.ExitApplication = False
+                'End If
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
     End Class

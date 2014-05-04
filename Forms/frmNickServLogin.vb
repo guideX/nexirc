@@ -11,7 +11,7 @@ Public Class frmNickServLogin
         Try
             lStatusIndex = lIndex
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -24,7 +24,7 @@ Public Class frmNickServLogin
             chkShowOnConnect.Checked = lSettings_Services.lNickServ.nShowOnConnect
             'chkXEnable.Checked = lNickServ.nEnable
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -32,7 +32,7 @@ Public Class frmNickServLogin
         Try
             Me.Close()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -44,14 +44,33 @@ Public Class frmNickServLogin
             lSettings_Services.lNickServ.nLoginPassword = txtPassword.Text
             lSettings_Services.lNickServ.nShowOnConnect = Convert.ToBoolean(chkShowOnConnect.Checked)
             lSettings_Services.lNickServ.nLoginOnConnect = Convert.ToBoolean(chkLoginOnConnect.Checked)
-            lSettings_Services.SaveServices()
             settings.Email = lSettings_Services.lNickServ.nLoginNickname
             settings.Password = lSettings_Services.lNickServ.nLoginPassword
             lStatus.GetObject(lStatusIndex).sNickBot.Login(settings)
             lSettings_Services.SaveServices()
             Me.Close()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
+        End Try
+    End Sub
+
+    Private Sub txtPassword_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtPassword.KeyPress
+        Try
+            If (e.KeyChar = Convert.ToChar(13)) Then
+                cmdLogin_Click(sender, e)
+            End If
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Private Sub txtNickname_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtNickname.KeyPress
+        Try
+            If (e.KeyChar = Convert.ToChar(13)) Then
+                cmdLogin_Click(sender, e)
+            End If
+        Catch ex As Exception
+            Throw ex
         End Try
     End Sub
 End Class

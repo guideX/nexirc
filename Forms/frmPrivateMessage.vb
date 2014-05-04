@@ -14,7 +14,7 @@ Public Class frmPrivateMessage
             Try
                 lStatusIndex = _StatusIndex
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public WriteOnly Property StatusIndex() As Integer")
+                Throw ex 'ProcessError(ex.Message, "Public WriteOnly Property StatusIndex() As Integer")
             End Try
         End Set
     End Property
@@ -26,7 +26,7 @@ Public Class frmPrivateMessage
                 txtMessage.Text = ""
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -34,7 +34,7 @@ Public Class frmPrivateMessage
         Try
             Me.Close()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -42,7 +42,7 @@ Public Class frmPrivateMessage
         Try
             Me.Icon = mdiMain.Icon
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 End Class

@@ -10,7 +10,7 @@ Public Class frmChangeNickName
         Try
             ChangeNickName.Form_Load(lstNickNames)
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -18,7 +18,7 @@ Public Class frmChangeNickName
         Try
             ChangeNickName.cmdCancel_Click(Me)
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -26,7 +26,7 @@ Public Class frmChangeNickName
         Try
             ChangeNickName.cmdOK_Click(lstNickNames.SelectedItem.Text, Me)
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -34,7 +34,7 @@ Public Class frmChangeNickName
         Try
             ChangeNickName.lstNickNames_DoubleClick(lstNickNames.SelectedItem.Text, Me)
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -42,7 +42,7 @@ Public Class frmChangeNickName
         Try
             ChangeNickName.lstNickNames_SelectedIndexChanged(lstNickNames.SelectedItem.Text, txtNickName)
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 End Class

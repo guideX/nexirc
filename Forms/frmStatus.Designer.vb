@@ -47,6 +47,7 @@ Partial Class frmStatus
         Me.tmrWaitForWhois = New System.Windows.Forms.Timer(Me.components)
         Me.txtIncoming = New Telerik.WinControls.RichTextBox.RadRichTextBox()
         Me.txtOutgoing = New Telerik.WinControls.UI.RadTextBox()
+        Me.cmdClear = New System.Windows.Forms.ToolStripButton()
         Me.tspStatus.SuspendLayout()
         CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -57,7 +58,7 @@ Partial Class frmStatus
         Me.tspStatus.BackColor = System.Drawing.Color.White
         Me.tspStatus.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tspStatus.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.tspStatus.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdConnection, Me.cmdChannels, Me.cmdBot})
+        Me.tspStatus.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdClear, Me.cmdConnection, Me.cmdChannels, Me.cmdBot})
         Me.tspStatus.Location = New System.Drawing.Point(0, 0)
         Me.tspStatus.Name = "tspStatus"
         Me.tspStatus.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
@@ -67,12 +68,11 @@ Partial Class frmStatus
         '
         'cmdConnection
         '
-        Me.cmdConnection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmdConnection.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdConnect, Me.cmdDisconnect, Me.ToolStripSeparator3, Me.cmdChangeConnection, Me.ToolStripSeparator1, Me.ToolStripMenuItem1, Me.ToolStripMenuItem2, Me.ToolStripMenuItem3})
         Me.cmdConnection.Image = CType(resources.GetObject("cmdConnection.Image"), System.Drawing.Image)
         Me.cmdConnection.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdConnection.Name = "cmdConnection"
-        Me.cmdConnection.Size = New System.Drawing.Size(32, 22)
+        Me.cmdConnection.Size = New System.Drawing.Size(110, 22)
         Me.cmdConnection.Text = "Connection"
         '
         'cmdConnect
@@ -129,14 +129,12 @@ Partial Class frmStatus
         '
         'cmdChannels
         '
-        Me.cmdChannels.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmdChannels.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tspListChannels})
         Me.cmdChannels.Image = Global.nexIRC.My.Resources.Resources.applications
         Me.cmdChannels.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdChannels.Name = "cmdChannels"
-        Me.cmdChannels.Size = New System.Drawing.Size(32, 22)
+        Me.cmdChannels.Size = New System.Drawing.Size(97, 22)
         Me.cmdChannels.Text = "Channels"
-        Me.cmdChannels.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'tspListChannels
         '
@@ -150,8 +148,8 @@ Partial Class frmStatus
         Me.cmdBot.Image = Global.nexIRC.My.Resources.Resources.configure
         Me.cmdBot.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdBot.Name = "cmdBot"
-        Me.cmdBot.Size = New System.Drawing.Size(75, 22)
-        Me.cmdBot.Text = "<Bot>"
+        Me.cmdBot.Size = New System.Drawing.Size(61, 22)
+        Me.cmdBot.Text = "Bot"
         Me.cmdBot.Visible = False
         '
         'cmdBotLogin
@@ -211,6 +209,14 @@ Partial Class frmStatus
         Me.txtOutgoing.TabIndex = 17
         Me.txtOutgoing.TabStop = False
         '
+        'cmdClear
+        '
+        Me.cmdClear.Image = Global.nexIRC.My.Resources.Resources.delete
+        Me.cmdClear.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdClear.Name = "cmdClear"
+        Me.cmdClear.Size = New System.Drawing.Size(60, 22)
+        Me.cmdClear.Text = "&Clear"
+        '
         'frmStatus
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -256,4 +262,5 @@ Partial Class frmStatus
     Friend WithEvents cmdBotRegister As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmdBotGhost As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents cmdClear As System.Windows.Forms.ToolStripButton
 End Class

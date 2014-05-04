@@ -12,7 +12,7 @@ Public Class frmNetworkSettings
             h = System.Net.Dns.GetHostName()
             Return System.Net.Dns.GetHostByName(h).AddressList(0).ToString()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -31,7 +31,7 @@ Public Class frmNetworkSettings
             txtSendPort.Text = .dSendPort.ToString
             If .dRandomizePort = True Then chkRandomize.Checked = True
         End With
-        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub frmNetworkSettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub frmNetworkSettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
     End Sub
 
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
@@ -49,25 +49,25 @@ Public Class frmNetworkSettings
             .dBufferSize = Convert.ToInt64(Trim(txtBufferSize.Text))
         End With
         Me.Close()
-        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click")
+        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click")
     End Sub
 
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
         'On Error Resume Next
         Me.Close()
-        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
+        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
     End Sub
 
     Private Sub optIpAddressCustom_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         'On Error Resume Next
         txtCustomIpAddress.Enabled = True
-        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub optIpAddressCustom_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles optIpAddressCustom.CheckedChanged")
+        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub optIpAddressCustom_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles optIpAddressCustom.CheckedChanged")
     End Sub
 
     Private Sub optIpAddressAuto_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         'On Error Resume Next
         txtCustomIpAddress.Enabled = False
-        'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Private Sub optIpAddressAuto_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles optIpAddressAuto.CheckedChanged")
+        'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub optIpAddressAuto_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles optIpAddressAuto.CheckedChanged")
     End Sub
 
     Private Sub cmdFind_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFind.Click
@@ -83,7 +83,7 @@ Public Class frmNetworkSettings
             s = s.Replace("Current IP Address: ", "")
             txtCustomIpAddress.Text = s
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 End Class

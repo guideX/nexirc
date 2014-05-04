@@ -56,7 +56,7 @@ Namespace Modules
                 Next i
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -71,7 +71,7 @@ Namespace Modules
                 Next i
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -86,7 +86,7 @@ Namespace Modules
                 Next i
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -106,7 +106,7 @@ Namespace Modules
                 End If
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -126,7 +126,7 @@ Namespace Modules
                 End If
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -140,7 +140,7 @@ Namespace Modules
                 Next _Item
                 Return False
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -162,7 +162,7 @@ Namespace Modules
                 End If
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -182,7 +182,7 @@ Namespace Modules
                 End If
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function

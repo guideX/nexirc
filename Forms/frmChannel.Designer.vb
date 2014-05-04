@@ -35,6 +35,7 @@ Partial Class frmChannel
         Me.txtIncoming = New Telerik.WinControls.RichTextBox.RadRichTextBox()
         Me.txtOutgoing = New Telerik.WinControls.UI.RadTextBox()
         Me.lvwNickList = New Telerik.WinControls.UI.RadListView()
+        Me.cmdClear = New System.Windows.Forms.ToolStripButton()
         Me.tspChannel.SuspendLayout()
         CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -47,66 +48,60 @@ Partial Class frmChannel
         Me.tspChannel.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tspChannel.GripMargin = New System.Windows.Forms.Padding(0)
         Me.tspChannel.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.tspChannel.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdPart, Me.cmdHide, Me.cmdNotice, Me.cmdAddToChannelFolder, Me.cmdNames, Me.cmdURL})
+        Me.tspChannel.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdClear, Me.cmdPart, Me.cmdHide, Me.cmdNotice, Me.cmdAddToChannelFolder, Me.cmdNames, Me.cmdURL})
         Me.tspChannel.Location = New System.Drawing.Point(0, 0)
         Me.tspChannel.Name = "tspChannel"
         Me.tspChannel.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.tspChannel.ShowItemToolTips = False
-        Me.tspChannel.Size = New System.Drawing.Size(439, 25)
+        Me.tspChannel.Size = New System.Drawing.Size(434, 25)
         Me.tspChannel.TabIndex = 11
         '
         'cmdPart
         '
-        Me.cmdPart.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmdPart.Image = CType(resources.GetObject("cmdPart.Image"), System.Drawing.Image)
         Me.cmdPart.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdPart.Name = "cmdPart"
-        Me.cmdPart.Size = New System.Drawing.Size(23, 22)
+        Me.cmdPart.Size = New System.Drawing.Size(53, 22)
         Me.cmdPart.Text = "Part"
         '
         'cmdHide
         '
-        Me.cmdHide.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmdHide.Image = CType(resources.GetObject("cmdHide.Image"), System.Drawing.Image)
         Me.cmdHide.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdHide.Name = "cmdHide"
-        Me.cmdHide.Size = New System.Drawing.Size(23, 22)
+        Me.cmdHide.Size = New System.Drawing.Size(57, 22)
         Me.cmdHide.Text = "Hide"
         '
         'cmdNotice
         '
-        Me.cmdNotice.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmdNotice.Image = CType(resources.GetObject("cmdNotice.Image"), System.Drawing.Image)
         Me.cmdNotice.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdNotice.Name = "cmdNotice"
-        Me.cmdNotice.Size = New System.Drawing.Size(23, 22)
+        Me.cmdNotice.Size = New System.Drawing.Size(68, 22)
         Me.cmdNotice.Text = "Notice"
         '
         'cmdAddToChannelFolder
         '
-        Me.cmdAddToChannelFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmdAddToChannelFolder.Image = CType(resources.GetObject("cmdAddToChannelFolder.Image"), System.Drawing.Image)
         Me.cmdAddToChannelFolder.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdAddToChannelFolder.Name = "cmdAddToChannelFolder"
-        Me.cmdAddToChannelFolder.Size = New System.Drawing.Size(23, 22)
+        Me.cmdAddToChannelFolder.Size = New System.Drawing.Size(166, 22)
         Me.cmdAddToChannelFolder.Text = "Add to Channel Folder"
         '
         'cmdNames
         '
-        Me.cmdNames.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmdNames.Image = CType(resources.GetObject("cmdNames.Image"), System.Drawing.Image)
         Me.cmdNames.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdNames.Name = "cmdNames"
-        Me.cmdNames.Size = New System.Drawing.Size(23, 22)
+        Me.cmdNames.Size = New System.Drawing.Size(127, 22)
         Me.cmdNames.Text = "Refresh NickList"
         '
         'cmdURL
         '
-        Me.cmdURL.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmdURL.Image = CType(resources.GetObject("cmdURL.Image"), System.Drawing.Image)
         Me.cmdURL.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdURL.Name = "cmdURL"
-        Me.cmdURL.Size = New System.Drawing.Size(23, 22)
+        Me.cmdURL.Size = New System.Drawing.Size(51, 22)
         Me.cmdURL.Text = "URL"
         Me.cmdURL.Visible = False
         '
@@ -143,12 +138,20 @@ Partial Class frmChannel
         Me.lvwNickList.TabIndex = 18
         Me.lvwNickList.Text = "RadListView1"
         '
+        'cmdClear
+        '
+        Me.cmdClear.Image = Global.nexIRC.My.Resources.Resources.delete
+        Me.cmdClear.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdClear.Name = "cmdClear"
+        Me.cmdClear.Size = New System.Drawing.Size(60, 22)
+        Me.cmdClear.Text = "&Clear"
+        '
         'frmChannel
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(439, 165)
+        Me.ClientSize = New System.Drawing.Size(434, 165)
         Me.Controls.Add(Me.lvwNickList)
         Me.Controls.Add(Me.txtOutgoing)
         Me.Controls.Add(Me.txtIncoming)
@@ -176,4 +179,5 @@ Partial Class frmChannel
     Friend WithEvents txtIncoming As Telerik.WinControls.RichTextBox.RadRichTextBox
     Friend WithEvents txtOutgoing As Telerik.WinControls.UI.RadTextBox
     Friend WithEvents lvwNickList As Telerik.WinControls.UI.RadListView
+    Friend WithEvents cmdClear As System.Windows.Forms.ToolStripButton
 End Class

@@ -83,10 +83,10 @@ Partial Class frmAbout
         Me.LinkLabel4.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LinkLabel4.Location = New System.Drawing.Point(75, 110)
         Me.LinkLabel4.Name = "LinkLabel4"
-        Me.LinkLabel4.Size = New System.Drawing.Size(98, 13)
+        Me.LinkLabel4.Size = New System.Drawing.Size(100, 13)
         Me.LinkLabel4.TabIndex = 20
         Me.LinkLabel4.TabStop = True
-        Me.LinkLabel4.Text = "undernet #nexgen"
+        Me.LinkLabel4.Text = "freenode #defocus"
         '
         'Label4
         '
@@ -151,7 +151,7 @@ Partial Class frmAbout
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(29, 13)
         Me.Label2.TabIndex = 14
-        Me.Label2.Text = "3.26"
+        Me.Label2.Text = "3.29"
         '
         'LinkLabel1
         '
@@ -240,10 +240,11 @@ Partial Class frmAbout
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.nexIRC.My.Resources.Resources.acid2
+        Me.PictureBox1.Image = Global.nexIRC.My.Resources.Resources.nexircnew
         Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(286, 124)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 1
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Visible = False

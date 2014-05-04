@@ -10,24 +10,24 @@ Namespace IRC.UtilityWindows
             Try
                 _RadTextBox.Focus()
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
         Public Sub cmdOK_Click(_Form As Form, _NickName As String)
             Try
                 If (_NickName.Length) <> 0 Then
-                    lSettings.AddNickName(_NickName)
+                    frmCustomize.cboMyNickNames.Items.Add(_NickName)
                     _Form.Close()
                 End If
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
         Public Sub cmdCancel_Click(_Form As Form)
             Try
                 _Form.Close()
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
         Public Sub txtNickname_KeyPress(_Form As Form, _Char As Char, _NickName As String)
@@ -37,7 +37,7 @@ Namespace IRC.UtilityWindows
                     _Form.Close()
                 End If
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
     End Class

@@ -42,7 +42,7 @@ Partial Class frmNickServLogin
         Me.lblCreateAnAccount.Location = New System.Drawing.Point(224, 96)
         Me.lblCreateAnAccount.Name = "lblCreateAnAccount"
         Me.lblCreateAnAccount.Size = New System.Drawing.Size(95, 13)
-        Me.lblCreateAnAccount.TabIndex = 15
+        Me.lblCreateAnAccount.TabIndex = 4
         Me.lblCreateAnAccount.Text = "Create an account"
         Me.lblCreateAnAccount.Visible = False
         '
@@ -52,7 +52,7 @@ Partial Class frmNickServLogin
         Me.chkShowOnConnect.Location = New System.Drawing.Point(15, 142)
         Me.chkShowOnConnect.Name = "chkShowOnConnect"
         Me.chkShowOnConnect.Size = New System.Drawing.Size(110, 17)
-        Me.chkShowOnConnect.TabIndex = 13
+        Me.chkShowOnConnect.TabIndex = 6
         Me.chkShowOnConnect.Text = "Show on Connect"
         Me.chkShowOnConnect.UseVisualStyleBackColor = True
         '
@@ -62,7 +62,7 @@ Partial Class frmNickServLogin
         Me.chkLoginOnConnect.Location = New System.Drawing.Point(15, 119)
         Me.chkLoginOnConnect.Name = "chkLoginOnConnect"
         Me.chkLoginOnConnect.Size = New System.Drawing.Size(109, 17)
-        Me.chkLoginOnConnect.TabIndex = 12
+        Me.chkLoginOnConnect.TabIndex = 5
         Me.chkLoginOnConnect.Text = "Login on Connect"
         Me.chkLoginOnConnect.UseVisualStyleBackColor = True
         '
@@ -72,7 +72,7 @@ Partial Class frmNickServLogin
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPassword.Size = New System.Drawing.Size(304, 21)
-        Me.txtPassword.TabIndex = 10
+        Me.txtPassword.TabIndex = 3
         '
         'Label2
         '
@@ -80,7 +80,8 @@ Partial Class frmNickServLogin
         Me.Label2.Location = New System.Drawing.Point(12, 49)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(57, 13)
-        Me.Label2.TabIndex = 9
+        Me.Label2.TabIndex = 2
+        Me.Label2.Tag = ""
         Me.Label2.Text = "Password:"
         '
         'cmdLogin
@@ -92,7 +93,7 @@ Partial Class frmNickServLogin
         Me.cmdLogin.Location = New System.Drawing.Point(145, 132)
         Me.cmdLogin.Name = "cmdLogin"
         Me.cmdLogin.Size = New System.Drawing.Size(84, 27)
-        Me.cmdLogin.TabIndex = 17
+        Me.cmdLogin.TabIndex = 7
         Me.cmdLogin.Text = "&Login"
         Me.cmdLogin.UseVisualStyleBackColor = True
         '
@@ -105,8 +106,8 @@ Partial Class frmNickServLogin
         Me.cmdCancel.Location = New System.Drawing.Point(235, 132)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.Size = New System.Drawing.Size(84, 27)
-        Me.cmdCancel.TabIndex = 16
-        Me.cmdCancel.Tag = "s"
+        Me.cmdCancel.TabIndex = 8
+        Me.cmdCancel.Tag = ""
         Me.cmdCancel.Text = "&Cancel"
         Me.cmdCancel.UseVisualStyleBackColor = True
         '
@@ -116,7 +117,7 @@ Partial Class frmNickServLogin
         Me.txtNickname.Name = "txtNickname"
         Me.txtNickname.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtNickname.Size = New System.Drawing.Size(304, 21)
-        Me.txtNickname.TabIndex = 19
+        Me.txtNickname.TabIndex = 1
         '
         'Label1
         '
@@ -124,7 +125,7 @@ Partial Class frmNickServLogin
         Me.Label1.Location = New System.Drawing.Point(12, 9)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(56, 13)
-        Me.Label1.TabIndex = 18
+        Me.Label1.TabIndex = 0
         Me.Label1.Text = "Nickname:"
         '
         'frmNickServLogin

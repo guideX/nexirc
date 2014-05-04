@@ -188,13 +188,12 @@ Partial Class mdiMain
         '
         'cmd_Connection
         '
-        Me.cmd_Connection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmd_Connection.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_RecientServers, Me.cmd_NewStatusWindow, Me.cmd_Sep398269823, Me.mnu_Commands, Me.cmd_Sep39879803269, Me.cmd_Connect, Me.cmd_Disconnect, Me.cmd_CloseConnection, Me.cmd_SelectAServer, Me.cmd_ChangeConnection, Me.cmd_Sep3298079802, Me.cmd_CloseStatus, Me.cmd_Sep398792, Me.cmd_Exit})
         Me.cmd_Connection.Image = Global.nexIRC.My.Resources.Resources.network1
         Me.cmd_Connection.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_Connection.Name = "cmd_Connection"
-        Me.cmd_Connection.Size = New System.Drawing.Size(32, 22)
-        Me.cmd_Connection.Text = "Network"
+        Me.cmd_Connection.Size = New System.Drawing.Size(110, 22)
+        Me.cmd_Connection.Text = "Connection"
         '
         'cmd_RecientServers
         '
@@ -371,37 +370,34 @@ Partial Class mdiMain
         '
         'cmd_Customize
         '
-        Me.cmd_Customize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmd_Customize.Image = Global.nexIRC.My.Resources.Resources.applications
         Me.cmd_Customize.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_Customize.Name = "cmd_Customize"
-        Me.cmd_Customize.Size = New System.Drawing.Size(23, 22)
+        Me.cmd_Customize.Size = New System.Drawing.Size(93, 22)
         Me.cmd_Customize.Text = "Customize"
         '
         'cmd_Media
         '
-        Me.cmd_Media.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmd_Media.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_PlayVideo})
         Me.cmd_Media.Image = Global.nexIRC.My.Resources.Resources.film
         Me.cmd_Media.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_Media.Name = "cmd_Media"
-        Me.cmd_Media.Size = New System.Drawing.Size(32, 22)
+        Me.cmd_Media.Size = New System.Drawing.Size(79, 22)
         Me.cmd_Media.Text = "Media"
         '
         'cmd_PlayVideo
         '
         Me.cmd_PlayVideo.Name = "cmd_PlayVideo"
-        Me.cmd_PlayVideo.Size = New System.Drawing.Size(142, 22)
+        Me.cmd_PlayVideo.Size = New System.Drawing.Size(152, 22)
         Me.cmd_PlayVideo.Text = "Play Video"
         '
         'cmd_DCC
         '
-        Me.cmd_DCC.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmd_DCC.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_DCCSend, Me.cmd_DCCChat, Me.cmd_Sep908372, Me.cmd_DownloadManager})
         Me.cmd_DCC.Image = Global.nexIRC.My.Resources.Resources.tools
         Me.cmd_DCC.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_DCC.Name = "cmd_DCC"
-        Me.cmd_DCC.Size = New System.Drawing.Size(32, 22)
+        Me.cmd_DCC.Size = New System.Drawing.Size(65, 22)
         Me.cmd_DCC.Text = "DCC"
         '
         'cmd_DCCSend
@@ -435,12 +431,11 @@ Partial Class mdiMain
         '
         'cmd_Channels
         '
-        Me.cmd_Channels.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmd_Channels.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_ChannelFolder, Me.cmd_ListChannels})
         Me.cmd_Channels.Image = Global.nexIRC.My.Resources.Resources.web
         Me.cmd_Channels.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_Channels.Name = "cmd_Channels"
-        Me.cmd_Channels.Size = New System.Drawing.Size(32, 22)
+        Me.cmd_Channels.Size = New System.Drawing.Size(97, 22)
         Me.cmd_Channels.Text = "Channels"
         '
         'cmd_ChannelFolder
@@ -463,12 +458,11 @@ Partial Class mdiMain
         '
         'cmd_View
         '
-        Me.cmd_View.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmd_View.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_LeftBar, Me.cmd_WindowBar})
         Me.cmd_View.Image = Global.nexIRC.My.Resources.Resources.tools
         Me.cmd_View.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_View.Name = "cmd_View"
-        Me.cmd_View.Size = New System.Drawing.Size(32, 22)
+        Me.cmd_View.Size = New System.Drawing.Size(72, 22)
         Me.cmd_View.Text = "Tools"
         '
         'cmd_LeftBar
@@ -476,7 +470,7 @@ Partial Class mdiMain
         Me.cmd_LeftBar.Checked = True
         Me.cmd_LeftBar.CheckState = System.Windows.Forms.CheckState.Checked
         Me.cmd_LeftBar.Name = "cmd_LeftBar"
-        Me.cmd_LeftBar.Size = New System.Drawing.Size(151, 22)
+        Me.cmd_LeftBar.Size = New System.Drawing.Size(152, 22)
         Me.cmd_LeftBar.Text = "Left Bar"
         '
         'cmd_WindowBar
@@ -484,17 +478,16 @@ Partial Class mdiMain
         Me.cmd_WindowBar.Checked = True
         Me.cmd_WindowBar.CheckState = System.Windows.Forms.CheckState.Checked
         Me.cmd_WindowBar.Name = "cmd_WindowBar"
-        Me.cmd_WindowBar.Size = New System.Drawing.Size(151, 22)
+        Me.cmd_WindowBar.Size = New System.Drawing.Size(152, 22)
         Me.cmd_WindowBar.Text = "Window Bar"
         '
         'cmd_Window
         '
-        Me.cmd_Window.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.cmd_Window.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_TileHorizontal, Me.cmd_TileVertical, Me.cmd_Cascade, Me.cmd_Sep3869626, Me.cmd_ArrangeIcons, Me.ToolStripSeparator4, Me.cmd_ShowAbout})
         Me.cmd_Window.Image = CType(resources.GetObject("cmd_Window.Image"), System.Drawing.Image)
         Me.cmd_Window.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_Window.Name = "cmd_Window"
-        Me.cmd_Window.Size = New System.Drawing.Size(32, 22)
+        Me.cmd_Window.Size = New System.Drawing.Size(92, 22)
         Me.cmd_Window.Text = "Window"
         '
         'cmd_TileHorizontal

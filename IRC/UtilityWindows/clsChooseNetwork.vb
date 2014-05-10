@@ -17,14 +17,14 @@ Namespace IRC.UtilityWindows
                 Next i
                 _RadDropDownList.Text = lSettings.lNetworks.nNetwork(lNetworkIndex).nDescription
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Sub
         Public Sub cmdCancel_Click(_Form As Form)
             Try
                 _Form.Close()
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Sub
         Public Sub cmdOK_Click(_Form As Form, _Network As String)
@@ -41,7 +41,7 @@ Namespace IRC.UtilityWindows
                 End If
                 _Form.Close()
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Sub
     End Class

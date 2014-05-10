@@ -11,7 +11,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.Init()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -19,7 +19,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.SetStatusIndex(statusId)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -27,7 +27,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.cmdClose_Click()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -35,15 +35,18 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.Form_FormClosed(chkPopupOnConnect.Checked, chkCloseOnJoin.Checked, Me.Left, Me.Top)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
     Private Sub frmChannelFolder_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
         Try
+            If (channelFolderWindow Is Nothing) Then
+                channelFolderWindow = New clsChannelFolderUI()
+            End If
             channelFolderWindow.Form_Load()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -51,7 +54,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.cmdJoin_Click(txtChannel.Text, chkCloseOnJoin.Checked)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -59,7 +62,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.cmdAdd_Click(txtChannel.Text, cboNetwork.Text)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -67,7 +70,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.lstChannels_DoubleClick(lstChannels.SelectedItem.Text, chkCloseOnJoin.Checked)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -75,7 +78,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.lstChannels_SelectedIndexChanged()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -83,7 +86,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.cmdRemove_Click(txtChannel.Text)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -91,7 +94,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.cboNetwork_SelectedIndexChanged(cboNetwork.Text)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -99,7 +102,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.lnkJumpToChannelList_LinkClicked()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -107,7 +110,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.txtChannel_Enter(MouseButtons, sender)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -115,7 +118,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.txtChannel_Enter(MouseButtons, sender)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -123,7 +126,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.txtChannel_Leave()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -131,7 +134,7 @@ Public Class frmChannelFolder
         Try
             channelFolderWindow.txtChannel_MouseUp(sender)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 #End Region
@@ -140,7 +143,7 @@ Public Class frmChannelFolder
         Try
             lstChannels.Items.Add(_Channel)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -148,7 +151,7 @@ Public Class frmChannelFolder
         Try
             cboNetwork.Items.Add(_Network)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -156,7 +159,7 @@ Public Class frmChannelFolder
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -164,7 +167,7 @@ Public Class frmChannelFolder
         Try
             txtChannel.SelectAll()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -172,7 +175,7 @@ Public Class frmChannelFolder
         Try
             lstChannels.Items.Clear()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -180,7 +183,7 @@ Public Class frmChannelFolder
         Try
             cboNetwork.Items.Clear()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -188,7 +191,7 @@ Public Class frmChannelFolder
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -199,7 +202,7 @@ Public Class frmChannelFolder
                 lstChannels.Items.RemoveAt(Modules.ReturnRadListBoxIndex(lstChannels, lstChannels.SelectedItem().ToString))
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -207,7 +210,7 @@ Public Class frmChannelFolder
         Try
             chkCloseOnJoin.Checked = _Value
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -217,7 +220,7 @@ Public Class frmChannelFolder
                 txtChannel.Text = lstChannels.SelectedItem.Text
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -225,7 +228,7 @@ Public Class frmChannelFolder
         Try
             Modules.SetSelectedRadComboBoxItem(cboNetwork, network)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -233,7 +236,7 @@ Public Class frmChannelFolder
         Try
             chkPopupOnConnect.Checked = _Value
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 #End Region

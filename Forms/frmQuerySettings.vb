@@ -42,7 +42,7 @@ Public Class frmQuerySettings
                 Next i
             End With
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub frmSecureQuerySettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+            'Throw ex 'ProcessError(ex.Message, "Private Sub frmSecureQuerySettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
         End Try
     End Sub
 
@@ -52,7 +52,7 @@ Public Class frmQuerySettings
             msg = InputBox("Add to Auto Allow List")
             If Len(msg) <> 0 Then lstAutoAllowList.Items.Add(msg)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -60,7 +60,7 @@ Public Class frmQuerySettings
         Try
             lstAutoAllowList.Items.RemoveAt(lstAutoAllowList.SelectedIndex)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -70,7 +70,7 @@ Public Class frmQuerySettings
             msg = InputBox("Add to Auto Deny List")
             If Len(msg) <> 0 Then lstAutoDenyList.Items.Add(msg)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -78,7 +78,7 @@ Public Class frmQuerySettings
         Try
             lstAutoDenyList.Items.RemoveAt(lstAutoDenyList.SelectedIndex)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -87,7 +87,7 @@ Public Class frmQuerySettings
             lstQueryLog.Items.Clear()
             txtQueryLog.Text = ""
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -97,7 +97,7 @@ Public Class frmQuerySettings
             msg = InputBox("Add to Phrases")
             If Len(msg) <> 0 Then lstSpamPhrases.Items.Add(msg)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -105,7 +105,7 @@ Public Class frmQuerySettings
         Try
             lstSpamPhrases.Items.RemoveAt(lstSpamPhrases.SelectedIndex)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -158,7 +158,7 @@ Public Class frmQuerySettings
             End With
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -166,7 +166,7 @@ Public Class frmQuerySettings
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -178,7 +178,7 @@ Public Class frmQuerySettings
             i = lStatus.FindByInitialText(lstConnections.Text)
             If i <> 0 Then lStatus.PrivateMessage_SetListBox(i, lstQueryLog)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -189,7 +189,7 @@ Public Class frmQuerySettings
             n = lStatus.PrivateMessage_Find(i, lstQueryLog.Text)
             lStrings.DoColor(lStatus.PrivateMessage_IncomingText(i, n), txtQueryLog)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -197,7 +197,7 @@ Public Class frmQuerySettings
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 End Class

@@ -9,7 +9,7 @@ Public Class frmLoading
             lblStatus.Text = lData
             prgLoading.Value = lValue
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -17,7 +17,7 @@ Public Class frmLoading
         Try
             Me.Text = "nexIRC - v" & Application.ProductVersion
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 End Class

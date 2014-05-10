@@ -34,7 +34,7 @@ Public Class clsIrcNumericHelper
             l615 = ""
             l616 = ""
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Public Function ReturnDCCPort() As Long
@@ -57,7 +57,7 @@ Public Class clsIrcNumericHelper
             End If
             ReturnDCCPort = p
         Catch ex As Exception
-            Throw ex
+            'Throw ex
             Return Nothing
         End Try
     End Function
@@ -74,7 +74,7 @@ Public Class clsIrcNumericHelper
             End If
             Return result
         Catch ex As Exception
-            Throw ex
+            'Throw ex
             Return Nothing
         End Try
     End Function
@@ -85,7 +85,7 @@ Public Class clsIrcNumericHelper
             f.lDccChatUI.SetStatusIndex(lStatus.ActiveIndex)
             f.Show()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Public Sub NewDCCSend()
@@ -95,7 +95,7 @@ Public Class clsIrcNumericHelper
             f.SetStatusIndex(lStatus.ActiveIndex)
             f.Show()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Public Function ReturnMyIp() As String
@@ -103,7 +103,7 @@ Public Class clsIrcNumericHelper
             Dim h As System.Net.IPHostEntry = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName)
             ReturnMyIp = (CType(h.AddressList.GetValue(0), IPAddress).ToString)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
             Return Nothing
         End Try
     End Function
@@ -134,7 +134,7 @@ Public Class clsIrcNumericHelper
             End If
             ResetMessages()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Public Sub ProcessLUsersCommand(ByVal lStatusIndex As Integer)
@@ -155,7 +155,7 @@ Public Class clsIrcNumericHelper
             lStatus.AddText(msg, lStatusIndex)
             ResetMessages()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Public Sub DoWhois(ByVal lStatusIndex As Integer, ByVal lNick As String)
@@ -163,7 +163,7 @@ Public Class clsIrcNumericHelper
             lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sWHOIS_WAIT)
             lStatus.SendSocket(lStatusIndex, "WHOIS :" & lNick)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Public Function ReturnTimeStamp(ByVal lData As String) As String
@@ -173,7 +173,7 @@ Public Class clsIrcNumericHelper
             d.AddSeconds(CDbl(Trim(lData)))
             Return d.ToString
         Catch ex As Exception
-            Throw ex
+            'Throw ex
             Return Nothing
         End Try
     End Function
@@ -189,7 +189,7 @@ Public Class clsIrcNumericHelper
                 lStatus.NickName(_StatusIndex, False) = _NewNick
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -197,7 +197,7 @@ Public Class clsIrcNumericHelper
         Try
             'TODO
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -208,7 +208,7 @@ Public Class clsIrcNumericHelper
             msg = lStrings.ReturnReplacedString(eStringTypes.sCHANNEL_ACTION, lStrings.ParseData(lData, ":", "!"), Right(lData, Len(lData) - Len(splt(0) & " " & splt(1) & " " & splt(2) & " " & splt(3))))
             lChannels.DoChannelColor(lChannels.Find(lStatusIndex, splt(2)), msg)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -233,7 +233,7 @@ Public Class clsIrcNumericHelper
                 End If
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -255,7 +255,7 @@ Public Class clsIrcNumericHelper
             End With
             Return result
         Catch ex As Exception
-            Throw ex
+            'Throw ex
             Return Nothing
         End Try
     End Function
@@ -272,7 +272,7 @@ Public Class clsIrcNumericHelper
             Next i
             Return result
         Catch ex As Exception
-            Throw ex
+            'Throw ex
             Return Nothing
         End Try
     End Function
@@ -307,7 +307,7 @@ Public Class clsIrcNumericHelper
                 lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "User is in ignore list '" & msg & "'.")
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -327,7 +327,7 @@ Public Class clsIrcNumericHelper
             End If
             Return result
         Catch ex As Exception
-            Throw ex
+            'Throw ex
             Return Nothing
         End Try
     End Function
@@ -355,7 +355,7 @@ Public Class clsIrcNumericHelper
                 End If
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -371,7 +371,7 @@ Public Class clsIrcNumericHelper
                 lProcessNumeric.ProcessDataArrivalLine(lStatusIndex, lData)
             End If
         Catch ex As Exception
-            'Throw ex
+            ''Throw ex
             lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sSOCKET_ERROR, ex.Message)
         End Try
     End Sub

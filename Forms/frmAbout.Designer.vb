@@ -151,7 +151,7 @@ Partial Class frmAbout
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(29, 13)
         Me.Label2.TabIndex = 14
-        Me.Label2.Text = "3.29"
+        Me.Label2.Text = "3.30"
         '
         'LinkLabel1
         '

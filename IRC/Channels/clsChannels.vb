@@ -9,7 +9,6 @@ Imports nexIRC.Modules
 Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
 Imports Telerik.WinControls.UI
 Imports Telerik.WinControls
-
 Namespace IRC.Channels
     Public Class clsChannel
         Public nCount As Integer
@@ -24,6 +23,7 @@ Namespace IRC.Channels
             Public cStatusIndex As Integer
             Public cWindowBarItem As ToolStripItem
             Public cWindowBarItemVisible As Boolean
+            Public cNamesToAdd As List(Of String)
         End Structure
         Public Structure gChannels
             Public cCount As Integer
@@ -35,7 +35,15 @@ Namespace IRC.Channels
             Public cCount As Integer
         End Structure
         Private lChannels As gChannels
-        Public Sub AddToNickList(_ChannelIndex As Integer, ByVal _NickName As String)
+        Public Sub AddToNickListQue(channelIndex As Integer, nickName As String)
+            Try
+                'With lChannels.cChannel(channelIndex).cWindow.lvwNickList
+                'End With
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+        Private Sub AddToNickList(_ChannelIndex As Integer, ByVal _NickName As String)
             Dim listViewDataItem As ListViewDataItem, b As Boolean
             Try
                 With lChannels.cChannel(_ChannelIndex).cWindow.lvwNickList
@@ -60,7 +68,7 @@ Namespace IRC.Channels
                     End If
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub AddToChannelNickList(ByVal lIndex As Integer, ByVal lNickName As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub AddToChannelNickList(ByVal lIndex As Integer, ByVal lNickName As String)")
             End Try
         End Sub
         Public Sub Minimize(_ChannelIndex As Integer)
@@ -69,7 +77,7 @@ Namespace IRC.Channels
                     .cWindow.WindowState = FormWindowState.Minimized
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub HideChannelWindow(ByVal lIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub HideChannelWindow(ByVal lIndex As Integer)")
             End Try
         End Sub
         Public Sub PrivMsg(_ChannelIndex As Integer, ByVal _Data As String)
@@ -83,7 +91,7 @@ Namespace IRC.Channels
                     End If
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub DoChannelPrivMsg(ByVal lChannelIndex As Integer, ByVal lData As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub DoChannelPrivMsg(ByVal lChannelIndex As Integer, ByVal lData As String)")
             End Try
         End Sub
         Public Sub DoChannelColor(_ChannelIndex As Integer, ByVal _Data As String)
@@ -109,7 +117,7 @@ Namespace IRC.Channels
                     End With
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub DoChannelColor(ByVal lStatusIndex As Integer, ByVal lChannelName As String, ByVal lData As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub DoChannelColor(ByVal lStatusIndex As Integer, ByVal lChannelName As String, ByVal lData As String)")
             End Try
         End Sub
         Public Sub Window_Closing(_ChannelIndex As Integer)
@@ -123,7 +131,7 @@ Namespace IRC.Channels
                     End If
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub Window_Closing(_ChannelIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub Window_Closing(_ChannelIndex As Integer)")
             End Try
         End Sub
         Public Sub Form_Load(_ChannelIndex As Integer)
@@ -145,7 +153,7 @@ Namespace IRC.Channels
                     'clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub NewChannelWindow(_Channel As gChannel)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub NewChannelWindow(_Channel As gChannel)")
             End Try
         End Sub
         Public Sub Window_Resize(_ChannelIndex As Integer)
@@ -164,7 +172,7 @@ Namespace IRC.Channels
                     .lvwNickList.Top = .txtIncoming.Top
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub Window_Resize()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub Window_Resize()")
             End Try
         End Sub
         Public Sub Outgoing_GotFocus(_ChannelIndex As Integer)
@@ -175,7 +183,7 @@ Namespace IRC.Channels
                     lStatus.ActiveIndex = .cStatusIndex
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub Outgoing_GotFocus(_ChannelIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub Outgoing_GotFocus(_ChannelIndex As Integer)")
             End Try
         End Sub
         Public Sub Outgoing_KeyDown(_ChannelIndex As Integer, _KeyCode As Integer)
@@ -197,14 +205,14 @@ Namespace IRC.Channels
                     End With
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub Outgoing_KeyDown(_ChannelIndex As Integer, _TextBox As TextBox, _KeyCode As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub Outgoing_KeyDown(_ChannelIndex As Integer, _TextBox As TextBox, _KeyCode As Integer)")
             End Try
         End Sub
         Public Function StatusIndex(channelIndex As Integer) As Integer
             Try
                 Return lChannels.cChannel(channelIndex).cStatusIndex
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -214,7 +222,7 @@ Namespace IRC.Channels
                     .cVisible = _Visible
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Shared Sub SetChannelVisible(_Channel As gChannel, ByVal _Visible As Boolean)")
+                Throw ex 'ProcessError(ex.Message, "Public Shared Sub SetChannelVisible(_Channel As gChannel, ByVal _Visible As Boolean)")
             End Try
         End Sub
         Public Sub NickList_DoubleClick(_ChannelIndex As Integer)
@@ -227,7 +235,7 @@ Namespace IRC.Channels
                     lStatus.PrivateMessages_Add(StatusIndex(_ChannelIndex), msg, "", "")
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub NickList_DoubleClick(_ChannelIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub NickList_DoubleClick(_ChannelIndex As Integer)")
             End Try
         End Sub
         Public Sub Users_DoubleClick(_ChannelIndex As Integer)
@@ -239,7 +247,7 @@ Namespace IRC.Channels
                     lStatus.PrivateMessages_Initialize(.cStatusIndex, msg)
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub Users_DoubleClick(_ChannelIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub Users_DoubleClick(_ChannelIndex As Integer)")
             End Try
         End Sub
         Public Sub ResetForeMostWindows()
@@ -248,7 +256,7 @@ Namespace IRC.Channels
                     lChannels.cChannel(i).cWindow.MdiChildWindow.lForeMost = False
                 Next i
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ResetForeMostWindows()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ResetForeMostWindows()")
             End Try
         End Sub
         Public Sub ToggleChannelWindowState(_ChannelIndex As Integer, _ForeMost As Boolean)
@@ -272,7 +280,7 @@ Namespace IRC.Channels
                 End With
                 'End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ToggleChannelWindowState(_Channel As gChannel)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ToggleChannelWindowState(_Channel As gChannel)")
             End Try
         End Sub
         Public Sub AddText_WhereUserExists(_StatusIndex As Integer, _NickName As String, _Text As String)
@@ -287,7 +295,7 @@ Namespace IRC.Channels
                     Next _ChannelIndex
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub AddText_WhereUserExists(_StatusIndex As Integer, _NickName As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub AddText_WhereUserExists(_StatusIndex As Integer, _NickName As String)")
             End Try
         End Sub
         Public Function HaveChannels(_StatusIndex As Integer) As Boolean
@@ -298,7 +306,7 @@ Namespace IRC.Channels
                 Next i
                 Return _Result
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Function HaveChannels(_StatusIndex As Integer) As Boolean")
+                Throw ex 'ProcessError(ex.Message, "Public Function HaveChannels(_StatusIndex As Integer) As Boolean")
                 Return Nothing
             End Try
         End Function
@@ -310,7 +318,7 @@ Namespace IRC.Channels
                     mdiMain.tspWindows.Items.Remove(.cWindowBarItem)
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Shared Sub RemoveChannelTree(_Channel As gChannel)")
+                Throw ex 'ProcessError(ex.Message, "Public Shared Sub RemoveChannelTree(_Channel As gChannel)")
             End Try
         End Sub
         Public Sub Redirect(_StatusIndex As Integer, _Data As String)
@@ -333,7 +341,7 @@ Namespace IRC.Channels
                     'Join(_StatusIndex, _ChannelB)
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub Redirect(_StatusIndex As Integer, _Data As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub Redirect(_StatusIndex As Integer, _Data As String)")
             End Try
         End Sub
         Public Sub SomeoneChangedNickName(_OldNickName As String, _HostName As String, _NickName As String, _StatusIndex As Integer)
@@ -349,7 +357,7 @@ Namespace IRC.Channels
                     End If
                 Next lChannel
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SomeoneChangedNickName(_OldNickName As String, _HostName As String, _NickName As String, _StatusIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SomeoneChangedNickName(_OldNickName As String, _HostName As String, _NickName As String, _StatusIndex As Integer)")
             End Try
         End Sub
         Public Sub SomeoneJoined(ByVal _StatusIndex As Integer, ByVal _Data As String)
@@ -386,7 +394,7 @@ Namespace IRC.Channels
                     End With
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub JoinProc(ByVal lStatusIndex As Integer, ByVal lData As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub JoinProc(ByVal lStatusIndex As Integer, ByVal lData As String)")
             End Try
         End Sub
         Public Sub RemoveFromNickList(_ChannelIndex As Integer, ByVal _NickName As String)
@@ -404,7 +412,7 @@ Namespace IRC.Channels
                     End With
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub RemoveNickNameFromNicklist(ByVal lIndex As Integer, ByVal lNickName As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub RemoveNickNameFromNicklist(ByVal lIndex As Integer, ByVal lNickName As String)")
             End Try
         End Sub
         Public Sub SomeoneQuit(ByVal _StatusIndex As Integer, ByVal _Data As String)
@@ -428,7 +436,7 @@ Namespace IRC.Channels
                     End If
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SomeoneQuit(ByVal lStatusIndex As Integer, ByVal lData As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SomeoneQuit(ByVal lStatusIndex As Integer, ByVal lData As String)")
             End Try
         End Sub
         Public Sub SomeoneParted(ByVal _StatusIndex As Integer, ByVal _Data As String)
@@ -480,7 +488,7 @@ Namespace IRC.Channels
                     DoChannelColor(Find(_StatusIndex, _ChannelName), _TextToDisplay)
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub PartProc(ByVal lStatusIndex As Integer, ByVal lData As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub PartProc(ByVal lStatusIndex As Integer, ByVal lData As String)")
             End Try
         End Sub
         Public Function Find(ByVal _StatusIndex As Integer, ByVal _ChannelName As String) As Integer
@@ -498,7 +506,7 @@ Namespace IRC.Channels
                 End If
                 Return _Result
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Shared Function Find(ByVal lStatusIndex As Integer, ByVal lChannelName As String) As Integer")
+                Throw ex 'ProcessError(ex.Message, "Public Shared Function Find(ByVal lStatusIndex As Integer, ByVal lChannelName As String) As Integer")
                 Return Nothing
             End Try
         End Function
@@ -513,7 +521,7 @@ Namespace IRC.Channels
                     .cVisible = False
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub KillChannel(ByVal lIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub KillChannel(ByVal lIndex As Integer)")
             End Try
         End Sub
 
@@ -521,7 +529,7 @@ Namespace IRC.Channels
             Try
                 If lStatusIndex <> 0 And Len(lChannelName) <> 0 Then lStatus.SendSocket(lStatusIndex, "JOIN " & lChannelName)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub JoinChannel(ByVal lStatusIndex As Integer, ByVal lChannelName As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub JoinChannel(ByVal lStatusIndex As Integer, ByVal lChannelName As String)")
             End Try
         End Sub
         Public Sub ClearAll(_StatusIndex As Integer)
@@ -542,7 +550,7 @@ Namespace IRC.Channels
                     End With
                 Next _ChannelIndex
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ClearAllChannels(_StatusIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ClearAllChannels(_StatusIndex As Integer)")
             End Try
         End Sub
         Public Sub Topic(_StatusIndex As Integer, _Data As String)
@@ -557,7 +565,7 @@ Namespace IRC.Channels
                     .cWindow.Text = _Channel & ": " & lStrings.StripColorCodes(_Message)
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ChannelTopicMessage(_StatusIndex As Integer, _Data As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ChannelTopicMessage(_StatusIndex As Integer, _Data As String)")
             End Try
         End Sub
         Private Function Add(_Name As String, _StatusIndex As Integer) As Integer
@@ -575,7 +583,7 @@ Namespace IRC.Channels
                 End With
                 Return lChannels.cCount
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -584,7 +592,7 @@ Namespace IRC.Channels
                 Try
                     Return lChannels.cIndex
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property CurrentIndex(ByVal lIndex As Integer) As Integer")
+                    Throw ex 'ProcessError(ex.Message, "Public Property CurrentIndex(ByVal lIndex As Integer) As Integer")
                     Return Nothing
                 End Try
             End Get
@@ -592,7 +600,7 @@ Namespace IRC.Channels
                 Try
                     lChannels.cIndex = lValue
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property CurrentIndex(ByVal lIndex As Integer) As Integer")
+                    Throw ex 'ProcessError(ex.Message, "Public Property CurrentIndex(ByVal lIndex As Integer) As Integer")
                 End Try
             End Set
         End Property
@@ -600,7 +608,7 @@ Namespace IRC.Channels
             Try
                 Return lChannels.cChannel(_ChannelIndex).cWindow
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Function Window(_ChannelIndex As Integer) As frmChannel")
+                Throw ex 'ProcessError(ex.Message, "Public Function Window(_ChannelIndex As Integer) As frmChannel")
                 Return Nothing
             End Try
         End Function
@@ -609,7 +617,7 @@ Namespace IRC.Channels
                 Try
                     Return lChannels.cChannel(_ChannelIndex).cVisible
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                     Return Nothing
                 End Try
             End Get
@@ -617,7 +625,7 @@ Namespace IRC.Channels
                 Try
                     lChannels.cChannel(_ChannelIndex).cVisible = lValue
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property Visible(_Channel As gChannel) As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public Property Visible(_Channel As gChannel) As Boolean")
                 End Try
             End Set
         End Property
@@ -626,7 +634,7 @@ Namespace IRC.Channels
                 Try
                     Return lChannels.cCount
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                     Return Nothing
                 End Try
             End Get
@@ -634,7 +642,7 @@ Namespace IRC.Channels
                 Try
                     lChannels.cCount = lValue
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property ChannelCount() As Integer")
+                    Throw ex 'ProcessError(ex.Message, "Public Property ChannelCount() As Integer")
                 End Try
             End Set
         End Property
@@ -643,7 +651,7 @@ Namespace IRC.Channels
                 Try
                     Return lChannels.cChannel(_Index).cName
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property ChannelName(ByVal lIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property ChannelName(ByVal lIndex As Integer) As String")
                     Return Nothing
                 End Try
             End Get
@@ -651,7 +659,7 @@ Namespace IRC.Channels
                 Try
                     lChannels.cChannel(_Index).cName = _Value
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property ChannelName(ByVal lIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property ChannelName(ByVal lIndex As Integer) As String")
                 End Try
             End Set
         End Property
@@ -682,7 +690,7 @@ Namespace IRC.Channels
                 ''4: username
                 '':NickName!user@host MODE #channel +v username
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
         Public Property URL(ByVal lIndex As Integer) As String
@@ -690,7 +698,7 @@ Namespace IRC.Channels
                 Try
                     Return lChannels.cChannel(lIndex).cURL
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                     Return Nothing
                 End Try
             End Get
@@ -700,7 +708,7 @@ Namespace IRC.Channels
                         .cURL = lValue
                     End With
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property ChannelURL(ByVal lIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property ChannelURL(ByVal lIndex As Integer) As String")
                 End Try
             End Set
         End Property
@@ -708,7 +716,7 @@ Namespace IRC.Channels
             Try
                 ReDim lChannels.cChannel(lSettings.lArraySizes.aChannelWindows)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
     End Class

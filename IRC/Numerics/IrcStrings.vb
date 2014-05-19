@@ -9,6 +9,7 @@ Imports nexIRC.clsIrcNumerics
 Imports nexIRC.Modules
 Imports Telerik.WinControls.RichTextBox
 Imports Telerik.WinControls.RichTextBox.Model
+Imports Telerik.WinControls.RichTextBox.Layout
 
 Public Class IrcStrings
     Structure gCommandReturnData
@@ -59,7 +60,7 @@ Public Class IrcStrings
                 lStatus.AddText(commandData.cDoColorData, lStatusIndex)
             End If
         Catch ex As Exception
-            '    'Throw ex
+            '    Throw ex
         End Try
     End Sub
 
@@ -74,7 +75,7 @@ Public Class IrcStrings
             Next i
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -120,8 +121,8 @@ Public Class IrcStrings
                 ReturnReplacedCommand.cDoColorData = ""
             End If
         Catch ex As Exception
-            ''Throw ex
-            'Return Nothing
+            Return Nothing
+            'Throw ex
         End Try
     End Function
 
@@ -133,7 +134,7 @@ Public Class IrcStrings
                 DoesColorExist = False
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -150,7 +151,7 @@ Public Class IrcStrings
                 Next i
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -168,7 +169,7 @@ Public Class IrcStrings
                 lStrings.sFixedString(lTextStringIndex).sFind(n) = lStringParameterName
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -177,7 +178,7 @@ Public Class IrcStrings
             lColorTextBox.ScrollToCaret()
             lColorTextBox.SelectionStart = 0
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -232,7 +233,7 @@ Public Class IrcStrings
                     End If
             End Select
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Function
 
@@ -272,7 +273,7 @@ Public Class IrcStrings
             End If
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -284,7 +285,7 @@ Public Class IrcStrings
                 Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Data", lData)
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -295,7 +296,7 @@ Public Class IrcStrings
                 Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Description", lData)
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -306,7 +307,7 @@ Public Class IrcStrings
                 Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Syntax", lData)
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -317,7 +318,7 @@ Public Class IrcStrings
                 Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Support", lData)
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -327,7 +328,7 @@ Public Class IrcStrings
             ClearStrings()
             LoadStrings()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -345,7 +346,7 @@ Public Class IrcStrings
             End If
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -364,7 +365,7 @@ Public Class IrcStrings
             End If
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -380,7 +381,7 @@ Public Class IrcStrings
             Next i
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -396,7 +397,7 @@ Public Class IrcStrings
                 lStatus.AddToUnsupported(lStatusIndex, msg)
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -413,7 +414,7 @@ Public Class IrcStrings
             End With
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -439,7 +440,7 @@ Public Class IrcStrings
             End With
             ReturnReplacedString = msg
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -459,7 +460,7 @@ Public Class IrcStrings
                 End If
             Next i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -474,7 +475,7 @@ Public Class IrcStrings
             Next i
             ReturnStringDataByType = ""
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -487,7 +488,7 @@ Public Class IrcStrings
                 lStrings.sFixedString(i).sData = lData
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -508,7 +509,7 @@ Public Class IrcStrings
                 End With
             Next i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -531,7 +532,7 @@ Public Class IrcStrings
                 End With
             Next i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -543,7 +544,7 @@ Public Class IrcStrings
             msg2 = My.Computer.FileSystem.ReadAllText(lSettings.lINI.iText, System.Text.Encoding.UTF8)
             msg2 = Replace(msg2, "$syschar", "•")
             msg2 = Replace(msg2, "$arrowchar", "»")
-            splt = Split(msg2, Environment.Newline)
+            splt = Split(msg2, Environment.NewLine)
             For Each msg In splt
                 If LCase(msg) = "[settings]" Then
                 Else
@@ -586,7 +587,7 @@ Public Class IrcStrings
                 End If
             Next msg
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -612,15 +613,15 @@ Public Class IrcStrings
             Next i
             lListView.SelectedIndex = 0
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
     Public Sub DoText(ByVal lData As String, ByVal lTextBox As TextBox)
         Try
-            lTextBox.Text = lData & Environment.Newline & lTextBox.Text
+            lTextBox.Text = lData & Environment.NewLine & lTextBox.Text
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -630,7 +631,7 @@ Public Class IrcStrings
             msg = Split(lFileName, "\")
             GetFileTitle = msg(UBound(msg))
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -648,7 +649,7 @@ Public Class IrcStrings
             Next i
             Return lData
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -755,91 +756,23 @@ Public Class IrcStrings
                         s.Text = currentText
                         richTextBox.InsertInline(s)
                         currentText = ""
+                        Dim documentElements As New List(Of Telerik.WinControls.RichTextBox.Model.DocumentElement)()
+                        For Each documentElement In richTextBox.Document.Sections().FirstOrDefault().Children()
+                            documentElements.Add(documentElement)
+                        Next documentElement
+                        documentElements.Reverse()
+                        i = 0
+                        For Each documentElement As Telerik.WinControls.RichTextBox.Model.DocumentElement In documentElements
+                            i = i + 1
+                            If (i > 50) Then
+                                richTextBox.Document.Sections().FirstOrDefault().Children().Remove(documentElement)
+                            End If
+                        Next documentElement
                     End If
                 End If
             End If
         End If
         richTextBox.Document.CaretPosition.MoveToLastPositionInDocument()
-    End Sub
-
-    Public Sub DoColor(lData As String, lTextBox As RichTextBox, Optional _Black As Boolean = False)
-        Try
-            _Black = True
-            Dim i As Integer, msg As String, lBackColor As Integer = 16, lForeColor As Integer, _ScrollToBottom As New ScrollToBottom
-            If Len(lData.Trim) = 0 Then Exit Sub
-            If lSettings.lQuerySettings.qEnableSpamFilter = True Then
-                For i = 1 To lSettings.lQuerySettings.qSpamPhraseCount
-                    If InStr(LCase(lData), LCase(lSettings.lQuerySettings.qSpamPhrases(i).ToString)) <> 0 Then Exit Sub
-                Next i
-            End If
-            'clsLockWindowUpdate.LockWindowUpdate(lTextBox.Handle)
-            lTextBox.SelectionStart = Len(lTextBox.Text)
-            lTextBox.SelectionLength = Len(lTextBox.Text)
-            lTextBox.SelectedText = Environment.Newline
-            'clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
-            If InStr(lData, "") <> 0 Then
-                For i = 0 To Len(lData)
-                    If Len(lData) = 0 Then
-                        'clsLockWindowUpdate.LockWindowUpdate(lTextBox.Handle)
-                        'lTextBox.SelectionStart = lTextBox.Text.Length
-                        'lTextBox.SelectionLength = lTextBox.Text.Length
-                        'lTextBox.ScrollToCaret()
-                        '_ScrollToBottom.ScrollToBottom(lTextBox)
-                        'clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
-                        Exit Sub
-                    End If
-                    msg = Left(lData, 1)
-                    lData = Right(lData, Len(lData) - 1)
-                    If msg = "" Then
-                        If IsNumeric(Left(lData, 2)) = True And Not InStr(Left(lData, 2), ",") <> 0 Then
-                            lForeColor = Convert.ToInt32(Trim(Left(lData, 2)))
-                            lData = Right(lData, Len(lData) - 2)
-                        ElseIf IsNumeric(Left(lData, 1)) Then
-                            lForeColor = Convert.ToInt32(Trim(Left(lData, 1)))
-                            lData = Right(lData, Len(lData) - 1)
-                        Else
-                            lForeColor = 0
-                            lBackColor = 16
-                            lTextBox.SelectionColor = ConvertIntToSystemColor(lForeColor, _Black)
-                            lTextBox.SelectionBackColor = ConvertIntToSystemColor(lBackColor, _Black)
-                            If msg <> "" Then
-                                lTextBox.SelectedText = msg
-                            End If
-                        End If
-                        If Left(lData, 1) = "," Then
-                            lData = Right(lData, Len(lData) - 1)
-                            If IsNumeric(Left(lData, 2)) = True And Not InStr(Left(lData, 2), ",") <> 0 Then
-                                lBackColor = Convert.ToInt32(Trim(Left(lData, 2)))
-                                lData = Right(lData, Len(lData) - 2)
-                            ElseIf IsNumeric(Left(lData, 1)) Then
-                                lBackColor = Convert.ToInt32(Trim(Left(lData, 1)))
-                                lData = Right(lData, Len(lData) - 1)
-                            End If
-                        End If
-                    Else
-                        lTextBox.SelectionColor = ConvertIntToSystemColor(lForeColor, _Black)
-                        lTextBox.SelectionBackColor = ConvertIntToSystemColor(lBackColor, _Black)
-                        If msg <> "" Then
-                            'clsLockWindowUpdate.LockWindowUpdate(lTextBox.Handle)
-                            lTextBox.SelectedText = msg
-                            'clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
-                        End If
-                    End If
-                Next i
-            Else
-                lTextBox.SelectionColor = ConvertIntToSystemColor(lForeColor, _Black)
-                lTextBox.SelectionBackColor = ConvertIntToSystemColor(lBackColor, _Black)
-                lTextBox.SelectedText = lData
-            End If
-            'lTextBox.SelectionStart = lTextBox.Text.Length
-            'lTextBox.SelectionLength = lTextBox.TextLength
-            'lTextBox.ScrollToCaret()
-            'clsLockWindowUpdate.LockWindowUpdate(lTextBox.Handle)
-            '_ScrollToBottom.ScrollToBottom(lTextBox)
-            'clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
-        Catch ex As Exception
-            'Throw ex
-        End Try
     End Sub
 
     'FIGURE OUT HOW TO FIX THIS SHIT!
@@ -859,7 +792,7 @@ Public Class IrcStrings
             msg6 = msg6 & Trim(Str(i))
             DecodeLongIPAddr = msg6
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -881,7 +814,7 @@ Public Class IrcStrings
             msg6 = Str(msg5 * 65536 + i)
             EncodeIPAddr = Trim$(msg6)
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -893,7 +826,7 @@ Public Class IrcStrings
             i = _start + Convert.ToInt32(Rnd() * (_end - _start))
             Return i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -902,7 +835,7 @@ Public Class IrcStrings
         Try
             DoRight = Right(lData, lLength).ToString
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -911,7 +844,7 @@ Public Class IrcStrings
         Try
             DoLeft = Left(lData, lLength).ToString
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -924,7 +857,7 @@ Public Class IrcStrings
                 LeftRight = ""
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -946,7 +879,7 @@ Public Class IrcStrings
                 ParseData = ""
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function

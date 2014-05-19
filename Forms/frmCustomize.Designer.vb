@@ -63,8 +63,6 @@ Partial Class frmCustomize
         Me.RadLabel16 = New Telerik.WinControls.UI.RadLabel()
         Me.RadLabel3 = New Telerik.WinControls.UI.RadLabel()
         Me.RadLabel1 = New Telerik.WinControls.UI.RadLabel()
-        Me.txtURL = New Telerik.WinControls.UI.RadTextBox()
-        Me.lblHomePage = New Telerik.WinControls.UI.RadLabel()
         Me.cmdIdentdEdit = New Telerik.WinControls.UI.RadButton()
         Me.cboMyNickNames = New Telerik.WinControls.UI.RadDropDownList()
         Me.cmdClearMyNickName = New Telerik.WinControls.UI.RadButton()
@@ -190,8 +188,6 @@ Partial Class frmCustomize
         CType(Me.RadLabel16, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadLabel3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadLabel1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtURL, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lblHomePage, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdIdentdEdit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboMyNickNames, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdClearMyNickName, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -468,8 +464,6 @@ Partial Class frmCustomize
         Me.RadPageViewPage2.Controls.Add(Me.RadLabel16)
         Me.RadPageViewPage2.Controls.Add(Me.RadLabel3)
         Me.RadPageViewPage2.Controls.Add(Me.RadLabel1)
-        Me.RadPageViewPage2.Controls.Add(Me.txtURL)
-        Me.RadPageViewPage2.Controls.Add(Me.lblHomePage)
         Me.RadPageViewPage2.Controls.Add(Me.cmdIdentdEdit)
         Me.RadPageViewPage2.Controls.Add(Me.cboMyNickNames)
         Me.RadPageViewPage2.Controls.Add(Me.cmdClearMyNickName)
@@ -483,7 +477,7 @@ Partial Class frmCustomize
         '
         'txtOperPassword
         '
-        Me.txtOperPassword.Location = New System.Drawing.Point(349, 223)
+        Me.txtOperPassword.Location = New System.Drawing.Point(349, 165)
         Me.txtOperPassword.Name = "txtOperPassword"
         Me.txtOperPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtOperPassword.Size = New System.Drawing.Size(166, 20)
@@ -492,7 +486,7 @@ Partial Class frmCustomize
         '
         'txtOperName
         '
-        Me.txtOperName.Location = New System.Drawing.Point(140, 223)
+        Me.txtOperName.Location = New System.Drawing.Point(140, 165)
         Me.txtOperName.Name = "txtOperName"
         Me.txtOperName.Size = New System.Drawing.Size(203, 20)
         Me.txtOperName.TabIndex = 73
@@ -501,7 +495,7 @@ Partial Class frmCustomize
         'RadLabel19
         '
         Me.RadLabel19.BackColor = System.Drawing.Color.Transparent
-        Me.RadLabel19.Location = New System.Drawing.Point(7, 225)
+        Me.RadLabel19.Location = New System.Drawing.Point(7, 167)
         Me.RadLabel19.Name = "RadLabel19"
         Me.RadLabel19.Size = New System.Drawing.Size(111, 18)
         Me.RadLabel19.TabIndex = 74
@@ -509,7 +503,7 @@ Partial Class frmCustomize
         '
         'txtPassword
         '
-        Me.txtPassword.Location = New System.Drawing.Point(140, 197)
+        Me.txtPassword.Location = New System.Drawing.Point(140, 139)
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPassword.Size = New System.Drawing.Size(375, 20)
@@ -519,7 +513,7 @@ Partial Class frmCustomize
         'RadLabel18
         '
         Me.RadLabel18.BackColor = System.Drawing.Color.Transparent
-        Me.RadLabel18.Location = New System.Drawing.Point(7, 199)
+        Me.RadLabel18.Location = New System.Drawing.Point(7, 141)
         Me.RadLabel18.Name = "RadLabel18"
         Me.RadLabel18.Size = New System.Drawing.Size(56, 18)
         Me.RadLabel18.TabIndex = 72
@@ -527,7 +521,7 @@ Partial Class frmCustomize
         '
         'txtRealName
         '
-        Me.txtRealName.Location = New System.Drawing.Point(140, 171)
+        Me.txtRealName.Location = New System.Drawing.Point(140, 113)
         Me.txtRealName.Name = "txtRealName"
         Me.txtRealName.Size = New System.Drawing.Size(375, 20)
         Me.txtRealName.TabIndex = 69
@@ -536,7 +530,7 @@ Partial Class frmCustomize
         'RadLabel17
         '
         Me.RadLabel17.BackColor = System.Drawing.Color.Transparent
-        Me.RadLabel17.Location = New System.Drawing.Point(7, 173)
+        Me.RadLabel17.Location = New System.Drawing.Point(7, 115)
         Me.RadLabel17.Name = "RadLabel17"
         Me.RadLabel17.Size = New System.Drawing.Size(63, 18)
         Me.RadLabel17.TabIndex = 70
@@ -544,7 +538,7 @@ Partial Class frmCustomize
         '
         'txtUserEmail
         '
-        Me.txtUserEmail.Location = New System.Drawing.Point(140, 145)
+        Me.txtUserEmail.Location = New System.Drawing.Point(140, 87)
         Me.txtUserEmail.Name = "txtUserEmail"
         Me.txtUserEmail.Size = New System.Drawing.Size(375, 20)
         Me.txtUserEmail.TabIndex = 67
@@ -553,7 +547,7 @@ Partial Class frmCustomize
         'RadLabel16
         '
         Me.RadLabel16.BackColor = System.Drawing.Color.Transparent
-        Me.RadLabel16.Location = New System.Drawing.Point(7, 147)
+        Me.RadLabel16.Location = New System.Drawing.Point(7, 89)
         Me.RadLabel16.Name = "RadLabel16"
         Me.RadLabel16.Size = New System.Drawing.Size(40, 18)
         Me.RadLabel16.TabIndex = 68
@@ -571,32 +565,15 @@ Partial Class frmCustomize
         'RadLabel1
         '
         Me.RadLabel1.BackColor = System.Drawing.Color.Transparent
-        Me.RadLabel1.Location = New System.Drawing.Point(7, 95)
+        Me.RadLabel1.Location = New System.Drawing.Point(7, 65)
         Me.RadLabel1.Name = "RadLabel1"
         Me.RadLabel1.Size = New System.Drawing.Size(85, 18)
         Me.RadLabel1.TabIndex = 65
         Me.RadLabel1.Text = "Identd Settings:"
         '
-        'txtURL
-        '
-        Me.txtURL.Location = New System.Drawing.Point(140, 119)
-        Me.txtURL.Name = "txtURL"
-        Me.txtURL.Size = New System.Drawing.Size(375, 20)
-        Me.txtURL.TabIndex = 0
-        Me.txtURL.TabStop = False
-        '
-        'lblHomePage
-        '
-        Me.lblHomePage.BackColor = System.Drawing.Color.Transparent
-        Me.lblHomePage.Location = New System.Drawing.Point(7, 121)
-        Me.lblHomePage.Name = "lblHomePage"
-        Me.lblHomePage.Size = New System.Drawing.Size(64, 18)
-        Me.lblHomePage.TabIndex = 64
-        Me.lblHomePage.Text = "Homepage:"
-        '
         'cmdIdentdEdit
         '
-        Me.cmdIdentdEdit.Location = New System.Drawing.Point(394, 89)
+        Me.cmdIdentdEdit.Location = New System.Drawing.Point(394, 59)
         Me.cmdIdentdEdit.Name = "cmdIdentdEdit"
         Me.cmdIdentdEdit.Size = New System.Drawing.Size(121, 24)
         Me.cmdIdentdEdit.TabIndex = 63
@@ -1650,8 +1627,6 @@ Partial Class frmCustomize
         CType(Me.RadLabel16, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadLabel3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadLabel1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtURL, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lblHomePage, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdIdentdEdit, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboMyNickNames, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdClearMyNickName, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1775,8 +1750,6 @@ Partial Class frmCustomize
     Friend WithEvents chkNoticesInOwnWindow As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents chkShowPrompts As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents chkCloseStatusWindow As Telerik.WinControls.UI.RadCheckBox
-    Friend WithEvents txtURL As Telerik.WinControls.UI.RadTextBox
-    Friend WithEvents lblHomePage As Telerik.WinControls.UI.RadLabel
     Friend WithEvents cmdIdentdEdit As Telerik.WinControls.UI.RadButton
     Friend WithEvents chkShowWindowsAutomatically As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents chkHideStatusOnClose As Telerik.WinControls.UI.RadCheckBox

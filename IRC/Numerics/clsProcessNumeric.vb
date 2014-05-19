@@ -625,7 +625,7 @@ Public Class clsProcessNumeric
                                     'clsLockWindowUpdate.LockWindowUpdate(lChannels.Window(n).Handle)
                                     splt = Split(splt2(3), " ")
                                     For i = 0 To UBound(splt)
-                                        If splt(i).Length <> 0 Then lChannels.AddToNickList(n, Trim(splt(i)))
+                                        If splt(i).Length <> 0 Then lChannels.AddToNickListQue(n, Trim(splt(i)))
                                     Next i
                                 End If
                                 Exit Sub
@@ -1168,7 +1168,7 @@ Public Class clsProcessNumeric
             End If
             lStatus.AddToUnknowns(lStatusIndex, lData)
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Public Sub ProcessDataArrivalLine(ByVal lStatusIndex As Integer, ByVal lData As String)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub ProcessDataArrivalLine(ByVal lStatusIndex As Integer, ByVal lData As String)")
         End Try
     End Sub
 
@@ -1177,7 +1177,7 @@ Public Class clsProcessNumeric
             Dim ProcessReplaceString As New ProcessReplaceStringDelegate1(AddressOf lStrings.ProcessReplaceString)
             lStatus.GetObject(lStatusIndex).sWindow.Invoke(ProcessReplaceString, lStatusIndex, lType, r1)
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Private Sub lStrings.ProcessReplaceStringHelper(ByVal lStatusIndex As Integer, ByVal lType As eStringTypes, ByVal r1 As String)")
+            Throw ex 'ProcessError(ex.Message, "Private Sub lStrings.ProcessReplaceStringHelper(ByVal lStatusIndex As Integer, ByVal lType As eStringTypes, ByVal r1 As String)")
         End Try
     End Sub
 End Class

@@ -13,7 +13,7 @@ Public Class BotSettings
             Try
                 Return _email
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Get
@@ -21,7 +21,7 @@ Public Class BotSettings
             Try
                 _email = value
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Set
     End Property
@@ -31,7 +31,7 @@ Public Class BotSettings
             Try
                 Return _password
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Get
@@ -39,7 +39,7 @@ Public Class BotSettings
             Try
                 _password = value
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Set
     End Property
@@ -52,7 +52,7 @@ Public Class NickBot
         Try
             _statusId = statusId
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -67,7 +67,7 @@ Public Class NickBot
                     Return ""
             End Select
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -77,7 +77,7 @@ Public Class NickBot
             Try
                 Return _statusId
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Get
@@ -85,7 +85,7 @@ Public Class NickBot
             Try
                 _statusId = value
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Set
     End Property
@@ -111,7 +111,7 @@ Public Class NickBot
                 LoginForm()
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -124,7 +124,7 @@ Public Class NickBot
                     f.Show()
             End Select
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -142,7 +142,7 @@ Public Class NickBot
                     End If
             End Select
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -162,7 +162,7 @@ Public Class NickBot
                     End If
             End Select
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -180,7 +180,7 @@ Public Class NickBot
                     End If
             End Select
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 End Class

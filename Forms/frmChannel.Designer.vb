@@ -25,6 +25,7 @@ Partial Class frmChannel
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmChannel))
         Me.tspChannel = New System.Windows.Forms.ToolStrip()
+        Me.cmdClear = New System.Windows.Forms.ToolStripButton()
         Me.cmdPart = New System.Windows.Forms.ToolStripButton()
         Me.cmdHide = New System.Windows.Forms.ToolStripButton()
         Me.cmdNotice = New System.Windows.Forms.ToolStripButton()
@@ -35,7 +36,7 @@ Partial Class frmChannel
         Me.txtIncoming = New Telerik.WinControls.RichTextBox.RadRichTextBox()
         Me.txtOutgoing = New Telerik.WinControls.UI.RadTextBox()
         Me.lvwNickList = New Telerik.WinControls.UI.RadListView()
-        Me.cmdClear = New System.Windows.Forms.ToolStripButton()
+        Me.tmrAddNameDelay = New System.Windows.Forms.Timer(Me.components)
         Me.tspChannel.SuspendLayout()
         CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -55,6 +56,14 @@ Partial Class frmChannel
         Me.tspChannel.ShowItemToolTips = False
         Me.tspChannel.Size = New System.Drawing.Size(434, 25)
         Me.tspChannel.TabIndex = 11
+        '
+        'cmdClear
+        '
+        Me.cmdClear.Image = Global.nexIRC.My.Resources.Resources.delete
+        Me.cmdClear.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdClear.Name = "cmdClear"
+        Me.cmdClear.Size = New System.Drawing.Size(60, 22)
+        Me.cmdClear.Text = "&Clear"
         '
         'cmdPart
         '
@@ -138,13 +147,9 @@ Partial Class frmChannel
         Me.lvwNickList.TabIndex = 18
         Me.lvwNickList.Text = "RadListView1"
         '
-        'cmdClear
+        'tmrAddNameDelay
         '
-        Me.cmdClear.Image = Global.nexIRC.My.Resources.Resources.delete
-        Me.cmdClear.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.cmdClear.Name = "cmdClear"
-        Me.cmdClear.Size = New System.Drawing.Size(60, 22)
-        Me.cmdClear.Text = "&Clear"
+        Me.tmrAddNameDelay.Interval = 200
         '
         'frmChannel
         '
@@ -180,4 +185,5 @@ Partial Class frmChannel
     Friend WithEvents txtOutgoing As Telerik.WinControls.UI.RadTextBox
     Friend WithEvents lvwNickList As Telerik.WinControls.UI.RadListView
     Friend WithEvents cmdClear As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tmrAddNameDelay As System.Windows.Forms.Timer
 End Class

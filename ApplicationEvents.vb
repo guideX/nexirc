@@ -12,7 +12,7 @@ Namespace My
                 'End If
                 lSettings.lIRC.iSettings.sNetworkAvailability = e.IsNetworkAvailable
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Sub
 
@@ -28,7 +28,7 @@ Namespace My
             Try
                 e.BringToForeground = True
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Sub
 
@@ -46,7 +46,7 @@ Namespace My
                 'e.ExitApplication = False
                 'End If
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Sub
     End Class

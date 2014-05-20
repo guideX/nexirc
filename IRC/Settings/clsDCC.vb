@@ -113,7 +113,7 @@ Namespace nexIRC.IRC.Settings
                 s = s.Replace("Current IP Address: ", "")
                 Return s
             Catch ex As Exception
-                Throw ex
+                'Throw ex
                 Return Nothing
             End Try
         End Function
@@ -154,7 +154,7 @@ Namespace nexIRC.IRC.Settings
                     Files.WriteINI(lSettings.lINI.iDCC, "Settings", "AutoCloseDialogs", Trim(.dAutoCloseDialogs.ToString))
                 End With
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Sub
     End Class

@@ -9,14 +9,14 @@ Namespace IRC.UtilityWindows
             Try
                 _Form.Close()
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Sub
         Public Sub Form_Load(_RadDropDownList As RadDropDownList)
             Try
                 lSettings.FillRadComboWithNetworks(_RadDropDownList, True)
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Sub
         Public Sub cmdOK_Click(_IpTextBox As RadTextBox, _PortTextBox As RadTextBox, _Network As String, _Form As Form)
@@ -43,7 +43,7 @@ Namespace IRC.UtilityWindows
                 End If
                 _Form.Close()
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Sub
         Public Sub cmdNewNetwork_Click(_RadDropDownList As RadDropDownList)
@@ -57,9 +57,9 @@ Namespace IRC.UtilityWindows
                         _RadDropDownList.SelectedIndex = FindRadComboIndex(_RadDropDownList, _NetworkDescription)
                     End If
                 End If
-                'If Err.Number <> 0 Then Throw ex Throw ex 'ProcessError(ex.Message, "Private Sub cmdNewNetwork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNewNetwork.Click")
+                'If Err.Number <> 0 Then 'Throw ex 'Throw ex 'ProcessError(ex.Message, "Private Sub cmdNewNetwork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNewNetwork.Click")
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Sub
     End Class

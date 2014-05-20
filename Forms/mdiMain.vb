@@ -232,7 +232,7 @@ Public Class mdiMain
                 End Try
             Next ctl
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 End Class

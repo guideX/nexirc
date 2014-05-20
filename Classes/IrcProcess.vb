@@ -39,7 +39,7 @@ Public Class IrcProcess
                 Exit Sub
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -48,7 +48,7 @@ Public Class IrcProcess
             Try
                 Return _busy
             Catch ex As Exception
-                Throw ex
+                'Throw ex
                 Return Nothing
             End Try
         End Get
@@ -56,7 +56,7 @@ Public Class IrcProcess
             Try
                 _busy = value
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Set
     End Property
@@ -69,7 +69,7 @@ Public Class IrcProcess
             _processes.Add(process)
             If processTimer.Enabled = False Then processTimer.Enabled = True
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -78,7 +78,7 @@ Public Class IrcProcess
             processTimer = New Timer
             _processes = New List(Of process)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 End Class

@@ -20,7 +20,7 @@ Namespace Classes.IO
                     ReadINI = msg2.Trim
                 End If
             Catch ex As Exception
-                Throw ex
+                'Throw ex
                 Return Nothing
             End Try
         End Function
@@ -29,7 +29,7 @@ Namespace Classes.IO
             Try
                 WritePrivateProfileString(section, key, value, file)
             Catch ex As Exception
-                Throw ex
+                'Throw ex
             End Try
         End Sub
     End Class

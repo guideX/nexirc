@@ -5,30 +5,27 @@ Option Strict On
 Imports nexIRC.Modules
 Imports Telerik.WinControls.UI
 Imports Telerik.WinControls.RichTextBox.Model
+Imports Telerik.WinControls.Data
+Imports Telerik.WinControls.Enumerations
+Imports System.ComponentModel
+
 Public Class frmChannel
 #Region "Public Variables"
     Public WithEvents MdiChildWindow As New MdiChildWindow
 #End Region
 #Region "Window Events"
-    'Private Sub tmrAddNameDelay_Tick(sender As System.Object, e As System.EventArgs) Handles tmrAddNameDelay.Tick
-    'Try
-    'MdiChildWindow.tmrAddNameDelay_Tick()
-    'Catch ex As Exception
-    'Throw ex
-    'End Try
-    'End Sub
     Private Sub cmdClear_Click(sender As System.Object, e As System.EventArgs) Handles cmdClear.Click
         Try
             txtIncoming.Document = New RadDocument()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
     Private Sub txtOutgoing_GotFocus(sender As Object, e As System.EventArgs) Handles txtOutgoing.GotFocus
         Try
             MdiChildWindow.txtOutgoing_GotFocus(Me)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -36,7 +33,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.txtOutgoing_KeyDown(e, txtOutgoing.Text)
         Catch ex As Exception
-            Throw ex
+            ''Throw ex
         End Try
     End Sub
 
@@ -44,7 +41,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.txtIncomingColor_MouseDown()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -52,7 +49,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.txtIncomingColor_MouseUp(txtIncoming.Document.Selection.GetSelectedText(), txtIncoming, txtOutgoing)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -60,7 +57,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.txtIncomingColor_TextChanged(txtIncoming.VerticalScroll.Maximum)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -69,7 +66,7 @@ Public Class frmChannel
             MdiChildWindow.tmrGetNames_Tick(lvwNickList.Items.Count)
             tmrGetNames.Enabled = False
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -77,7 +74,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.lvwNickList_DoubleClick()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -85,7 +82,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.cmdPart_Click()
         Catch ex As Exception
-            'Throw ex
+            ''Throw ex
         End Try
     End Sub
 
@@ -93,7 +90,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.cmdHide_Click()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -101,7 +98,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.cmdNotice_Click()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -109,7 +106,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.cmdAddToChannelFolder_Click()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -117,7 +114,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.cmdNames_Click()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -125,13 +122,15 @@ Public Class frmChannel
         Try
             MdiChildWindow.Form_FormClosing()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
     Private Sub frmChannel_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         Try
             'MdiChildWindow.Form_Load(Global.nexIRC.MdiChildWindow.FormTypes.Channel)
+            lvwNickList.SortDescriptors.Add(New SortDescriptor("Text", ListSortDirection.Ascending))
+            lvwNickList.EnableSorting = True
         Catch ex As Exception
         End Try
     End Sub
@@ -140,16 +139,23 @@ Public Class frmChannel
         Try
             MdiChildWindow.Form_Resize(Me.ClientSize.Width, Me.ClientSize.Height, txtOutgoing.Height, txtIncoming.Top)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 #End Region
 #Region "Class Events"
+    Private Sub MdiChildWindow_AddToNickList(nickName As String) Handles MdiChildWindow.AddToNickList
+        Try
+            lvwNickList.Items.Add(nickName)
+        Catch ex As Exception
+            Throw
+        End Try
+    End Sub
     Private Sub lMdiChildWindow_BringToFront() Handles MdiChildWindow.BringToFront
         Try
             Me.BringToFront()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -157,7 +163,7 @@ Public Class frmChannel
         Try
             txtIncoming.Document.Selection.Clear()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -165,7 +171,7 @@ Public Class frmChannel
         Try
             lvwNickList.Items.Clear()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -173,7 +179,7 @@ Public Class frmChannel
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -181,7 +187,15 @@ Public Class frmChannel
         Try
             tmrGetNames.Enabled = False
         Catch ex As Exception
-            Throw ex
+            'Throw ex
+        End Try
+    End Sub
+
+    Private Sub MdiChildWindow_DisableNameDelayTimer() Handles MdiChildWindow.DisableNameDelayTimer
+        Try
+            tmrAddNameDelay.Enabled = False
+        Catch ex As Exception
+            'Throw ex
         End Try
     End Sub
 
@@ -189,7 +203,7 @@ Public Class frmChannel
         Try
             txtOutgoing.Text = ""
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -198,7 +212,7 @@ Public Class frmChannel
             Me.Width = width
             Me.Height = height
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -206,7 +220,7 @@ Public Class frmChannel
         Try
             Me.Focus()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -214,7 +228,7 @@ Public Class frmChannel
         Try
             Me.Icon = icon
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -223,15 +237,23 @@ Public Class frmChannel
             txtIncoming.Width = width
             txtIncoming.Height = height
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
+    End Sub
+
+    Private Sub MdiChildWindow_NickListBeginUpdate() Handles MdiChildWindow.NickListBeginUpdate
+        lvwNickList.Items.BeginUpdate()
+    End Sub
+
+    Private Sub MdiChildWindow_NickListEndUpdate() Handles MdiChildWindow.NickListEndUpdate
+        lvwNickList.Items.EndUpdate()
     End Sub
 
     Private Sub lMdiChildWindow_OutgoingSetFocus() Handles MdiChildWindow.OutgoingSetFocus
         Try
             txtOutgoing.Focus()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -240,7 +262,7 @@ Public Class frmChannel
             txtOutgoing.Width = width
             txtOutgoing.Top = top
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -254,7 +276,7 @@ Public Class frmChannel
                 End If
             End If
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -265,7 +287,7 @@ Public Class frmChannel
             txtIncoming.RichTextBoxElement.BorderWidth = 0
             txtIncoming.RichTextBoxElement.BackColor = backgroundColor
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -276,7 +298,7 @@ Public Class frmChannel
             lvwNickList.ListViewElement.BorderColor = Color.Black
             lvwNickList.ListViewElement.BorderWidth = 0
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -286,7 +308,7 @@ Public Class frmChannel
             lvwNickList.EnableColumnSort = True
             'lvwNickList.ListViewElement.DataView.Comparer = New ListViewCustomComparer(this.radListView1.ListViewElement)
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -300,7 +322,7 @@ Public Class frmChannel
             txtOutgoing.TextBoxElement.Border.ForeColor = Color.Black
             txtOutgoing.TextBoxElement.Border.Visibility = Telerik.WinControls.ElementVisibility.Hidden
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -308,7 +330,7 @@ Public Class frmChannel
         Try
             Me.MdiParent = parentForm
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -316,7 +338,7 @@ Public Class frmChannel
         Try
             Me.WindowState = windowState
         Catch ex As Exception
-            Throw ex
+            'Throw ex
         End Try
     End Sub
 
@@ -324,7 +346,15 @@ Public Class frmChannel
         Try
             MdiChildWindow.lvwNickList_DoubleClick()
         Catch ex As Exception
-            Throw ex
+            'Throw ex
+        End Try
+    End Sub
+
+    Private Sub tmrAddNameDelay_Tick(sender As System.Object, e As System.EventArgs) Handles tmrAddNameDelay.Tick
+        Try
+            MdiChildWindow.tmrAddNameDelay_Tick()
+        Catch ex As Exception
+            'Throw ex
         End Try
     End Sub
 #End Region

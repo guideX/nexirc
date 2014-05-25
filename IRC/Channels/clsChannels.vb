@@ -422,8 +422,9 @@ Namespace IRC.Channels
             End Try
         End Sub
         Public Sub SomeoneQuit(ByVal _StatusIndex As Integer, ByVal _Data As String)
-            Dim nickListIds As List(Of Integer), nickName As String, hostName As String, quitMessage As String
+            Dim nickListIds As List(Of Integer), nickName As String, hostName As String, quitMessage As String, lastNickName As String
             Try
+                lastNickName = ""
                 nickListIds = New List(Of Integer)
                 If (_Data.Contains(":") And _Data.Contains("!")) Then
                     nickName = lStrings.ParseData(_Data, ":", "!")
@@ -433,9 +434,13 @@ Namespace IRC.Channels
                         Dim nickListItems As List(Of ListViewDataItem)
                         For i = 1 To lChannels.cCount
                             nickListItems = lChannels.cChannel(i).cWindow.lvwNickList.Items.Where(Function(nickListItem) nickListItem.Text = nickName Or nickListItem.Text = "@" & nickName Or nickListItem.Text = "+" & nickName).ToList()
+                            nickListItems = nickListItems.Distinct.ToList()
                             nickListItems.ForEach(Function(m) As Boolean
-                                                      lChannels.cChannel(i).cWindow.lvwNickList.Items.Remove(m)
-                                                      DoChannelColor(i, lStrings.ReturnReplacedString(eStringTypes.sUSER_QUIT, nickName, hostName, quitMessage))
+                                                      If (lastNickName <> nickName) Then
+                                                          lastNickName = nickName
+                                                          lChannels.cChannel(i).cWindow.lvwNickList.Items.Remove(m)
+                                                          DoChannelColor(i, lStrings.ReturnReplacedString(eStringTypes.sUSER_QUIT, nickName, hostName, quitMessage))
+                                                      End If
                                                       Return True
                                                   End Function)
                         Next i

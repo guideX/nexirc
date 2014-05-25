@@ -433,6 +433,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\mdiMain.resx">
       <DependentUpon>mdiMain.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

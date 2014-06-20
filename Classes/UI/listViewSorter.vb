@@ -13,7 +13,7 @@ Public Class ListViewSorter
             col = 0
             order = SortOrder.Ascending
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -22,7 +22,7 @@ Public Class ListViewSorter
             col = column
             Me.order = order
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -33,7 +33,7 @@ Public Class ListViewSorter
             If (order = SortOrder.Descending) Then returnVal *= -1
             Return returnVal
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function

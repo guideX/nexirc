@@ -11,7 +11,7 @@ Namespace Modules
     Public Module mdlObjects
         Public lSettings As New Settings
         Public lStrings As New IrcStrings
-        Public lStatus As clsStatus
+        Public lStatus As Status
         Public lChannels As New clsChannel
         Public lChannelLists As New clsChannelList
         Public lChannelFolder As New clsChannelFolder
@@ -22,12 +22,14 @@ Namespace Modules
 
         Public Sub SetSelectedRadComboBoxItem(_RadComboBox As RadDropDownList, _Text As String)
             Dim i As Integer
-            For i = 0 To _RadComboBox.Items.Count - 1
-                If (_Text.ToLower().Trim() = _RadComboBox.Items(i).ToString().ToLower().Trim()) Then
-                    _RadComboBox.SelectedIndex = i
-                    Exit For
-                End If
-            Next i
+            If (Not String.IsNullOrEmpty(_Text)) Then
+                For i = 1 To _RadComboBox.Items.Count - 1
+                    If (_Text.ToLower().Trim() = _RadComboBox.Items(i).ToString().ToLower().Trim()) Then
+                        _RadComboBox.SelectedIndex = i
+                        Exit For
+                    End If
+                Next i
+            End If
         End Sub
 
         Public Function ReturnFirstSelectedListViewItem(ByVal lListView As ListView) As ListViewItem
@@ -56,7 +58,7 @@ Namespace Modules
                 Next i
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -71,7 +73,7 @@ Namespace Modules
                 Next i
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -86,7 +88,7 @@ Namespace Modules
                 Next i
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -106,7 +108,7 @@ Namespace Modules
                 End If
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -126,7 +128,7 @@ Namespace Modules
                 End If
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -140,7 +142,7 @@ Namespace Modules
                 Next _Item
                 Return False
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -162,7 +164,7 @@ Namespace Modules
                 End If
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -182,7 +184,7 @@ Namespace Modules
                 End If
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function

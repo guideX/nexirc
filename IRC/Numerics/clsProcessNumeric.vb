@@ -1138,7 +1138,7 @@ Public Class clsProcessNumeric
                     Else
                         If Trim(msg3) <> "VERSION" Then
                             msg2 = lStrings.ParseData(splt(0), ":", "!")
-                            lStatus.PrivateMessages_Add(lStatusIndex, msg2, Right(splt(0), Len(splt(0)) - (Len(msg2) + 2)), msg3)
+                            lStatus.PrivateMessage_Add(lStatusIndex, msg2, Right(splt(0), Len(splt(0)) - (Len(msg2) + 2)), msg3)
                             Exit Sub
                         Else
                             Exit Sub
@@ -1167,7 +1167,7 @@ Public Class clsProcessNumeric
             End If
             lStatus.AddToUnknowns(lStatusIndex, lData)
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Public Sub ProcessDataArrivalLine(ByVal lStatusIndex As Integer, ByVal lData As String)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub ProcessDataArrivalLine(ByVal lStatusIndex As Integer, ByVal lData As String)")
         End Try
     End Sub
 
@@ -1176,7 +1176,7 @@ Public Class clsProcessNumeric
             Dim ProcessReplaceString As New ProcessReplaceStringDelegate1(AddressOf lStrings.ProcessReplaceString)
             lStatus.GetObject(lStatusIndex).sWindow.Invoke(ProcessReplaceString, lStatusIndex, lType, r1)
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Private Sub lStrings.ProcessReplaceStringHelper(ByVal lStatusIndex As Integer, ByVal lType As eStringTypes, ByVal r1 As String)")
+            Throw ex 'ProcessError(ex.Message, "Private Sub lStrings.ProcessReplaceStringHelper(ByVal lStatusIndex As Integer, ByVal lType As eStringTypes, ByVal r1 As String)")
         End Try
     End Sub
 End Class

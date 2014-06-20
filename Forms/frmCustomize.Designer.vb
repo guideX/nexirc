@@ -23,22 +23,22 @@ Partial Class frmCustomize
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewDetailColumn14 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
-        Dim ListViewDetailColumn15 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Server")
-        Dim ListViewDetailColumn16 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Port")
-        Dim ListViewDetailColumn1 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
-        Dim ListViewDetailColumn2 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Message")
-        Dim ListViewDetailColumn3 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Network")
+        Dim ListViewDetailColumn1 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
+        Dim ListViewDetailColumn2 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Server")
+        Dim ListViewDetailColumn3 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Port")
         Dim ListViewDetailColumn4 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
-        Dim ListViewDetailColumn5 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Enabled")
-        Dim ListViewDetailColumn6 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
-        Dim ListViewDetailColumn7 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Support")
-        Dim ListViewDetailColumn8 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Syntax")
-        Dim ListViewDetailColumn17 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 3", "Numeric")
-        Dim ListViewDetailColumn18 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 4", "Data")
-        Dim RadListDataItem4 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
-        Dim RadListDataItem5 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
-        Dim RadListDataItem6 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim ListViewDetailColumn5 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Message")
+        Dim ListViewDetailColumn6 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Network")
+        Dim ListViewDetailColumn7 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Name")
+        Dim ListViewDetailColumn8 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Enabled")
+        Dim ListViewDetailColumn9 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 0", "Description")
+        Dim ListViewDetailColumn10 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 1", "Support")
+        Dim ListViewDetailColumn11 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 2", "Syntax")
+        Dim ListViewDetailColumn12 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 3", "Numeric")
+        Dim ListViewDetailColumn13 As Telerik.WinControls.UI.ListViewDetailColumn = New Telerik.WinControls.UI.ListViewDetailColumn("Column 4", "Data")
+        Dim RadListDataItem1 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim RadListDataItem2 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
+        Dim RadListDataItem3 As Telerik.WinControls.UI.RadListDataItem = New Telerik.WinControls.UI.RadListDataItem()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCustomize))
         Me.RadPageView1 = New Telerik.WinControls.UI.RadPageView()
         Me.RadPageViewPage1 = New Telerik.WinControls.UI.RadPageViewPage()
@@ -71,13 +71,14 @@ Partial Class frmCustomize
         Me.RadPageViewPage3 = New Telerik.WinControls.UI.RadPageViewPage()
         Me.RadPageView2 = New Telerik.WinControls.UI.RadPageView()
         Me.RadPageViewPage7 = New Telerik.WinControls.UI.RadPageViewPage()
+        Me.txtTextBufferSize = New Telerik.WinControls.UI.RadTextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.chkShowRawWindow = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkMOTDInOwnWindow = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkNoticesInOwnWindow = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkShowPrompts = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkShowWindowsAutomatically = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkCloseStatusWindow = New Telerik.WinControls.UI.RadCheckBox()
-        Me.chkHideStatusOnClose = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkAddToChannelFolder = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkCloseChannelFolder = New Telerik.WinControls.UI.RadCheckBox()
         Me.chkShowNicknameWindow = New Telerik.WinControls.UI.RadCheckBox()
@@ -197,13 +198,13 @@ Partial Class frmCustomize
         CType(Me.RadPageView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RadPageView2.SuspendLayout()
         Me.RadPageViewPage7.SuspendLayout()
+        CType(Me.txtTextBufferSize, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkShowRawWindow, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkMOTDInOwnWindow, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkNoticesInOwnWindow, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkShowPrompts, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkShowWindowsAutomatically, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkCloseStatusWindow, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.chkHideStatusOnClose, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkAddToChannelFolder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkCloseChannelFolder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkShowNicknameWindow, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -328,13 +329,13 @@ Partial Class frmCustomize
         'lvwServers
         '
         Me.lvwServers.AllowEdit = False
-        ListViewDetailColumn14.HeaderText = "Description"
-        ListViewDetailColumn14.Width = 300.0!
-        ListViewDetailColumn15.HeaderText = "Server"
-        ListViewDetailColumn15.Width = 75.0!
-        ListViewDetailColumn16.HeaderText = "Port"
-        ListViewDetailColumn16.Width = 75.0!
-        Me.lvwServers.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn14, ListViewDetailColumn15, ListViewDetailColumn16})
+        ListViewDetailColumn1.HeaderText = "Description"
+        ListViewDetailColumn1.Width = 300.0!
+        ListViewDetailColumn2.HeaderText = "Server"
+        ListViewDetailColumn2.Width = 75.0!
+        ListViewDetailColumn3.HeaderText = "Port"
+        ListViewDetailColumn3.Width = 75.0!
+        Me.lvwServers.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn1, ListViewDetailColumn2, ListViewDetailColumn3})
         Me.lvwServers.EnableColumnSort = True
         Me.lvwServers.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwServers.ItemSize = New System.Drawing.Size(200, 20)
@@ -639,13 +640,14 @@ Partial Class frmCustomize
         '
         'RadPageViewPage7
         '
+        Me.RadPageViewPage7.Controls.Add(Me.txtTextBufferSize)
+        Me.RadPageViewPage7.Controls.Add(Me.Label1)
         Me.RadPageViewPage7.Controls.Add(Me.chkShowRawWindow)
         Me.RadPageViewPage7.Controls.Add(Me.chkMOTDInOwnWindow)
         Me.RadPageViewPage7.Controls.Add(Me.chkNoticesInOwnWindow)
         Me.RadPageViewPage7.Controls.Add(Me.chkShowPrompts)
         Me.RadPageViewPage7.Controls.Add(Me.chkShowWindowsAutomatically)
         Me.RadPageViewPage7.Controls.Add(Me.chkCloseStatusWindow)
-        Me.RadPageViewPage7.Controls.Add(Me.chkHideStatusOnClose)
         Me.RadPageViewPage7.Controls.Add(Me.chkAddToChannelFolder)
         Me.RadPageViewPage7.Controls.Add(Me.chkCloseChannelFolder)
         Me.RadPageViewPage7.Controls.Add(Me.chkShowNicknameWindow)
@@ -657,10 +659,27 @@ Partial Class frmCustomize
         Me.RadPageViewPage7.Size = New System.Drawing.Size(500, 285)
         Me.RadPageViewPage7.Text = "Interface"
         '
+        'txtTextBufferSize
+        '
+        Me.txtTextBufferSize.Location = New System.Drawing.Point(237, 3)
+        Me.txtTextBufferSize.Name = "txtTextBufferSize"
+        Me.txtTextBufferSize.Size = New System.Drawing.Size(100, 20)
+        Me.txtTextBufferSize.TabIndex = 70
+        Me.txtTextBufferSize.TabStop = False
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(163, 5)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(65, 13)
+        Me.Label1.TabIndex = 69
+        Me.Label1.Text = "Text Buffer:"
+        '
         'chkShowRawWindow
         '
         Me.chkShowRawWindow.BackColor = System.Drawing.Color.Transparent
-        Me.chkShowRawWindow.Location = New System.Drawing.Point(3, 218)
+        Me.chkShowRawWindow.Location = New System.Drawing.Point(3, 194)
         Me.chkShowRawWindow.Name = "chkShowRawWindow"
         Me.chkShowRawWindow.Size = New System.Drawing.Size(124, 18)
         Me.chkShowRawWindow.TabIndex = 68
@@ -669,7 +688,7 @@ Partial Class frmCustomize
         'chkMOTDInOwnWindow
         '
         Me.chkMOTDInOwnWindow.BackColor = System.Drawing.Color.Transparent
-        Me.chkMOTDInOwnWindow.Location = New System.Drawing.Point(3, 242)
+        Me.chkMOTDInOwnWindow.Location = New System.Drawing.Point(3, 218)
         Me.chkMOTDInOwnWindow.Name = "chkMOTDInOwnWindow"
         Me.chkMOTDInOwnWindow.Size = New System.Drawing.Size(130, 18)
         Me.chkMOTDInOwnWindow.TabIndex = 67
@@ -678,7 +697,7 @@ Partial Class frmCustomize
         'chkNoticesInOwnWindow
         '
         Me.chkNoticesInOwnWindow.BackColor = System.Drawing.Color.Transparent
-        Me.chkNoticesInOwnWindow.Location = New System.Drawing.Point(3, 266)
+        Me.chkNoticesInOwnWindow.Location = New System.Drawing.Point(3, 242)
         Me.chkNoticesInOwnWindow.Name = "chkNoticesInOwnWindow"
         Me.chkNoticesInOwnWindow.Size = New System.Drawing.Size(141, 18)
         Me.chkNoticesInOwnWindow.TabIndex = 66
@@ -705,25 +724,16 @@ Partial Class frmCustomize
         'chkCloseStatusWindow
         '
         Me.chkCloseStatusWindow.BackColor = System.Drawing.Color.Transparent
-        Me.chkCloseStatusWindow.Location = New System.Drawing.Point(166, 3)
+        Me.chkCloseStatusWindow.Location = New System.Drawing.Point(3, 266)
         Me.chkCloseStatusWindow.Name = "chkCloseStatusWindow"
         Me.chkCloseStatusWindow.Size = New System.Drawing.Size(125, 18)
         Me.chkCloseStatusWindow.TabIndex = 62
         Me.chkCloseStatusWindow.Text = "Close Status Window"
         '
-        'chkHideStatusOnClose
-        '
-        Me.chkHideStatusOnClose.BackColor = System.Drawing.Color.Transparent
-        Me.chkHideStatusOnClose.Location = New System.Drawing.Point(3, 51)
-        Me.chkHideStatusOnClose.Name = "chkHideStatusOnClose"
-        Me.chkHideStatusOnClose.Size = New System.Drawing.Size(124, 18)
-        Me.chkHideStatusOnClose.TabIndex = 58
-        Me.chkHideStatusOnClose.Text = "Hide Status on Close"
-        '
         'chkAddToChannelFolder
         '
         Me.chkAddToChannelFolder.BackColor = System.Drawing.Color.Transparent
-        Me.chkAddToChannelFolder.Location = New System.Drawing.Point(3, 194)
+        Me.chkAddToChannelFolder.Location = New System.Drawing.Point(3, 170)
         Me.chkAddToChannelFolder.Name = "chkAddToChannelFolder"
         Me.chkAddToChannelFolder.Size = New System.Drawing.Size(133, 18)
         Me.chkAddToChannelFolder.TabIndex = 62
@@ -732,7 +742,7 @@ Partial Class frmCustomize
         'chkCloseChannelFolder
         '
         Me.chkCloseChannelFolder.BackColor = System.Drawing.Color.Transparent
-        Me.chkCloseChannelFolder.Location = New System.Drawing.Point(3, 171)
+        Me.chkCloseChannelFolder.Location = New System.Drawing.Point(3, 147)
         Me.chkCloseChannelFolder.Name = "chkCloseChannelFolder"
         Me.chkCloseChannelFolder.Size = New System.Drawing.Size(126, 18)
         Me.chkCloseChannelFolder.TabIndex = 62
@@ -741,7 +751,7 @@ Partial Class frmCustomize
         'chkShowNicknameWindow
         '
         Me.chkShowNicknameWindow.BackColor = System.Drawing.Color.Transparent
-        Me.chkShowNicknameWindow.Location = New System.Drawing.Point(3, 147)
+        Me.chkShowNicknameWindow.Location = New System.Drawing.Point(3, 123)
         Me.chkShowNicknameWindow.Name = "chkShowNicknameWindow"
         Me.chkShowNicknameWindow.Size = New System.Drawing.Size(145, 18)
         Me.chkShowNicknameWindow.TabIndex = 62
@@ -750,7 +760,7 @@ Partial Class frmCustomize
         'chkAutoMaximize
         '
         Me.chkAutoMaximize.BackColor = System.Drawing.Color.Transparent
-        Me.chkAutoMaximize.Location = New System.Drawing.Point(3, 75)
+        Me.chkAutoMaximize.Location = New System.Drawing.Point(3, 51)
         Me.chkAutoMaximize.Name = "chkAutoMaximize"
         Me.chkAutoMaximize.Size = New System.Drawing.Size(95, 18)
         Me.chkAutoMaximize.TabIndex = 59
@@ -759,7 +769,7 @@ Partial Class frmCustomize
         'chkPopupChannelFolder
         '
         Me.chkPopupChannelFolder.BackColor = System.Drawing.Color.Transparent
-        Me.chkPopupChannelFolder.Location = New System.Drawing.Point(3, 99)
+        Me.chkPopupChannelFolder.Location = New System.Drawing.Point(3, 75)
         Me.chkPopupChannelFolder.Name = "chkPopupChannelFolder"
         Me.chkPopupChannelFolder.Size = New System.Drawing.Size(127, 18)
         Me.chkPopupChannelFolder.TabIndex = 60
@@ -768,7 +778,7 @@ Partial Class frmCustomize
         'chkVideoBackground
         '
         Me.chkVideoBackground.BackColor = System.Drawing.Color.Transparent
-        Me.chkVideoBackground.Location = New System.Drawing.Point(3, 123)
+        Me.chkVideoBackground.Location = New System.Drawing.Point(3, 99)
         Me.chkVideoBackground.Name = "chkVideoBackground"
         Me.chkVideoBackground.Size = New System.Drawing.Size(112, 18)
         Me.chkVideoBackground.TabIndex = 62
@@ -1036,13 +1046,13 @@ Partial Class frmCustomize
         '
         'lvwNotify
         '
-        ListViewDetailColumn1.HeaderText = "Name"
-        ListViewDetailColumn1.Width = 363.0!
-        ListViewDetailColumn2.HeaderText = "Message"
-        ListViewDetailColumn2.Width = 75.0!
-        ListViewDetailColumn3.HeaderText = "Network"
-        ListViewDetailColumn3.Width = 75.0!
-        Me.lvwNotify.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn1, ListViewDetailColumn2, ListViewDetailColumn3})
+        ListViewDetailColumn4.HeaderText = "Name"
+        ListViewDetailColumn4.Width = 363.0!
+        ListViewDetailColumn5.HeaderText = "Message"
+        ListViewDetailColumn5.Width = 75.0!
+        ListViewDetailColumn6.HeaderText = "Network"
+        ListViewDetailColumn6.Width = 75.0!
+        Me.lvwNotify.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn4, ListViewDetailColumn5, ListViewDetailColumn6})
         Me.lvwNotify.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwNotify.ItemSize = New System.Drawing.Size(200, 20)
         Me.lvwNotify.ItemSpacing = -1
@@ -1088,11 +1098,11 @@ Partial Class frmCustomize
         '
         'lvwCompatibility
         '
-        ListViewDetailColumn4.HeaderText = "Name"
-        ListViewDetailColumn4.Width = 180.0!
-        ListViewDetailColumn5.HeaderText = "Enabled"
-        ListViewDetailColumn5.Width = 190.0!
-        Me.lvwCompatibility.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn4, ListViewDetailColumn5})
+        ListViewDetailColumn7.HeaderText = "Name"
+        ListViewDetailColumn7.Width = 180.0!
+        ListViewDetailColumn8.HeaderText = "Enabled"
+        ListViewDetailColumn8.Width = 190.0!
+        Me.lvwCompatibility.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn7, ListViewDetailColumn8})
         Me.lvwCompatibility.EnableColumnSort = True
         Me.lvwCompatibility.EnableSorting = True
         Me.lvwCompatibility.GroupItemSize = New System.Drawing.Size(200, 20)
@@ -1204,17 +1214,17 @@ Partial Class frmCustomize
         '
         'lvwStrings
         '
-        ListViewDetailColumn6.HeaderText = "Description"
-        ListViewDetailColumn6.Width = 150.0!
-        ListViewDetailColumn7.HeaderText = "Support"
-        ListViewDetailColumn7.Width = 50.0!
-        ListViewDetailColumn8.HeaderText = "Syntax"
-        ListViewDetailColumn8.Width = 50.0!
-        ListViewDetailColumn17.HeaderText = "Numeric"
-        ListViewDetailColumn17.Width = 50.0!
-        ListViewDetailColumn18.HeaderText = "Data"
-        ListViewDetailColumn18.Width = 68.0!
-        Me.lvwStrings.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn6, ListViewDetailColumn7, ListViewDetailColumn8, ListViewDetailColumn17, ListViewDetailColumn18})
+        ListViewDetailColumn9.HeaderText = "Description"
+        ListViewDetailColumn9.Width = 150.0!
+        ListViewDetailColumn10.HeaderText = "Support"
+        ListViewDetailColumn10.Width = 50.0!
+        ListViewDetailColumn11.HeaderText = "Syntax"
+        ListViewDetailColumn11.Width = 50.0!
+        ListViewDetailColumn12.HeaderText = "Numeric"
+        ListViewDetailColumn12.Width = 50.0!
+        ListViewDetailColumn13.HeaderText = "Data"
+        ListViewDetailColumn13.Width = 68.0!
+        Me.lvwStrings.Columns.AddRange(New Telerik.WinControls.UI.ListViewDetailColumn() {ListViewDetailColumn9, ListViewDetailColumn10, ListViewDetailColumn11, ListViewDetailColumn12, ListViewDetailColumn13})
         Me.lvwStrings.EnableColumnSort = True
         Me.lvwStrings.EnableSorting = True
         Me.lvwStrings.GroupItemSize = New System.Drawing.Size(200, 20)
@@ -1371,15 +1381,15 @@ Partial Class frmCustomize
         'cboDCCFileExists
         '
         Me.cboDCCFileExists.DropDownAnimationEnabled = True
-        RadListDataItem4.Text = "Prompt"
-        RadListDataItem4.TextWrap = True
-        RadListDataItem5.Text = "Overwrite"
-        RadListDataItem5.TextWrap = True
-        RadListDataItem6.Text = "Ignore"
-        RadListDataItem6.TextWrap = True
-        Me.cboDCCFileExists.Items.Add(RadListDataItem4)
-        Me.cboDCCFileExists.Items.Add(RadListDataItem5)
-        Me.cboDCCFileExists.Items.Add(RadListDataItem6)
+        RadListDataItem1.Text = "Prompt"
+        RadListDataItem1.TextWrap = True
+        RadListDataItem2.Text = "Overwrite"
+        RadListDataItem2.TextWrap = True
+        RadListDataItem3.Text = "Ignore"
+        RadListDataItem3.TextWrap = True
+        Me.cboDCCFileExists.Items.Add(RadListDataItem1)
+        Me.cboDCCFileExists.Items.Add(RadListDataItem2)
+        Me.cboDCCFileExists.Items.Add(RadListDataItem3)
         Me.cboDCCFileExists.Location = New System.Drawing.Point(125, 303)
         Me.cboDCCFileExists.Name = "cboDCCFileExists"
         Me.cboDCCFileExists.ShowImageInEditorArea = True
@@ -1638,13 +1648,13 @@ Partial Class frmCustomize
         Me.RadPageView2.ResumeLayout(False)
         Me.RadPageViewPage7.ResumeLayout(False)
         Me.RadPageViewPage7.PerformLayout()
+        CType(Me.txtTextBufferSize, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkShowRawWindow, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkMOTDInOwnWindow, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkNoticesInOwnWindow, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkShowPrompts, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkShowWindowsAutomatically, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkCloseStatusWindow, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.chkHideStatusOnClose, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkAddToChannelFolder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkCloseChannelFolder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkShowNicknameWindow, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1752,7 +1762,6 @@ Partial Class frmCustomize
     Friend WithEvents chkCloseStatusWindow As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents cmdIdentdEdit As Telerik.WinControls.UI.RadButton
     Friend WithEvents chkShowWindowsAutomatically As Telerik.WinControls.UI.RadCheckBox
-    Friend WithEvents chkHideStatusOnClose As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents cboMyNickNames As Telerik.WinControls.UI.RadDropDownList
     Friend WithEvents RadPageViewPage7 As Telerik.WinControls.UI.RadPageViewPage
     Friend WithEvents chkAddToChannelFolder As Telerik.WinControls.UI.RadCheckBox
@@ -1868,5 +1877,7 @@ Partial Class frmCustomize
     Friend WithEvents txtOperName As Telerik.WinControls.UI.RadTextBox
     Friend WithEvents RadLabel19 As Telerik.WinControls.UI.RadLabel
     Friend WithEvents tmrCloseMe As System.Windows.Forms.Timer
+    Friend WithEvents txtTextBufferSize As Telerik.WinControls.UI.RadTextBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class
 

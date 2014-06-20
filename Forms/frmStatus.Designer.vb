@@ -25,6 +25,7 @@ Partial Class frmStatus
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStatus))
         Me.tspStatus = New System.Windows.Forms.ToolStrip()
+        Me.cmdClear = New System.Windows.Forms.ToolStripButton()
         Me.cmdConnection = New System.Windows.Forms.ToolStripSplitButton()
         Me.cmdConnect = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmdDisconnect = New System.Windows.Forms.ToolStripMenuItem()
@@ -47,7 +48,7 @@ Partial Class frmStatus
         Me.tmrWaitForWhois = New System.Windows.Forms.Timer(Me.components)
         Me.txtIncoming = New Telerik.WinControls.RichTextBox.RadRichTextBox()
         Me.txtOutgoing = New Telerik.WinControls.UI.RadTextBox()
-        Me.cmdClear = New System.Windows.Forms.ToolStripButton()
+        Me.tmrQuickFocus = New System.Windows.Forms.Timer(Me.components)
         Me.tspStatus.SuspendLayout()
         CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,6 +66,14 @@ Partial Class frmStatus
         Me.tspStatus.ShowItemToolTips = False
         Me.tspStatus.Size = New System.Drawing.Size(441, 25)
         Me.tspStatus.TabIndex = 10
+        '
+        'cmdClear
+        '
+        Me.cmdClear.Image = Global.nexIRC.My.Resources.Resources.delete
+        Me.cmdClear.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdClear.Name = "cmdClear"
+        Me.cmdClear.Size = New System.Drawing.Size(60, 22)
+        Me.cmdClear.Text = "&Clear"
         '
         'cmdConnection
         '
@@ -209,13 +218,9 @@ Partial Class frmStatus
         Me.txtOutgoing.TabIndex = 17
         Me.txtOutgoing.TabStop = False
         '
-        'cmdClear
+        'tmrQuickFocus
         '
-        Me.cmdClear.Image = Global.nexIRC.My.Resources.Resources.delete
-        Me.cmdClear.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.cmdClear.Name = "cmdClear"
-        Me.cmdClear.Size = New System.Drawing.Size(60, 22)
-        Me.cmdClear.Text = "&Clear"
+        Me.tmrQuickFocus.Interval = 200
         '
         'frmStatus
         '
@@ -263,4 +268,5 @@ Partial Class frmStatus
     Friend WithEvents cmdBotGhost As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents cmdClear As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tmrQuickFocus As System.Windows.Forms.Timer
 End Class

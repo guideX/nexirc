@@ -60,7 +60,7 @@ Public Class IrcStrings
                 lStatus.AddText(commandData.cDoColorData, lStatusIndex)
             End If
         Catch ex As Exception
-            '    'Throw ex
+            '    Throw ex
         End Try
     End Sub
 
@@ -75,7 +75,7 @@ Public Class IrcStrings
             Next i
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -122,7 +122,7 @@ Public Class IrcStrings
             End If
         Catch ex As Exception
             Return Nothing
-            ''Throw ex
+            Throw ex
         End Try
     End Function
 
@@ -134,7 +134,7 @@ Public Class IrcStrings
                 DoesColorExist = False
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -151,7 +151,7 @@ Public Class IrcStrings
                 Next i
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -169,7 +169,7 @@ Public Class IrcStrings
                 lStrings.sFixedString(lTextStringIndex).sFind(n) = lStringParameterName
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -178,7 +178,7 @@ Public Class IrcStrings
             lColorTextBox.ScrollToCaret()
             lColorTextBox.SelectionStart = 0
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -233,7 +233,7 @@ Public Class IrcStrings
                     End If
             End Select
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Function
 
@@ -273,7 +273,7 @@ Public Class IrcStrings
             End If
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -285,7 +285,7 @@ Public Class IrcStrings
                 Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Data", lData)
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -296,7 +296,7 @@ Public Class IrcStrings
                 Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Description", lData)
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -307,7 +307,7 @@ Public Class IrcStrings
                 Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Syntax", lData)
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -318,7 +318,7 @@ Public Class IrcStrings
                 Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Support", lData)
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -328,7 +328,7 @@ Public Class IrcStrings
             ClearStrings()
             LoadStrings()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -346,7 +346,7 @@ Public Class IrcStrings
             End If
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -365,7 +365,7 @@ Public Class IrcStrings
             End If
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -381,7 +381,7 @@ Public Class IrcStrings
             Next i
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -397,7 +397,7 @@ Public Class IrcStrings
                 lStatus.AddToUnsupported(lStatusIndex, msg)
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -414,7 +414,7 @@ Public Class IrcStrings
             End With
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -440,7 +440,7 @@ Public Class IrcStrings
             End With
             ReturnReplacedString = msg
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -460,7 +460,7 @@ Public Class IrcStrings
                 End If
             Next i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -475,7 +475,7 @@ Public Class IrcStrings
             Next i
             ReturnStringDataByType = ""
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -488,7 +488,7 @@ Public Class IrcStrings
                 lStrings.sFixedString(i).sData = lData
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -509,7 +509,7 @@ Public Class IrcStrings
                 End With
             Next i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -532,7 +532,7 @@ Public Class IrcStrings
                 End With
             Next i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -587,7 +587,7 @@ Public Class IrcStrings
                 End If
             Next msg
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -613,7 +613,7 @@ Public Class IrcStrings
             Next i
             lListView.SelectedIndex = 0
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -621,7 +621,7 @@ Public Class IrcStrings
         Try
             lTextBox.Text = lData & Environment.NewLine & lTextBox.Text
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -631,7 +631,7 @@ Public Class IrcStrings
             msg = Split(lFileName, "\")
             GetFileTitle = msg(UBound(msg))
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -649,7 +649,7 @@ Public Class IrcStrings
             Next i
             Return lData
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -764,7 +764,7 @@ Public Class IrcStrings
                         i = 0
                         For Each documentElement As Telerik.WinControls.RichTextBox.Model.DocumentElement In documentElements
                             i = i + 1
-                            If (i > 250) Then
+                            If (i > lSettings.lIRC.iSettings.sTextBufferSize) Then
                                 richTextBox.Document.Sections().FirstOrDefault().Children().FirstOrDefault().Children().Remove(documentElement)
                             End If
                         Next documentElement
@@ -792,7 +792,7 @@ Public Class IrcStrings
             msg6 = msg6 & Trim(Str(i))
             DecodeLongIPAddr = msg6
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -814,7 +814,7 @@ Public Class IrcStrings
             msg6 = Str(msg5 * 65536 + i)
             EncodeIPAddr = Trim$(msg6)
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -826,7 +826,7 @@ Public Class IrcStrings
             i = _start + Convert.ToInt32(Rnd() * (_end - _start))
             Return i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -835,7 +835,7 @@ Public Class IrcStrings
         Try
             DoRight = Right(lData, lLength).ToString
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -844,7 +844,7 @@ Public Class IrcStrings
         Try
             DoLeft = Left(lData, lLength).ToString
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -857,7 +857,7 @@ Public Class IrcStrings
                 LeftRight = ""
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -879,7 +879,7 @@ Public Class IrcStrings
                 ParseData = ""
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function

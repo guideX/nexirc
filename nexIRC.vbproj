@@ -308,7 +308,7 @@
     <Compile Include="IRC\Settings\clsDCC.vb" />
     <Compile Include="IRC\Settings\clsServices.vb" />
     <Compile Include="IRC\Settings\Settings.vb" />
-    <Compile Include="IRC\Status\clsStatus.vb" />
+    <Compile Include="IRC\Status\Status.vb" />
     <Compile Include="IRC\UtilityWindows\clsAbout.vb" />
     <Compile Include="IRC\UtilityWindows\clsAddNickName.vb" />
     <Compile Include="IRC\UtilityWindows\clsAddServer.vb" />

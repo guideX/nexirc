@@ -14,7 +14,7 @@ Public Class clsChannelListUI
         Try
             lSettings.AddToChannelFolders(channel, lSettings.lNetworks.nIndex)
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Sub cmdRefresh_Click(form As Form)
@@ -23,7 +23,7 @@ Public Class clsChannelListUI
             lStrings.ProcessReplaceCommand(n, eCommandTypes.cLIST, lStatus.ServerDescription(n))
             form.Close()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public WriteOnly Property MeIndex() As Integer
@@ -32,7 +32,7 @@ Public Class clsChannelListUI
                 lMeIndex = _MeIndex
                 lChannelLists.SetOpen(lMeIndex)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Set
     End Property
@@ -45,7 +45,7 @@ Public Class clsChannelListUI
             lChannelLists.SetClosed(lMeIndex)
             RaiseEvent SaveColumnWidths()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Sub ResetList(_ListView As ListView)
@@ -57,7 +57,7 @@ Public Class clsChannelListUI
             _ListView.Columns.Add("Topic", Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "2", "350"))), HorizontalAlignment.Left)
             _ListView.Columns.Add("Users", Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "3", "100"))), HorizontalAlignment.Left)
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Sub Load(_Form As Form, _ListView As ListView)
@@ -70,7 +70,7 @@ Public Class clsChannelListUI
             _Form.Icon = mdiMain.Icon
             ResetList(_ListView)
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Sub Resize(_ListView As ListView, _Form As Form, _ToolStripHeight As Integer)
@@ -78,7 +78,7 @@ Public Class clsChannelListUI
             _ListView.Width = _Form.ClientSize.Width
             _ListView.Height = _Form.ClientSize.Height - _ToolStripHeight
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Sub DoubleClick(_ListView As ListView)
@@ -88,14 +88,14 @@ Public Class clsChannelListUI
                 lChannels.Join(lChannelLists.ReturnStatusIndex(lMeIndex), lCurrentChannel)
             Next i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Sub ItemSelectionChanged(_ListView As ListView, _ItemIndex As Integer)
         Try
             lCurrentChannel = _ListView.Items(_ItemIndex).Text
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 End Class
@@ -133,7 +133,7 @@ Public Class clsChannelList
             Next i
             Return n
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -145,7 +145,7 @@ Public Class clsChannelList
                 Return 0
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -176,7 +176,7 @@ Public Class clsChannelList
                 End With
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Sub Clear(_ChannelListIndex As Integer)
@@ -185,7 +185,7 @@ Public Class clsChannelList
                 .cWindow.lvwChannels.Clear()
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Sub Unload(_ChannelListIndex As Integer)
@@ -200,7 +200,7 @@ Public Class clsChannelList
                 End With
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public WriteOnly Property StatusDescription(_ChannelListIndex As Integer) As String
@@ -208,7 +208,7 @@ Public Class clsChannelList
             Try
                 lChannelLists.cChannelList(_ChannelListIndex).cStatusDescription = _StatusDescription
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Set
     End Property
@@ -224,7 +224,7 @@ Public Class clsChannelList
                 .cWindow.MeIndex = _ChannelListIndex
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Private Sub SetItems(_ChannelListIndex As Integer)
@@ -238,7 +238,7 @@ Public Class clsChannelList
                 Next i
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Sub Close(_ChannelListIndex As Integer)
@@ -247,7 +247,7 @@ Public Class clsChannelList
                 If .cVisible = True Then .cWindow.Close()
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Sub HideTreeNode(_ChannelListIndex As Integer)
@@ -259,7 +259,7 @@ Public Class clsChannelList
                 End If
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Sub DoubleClick(_ChannelListIndex As Integer)
@@ -288,7 +288,7 @@ Public Class clsChannelList
                 End If
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Function DoesChannelExist(_ChannelListIndex As Integer, _Channel As String) As Boolean
@@ -303,7 +303,7 @@ Public Class clsChannelList
             End With
             Return _Result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -337,7 +337,7 @@ Public Class clsChannelList
                 End If
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Sub SetOpen(_ChannelListIndex As Integer)
@@ -346,7 +346,7 @@ Public Class clsChannelList
                 .cVisible = True
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
     Public Sub SetClosed(_ChannelListIndex As Integer)
@@ -356,7 +356,7 @@ Public Class clsChannelList
                 .cWindow = Nothing
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 End Class

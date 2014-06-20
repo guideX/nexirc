@@ -12,8 +12,7 @@ Imports Telerik.WinControls.UI
 Imports nexIRC.Settings
 
 Namespace IRC.Status
-    Public Class clsStatus
-        'Public Event 'Throw ex 'ProcessError(_Error As String, _Sub As String)
+    Public Class Status
 #Region "STRUCTURES"
         Public Structure gLinks
             Public sTreeNode As TreeNode
@@ -154,7 +153,7 @@ Namespace IRC.Status
             Try
                 lStrings.Print(_Error, lStatusObjects.sStatusObject(_SocketIndex).sWindow.txtIncoming)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Private Sub SocketError(_Error As String)")
+                Throw ex 'ProcessError(ex.Message, "Private Sub SocketError(_Error As String)")
             End Try
         End Sub
         Public Sub Window_Resize(id As Integer)
@@ -168,7 +167,7 @@ Namespace IRC.Status
                     End With
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub Window_Resize(_ChannelIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub Window_Resize(_ChannelIndex As Integer)")
             End Try
         End Sub
         Public Sub ResetForeMostWindows()
@@ -177,15 +176,14 @@ Namespace IRC.Status
                     lStatusObjects.sStatusObject(i).sWindow.mdiChildWindow.lForeMost = False
                 Next i
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ResetForeMostWindows()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ResetForeMostWindows()")
             End Try
         End Sub
-
         Public Sub Minimize(_StatusIndex As Integer)
             Try
                 lStatusObjects.sStatusObject(_StatusIndex).sWindow.WindowState = FormWindowState.Minimized
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub Minimize(_StatusIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub Minimize(_StatusIndex As Integer)")
             End Try
         End Sub
         Public Sub Outgoing_GotFocus(_StatusIndex As Integer)
@@ -195,7 +193,7 @@ Namespace IRC.Status
                     lStatus.ActiveIndex = _StatusIndex
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub Outgoing_GotFocus(_ChannelIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub Outgoing_GotFocus(_ChannelIndex As Integer)")
             End Try
         End Sub
         Public Sub New(_StatusObjectSize As Integer)
@@ -203,7 +201,7 @@ Namespace IRC.Status
                 ReDim lStatusObjects.sStatusObject(_StatusObjectSize)
                 'ReDim lStatusObjects.sStatusObject(lArraySizes.aStatusWindows)
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub New()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub New()")
             End Try
         End Sub
         Public Sub Clear(ByVal _StatusIndex As Integer)
@@ -249,7 +247,7 @@ Namespace IRC.Status
                     .sVisible = False
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ClearStatusWindow(ByVal lServerIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ClearStatusWindow(ByVal lServerIndex As Integer)")
             End Try
         End Sub
         Public Sub SetSupportedModes(_StatusIndex As Integer, _Data As String)
@@ -261,7 +259,7 @@ Namespace IRC.Status
                     .sSupportedModes.sChannelModes = splt(4)
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SetSupportedModes(_StatusIndex As Integer, _Data As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SetSupportedModes(_StatusIndex As Integer, _Data As String)")
             End Try
         End Sub
         Public Function Create(ByVal lIRCSettings As Settings.gIRC, ByVal lServerSettings As Settings.gServers) As Integer
@@ -278,7 +276,7 @@ Namespace IRC.Status
                     .sPrimitives.sNetworkIndex = lServerSettings.sServer(lServerSettings.sIndex).sNetworkIndex
                     .sNickBot = New NickBot(i)
                     .sWindow = New frmStatus
-                    .sWindow.mdiChildWindow.SetFormType(MdiChildWindow.FormTypes.Status)
+                    .sWindow.mdiChildWindow.FormType = MdiChildWindow.FormTypes.Status
                     .sWindow.mdiChildWindow.MeIndex = i
                     .sVisible = True
                     .sPrimitives.sEmail = lSettings.lIRC.iEMail
@@ -309,13 +307,12 @@ Namespace IRC.Status
                     .sTreeNodeVisible = True
                     .sTreeNodeStatus = .sTreeNode.Nodes.Add(lServerSettings.sServer(lServerSettings.sIndex).sIP, "Status", 0, 0)
                     .sTreeNode.Expand()
+                    .sWindow.tmrQuickFocus.Enabled = True
                 End With
                 ActiveIndex = i
-                'clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
                 Return lStatusObjects.sCount
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Function NewStatusWindow(ByVal lIRCSettings As gIRC, ByVal lServerSettings As gServers) As Integer")
-                Return Nothing
+                Throw ex
             End Try
         End Function
         Public Sub SetOperSettings(ByVal lIndex As Integer, ByVal lOperNick As String, ByVal lOperPass As String)
@@ -325,7 +322,7 @@ Namespace IRC.Status
                     .sPrimitives.sOperPass = lOperPass
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SetStatusOperSettings(ByVal lOperNick As String, ByVal lOperPass As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SetStatusOperSettings(ByVal lOperNick As String, ByVal lOperPass As String)")
             End Try
         End Sub
         Public Sub SetStatus(ByVal _Index As Integer)
@@ -339,21 +336,21 @@ Namespace IRC.Status
                 Description(_Index) = _StatusText
                 WindowBarText(_Index) = _StatusText
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SetStatus(ByVal lIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SetStatus(ByVal lIndex As Integer)")
             End Try
         End Sub
         Public Sub CloseWindow(_Index As Integer)
             Try
                 lStatusObjects.sStatusObject(_Index).sWindow.Close()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub CloseWindow(_Index As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub CloseWindow(_Index As Integer)")
             End Try
         End Sub
         Public Function Window(_StatusIndex As Integer) As frmStatus
             Try
                 Return lStatusObjects.sStatusObject(_StatusIndex).sWindow
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Function Window(_StatusIndex As Integer) As frmStatus")
+                Throw ex 'ProcessError(ex.Message, "Public Function Window(_StatusIndex As Integer) As frmStatus")
                 Return Nothing
             End Try
         End Function
@@ -379,7 +376,7 @@ Namespace IRC.Status
                     End With
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ToggleStatusWindowState(ByVal lIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ToggleStatusWindowState(ByVal lIndex As Integer)")
             End Try
         End Sub
         Public Function FindByInitialText(ByVal lText As String) As Integer
@@ -395,7 +392,7 @@ Namespace IRC.Status
                 Next _StatusIndex
                 Return _Result
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Function FindStatusIndexByInitialText(ByVal lText As String) As Integer")
+                Throw ex 'ProcessError(ex.Message, "Public Function FindStatusIndexByInitialText(ByVal lText As String) As Integer")
                 Return Nothing
             End Try
         End Function
@@ -412,7 +409,7 @@ Namespace IRC.Status
                 Next i
                 Return n
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Function FindServerWindowIndexByServerDescription(ByVal lData As String) As Integer")
+                Throw ex 'ProcessError(ex.Message, "Public Function FindServerWindowIndexByServerDescription(ByVal lData As String) As Integer")
                 Return Nothing
             End Try
         End Function
@@ -429,7 +426,7 @@ Namespace IRC.Status
                 Next i
                 Return n
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Function FindStatusWindowIndex(ByVal lDescription As String) As Integer")
+                Throw ex 'ProcessError(ex.Message, "Public Function FindStatusWindowIndex(ByVal lDescription As String) As Integer")
                 Return Nothing
             End Try
         End Function
@@ -438,7 +435,7 @@ Namespace IRC.Status
                 Try
                     Return lStatusObjects.sStatusObject(_Index)
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property GetObject(_Index As Integer) As gStatus")
+                    Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property GetObject(_Index As Integer) As gStatus")
                     Return Nothing
                 End Try
             End Get
@@ -454,7 +451,7 @@ Namespace IRC.Status
                         End If
                     End With
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property WindowBarText(ByVal _Index As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property WindowBarText(ByVal _Index As Integer) As String")
                     Return Nothing
                 End Try
             End Get
@@ -464,7 +461,7 @@ Namespace IRC.Status
                         .sWindowBarItem.Text = _Value
                     End With
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "WindowBarSetting")
+                    Throw ex 'ProcessError(ex.Message, "WindowBarSetting")
                 End Try
             End Set
         End Property
@@ -479,7 +476,7 @@ Namespace IRC.Status
                         End If
                     End With
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property TreeNodeText(ByVal _Index As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property TreeNodeText(ByVal _Index As Integer) As String")
                     Return Nothing
                 End Try
             End Get
@@ -489,7 +486,7 @@ Namespace IRC.Status
                         lStatusObjects.sStatusObject(_Index).sTreeNode.Text = _Value
                     End With
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property TreeNodeText(ByVal _Index As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property TreeNodeText(ByVal _Index As Integer) As String")
                 End Try
             End Set
         End Property
@@ -500,7 +497,7 @@ Namespace IRC.Status
                     If (index <> 0) Then result = lStatusObjects.sStatusObject(index).sOpen
                     Return result
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                     Return Nothing
                 End Try
             End Get
@@ -508,17 +505,16 @@ Namespace IRC.Status
                 Try
                     lStatusObjects.sStatusObject(index).sOpen = value
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property StatusOpen(ByVal _Index As Integer) As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public Property StatusOpen(ByVal _Index As Integer) As Boolean")
                 End Try
             End Set
         End Property
-
         Public Property ServerDescription(ByVal _Index As Integer) As String
             Get
                 Try
                     Return lStatusObjects.sStatusObject(_Index).sPrimitives.sServerDescription
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property ServerDescription(ByVal _Index As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property ServerDescription(ByVal _Index As Integer) As String")
                     Return Nothing
                 End Try
             End Get
@@ -526,7 +522,7 @@ Namespace IRC.Status
                 Try
                     lStatusObjects.sStatusObject(_Index).sPrimitives.sServerDescription = _Value
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property ServerDescription(ByVal _Index As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property ServerDescription(ByVal _Index As Integer) As String")
                 End Try
             End Set
         End Property
@@ -535,7 +531,7 @@ Namespace IRC.Status
                 Try
                     Return lStatusObjects.sStatusObject(_Index).sWindow.Text
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property StatusCaption(ByVal lIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property StatusCaption(ByVal lIndex As Integer) As String")
                     Return Nothing
                 End Try
             End Get
@@ -543,7 +539,7 @@ Namespace IRC.Status
                 Try
                     lStatusObjects.sStatusObject(_Index).sWindow.Text = _Value
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property StatusCaption(ByVal lIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property StatusCaption(ByVal lIndex As Integer) As String")
                 End Try
             End Set
         End Property
@@ -552,7 +548,7 @@ Namespace IRC.Status
                 Try
                     Return lStatusObjects.sStatusObject(lIndex).sDescription
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                     Return Nothing
                 End Try
             End Get
@@ -560,7 +556,7 @@ Namespace IRC.Status
                 Try
                     lStatusObjects.sStatusObject(lIndex).sDescription = lValue
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                 End Try
             End Set
         End Property
@@ -570,14 +566,14 @@ Namespace IRC.Status
                     Return lStatusObjects.sStatusObject(lIndex).sPrimitives.sNetworkIndex
                 Catch ex As Exception
                     Return 0
-                    'Throw ex 'ProcessError(ex.Message, "Public Property StatusNetworkIndex(ByVal lIndex As Integer) As Integer")
+                    Throw ex 'ProcessError(ex.Message, "Public Property StatusNetworkIndex(ByVal lIndex As Integer) As Integer")
                 End Try
             End Get
             Set(ByVal lValue As Integer)
                 Try
                     lStatusObjects.sStatusObject(lIndex).sPrimitives.sNetworkIndex = lValue
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property StatusNetworkIndex(ByVal lIndex As Integer) As Integer")
+                    Throw ex 'ProcessError(ex.Message, "Public Property StatusNetworkIndex(ByVal lIndex As Integer) As Integer")
                 End Try
             End Set
         End Property
@@ -586,14 +582,14 @@ Namespace IRC.Status
                 Try
                     Return lStatusObjects.sStatusObject(lIndex).sModes
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property StatusModes(ByVal lIndex As Integer) As gModes")
+                    Throw ex 'ProcessError(ex.Message, "Public Property StatusModes(ByVal lIndex As Integer) As gModes")
                 End Try
             End Get
             Set(ByVal lValue As gModes)
                 Try
                     lStatusObjects.sStatusObject(lIndex).sModes = lValue
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property StatusModes(ByVal lIndex As Integer) As gModes")
+                    Throw ex 'ProcessError(ex.Message, "Public Property StatusModes(ByVal lIndex As Integer) As gModes")
                 End Try
             End Set
         End Property
@@ -602,7 +598,7 @@ Namespace IRC.Status
                 Try
                     Return lStatusObjects.sStatusObject(lIndex).sPrimitives.sRealName
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property RealName(ByVal lIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property RealName(ByVal lIndex As Integer) As String")
                     Return Nothing
                 End Try
             End Get
@@ -610,7 +606,7 @@ Namespace IRC.Status
                 Try
                     lStatusObjects.sStatusObject(lIndex).sPrimitives.sRealName = lValue
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property RealName(ByVal lIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property RealName(ByVal lIndex As Integer) As String")
                 End Try
             End Set
         End Property
@@ -621,7 +617,7 @@ Namespace IRC.Status
                         Return .sPrimitives.sEmail
                     End With
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property Email(_StatusIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property Email(_StatusIndex As Integer) As String")
                     Return Nothing
                 End Try
             End Get
@@ -631,7 +627,7 @@ Namespace IRC.Status
                         .sPrimitives.sEmail = _Email
                     End With
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property Email(_StatusIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property Email(_StatusIndex As Integer) As String")
                 End Try
             End Set
         End Property
@@ -644,7 +640,7 @@ Namespace IRC.Status
                         Return msg
                     End With
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property NickName(_StatusIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property NickName(_StatusIndex As Integer) As String")
                     Return Nothing
                 End Try
             End Get
@@ -661,7 +657,7 @@ Namespace IRC.Status
                         UpdateCaption(_StatusIndex, _NickName, lStatus.StatusServerName(_StatusIndex))
                     End With
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property NickName(_StatusIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property NickName(_StatusIndex As Integer) As String")
                 End Try
             End Set
         End Property
@@ -669,7 +665,7 @@ Namespace IRC.Status
             Try
                 Caption(_StatusIndex) = _NickName & " on " & _Server
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub UpdateCaption(_StatusIndex As Integer, _NickName As String, _Server As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub UpdateCaption(_StatusIndex As Integer, _NickName As String, _Server As String)")
             End Try
         End Sub
         Public Property StatusServerName(ByVal lIndex As Integer) As String
@@ -677,7 +673,7 @@ Namespace IRC.Status
                 Try
                     Return lStatusObjects.sStatusObject(lIndex).sPrimitives.sServerName
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property StatusServerName(ByVal lIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property StatusServerName(ByVal lIndex As Integer) As String")
                     Return Nothing
                 End Try
             End Get
@@ -685,7 +681,7 @@ Namespace IRC.Status
                 Try
                     lStatusObjects.sStatusObject(lIndex).sPrimitives.sServerName = lValue
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property StatusServerName(ByVal lIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property StatusServerName(ByVal lIndex As Integer) As String")
                 End Try
             End Set
         End Property
@@ -694,7 +690,7 @@ Namespace IRC.Status
                 Try
                     Return lStatusObjects.sIndex
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property ActiveIndex() As Integer")
+                    Throw ex 'ProcessError(ex.Message, "Public Property ActiveIndex() As Integer")
                     Return Nothing
                 End Try
             End Get
@@ -702,7 +698,7 @@ Namespace IRC.Status
                 Try
                     lStatusObjects.sIndex = _ActiveIndex
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property ActiveIndex() As Integer")
+                    Throw ex 'ProcessError(ex.Message, "Public Property ActiveIndex() As Integer")
                 End Try
             End Set
         End Property
@@ -711,7 +707,7 @@ Namespace IRC.Status
                 Try
                     Return lStatusObjects.sStatusObject(lIndex).sPrimitives.sPass
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property Pass(ByVal lIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property Pass(ByVal lIndex As Integer) As String")
                     Return Nothing
                 End Try
             End Get
@@ -719,7 +715,7 @@ Namespace IRC.Status
                 Try
                     lStatusObjects.sStatusObject(lIndex).sPrimitives.sPass = lValue
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property Pass(ByVal lIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public Property Pass(ByVal lIndex As Integer) As String")
                 End Try
             End Set
         End Property
@@ -728,7 +724,7 @@ Namespace IRC.Status
                 Try
                     Return lClosing
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property Closing() As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public Property Closing() As Boolean")
                     Return Nothing
                 End Try
             End Get
@@ -736,7 +732,7 @@ Namespace IRC.Status
                 Try
                     lClosing = _Closing
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property Closing() As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public Property Closing() As Boolean")
                 End Try
             End Set
         End Property
@@ -749,7 +745,7 @@ Namespace IRC.Status
                     End If
                     Return _Result
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property Connected(_StatusIndex As Integer) As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public Property Connected(_StatusIndex As Integer) As Boolean")
                     Return Nothing
                 End Try
             End Get
@@ -765,7 +761,7 @@ Namespace IRC.Status
                     Connect(i)
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ActiveStatusConnect()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ActiveStatusConnect()")
             End Try
         End Sub
         Public Sub DoModes(ByVal _StatusIndex As Integer)
@@ -830,27 +826,24 @@ Namespace IRC.Status
                     End If
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub DoModes(ByVal lStatusIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub DoModes(ByVal lStatusIndex As Integer)")
             End Try
         End Sub
         Public Sub AddText(ByVal _Data As String, ByVal _StatusIndex As Integer)
             Try
                 If Len(_Data) <> 0 And _StatusIndex <> 0 Then
                     With lStatusObjects.sStatusObject(_StatusIndex)
-                        If .sVisible = False Then
+                        If (.sVisible = False Or .sWindow.WindowState = FormWindowState.Minimized) Then
                             If .sTreeNodeStatus.ImageIndex <> 8 Then .sTreeNodeStatus.ImageIndex = 8
                             If .sTreeNodeStatus.SelectedImageIndex <> 8 Then .sTreeNodeStatus.SelectedImageIndex = 8
+                            If .sWindowBarItem.ImageIndex <> 8 Then .sWindowBarItem.ImageIndex = 8
                         End If
-                        If .sWindow.WindowState = FormWindowState.Minimized Then
-                            If .sTreeNodeStatus.ImageIndex <> 8 Then .sTreeNodeStatus.ImageIndex = 8
-                            If .sTreeNodeStatus.SelectedImageIndex <> 8 Then .sTreeNodeStatus.SelectedImageIndex = 8
-                        End If
-                        .sData = _Data & Environment.Newline & .sData
+                        .sData = _Data & Environment.NewLine & .sData
                         lStrings.Print(_Data, .sWindow.txtIncoming)
                     End With
                 End If
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
         Public Sub RemoveTreeView(ByVal lServerWindowIndex As Integer)
@@ -859,24 +852,28 @@ Namespace IRC.Status
                     .sTreeNode.Remove()
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub RemoveTreeView(ByVal lServerIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub RemoveTreeView(ByVal lServerIndex As Integer)")
             End Try
         End Sub
         Public Sub SetSeenIcon(ByVal lStatusIndex As Integer, ByVal lSeen As Boolean)
             Try
-                With lStatusObjects.sStatusObject(lStatusIndex)
-                    If lStatusIndex <> 0 Then
-                        If lSeen = True Then
-                            If .sTreeNodeStatus.ImageIndex <> 0 Then .sTreeNodeStatus.ImageIndex = 0
-                            If .sTreeNodeStatus.SelectedImageIndex <> 0 Then .sTreeNodeStatus.SelectedImageIndex = 0
-                        Else
-                            If .sTreeNodeStatus.ImageIndex <> 8 Then .sTreeNodeStatus.ImageIndex = 8
-                            If .sTreeNodeStatus.SelectedImageIndex <> 8 Then .sTreeNodeStatus.SelectedImageIndex = 8
+                If (lStatusIndex <= lStatusObjects.sStatusObject.Length) Then
+                    With lStatusObjects.sStatusObject(lStatusIndex)
+                        If lStatusIndex <> 0 Then
+                            If lSeen = True Then
+                                If .sTreeNodeStatus IsNot Nothing Then
+                                    If .sTreeNodeStatus.ImageIndex <> 0 Then .sTreeNodeStatus.ImageIndex = 0
+                                    If .sTreeNodeStatus.SelectedImageIndex <> 0 Then .sTreeNodeStatus.SelectedImageIndex = 0
+                                End If
+                            Else
+                                If .sTreeNodeStatus.ImageIndex <> 8 Then .sTreeNodeStatus.ImageIndex = 8
+                                If .sTreeNodeStatus.SelectedImageIndex <> 8 Then .sTreeNodeStatus.SelectedImageIndex = 8
+                            End If
                         End If
-                    End If
-                End With
+                    End With
+                End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SetStatusSeenIcon(ByVal lStatusIndex As Integer, ByVal lSeen As Boolean)")
+                Throw ex
             End Try
         End Sub
         Public ReadOnly Property AllConnectionsClosed() As Boolean
@@ -905,7 +902,7 @@ Namespace IRC.Status
                 Next i
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -919,7 +916,7 @@ Namespace IRC.Status
                     End If
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SendQuitMessage(ByVal lIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SendQuitMessage(ByVal lIndex As Integer)")
             End Try
         End Sub
         Public ReadOnly Property NewInitialText(ByVal _Index As Integer) As String
@@ -927,7 +924,7 @@ Namespace IRC.Status
                 Try
                     Return lSettings.lNetworks.nNetwork(lSettings.lServers.sServer(lSettings.lServers.sIndex).sNetworkIndex).nDescription & " (" & Trim(_Index.ToString().Trim()) & ")"
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property NewInitialText(ByVal lIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property NewInitialText(ByVal lIndex As Integer) As String")
                     Return Nothing
                 End Try
             End Get
@@ -938,7 +935,7 @@ Namespace IRC.Status
                     Return .sPrimitives.sInitialText
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Function ReturnStatusInitialText(ByVal lIndex As Integer) As String")
+                Throw ex 'ProcessError(ex.Message, "Public Function ReturnStatusInitialText(ByVal lIndex As Integer) As String")
                 Return Nothing
             End Try
         End Function
@@ -951,7 +948,14 @@ Namespace IRC.Status
                     End With
                 Next i
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SetListBoxToConnections(ByVal lListBox As ListBox)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SetListBoxToConnections(ByVal lListBox As ListBox)")
+            End Try
+        End Sub
+        Public Sub Focus(statusIndex As Integer)
+            Try
+                lStatus.Window(statusIndex).txtOutgoing.Focus()
+            Catch ex As Exception
+                Throw ex
             End Try
         End Sub
         Public Sub DblClickConnections(ByVal lTreeNode As TreeNode)
@@ -963,7 +967,6 @@ Namespace IRC.Status
                         If n <> 0 Then
                             With lStatusObjects.sStatusObject(n)
                                 If .sMotdWindow.mVisible = False Then
-                                    'clsLockWindowUpdate.LockWindowUpdate(mdiMain.Handle)
                                     If .sMotdWindow.mTreeNode.ImageIndex <> 3 Then .sMotdWindow.mTreeNode.ImageIndex = 3
                                     If .sMotdWindow.mTreeNode.SelectedImageIndex <> 3 Then .sMotdWindow.mTreeNode.SelectedImageIndex = 3
                                     .sMotdWindow.mWindow = New frmNoticeWindow
@@ -972,14 +975,9 @@ Namespace IRC.Status
                                     .sMotdWindow.mVisible = True
                                     .sMotdWindow.mWindow.SetStatusIndex(n)
                                     .sMotdWindow.mWindow.Text = StatusServerName(.sWindow.mdiChildWindow.MeIndex) & " - MOTD"
-                                    'mdiMain.Refresh()
-                                    .sMotdWindow.mWindow.SetMotdWindow(True)
-                                    .sMotdWindow.mWindow.SetNoticeWindow(False)
-                                    .sMotdWindow.mWindow.SetUnknownsWindow(False)
-                                    .sMotdWindow.mWindow.SetUnsupportedWindow(False)
+                                    .sMotdWindow.mWindow.FormType = MdiChildWindow.FormTypes.MotdWindow
                                     .sMotdWindow.mWindow.DoNoticeColor(.sMotdWindow.mData)
                                     .sMotdWindow.mWindow.Visible = True
-                                    'clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
                                 Else
                                     mdiMain.SetWindowFocus(.sMotdWindow.mWindow)
                                 End If
@@ -1017,9 +1015,7 @@ Namespace IRC.Status
                                     .sUnknowns.uWindow = New frmNoticeWindow
                                     .sUnknowns.uWindow.SetStatusIndex(n)
                                     .sUnknowns.uWindow.Show()
-                                    .sUnknowns.uWindow.SetUnknownsWindow(True)
-                                    .sUnknowns.uWindow.SetMotdWindow(False)
-                                    .sUnknowns.uWindow.SetNoticeWindow(False)
+                                    .sUnknowns.uWindow.FormType = MdiChildWindow.FormTypes.Unknown
                                     .sUnknowns.uWindow.Text = "Unknowns"
                                     .sUnknowns.uWindow.DoNoticeColor(.sUnknowns.uData)
                                     If .sUnknowns.uTreeNode.ImageIndex <> 3 Then .sUnknowns.uTreeNode.ImageIndex = 3
@@ -1039,9 +1035,7 @@ Namespace IRC.Status
                                     .sUnsupported.uWindow = New frmNoticeWindow
                                     .sUnsupported.uWindow.SetStatusIndex(n)
                                     .sUnsupported.uWindow.Show()
-                                    .sUnsupported.uWindow.SetUnknownsWindow(True)
-                                    .sUnsupported.uWindow.SetMotdWindow(False)
-                                    .sUnsupported.uWindow.SetNoticeWindow(False)
+                                    .sUnsupported.uWindow.FormType = MdiChildWindow.FormTypes.Unsupported
                                     .sUnsupported.uWindow.Text = "Unsupported"
                                     .sUnsupported.uWindow.DoNoticeColor(.sUnsupported.uData)
                                     If .sUnsupported.uTreeNode.ImageIndex <> 3 Then .sUnsupported.uTreeNode.ImageIndex = 3
@@ -1091,9 +1085,7 @@ Namespace IRC.Status
                                 .nWindow.Show()
                                 .nWindow.SetStatusIndex(n)
                                 .nWindow.DoNoticeColor(.nData)
-                                .nWindow.SetNoticeWindow(True)
-                                .nWindow.SetUnknownsWindow(False)
-                                .nWindow.SetMotdWindow(False)
+                                .nWindow.FormType = MdiChildWindow.FormTypes.NoticeWindow
                                 .nWindow.Text = msg & " - Notices"
                                 If .nTreeNode.SelectedImageIndex <> 3 Then .nTreeNode.SelectedImageIndex = 3
                                 If .nTreeNode.ImageIndex <> 3 Then .nTreeNode.ImageIndex = 3
@@ -1105,26 +1097,16 @@ Namespace IRC.Status
                     End If
                     If LCase(lTreeNode.Text) = "status" Then
                         msg = lTreeNode.FullPath
-                        msg = Replace(msg, "\", "")
-                        msg = Replace(msg, "/", "")
-                        msg = Replace(msg, "Status", "")
+                        msg = msg.Replace("\", "")
+                        msg = msg.Replace("/", "")
+                        msg = msg.Replace("Status", "")
                         n = FindByDescription(msg)
                         If n <> 0 Then
-                            With lStatusObjects.sStatusObject(n)
-                                If .sTreeNodeStatus.ImageIndex <> 0 Then .sTreeNodeStatus.ImageIndex = 0
-                                If .sTreeNodeStatus.SelectedImageIndex <> 0 Then .sTreeNodeStatus.SelectedImageIndex = 0
-                                If .sVisible = False Then
-                                    .sVisible = True
-                                    .sWindow.Visible = True
-                                Else
-                                    If (.sWindow.WindowState = FormWindowState.Minimized) Then
-                                        .sWindow.WindowState = FormWindowState.Normal
-                                    End If
-                                End If
-                                ActiveIndex = .sWindow.mdiChildWindow.MeIndex
-                                mdiMain.SetWindowFocus(.sWindow)
-                                .sWindow.Focus()
-                            End With
+                            If (Not lStatus.Visible(e)) Then
+                                lStatus.Visible(n) = True
+                            Else
+                                lStatus.Focus(n)
+                            End If
                         End If
                         Exit Sub
                     End If
@@ -1134,64 +1116,89 @@ Namespace IRC.Status
                         n = Find(lTreeNode.Parent.Text)
                         If e <> 0 And n <> 0 Then
                             If e <> 0 Then
-                                lStatus.PrivateMessages_Initialize(n, lTreeNode.Text)
+                                lStatus.PrivateMessage_Initialize(n, lTreeNode.Text)
                                 Exit Sub
                             End If
                         ElseIf e <> 0 And n = 0 Then
                             n = FindByInitialText(lTreeNode.Parent.Parent.Text)
                             If e <> 0 And n <> 0 Then
-                                lStatus.PrivateMessages_Initialize(n, lTreeNode.Text)
+                                lStatus.PrivateMessage_Initialize(n, lTreeNode.Text)
                                 Exit Sub
                             End If
                         End If
                     End If
-                    e = lStatus.PrivateMessage_Find(Find(lTreeNode.Parent.Text), lTreeNode.Text)
+                    Dim s As Integer = Find(lTreeNode.Parent.Text)
+                    e = lStatus.PrivateMessage_Find(s, lTreeNode.Text)
                     If e <> 0 Then
-                        With lStatusObjects.sStatusObject(Find(lTreeNode.Parent.Text))
+                        With lStatusObjects.sStatusObject(e)
                             If .sPrivateMessages.pPrivateMessage(e).pVisible = False Then
-                                Dim ntc As New frmNoticeWindow
                                 .sPrivateMessages.pPrivateMessage(e).pVisible = True
-                                .sPrivateMessages.pPrivateMessage(e).pWindow = ntc
-                                .sPrivateMessages.pPrivateMessage(e).pWindow.Show()
-                                .sPrivateMessages.pPrivateMessage(e).pWindow.Text = .sPrivateMessages.pPrivateMessage(e).pName & " (" & .sPrivateMessages.pPrivateMessage(e).pHost & ")"
-                                .sPrivateMessages.pPrivateMessage(e).pWindow.DoNoticeColor(.sPrivateMessages.pPrivateMessage(e).pIncomingText)
-                                If .sPrivateMessages.pPrivateMessage(e).pTreeNode.ImageIndex <> 3 Then .sPrivateMessages.pPrivateMessage(e).pTreeNode.ImageIndex = 3
-                                If .sPrivateMessages.pPrivateMessage(e).pTreeNode.SelectedImageIndex <> 3 Then .sPrivateMessages.pPrivateMessage(e).pTreeNode.SelectedImageIndex = 3
-                                .sPrivateMessages.pPrivateMessage(e).pWindow.SetPrivateMessageWindow(True, .sPrivateMessages.pPrivateMessage(e).pName)
-                                .sPrivateMessages.pPrivateMessage(e).pWindow.SetStatusIndex(Find(lTreeNode.Parent.Text))
-                                Exit Sub
+                                .sPrivateMessages.pPrivateMessage(e).pWindow.txtIncoming.Focus()
+                                If (.sPrivateMessages.pPrivateMessage(e).pTreeNode.ImageIndex <> 0) Then .sPrivateMessages.pPrivateMessage(e).pTreeNode.ImageIndex = 0
+                                If (.sPrivateMessages.pPrivateMessage(e).pTreeNode.SelectedImageIndex <> 0) Then .sPrivateMessages.pPrivateMessage(e).pTreeNode.SelectedImageIndex = 0
                             Else
-                                .sPrivateMessages.pPrivateMessage(e).pWindow.Focus()
+                                .sPrivateMessages.pPrivateMessage(e).pVisible = True
+                                .sPrivateMessages.pPrivateMessage(e).pWindow.txtOutgoing.Focus()
                                 If lSettings.lIRC.iSettings.sAutoMaximize = True Then .sPrivateMessages.pPrivateMessage(e).pWindow.WindowState = FormWindowState.Maximized
-                                Exit Sub
                             End If
                         End With
+                        Exit Sub
                     End If
                     e = lChannels.Find(Find(lTreeNode.Parent.Text), lTreeNode.Text)
                     If e <> 0 Then
                         If lChannels.Name(e).Length <> 0 Then
-                            If lChannels.Visible(e) = True Then
-                                mdiMain.SetWindowFocus(lChannels.Window(e))
+                            If lChannels.Visible(e) = False Then
+                                lChannels.Visible(e) = True
+                                With lChannels.GetObject(e)
+                                    If .cTreeNode.ImageIndex <> 1 Then .cTreeNode.ImageIndex = 1
+                                    If .cTreeNode.SelectedImageIndex <> 1 Then .cTreeNode.SelectedImageIndex = 1
+                                    If .cWindowBarItem.ImageIndex <> 1 Then .cWindowBarItem.ImageIndex = 1
+                                End With
                             Else
-                                mdiMain.SetWindowFocus(lChannels.Window(e))
-                                lChannels.Form_Load(e)
-                                If lTreeNode.ImageIndex <> 1 Then lTreeNode.ImageIndex = 1
-                                If lTreeNode.SelectedImageIndex <> 1 Then lTreeNode.SelectedImageIndex = 1
+                                lChannels.Focus(e)
+                                If lSettings.lIRC.iSettings.sAutoMaximize = True Then lChannels.Window(e).WindowState = FormWindowState.Maximized
                             End If
                         End If
                     End If
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub DblClickConnections(ByVal lTreeNode As TreeNode)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub DblClickConnections(ByVal lTreeNode As TreeNode)")
             End Try
         End Sub
+        Public Property Visible(index As Integer) As Boolean
+            Get
+                Try
+                    With lStatus.lStatusObjects.sStatusObject(index)
+                        Return .sVisible
+                    End With
+                Catch ex As Exception
+                    Throw ex
+                    Return Nothing
+                End Try
+            End Get
+            Set(ByVal value As Boolean)
+                Try
+                    With lStatus.lStatusObjects.sStatusObject(index)
+                        If (value = True And .sVisible = False) Then
+                            If (.sTreeNodeStatus.ImageIndex <> 1) Then .sTreeNodeStatus.ImageIndex = 1
+                            If (.sTreeNodeStatus.SelectedImageIndex <> 1) Then .sTreeNodeStatus.SelectedImageIndex = 1
+                            If (.sWindowBarItem.ImageIndex <> 1) Then .sWindowBarItem.ImageIndex = 1
+                        End If
+                        .sVisible = value
+                        .sWindow.Visible = value
+                    End With
+                Catch ex As Exception
+                    Throw ex
+                End Try
+            End Set
+        End Property
         Public Sub ProcessWelcomeMessage(ByVal lStatusIndex As Integer, ByVal l001 As String, ByVal l002 As String, ByVal l003 As String, ByVal l004 As String)
             Try
-                AddText("-" & Environment.Newline & l001 & Environment.Newline & l002 & Environment.Newline & l003 & Environment.Newline & l004 & Environment.Newline & "-", lStatusIndex)
+                AddText("-" & Environment.NewLine & l001 & Environment.NewLine & l002 & Environment.NewLine & l003 & Environment.NewLine & l004 & Environment.NewLine & "-", lStatusIndex)
                 lProcessNumeric.lIrcNumericHelper.ResetMessages()
                 lStatus.GetObject(lStatusIndex).sNickBot.Login()
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ProcessWelcomeMessage(ByVal l001 As String, ByVal l002 As String, ByVal l003 As String, ByVal l004 As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ProcessWelcomeMessage(ByVal l001 As String, ByVal l002 As String, ByVal l003 As String, ByVal l004 As String)")
             End Try
         End Sub
 #End Region
@@ -1214,12 +1221,12 @@ Namespace IRC.Status
                     End With
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub PrivateMessage_ToggleWindowState(_StatusIndex As Integer, _PrivateMessageIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub PrivateMessage_ToggleWindowState(_StatusIndex As Integer, _PrivateMessageIndex As Integer)")
             End Try
         End Sub
         Public Function PrivateMessage_Find(ByVal _StatusIndex As Integer, ByVal _Name As String) As Integer
             Try
-                Dim _Result As Integer = 0, _GetObject As clsStatus.gStatus = lStatus.GetObject(_StatusIndex)
+                Dim _Result As Integer = 0, _GetObject As Status.gStatus = lStatus.GetObject(_StatusIndex)
                 If Len(_Name) <> 0 Then
                     For _PrivateMessageIndex As Integer = 1 To _GetObject.sPrivateMessages.pCount
                         With _GetObject.sPrivateMessages.pPrivateMessage(_PrivateMessageIndex)
@@ -1232,7 +1239,7 @@ Namespace IRC.Status
                 End If
                 Return _Result
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Function FindPrivateMessageIndex(ByVal _StatusIndex As Integer, ByVal _Name As String) As Integer")
+                Throw ex 'ProcessError(ex.Message, "Public Function FindPrivateMessageIndex(ByVal _StatusIndex As Integer, ByVal _Name As String) As Integer")
                 Return Nothing
             End Try
         End Function
@@ -1243,14 +1250,14 @@ Namespace IRC.Status
                         Return .sPrivateMessages.pPrivateMessage(_PrivateMessageIndex).pIncomingText
                     End With
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property PrivateMessageIncomingText(ByVal _StatusIndex As Integer, ByVal _PrivateMessageIndex As Integer) As String")
+                    Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property PrivateMessageIncomingText(ByVal _StatusIndex As Integer, ByVal _PrivateMessageIndex As Integer) As String")
                     Return Nothing
                 End Try
             End Get
         End Property
-        Public Sub PrivateMessages_Initialize(ByVal _StatusIndex As Integer, ByVal _NickName As String)
+        Public Sub PrivateMessage_Initialize(ByVal _StatusIndex As Integer, ByVal _NickName As String)
             Try
-                Dim _GetObject As clsStatus.gStatus, _PrivateMessageIndex As Integer, _CreateToolStripItem As Boolean, _CreateTreeViewItem As Boolean
+                Dim _GetObject As Status.gStatus, _PrivateMessageIndex As Integer, _CreateToolStripItem As Boolean, _CreateTreeViewItem As Boolean
                 If (_NickName.Length <> 0) Then
                     _PrivateMessageIndex = PrivateMessage_Find(_StatusIndex, _NickName)
                     If (_PrivateMessageIndex = 0) Then
@@ -1280,7 +1287,8 @@ Namespace IRC.Status
                         .pVisible = True
                         .pName = _NickName
                         .pWindow = New frmNoticeWindow
-                        .pWindow.SetPrivateMessageWindow(True, _NickName)
+                        .pWindow.FormType = MdiChildWindow.FormTypes.PrivateMessage
+                        .pWindow.PrivateMessageNickName = _NickName
                         .pWindow.SetStatusIndex(_StatusIndex)
                         If (String.IsNullOrEmpty(.pHost)) Then
                             .pWindow.Text = .pName
@@ -1313,109 +1321,117 @@ Namespace IRC.Status
                     End With
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub PrivateMessage_Initialize(ByVal _StatusIndex As Integer, ByVal _NickName As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub PrivateMessage_Initialize(ByVal _StatusIndex As Integer, ByVal _NickName As String)")
             End Try
         End Sub
-        Public Sub PrivateMessages_Add(_StatusIndex As Integer, _Name As String, _Host As String, _Data As String)
+        Public Sub PrivateMessage_Focus(statusIndex As Integer, privateMessageIndex As Integer)
             Try
-                Dim _AutoAllow As Boolean = False, _Prompt As Boolean = False, _Deny As Boolean = False, n As Integer
-                If (_Data.Length <> 0) Then
-                    With lStatusObjects.sStatusObject(_StatusIndex)
-                        If Connected(_StatusIndex) = False Then Exit Sub
-                        _AutoAllow = UserAutoAllowList(_Name)
-                        If _AutoAllow = False And lSettings.lQuerySettings.qEnableSpamFilter = True And PrivateMessages_HasSpam(_Data) = True Then Exit Sub
-                        If lSettings.lQuerySettings.qPromptUser = True Then _Prompt = True
-                        If lSettings.lQuerySettings.qAutoDeny = Settings.eQueryAutoDeny.qEveryOne Then
-                            _Deny = True
-                        ElseIf lSettings.lQuerySettings.qAutoDeny = Settings.eQueryAutoDeny.qList Then
-                            For _StatusObjectIndex As Integer = 1 To lStatusObjects.sStatusObject(_StatusIndex).sPrivateMessages.pCount
-                                If .sPrivateMessages.pPrivateMessage(_StatusObjectIndex).pName.ToLower().Trim() = _Name.ToLower().Trim() Then
-                                    n = _StatusObjectIndex
+                With lStatus.GetObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex)
+                    .pWindow.txtOutgoing.Focus()
+                End With
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+        Public Sub PrivateMessage_Add(statusIndex As Integer, name As String, host As String, data As String)
+            Dim autoAllow As Boolean, prompt As Boolean, deny As Boolean, n As Integer, n2 As Integer, c As Boolean
+            Try
+                c = True
+                With lStatusObjects.sStatusObject(statusIndex)
+                    If (Connected(statusIndex) = False) Then Exit Sub ' Exit if not connected
+                    autoAllow = UserAutoAllowList(name) ' Check user is in the auto allow list
+                    If (autoAllow = False And lSettings.lQuerySettings.qEnableSpamFilter = True And PrivateMessage_HasSpam(data) = True) Then Exit Sub ' If you're not auto allowing, if you have spam filter, check that data is spam free
+                    If (lSettings.lQuerySettings.qPromptUser = True) Then prompt = True ' 
+                    If (lSettings.lQuerySettings.qAutoDeny = Settings.eQueryAutoDeny.qEveryOne) Then
+                        deny = True
+                    ElseIf (lSettings.lQuerySettings.qAutoDeny = Settings.eQueryAutoDeny.qList) Then
+                        For s As Integer = 1 To lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pCount
+                            If .sPrivateMessages.pPrivateMessage(s).pName.ToLower().Trim() = name.ToLower().Trim() Then
+                                n = s
+                                Exit For
+                            End If
+                        Next s
+                    End If
+                    If (lSettings.lQuerySettings.qPromptUser = True) Then
+                        If autoAllow = True Then prompt = False
+                        For p As Integer = 1 To .sPrivateMessages.pCount
+                            With lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(p)
+                                If .pName.Trim().ToLower() = name.Trim().ToLower() Then
+                                    n2 = p
                                     Exit For
                                 End If
-                            Next _StatusObjectIndex
+                            End With
+                        Next p
+                        If (n2 = 0) Then
+                            .sPrivateMessages.pCount = .sPrivateMessages.pCount + 1
+                            n2 = .sPrivateMessages.pCount
+                            .sPrivateMessages.pPrivateMessage(n2).pName = name
+                            .sPrivateMessages.pPrivateMessage(n2).pHost = host
+                            .sPrivateMessages.pPrivateMessage(n2).pStatusIndex = statusIndex
                         End If
-                        If lSettings.lQuerySettings.qPromptUser = True Then
-                            If _AutoAllow = True Then _Prompt = False
-                            For _PrivateMessageIndex As Integer = 1 To .sPrivateMessages.pCount
-                                With lStatusObjects.sStatusObject(_StatusIndex).sPrivateMessages.pPrivateMessage(_PrivateMessageIndex)
-                                    If LCase(Trim(.pName)) = LCase(Trim(_Name)) Then
-                                        n = _PrivateMessageIndex
-                                        Exit For
-                                    End If
-                                End With
-                            Next _PrivateMessageIndex
-                            '_Message = "<" & _Name & "> " & _Data
-                            If n = 0 Then
-                                .sPrivateMessages.pCount = .sPrivateMessages.pCount + 1
-                                n = .sPrivateMessages.pCount
-                                .sPrivateMessages.pPrivateMessage(n).pName = _Name
-                                .sPrivateMessages.pPrivateMessage(n).pHost = _Host
-                                .sPrivateMessages.pPrivateMessage(n).pStatusIndex = _StatusIndex
-                            End If
-                            If .sPrivateMessages.pPrivateMessage(n).pTreeNodeVisible = True Then _Prompt = False
-                            PrivateMessage_AddToConversation(_Name, _Data, _StatusIndex, n)
-                            If _Deny = True Then Exit Sub
-                            If mdiMain.lblQueryPrompt.Text = "Accept query from '" & .sPrivateMessages.pPrivateMessage(n).pName & "(" & .sPrivateMessages.pPrivateMessage(n).pHost & ")'?" Then
-                                If _Prompt = True Then
-                                    mdiMain.tspQueryPrompt.Visible = True
-                                    mdiMain.lblQueryPrompt.Text = "Accept query from '" & .sPrivateMessages.pPrivateMessage(n).pName & "(" & .sPrivateMessages.pPrivateMessage(n).pHost & ")'?"
-                                    mdiMain.lblQueryPrompt.Tag = Trim(_StatusIndex.ToString) & ":" & Trim(n.ToString) & ":" & _Data
-                                    Exit Sub
-                                End If
-                            End If
-                            If .sPrivateMessages.pPrivateMessage(n).pVisible = False Then
-                                If .sPrivateMessages.pPrivateMessage(n).pTreeNodeVisible = False Then
-                                    .sPrivateMessages.pPrivateMessage(n).pTreeNodeVisible = True
-                                    Dim _CreateTreeNode As Boolean = True
-                                    For Each _TreeNode As TreeNode In mdiMain.tvwConnections.Nodes
-                                        If (_TreeNode.Tag IsNot Nothing) Then
-                                            If (_TreeNode.Text = .sPrivateMessages.pPrivateMessage(n).pName And _TreeNode.Tag.ToString = .sPrivateMessages.pPrivateMessage(n).pStatusIndex.ToString) Then
-                                                _CreateTreeNode = False
-                                            End If
-                                        End If
-                                    Next _TreeNode
-                                    If (_CreateTreeNode = True) Then
-                                        .sPrivateMessages.pPrivateMessage(n).pTreeNode = .sTreeNode.Nodes.Add(.sPrivateMessages.pPrivateMessage(n).pName, .sPrivateMessages.pPrivateMessage(n).pName, 3, 3)
-                                        .sPrivateMessages.pPrivateMessage(n).pTreeNode.Tag = .sPrivateMessages.pPrivateMessage(n).pStatusIndex.ToString()
-                                    End If
-                                End If
-                                .sPrivateMessages.pPrivateMessage(n).pWindow = New frmNoticeWindow
-                                .sPrivateMessages.pPrivateMessage(n).pWindow.SetStatusIndex(_StatusIndex)
-                                .sPrivateMessages.pPrivateMessage(n).pWindow.Text = .sPrivateMessages.pPrivateMessage(n).pName & " (" & .sPrivateMessages.pPrivateMessage(n).pHost & ")"
-                                .sPrivateMessages.pPrivateMessage(n).pWindow.SetMotdWindow(False)
-                                .sPrivateMessages.pPrivateMessage(n).pWindow.SetNoticeWindow(False)
-                                .sPrivateMessages.pPrivateMessage(n).pWindow.SetUnknownsWindow(False)
-                                .sPrivateMessages.pPrivateMessage(n).pWindow.SetPrivateMessageWindow(True, .sPrivateMessages.pPrivateMessage(n).pName)
-                                .sPrivateMessages.pPrivateMessage(n).pWindow.txtOutgoing.Visible = True
-                                .sPrivateMessages.pPrivateMessage(n).pWindow.TriggerResize()
-                                If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
-                                    .sPrivateMessages.pPrivateMessage(n).pVisible = True
-                                    .sPrivateMessages.pPrivateMessage(n).pWindow.Show()
-                                    .sPrivateMessages.pPrivateMessage(n).pWindow.DoNoticeColor(.sPrivateMessages.pPrivateMessage(n).pIncomingText)
-                                    If lSettings.lIRC.iSettings.sAutoMaximize = True Then .sPrivateMessages.pPrivateMessage(n).pWindow.WindowState = FormWindowState.Maximized
-                                Else
-                                    If .sPrivateMessages.pPrivateMessage(n).pTreeNode.ImageIndex <> 6 Then .sPrivateMessages.pPrivateMessage(n).pTreeNode.ImageIndex = 6
-                                    If .sPrivateMessages.pPrivateMessage(n).pTreeNode.SelectedImageIndex <> 6 Then .sPrivateMessages.pPrivateMessage(n).pTreeNode.SelectedImageIndex = 6
-                                End If
-                                Dim _CreateToolStripItem As Boolean = True
-                                For Each _ToolStripItem As ToolStripItem In mdiMain.tspWindows.Items
-                                    If (_ToolStripItem.Text = .sPrivateMessages.pPrivateMessage(n).pName And _ToolStripItem.Tag.ToString = .sPrivateMessages.pPrivateMessage(n).pStatusIndex.ToString) Then
-                                        _CreateToolStripItem = False
-                                    End If
-                                Next _ToolStripItem
-                                If (_CreateToolStripItem = True) Then
-                                    .sPrivateMessages.pPrivateMessage(n).pWindowBarItem = mdiMain.AddWindowBar(.sPrivateMessages.pPrivateMessage(n).pName, gWindowBarImageTypes.wNotice)
-                                    .sPrivateMessages.pPrivateMessage(n).pWindowBarItem.Tag = Trim(_StatusIndex.ToString)
-                                End If
-                            Else
-                                .sPrivateMessages.pPrivateMessage(n).pWindow.DoNoticeColor(lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, _Name, _Data))
+                        If (.sPrivateMessages.pPrivateMessage(n2).pTreeNodeVisible = True) Then prompt = False
+                        If (Not String.IsNullOrEmpty(data)) Then
+                            PrivateMessage_AddToConversation(name, data, statusIndex, n2)
+                        End If
+                        If (deny = True) Then Exit Sub
+                        If (mdiMain.lblQueryPrompt.Text = "Accept query from '" & .sPrivateMessages.pPrivateMessage(n2).pName & "(" & .sPrivateMessages.pPrivateMessage(n2).pHost & ")'?") Then
+                            If (prompt = True) Then
+                                mdiMain.tspQueryPrompt.Visible = True
+                                mdiMain.lblQueryPrompt.Text = "Accept query from '" & .sPrivateMessages.pPrivateMessage(n2).pName & "(" & .sPrivateMessages.pPrivateMessage(n2).pHost & ")'?"
+                                mdiMain.lblQueryPrompt.Tag = Trim(statusIndex.ToString) & ":" & Trim(n.ToString) & ":" & data
+                                Exit Sub
                             End If
                         End If
-                    End With
-                End If
+                        If (.sPrivateMessages.pPrivateMessage(n2).pTreeNodeVisible = False) Then
+                            .sPrivateMessages.pPrivateMessage(n2).pTreeNodeVisible = True
+                            For Each node As TreeNode In mdiMain.tvwConnections.Nodes
+                                If (node.Tag IsNot Nothing) Then
+                                    If (node.Text = .sPrivateMessages.pPrivateMessage(n2).pName And node.Tag.ToString = .sPrivateMessages.pPrivateMessage(n2).pStatusIndex.ToString) Then
+                                        c = False
+                                    End If
+                                End If
+                            Next node
+                            If (c = True) Then
+                                .sPrivateMessages.pPrivateMessage(n2).pTreeNode = .sTreeNode.Nodes.Add(.sPrivateMessages.pPrivateMessage(n2).pName, .sPrivateMessages.pPrivateMessage(n2).pName, 3, 3)
+                                .sPrivateMessages.pPrivateMessage(n2).pTreeNode.Tag = .sPrivateMessages.pPrivateMessage(n2).pStatusIndex.ToString()
+                            End If
+                        End If
+                        .sPrivateMessages.pPrivateMessage(n2).pWindow = New frmNoticeWindow
+                        .sPrivateMessages.pPrivateMessage(n2).pWindow.SetStatusIndex(statusIndex)
+                        .sPrivateMessages.pPrivateMessage(n2).pWindow.Text = .sPrivateMessages.pPrivateMessage(n2).pName & " (" & .sPrivateMessages.pPrivateMessage(n2).pHost & ")"
+                        '.sPrivateMessages.pPrivateMessage(n2).pWindow.SetMotdWindow(False)
+                        '.sPrivateMessages.pPrivateMessage(n2).pWindow.SetNoticeWindow(False)
+                        '.sPrivateMessages.pPrivateMessage(n2).pWindow.SetUnknownsWindow(False)
+                        '.sPrivateMessages.pPrivateMessage(n2).pWindow.SetPrivateMessageWindow(True, .sPrivateMessages.pPrivateMessage(n2).pName)
+                        .sPrivateMessages.pPrivateMessage(n2).pWindow.txtOutgoing.Visible = True
+                        .sPrivateMessages.pPrivateMessage(n2).pWindow.TriggerResize()
+                        If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
+                            .sPrivateMessages.pPrivateMessage(n2).pVisible = True
+                            .sPrivateMessages.pPrivateMessage(n2).pWindow.Show()
+                            .sPrivateMessages.pPrivateMessage(n2).pWindow.DoNoticeColor(.sPrivateMessages.pPrivateMessage(n2).pIncomingText)
+                            If lSettings.lIRC.iSettings.sAutoMaximize = True Then .sPrivateMessages.pPrivateMessage(n2).pWindow.WindowState = FormWindowState.Maximized
+                        Else
+                            If .sPrivateMessages.pPrivateMessage(n2).pTreeNode.ImageIndex <> 6 Then .sPrivateMessages.pPrivateMessage(n2).pTreeNode.ImageIndex = 6
+                            If .sPrivateMessages.pPrivateMessage(n2).pTreeNode.SelectedImageIndex <> 6 Then .sPrivateMessages.pPrivateMessage(n2).pTreeNode.SelectedImageIndex = 6
+                        End If
+                        Dim _CreateToolStripItem As Boolean = True
+                        For Each _ToolStripItem As ToolStripItem In mdiMain.tspWindows.Items
+                            If (_ToolStripItem.Text = .sPrivateMessages.pPrivateMessage(n2).pName And _ToolStripItem.Tag.ToString = .sPrivateMessages.pPrivateMessage(n2).pStatusIndex.ToString) Then
+                                _CreateToolStripItem = False
+                            End If
+                        Next _ToolStripItem
+                        If (_CreateToolStripItem = True) Then
+                            .sPrivateMessages.pPrivateMessage(n2).pWindowBarItem = mdiMain.AddWindowBar(.sPrivateMessages.pPrivateMessage(n2).pName, gWindowBarImageTypes.wNotice)
+                            .sPrivateMessages.pPrivateMessage(n2).pWindowBarItem.Tag = Trim(statusIndex.ToString)
+                        End If
+                    Else
+                        If (Not String.IsNullOrEmpty(data)) Then
+                            .sPrivateMessages.pPrivateMessage(n2).pWindow.DoNoticeColor(lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, name, data))
+                        End If
+                    End If
+                End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub PrivateMessages_Add(_StatusIndex As Integer, _Name As String, _Host As String, _Data As String)")
+                Throw ex
             End Try
         End Sub
         Public Sub PrivateMessage_AddToConversation(_NickName As String, _Message As String, _StatusIndex As Integer, _PrivateMessageIndex As Integer)
@@ -1438,7 +1454,7 @@ Namespace IRC.Status
                     End With
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub PrivateMessage_AddToConversation(_FullString As String, _StatusIndex As Integer, _PrivateMessageIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub PrivateMessage_AddToConversation(_FullString As String, _StatusIndex As Integer, _PrivateMessageIndex As Integer)")
             End Try
         End Sub
         Public Sub PrivateMessage_SetListBox(ByVal _StatusIndex As Integer, ByVal _ListBox As ListBox)
@@ -1449,10 +1465,10 @@ Namespace IRC.Status
                     Next _PrivateMessageIndex
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SetListBoxToPrivateMessages(ByVal lStatusIndex As Integer, ByVal lListBox As ListBox)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SetListBoxToPrivateMessages(ByVal lStatusIndex As Integer, ByVal lListBox As ListBox)")
             End Try
         End Sub
-        Public Function PrivateMessages_HasSpam(ByVal lData As String) As Boolean
+        Public Function PrivateMessage_HasSpam(ByVal lData As String) As Boolean
             Try
                 Dim _Result As Boolean = False
                 For _SpamPhraseIndex As Integer = 1 To lSettings.lQuerySettings.qSpamPhraseCount
@@ -1463,7 +1479,7 @@ Namespace IRC.Status
                 Next _SpamPhraseIndex
                 Return _Result
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Function PrivateMessages_HasSpam(ByVal lData As String) As Boolean")
+                Throw ex 'ProcessError(ex.Message, "Public Function PrivateMessages_HasSpam(ByVal lData As String) As Boolean")
                 Return Nothing
             End Try
         End Function
@@ -1472,26 +1488,20 @@ Namespace IRC.Status
                 Dim _PrivateMessageIndex As Integer = PrivateMessage_Find(_StatusIndex, _Name), _NewWindow As New frmNoticeWindow
                 With lStatusObjects.sStatusObject(_StatusIndex).sPrivateMessages.pPrivateMessage(_PrivateMessageIndex)
                     .pWindow = _NewWindow
-                    '.pWindow.Text = .pName
-                    '.pWindow.SetPrivateMessageWindow(True, .pName)
-                    '.pWindow.txtIncomingColor.Text = .pIncomingText
-                    '.pWindow.SetStatusIndex(_StatusIndex)
-                    '.pWindow.Show()
-                    '.pWindow.Visible = True
                     .pVisible = True
                     .pWindow.Show()
                     .pWindow.Text = .pName & " (" & .pHost & ")"
                     .pWindow.DoNoticeColor(.pIncomingText)
                     If .pTreeNode.ImageIndex <> 3 Then .pTreeNode.ImageIndex = 3
                     If .pTreeNode.SelectedImageIndex <> 3 Then .pTreeNode.SelectedImageIndex = 3
-                    .pWindow.SetPrivateMessageWindow(True, .pName)
+                    .pWindow.PrivateMessageNickName = .pName
+                    .pWindow.FormType = MdiChildWindow.FormTypes.PrivateMessage
                     .pWindow.SetStatusIndex(_StatusIndex)
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub PrivateMessage_Show(_StatusIndex As Integer, _Name As String)")
+                Throw ex
             End Try
         End Sub
-
         Public Property PrivateMessage_Visible(_StatusIndex As Integer, _Name As String) As Boolean
             Get
                 Try
@@ -1500,7 +1510,7 @@ Namespace IRC.Status
                         Return .pVisible
                     End With
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                     Return Nothing
                 End Try
             End Get
@@ -1508,10 +1518,14 @@ Namespace IRC.Status
                 Try
                     Dim _PrivateMessageIndex As Integer = PrivateMessage_Find(_StatusIndex, _Name)
                     With lStatusObjects.sStatusObject(_StatusIndex).sPrivateMessages.pPrivateMessage(_PrivateMessageIndex)
+                        .pWindow.Visible = _Visible
                         .pVisible = _Visible
+                        If .pTreeNode.ImageIndex <> 1 Then .pTreeNode.ImageIndex = 1
+                        If .pTreeNode.SelectedImageIndex <> 1 Then .pTreeNode.SelectedImageIndex = 1
+                        If .pWindowBarItem.ImageIndex <> 1 Then .pWindowBarItem.ImageIndex = 1
                     End With
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property PrivateMessage_Visible(_StatusIndex As Integer, _Name As String) As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public Property PrivateMessage_Visible(_StatusIndex As Integer, _Name As String) As Boolean")
                 End Try
             End Set
         End Property
@@ -1526,7 +1540,7 @@ Namespace IRC.Status
                     Next _AutoAllowIndex
                     Return _Result
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property UserAutoAllowList(_NickName As String) As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property UserAutoAllowList(_NickName As String) As Boolean")
                     Return Nothing
                 End Try
             End Get
@@ -1540,7 +1554,7 @@ Namespace IRC.Status
                     End If
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub PrivateMessage_User(ByVal _StatusIndex As Integer, ByVal _UserName As String, ByVal _Data As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub PrivateMessage_User(ByVal _StatusIndex As Integer, ByVal _UserName As String, ByVal _Data As String)")
             End Try
         End Sub
 #End Region
@@ -1550,7 +1564,7 @@ Namespace IRC.Status
                 Try
                     Return lStatusObjects.sStatusObject(lIndex).sMotdWindow.mVisible
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property MotdClosed(ByVal lIndex As Integer) As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public Property MotdClosed(ByVal lIndex As Integer) As Boolean")
                     Return Nothing
                 End Try
             End Get
@@ -1558,7 +1572,7 @@ Namespace IRC.Status
                 Try
                     lStatusObjects.sStatusObject(lIndex).sMotdWindow.mVisible = lValue
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property MotdClosed(ByVal lIndex As Integer) As Boolean")
+                    Throw ex
                 End Try
             End Set
         End Property
@@ -1576,16 +1590,13 @@ Namespace IRC.Status
                             If .sMotdWindow.mVisible = False Then
                                 If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
                                     .sMotdWindow.mWindow = New frmNoticeWindow
-                                    'animate.Animate(.sMotdWindow.mWindow, animate.Effect.Center, 200, 1)
                                     .sMotdWindow.mWindow.Show()
                                     .sMotdWindow.mWindow.SetStatusIndex(lIndex)
                                     .sMotdWindow.mVisible = True
                                     .sMotdWindow.mWindow.Text = StatusServerName(.sWindow.mdiChildWindow.MeIndex) & " - MOTD"
-                                    .sMotdWindow.mWindow.SetMotdWindow(True)
-                                    .sMotdWindow.mWindow.SetNoticeWindow(False)
-                                    .sMotdWindow.mWindow.SetUnknownsWindow(False)
+                                    .sMotdWindow.mWindow.FormType = MdiChildWindow.FormTypes.MotdWindow
                                 Else
-                                    .sMotdWindow.mData = lData & Environment.Newline & .sMotdWindow.mData
+                                    .sMotdWindow.mData = lData & Environment.NewLine & .sMotdWindow.mData
                                     If .sMotdWindow.mTreeNode.ImageIndex <> 6 Then .sMotdWindow.mTreeNode.ImageIndex = 6
                                     If .sMotdWindow.mTreeNode.SelectedImageIndex <> 6 Then .sMotdWindow.mTreeNode.SelectedImageIndex = 6
                                 End If
@@ -1596,7 +1607,7 @@ Namespace IRC.Status
                     End If
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub MotdWindowText(ByVal lData As String)")
+                Throw ex
             End Try
         End Sub
 #End Region
@@ -1613,7 +1624,7 @@ Namespace IRC.Status
                     End If
                 End With
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
         Public Function Connect(ByVal _StatusIndex As Integer) As Boolean
@@ -1686,7 +1697,7 @@ Namespace IRC.Status
                 End With
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -1731,7 +1742,7 @@ Namespace IRC.Status
                 End If
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -1752,7 +1763,7 @@ Namespace IRC.Status
                     End If
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ConnectToGivenIRC(ByVal _Server As String, ByVal _Port As Long)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ConnectToGivenIRC(ByVal _Server As String, ByVal _Port As Long)")
             End Try
         End Sub
         Public Sub ConnectEvent(ByVal _Index As Integer)
@@ -1786,7 +1797,7 @@ Namespace IRC.Status
                     End If
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ConnectEvent()")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ConnectEvent()")
             End Try
         End Sub
         Public Sub CloseStatusConnection(ByVal _StatusIndex As Integer, ByVal _CloseSocket As Boolean)
@@ -1808,7 +1819,7 @@ Namespace IRC.Status
                     End If
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub CloseStatusConnection(ByVal _StatusIndex As Integer, ByVal _CloseSocket As Boolean)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub CloseStatusConnection(ByVal _StatusIndex As Integer, ByVal _CloseSocket As Boolean)")
             End Try
         End Sub
         Public ReadOnly Property StatusSocketLocalPort(ByVal _Index As Integer) As Long
@@ -1819,7 +1830,7 @@ Namespace IRC.Status
                     End If
                     Return 0
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                     Return Nothing
                 End Try
             End Get
@@ -1831,7 +1842,7 @@ Namespace IRC.Status
                     .sSocket.NewSocket(_Index, lStatusObjects.sStatusObject(_Index).sWindow)
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub NewStatusSocket(ByVal lIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub NewStatusSocket(ByVal lIndex As Integer)")
             End Try
         End Sub
         Public Sub SendSocket(ByVal _StatusIndex As Integer, ByVal _Data As String)
@@ -1843,7 +1854,7 @@ Namespace IRC.Status
                     End If
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SendSocket(ByVal _Index As Integer, ByVal _Data As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SendSocket(ByVal _Index As Integer, ByVal _Data As String)")
             End Try
         End Sub
         Public Sub CloseSocket(ByVal _StatusIndex As Integer)
@@ -1854,7 +1865,7 @@ Namespace IRC.Status
                     End If
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub CloseSocket(ByVal lIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub CloseSocket(ByVal lIndex As Integer)")
             End Try
         End Sub
         Public Sub SetStatusConnecting(ByVal lIndex As Integer, ByVal lValue As Boolean)
@@ -1871,7 +1882,7 @@ Namespace IRC.Status
                     End Select
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SetStatusConnecting(ByVal lIndex As Integer, ByVal lValue As Boolean)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SetStatusConnecting(ByVal lIndex As Integer, ByVal lValue As Boolean)")
             End Try
         End Sub
         Public Function ReturnRemoteIP(ByVal lIndex As Integer) As String
@@ -1880,7 +1891,7 @@ Namespace IRC.Status
                     ReturnRemoteIP = .sPrimitives.sRemoteIP
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Function ReturnRemoteIP(ByVal lIndex As Integer) As String")
+                Throw ex 'ProcessError(ex.Message, "Public Function ReturnRemoteIP(ByVal lIndex As Integer) As String")
                 Return Nothing
             End Try
         End Function
@@ -1892,7 +1903,7 @@ Namespace IRC.Status
                 End With
                 Return result
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -1946,16 +1957,14 @@ Namespace IRC.Status
                                     .sNoticesWindow.nTreeNodeVisible = True
                                 End If
                             End If
-                            .sNoticesWindow.nData = lData & Environment.Newline & "•" & Environment.Newline & .sNoticesWindow.nData
+                            .sNoticesWindow.nData = lData & Environment.NewLine & "•" & Environment.NewLine & .sNoticesWindow.nData
                             If .sNoticesWindow.nVisible = False Then
                                 If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
                                     .sNoticesWindow.nVisible = True
                                     .sNoticesWindow.nWindow = New frmNoticeWindow
                                     .sNoticesWindow.nWindow.Show()
                                     .sNoticesWindow.nWindow.SetStatusIndex(lIndex)
-                                    .sNoticesWindow.nWindow.SetNoticeWindow(True)
-                                    .sNoticesWindow.nWindow.SetUnknownsWindow(False)
-                                    .sNoticesWindow.nWindow.SetMotdWindow(False)
+                                    .sNoticesWindow.nWindow.FormType = MdiChildWindow.FormTypes.NoticeWindow
                                     .sNoticesWindow.nWindow.Text = StatusServerName(.sWindow.mdiChildWindow.MeIndex) & " - Notices"
                                     .sNoticesWindow.nWindow.DoNoticeColor(.sNoticesWindow.nData)
                                 Else
@@ -1963,7 +1972,7 @@ Namespace IRC.Status
                                     If .sNoticesWindow.nTreeNode.SelectedImageIndex <> 6 Then .sNoticesWindow.nTreeNode.SelectedImageIndex = 6
                                 End If
                             Else
-                                .sNoticesWindow.nWindow.DoNoticeColor(lData & "•" & Environment.Newline)
+                                .sNoticesWindow.nWindow.DoNoticeColor(lData & "•" & Environment.NewLine)
                             End If
                         End With
                     End If
@@ -1975,13 +1984,12 @@ Namespace IRC.Status
                     End If
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub AddToNotices(ByVal lIndex As Integer, ByVal lData As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub AddToNotices(ByVal lIndex As Integer, ByVal lData As String)")
             End Try
         End Sub
-        Public Sub Form_Closing(Optional ByRef _Form As frmStatus = Nothing, Optional ByRef _MeIndex As Integer = 0, Optional ByRef e As System.Windows.Forms.FormClosingEventArgs = Nothing)
+        Public Sub Form_Closing(Optional ByRef _Form As Form = Nothing, Optional ByRef _MeIndex As Integer = 0, Optional ByRef e As System.Windows.Forms.FormClosingEventArgs = Nothing)
             Try
-                Dim mBox As MsgBoxResult, b As Boolean
-                'clsLockWindowUpdate.LockWindowUpdate(mdiMain.Handle)
+                Dim b As Boolean
                 lSettings.lIRC.iSettings.sWindowSizes.lStatus.wWidth = _Form.Width
                 lSettings.lIRC.iSettings.sWindowSizes.lStatus.wHeight = _Form.Height
                 If _Form.WindowState = FormWindowState.Minimized Then _Form.WindowState = FormWindowState.Normal
@@ -1993,45 +2001,12 @@ Namespace IRC.Status
                         b = True
                 End Select
                 If b = False Then Exit Sub
-                If lSettings.lIRC.iSettings.sHideStatusOnClose = True Then
-                    _Form.WindowState = FormWindowState.Minimized
-                    'clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
-                    e.Cancel = True
-                    Exit Sub
-                End If
-                If lSettings.lIRC.iSettings.sPrompts = True Then
-                    If Len(lStatus.StatusServerName(_Form.mdiChildWindow.MeIndex)) <> 0 Then
-                        If lStatus.Connected(_Form.mdiChildWindow.MeIndex) = True Then
-                            mBox = MsgBox("Are you sure, close this status window '" & lStatus.StatusServerName(_Form.mdiChildWindow.MeIndex) & "'?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question, "nexIRC - Close Server?")
-                        Else
-                            mBox = MsgBoxResult.Yes
-                        End If
-                    Else
-                        If lStatus.Connected(_Form.mdiChildWindow.MeIndex) = True Then
-                            mBox = MsgBox("Are you sure, close this server window?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question, "nexIRC - Close Server?")
-                        Else
-                            mBox = MsgBoxResult.Yes
-                        End If
-                    End If
-                Else
-                    mBox = MsgBoxResult.Yes
-                End If
-                If mBox = MsgBoxResult.Yes Then
-                    If lStatus.Connected(_MeIndex) Then
-                        lStatus.CloseSocket(_Form.mdiChildWindow.MeIndex)
-                    End If
-                    lStatus.ActiveIndex = 0
-                    lStatus.RemoveTreeView(_Form.mdiChildWindow.MeIndex)
-                    lStatus.Clear(_Form.mdiChildWindow.MeIndex)
-                    lStatus.Open(_Form.mdiChildWindow.MeIndex) = False
-                    mdiMain.RemoveWindowBar(lStatus.InitialText(_Form.mdiChildWindow.MeIndex))
-                Else
-                    e.Cancel = True
-                    Beep()
-                End If
-                'clsLockWindowUpdate.LockWindowUpdate(IntPtr.Zero)
+                _Form.Visible = False
+                lStatusObjects.sStatusObject(_MeIndex).sVisible = False
+                e.Cancel = True
+                Exit Sub
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub Form_Closing(_Form As Form)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub Form_Closing(_Form As Form)")
             End Try
         End Sub
         Public Property Notice_Visible(_StatusIndex As Integer) As Boolean
@@ -2041,7 +2016,7 @@ Namespace IRC.Status
                         Return .sNoticesWindow.nVisible
                     End With
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property Notice_Visible(_NoticeIndex As Integer) As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public Property Notice_Visible(_NoticeIndex As Integer) As Boolean")
                     Return Nothing
                 End Try
             End Get
@@ -2054,7 +2029,7 @@ Namespace IRC.Status
                         End If
                     End With
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property Notice_Visible(_NoticeIndex As Integer) As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public Property Notice_Visible(_NoticeIndex As Integer) As Boolean")
                 End Try
             End Set
         End Property
@@ -2071,7 +2046,7 @@ Namespace IRC.Status
                     End With
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub AddToNotifyList(ByVal lStatusIndex As Integer, ByVal lNickName As String)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub AddToNotifyList(ByVal lStatusIndex As Integer, ByVal lNickName As String)")
             End Try
         End Sub
 
@@ -2098,7 +2073,7 @@ Namespace IRC.Status
                                 .rRawWindow.Text = "nexIRC - Raw " & lStatusObjects.sStatusObject(lIndex).sDescription
                                 .rVisible = True
                             Else
-                                .rInData = .rInData & Environment.Newline & lData
+                                .rInData = .rInData & Environment.NewLine & lData
                                 If .rTreeNode.ImageIndex <> 5 Then .rTreeNode.ImageIndex = 5
                                 If .rTreeNode.SelectedImageIndex <> 5 Then .rTreeNode.SelectedImageIndex = 5
                             End If
@@ -2123,7 +2098,7 @@ Namespace IRC.Status
                                 .rRawWindow.Text = "nexIRC - Raw " & lStatusObjects.sStatusObject(lIndex).sDescription
                                 .rVisible = True
                             Else
-                                .rOutData = .rOutData & Environment.Newline & lData
+                                .rOutData = .rOutData & Environment.NewLine & lData
                                 If .rTreeNode.ImageIndex <> 5 Then .rTreeNode.ImageIndex = 5
                                 If .rTreeNode.SelectedImageIndex <> 5 Then .rTreeNode.SelectedImageIndex = 5
                             End If
@@ -2133,7 +2108,7 @@ Namespace IRC.Status
                     End With
                 End If
             End If
-            'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Function ReturnChannelCount() As Integer")
+            'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Function ReturnChannelCount() As Integer")
         End Sub
         Public Sub SetRawData(ByVal lIndex As Integer, ByVal lInData As String, ByVal lOutData As String)
             'On Error Resume Next
@@ -2141,7 +2116,7 @@ Namespace IRC.Status
                 .rInData = lInData
                 .rOutData = lOutData
             End With
-            'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub SetRawData(ByVal lInData As String, ByVal lOutData As String)")
+            'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub SetRawData(ByVal lInData As String, ByVal lOutData As String)")
         End Sub
         Public Sub SetRawWindowClosed(ByVal lIndex As Integer)
             'On Error Resume Next
@@ -2149,7 +2124,7 @@ Namespace IRC.Status
                 .sRaw.rVisible = False
                 .sRaw.rRawWindow = Nothing
             End With
-            'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub SetRawWindowClosed(ByVal lIndex As Integer)")
+            'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub SetRawWindowClosed(ByVal lIndex As Integer)")
         End Sub
 #End Region
 #Region "SERVER LINKS"
@@ -2183,14 +2158,14 @@ Namespace IRC.Status
                     .sServerLinks.sWindow.lServerLinksUI.AddToLinks(lServerIP, lServerPort, .sServerLinks.sWindow.lvwLinks)
                 End With
             End If
-            'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub AddToServerLinks(ByVal lServerIP As String, ByVal lServerPort As String)")
+            'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub AddToServerLinks(ByVal lServerIP As String, ByVal lServerPort As String)")
         End Sub
         Public Sub SetLinksWindowsVisible(ByVal lIndex As Integer, ByVal lValue As Boolean)
             'On Error Resume Next
             With lStatusObjects.sStatusObject(lIndex)
                 .sServerLinks.sVisible = lValue
             End With
-            'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub SetLinksWindowsVisible(ByVal lValue As Boolean)")
+            'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub SetLinksWindowsVisible(ByVal lValue As Boolean)")
         End Sub
         Public Sub SaveServerLink(ByVal lIndex As Integer, ByVal lServerIP As String, ByVal lServerPort As String)
             'On Error Resume Next
@@ -2199,7 +2174,7 @@ Namespace IRC.Status
                 .sLink(.sLinkCount).lServerIP = lServerIP
                 .sLink(.sLinkCount).lPort = lServerPort
             End With
-            'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub SaveServerLink(ByVal lIndex As Integer, ByVal lServerIP As String, ByVal lServerPort As String)")
+            'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub SaveServerLink(ByVal lIndex As Integer, ByVal lServerIP As String, ByVal lServerPort As String)")
         End Sub
         Public Sub ClearServerLinks(ByVal lIndex As Integer)
             'On Error Resume Next
@@ -2211,7 +2186,7 @@ Namespace IRC.Status
                 Next i
                 .sLinkCount = 0
             End With
-            'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub ClearServerLinks(ByVal lIndex As Integer)")
+            'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub ClearServerLinks(ByVal lIndex As Integer)")
         End Sub
 #End Region
 #Region "UNKNOWNS"
@@ -2220,7 +2195,7 @@ Namespace IRC.Status
             With lStatusObjects.sStatusObject(lStatusIndex)
                 .sUnknowns.uData = lData
             End With
-            'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub SetUnknownsData(ByVal lStatusIndex As Integer)")
+            'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Public Sub SetUnknownsData(ByVal lStatusIndex As Integer)")
         End Sub
         Public Sub AddToUnknowns(ByVal lStatusIndex As Integer, ByVal lData As String)
             'On Error Resume Next
@@ -2239,16 +2214,13 @@ Namespace IRC.Status
                         If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
                             .sUnknowns.uVisible = True
                             .sUnknowns.uWindow = New frmNoticeWindow
-                            'animate.Animate(.sUnknowns.uWindow, animate.Effect.Center, 200, 1)
                             .sUnknowns.uWindow.Show()
                             .sUnknowns.uWindow.SetStatusIndex(lStatusIndex)
-                            .sUnknowns.uWindow.SetUnknownsWindow(True)
-                            .sUnknowns.uWindow.SetMotdWindow(False)
-                            .sUnknowns.uWindow.SetNoticeWindow(False)
+                            .sUnknowns.uWindow.FormType = MdiChildWindow.FormTypes.Unknown
                             .sUnknowns.uWindow.Text = "Unknowns"
                             .sUnknowns.uWindow.DoNoticeColor(.sUnknowns.uData)
                         Else
-                            .sUnknowns.uData = lData & Environment.Newline & .sUnknowns.uData
+                            .sUnknowns.uData = lData & Environment.NewLine & .sUnknowns.uData
                             If .sUnknowns.uTreeNode.ImageIndex <> 6 Then .sUnknowns.uTreeNode.ImageIndex = 6
                             If .sUnknowns.uTreeNode.SelectedImageIndex <> 6 Then .sUnknowns.uTreeNode.SelectedImageIndex = 6
                         End If
@@ -2257,7 +2229,6 @@ Namespace IRC.Status
                     Exit Sub
                 End If
             End With
-            'If Err.Number <> 0 Then 'Throw ex 'ProcessError(ex.Message, "Public Sub AddToUnknowns(ByVal lStatusIndex As Integer, ByVal lData As String)")
         End Sub
         Public Sub SetUnknownsClosed(ByVal lStatusIndex As Integer)
             Try
@@ -2266,7 +2237,7 @@ Namespace IRC.Status
                     .sUnknowns.uVisible = False
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub SetUnknownsClosed(ByVal lStatusIndex As Integer)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub SetUnknownsClosed(ByVal lStatusIndex As Integer)")
             End Try
         End Sub
 #End Region
@@ -2288,16 +2259,13 @@ Namespace IRC.Status
                             If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
                                 .sUnsupported.uVisible = True
                                 .sUnsupported.uWindow = New frmNoticeWindow
-                                'animate.Animate(.sUnsupported.uWindow, animate.Effect.Center, 200, 1)
                                 .sUnsupported.uWindow.Show()
                                 .sUnsupported.uWindow.SetStatusIndex(lStatusIndex)
-                                .sUnsupported.uWindow.SetUnknownsWindow(True)
-                                .sUnsupported.uWindow.SetMotdWindow(False)
-                                .sUnsupported.uWindow.SetNoticeWindow(False)
+                                .sUnsupported.uWindow.FormType = MdiChildWindow.FormTypes.Unsupported
                                 .sUnsupported.uWindow.Text = "Unsupported"
                                 .sUnsupported.uWindow.DoNoticeColor(.sUnsupported.uData)
                             Else
-                                .sUnsupported.uData = lData & Environment.Newline & .sUnsupported.uData
+                                .sUnsupported.uData = lData & Environment.NewLine & .sUnsupported.uData
                                 If .sUnsupported.uTreeNode.ImageIndex <> 6 Then .sUnsupported.uTreeNode.ImageIndex = 6
                                 If .sUnsupported.uTreeNode.SelectedImageIndex <> 6 Then .sUnsupported.uTreeNode.SelectedImageIndex = 6
                             End If
@@ -2307,7 +2275,7 @@ Namespace IRC.Status
                     End If
                 End With
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub AddToUnsupported(lStatusIndex As Integer, lData As String)")
+                Throw ex
             End Try
         End Sub
 #End Region
@@ -2465,7 +2433,7 @@ Namespace IRC.Status
                     End Select
                 End If
             Catch ex As Exception
-                'Throw ex 'ProcessError(ex.Message, "Public Sub ProcessUserInput(ByVal _StatusIndex As Integer, ByVal _Data As String, ByVal lTextBox As Object)")
+                Throw ex 'ProcessError(ex.Message, "Public Sub ProcessUserInput(ByVal _StatusIndex As Integer, ByVal _Data As String, ByVal lTextBox As Object)")
             End Try
         End Sub
 #End Region
@@ -2475,7 +2443,7 @@ Namespace IRC.Status
                 Try
                     Return lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForWhois.Enabled
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean")
                     Return Nothing
                 End Try
             End Get
@@ -2483,7 +2451,7 @@ Namespace IRC.Status
                 Try
                     lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForWhois.Enabled = _Value
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public Property TimerWaitForWhoisEnabled(ByVal lIndex As Integer) As Boolean")
                 End Try
             End Set
         End Property
@@ -2492,7 +2460,7 @@ Namespace IRC.Status
                 Try
                     Return lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForLUsers.Enabled
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean")
                     Return Nothing
                 End Try
             End Get
@@ -2500,7 +2468,7 @@ Namespace IRC.Status
                 Try
                     lStatusObjects.sStatusObject(lIndex).sWindow.tmrWaitForLUsers.Enabled = lValue
                 Catch ex As Exception
-                    'Throw ex 'ProcessError(ex.Message, "Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean")
+                    Throw ex 'ProcessError(ex.Message, "Public Property TimerWaitForLUsersEnabled(ByVal lIndex As Integer) As Boolean")
                 End Try
             End Set
         End Property

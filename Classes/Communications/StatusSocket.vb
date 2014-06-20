@@ -27,7 +27,7 @@ Namespace Classes.Communications
                 Try
                     _socketType = value
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                 End Try
             End Set
         End Property
@@ -38,7 +38,7 @@ Namespace Classes.Communications
                     _invoke = invokeForm
                     socket = value
                 Catch ex As Exception
-                    'Throw ex
+                    Throw ex
                 End Try
             End Set
         End Property
@@ -47,7 +47,7 @@ Namespace Classes.Communications
             Try
                 Return socket.Connected
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -56,7 +56,7 @@ Namespace Classes.Communications
             Try
                 ReturnLocalIp = socket.ReturnLocalIp()
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -68,7 +68,7 @@ Namespace Classes.Communications
                 End If
                 Return 0
             Catch ex As Exception
-                'Throw ex
+                Throw ex
                 Return Nothing
             End Try
         End Function
@@ -80,7 +80,7 @@ Namespace Classes.Communications
                 _invoke = New Form
                 _invoke = form
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -88,7 +88,7 @@ Namespace Classes.Communications
             Try
                 If (Connected() = True) Then socket.Send(data & Environment.NewLine)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -96,7 +96,7 @@ Namespace Classes.Communications
             Try
                 If Connected() = True Then socket.Close()
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -104,7 +104,7 @@ Namespace Classes.Communications
             Try
                 If Connected() = False Then socket.Connect(ip, port)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -112,7 +112,7 @@ Namespace Classes.Communications
             Try
                 lStrings.ProcessReplaceString(statusId, eStringTypes.sCOULD_NOT_CONNECT, lStatus.ServerDescription(statusId))
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -121,7 +121,7 @@ Namespace Classes.Communications
                 Dim couldNotConnectEvent As New StringDelegate(AddressOf CouldNotConnect)
                 _invoke.Invoke(couldNotConnectEvent, SocketID)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -130,7 +130,7 @@ Namespace Classes.Communications
                 Dim connectEvent As New IntegerDelegate(AddressOf lStatus.ConnectEvent)
                 _invoke.Invoke(connectEvent, statusId)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -138,7 +138,7 @@ Namespace Classes.Communications
             Try
                 RaiseEvent DataArrival(data)
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 
@@ -153,7 +153,7 @@ Namespace Classes.Communications
                         _invoke.Invoke(processDataArrival, statusId, socketData)
                 End Select
             Catch ex As Exception
-                'Throw ex
+                Throw ex
             End Try
         End Sub
 

@@ -56,6 +56,7 @@ Public Class mdiMain
     End Sub
     Private Sub mdiMain_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         lMainWindowUI.Form_Load(Me, nicSystray, tmrStartupSettings, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
+        tspWindows.ImageList = ImageList1
     End Sub
     Private Sub mdiMain_Resize(sender As System.Object, e As System.EventArgs) Handles MyBase.Resize
         lMainWindowUI.Form_Resize(Me, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
@@ -232,7 +233,20 @@ Public Class mdiMain
                 End Try
             Next ctl
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
+    End Sub
+
+    Private Sub tmrFirstFocus_Tick(sender As System.Object, e As System.EventArgs) Handles tmrFirstFocus.Tick
+        Try
+            tmrFirstFocus.Enabled = False
+            Modules.lStatus.Window(0).Focus()
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Private Sub tvwConnections_AfterSelect(sender As System.Object, e As System.Windows.Forms.TreeViewEventArgs) Handles tvwConnections.AfterSelect
+
     End Sub
 End Class

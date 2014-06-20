@@ -114,6 +114,7 @@ Public Class Settings
     Structure gChannelFolder
         Public cChannel As String
         Public cNetwork As String
+        Public cOrder As Integer
     End Structure
 
     Structure gChannelFolders
@@ -267,12 +268,13 @@ Public Class Settings
         Public sShowWindowsAutomatically As Boolean
         Public sAutoMaximize As Boolean
         Public sQuitMessage As String
-        Public sHideStatusOnClose As Boolean
+        'Public sHideStatusOnClose As Boolean
         Public sAutoConnect As Boolean
         Public sVideoBackground As Boolean
         Public sChannelFolderCloseOnJoin As Boolean
         Public sAutoNavigateChannelUrls As Boolean
         Public sCloseWindowOnDisconnect As Boolean
+        Public sTextBufferSize As Integer
     End Structure
 
     Structure gIRC
@@ -338,7 +340,7 @@ Public Class Settings
             Next i
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -356,7 +358,7 @@ Public Class Settings
                 Next i
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -372,7 +374,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -387,7 +389,7 @@ Public Class Settings
                 End With
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -400,7 +402,7 @@ Public Class Settings
             End With
             SortCompatibility()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -426,7 +428,7 @@ Public Class Settings
             Next i
             lCompatibility.cCount = c
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -442,7 +444,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -453,7 +455,7 @@ Public Class Settings
                 .pName = lName
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -467,7 +469,7 @@ Public Class Settings
                 Next i
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -481,7 +483,7 @@ Public Class Settings
                 Next i
             End With
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Public Sub SaveMediaFiles()")
+            Throw ex 'ProcessError(ex.Message, "Public Sub SaveMediaFiles()")
         End Try
     End Sub
 
@@ -499,7 +501,7 @@ Public Class Settings
             End If
             Return msg
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -517,7 +519,7 @@ Public Class Settings
                 SaveRecientServers()
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -531,7 +533,7 @@ Public Class Settings
             Next i
             RefreshRecientServersMenu()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -559,7 +561,7 @@ Public Class Settings
                 mdiMain.cmd_RecientServer3.Enabled = True
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -570,7 +572,7 @@ Public Class Settings
                 Files.WriteINI(lINI.iRecientServers, "Items", Trim(i.ToString), lRecientServers.sItem(i))
             Next i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -581,7 +583,7 @@ Public Class Settings
             w.Write(lData)
             w.Close()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -600,7 +602,7 @@ Public Class Settings
             Loop
             ReadTextFile = msg2
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -633,7 +635,7 @@ Public Class Settings
                 Next
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -662,7 +664,7 @@ Public Class Settings
                 Next i
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -679,7 +681,7 @@ Public Class Settings
             Next i
             lNotify.nCount = n
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -696,7 +698,7 @@ Public Class Settings
                 Next i
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -733,7 +735,7 @@ Public Class Settings
                 .nMessage = _Item.nMessage
             End With
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Public Sub AddToNotifyList(_Item As gNotify)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub AddToNotifyList(_Item As gNotify)")
         End Try
     End Sub
 
@@ -1011,7 +1013,6 @@ Public Class Settings
                 .sShowWindowsAutomatically = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", "False"))
                 .sAutoMaximize = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoMaximize", "False"))
                 .sQuitMessage = Files.ReadINI(lINI.iIRC, "Settings", "QuitMessage", "nexIRC - http://www.team-nexgen.org/")
-                .sHideStatusOnClose = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "HideStatusOnClose", "False"))
                 .sAutoConnect = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoConnect", "False"))
                 .sVideoBackground = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "VideoBackground", "True"))
                 .sAutoNavigateChannelUrls = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoNavigateChannelUrls", "True"))
@@ -1023,6 +1024,7 @@ Public Class Settings
                 .sWindowSizes.lStatus.wHeight = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialStatusHeight", "200")))
                 .sWindowSizes.iNotice.wWidth = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialNoticeWidth", "600")))
                 .sWindowSizes.iNotice.wHeight = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialNoticeHeight", "200")))
+                .sTextBufferSize = Convert.ToInt32(Files.ReadINI(lINI.iIRC, "Settings", "TextBufferSize", "150"))
             End With
             With lIRC
                 .iEMail = Files.ReadINI(lINI.iIRC, "Settings", "EMail", "user@team-nexgen.org")
@@ -1072,7 +1074,7 @@ Public Class Settings
             End If
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -1154,7 +1156,7 @@ Public Class Settings
             End If
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -1177,12 +1179,13 @@ Public Class Settings
             If (lIRC.iNicks.nIndex <> 0) Then Files.WriteINI(lINI.iNicks, "Settings", "Index", lIRC.iNicks.nIndex.ToString())
             If (lIRC.iNicks.nIndex <> 0) Then Files.WriteINI(lINI.iNicks, "Settings", "Count", n.ToString())
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
     Public Sub SaveSettings()
         With lIRC.iSettings
+            Files.WriteINI(lINI.iIRC, "Settings", "TextBufferSize", .sTextBufferSize.ToString().Trim())
             Files.WriteINI(lINI.iIRC, "Settings", "AutoNavigateChannelUrls", Trim(.sAutoNavigateChannelUrls.ToString))
             Files.WriteINI(lINI.iIRC, "Settings", "ChannelFolderCloseOnJoin", Trim(.sChannelFolderCloseOnJoin.ToString))
             Files.WriteINI(lINI.iIRC, "Settings", "VideoBackground", Trim(.sVideoBackground.ToString))
@@ -1201,7 +1204,6 @@ Public Class Settings
             Files.WriteINI(lINI.iIRC, "Settings", "ShowRawWindow", Trim(.sShowRawWindow.ToString))
             Files.WriteINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", Trim(.sShowWindowsAutomatically.ToString))
             Files.WriteINI(lINI.iIRC, "Settings", "AutoMaximize", Trim(.sAutoMaximize.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "HideStatusOnClose", Trim(.sHideStatusOnClose.ToString))
             Files.WriteINI(lINI.iIRC, "Settings", "AutoConnect", Trim(.sAutoConnect.ToString))
             Files.WriteINI(lINI.iIRC, "Settings", "CloseWindowOnDisconnect", Trim(.sCloseWindowOnDisconnect.ToString))
             SaveWindowSizes()
@@ -1311,7 +1313,7 @@ Public Class Settings
             End If
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -1331,25 +1333,26 @@ Public Class Settings
             End If
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
 
     Public Function FindNetworkIndex(ByVal description As String) As Integer
         Dim i As Integer, result As Integer
-        Try
-            For i = 1 To lNetworks.nCount
-                If (description.Trim().ToLower() = lNetworks.nNetwork(i).nDescription.Trim().ToLower()) Then
-                    result = i
-                    Exit For
-                End If
-            Next i
-            Return result
-        Catch ex As Exception
-            'Throw ex
-            Return Nothing
-        End Try
+        'Try
+        If (description = Nothing) Then description = ""
+        For i = 1 To lNetworks.nCount
+            If (description.Trim().ToLower() = lNetworks.nNetwork(i).nDescription.Trim().ToLower()) Then
+                result = i
+                Exit For
+            End If
+        Next i
+        Return result
+        'Catch ex As Exception
+        'Throw ex
+        'Return Nothing
+        'End Try
     End Function
 
     Public Sub FillComboWithServers(ByVal lCombo As ComboBox, Optional ByVal lNetworkIndex As Integer = 0, Optional ByVal lClearCombo As Boolean = False)
@@ -1372,7 +1375,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Public Sub FillComboWithServers(Optional ByVal lServerIndex As Integer = 0)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub FillComboWithServers(Optional ByVal lServerIndex As Integer = 0)")
         End Try
     End Sub
 
@@ -1390,7 +1393,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)")
         End Try
     End Sub
 
@@ -1408,7 +1411,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Public Sub FillComboWithNetworks(ByVal lCombo As ComboBox, Optional ByVal lClearCombo As Boolean = False)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub FillComboWithNetworks(ByVal lCombo As ComboBox, Optional ByVal lClearCombo As Boolean = False)")
         End Try
     End Sub
 
@@ -1428,7 +1431,7 @@ Public Class Settings
             End If
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -1448,7 +1451,7 @@ Public Class Settings
             End If
             Return result
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -1458,7 +1461,7 @@ Public Class Settings
             lNetworks.nNetwork(lIndex).nDescription = ""
             CleanUpNetworks()
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Public Sub RemoveNetwork(ByVal lIndex As Integer)")
+            Throw ex 'ProcessError(ex.Message, "Public Sub RemoveNetwork(ByVal lIndex As Integer)")
         End Try
     End Sub
 
@@ -1482,7 +1485,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            'Throw ex 'ProcessError(ex.Message, "Public Sub CleanUpNetworks()")
+            Throw ex 'ProcessError(ex.Message, "Public Sub CleanUpNetworks()")
         End Try
     End Sub
 
@@ -1492,7 +1495,7 @@ Public Class Settings
                 Return .sPrompts
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
             Return Nothing
         End Try
     End Function
@@ -1507,23 +1510,27 @@ Public Class Settings
                 .mServerNotices = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ServerNotices", "True"))
             End With
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
     Public Sub LoadChannelFolders()
         Try
-            Dim i As Integer
+            Dim i As Integer, msg As String
             ReDim lChannelFolders.cChannelFolder(lArraySizes.aChannelFolder)
             lChannelFolders.cCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iChannelFolders, "Settings", "Count", "0")))
             For i = 1 To lChannelFolders.cCount
                 With lChannelFolders.cChannelFolder(i)
                     .cChannel = Files.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Channel", "")
                     .cNetwork = Files.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Network", "")
+                    msg = Files.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Order", "0")
+                    If (IsNumeric(msg)) Then
+                        .cOrder = Convert.ToInt32(msg)
+                    End If
                 End With
             Next i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -1535,32 +1542,47 @@ Public Class Settings
                 With lChannelFolders.cChannelFolder(i)
                     Files.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Channel", .cChannel)
                     Files.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Network", .cNetwork)
+                    Files.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Order", .cOrder.ToString())
                 End With
             Next i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
-    Public Sub AddToChannelFolders(ByVal lChannel As String, ByVal lNetworkIndex As Integer)
-        Try
-            Dim i As Integer
-            For i = 1 To lChannelFolders.cCount
-                If LCase(Trim(lChannel)) = LCase(Trim(lChannelFolders.cChannelFolder(i).cChannel)) And LCase(Trim(lNetworks.nNetwork(lNetworkIndex).nDescription)) = LCase(Trim(lChannelFolders.cChannelFolder(i).cNetwork)) Then
-                    Exit Sub
-                End If
-            Next i
-            If Len(lChannel) <> 0 Then
-                lChannelFolders.cCount = lChannelFolders.cCount + 1
-                With lChannelFolders.cChannelFolder(lChannelFolders.cCount)
-                    .cChannel = lChannel
-                    .cNetwork = lNetworks.nNetwork(lNetworkIndex).nDescription
-                End With
-                SaveChannelFolders()
+    Public Sub AddToChannelFolders(ByVal channel As String, ByVal networkIndex As Integer)
+        Dim i As Integer
+        'Try
+        For i = 1 To lChannelFolders.cCount
+            If (channel.Trim().ToLower() = lChannelFolders.cChannelFolder(i).cChannel.Trim().ToLower() And lNetworks.nNetwork(networkIndex).nDescription.Trim().ToLower() = lChannelFolders.cChannelFolder(i).cNetwork.Trim().ToLower()) Then
+                Exit Sub
             End If
-        Catch ex As Exception
-            'Throw ex
-        End Try
+        Next i
+        If (Not String.IsNullOrEmpty(channel)) Then
+            MoveAllChannelFoldersDown()
+            lChannelFolders.cCount = lChannelFolders.cCount + 1
+            With lChannelFolders.cChannelFolder(lChannelFolders.cCount)
+                .cChannel = channel
+                .cNetwork = lNetworks.nNetwork(networkIndex).nDescription
+                .cOrder = 0
+            End With
+            SaveChannelFolders()
+        End If
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
+    End Sub
+
+    Private Sub MoveAllChannelFoldersDown()
+        Dim i As Integer
+        'Try
+        For i = 1 To lChannelFolders.cCount - 1
+
+            lChannelFolders.cChannelFolder(i).cOrder = lChannelFolders.cChannelFolder(i).cOrder + 1
+        Next i
+        'Catch ex As Exception
+        'Throw ex
+        'End Try
     End Sub
 
     Public Sub RemoveChannelFolder(ByVal lIndex As Integer)
@@ -1570,25 +1592,22 @@ Public Class Settings
             End With
             SaveChannelFolders()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
-    Public Function FindChannelFolderIndex(ByVal lChannel As String) As Integer
-        Dim result As Integer, i As Integer
+    Public Function FindChannelFolderIndexes(ByVal channel As String, network As String) As List(Of Integer)
+        Dim result As List(Of Integer)
         Try
-            For i = 1 To lChannelFolders.cCount
-                With lChannelFolders.cChannelFolder(i)
-                    If LCase(Trim(.cChannel)) = LCase(Trim(lChannel)) Then
-                        result = i
-                        Exit For
-                    End If
-                End With
+            result = New List(Of Integer)()
+            For i As Integer = 1 To (lChannelFolders.cChannelFolder.Count - 1)
+                If ((channel.ToLower().Trim() = lChannelFolders.cChannelFolder(i).cChannel) And (network = lChannelFolders.cChannelFolder(i).cNetwork)) Then
+                    result.Add(i)
+                End If
             Next i
             Return result
         Catch ex As Exception
-            'Throw ex
-            Return Nothing
+            Throw ex
         End Try
     End Function
 
@@ -1604,7 +1623,7 @@ Public Class Settings
                 End With
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 End Class

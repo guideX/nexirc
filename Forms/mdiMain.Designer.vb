@@ -102,6 +102,7 @@ Partial Class mdiMain
         Me.cmdRedirectDeny = New System.Windows.Forms.ToolStripButton()
         Me.tmrWaitForQuit = New System.Windows.Forms.Timer(Me.components)
         Me.tmrHideRedirect = New System.Windows.Forms.Timer(Me.components)
+        Me.tmrFirstFocus = New System.Windows.Forms.Timer(Me.components)
         Me.tspMain.SuspendLayout()
         Me.pnlLeftNav.SuspendLayout()
         Me.tspQueryPrompt.SuspendLayout()
@@ -388,7 +389,7 @@ Partial Class mdiMain
         'cmd_PlayVideo
         '
         Me.cmd_PlayVideo.Name = "cmd_PlayVideo"
-        Me.cmd_PlayVideo.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_PlayVideo.Size = New System.Drawing.Size(142, 22)
         Me.cmd_PlayVideo.Text = "Play Video"
         '
         'cmd_DCC
@@ -470,7 +471,7 @@ Partial Class mdiMain
         Me.cmd_LeftBar.Checked = True
         Me.cmd_LeftBar.CheckState = System.Windows.Forms.CheckState.Checked
         Me.cmd_LeftBar.Name = "cmd_LeftBar"
-        Me.cmd_LeftBar.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_LeftBar.Size = New System.Drawing.Size(151, 22)
         Me.cmd_LeftBar.Text = "Left Bar"
         '
         'cmd_WindowBar
@@ -478,7 +479,7 @@ Partial Class mdiMain
         Me.cmd_WindowBar.Checked = True
         Me.cmd_WindowBar.CheckState = System.Windows.Forms.CheckState.Checked
         Me.cmd_WindowBar.Name = "cmd_WindowBar"
-        Me.cmd_WindowBar.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_WindowBar.Size = New System.Drawing.Size(151, 22)
         Me.cmd_WindowBar.Text = "Window Bar"
         '
         'cmd_Window
@@ -712,6 +713,10 @@ Partial Class mdiMain
         '
         Me.tmrHideRedirect.Interval = 6000
         '
+        'tmrFirstFocus
+        '
+        Me.tmrFirstFocus.Interval = 200
+        '
         'mdiMain
         '
         Me.AccessibleRole = System.Windows.Forms.AccessibleRole.Window
@@ -827,6 +832,7 @@ Partial Class mdiMain
     Friend WithEvents cmdRedirectDeny As System.Windows.Forms.ToolStripButton
     Friend WithEvents tmrWaitForQuit As System.Windows.Forms.Timer
     Friend WithEvents tmrHideRedirect As System.Windows.Forms.Timer
+    Friend WithEvents tmrFirstFocus As System.Windows.Forms.Timer
     'Friend WithEvents cmdConnection As System.Windows.Forms.ToolStripSplitButton
     'Friend WithEvents mnuNewStatusWindow As System.Windows.Forms.ToolStripMenuItem
     'Friend WithEvents mnuSep76829639 As System.Windows.Forms.ToolStripSeparator

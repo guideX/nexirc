@@ -12,7 +12,7 @@ Public Class frmEditString
                 cboNumeric.Items.Add(Trim(Convert.ToString(i)))
             Next i
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -20,7 +20,7 @@ Public Class frmEditString
         Try
             Me.Close()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -47,7 +47,7 @@ Public Class frmEditString
             End If
             Me.Close()
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -64,7 +64,7 @@ Public Class frmEditString
                 End If
             End If
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 
@@ -73,7 +73,7 @@ Public Class frmEditString
             lStrings.RemoveTextStringParameter(CType(cboNumeric.Text, Integer), lstParameters.Text)
             lstParameters.Items.RemoveAt(lstParameters.SelectedIndex)
         Catch ex As Exception
-            'Throw ex
+            Throw ex
         End Try
     End Sub
 End Class

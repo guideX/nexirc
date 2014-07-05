@@ -216,9 +216,10 @@ Public Class mdiMain
         lMainWindowUI.tmrHideRedirect_Tick(tspRedirect, tmrHideRedirect)
     End Sub
     Private Sub lMainWindowUI_QueryBarPromptLabelVisible(text As String, tag As String) Handles lMainWindowUI.QueryBarPromptLabelVisible
-        '_QueryPromptLabel.Text = _Text
-        '_QueryPromptLabel.Visible = True
-        '_ToolStrip.Tag = Trim(CType(_Function, Integer).ToString)
+        tspQueryPrompt.Text = text
+        tspQueryPrompt.Tag = tag
+        tspQueryPrompt.Text = "The nickname is in use."
+        tspQueryPrompt.Visible = True
     End Sub
 
     Private Sub lMainWindowUI_SetBackgroundColor() Handles lMainWindowUI.SetBackgroundColor

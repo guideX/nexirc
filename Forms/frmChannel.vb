@@ -14,16 +14,13 @@ Public Class frmChannel
     Public WithEvents MdiChildWindow As New MdiChildWindow
 #End Region
 #Region "Window Events"
+    Private Sub txtOutgoing_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
+        Me.BringToFront()
+    End Sub
+
     Private Sub cmdClear_Click(sender As System.Object, e As System.EventArgs) Handles cmdClear.Click
         Try
             txtIncoming.Document = New RadDocument()
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-    Private Sub txtOutgoing_GotFocus(sender As Object, e As System.EventArgs) Handles txtOutgoing.GotFocus
-        Try
-            MdiChildWindow.txtOutgoing_GotFocus(Me)
         Catch ex As Exception
             Throw ex
         End Try
@@ -306,7 +303,6 @@ Public Class frmChannel
         Try
             lvwNickList.EnableSorting = True
             lvwNickList.EnableColumnSort = True
-            'lvwNickList.ListViewElement.DataView.Comparer = New ListViewCustomComparer(this.radListView1.ListViewElement)
         Catch ex As Exception
             Throw ex
         End Try

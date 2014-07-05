@@ -240,12 +240,6 @@
     <Compile Include="Forms\frmNoticeWindow.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmPrivateMessage.Designer.vb">
-      <DependentUpon>frmPrivateMessage.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmPrivateMessage.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\frmQuerySettings.Designer.vb">
       <DependentUpon>frmQuerySettings.vb</DependentUpon>
     </Compile>
@@ -406,9 +400,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmNoticeWindow.resx">
       <DependentUpon>frmNoticeWindow.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmPrivateMessage.resx">
-      <DependentUpon>frmPrivateMessage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmQuerySettings.resx">
       <DependentUpon>frmQuerySettings.vb</DependentUpon>

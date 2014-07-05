@@ -49,6 +49,7 @@ Partial Class frmStatus
         Me.txtIncoming = New Telerik.WinControls.RichTextBox.RadRichTextBox()
         Me.txtOutgoing = New Telerik.WinControls.UI.RadTextBox()
         Me.tmrQuickFocus = New System.Windows.Forms.Timer(Me.components)
+        Me.tmrNickTakenDelay = New System.Windows.Forms.Timer(Me.components)
         Me.tspStatus.SuspendLayout()
         CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -269,4 +270,5 @@ Partial Class frmStatus
     Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents cmdClear As System.Windows.Forms.ToolStripButton
     Friend WithEvents tmrQuickFocus As System.Windows.Forms.Timer
+    Friend WithEvents tmrNickTakenDelay As System.Windows.Forms.Timer
 End Class

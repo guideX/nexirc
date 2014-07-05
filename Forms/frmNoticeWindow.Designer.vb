@@ -21,12 +21,15 @@ Partial Class frmNoticeWindow
     Private Sub InitializeComponent()
         Me.txtIncoming = New Telerik.WinControls.RichTextBox.RadRichTextBox()
         Me.txtOutgoing = New Telerik.WinControls.UI.RadTextBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.txtIncoming.SuspendLayout()
         CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtIncoming
         '
+        Me.txtIncoming.Controls.Add(Me.Button1)
         Me.txtIncoming.Location = New System.Drawing.Point(0, 0)
         Me.txtIncoming.Name = "txtIncoming"
         Me.txtIncoming.Size = New System.Drawing.Size(429, 103)
@@ -42,6 +45,15 @@ Partial Class frmNoticeWindow
         Me.txtOutgoing.TabIndex = 18
         Me.txtOutgoing.TabStop = False
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(286, 40)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 0
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'frmNoticeWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -54,6 +66,7 @@ Partial Class frmNoticeWindow
         Me.Name = "frmNoticeWindow"
         Me.Text = "Notice Window"
         CType(Me.txtIncoming, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.txtIncoming.ResumeLayout(False)
         CType(Me.txtOutgoing, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -61,4 +74,5 @@ Partial Class frmNoticeWindow
     End Sub
     Friend WithEvents txtIncoming As Telerik.WinControls.RichTextBox.RadRichTextBox
     Friend WithEvents txtOutgoing As Telerik.WinControls.UI.RadTextBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class

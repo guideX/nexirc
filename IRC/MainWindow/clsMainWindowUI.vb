@@ -47,9 +47,6 @@ Namespace nexIRC.MainWindow
             Try
                 If Len(_Text) <> 0 Then
                     RaiseEvent QueryBarPromptLabelVisible(_Text, Trim(CType(_Function, Integer).ToString))
-                    '_QueryPromptLabel.Text = _Text
-                    '_QueryPromptLabel.Visible = True
-                    '_ToolStrip.Tag = Trim(CType(_Function, Integer).ToString)
                 End If
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub ShowQueryBar(ByVal lText As String)")
@@ -348,7 +345,7 @@ Namespace nexIRC.MainWindow
                     If lSettings.lQuerySettings.qAutoShowWindow = True Then
                         _NickName = lStrings.ParseData(_QueryPromptLabel.Text, "'", "(")
                         _HostName = lStrings.ParseData(_QueryPromptLabel.Text, "(", ")")
-                        lStatus.PrivateMessage_Add(Convert.ToInt32(Trim(splt(0))), _NickName, _HostName, splt(2))
+                        lStatus.PrivateMessage_Add(Convert.ToInt32(Trim(splt(0))), _NickName, _HostName, splt(2), True)
                     End If
                     _QueryPromptToolStrip.Visible = False
                 End If

@@ -45,4 +45,13 @@ Public Class frmChangeNickName
             Throw ex
         End Try
     End Sub
+
+    Private Sub cmdAdd_Click(sender As System.Object, e As System.EventArgs) Handles cmdAdd.Click
+        Try
+            lstNickNames.Items.Add(txtNickName.Text)
+            Modules.lSettings.AddNickName(txtNickName.Text)
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
 End Class

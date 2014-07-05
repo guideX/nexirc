@@ -1,7 +1,7 @@
 'nexIRC 3.0.26
 '06-13-2013 - guideX
 Option Explicit On
-Option Strict On
+Option Strict Off
 Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.clsIrcNumerics
@@ -72,7 +72,6 @@ Namespace IRC.Status
             Public rInData As String
         End Structure
         Public Structure gPrivateMessage
-            Public pIncomingText As String
             Public pName As String
             Public pWindow As frmNoticeWindow
             Public pVisible As Boolean
@@ -81,6 +80,8 @@ Namespace IRC.Status
             Public pStatusIndex As Integer
             Public pHost As String
             Public pWindowBarItem As ToolStripItem
+            Public pWindowInitiated As Boolean
+            Public pFirstMessage As String
         End Structure
         Public Structure gPrivateMessages
             Public pCount As Integer
@@ -953,7 +954,7 @@ Namespace IRC.Status
         End Sub
         Public Sub Focus(statusIndex As Integer)
             Try
-                lStatus.Window(statusIndex).txtOutgoing.Focus()
+                lStatus.Window(statusIndex).Focus()
             Catch ex As Exception
                 Throw ex
             End Try
@@ -1131,15 +1132,11 @@ Namespace IRC.Status
                     e = lStatus.PrivateMessage_Find(s, lTreeNode.Text)
                     If e <> 0 Then
                         With lStatusObjects.sStatusObject(e)
-                            If .sPrivateMessages.pPrivateMessage(e).pVisible = False Then
-                                .sPrivateMessages.pPrivateMessage(e).pVisible = True
-                                .sPrivateMessages.pPrivateMessage(e).pWindow.txtIncoming.Focus()
-                                If (.sPrivateMessages.pPrivateMessage(e).pTreeNode.ImageIndex <> 0) Then .sPrivateMessages.pPrivateMessage(e).pTreeNode.ImageIndex = 0
-                                If (.sPrivateMessages.pPrivateMessage(e).pTreeNode.SelectedImageIndex <> 0) Then .sPrivateMessages.pPrivateMessage(e).pTreeNode.SelectedImageIndex = 0
+                            If (Not .sPrivateMessages.pPrivateMessage(e).pVisible) Then
+                                PrivateMessage_Visible(s, lTreeNode.Text) = True
                             Else
-                                .sPrivateMessages.pPrivateMessage(e).pVisible = True
+                                .sPrivateMessages.pPrivateMessage(e).pWindow.Visible = True
                                 .sPrivateMessages.pPrivateMessage(e).pWindow.txtOutgoing.Focus()
-                                If lSettings.lIRC.iSettings.sAutoMaximize = True Then .sPrivateMessages.pPrivateMessage(e).pWindow.WindowState = FormWindowState.Maximized
                             End If
                         End With
                         Exit Sub
@@ -1162,7 +1159,7 @@ Namespace IRC.Status
                     End If
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub DblClickConnections(ByVal lTreeNode As TreeNode)")
+                Throw ex
             End Try
         End Sub
         Public Property Visible(index As Integer) As Boolean
@@ -1243,18 +1240,6 @@ Namespace IRC.Status
                 Return Nothing
             End Try
         End Function
-        Public ReadOnly Property PrivateMessage_IncomingText(ByVal _StatusIndex As Integer, ByVal _PrivateMessageIndex As Integer) As String
-            Get
-                Try
-                    With lStatus.GetObject(_StatusIndex)
-                        Return .sPrivateMessages.pPrivateMessage(_PrivateMessageIndex).pIncomingText
-                    End With
-                Catch ex As Exception
-                    Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property PrivateMessageIncomingText(ByVal _StatusIndex As Integer, ByVal _PrivateMessageIndex As Integer) As String")
-                    Return Nothing
-                End Try
-            End Get
-        End Property
         Public Sub PrivateMessage_Initialize(ByVal _StatusIndex As Integer, ByVal _NickName As String)
             Try
                 Dim _GetObject As Status.gStatus, _PrivateMessageIndex As Integer, _CreateToolStripItem As Boolean, _CreateTreeViewItem As Boolean
@@ -1298,25 +1283,25 @@ Namespace IRC.Status
                         .pWindow.txtOutgoing.Visible = True
                         .pWindow.TriggerResize()
                         .pWindow.Show()
-                        If (.pIncomingText IsNot Nothing) Then
-                            Dim msg As String = .pIncomingText.Replace("$message", "").Trim()
-                            If (Not String.IsNullOrEmpty(msg)) Then
-                                msg = msg.Replace("<12" & _NickName & "> $message" & vbLf, "")
-                                msg = msg.Replace("<12" & _NickName & "> $message", "")
-                                If (msg.Length <> 0) Then
-                                    .pWindow.DoNoticeColor(msg)
-                                End If
+                        'If (.pIncomingText IsNot Nothing) Then
+                        'Dim msg As String = .pIncomingText.Replace("$message", "").Trim()
+                        'If (Not String.IsNullOrEmpty(msg)) Then
+                        'msg = msg.Replace("<12" & _NickName & "> $message" & vbLf, "")
+                        'msg = msg.Replace("<12" & _NickName & "> $message", "")
+                        'If (msg.Length <> 0) Then
+                        '.pWindow.DoNoticeColor(msg)
+                        'End If
+                        'End If
+                        'End If
+                        _CreateToolStripItem = True
+                        For Each _ToolStripItem As ToolStripItem In mdiMain.tspWindows.Items
+                            If (_ToolStripItem.Text = .pName And _ToolStripItem.Tag.ToString = .pStatusIndex.ToString) Then
+                                _CreateToolStripItem = False
                             End If
-                            _CreateToolStripItem = True
-                            For Each _ToolStripItem As ToolStripItem In mdiMain.tspWindows.Items
-                                If (_ToolStripItem.Text = .pName And _ToolStripItem.Tag.ToString = .pStatusIndex.ToString) Then
-                                    _CreateToolStripItem = False
-                                End If
-                            Next _ToolStripItem
-                            If (_CreateToolStripItem = True) Then
-                                .pWindowBarItem = mdiMain.AddWindowBar(.pName, gWindowBarImageTypes.wNotice)
-                                .pWindowBarItem.Tag = Trim(_StatusIndex.ToString)
-                            End If
+                        Next _ToolStripItem
+                        If (_CreateToolStripItem = True) Then
+                            .pWindowBarItem = mdiMain.AddWindowBar(.pName, gWindowBarImageTypes.wNotice)
+                            .pWindowBarItem.Tag = Trim(_StatusIndex.ToString)
                         End If
                     End With
                 End If
@@ -1333,128 +1318,153 @@ Namespace IRC.Status
                 Throw ex
             End Try
         End Sub
-        Public Sub PrivateMessage_Add(statusIndex As Integer, name As String, host As String, data As String)
-            Dim autoAllow As Boolean, prompt As Boolean, deny As Boolean, n As Integer, n2 As Integer, c As Boolean
+        Public Sub PrivateMessage_Add(statusIndex As Integer, name As String, host As String, data As String, Optional forceAllow As Boolean = False)
+            Dim autoAllow As Boolean, deny As Boolean, c As Boolean, privateMessageIndex As Integer, createToolStripItem As Boolean = True
             Try
                 c = True
-                With lStatusObjects.sStatusObject(statusIndex)
-                    If (Connected(statusIndex) = False) Then Exit Sub ' Exit if not connected
-                    autoAllow = UserAutoAllowList(name) ' Check user is in the auto allow list
-                    If (autoAllow = False And lSettings.lQuerySettings.qEnableSpamFilter = True And PrivateMessage_HasSpam(data) = True) Then Exit Sub ' If you're not auto allowing, if you have spam filter, check that data is spam free
-                    If (lSettings.lQuerySettings.qPromptUser = True) Then prompt = True ' 
-                    If (lSettings.lQuerySettings.qAutoDeny = Settings.eQueryAutoDeny.qEveryOne) Then
+                If (Connected(statusIndex) = False) Then Exit Sub ' Exit if not connected
+                For i As Integer = 1 To lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pCount
+                    If (Not String.IsNullOrEmpty(lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(i).pName)) Then
+                        If (lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(i).pName.ToLower().Trim() = name.ToLower().Trim()) Then
+                            privateMessageIndex = i
+                            Exit For
+                        End If
+                    End If
+                Next i
+                If (Not forceAllow) Then
+                    If (lSettings.lQuerySettings.qAutoDeny = Settings.eQueryAutoDeny.qEveryOne) Then ' Is the user on the auto deny list?
                         deny = True
                     ElseIf (lSettings.lQuerySettings.qAutoDeny = Settings.eQueryAutoDeny.qList) Then
-                        For s As Integer = 1 To lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pCount
-                            If .sPrivateMessages.pPrivateMessage(s).pName.ToLower().Trim() = name.ToLower().Trim() Then
-                                n = s
-                                Exit For
-                            End If
-                        Next s
-                    End If
-                    If (lSettings.lQuerySettings.qPromptUser = True) Then
-                        If autoAllow = True Then prompt = False
-                        For p As Integer = 1 To .sPrivateMessages.pCount
-                            With lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(p)
-                                If .pName.Trim().ToLower() = name.Trim().ToLower() Then
-                                    n2 = p
-                                    Exit For
-                                End If
-                            End With
-                        Next p
-                        If (n2 = 0) Then
-                            .sPrivateMessages.pCount = .sPrivateMessages.pCount + 1
-                            n2 = .sPrivateMessages.pCount
-                            .sPrivateMessages.pPrivateMessage(n2).pName = name
-                            .sPrivateMessages.pPrivateMessage(n2).pHost = host
-                            .sPrivateMessages.pPrivateMessage(n2).pStatusIndex = statusIndex
-                        End If
-                        If (.sPrivateMessages.pPrivateMessage(n2).pTreeNodeVisible = True) Then prompt = False
-                        If (Not String.IsNullOrEmpty(data)) Then
-                            PrivateMessage_AddToConversation(name, data, statusIndex, n2)
-                        End If
-                        If (deny = True) Then Exit Sub
-                        If (mdiMain.lblQueryPrompt.Text = "Accept query from '" & .sPrivateMessages.pPrivateMessage(n2).pName & "(" & .sPrivateMessages.pPrivateMessage(n2).pHost & ")'?") Then
-                            If (prompt = True) Then
-                                mdiMain.tspQueryPrompt.Visible = True
-                                mdiMain.lblQueryPrompt.Text = "Accept query from '" & .sPrivateMessages.pPrivateMessage(n2).pName & "(" & .sPrivateMessages.pPrivateMessage(n2).pHost & ")'?"
-                                mdiMain.lblQueryPrompt.Tag = Trim(statusIndex.ToString) & ":" & Trim(n.ToString) & ":" & data
-                                Exit Sub
-                            End If
-                        End If
-                        If (.sPrivateMessages.pPrivateMessage(n2).pTreeNodeVisible = False) Then
-                            .sPrivateMessages.pPrivateMessage(n2).pTreeNodeVisible = True
-                            For Each node As TreeNode In mdiMain.tvwConnections.Nodes
-                                If (node.Tag IsNot Nothing) Then
-                                    If (node.Text = .sPrivateMessages.pPrivateMessage(n2).pName And node.Tag.ToString = .sPrivateMessages.pPrivateMessage(n2).pStatusIndex.ToString) Then
-                                        c = False
+                        For i As Integer = 1 To lSettings.lQuerySettings.qAutoDenyList.Count() - 1
+                            If (privateMessageIndex <> 0) Then
+                                If (Not String.IsNullOrEmpty(lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName) And Not String.IsNullOrEmpty(lSettings.lQuerySettings.qAutoDenyList(i))) Then
+                                    If (lSettings.lQuerySettings.qAutoDenyList(i).Trim().ToLower() = lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName.Trim().ToLower()) Then
+                                        Exit Sub ' We found him, do nothing else.
                                     End If
                                 End If
-                            Next node
-                            If (c = True) Then
-                                .sPrivateMessages.pPrivateMessage(n2).pTreeNode = .sTreeNode.Nodes.Add(.sPrivateMessages.pPrivateMessage(n2).pName, .sPrivateMessages.pPrivateMessage(n2).pName, 3, 3)
-                                .sPrivateMessages.pPrivateMessage(n2).pTreeNode.Tag = .sPrivateMessages.pPrivateMessage(n2).pStatusIndex.ToString()
                             End If
-                        End If
-                        .sPrivateMessages.pPrivateMessage(n2).pWindow = New frmNoticeWindow
-                        .sPrivateMessages.pPrivateMessage(n2).pWindow.SetStatusIndex(statusIndex)
-                        .sPrivateMessages.pPrivateMessage(n2).pWindow.Text = .sPrivateMessages.pPrivateMessage(n2).pName & " (" & .sPrivateMessages.pPrivateMessage(n2).pHost & ")"
-                        '.sPrivateMessages.pPrivateMessage(n2).pWindow.SetMotdWindow(False)
-                        '.sPrivateMessages.pPrivateMessage(n2).pWindow.SetNoticeWindow(False)
-                        '.sPrivateMessages.pPrivateMessage(n2).pWindow.SetUnknownsWindow(False)
-                        '.sPrivateMessages.pPrivateMessage(n2).pWindow.SetPrivateMessageWindow(True, .sPrivateMessages.pPrivateMessage(n2).pName)
-                        .sPrivateMessages.pPrivateMessage(n2).pWindow.txtOutgoing.Visible = True
-                        .sPrivateMessages.pPrivateMessage(n2).pWindow.TriggerResize()
-                        If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
-                            .sPrivateMessages.pPrivateMessage(n2).pVisible = True
-                            .sPrivateMessages.pPrivateMessage(n2).pWindow.Show()
-                            .sPrivateMessages.pPrivateMessage(n2).pWindow.DoNoticeColor(.sPrivateMessages.pPrivateMessage(n2).pIncomingText)
-                            If lSettings.lIRC.iSettings.sAutoMaximize = True Then .sPrivateMessages.pPrivateMessage(n2).pWindow.WindowState = FormWindowState.Maximized
+                        Next i
+                    End If
+                    If (lSettings.lQuerySettings.qAutoAllow = Settings.eQueryAutoAllow.qEveryOne) Then ' Is the user on the auto allow list?
+                        autoAllow = True
+                    ElseIf (lSettings.lQuerySettings.qAutoAllow = eQueryAutoAllow.qList) Then
+                        For i As Integer = 1 To lSettings.lQuerySettings.qAutoAllowList.Count() - 1
+                            If (privateMessageIndex <> 0) Then
+                                If ((Not String.IsNullOrEmpty(lSettings.lQuerySettings.qAutoAllowList(i))) And (Not String.IsNullOrEmpty(lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName))) Then
+                                    If (lSettings.lQuerySettings.qAutoAllowList(i).Trim().ToLower() = lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName.Trim().ToLower()) Then
+                                        autoAllow = True
+                                        Exit For
+                                    End If
+                                End If
+                            End If
+                        Next i
+                    End If
+                Else
+                    autoAllow = True
+                    deny = False
+                End If
+                If ((Not autoAllow) And (lSettings.lQuerySettings.qEnableSpamFilter) And PrivateMessage_HasSpam(data)) Then Exit Sub ' If you're not auto allowing, if you have spam filter, check that data is spam free
+                If ((Not autoAllow) And (deny)) Then Exit Sub ' He's not on the auto allow, and deny is true, quit here.
+                If (privateMessageIndex = 0) Then
+                    privateMessageIndex = (lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pCount + 1) ' Get the privateMessageIndex
+                    lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pCount = privateMessageIndex ' Set the privateMessageIndex
+                    With lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex)
+                        .pFirstMessage = data
+                        .pName = name
+                        .pHost = host
+                        .pStatusIndex = statusIndex
+                        If (autoAllow Or (Not lSettings.lQuerySettings.qPromptUser)) Then
+                            .pTreeNodeVisible = True
+                            .pTreeNode = lStatusObjects.sStatusObject(statusIndex).sTreeNode.Nodes.Add(.pName, .pName, 3, 3)
+                            .pTreeNode.Tag = statusIndex.ToString()
+                            For Each t As ToolStripItem In mdiMain.tspWindows.Items
+                                If (t.Text = .pName And t.Tag.ToString = .pStatusIndex.ToString) Then
+                                    createToolStripItem = False
+                                End If
+                            Next t
+                            .pWindowBarItem = mdiMain.AddWindowBar(.pName, gWindowBarImageTypes.wNotice)
+                            .pWindowBarItem.Tag = Trim(statusIndex.ToString)
+                            If ((lSettings.lIRC.iSettings.sShowWindowsAutomatically = True) Or (forceAllow)) Then
+                                .pWindow = New frmNoticeWindow()
+                                .pWindow.FormType = MdiChildWindow.FormTypes.PrivateMessage
+                                .pWindow.lMdiWindow.Form_Load(MdiChildWindow.FormTypes.PrivateMessage)
+                                .pWindow.lMdiWindow.MeIndex = statusIndex
+                                .pWindow.lMdiWindow.Form_Resize(.pWindow.txtIncoming, .pWindow.txtOutgoing, .pWindow)
+                                .pWindow.SetStatusIndex(statusIndex)
+                                .pWindow.TriggerResize()
+                                .pWindow.PrivateMessageNickName = name
+                                If (Not String.IsNullOrEmpty(.pHost)) Then
+                                    .pWindow.Text = .pName & " (" & .pHost & ")"
+                                Else
+                                    .pWindow.Text = .pName
+                                End If
+                                .pVisible = True
+                                .pWindow.Show()
+                                If (lSettings.lIRC.iSettings.sAutoMaximize = True) Then .pWindow.WindowState = FormWindowState.Maximized
+                                If (Not String.IsNullOrEmpty(data)) Then .pWindow.DoNoticeColor(lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, name, data))
+                            End If
                         Else
-                            If .sPrivateMessages.pPrivateMessage(n2).pTreeNode.ImageIndex <> 6 Then .sPrivateMessages.pPrivateMessage(n2).pTreeNode.ImageIndex = 6
-                            If .sPrivateMessages.pPrivateMessage(n2).pTreeNode.SelectedImageIndex <> 6 Then .sPrivateMessages.pPrivateMessage(n2).pTreeNode.SelectedImageIndex = 6
+                            mdiMain.tspQueryPrompt.Visible = True
+                            mdiMain.lblQueryPrompt.Text = "Accept query from '" & .pName & "(" & .pHost & ")'?"
+                            mdiMain.lblQueryPrompt.Tag = Trim(statusIndex.ToString) & ":" & Trim(privateMessageIndex.ToString) & ":" & data
+                            Exit Sub
                         End If
-                        Dim _CreateToolStripItem As Boolean = True
-                        For Each _ToolStripItem As ToolStripItem In mdiMain.tspWindows.Items
-                            If (_ToolStripItem.Text = .sPrivateMessages.pPrivateMessage(n2).pName And _ToolStripItem.Tag.ToString = .sPrivateMessages.pPrivateMessage(n2).pStatusIndex.ToString) Then
-                                _CreateToolStripItem = False
+                    End With
+                Else
+                    With lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex)
+                        If (forceAllow) Then
+                            .pName = name
+                            .pHost = host
+                            .pWindow = New frmNoticeWindow()
+                            .pStatusIndex = statusIndex
+                            .pWindow.FormType = MdiChildWindow.FormTypes.PrivateMessage
+                            .pWindow.SetStatusIndex(statusIndex)
+                            .pWindow.TriggerResize()
+                            .pWindow.PrivateMessageNickName = name
+                            .pTreeNodeVisible = True
+                            .pTreeNode = lStatusObjects.sStatusObject(statusIndex).sTreeNode.Nodes.Add(.pName, .pName, 3, 3)
+                            .pTreeNode.Tag = statusIndex.ToString()
+                            For Each t As ToolStripItem In mdiMain.tspWindows.Items
+                                If (t.Text = .pName And t.Tag.ToString = .pStatusIndex.ToString) Then
+                                    createToolStripItem = False
+                                End If
+                            Next t
+                            .pWindowBarItem = mdiMain.AddWindowBar(.pName, gWindowBarImageTypes.wNotice)
+                            .pWindowBarItem.Tag = Trim(statusIndex.ToString)
+                            .pWindow.Text = .pName & " (" & .pHost & ")"
+                            .pVisible = True
+                            .pWindow.Show()
+                            .pWindow.lMdiWindow.Form_Load(MdiChildWindow.FormTypes.PrivateMessage)
+                            .pWindow.lMdiWindow.MeIndex = statusIndex
+                            .pWindow.lMdiWindow.Form_Resize(.pWindow.txtIncoming, .pWindow.txtOutgoing, .pWindow)
+                            If (lSettings.lIRC.iSettings.sAutoMaximize = True) Then .pWindow.WindowState = FormWindowState.Maximized
+                        End If
+                        If (.pVisible) Then
+                            If (Not String.IsNullOrEmpty(data)) Then .pWindow.DoNoticeColor(lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, name, data))
+                        End If
+                    End With
+                End If
+                With lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex)
+                    If (.pTreeNodeVisible) Then
+                        If (Not forceAllow) Then
+                            If (Not .pVisible) Then
+                                If (.pTreeNode.ImageIndex <> 6) Then .pTreeNode.ImageIndex = 9
+                                If (.pTreeNode.SelectedImageIndex <> 6) Then .pTreeNode.SelectedImageIndex = 9
+                                If (.pWindowBarItem IsNot Nothing) Then
+                                    If (.pWindowBarItem.ImageIndex <> 6) Then .pWindowBarItem.ImageIndex = 9
+                                End If
                             End If
-                        Next _ToolStripItem
-                        If (_CreateToolStripItem = True) Then
-                            .sPrivateMessages.pPrivateMessage(n2).pWindowBarItem = mdiMain.AddWindowBar(.sPrivateMessages.pPrivateMessage(n2).pName, gWindowBarImageTypes.wNotice)
-                            .sPrivateMessages.pPrivateMessage(n2).pWindowBarItem.Tag = Trim(statusIndex.ToString)
-                        End If
-                    Else
-                        If (Not String.IsNullOrEmpty(data)) Then
-                            .sPrivateMessages.pPrivateMessage(n2).pWindow.DoNoticeColor(lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, name, data))
+                        Else
+                            If (.pTreeNode.ImageIndex <> 0) Then .pTreeNode.ImageIndex = 0
+                            If (.pTreeNode.SelectedImageIndex <> 0) Then .pTreeNode.SelectedImageIndex = 0
+                            If (.pWindowBarItem IsNot Nothing) Then
+                                If (.pWindowBarItem.ImageIndex <> 0) Then .pWindowBarItem.ImageIndex = 0
+                            End If
                         End If
                     End If
                 End With
             Catch ex As Exception
                 Throw ex
-            End Try
-        End Sub
-        Public Sub PrivateMessage_AddToConversation(_NickName As String, _Message As String, _StatusIndex As Integer, _PrivateMessageIndex As Integer)
-            Dim splt() As String
-            Try
-                If (_Message.Length <> 0) Then
-                    With lStatusObjects.sStatusObject(_StatusIndex).sPrivateMessages.pPrivateMessage(_PrivateMessageIndex)
-                        splt = Split(.pIncomingText, Chr(10))
-                        .pIncomingText = ""
-                        For Each _Line As String In splt
-                            If .pIncomingText.Length <> 0 Then
-                                .pIncomingText = .pIncomingText & Chr(10) & _Line
-                            Else
-                                .pIncomingText = _Line
-                            End If
-                            .pIncomingText = .pIncomingText & Chr(10) & _Line
-                        Next _Line
-                        .pIncomingText = .pIncomingText.Trim()
-                        .pIncomingText = .pIncomingText & Chr(10) & lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, _NickName, _Message)
-                    End With
-                End If
-            Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub PrivateMessage_AddToConversation(_FullString As String, _StatusIndex As Integer, _PrivateMessageIndex As Integer)")
             End Try
         End Sub
         Public Sub PrivateMessage_SetListBox(ByVal _StatusIndex As Integer, ByVal _ListBox As ListBox)
@@ -1483,25 +1493,6 @@ Namespace IRC.Status
                 Return Nothing
             End Try
         End Function
-        Public Sub PrivateMessage_Show(_StatusIndex As Integer, _Name As String)
-            Try
-                Dim _PrivateMessageIndex As Integer = PrivateMessage_Find(_StatusIndex, _Name), _NewWindow As New frmNoticeWindow
-                With lStatusObjects.sStatusObject(_StatusIndex).sPrivateMessages.pPrivateMessage(_PrivateMessageIndex)
-                    .pWindow = _NewWindow
-                    .pVisible = True
-                    .pWindow.Show()
-                    .pWindow.Text = .pName & " (" & .pHost & ")"
-                    .pWindow.DoNoticeColor(.pIncomingText)
-                    If .pTreeNode.ImageIndex <> 3 Then .pTreeNode.ImageIndex = 3
-                    If .pTreeNode.SelectedImageIndex <> 3 Then .pTreeNode.SelectedImageIndex = 3
-                    .pWindow.PrivateMessageNickName = .pName
-                    .pWindow.FormType = MdiChildWindow.FormTypes.PrivateMessage
-                    .pWindow.SetStatusIndex(_StatusIndex)
-                End With
-            Catch ex As Exception
-                Throw ex
-            End Try
-        End Sub
         Public Property PrivateMessage_Visible(_StatusIndex As Integer, _Name As String) As Boolean
             Get
                 Try
@@ -1518,32 +1509,35 @@ Namespace IRC.Status
                 Try
                     Dim _PrivateMessageIndex As Integer = PrivateMessage_Find(_StatusIndex, _Name)
                     With lStatusObjects.sStatusObject(_StatusIndex).sPrivateMessages.pPrivateMessage(_PrivateMessageIndex)
+                        If (.pWindow Is Nothing) Then
+                            .pWindow = New frmNoticeWindow()
+                            .pWindow.FormType = MdiChildWindow.FormTypes.PrivateMessage
+                            .pWindow.SetStatusIndex(_StatusIndex)
+                            .pWindow.TriggerResize()
+                            .pWindow.PrivateMessageNickName = _Name
+                            If (Not String.IsNullOrEmpty(.pHost)) Then
+                                .pWindow.Text = .pName & " (" & .pHost & ")"
+                            End If
+                            .pVisible = True
+                            .pWindow.Show()
+                            If (Not String.IsNullOrEmpty(.pFirstMessage)) Then .pWindow.DoNoticeColor(lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, _Name, .pFirstMessage))
+                            .pFirstMessage = ""
+                            .pWindow.lMdiWindow.Form_Load(MdiChildWindow.FormTypes.PrivateMessage)
+                            .pWindow.lMdiWindow.MeIndex = _StatusIndex
+                            .pWindow.lMdiWindow.Form_Resize(.pWindow.txtIncoming, .pWindow.txtOutgoing, .pWindow)
+                        End If
                         .pWindow.Visible = _Visible
                         .pVisible = _Visible
-                        If .pTreeNode.ImageIndex <> 1 Then .pTreeNode.ImageIndex = 1
-                        If .pTreeNode.SelectedImageIndex <> 1 Then .pTreeNode.SelectedImageIndex = 1
-                        If .pWindowBarItem.ImageIndex <> 1 Then .pWindowBarItem.ImageIndex = 1
+                        If (_Visible) Then
+                            If .pTreeNode.ImageIndex <> 1 Then .pTreeNode.ImageIndex = 1
+                            If .pTreeNode.SelectedImageIndex <> 1 Then .pTreeNode.SelectedImageIndex = 1
+                            If .pWindowBarItem.ImageIndex <> 1 Then .pWindowBarItem.ImageIndex = 1
+                        End If
                     End With
                 Catch ex As Exception
                     Throw ex 'ProcessError(ex.Message, "Public Property PrivateMessage_Visible(_StatusIndex As Integer, _Name As String) As Boolean")
                 End Try
             End Set
-        End Property
-        Public ReadOnly Property UserAutoAllowList(_NickName As String) As Boolean
-            Get
-                Try
-                    Dim _Result As Boolean = False
-                    For _AutoAllowIndex As Integer = 1 To lSettings.lQuerySettings.qAutoAllowCount
-                        If lSettings.lQuerySettings.qAutoAllowList(_AutoAllowIndex).ToLower().Trim() = _NickName.ToLower().Trim() Then
-                            _Result = True
-                        End If
-                    Next _AutoAllowIndex
-                    Return _Result
-                Catch ex As Exception
-                    Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property UserAutoAllowList(_NickName As String) As Boolean")
-                    Return Nothing
-                End Try
-            End Get
         End Property
         Public Sub PrivateMessage_User(ByVal _StatusIndex As Integer, ByVal _UserName As String, ByVal _Data As String)
             Try
@@ -1964,7 +1958,7 @@ Namespace IRC.Status
                                     .sNoticesWindow.nWindow = New frmNoticeWindow
                                     .sNoticesWindow.nWindow.Show()
                                     .sNoticesWindow.nWindow.SetStatusIndex(lIndex)
-                                    .sNoticesWindow.nWindow.FormType = MdiChildWindow.FormTypes.NoticeWindow
+                                    .sNoticesWindow.nWindow.FormType = MdiChildWindow.FormTypes.PrivateMessage
                                     .sNoticesWindow.nWindow.Text = StatusServerName(.sWindow.mdiChildWindow.MeIndex) & " - Notices"
                                     .sNoticesWindow.nWindow.DoNoticeColor(.sNoticesWindow.nData)
                                 Else

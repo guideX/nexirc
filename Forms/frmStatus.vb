@@ -29,6 +29,11 @@ Public Class frmStatus
     End Sub
 #End Region
 #Region "txtOugtgoing Events"
+
+    Private Sub txtOutgoing_Click(sender As Object, e As System.EventArgs) Handles txtOutgoing.Click
+        mdiChildWindow.txtIncomingColor_MouseDown(Me)
+        lStatus.ActiveIndex = mdiChildWindow.MeIndex
+    End Sub
     Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown
         Try
             mdiChildWindow.txtOutgoing_KeyDown(e, txtOutgoing.Text)
@@ -36,18 +41,13 @@ Public Class frmStatus
             Throw ex
         End Try
     End Sub
-    Private Sub txtOutgoing_GotFocus(sender As Object, e As System.EventArgs) Handles txtOutgoing.GotFocus
+    Private Sub txtOutgoing_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
         Try
-            mdiChildWindow.txtOutgoing_GotFocus(Me)
+            'mdiChildWindow.txtIncomingColor_MouseUp(txtIncoming.Document.Selection.GetSelectedText(), txtIncoming, txtOutgoing)
+            mdiChildWindow.txtIncomingColor_MouseDown(Me)
+            lStatus.ActiveIndex = mdiChildWindow.MeIndex
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub txtOutgoing_GotFocus(sender As Object, e As System.EventArgs) Handles txtOutgoing.GotFocus")
-        End Try
-    End Sub
-    Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
-        Try
-            mdiChildWindow.Form_GotFocus(Me)
-        Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
+            Throw ex
         End Try
     End Sub
 #End Region
@@ -118,13 +118,6 @@ Public Class frmStatus
             Throw ex 'ProcessError(ex.Message, "Private Sub ToolStripMenuItem3_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem3.Click")
         End Try
     End Sub
-    Private Sub cmd_NewPrivateMessage_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem2.Click
-        Try
-            mdiChildWindow.cmdNewPrivateMessage_Click()
-        Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub ToolStripMenuItem2_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem2.Click")
-        End Try
-    End Sub
     Private Sub cmd_ChangeNickName_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem1.Click
         Try
             mdiChildWindow.cmdChangeNickName_Click()
@@ -139,6 +132,51 @@ Public Class frmStatus
             Throw ex 'ProcessError(ex.Message, "Private Sub tspListChannels_Click(sender As System.Object, e As System.EventArgs) Handles tspListChannels.Click")
         End Try
     End Sub
+    Private Sub cmdBotLogin_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotLogin.Click
+        Try
+            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Login()
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+    Private Sub cmdBot_ButtonClick(sender As System.Object, e As System.EventArgs) Handles cmdBot.ButtonClick
+        Try
+            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.LoginForm()
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+    Private Sub cmdBotRegister_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotRegister.Click
+        Dim settings As BotSettings
+        Try
+            settings = New BotSettings()
+            settings.Email = InputBox("Email:")
+            If (Not String.IsNullOrEmpty(settings.Email)) Then
+                settings.Password = InputBox("Password:")
+                If (Not String.IsNullOrEmpty(settings.Password)) Then
+                    lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Register(settings)
+                End If
+            End If
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+    Private Sub cmdBotGhost_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotGhost.Click
+        Dim user As String
+        Try
+            user = InputBox("Nickname: ")
+            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Ghost(user)
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+    Private Sub cmdClear_Click(sender As System.Object, e As System.EventArgs) Handles cmdClear.Click
+        Try
+            txtIncoming.Document = New RadDocument()
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
 #End Region
 #Region "Timer Events"
     Private Sub lAutoConnectDelayTimer_Tick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lAutoConnectDelayTimer.Tick
@@ -149,10 +187,19 @@ Public Class frmStatus
             Throw ex 'ProcessError(ex.Message, "Private Sub lAutoConnectDelayTimer_Tick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lAutoConnectDelayTimer.Tick")
         End Try
     End Sub
+    Private Sub tmrQuickFocus_Tick(sender As Object, e As System.EventArgs) Handles tmrQuickFocus.Tick
+        Try
+            tmrQuickFocus.Enabled = False
+            txtOutgoing.Focus()
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
 #End Region
 #Region "Class Events"
     Private Sub lMdiChildWindow_BringToFront() Handles mdiChildWindow.BringToFront
         Try
+            Me.Focus()
             Me.BringToFront()
         Catch ex As Exception
             Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_BringToFront() Handles mdiChildWindow.BringToFront")
@@ -284,57 +331,4 @@ Public Class frmStatus
         End Try
     End Sub
 #End Region
-    Private Sub cmdBotLogin_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotLogin.Click
-        Try
-            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Login()
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-    Private Sub cmdBot_ButtonClick(sender As System.Object, e As System.EventArgs) Handles cmdBot.ButtonClick
-        Try
-            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.LoginForm()
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-    Private Sub cmdBotRegister_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotRegister.Click
-        Dim settings As BotSettings
-        Try
-            settings = New BotSettings()
-            settings.Email = InputBox("Email:")
-            If (Not String.IsNullOrEmpty(settings.Email)) Then
-                settings.Password = InputBox("Password:")
-                If (Not String.IsNullOrEmpty(settings.Password)) Then
-                    lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Register(settings)
-                End If
-            End If
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-    Private Sub cmdBotGhost_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotGhost.Click
-        Dim user As String
-        Try
-            user = InputBox("Nickname: ")
-            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Ghost(user)
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-    Private Sub cmdClear_Click(sender As System.Object, e As System.EventArgs) Handles cmdClear.Click
-        Try
-            txtIncoming.Document = New RadDocument()
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-    Private Sub tmrQuickFocus_Tick(sender As Object, e As System.EventArgs) Handles tmrQuickFocus.Tick
-        Try
-            tmrQuickFocus.Enabled = False
-            txtOutgoing.Focus()
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
 End Class

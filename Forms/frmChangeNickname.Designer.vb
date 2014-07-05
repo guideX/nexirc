@@ -27,10 +27,12 @@ Partial Class frmChangeNickName
         Me.txtNickName = New Telerik.WinControls.UI.RadTextBox()
         Me.cmdOK = New Telerik.WinControls.UI.RadButton()
         Me.cmdCancel = New Telerik.WinControls.UI.RadButton()
+        Me.cmdAdd = New Telerik.WinControls.UI.RadButton()
         CType(Me.lstNickNames, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNickName, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cmdAdd, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -48,7 +50,7 @@ Partial Class frmChangeNickName
         '
         Me.txtNickName.Location = New System.Drawing.Point(13, 13)
         Me.txtNickName.Name = "txtNickName"
-        Me.txtNickName.Size = New System.Drawing.Size(235, 20)
+        Me.txtNickName.Size = New System.Drawing.Size(181, 20)
         Me.txtNickName.TabIndex = 1
         Me.txtNickName.TabStop = False
         '
@@ -68,11 +70,20 @@ Partial Class frmChangeNickName
         Me.cmdCancel.TabIndex = 3
         Me.cmdCancel.Text = "Cancel"
         '
+        'cmdAdd
+        '
+        Me.cmdAdd.Location = New System.Drawing.Point(200, 13)
+        Me.cmdAdd.Name = "cmdAdd"
+        Me.cmdAdd.Size = New System.Drawing.Size(48, 20)
+        Me.cmdAdd.TabIndex = 3
+        Me.cmdAdd.Text = "Add"
+        '
         'frmChangeNickName
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(263, 248)
+        Me.Controls.Add(Me.cmdAdd)
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.cmdOK)
         Me.Controls.Add(Me.txtNickName)
@@ -89,6 +100,7 @@ Partial Class frmChangeNickName
         CType(Me.txtNickName, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cmdAdd, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -98,5 +110,6 @@ Partial Class frmChangeNickName
     Friend WithEvents txtNickName As Telerik.WinControls.UI.RadTextBox
     Friend WithEvents cmdOK As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdCancel As Telerik.WinControls.UI.RadButton
+    Friend WithEvents cmdAdd As Telerik.WinControls.UI.RadButton
 End Class
 

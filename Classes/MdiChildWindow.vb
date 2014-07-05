@@ -103,22 +103,8 @@ Public Class MdiChildWindow
         End Try
     End Sub
 
-    Public Sub txtOutgoing_GotFocus(form As Form)
-        Try
-            lChannels.ResetForeMostWindows()
-            lStatus.ResetForeMostWindows()
-            lForeMost = True
-            form.BringToFront()
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-
     Public Sub txtOutgoing_GotFocus()
         Try
-            lChannels.ResetForeMostWindows()
-            lStatus.ResetForeMostWindows()
-            lForeMost = True
             RaiseEvent BringToFront()
         Catch ex As Exception
             Throw ex
@@ -180,7 +166,7 @@ Public Class MdiChildWindow
 
     Public Sub txtIncomingColor_MouseDown(form As Form)
         Try
-            form.BringToFront()
+            RaiseEvent BringToFront()
         Catch ex As Exception
             Throw ex
         End Try
@@ -223,8 +209,9 @@ Public Class MdiChildWindow
                         _meIndex = MeIndex
                         lChannels.SetChannelVisible(_meIndex, True)
                         lChannels.CurrentIndex = _meIndex
-                        'lChannels.Form_Load(_meIndex)
                     Case FormTypes.Status
+                        _meIndex = MeIndex
+                    Case FormTypes.PrivateMessage
                         _meIndex = MeIndex
                 End Select
             Catch ex As Exception
@@ -254,28 +241,30 @@ Public Class MdiChildWindow
 
     Public Sub Form_Resize(ByRef incomingRichTextBox As RadRichTextBox, ByRef outgoingTextBox As RadTextBox, ByRef form As Form)
         Try
-            If (form.WindowState <> FormWindowState.Minimized) Then
-                Select Case _formType
-                    Case FormTypes.PrivateMessage
-                        incomingRichTextBox.Width = form.ClientSize.Width
-                        incomingRichTextBox.Height = form.ClientSize.Height - (outgoingTextBox.Height + incomingRichTextBox.Top)
-                        outgoingTextBox.Width = incomingRichTextBox.Width
-                        outgoingTextBox.Top = incomingRichTextBox.Height + incomingRichTextBox.Top
-                    Case FormTypes.NoticeWindow
-                        incomingRichTextBox.Width = form.ClientSize.Width
-                        incomingRichTextBox.Height = form.ClientSize.Height - (outgoingTextBox.Height + incomingRichTextBox.Top)
-                        outgoingTextBox.Width = incomingRichTextBox.Width
-                        outgoingTextBox.Top = incomingRichTextBox.Height + incomingRichTextBox.Top
-                    Case FormTypes.Status
-                        incomingRichTextBox.Width = form.ClientSize.Width
-                        incomingRichTextBox.Height = form.ClientSize.Height - (outgoingTextBox.Height + incomingRichTextBox.Top)
-                        outgoingTextBox.Width = incomingRichTextBox.Width
-                        outgoingTextBox.Top = incomingRichTextBox.Height + incomingRichTextBox.Top
-                    Case FormTypes.Channel
-                        If _meIndex <> 0 Then
-                            lChannels.Window_Resize(_meIndex)
-                        End If
-                End Select
+            If (mdiMain.WindowState <> FormWindowState.Minimized) Then
+                If (form.WindowState <> FormWindowState.Minimized) Then
+                    Select Case _formType
+                        Case FormTypes.PrivateMessage
+                            incomingRichTextBox.Width = form.ClientSize.Width
+                            incomingRichTextBox.Height = form.ClientSize.Height - (outgoingTextBox.Height + incomingRichTextBox.Top)
+                            outgoingTextBox.Width = incomingRichTextBox.Width
+                            outgoingTextBox.Top = incomingRichTextBox.Height + incomingRichTextBox.Top
+                        Case FormTypes.NoticeWindow
+                            incomingRichTextBox.Width = form.ClientSize.Width
+                            incomingRichTextBox.Height = form.ClientSize.Height - (outgoingTextBox.Height + incomingRichTextBox.Top)
+                            outgoingTextBox.Width = incomingRichTextBox.Width
+                            outgoingTextBox.Top = incomingRichTextBox.Height + incomingRichTextBox.Top
+                        Case FormTypes.Status
+                            incomingRichTextBox.Width = form.ClientSize.Width
+                            incomingRichTextBox.Height = form.ClientSize.Height - (outgoingTextBox.Height + incomingRichTextBox.Top)
+                            outgoingTextBox.Width = incomingRichTextBox.Width
+                            outgoingTextBox.Top = incomingRichTextBox.Height + incomingRichTextBox.Top
+                        Case FormTypes.Channel
+                            If _meIndex <> 0 Then
+                                lChannels.Window_Resize(_meIndex)
+                            End If
+                    End Select
+                End If
             End If
         Catch ex As Exception
             Throw ex
@@ -365,8 +354,9 @@ Public Class MdiChildWindow
     End Sub
 
     Public Sub Form_FormClosing(Optional ByRef form As Form = Nothing, Optional ByRef e As System.Windows.Forms.FormClosingEventArgs = Nothing)
+        Dim splt() As String, nickName As String
         Try
-            Select Case _formType
+            Select Case FormType
                 Case FormTypes.Unknown
                     lStatus.SetUnknownsClosed(_meIndex)
                 Case FormTypes.NoticeWindow
@@ -375,7 +365,13 @@ Public Class MdiChildWindow
                     lSettings.lIRC.iSettings.sWindowSizes.iNotice.wHeight = form.Height
                     lSettings.SaveWindowSizes()
                 Case FormTypes.PrivateMessage
-                    lStatus.PrivateMessage_Visible(_meIndex, form.Text) = False
+                    If (form.Text.Contains(" ")) Then
+                        splt = Split(form.Text, " ")
+                        nickName = splt(0)
+                    Else
+                        nickName = form.Text
+                    End If
+                    lStatus.PrivateMessage_Visible(_meIndex, nickName) = False
                     e.Cancel = True
                 Case FormTypes.MotdWindow
                     lStatus.Motd_Open(_meIndex) = False
@@ -433,16 +429,6 @@ Public Class MdiChildWindow
             Dim form As New frmSendNotice
             form.lSendNoticeUI.StatusIndex = ReturnMeStatusIndex()
             form.Visible = True
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-
-    Public Sub cmdNewPrivateMessage_Click()
-        Try
-            Dim form As New frmPrivateMessage
-            form.StatusIndex = ReturnMeStatusIndex()
-            form.Show()
         Catch ex As Exception
             Throw ex
         End Try

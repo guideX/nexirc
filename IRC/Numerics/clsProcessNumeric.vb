@@ -870,13 +870,15 @@ Public Class clsProcessNumeric
                                 Exit Sub
                             Case 433
                                 lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NICKNAMEINUSE, lStatus.NickName(lStatusIndex))
-                                If lSettings.lIRC.iSettings.sChangeNickNameWindow = True Then
-                                    Dim f As New frmChangeNickName
-                                    f = New frmChangeNickName
-                                    f.ChangeNickName.lServerIndex = lStatusIndex
-                                    f.Show()
-                                Else
-                                    mdiMain.ShowQueryBar("Nickname in use", eInfoBar.iNicknameInUse)
+                                If (lSettings.ShowPrompts) Then
+                                    If lSettings.lIRC.iSettings.sChangeNickNameWindow = True Then
+                                        Dim f As New frmChangeNickName
+                                        f = New frmChangeNickName
+                                        f.ChangeNickName.lServerIndex = lStatusIndex
+                                        f.Show()
+                                    Else
+                                        mdiMain.ShowQueryBar("Nickname in use", eInfoBar.iNicknameInUse)
+                                    End If
                                 End If
                                 Exit Sub
                             Case 436

@@ -38,7 +38,7 @@ Namespace IRC.Channels
         Public Sub Focus(channelIndex As Integer)
             Try
                 With lChannels.cChannel(channelIndex)
-                    .cWindow.txtOutgoing.Focus()
+                    .cWindow.Focus()
                 End With
             Catch ex As Exception
                 Throw ex
@@ -113,21 +113,21 @@ Namespace IRC.Channels
         Public Sub DoChannelColor(_ChannelIndex As Integer, ByVal _Data As String)
             Try
                 If (_ChannelIndex <> 0) Then
-                    Dim splt() As String
-                    With lChannels.cChannel(_ChannelIndex)
-                        splt = Split(.cIncomingText, Chr(10))
-                        .cIncomingText = ""
-                        For Each _Line As String In splt
-                            If (_Line.Length <> 0) Then
-                                If (.cIncomingText.Length = 0) Then
-                                    .cIncomingText = _Line.Trim()
-                                Else
-                                    .cIncomingText = (.cIncomingText & Chr(10) & _Line).Trim()
-                                End If
-                            End If
-                        Next _Line
-                        .cIncomingText = .cIncomingText & Chr(10) & _Data.Trim()
-                    End With
+                    'Dim splt() As String
+                    'With lChannels.cChannel(_ChannelIndex)
+                    'splt = Split(.cIncomingText, Chr(10))
+                    '.cIncomingText = ""
+                    'For Each _Line As String In splt
+                    'If (_Line.Length <> 0) Then
+                    'If (.cIncomingText.Length = 0) Then
+                    '.cIncomingText = _Line.Trim()
+                    'Else
+                    '.cIncomingText = (.cIncomingText & Chr(10) & _Line).Trim()
+                    'End If
+                    'End If
+                    'Next _Line
+                    '.cIncomingText = .cIncomingText & Chr(10) & _Data.Trim()
+                    'End With
                     With lChannels.cChannel(_ChannelIndex)
                         lStrings.Print(_Data, .cWindow.txtIncoming)
                     End With
@@ -248,8 +248,8 @@ Namespace IRC.Channels
                 With lChannels.cChannel(_ChannelIndex)
                     msg = Replace(.cWindow.lvwNickList.SelectedItems(0).Text, "+", "")
                     msg = Replace(msg, "@", "")
-                    lStatus.PrivateMessage_Initialize(.cStatusIndex, msg)
-                    lStatus.PrivateMessage_Add(StatusIndex(_ChannelIndex), msg, "", "")
+                    'lStatus.PrivateMessage_Initialize(.cStatusIndex, msg)
+                    lStatus.PrivateMessage_Add(StatusIndex(_ChannelIndex), msg, "", "", True)
                 End With
             Catch ex As Exception
                 Throw ex
@@ -655,6 +655,14 @@ Namespace IRC.Channels
                             If .cTreeNode.ImageIndex <> 1 Then .cTreeNode.ImageIndex = 1
                             If .cTreeNode.SelectedImageIndex <> 1 Then .cTreeNode.SelectedImageIndex = 1
                             If .cWindowBarItem.ImageIndex <> 1 Then .cWindowBarItem.ImageIndex = 1
+                        End If
+                        .cWindow.txtIncoming.Document.CaretPosition.MoveToLastPositionInDocument()
+                        If (.cTreeNode IsNot Nothing) Then
+                            If (.cTreeNode.ImageIndex <> 1) Then .cTreeNode.ImageIndex = 1
+                            If (.cTreeNode.SelectedImageIndex <> 1) Then .cTreeNode.SelectedImageIndex = 1
+                        End If
+                        If (.cWindowBarItem IsNot Nothing) Then
+                            If (.cTreeNode.ImageIndex <> 1) Then .cTreeNode.ImageIndex = 1
                         End If
                     End With
                 Catch ex As Exception

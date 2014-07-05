@@ -6,7 +6,7 @@ Imports nexIRC.Modules
 Public Class frmNoticeWindow
     Private lStatusIndex As Integer
     Private _privateMessageNickName As String
-    Private WithEvents lMdiWindow As New MdiChildWindow
+    Public WithEvents lMdiWindow As New MdiChildWindow
 
     Public Property PrivateMessageNickName() As String
         Get
@@ -84,12 +84,11 @@ Public Class frmNoticeWindow
 
     Private Sub frmNoticeWindow_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
+            Button1.Visible = False
             Me.Icon = mdiMain.Icon
             Me.MdiParent = mdiMain
             Me.Width = lSettings.lIRC.iSettings.sWindowSizes.iNotice.wWidth
             Me.Height = lSettings.lIRC.iSettings.sWindowSizes.iNotice.wHeight
-            lMdiWindow.Form_Load(MdiChildWindow.FormTypes.NoticeWindow)
-            lMdiWindow.Form_Resize(txtIncoming, txtOutgoing, Me)
         Catch ex As Exception
             Throw ex
         End Try
@@ -120,7 +119,6 @@ Public Class frmNoticeWindow
                             txtOutgoing.Text = ""
                             e.Handled = True
                             DoNoticeColor(lStrings.ReturnReplacedString(clsIrcNumerics.eStringTypes.sPRIVMSG, lStatus.NickName(lStatusIndex), msg))
-                            lStatus.PrivateMessage_AddToConversation(lStatus.NickName(lStatusIndex), msg, lStatusIndex, lStatus.PrivateMessage_Find(lStatusIndex, _privateMessageNickName))
                         End If
                     End If
                 End If
@@ -148,7 +146,7 @@ Public Class frmNoticeWindow
 
     Private Sub txtIncomingColor_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncoming.MouseUp
         Try
-            lMdiWindow.txtIncomingColor_MouseUp(txtIncoming.Document.Selection.GetSelectedText(), txtIncoming, txtOutgoing)
+            'lMdiWindow.txtIncomingColor_MouseUp(txtIncoming.Document.Selection.GetSelectedText(), txtIncoming, txtOutgoing)
         Catch ex As Exception
             Throw ex
         End Try
@@ -173,15 +171,6 @@ Public Class frmNoticeWindow
         End If
         'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub txtOutgoing_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtOutgoing.KeyPress")
     End Sub
-
-    Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
-        Try
-            lMdiWindow.txtOutgoing_GotFocus(Me)
-        Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub txtOutgoing_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown")
-        End Try
-    End Sub
-
     Private Sub lMdiChildWindow_BringToFront() Handles lMdiWindow.BringToFront
         Try
             Me.BringToFront()
@@ -220,7 +209,7 @@ Public Class frmNoticeWindow
     End Sub
     Private Sub lMdiChildWindow_FormFocus() Handles lMdiWindow.FormFocus
         Try
-            Me.Focus()
+            txtOutgoing.Focus()
         Catch ex As Exception
             Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormFocus() Handles lMdiWindow.FormFocus")
         End Try
@@ -306,5 +295,9 @@ Public Class frmNoticeWindow
         Catch ex As Exception
             Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetWindowState(windowState As System.Windows.Forms.FormWindowState) Handles lMdiWindow.SetWindowState")
         End Try
+    End Sub
+
+    Private Sub Button1_Click(sender As System.Object, e As System.EventArgs) Handles Button1.Click
+        MessageBox.Show(lMdiWindow.FormType.ToString())
     End Sub
 End Class

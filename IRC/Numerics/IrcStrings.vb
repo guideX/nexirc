@@ -1,4 +1,4 @@
-﻿'06-13-2013 - guideX
+﻿'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 'Option Strict On
 Imports Telerik.WinControls.UI
@@ -675,6 +675,7 @@ Public Class IrcStrings
 
     Public Sub Print(data As String, richTextBox As RadRichTextBox)
         Dim ircChar As String = "", s As Span, mint As Integer, i As Integer, msg As String, currentText As String = "", subText1 As String = "", subText2 As String = "", isForeColorSet As Boolean = False, isBackColorSet As Boolean = False
+        richTextBox.Document.Selection.Clear()
         richTextBox.Document.CaretPosition.MoveToLastPositionInDocument()
         If (Not String.IsNullOrEmpty(data)) Then
             If (richTextBox.RichTextBoxElement.Tag = "1") Then
@@ -684,6 +685,7 @@ Public Class IrcStrings
             End If
             If (Not data.Contains(ircChar)) Then
                 s = New Span(data)
+                s.FontSize = 20
                 s.ForeColor = Color.White
                 richTextBox.InsertInline(s)
             Else
@@ -695,6 +697,7 @@ Public Class IrcStrings
                         If (msg = ircChar) Then
                             If (Not isForeColorSet) Then
                                 If (Not String.IsNullOrEmpty(currentText)) Then
+                                    s.FontSize = 20
                                     s.ForeColor = Color.White
                                     s.Text = currentText
                                     richTextBox.InsertInline(s)
@@ -736,6 +739,7 @@ Public Class IrcStrings
                                 End If
                             Else
                                 If (Not String.IsNullOrEmpty(currentText)) Then
+                                    s.FontSize = 20
                                     s.Text = currentText
                                     richTextBox.InsertInline(s)
                                     currentText = ""
@@ -753,6 +757,7 @@ Public Class IrcStrings
                 Next i
                 If (Not String.IsNullOrEmpty(currentText)) Then
                     If (Not String.IsNullOrEmpty(currentText.Length)) Then
+                        s.FontSize = 20
                         s.Text = currentText
                         richTextBox.InsertInline(s)
                         currentText = ""

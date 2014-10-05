@@ -1,5 +1,5 @@
-'nexIRC 3.0.26
-'06-13-2013 - guideX
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
@@ -187,7 +187,6 @@ Public Class frmQuerySettings
             Dim i As Integer, n As Integer
             i = lStatus.FindByInitialText(lstConnections.Text)
             n = lStatus.PrivateMessage_Find(i, lstQueryLog.Text)
-            'lStrings.DoColor(lStatus.PrivateMessage_IncomingText(i, n), txtQueryLog)
         Catch ex As Exception
             Throw ex
         End Try

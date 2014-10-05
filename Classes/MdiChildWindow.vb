@@ -1,5 +1,5 @@
-﻿'nexIRC 3.0.26
-'06-13-2013 - guideX
+﻿'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.Classes.UI
@@ -38,6 +38,7 @@ Public Class MdiChildWindow
     Public Event BringToFront()
     Public Event EmptyOutgoingTextBox()
     Public Event SetWindowState(windowState As FormWindowState)
+    Public Event SetTextBoxEditAbilities()
     Public NicklistQue As New List(Of String)
     Public Event DisableNameDelayTimer()
     Public Event AddToNickList(nickName As String)
@@ -310,6 +311,7 @@ Public Class MdiChildWindow
                     RaiseEvent SetNicklistColors(Color.Blue, Color.White)
                     RaiseEvent SetNickListSortSettings()
             End Select
+            RaiseEvent SetTextBoxEditAbilities()
             RaiseEvent FormDimensions(Convert.ToInt32((mdiMain.Width / 10) * 8), Convert.ToInt32(mdiMain.Height / 2))
             RaiseEvent FormFocus()
         Catch ex As Exception

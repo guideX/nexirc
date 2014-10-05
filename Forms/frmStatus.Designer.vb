@@ -203,7 +203,7 @@ Partial Class frmStatus
         '
         'txtIncoming
         '
-        Me.txtIncoming.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIncoming.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtIncoming.Location = New System.Drawing.Point(0, 25)
         Me.txtIncoming.Name = "txtIncoming"
         Me.txtIncoming.Size = New System.Drawing.Size(429, 103)
@@ -212,10 +212,10 @@ Partial Class frmStatus
         '
         'txtOutgoing
         '
-        Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOutgoing.Location = New System.Drawing.Point(0, 134)
         Me.txtOutgoing.Name = "txtOutgoing"
-        Me.txtOutgoing.Size = New System.Drawing.Size(429, 24)
+        Me.txtOutgoing.Size = New System.Drawing.Size(429, 29)
         Me.txtOutgoing.TabIndex = 17
         Me.txtOutgoing.TabStop = False
         '

@@ -1,5 +1,5 @@
-﻿'nexIRC 3.0.26
-'06-13-2013 - guideX
+﻿'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
@@ -29,7 +29,6 @@ Public Class frmStatus
     End Sub
 #End Region
 #Region "txtOugtgoing Events"
-
     Private Sub txtOutgoing_Click(sender As Object, e As System.EventArgs) Handles txtOutgoing.Click
         mdiChildWindow.txtIncomingColor_MouseDown(Me)
         lStatus.ActiveIndex = mdiChildWindow.MeIndex
@@ -83,6 +82,7 @@ Public Class frmStatus
     Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Try
             mdiChildWindow.Form_Load(mdiChildWindow.FormTypes.Status)
+            txtIncoming.Cursor = Cursors.Default
         Catch ex As Exception
             Throw ex 'ProcessError(ex.Message, "Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
         End Try
@@ -197,6 +197,14 @@ Public Class frmStatus
     End Sub
 #End Region
 #Region "Class Events"
+    Private Sub lMdiChildWindow_SetTextBoxEditAbilities() Handles mdiChildWindow.SetTextBoxEditAbilities
+        Try
+            txtIncoming.IsReadOnly = True
+            txtIncoming.IsSelectionEnabled = True
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
     Private Sub lMdiChildWindow_BringToFront() Handles mdiChildWindow.BringToFront
         Try
             Me.Focus()

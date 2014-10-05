@@ -106,6 +106,7 @@
 		<row><td>AssemblyFiles1</td><td>{5DA5A830-06AA-4AA5-BEC5-C9EA594485F6}</td><td>TARGETDIR</td><td>0</td><td/><td>telerikcommon.dll</td><td>52753</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>DefaultComponent</td><td>{D16EE61F-E4D1-4DDF-8CD1-FC714E6A7082}</td><td>TARGETDIR</td><td>0</td><td/><td>nexgen.ico</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Files</td><td>{954F993B-A3E0-4492-9939-7451667D1BC7}</td><td>DATA</td><td>8</td><td/><td>status.txt</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Files1</td><td>{7E874EB6-1887-40E3-8547-606E38B3A456}</td><td>CONFIG</td><td>8</td><td/><td>services.ini</td><td>51729</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Control">
@@ -198,6 +199,7 @@
 		<row><td>{9214209E-1A32-478F-B94B-812316610418}</td><td>AssemblyFiles1</td></row>
 		<row><td>{9214209E-1A32-478F-B94B-812316610418}</td><td>DefaultComponent</td></row>
 		<row><td>{9214209E-1A32-478F-B94B-812316610418}</td><td>Files</td></row>
+		<row><td>{9214209E-1A32-478F-B94B-812316610418}</td><td>Files1</td></row>
 	</table>
 
 	<table name="File">
@@ -274,7 +276,7 @@
 		<row><td>serverblue.bmp</td><td>Files</td><td>serverblue.bmp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_DEBUG_FILES&gt;\data\images\serverblue.bmp</td><td>1</td><td>images</td></row>
 		<row><td>servermenu.ini</td><td>Files</td><td>servermenu.ini</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_DEBUG_FILES&gt;\data\config\servermenu.ini</td><td>1</td><td>config</td></row>
 		<row><td>servers.ini</td><td>Files</td><td>servers.ini</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_DEBUG_FILES&gt;\data\config\servers.ini</td><td>1</td><td>config</td></row>
-		<row><td>services.ini</td><td>Files</td><td>services.ini</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_DEBUG_FILES&gt;\data\config\services.ini</td><td>1</td><td>config</td></row>
+		<row><td>services.ini</td><td>Files1</td><td>services.ini</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_DEBUG_FILES&gt;\data\config\services.ini</td><td>1</td><td/></row>
 		<row><td>settings.ini</td><td>Files</td><td>settings.ini</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_DEBUG_FILES&gt;\data\config\settings.ini</td><td>1</td><td>config</td></row>
 		<row><td>status.bmp</td><td>Files</td><td>status.bmp</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_DEBUG_FILES&gt;\data\images\status.bmp</td><td>1</td><td>images</td></row>
 		<row><td>status.ico</td><td>Files</td><td>status.ico</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_DEBUG_FILES&gt;\data\images\status.ico</td><td>1</td><td>images</td></row>
@@ -351,6 +353,7 @@
 		<row><td>AssemblyFiles1</td><td/><td/><td>_E1D172CC_DC65_42F7_8341_21E3F2C753A7_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>DefaultComponent</td><td/><td/><td>_47707521_B133_40F8_A8B9_EFB5369A3CFB_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Files</td><td/><td/><td>_2BAF15E4_DD0E_4487_A83F_27AA10098D5B_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Files1</td><td/><td/><td>_E48C64CC_6950_4739_B9C2_519C372AA26C_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISComponentSubFolder">
@@ -966,9 +969,9 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>NewShortcut1_37D0712D8C4C4229AEB577C0B532F500.url</td><td/><td>&lt;TARGETDIR&gt;\nexgen.ico</td><td/></row>
-		<row><td>nexIRC.exe1_08D17DBBFEE64D8DB034FA7AF1D75731.exe</td><td/><td>&lt;TARGETDIR&gt;\nexgen.ico</td><td/></row>
-		<row><td>nexIRC.exe_837217F50A6A4DFBAA478CC737BC66D0.exe</td><td/><td>&lt;TARGETDIR&gt;\nexgen.ico</td><td/></row>
+		<row><td>NewShortcut1_23908AEB187E44B4BF6E4CC3CEE1F486.url</td><td/><td>&lt;TARGETDIR&gt;\nexgen.ico</td><td/></row>
+		<row><td>nexIRC.exe1_844BF9E964974C4BA19A9F0C4B91232D.exe</td><td/><td>&lt;TARGETDIR&gt;\nexgen.ico</td><td/></row>
+		<row><td>nexIRC.exe_642E945E8C88451FBBC5552892CCA1BA.exe</td><td/><td>&lt;TARGETDIR&gt;\nexgen.ico</td><td/></row>
 	</table>
 
 	<table name="InstallShield">
@@ -1152,9 +1155,9 @@ UwBJAE4ARwBMAEUAXwBFAFgARQBfAEkATQBBAEcARQABAE0AZQBkAGkAYQA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>NewShortcut1</td><td>nexirc</td><td>##ID_STRING8##</td><td/><td>&lt;TARGETDIR&gt;\Team Nexgen Website.url</td><td/><td/><td/><td>NewShortcut1_37D0712D8C4C4229AEB577C0B532F500.url</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td>NewShortcut1</td><td>18</td></row>
-		<row><td>nexIRC.exe</td><td>nexirc</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td/><td>&lt;TARGETDIR&gt;\nexIRC.exe</td><td/><td/><td/><td>nexIRC.exe_837217F50A6A4DFBAA478CC737BC66D0.exe</td><td>0</td><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>nexIRC.exe</td><td>18</td></row>
-		<row><td>nexIRC.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td/><td>&lt;TARGETDIR&gt;\nexIRC.exe</td><td/><td/><td/><td>nexIRC.exe1_08D17DBBFEE64D8DB034FA7AF1D75731.exe</td><td>0</td><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>nexIRC.exe1</td><td>18</td></row>
+		<row><td>NewShortcut1</td><td>nexirc</td><td>##ID_STRING8##</td><td/><td>&lt;TARGETDIR&gt;\Team Nexgen Website.url</td><td/><td/><td/><td>NewShortcut1_23908AEB187E44B4BF6E4CC3CEE1F486.url</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td>NewShortcut1</td><td>18</td></row>
+		<row><td>nexIRC.exe</td><td>nexirc</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td/><td>&lt;TARGETDIR&gt;\nexIRC.exe</td><td/><td/><td/><td>nexIRC.exe_642E945E8C88451FBBC5552892CCA1BA.exe</td><td>0</td><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>nexIRC.exe</td><td>18</td></row>
+		<row><td>nexIRC.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td/><td>&lt;TARGETDIR&gt;\nexIRC.exe</td><td/><td/><td/><td>nexIRC.exe1_844BF9E964974C4BA19A9F0C4B91232D.exe</td><td>0</td><td>1</td><td>TARGETDIR</td><td/><td/><td/><td/><td/><td>nexIRC.exe1</td><td>18</td></row>
 	</table>
 
 	<table name="TextStyle">

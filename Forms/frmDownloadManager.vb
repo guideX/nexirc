@@ -1,6 +1,6 @@
 'INCOMPLETE
-'nexIRC 3.0.26
-'06-13-2013 - guideX
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
@@ -80,12 +80,6 @@ Public Class frmDownloadManager
                 'If lIRC.iSettings.sShowBrowser = True Then
                 'mdiMain.BrowseURL(ReturnDownloadManagerFullPath(msg))
                 'End If
-            End If
-            If v = True Then
-                If lSettings.lIRC.iSettings.sVideoBackground = True Then
-                    mdiMain.PlayVideo(lSettings.ReturnDownloadManagerFullPath(msg))
-                    Exit Sub
-                End If
             End If
         Catch ex As Exception
             Throw ex

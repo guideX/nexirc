@@ -375,22 +375,22 @@ Public Class clsProcessNumeric
                             Case 256
                                 If lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ADMINME, splt3(0), Replace(splt3(1), ":", ""))
+                                    lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ADMINME, splt2(2))
                                 End If
                                 Exit Sub
                             Case 257
                                 If lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ADMINLOC1, Replace(splt2(2), ":", ""))
+                                    lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ADMINLOC1, splt2(2))
                                 End If
                                 Exit Sub
                             Case 258
                                 If lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ADMINLOC2, Replace(splt2(2), ":", ""))
+                                    lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ADMINLOC2, splt2(2))
                                 End If
                                 Exit Sub
                             Case 259
                                 If lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ADMINEMAIL, Replace(splt2(2), ":", ""))
+                                    lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ADMINEMAIL, splt2(2))
                                 End If
                                 Exit Sub
                             Case 261

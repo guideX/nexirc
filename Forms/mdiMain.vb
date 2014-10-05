@@ -1,5 +1,5 @@
-'nexIRC 3.0.26
-'06-13-2013 - guideX
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.nexIRC.MainWindow
@@ -26,9 +26,6 @@ Public Class mdiMain
     End Sub
     Public Sub ClearWindowBar()
         lMainWindowUI.ClearWindowBar(tspWindows)
-    End Sub
-    Public Sub PlayVideo(_File As String)
-        lMainWindowUI.PlayVideo(_File)
     End Sub
     Private Sub mdiMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         lMainWindowUI.FormClosed(Me, nicSystray, Me.pnlLeftNav.Visible)
@@ -175,9 +172,6 @@ Public Class mdiMain
     Private Sub cmd_Back_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Back.Click
         lMainWindowUI.cmd_Back_Click()
     End Sub
-    Private Sub cmd_PlayVideo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_PlayVideo.Click
-        lMainWindowUI.cmd_PlayVideo_Click(fdgOpen)
-    End Sub
     Private Sub mnuExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         lMainWindowUI.mnuExit_Click(Me)
     End Sub
@@ -216,10 +210,13 @@ Public Class mdiMain
         lMainWindowUI.tmrHideRedirect_Tick(tspRedirect, tmrHideRedirect)
     End Sub
     Private Sub lMainWindowUI_QueryBarPromptLabelVisible(text As String, tag As String) Handles lMainWindowUI.QueryBarPromptLabelVisible
-        tspQueryPrompt.Text = text
-        tspQueryPrompt.Tag = tag
-        tspQueryPrompt.Text = "The nickname is in use."
-        tspQueryPrompt.Visible = True
+        Try
+            tspQueryPrompt.Tag = tag
+            tspQueryPrompt.Visible = True
+            lblQueryPrompt.Text = text
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 
     Private Sub lMainWindowUI_SetBackgroundColor() Handles lMainWindowUI.SetBackgroundColor
@@ -247,7 +244,11 @@ Public Class mdiMain
         End Try
     End Sub
 
-    Private Sub tvwConnections_AfterSelect(sender As System.Object, e As System.Windows.Forms.TreeViewEventArgs) Handles tvwConnections.AfterSelect
-
+    Private Sub cmd_Admin_Click(sender As System.Object, e As System.EventArgs) Handles cmd_Admin.Click
+        Try
+            lMainWindowUI.cmd_Admin_Click()
+        Catch ex As Exception
+            Throw ex
+        End Try
     End Sub
 End Class

@@ -158,23 +158,23 @@ Public Class clsCommandTypes
         'cKNOCK = 64
         'cKLINE = 65
         'cKILL = 66
-        'cKICK = 67
+        cKICK = 67
         'cJOIN = 68
         'cISON = 69
-        'cINVITE = 70
+        cINVITE = 70
         'cIDLE = 71
         'cHTM = 72
         'cHS = 73
         'cHELPSERV = 74
-        'cHELP = 75
+        cHELP = 75
         'cHASH = 76
         'cGN = 77
         'cGLOBALNOTICE = 78
-        'cERROR = 78
+        cERROR = 78
         'cDUMP = 79
         'cDNS = 80
         'cDLINE = 81
-        'cDIE = 82
+        cDIE = 82
         'cCS = 83
         'cCONNECT = 84
         'cCOLLIDE = 85
@@ -184,7 +184,11 @@ Public Class clsCommandTypes
         'cCAPAB = 89
         'cBURST = 90
         'cAWAY = 91
+        'SYNTAX: AWAY [<message>]
+        '  Provides the server with a message to automatically send in reply to a PRIVMSG directed at the user, but not to a channel they are on. If <message> is omitted, the away status is removed.
         cADMIN = 92
+        'SYNTAX: ADMIN [<servers>]
+        '  Instructs the server to return information about the administrator of the server specified by <server>, or the current server if target is omitted.
         cACTION = 93
         cAWAY = 94
         '  Set as away
@@ -192,5 +196,8 @@ Public Class clsCommandTypes
         cBACK = 95
         '  Back from being away
         '  SYNTAX:                      AWAY
+        cINFO = 96
+        '  INFO: [<target>]
+        '  Returns information about the <target> server, or the current server if <target> is omitted. Information returned includes the server's version, when it was compiled, the patch level, when it was started, and any other information which may be considered to be relevant.
     End Enum
 End Class

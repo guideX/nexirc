@@ -1,5 +1,5 @@
-'nexIRC 3.0.26
-'06-13-2013 - guideX
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.IRC.Channels
@@ -62,6 +62,7 @@ Namespace Modules
                 Return Nothing
             End Try
         End Function
+
         Public Function ReturnRadListBoxIndex(ByVal lListBox As RadListControl, ByVal lData As String) As Integer
             Dim i As Integer, result As Integer
             Try

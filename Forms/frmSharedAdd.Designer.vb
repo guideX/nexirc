@@ -27,6 +27,8 @@ Partial Class frmSharedAdd
         Me.txtDescription = New Telerik.WinControls.UI.RadTextBox()
         Me.cmdOK = New Telerik.WinControls.UI.RadButton()
         Me.cmdCancel = New Telerik.WinControls.UI.RadButton()
+        Me.lblMoreInformation1 = New System.Windows.Forms.Label()
+        Me.lblMoreInformation2 = New System.Windows.Forms.Label()
         CType(Me.RadLabel1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtDescription, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -52,7 +54,7 @@ Partial Class frmSharedAdd
         '
         'cmdOK
         '
-        Me.cmdOK.Location = New System.Drawing.Point(193, 39)
+        Me.cmdOK.Location = New System.Drawing.Point(193, 68)
         Me.cmdOK.Name = "cmdOK"
         Me.cmdOK.Size = New System.Drawing.Size(72, 24)
         Me.cmdOK.TabIndex = 2
@@ -60,17 +62,41 @@ Partial Class frmSharedAdd
         '
         'cmdCancel
         '
-        Me.cmdCancel.Location = New System.Drawing.Point(271, 39)
+        Me.cmdCancel.Location = New System.Drawing.Point(271, 68)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.Size = New System.Drawing.Size(72, 24)
         Me.cmdCancel.TabIndex = 3
         Me.cmdCancel.Text = "Cancel"
         '
+        'lblMoreInformation1
+        '
+        Me.lblMoreInformation1.AutoSize = True
+        Me.lblMoreInformation1.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMoreInformation1.Location = New System.Drawing.Point(81, 36)
+        Me.lblMoreInformation1.Name = "lblMoreInformation1"
+        Me.lblMoreInformation1.Size = New System.Drawing.Size(36, 12)
+        Me.lblMoreInformation1.TabIndex = 4
+        Me.lblMoreInformation1.Text = "(Empty)"
+        Me.lblMoreInformation1.Visible = False
+        '
+        'lblMoreInformation2
+        '
+        Me.lblMoreInformation2.AutoSize = True
+        Me.lblMoreInformation2.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMoreInformation2.Location = New System.Drawing.Point(81, 49)
+        Me.lblMoreInformation2.Name = "lblMoreInformation2"
+        Me.lblMoreInformation2.Size = New System.Drawing.Size(36, 12)
+        Me.lblMoreInformation2.TabIndex = 5
+        Me.lblMoreInformation2.Text = "(Empty)"
+        Me.lblMoreInformation2.Visible = False
+        '
         'frmSharedAdd
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(355, 71)
+        Me.ClientSize = New System.Drawing.Size(355, 104)
+        Me.Controls.Add(Me.lblMoreInformation2)
+        Me.Controls.Add(Me.lblMoreInformation1)
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.cmdOK)
         Me.Controls.Add(Me.txtDescription)
@@ -97,5 +123,7 @@ Partial Class frmSharedAdd
     Friend WithEvents txtDescription As Telerik.WinControls.UI.RadTextBox
     Friend WithEvents cmdOK As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdCancel As Telerik.WinControls.UI.RadButton
+    Friend WithEvents lblMoreInformation1 As System.Windows.Forms.Label
+    Friend WithEvents lblMoreInformation2 As System.Windows.Forms.Label
 End Class
 

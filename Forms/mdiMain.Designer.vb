@@ -49,6 +49,7 @@ Partial Class mdiMain
         Me.cmd_Whowas = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmd_Time = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmd_Stats = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmd_Admin = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmd_Sep39879803269 = New System.Windows.Forms.ToolStripSeparator()
         Me.cmd_Connect = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmd_Disconnect = New System.Windows.Forms.ToolStripMenuItem()
@@ -60,8 +61,6 @@ Partial Class mdiMain
         Me.cmd_Sep398792 = New System.Windows.Forms.ToolStripSeparator()
         Me.cmd_Exit = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmd_Customize = New System.Windows.Forms.ToolStripButton()
-        Me.cmd_Media = New System.Windows.Forms.ToolStripSplitButton()
-        Me.cmd_PlayVideo = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmd_DCC = New System.Windows.Forms.ToolStripSplitButton()
         Me.cmd_DCCSend = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmd_DCCChat = New System.Windows.Forms.ToolStripMenuItem()
@@ -179,7 +178,7 @@ Partial Class mdiMain
         Me.tspMain.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.tspMain.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tspMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.tspMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_Connection, Me.cmd_Customize, Me.cmd_Media, Me.cmd_DCC, Me.ToolStripSeparator1, Me.cmd_Channels, Me.ToolStripSeparator2, Me.cmd_View, Me.cmd_Window})
+        Me.tspMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_Connection, Me.cmd_Customize, Me.cmd_DCC, Me.ToolStripSeparator1, Me.cmd_Channels, Me.ToolStripSeparator2, Me.cmd_View, Me.cmd_Window})
         Me.tspMain.Location = New System.Drawing.Point(0, 0)
         Me.tspMain.Name = "tspMain"
         Me.tspMain.Padding = New System.Windows.Forms.Padding(0)
@@ -248,7 +247,7 @@ Partial Class mdiMain
         '
         'mnu_Commands
         '
-        Me.mnu_Commands.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_AwayMenu, Me.cmd_ServerLinks, Me.cmd_Whois, Me.cmd_Whowas, Me.cmd_Time, Me.cmd_Stats})
+        Me.mnu_Commands.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_AwayMenu, Me.cmd_ServerLinks, Me.cmd_Whois, Me.cmd_Whowas, Me.cmd_Time, Me.cmd_Stats, Me.cmd_Admin})
         Me.mnu_Commands.Image = Global.nexIRC.My.Resources.Resources.tools
         Me.mnu_Commands.Name = "mnu_Commands"
         Me.mnu_Commands.Size = New System.Drawing.Size(222, 22)
@@ -258,50 +257,56 @@ Partial Class mdiMain
         '
         Me.cmd_AwayMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_Away, Me.cmd_Back})
         Me.cmd_AwayMenu.Name = "cmd_AwayMenu"
-        Me.cmd_AwayMenu.Size = New System.Drawing.Size(150, 22)
+        Me.cmd_AwayMenu.Size = New System.Drawing.Size(152, 22)
         Me.cmd_AwayMenu.Text = "Away"
         '
         'cmd_Away
         '
         Me.cmd_Away.Name = "cmd_Away"
-        Me.cmd_Away.Size = New System.Drawing.Size(110, 22)
+        Me.cmd_Away.Size = New System.Drawing.Size(152, 22)
         Me.cmd_Away.Text = "Away"
         '
         'cmd_Back
         '
         Me.cmd_Back.Name = "cmd_Back"
-        Me.cmd_Back.Size = New System.Drawing.Size(110, 22)
+        Me.cmd_Back.Size = New System.Drawing.Size(152, 22)
         Me.cmd_Back.Text = "Back"
         '
         'cmd_ServerLinks
         '
         Me.cmd_ServerLinks.Name = "cmd_ServerLinks"
-        Me.cmd_ServerLinks.Size = New System.Drawing.Size(150, 22)
+        Me.cmd_ServerLinks.Size = New System.Drawing.Size(152, 22)
         Me.cmd_ServerLinks.Text = "Server Links"
         '
         'cmd_Whois
         '
         Me.cmd_Whois.Name = "cmd_Whois"
-        Me.cmd_Whois.Size = New System.Drawing.Size(150, 22)
+        Me.cmd_Whois.Size = New System.Drawing.Size(152, 22)
         Me.cmd_Whois.Text = "Whois"
         '
         'cmd_Whowas
         '
         Me.cmd_Whowas.Name = "cmd_Whowas"
-        Me.cmd_Whowas.Size = New System.Drawing.Size(150, 22)
+        Me.cmd_Whowas.Size = New System.Drawing.Size(152, 22)
         Me.cmd_Whowas.Text = "Whowas"
         '
         'cmd_Time
         '
         Me.cmd_Time.Name = "cmd_Time"
-        Me.cmd_Time.Size = New System.Drawing.Size(150, 22)
+        Me.cmd_Time.Size = New System.Drawing.Size(152, 22)
         Me.cmd_Time.Text = "Time"
         '
         'cmd_Stats
         '
         Me.cmd_Stats.Name = "cmd_Stats"
-        Me.cmd_Stats.Size = New System.Drawing.Size(150, 22)
+        Me.cmd_Stats.Size = New System.Drawing.Size(152, 22)
         Me.cmd_Stats.Text = "Stats"
+        '
+        'cmd_Admin
+        '
+        Me.cmd_Admin.Name = "cmd_Admin"
+        Me.cmd_Admin.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_Admin.Text = "Admin"
         '
         'cmd_Sep39879803269
         '
@@ -376,21 +381,6 @@ Partial Class mdiMain
         Me.cmd_Customize.Name = "cmd_Customize"
         Me.cmd_Customize.Size = New System.Drawing.Size(93, 22)
         Me.cmd_Customize.Text = "Customize"
-        '
-        'cmd_Media
-        '
-        Me.cmd_Media.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_PlayVideo})
-        Me.cmd_Media.Image = Global.nexIRC.My.Resources.Resources.film
-        Me.cmd_Media.ImageTransparentColor = System.Drawing.Color.White
-        Me.cmd_Media.Name = "cmd_Media"
-        Me.cmd_Media.Size = New System.Drawing.Size(79, 22)
-        Me.cmd_Media.Text = "Media"
-        '
-        'cmd_PlayVideo
-        '
-        Me.cmd_PlayVideo.Name = "cmd_PlayVideo"
-        Me.cmd_PlayVideo.Size = New System.Drawing.Size(142, 22)
-        Me.cmd_PlayVideo.Text = "Play Video"
         '
         'cmd_DCC
         '
@@ -471,7 +461,7 @@ Partial Class mdiMain
         Me.cmd_LeftBar.Checked = True
         Me.cmd_LeftBar.CheckState = System.Windows.Forms.CheckState.Checked
         Me.cmd_LeftBar.Name = "cmd_LeftBar"
-        Me.cmd_LeftBar.Size = New System.Drawing.Size(151, 22)
+        Me.cmd_LeftBar.Size = New System.Drawing.Size(152, 22)
         Me.cmd_LeftBar.Text = "Left Bar"
         '
         'cmd_WindowBar
@@ -479,7 +469,7 @@ Partial Class mdiMain
         Me.cmd_WindowBar.Checked = True
         Me.cmd_WindowBar.CheckState = System.Windows.Forms.CheckState.Checked
         Me.cmd_WindowBar.Name = "cmd_WindowBar"
-        Me.cmd_WindowBar.Size = New System.Drawing.Size(151, 22)
+        Me.cmd_WindowBar.Size = New System.Drawing.Size(152, 22)
         Me.cmd_WindowBar.Text = "Window Bar"
         '
         'cmd_Window
@@ -790,8 +780,6 @@ Partial Class mdiMain
     Friend WithEvents cmd_Sep398792 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents cmd_Exit As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmd_Customize As System.Windows.Forms.ToolStripButton
-    Friend WithEvents cmd_Media As System.Windows.Forms.ToolStripSplitButton
-    Friend WithEvents cmd_PlayVideo As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmd_DCC As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents cmd_DCCSend As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmd_DCCChat As System.Windows.Forms.ToolStripMenuItem
@@ -833,6 +821,7 @@ Partial Class mdiMain
     Friend WithEvents tmrWaitForQuit As System.Windows.Forms.Timer
     Friend WithEvents tmrHideRedirect As System.Windows.Forms.Timer
     Friend WithEvents tmrFirstFocus As System.Windows.Forms.Timer
+    Friend WithEvents cmd_Admin As System.Windows.Forms.ToolStripMenuItem
     'Friend WithEvents cmdConnection As System.Windows.Forms.ToolStripSplitButton
     'Friend WithEvents mnuNewStatusWindow As System.Windows.Forms.ToolStripMenuItem
     'Friend WithEvents mnuSep76829639 As System.Windows.Forms.ToolStripSeparator

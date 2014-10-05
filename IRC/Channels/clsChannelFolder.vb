@@ -1,5 +1,5 @@
-﻿'nexIRC 3.0.26
-'06-13-2013 - guideX
+﻿'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
 Imports Telerik.WinControls.UI

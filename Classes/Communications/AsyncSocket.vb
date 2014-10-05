@@ -1,4 +1,4 @@
-'nexIRC 3.0.26
+'nexIRC 3.0.31
 Option Explicit On
 Option Strict On
 Imports System.Text

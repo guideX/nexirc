@@ -1,5 +1,5 @@
-﻿'nexIRC 3.0.26
-'06-13-2013 - guideX
+﻿'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.Classes.UI
@@ -113,21 +113,6 @@ Namespace IRC.Channels
         Public Sub DoChannelColor(_ChannelIndex As Integer, ByVal _Data As String)
             Try
                 If (_ChannelIndex <> 0) Then
-                    'Dim splt() As String
-                    'With lChannels.cChannel(_ChannelIndex)
-                    'splt = Split(.cIncomingText, Chr(10))
-                    '.cIncomingText = ""
-                    'For Each _Line As String In splt
-                    'If (_Line.Length <> 0) Then
-                    'If (.cIncomingText.Length = 0) Then
-                    '.cIncomingText = _Line.Trim()
-                    'Else
-                    '.cIncomingText = (.cIncomingText & Chr(10) & _Line).Trim()
-                    'End If
-                    'End If
-                    'Next _Line
-                    '.cIncomingText = .cIncomingText & Chr(10) & _Data.Trim()
-                    'End With
                     With lChannels.cChannel(_ChannelIndex)
                         lStrings.Print(_Data, .cWindow.txtIncoming)
                     End With
@@ -178,8 +163,10 @@ Namespace IRC.Channels
                     If (.ClientSize.Width <> 0) Then
                         .txtIncoming.Width = .ClientSize.Width - .lvwNickList.Width
                         m = .ClientSize.Height - (.txtOutgoing.Height + .tspChannel.ClientSize.Height)
-                        If ((m <= .txtIncoming.MinimumSize.Height) Or m >= .txtIncoming.MaximumSize.Height) Then
-                            .txtIncoming.Height = .ClientSize.Height - (.txtOutgoing.Height + .tspChannel.ClientSize.Height)
+                        If (.ClientSize.Height <> 0) Then
+                            If ((m <= .txtIncoming.MinimumSize.Height) Or m >= .txtIncoming.MaximumSize.Height) Then
+                                .txtIncoming.Height = .ClientSize.Height - (.txtOutgoing.Height + .tspChannel.ClientSize.Height)
+                            End If
                         End If
                         .txtOutgoing.Width = .ClientSize.Width
                         .txtOutgoing.Top = .txtIncoming.Height + .tspChannel.ClientSize.Height
@@ -377,40 +364,40 @@ Namespace IRC.Channels
         End Sub
         Public Sub SomeoneJoined(ByVal _StatusIndex As Integer, ByVal _Data As String)
             ':guide_X!~guide_X@pool-108-13-216-135.lsanca.fios.verizon.net JOIN #testerama
-            'Try
-            Dim _NickName As String, _IpAddress As String, _Channel As String, _TextToDisplay As String, _ChannelIndex As Integer
-            _NickName = lStrings.ParseData(_Data, ":", "!")
-            _IpAddress = lStrings.ParseData(_Data, "~", " JOIN ")
-            If InStr(UCase(_Data), " JOIN :#") <> 0 Then
-                _Channel = Right(_Data, Len(_Data) - (InStr(Right(_Data, Len(_Data) - 1), ":", CompareMethod.Text) + 1))
-            ElseIf InStr(UCase(_Data), " JOIN #") <> 0 Then
-                _Channel = Right(_Data, Len(_Data) - (InStr(Right(_Data, Len(_Data) - 1), " JOIN ", CompareMethod.Text) + 1))
-                If InStr(_Channel, "JOIN") <> 0 Then _Channel = Replace(_Channel, "JOIN", "")
-                _Channel = Trim(_Channel)
-            Else
-                Exit Sub
-            End If
-            If LCase(Trim(_NickName)) = LCase(Trim(lStatus.NickName(_StatusIndex))) Then
-                _ChannelIndex = Add(_Channel, _StatusIndex)
-                Form_Load(_ChannelIndex)
-                DoChannelColor(_ChannelIndex, lStrings.ReturnReplacedString(eStringTypes.sYOUJOIN, _Channel))
-                lSettings.AddToChannelFolders(_Channel, lStatus.NetworkIndex(_StatusIndex))
-                lChannelFolder.RefreshChannelFolderChannelList()
-            Else
-                If lSettings.lIRC.iSettings.sShowUserAddresses = True Then
-                    _TextToDisplay = lStrings.ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName & " (" & _IpAddress & ")", _Channel)
+            Try
+                Dim _NickName As String, _IpAddress As String, _Channel As String, _TextToDisplay As String, _ChannelIndex As Integer
+                _NickName = lStrings.ParseData(_Data, ":", "!")
+                _IpAddress = lStrings.ParseData(_Data, "~", " JOIN ")
+                If InStr(UCase(_Data), " JOIN :#") <> 0 Then
+                    _Channel = Right(_Data, Len(_Data) - (InStr(Right(_Data, Len(_Data) - 1), ":", CompareMethod.Text) + 1))
+                ElseIf InStr(UCase(_Data), " JOIN #") <> 0 Then
+                    _Channel = Right(_Data, Len(_Data) - (InStr(Right(_Data, Len(_Data) - 1), " JOIN ", CompareMethod.Text) + 1))
+                    If InStr(_Channel, "JOIN") <> 0 Then _Channel = Replace(_Channel, "JOIN", "")
+                    _Channel = Trim(_Channel)
                 Else
-                    _TextToDisplay = lStrings.ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName, _Channel)
+                    Exit Sub
                 End If
-                _ChannelIndex = Find(_StatusIndex, _Channel)
-                With lChannels.cChannel(_ChannelIndex)
-                    DoChannelColor(_ChannelIndex, _TextToDisplay)
-                    AddToNickList(_ChannelIndex, _NickName)
-                End With
-            End If
-            'Catch ex As Exception
-            'Throw ex
-            'End Try
+                If LCase(Trim(_NickName)) = LCase(Trim(lStatus.NickName(_StatusIndex))) Then
+                    _ChannelIndex = Add(_Channel, _StatusIndex)
+                    Form_Load(_ChannelIndex)
+                    DoChannelColor(_ChannelIndex, lStrings.ReturnReplacedString(eStringTypes.sYOUJOIN, _Channel))
+                    lSettings.AddToChannelFolders(_Channel, lStatus.NetworkIndex(_StatusIndex))
+                    lChannelFolder.RefreshChannelFolderChannelList()
+                Else
+                    If lSettings.lIRC.iSettings.sShowUserAddresses = True Then
+                        _TextToDisplay = lStrings.ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName & " (" & _IpAddress & ")", _Channel)
+                    Else
+                        _TextToDisplay = lStrings.ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName, _Channel)
+                    End If
+                    _ChannelIndex = Find(_StatusIndex, _Channel)
+                    With lChannels.cChannel(_ChannelIndex)
+                        DoChannelColor(_ChannelIndex, _TextToDisplay)
+                        AddToNickList(_ChannelIndex, _NickName)
+                    End With
+                End If
+            Catch ex As Exception
+                Throw ex
+            End Try
         End Sub
         Public Sub RemoveFromNickList(_ChannelIndex As Integer, ByVal _NickName As String)
             Try
@@ -486,8 +473,6 @@ Namespace IRC.Channels
                     With lChannels.cChannel(_ChannelIndex)
                         .cIncomingText = ""
                         .cName = ""
-                        '.cNickList.nCount = 0
-                        'ReDim .cNickList.nItem(lArraySizes.aNickList)
                         .cStatusIndex = 0
                         If .cVisible = True Then .cWindow.Close()
                         .cTreeNode.Remove()

@@ -94,16 +94,16 @@ Partial Class frmChannel
         Me.cmdAddToChannelFolder.Image = CType(resources.GetObject("cmdAddToChannelFolder.Image"), System.Drawing.Image)
         Me.cmdAddToChannelFolder.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdAddToChannelFolder.Name = "cmdAddToChannelFolder"
-        Me.cmdAddToChannelFolder.Size = New System.Drawing.Size(166, 22)
-        Me.cmdAddToChannelFolder.Text = "Add to Channel Folder"
+        Me.cmdAddToChannelFolder.Size = New System.Drawing.Size(90, 22)
+        Me.cmdAddToChannelFolder.Text = "Bookmark"
         '
         'cmdNames
         '
         Me.cmdNames.Image = CType(resources.GetObject("cmdNames.Image"), System.Drawing.Image)
         Me.cmdNames.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdNames.Name = "cmdNames"
-        Me.cmdNames.Size = New System.Drawing.Size(127, 22)
-        Me.cmdNames.Text = "Refresh NickList"
+        Me.cmdNames.Size = New System.Drawing.Size(76, 22)
+        Me.cmdNames.Text = "Refresh"
         '
         'cmdURL
         '
@@ -119,7 +119,7 @@ Partial Class frmChannel
         '
         'txtIncoming
         '
-        Me.txtIncoming.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIncoming.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtIncoming.Location = New System.Drawing.Point(0, 25)
         Me.txtIncoming.Name = "txtIncoming"
         Me.txtIncoming.Size = New System.Drawing.Size(316, 103)
@@ -128,17 +128,17 @@ Partial Class frmChannel
         '
         'txtOutgoing
         '
-        Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOutgoing.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOutgoing.Location = New System.Drawing.Point(0, 134)
         Me.txtOutgoing.Name = "txtOutgoing"
-        Me.txtOutgoing.Size = New System.Drawing.Size(429, 25)
+        Me.txtOutgoing.Size = New System.Drawing.Size(429, 29)
         Me.txtOutgoing.TabIndex = 17
         Me.txtOutgoing.TabStop = False
         '
         'lvwNickList
         '
         Me.lvwNickList.EnableSorting = True
-        Me.lvwNickList.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lvwNickList.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lvwNickList.GroupItemSize = New System.Drawing.Size(200, 20)
         Me.lvwNickList.ItemSize = New System.Drawing.Size(200, 20)
         Me.lvwNickList.Location = New System.Drawing.Point(322, 25)

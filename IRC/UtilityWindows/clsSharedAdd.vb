@@ -1,5 +1,5 @@
-﻿'nexIRC 3.0.26
-'06-13-2013 - guideX
+﻿'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
 Imports Telerik.WinControls.UI
@@ -8,17 +8,24 @@ Public Class clsSharedAdd
     Public Enum eSharedAddType
         sAddNetwork = 1
         sAddNickName = 2
+        sCommandError = 3
+        sInfo = 4
+        sKick = 5
+        sKill = 6
     End Enum
-    Private lSharedAddType As eSharedAddType
     Public Event ChangeCaption(_Data As String)
+    Public Event ChangeMoreInformationLabel1(data As String)
+    Public Event ChangeMoreInformationLabel2(data As String)
     Public Event CloseForm()
     Public Event FocusTextBox()
+    Public StatusIndex As Integer
+    Private lSharedAddType As eSharedAddType
     Public Property SharedAddType() As eSharedAddType
         Get
             Try
                 Return lSharedAddType
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Property SharedAddType() As eSharedAddType")
+                Throw ex
                 Return Nothing
             End Try
         End Get
@@ -30,9 +37,25 @@ Public Class clsSharedAdd
                         RaiseEvent ChangeCaption("nexIRC - Add Network")
                     Case eSharedAddType.sAddNickName
                         RaiseEvent ChangeCaption("nexIRC - Add Nickname")
+                    Case eSharedAddType.sCommandError
+                        RaiseEvent ChangeCaption("nexIRC - Command Error")
+                        RaiseEvent ChangeMoreInformationLabel1("This command is for use by servers to report errors to other servers.")
+                        RaiseEvent ChangeMoreInformationLabel2("It is also used before terminating client connections.")
+                    Case eSharedAddType.sInfo
+                        RaiseEvent ChangeCaption("nexIRC - Info")
+                        RaiseEvent ChangeMoreInformationLabel1("Get info about <target> server, or current server if <target> omitted.")
+                        RaiseEvent ChangeMoreInformationLabel2("Info returned includes version, when compiled, patch level, when started, other info.")
+                    Case eSharedAddType.sKick
+                        RaiseEvent ChangeCaption("nexIRC - Kick")
+                        RaiseEvent ChangeMoreInformationLabel1("Forcibly removes <client> from <channel>")
+                        RaiseEvent ChangeMoreInformationLabel2("This command may only be issued by channel operators.")
+                    Case eSharedAddType.sKill
+                        RaiseEvent ChangeCaption("nexIRC - Kill")
+                        RaiseEvent ChangeMoreInformationLabel1("Forcibly removes <client> from the network.")
+                        RaiseEvent ChangeMoreInformationLabel2("This command may only be issued by IRC operators.")
                 End Select
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Property SharedAddType() As eSharedAddType")
+                Throw ex
             End Try
         End Set
     End Property
@@ -40,37 +63,39 @@ Public Class clsSharedAdd
         Try
             Select Case lSharedAddType
                 Case eSharedAddType.sAddNickName
-                    If (Not _Value.Length = 0) Then
+                    If (Not String.IsNullOrEmpty(_Value)) Then
                         'lSettings.AddNickName(_Value)
                         frmCustomize.cboMyNickNames.Items.Add(_Value)
                         RaiseEvent CloseForm()
                     End If
                 Case eSharedAddType.sAddNetwork
-                    If _Value.Length <> 0 Then
+                    If (Not String.IsNullOrEmpty(_Value)) Then
                         lSettings.AddNetwork(_Value)
                         frmCustomize.ClearServers()
                         RaiseEvent CloseForm()
                     Else
                         If lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Please type a network description", MsgBoxStyle.Exclamation)
                     End If
+                Case eSharedAddType.sCommandError
+                    If (Not String.IsNullOrEmpty(_Value)) Then
+                        Modules.lStrings.ProcessReplaceCommand(StatusIndex, clsCommandTypes.eCommandTypes.cERROR, _Value)
+                    End If
+                Case eSharedAddType.sInfo
+                    Modules.lStrings.ProcessReplaceCommand(StatusIndex, clsCommandTypes.eCommandTypes.cINFO, _Value)
             End Select
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub OK_Button()")
+            Throw ex
         End Try
     End Sub
     Public Sub cmdCancel_Click()
-        Try
-            RaiseEvent CloseForm()
-        Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
-        End Try
+        RaiseEvent CloseForm()
     End Sub
     Public Sub Form_Load()
         Try
             lSettings.lWinVisible.wAddNetwork = True
             RaiseEvent FocusTextBox()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub frmAddNetwork_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+            Throw ex
         End Try
     End Sub
     Public Sub txtNetworkDescription_KeyPress(ByVal e As System.Windows.Forms.KeyPressEventArgs, _Form As Form, _DescriptionTextBox As RadTextBox)
@@ -80,27 +105,16 @@ Public Class clsSharedAdd
                 OK_Button(_DescriptionTextBox.Text)
             End If
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub txtNetworkDescription_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtNetworkDescription.KeyPress")
+            Throw ex
         End Try
     End Sub
     Public Sub mnuExit_Click()
-        Try
-            RaiseEvent CloseForm()
-        Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub mnuExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-        End Try
+        RaiseEvent CloseForm()
     End Sub
     Public Sub cmdOK_Click(_Value As String, _Form As Form)
         OK_Button(_Value)
     End Sub
     Public Sub ExitToolStripMenuItem_Click()
-        Try
-            RaiseEvent CloseForm()
-        Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)")
-        End Try
-    End Sub
-    Public Sub ServerListToolStripMenuItem_Click()
-        'mdiMain.BrowseURL("http://www.irchelp.org/irchelp/networks/servers/index.html")
+        RaiseEvent CloseForm()
     End Sub
 End Class

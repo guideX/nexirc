@@ -150,6 +150,12 @@
     <Compile Include="Forms\frmChooseNetwork.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmCNotice.Designer.vb">
+      <DependentUpon>frmCNotice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCNotice.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmCompatibility.Designer.vb">
       <DependentUpon>frmCompatibility.vb</DependentUpon>
     </Compile>
@@ -216,6 +222,18 @@
     <Compile Include="Forms\frmIdentdSettings.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmInvite.Designer.vb">
+      <DependentUpon>frmInvite.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmInvite.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmKick.Designer.vb">
+      <DependentUpon>frmKick.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmKick.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmLoading.Designer.vb">
       <DependentUpon>frmLoading.vb</DependentUpon>
     </Compile>
@@ -238,6 +256,12 @@
       <DependentUpon>frmNoticeWindow.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmNoticeWindow.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmParent.Designer.vb">
+      <DependentUpon>frmParent.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmParent.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmQuerySettings.Designer.vb">
@@ -274,9 +298,6 @@
       <DependentUpon>frmStatus.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmStatus.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmVideoPlayer.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\mdiMain.Designer.vb">
@@ -356,6 +377,9 @@
     <EmbeddedResource Include="Forms\frmChooseNetwork.resx">
       <DependentUpon>frmChooseNetwork.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCNotice.resx">
+      <DependentUpon>frmCNotice.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmCompatibility.resx">
       <DependentUpon>frmCompatibility.vb</DependentUpon>
     </EmbeddedResource>
@@ -389,6 +413,12 @@
     <EmbeddedResource Include="Forms\frmIdentdSettings.resx">
       <DependentUpon>frmIdentdSettings.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmInvite.resx">
+      <DependentUpon>frmInvite.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmKick.resx">
+      <DependentUpon>frmKick.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmLoading.resx">
       <DependentUpon>frmLoading.vb</DependentUpon>
     </EmbeddedResource>
@@ -400,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmNoticeWindow.resx">
       <DependentUpon>frmNoticeWindow.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmParent.resx">
+      <DependentUpon>frmParent.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmQuerySettings.resx">
       <DependentUpon>frmQuerySettings.vb</DependentUpon>
@@ -418,9 +451,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmStatus.resx">
       <DependentUpon>frmStatus.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmVideoPlayer.resx">
-      <DependentUpon>frmVideoPlayer.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\mdiMain.resx">
       <DependentUpon>mdiMain.vb</DependentUpon>

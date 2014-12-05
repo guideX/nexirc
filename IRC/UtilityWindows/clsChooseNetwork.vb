@@ -3,6 +3,8 @@ Option Strict On
 Imports Telerik.WinControls.UI
 Imports nexIRC.Classes.IO
 Imports nexIRC.Modules
+Imports nexIRC.IniFile
+
 Namespace IRC.UtilityWindows
     Public Class clsChooseNetwork
         Public lServerToChange As Integer

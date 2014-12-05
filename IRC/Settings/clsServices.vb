@@ -5,6 +5,7 @@ Option Strict On
 Imports nexIRC.Classes.IO
 Imports nexIRC.Modules
 Imports nexIRC.Settings
+Imports nexIRC.IniFile
 
 Namespace nexIRC.IRC.Settings
     Public Class clsServices

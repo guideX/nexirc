@@ -43,14 +43,14 @@ Public Class clsIrcNumericHelper
             If lSettings_DCC.lDCC.dRandomizePort = True Then
                 If (lSettings_DCC.lDCC.dSendPort.Contains("-")) Then
                     splt = Split(lSettings_DCC.lDCC.dSendPort, "-")
-                    p = lStrings.GetRnd(Convert.ToInt32(splt(0).Trim()), Convert.ToInt32(splt(1).Trim()))
+                    p = TextManipulation.Text.GetRnd(Convert.ToInt32(splt(0).Trim()), Convert.ToInt32(splt(1).Trim()))
                 Else
-                    p = lStrings.GetRnd(128, 9999)
+                    p = TextManipulation.Text.GetRnd(128, 9999)
                 End If
             Else
                 If (lSettings_DCC.lDCC.dSendPort.Contains("-")) Then
                     splt = Split(lSettings_DCC.lDCC.dSendPort, "-")
-                    p = lStrings.GetRnd(Convert.ToInt32(splt(0).Trim()), Convert.ToInt32(splt(1).Trim()))
+                    p = TextManipulation.Text.GetRnd(Convert.ToInt32(splt(0).Trim()), Convert.ToInt32(splt(1).Trim()))
                 Else
                     p = Convert.ToInt64(lSettings_DCC.lDCC.dSendPort.Trim())
                 End If
@@ -67,7 +67,7 @@ Public Class clsIrcNumericHelper
             Dim n As Integer, b As Boolean
             If (excludeIndex <> 0) Then
                 Do Until b = True
-                    n = Convert.ToInt32(lStrings.GetRnd(1, lSettings.lNetworks.nCount))
+                    n = Convert.ToInt32(TextManipulation.Text.GetRnd(1, lSettings.lNetworks.nCount))
                     If (n <> excludeIndex) Then b = True
                 Loop
                 result = n
@@ -181,8 +181,8 @@ Public Class clsIrcNumericHelper
         Dim splt() As String, _OldNick As String, _NewNick As String ', _HostName As String
         Try
             splt = Split(_Data, ":")
-            _OldNick = lStrings.ParseData(_Data, ":", "!")
-            _NewNick = lStrings.ParseData(_Data, "=", " NICK :")
+            _OldNick = TextManipulation.Text.ParseData(_Data, ":", "!")
+            _NewNick = TextManipulation.Text.ParseData(_Data, "=", " NICK :")
             '_HostName = Right(_Data, Len(_Data) - (Len(splt(1)) + 2))
             'ProcessReplaceString(_StatusIndex, eStringTypes.sNICK_CHANGE, _OldNick, _NewNick, _HostName)
             If _OldNick = lStatus.NickName(_StatusIndex) Then
@@ -205,7 +205,7 @@ Public Class clsIrcNumericHelper
         Try
             Dim msg As String, splt() As String
             splt = Split(lData, " ")
-            msg = lStrings.ReturnReplacedString(eStringTypes.sCHANNEL_ACTION, lStrings.ParseData(lData, ":", "!"), Right(lData, Len(lData) - Len(splt(0) & " " & splt(1) & " " & splt(2) & " " & splt(3))))
+            msg = lStrings.ReturnReplacedString(eStringTypes.sCHANNEL_ACTION, TextManipulation.Text.ParseData(lData, ":", "!"), Right(lData, Len(lData) - Len(splt(0) & " " & splt(1) & " " & splt(2) & " " & splt(3))))
             lChannels.DoChannelColor(lChannels.Find(lStatusIndex, splt(2)), msg)
         Catch ex As Exception
             Throw ex
@@ -215,7 +215,7 @@ Public Class clsIrcNumericHelper
     Public Sub DCCChatProc(ByVal lStatusIndex As Integer, ByVal lData As String)
         Try
             Dim splt() As String, msg As String
-            msg = lStrings.ParseData(lData, ":", "!")
+            msg = TextManipulation.Text.ParseData(lData, ":", "!")
             splt = Split(lData, " ")
             If lSettings_DCC.lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then Exit Sub
             If IsNickNameInDCCIgnoreList(Trim(msg)) = False Then
@@ -280,7 +280,7 @@ Public Class clsIrcNumericHelper
     Public Sub DCCSendProc(ByVal lData As String)
         Try
             Dim lForm As New frmDCCGet, splt() As String, splt2() As String, msg As String
-            msg = lStrings.ParseData(lData, ":", "!")
+            msg = TextManipulation.Text.ParseData(lData, ":", "!")
             splt = Split(lData, " ")
             If lSettings_DCC.lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then
                 lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Auto Ignore is enabled, and user is unknown '" & msg & "'.")

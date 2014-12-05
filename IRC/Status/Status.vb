@@ -1776,7 +1776,7 @@ Namespace IRC.Status
                         lStrings.ProcessReplaceString(_Index, eStringTypes.sSENDING_NICKNAME)
                         SendSocket(_Index, "NICK " & NickName(_Index))
                         If Len(Email(_Index)) <> 0 Then
-                            msg = lStrings.LeftRight(Email(_Index), 0, InStr(Email(_Index), "@"))
+                            msg = TextManipulation.Text.LeftRight(Email(_Index), 0, InStr(Email(_Index), "@"))
                             If Len(msg) <> 0 Then
                                 If lSettings.lIRC.iSettings.sExtendedMessages = True Then lStrings.ProcessReplaceString(_Index, eStringTypes.sSENDING_LOGON_INFORMATION)
                                 SendSocket(_Index, "USER " & Split(RealName(_Index), " ")(0) & " 0 * :" & RealName(_Index))
@@ -2277,15 +2277,15 @@ Namespace IRC.Status
         Public Sub ProcessUserInput(ByVal _StatusIndex As Integer, ByVal _Data As String)
             Try
                 Dim splt() As String, splt2() As String, l As Long, msg As String
-                If lStrings.DoLeft(_Data, 1) = "/" Then
-                    _Data = lStrings.DoRight(_Data, Len(_Data) - 1)
-                    If lStrings.DoLeft(LCase(_Data), 4) = "exit" Then
+                If TextManipulation.Text.DoLeft(_Data, 1) = "/" Then
+                    _Data = TextManipulation.Text.DoRight(_Data, Len(_Data) - 1)
+                    If TextManipulation.Text.DoLeft(LCase(_Data), 4) = "exit" Then
                         CloseStatusConnection(_StatusIndex, True)
                     End If
-                    If lStrings.DoLeft(LCase(_Data), 10) = "disconnect" Then
+                    If TextManipulation.Text.DoLeft(LCase(_Data), 10) = "disconnect" Then
                         CloseStatusConnection(_StatusIndex, True)
                     End If
-                    If lStrings.DoLeft(LCase(_Data), 7) = "connect" Then
+                    If TextManipulation.Text.DoLeft(LCase(_Data), 7) = "connect" Then
                         Connect(_StatusIndex)
                     End If
                     splt = Split(_Data, " ")
@@ -2372,7 +2372,7 @@ Namespace IRC.Status
                             'Case "privmsg"
                             'Exit Sub
                         Case "noticetext"
-                            Notices_Add(_StatusIndex, lStrings.DoRight(_Data, Len(_Data) - 11))
+                            Notices_Add(_StatusIndex, TextManipulation.Text.DoRight(_Data, Len(_Data) - 11))
                             Exit Sub
                         Case "loadstrings"
                             lStrings.ClearStrings()
@@ -2402,7 +2402,7 @@ Namespace IRC.Status
                             lChannels.Join(_StatusIndex, msg)
                             Exit Sub
                         Case "raw"
-                            _Data = lStrings.DoRight(_Data, Len(_Data) - 4)
+                            _Data = TextManipulation.Text.DoRight(_Data, Len(_Data) - 4)
                             SendSocket(_StatusIndex, _Data)
                             Exit Sub
                         Case "docolor"

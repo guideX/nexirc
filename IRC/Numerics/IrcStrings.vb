@@ -2,7 +2,7 @@
 Option Explicit On
 'Option Strict On
 Imports Telerik.WinControls.UI
-Imports nexIRC.Classes.IO
+'Imports nexIRC.Classes.IO
 Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.clsIrcNumerics
@@ -10,6 +10,7 @@ Imports nexIRC.Modules
 Imports Telerik.WinControls.RichTextBox
 Imports Telerik.WinControls.RichTextBox.Model
 Imports Telerik.WinControls.RichTextBox.Layout
+Imports nexIRC.IniFile
 
 Public Class IrcStrings
     Structure gCommandReturnData
@@ -182,60 +183,6 @@ Public Class IrcStrings
         End Try
     End Sub
 
-    Public Function ConvertIntToSystemColor(ByVal lColor As Integer, Optional lBlackSetting As Boolean = False) As System.Drawing.Color
-        Try
-            Select Case lColor
-                Case 0
-                    If lBlackSetting = True Then
-                        ConvertIntToSystemColor = Color.White
-                    Else
-                        ConvertIntToSystemColor = Color.Black
-                    End If
-                Case 1
-                    If lBlackSetting = True Then
-                        ConvertIntToSystemColor = Color.White
-                    Else
-                        ConvertIntToSystemColor = Color.Black
-                    End If
-                Case 2
-                    ConvertIntToSystemColor = Color.DarkBlue
-                Case 3
-                    ConvertIntToSystemColor = Color.Coral
-                Case 4
-                    ConvertIntToSystemColor = Color.Red
-                Case 5
-                    ConvertIntToSystemColor = Color.DarkRed
-                Case 6
-                    ConvertIntToSystemColor = Color.Purple
-                Case 7
-                    ConvertIntToSystemColor = Color.Orange
-                Case 8
-                    ConvertIntToSystemColor = Color.Yellow
-                Case 9
-                    ConvertIntToSystemColor = Color.LightGreen
-                Case 10
-                    ConvertIntToSystemColor = Color.Turquoise
-                Case 11
-                    ConvertIntToSystemColor = Color.Aquamarine
-                Case 12
-                    ConvertIntToSystemColor = Color.Blue
-                Case 13
-                    ConvertIntToSystemColor = Color.Pink
-                Case 14
-                    ConvertIntToSystemColor = Color.Cyan
-                Case 15
-                    ConvertIntToSystemColor = Color.Gray
-                Case 16
-                    If lBlackSetting = True Then
-                        ConvertIntToSystemColor = Color.Black
-                    Else
-                        ConvertIntToSystemColor = Color.White
-                    End If
-            End Select
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Function
 
     Public Function ReturnRightColorNumeric(ByVal lData As String) As Integer
         Dim result As Integer, msg As String, msg2 As String
@@ -549,7 +496,7 @@ Public Class IrcStrings
                 If LCase(msg) = "[settings]" Then
                 Else
                     If Left(msg, 1) = "[" And Right(msg, 1) = "]" Then
-                        lIndex = Convert.ToInt32(Trim(ParseData(msg, "[", "]")))
+                        lIndex = Convert.ToInt32(Trim(TextManipulation.Text.ParseData(msg, "[", "]")))
                         ReDim lStrings.sFixedString(lIndex).sFind(8)
                     Else
                         splt2 = Split(msg, "=")
@@ -636,43 +583,6 @@ Public Class IrcStrings
         End Try
     End Function
 
-    Public Function StripColorCodes(ByVal lData As String) As String
-        Try
-            Dim i As Integer, n As Integer, msg As String, msg2 As String
-            For i = 0 To 15
-                For n = 0 To 15
-                    msg2 = "" & Trim(i.ToString) & "," & Trim(n.ToString)
-                    If InStr(msg2, lData) <> 0 Then lData = Replace(lData, msg2, "")
-                Next n
-                msg = "" & Trim(i.ToString)
-                If InStr(msg, lData) <> 0 Then lData = Replace(lData, msg, "")
-            Next i
-            Return lData
-        Catch ex As Exception
-            Throw ex
-            Return Nothing
-        End Try
-    End Function
-
-    Enum ColorCode
-        White = 0
-        Black = 1
-        DarkBlue = 2
-        DarkGreen = 3
-        Red = 4
-        DarkRed = 5
-        DarkViolet = 6
-        Orange = 7
-        Yellow = 8
-        LightGreen = 9
-        Cyan = 10
-        LightCyan = 11
-        Blue = 12
-        Violet = 13
-        DarkGray = 14
-        LightGray = 15
-    End Enum
-
     Public Sub Print(data As String, richTextBox As RadRichTextBox)
         Dim ircChar As String = "", s As Span, mint As Integer, i As Integer, msg As String, currentText As String = "", subText1 As String = "", subText2 As String = "", isForeColorSet As Boolean = False, isBackColorSet As Boolean = False
         richTextBox.Document.Selection.Clear()
@@ -717,11 +627,11 @@ Public Class IrcStrings
                                     If (Integer.TryParse(subText2, mint)) Then
                                         isForeColorSet = True
                                         data = data.Remove(0, 2)
-                                        s.ForeColor = ConvertIntToSystemColor(mint, True)
+                                        s.ForeColor = TextManipulation.Text.ConvertIntToSystemColor(mint, True)
                                     ElseIf (Integer.TryParse(subText1, mint)) Then
                                         isForeColorSet = True
                                         data = data.Remove(0, 1)
-                                        s.ForeColor = ConvertIntToSystemColor(mint, True)
+                                        s.ForeColor = TextManipulation.Text.ConvertIntToSystemColor(mint, True)
                                     End If
                                     If (data.Substring(0, 1) = ",") Then
                                         subText2 = data.Substring(0, 2)
@@ -796,93 +706,6 @@ Public Class IrcStrings
             msg6 = msg6 & Trim(Str(msg5)) & "."
             msg6 = msg6 & Trim(Str(i))
             DecodeLongIPAddr = msg6
-        Catch ex As Exception
-            Throw ex
-            Return Nothing
-        End Try
-    End Function
-
-    'FIGURE OUT HOW TO FIX THIS SHIT!
-    Public Function EncodeIPAddr(ByVal lData As String) As String
-        Try
-            Dim msg, msg2, msg3 As String, msg4, msg5, i As Integer, msg6 As String
-            msg4 = 1
-            msg = ""
-            Do
-                msg2 = InStr(msg4, lData & ".", ".")
-                msg3 = Hex(Val(Mid$(lData & ".", msg4, msg2 - msg4)))
-                msg = msg & IIf(Len(msg3) = 1, "0" & msg3, msg3)
-                msg4 = msg2 + 1
-            Loop Until msg4 >= Len(lData & ".")
-            msg5 = Val("&H" & Mid(msg, 1, 2)) * 256.0! + Val("&H" & Mid(msg, 3, 2))
-            i = Val("&H" & Mid(msg, 5, 2)) * 256.0! + Val("&H" & Mid(msg, 7, 2))
-            msg6 = Str(msg5 * 65536 + i)
-            EncodeIPAddr = Trim$(msg6)
-        Catch ex As Exception
-            Throw ex
-            Return Nothing
-        End Try
-    End Function
-
-    Public Function GetRnd(ByVal _start As Integer, ByVal _end As Integer) As Long
-        Try
-            Dim i As Long
-            Randomize()
-            i = _start + Convert.ToInt32(Rnd() * (_end - _start))
-            Return i
-        Catch ex As Exception
-            Throw ex
-            Return Nothing
-        End Try
-    End Function
-
-    Public Function DoRight(ByVal lData As String, ByVal lLength As Integer) As String
-        Try
-            DoRight = Right(lData, lLength).ToString
-        Catch ex As Exception
-            Throw ex
-            Return Nothing
-        End Try
-    End Function
-
-    Public Function DoLeft(ByVal lData As String, ByVal lLength As Integer) As String
-        Try
-            DoLeft = Left(lData, lLength).ToString
-        Catch ex As Exception
-            Throw ex
-            Return Nothing
-        End Try
-    End Function
-
-    Public Function LeftRight(ByVal lString As String, ByVal lLeft As Integer, ByVal lDistance As Integer) As String
-        Try
-            If Len(lString) <> 0 Then
-                LeftRight = lString.Substring(lLeft, lDistance)
-            Else
-                LeftRight = ""
-            End If
-        Catch ex As Exception
-            Throw ex
-            Return Nothing
-        End Try
-    End Function
-
-    Public Function ParseData(ByVal lWhole As String, ByVal lStart As String, ByVal lEnd As String) As String
-        Try
-            Dim i As Integer, n As Integer, msg As String, msg2 As String
-            If Len(lWhole) <> 0 Then
-                i = InStr(lWhole, lStart)
-                n = InStr(lWhole, lEnd)
-                msg = Right(lWhole, Len(lWhole) - i)
-                msg2 = Right(lWhole, Len(lWhole) - n)
-                If Len(msg2) < Len(msg) Then
-                    ParseData = Left(msg, Len(msg) - Len(msg2) - 1)
-                Else
-                    ParseData = ""
-                End If
-            Else
-                ParseData = ""
-            End If
         Catch ex As Exception
             Throw ex
             Return Nothing

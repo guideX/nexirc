@@ -3,7 +3,9 @@
 Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
+Imports nexIRC.Sockets
 Imports nexIRC.Classes.Communications
+
 Public Class Ident
     Private WithEvents _listenSocket As AsyncServer
     Private WithEvents _clientSocket As StatusSocket
@@ -36,8 +38,8 @@ Public Class Ident
             form = lStatus.GetObject(lStatus.ActiveIndex).sWindow
             msg = Trim(lStatus.StatusSocketLocalPort(socketId).ToString()) & ", " & Trim(lStatus.ReturnRemotePort(lStatus.ActiveIndex).ToString()) & " : USERID : " & lSettings.lIRC.iIdent.iUserID
             msg2 = Trim(lStatus.StatusSocketLocalPort(lStatus.ActiveIndex).ToString()) & ", " & Trim(lStatus.ReturnRemotePort(lStatus.ActiveIndex).ToString()) & " : SYSTEM : " & lSettings.lIRC.iIdent.iSystem
-            _clientSocket.SendSocket(msg & Environment.Newline)
-            _clientSocket.SendSocket(msg2 & Environment.Newline)
+            _clientSocket.SendSocket(msg & Environment.NewLine)
+            _clientSocket.SendSocket(msg2 & Environment.NewLine)
             _clientSocket.CloseSocket()
         Catch ex As Exception
             Throw ex

@@ -3,11 +3,14 @@
 Option Explicit On
 Option Strict On
 Imports Telerik.WinControls.UI
-Imports nexIRC.Classes.IO
-Imports nexIRC.Classes.UI
-Imports nexIRC.IRC.Customize
+'Imports nexIRC.Classes.IO
+'Imports nexIRC.Classes.UI
+'Imports nexIRC.IRC.Customize
 Imports nexIRC.Modules
 Imports nexIRC.nexIRC.IRC.Settings.clsDCC
+Imports nexIRC.IniFile
+Imports nexIRC.IRC.Customize
+
 Public Class frmCustomize
     Public WithEvents lCustomize As New clsCustomize
 

@@ -5,6 +5,8 @@ Imports nexIRC.Modules
 Imports nexIRC.Classes.IO
 Imports Telerik.WinControls.UI
 Imports nexIRC.clsCommandTypes
+Imports nexIRC.IniFile
+
 Public Class clsChannelListUI
     Public Event SaveColumnWidths()
     Public lSortOrder As SortOrder
@@ -317,7 +319,7 @@ Public Class clsChannelList
                 splt2 = Split(splt(1), " ")
                 i = Len(splt2(0)) + Len(splt2(1)) + Len(splt2(2)) + Len(splt2(3)) + Len(splt2(4)) + 7
                 msg = Right(_Data, Len(_Data) - i)
-                msg = lStrings.StripColorCodes(msg)
+                msg = TextManipulation.Text.StripColorCodes(msg)
                 If msg = Nothing Then msg = ""
                 If DoesChannelExist(_ChannelListIndex, splt2(3)) = False Then
                     With lChannelLists.cChannelList(_ChannelListIndex)

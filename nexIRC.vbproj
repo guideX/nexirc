@@ -99,10 +99,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="Classes\Communications\AsyncSocket.vb" />
     <Compile Include="Classes\Communications\StatusSocket.vb" />
     <Compile Include="Classes\Ident.vb" />
-    <Compile Include="Classes\IO\Files.vb" />
     <Compile Include="Classes\IrcProcess.vb" />
     <Compile Include="Classes\MdiChildWindow.vb" />
     <Compile Include="Classes\UI\Animate.vb" />
@@ -366,7 +364,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChannel.resx">
       <DependentUpon>frmChannel.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChannelFolder.resx">
       <DependentUpon>frmChannelFolder.vb</DependentUpon>
@@ -516,8 +513,24 @@
     <Content Include="Resources\top-button-recientservers.gif" />
     <Content Include="Resources\web.png" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="IRC\CTCP\" />
+    <ProjectReference Include="..\nexIRC.IRC\nexIRC.IRC.csproj">
+      <Project>{AB9A755C-8AFE-42CD-97DD-7E69634E894B}</Project>
+      <Name>nexIRC.IRC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\nexIRC.Socket\nexIRC.Sockets.csproj">
+      <Project>{B9E7C877-8236-4229-9628-83B21CD2B100}</Project>
+      <Name>nexIRC.Sockets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\nexIRC.Utility\nexIRC.Utility.csproj">
+      <Project>{6948E659-61CF-46E1-8B7E-E64712DE671C}</Project>
+      <Name>nexIRC.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="nexIRC.Strings\nexIRC.Text.csproj">
+      <Project>{6BE84EEE-17C5-4A28-9F1E-7CB61DA5C87D}</Project>
+      <Name>nexIRC.Text</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

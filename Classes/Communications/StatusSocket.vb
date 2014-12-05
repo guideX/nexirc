@@ -4,6 +4,7 @@ Option Explicit On
 Option Strict Off
 Imports nexIRC.clsIrcNumerics
 Imports nexIRC.Modules
+Imports nexIRC.Sockets
 
 Namespace Classes.Communications
     Public Class StatusSocket

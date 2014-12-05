@@ -8,6 +8,7 @@ Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
 Imports Telerik.WinControls.UI
 Imports Telerik.WinControls
+Imports nexIRC.IniFile
 
 Namespace nexIRC.MainWindow
     Public Class clsMainWindowUI
@@ -266,7 +267,7 @@ Namespace nexIRC.MainWindow
             Try
                 If (IsNumeric(e.ClickedItem.Tag.ToString()) = True) Then
                     meIndex = CType(e.ClickedItem.Tag.ToString(), Integer)
-                    If lStrings.DoLeft(e.ClickedItem.Text, 1) = "#" Then
+                    If TextManipulation.Text.DoLeft(e.ClickedItem.Text, 1) = "#" Then
                         channelIndex = lChannels.Find(meIndex, e.ClickedItem.Text.ToString)
                         If (lChannels.Visible(channelIndex)) Then
                             lChannels.Focus(channelIndex)
@@ -315,8 +316,8 @@ Namespace nexIRC.MainWindow
                 ElseIf InStr(_QueryPromptLabel.Tag.ToString, ":") <> 0 Then
                     splt = Split(_QueryPromptLabel.Tag.ToString, ":")
                     If lSettings.lQuerySettings.qAutoShowWindow = True Then
-                        _NickName = lStrings.ParseData(_QueryPromptLabel.Text, "'", "(")
-                        _HostName = lStrings.ParseData(_QueryPromptLabel.Text, "(", ")")
+                        _NickName = TextManipulation.Text.ParseData(_QueryPromptLabel.Text, "'", "(")
+                        _HostName = TextManipulation.Text.ParseData(_QueryPromptLabel.Text, "(", ")")
                         lStatus.PrivateMessage_Add(Convert.ToInt32(Trim(splt(0))), _NickName, _HostName, splt(2), True)
                     End If
                     _QueryPromptToolStrip.Visible = False

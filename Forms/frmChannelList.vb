@@ -4,6 +4,7 @@ Option Explicit On
 Option Strict On
 Imports nexIRC.Classes.IO
 Imports nexIRC.Modules
+Imports nexIRC.IniFile
 
 Public Class frmChannelList
     Private WithEvents lChannelListUI As New clsChannelListUI

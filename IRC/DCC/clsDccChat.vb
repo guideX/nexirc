@@ -4,7 +4,7 @@ Option Explicit On
 Option Strict On
 
 Imports nexIRC.Modules
-Imports nexIRC.Classes.Communications
+Imports nexIRC.Sockets
 Imports Telerik.WinControls.UI
 
 Public Class clsDccChat
@@ -39,8 +39,8 @@ Public Class clsDccChat
     Public Sub AddText(_Text As String)
         Try
             If Len(_Text) <> 0 Then
-                If lStrings.DoRight(_Text, 1) <> Environment.Newline Then
-                    lIncomingTextBox.Text = _Text & Environment.Newline & lIncomingTextBox.Text
+                If TextManipulation.Text.DoRight(_Text, 1) <> Environment.NewLine Then
+                    lIncomingTextBox.Text = _Text & Environment.NewLine & lIncomingTextBox.Text
                 Else
                     lIncomingTextBox.Text = _Text & lIncomingTextBox.Text
                 End If
@@ -53,7 +53,7 @@ Public Class clsDccChat
     Private Sub SendData(ByVal lTempSocket As AsyncSocket, ByVal lData As String)
         Try
             If Len(lData) <> 0 Then
-                lTempSocket.Send(lData & Environment.Newline)
+                lTempSocket.Send(lData & Environment.NewLine)
             End If
         Catch ex As Exception
             Throw ex
@@ -127,7 +127,7 @@ Public Class clsDccChat
         End Try
     End Sub
 
-    Private Sub lSocket_socketConnected(ByVal SocketID As String) Handles lSocket.socketConnected
+    Private Sub lSocket_socketConnected(ByVal SocketID As String) Handles lSocket.SocketConnected
         Try
             Dim lAddText As New StringDelegate(AddressOf AddText)
             lInvokeForm.Invoke(lAddText, "Socket Connected")
@@ -143,7 +143,7 @@ Public Class clsDccChat
             If Len(lData) <> 0 Then
                 lData = Replace(lData, Chr(10), "")
                 lData = Replace(lData, Chr(13), "")
-                lData = Replace(lData, Environment.Newline, "")
+                lData = Replace(lData, Environment.NewLine, "")
                 msg = "<" & lUsersDropDownList.Text & "> " & Trim(lData)
                 lInvokeForm.Invoke(lAddText, msg)
             End If
@@ -152,7 +152,7 @@ Public Class clsDccChat
         End Try
     End Sub
 
-    Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lSocket.socketDataArrival
+    Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lSocket.SocketDataArrival
         Try
             Dim lInData As New StringDelegate(AddressOf ProcessInData)
             lInvokeForm.Invoke(lInData, SocketData)
@@ -174,7 +174,7 @@ Public Class clsDccChat
         End Try
     End Sub
 
-    Private Sub lSocket_socketDisconnected(ByVal SocketID As String) Handles lSocket.socketDisconnected
+    Private Sub lSocket_socketDisconnected(ByVal SocketID As String) Handles lSocket.SocketDisconnected
         Try
             Dim lSocketDisconnectProc As New EmptyDelegate(AddressOf SocketDisconnectedProc)
             lInvokeForm.Invoke(lSocketDisconnectProc)
@@ -204,9 +204,9 @@ Public Class clsDccChat
                     Else
                         msg = lProcessNumeric.lIrcNumericHelper.ReturnMyIp()
                     End If
-                    msg = msg.Replace(Chr(10), "").Replace(Chr(13), "").Replace(Environment.Newline, "").Trim
+                    msg = msg.Replace(Chr(10), "").Replace(Chr(13), "").Replace(Environment.NewLine, "").Trim
                     lStatus.DoStatusSocket(lStatusIndex, "NOTICE " & lUsersDropDownList.Text & " :DCC CHAT (" & msg & ")")
-                    lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & lUsersDropDownList.Text & " :DCC CHAT chat " & lStrings.EncodeIPAddr(msg) & " " & Trim(p.ToString) & "")
+                    lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & lUsersDropDownList.Text & " :DCC CHAT chat " & TextManipulation.Text.EncodeIPAddr(msg) & " " & Trim(p.ToString) & "")
                     lInvokeForm.Invoke(lAddText, "Attempting Connection")
                     lUsersDropDownList.Enabled = False
                     lConnectButton.Enabled = False
@@ -267,7 +267,7 @@ Public Class clsDccChat
                 msg = lOutgoingTextBox.Text
                 If Len(msg) <> 0 Then
                     lOutgoingTextBox.Text = ""
-                    lSocket.Send(msg & Environment.Newline)
+                    lSocket.Send(msg & Environment.NewLine)
                     AddText("<" & lStatus.NickName(lStatusIndex) & "> " & msg)
                 End If
                 Exit Sub

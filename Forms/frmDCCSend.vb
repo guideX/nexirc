@@ -4,7 +4,10 @@ Option Explicit On
 Option Strict On
 Imports nexIRC.Classes.IO
 Imports nexIRC.Modules
-Imports nexIRC.Classes.Communications
+Imports nexIRC.Sockets
+Imports Classes.Communications
+Imports nexIRC.IniFile
+
 Public Class frmDCCSend
     Private WithEvents lListen As AsyncServer
     Private WithEvents lSocket As AsyncSocket
@@ -40,7 +43,7 @@ Public Class frmDCCSend
     Public Sub SendFileChunk(ByVal lData As String)
         Dim msg As String, lSetProgress As New DoubleLongDelegate(AddressOf SetProgress)
         With lFile
-            lResponceData = lResponceData & Environment.Newline & lData
+            lResponceData = lResponceData & Environment.NewLine & lData
             Clipboard.Clear()
             Clipboard.SetText(lResponceData)
             If .fFileLength - Loc(.fFileNumber) <= .fBufferSize Then .fBufferSize = (.fFileLength - Loc(.fFileNumber))
@@ -104,7 +107,7 @@ Public Class frmDCCSend
                         msg = lProcessNumeric.lIrcNumericHelper.ReturnMyIp()
                     End If
                     msg3 = Replace(lStrings.GetFileTitle(txtFilename.Text), " ", "_")
-                    msg2 = "PRIVMSG " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " " & lStrings.EncodeIPAddr(msg) & " " & Trim(cboPort.Text) & " " & (FileLen(txtFilename.Text)) & ""
+                    msg2 = "PRIVMSG " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " " & TextManipulation.Text.EncodeIPAddr(msg) & " " & Trim(cboPort.Text) & " " & (FileLen(txtFilename.Text)) & ""
                     lStatus.DoStatusSocket(lStatusIndex, "NOTICE " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " (" & msg & ")")
                     lStatus.DoStatusSocket(lStatusIndex, msg2)
                 End If
@@ -119,7 +122,7 @@ Public Class frmDCCSend
         lSocket = tmp_Socket
         Me.Invoke(l)
     End Sub
-    Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lSocket.socketDataArrival
+    Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lSocket.SocketDataArrival
         Dim l As New StringDelegate(AddressOf SendFileChunk)
         Me.Invoke(l, SocketData)
     End Sub

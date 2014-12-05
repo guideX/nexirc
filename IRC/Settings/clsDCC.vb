@@ -5,6 +5,8 @@ Option Strict On
 Imports nexIRC.Classes.IO
 Imports nexIRC.Modules
 Imports System.Net
+Imports nexIRC.IniFile
+
 Namespace nexIRC.IRC.Settings
     Public Class clsDCC
         Public Enum eDCCFileExistsAction

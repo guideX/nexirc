@@ -4,7 +4,7 @@ Option Explicit On
 Option Strict On
 Imports System.IO
 Imports nexIRC.Classes.IO
-Imports nexIRC.Classes.Communications
+Imports nexIRC.Sockets
 Imports nexIRC.Modules
 
 Public Class frmDCCGet
@@ -120,7 +120,7 @@ Public Class frmDCCGet
         Try
             lConnected = True
             tmrSendCurrentSize.Interval = lPacketSizeDelay
-            If lStrings.DoRight(txtDownloadTo.Text, 1) <> "\" Then
+            If TextManipulation.Text.DoRight(txtDownloadTo.Text, 1) <> "\" Then
                 txtDownloadTo.Text = txtDownloadTo.Text & "\"
             End If
             lLocalFileName = txtDownloadTo.Text & lRemoteFileName

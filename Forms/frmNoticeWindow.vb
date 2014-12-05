@@ -106,7 +106,7 @@ Public Class frmNoticeWindow
         Try
             Dim msg As String
             If e.KeyCode = 13 Then
-                If lStrings.LeftRight(txtOutgoing.Text, 0, 1) = "/" Then
+                If TextManipulation.Text.LeftRight(txtOutgoing.Text, 0, 1) = "/" Then
                     msg = txtOutgoing.Text
                     txtOutgoing.Text = ""
                     lStatus.ProcessUserInput(lStatusIndex, msg)

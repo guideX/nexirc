@@ -6,6 +6,8 @@ Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
 Imports nexIRC.clsSharedAdd
 Imports nexIRC.Settings
+Imports nexIRC.IniFile
+
 Namespace IRC.Customize
     Public Class clsCustomize
         Public Event Apply()

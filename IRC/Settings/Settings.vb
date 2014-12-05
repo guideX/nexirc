@@ -8,6 +8,7 @@ Imports Telerik.WinControls.UI
 Imports nexIRC.Classes.IO
 Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
+Imports nexIRC.IniFile
 
 Public Class Settings
     Enum eUnsupportedIn
@@ -595,7 +596,7 @@ Public Class Settings
             msg2 = ""
             Do While Not msg Is Nothing
                 If Len(msg2) <> 0 Then
-                    msg2 = msg2 & Environment.Newline & msg
+                    msg2 = msg2 & Environment.NewLine & msg
                 Else
                     msg2 = msg
                 End If
@@ -885,12 +886,12 @@ Public Class Settings
         Dim lIndex As Integer
         ReDim lServers.sServer(lArraySizes.aServers)
         msg2 = My.Computer.FileSystem.ReadAllText(lINI.iServers)
-        splt = Split(msg2, Environment.Newline)
+        splt = Split(msg2, Environment.NewLine)
         For Each msg In splt
             If LCase(msg) = "[settings]" Then
             Else
                 If Left(msg, 1) = "[" And Right(msg, 1) = "]" Then
-                    lIndex = Convert.ToInt32(Trim(lStrings.ParseData(msg, "[", "]")))
+                    lIndex = Convert.ToInt32(Trim(TextManipulation.Text.ParseData(msg, "[", "]")))
                     lServers.sCount = lIndex
                 Else
                     splt2 = Split(msg, "=")

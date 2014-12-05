@@ -198,7 +198,7 @@ Namespace IRC.Channels
                         If _KeyCode = 13 Then
                             msg = .cWindow.txtOutgoing.Text
                             .cWindow.txtOutgoing.Text = ""
-                            If lStrings.LeftRight(msg, 0, 1) = "/" Then
+                            If TextManipulation.Text.LeftRight(msg, 0, 1) = "/" Then
                                 lStatus.ProcessUserInput(lChannels.cChannel(_ChannelIndex).cStatusIndex, msg)
                             Else
                                 lStatus.DoStatusSocket(lChannels.cChannel(_ChannelIndex).cStatusIndex, "PRIVMSG " & lChannels.cChannel(_ChannelIndex).cName & " :" & msg)
@@ -366,8 +366,8 @@ Namespace IRC.Channels
             ':guide_X!~guide_X@pool-108-13-216-135.lsanca.fios.verizon.net JOIN #testerama
             Try
                 Dim _NickName As String, _IpAddress As String, _Channel As String, _TextToDisplay As String, _ChannelIndex As Integer
-                _NickName = lStrings.ParseData(_Data, ":", "!")
-                _IpAddress = lStrings.ParseData(_Data, "~", " JOIN ")
+                _NickName = TextManipulation.Text.ParseData(_Data, ":", "!")
+                _IpAddress = TextManipulation.Text.ParseData(_Data, "~", " JOIN ")
                 If InStr(UCase(_Data), " JOIN :#") <> 0 Then
                     _Channel = Right(_Data, Len(_Data) - (InStr(Right(_Data, Len(_Data) - 1), ":", CompareMethod.Text) + 1))
                 ElseIf InStr(UCase(_Data), " JOIN #") <> 0 Then
@@ -423,9 +423,9 @@ Namespace IRC.Channels
                 lastNickName = ""
                 nickListIds = New List(Of Integer)
                 If (_Data.Contains(":") And _Data.Contains("!")) Then
-                    nickName = lStrings.ParseData(_Data, ":", "!")
+                    nickName = TextManipulation.Text.ParseData(_Data, ":", "!")
                     If (_Data.Contains(" QUIT :")) Then
-                        hostName = lStrings.ParseData(_Data, ":" & nickName & "!", " QUIT :").Replace(nickName & "!", "")
+                        hostName = TextManipulation.Text.ParseData(_Data, ":" & nickName & "!", " QUIT :").Replace(nickName & "!", "")
                         quitMessage = _Data.Replace(":" & nickName & "!" & hostName & " QUIT :", "")
                         Dim nickListItems As List(Of ListViewDataItem)
                         For i = 1 To lChannels.cCount
@@ -458,7 +458,7 @@ Namespace IRC.Channels
                     splt2 = splt(0).Split(Convert.ToChar("@"))
                     If UBound(splt2) = 1 Then
                         _NickName = splt2(0)
-                        _NickName = lStrings.ParseData(_NickName, ":", "!")
+                        _NickName = TextManipulation.Text.ParseData(_NickName, ":", "!")
                         '_HostName = Split(splt2(0), "~")(1) & "@" & splt2(1)
                         splt3 = Split(splt2(0), "~")
                         If (UBound(splt3) > 0) Then
@@ -565,7 +565,7 @@ Namespace IRC.Channels
                 _ChannelIndex = Find(_StatusIndex, _Channel)
                 With lChannels.cChannel(_ChannelIndex)
                     lStrings.Print(lStrings.ReturnReplacedString(eStringTypes.sRPL_TOPIC, _Channel, _Message), .cWindow.txtIncoming)
-                    .cWindow.Text = _Channel & ": " & lStrings.StripColorCodes(_Message)
+                    .cWindow.Text = _Channel & ": " & TextManipulation.Text.StripColorCodes(_Message)
                 End With
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub ChannelTopicMessage(_StatusIndex As Integer, _Data As String)")
@@ -647,7 +647,7 @@ Namespace IRC.Channels
                             If (.cTreeNode.SelectedImageIndex <> 1) Then .cTreeNode.SelectedImageIndex = 1
                         End If
                         If (.cWindowBarItem IsNot Nothing) Then
-                            If (.cTreeNode.ImageIndex <> 1) Then .cTreeNode.ImageIndex = 1
+                            If (.cWindowBarItem.ImageIndex <> 1) Then .cWindowBarItem.ImageIndex = 1
                         End If
                     End With
                 Catch ex As Exception

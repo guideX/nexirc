@@ -106,7 +106,7 @@ Public Class frmDCCSend
                     Else
                         msg = lProcessNumeric.lIrcNumericHelper.ReturnMyIp()
                     End If
-                    msg3 = Replace(lStrings.GetFileTitle(txtFilename.Text), " ", "_")
+                    msg3 = Replace(System.IO.Path.GetFileName(txtFilename.Text), " ", "_")
                     msg2 = "PRIVMSG " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " " & TextManipulation.Text.EncodeIPAddr(msg) & " " & Trim(cboPort.Text) & " " & (FileLen(txtFilename.Text)) & ""
                     lStatus.DoStatusSocket(lStatusIndex, "NOTICE " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " (" & msg & ")")
                     lStatus.DoStatusSocket(lStatusIndex, msg2)

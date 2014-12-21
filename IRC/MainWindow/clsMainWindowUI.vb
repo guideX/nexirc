@@ -156,49 +156,48 @@ Namespace nexIRC.MainWindow
             End Try
         End Function
 
-        Public Sub Form_Load(_Form As Form, _NotifyIcon As NotifyIcon, _TimerStartupSettings As Timer, _LeftBarButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
+        Public Sub Form_Load(_Form As Form, _NotifyIcon As NotifyIcon, _LeftBarButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
             Dim sideBarShown As Boolean
-            Try
-                _WindowsToolStrip.ForeColor = Color.White
-                _NotifyIcon.Visible = True
-                _NotifyIcon.Icon = _Form.Icon
-                lLoadingForm = New frmLoading
-                lLoadingForm.Show()
-                lLoadingForm.Focus()
-                Application.DoEvents()
-                SetLoadingFormProgress("Initializing Status Windows", 2)
-                lSettings.SetArraySizes()
-                lStatus = New Global.nexIRC.IRC.Status.Status(lSettings.lArraySizes.aStatusWindows)
-                SetLoadingFormProgress("Initializing Processes", 5)
-                lProcesses.Initialize()
-                SetLoadingFormProgress("Loading Settings", 7)
-                lSettings.LoadSettings()
-                lLoadingForm.Focus()
-                If lSettings.lServers.sIndex <> 0 Then lStatus.Create(lSettings.lIRC, lSettings.lServers)
-                _Form.Left = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Left", Convert.ToString(_Form.Left))))
-                _Form.Top = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Top", Convert.ToString(_Form.Top))))
-                _Form.Width = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Width", Convert.ToString(_Form.Width))))
-                _Form.Height = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Height", Convert.ToString(_Form.Height))))
-                If lSettings.lIRC.iIdent.iSettings.iEnabled = True Then
-                    lIdent.Listen(113)
-                End If
-                SetLoadingFormProgress("Loading Complete", 100)
-                lLoadingForm.Close()
-                _TimerStartupSettings.Interval = 500
-                _TimerStartupSettings.Enabled = True
-                _Form.Text = "nexIRC v" & Application.ProductVersion
-                sideBarShown = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "SideBarShown", "False"))
-                _LeftBarButton.Left = 0
-                If (Not sideBarShown) Then
-                    _LeftNav.Visible = False
-                Else
-                    _LeftNav.Visible = True
-                End If
-                Form_Resize(_Form, _LeftBarButton, _LeftNav, _ToolStrip, _WindowsToolStrip)
-                RaiseEvent SetBackgroundColor()
-            Catch ex As Exception
-                Throw ex
-            End Try
+            'Try
+            _WindowsToolStrip.ForeColor = Color.White
+            _NotifyIcon.Visible = True
+            _NotifyIcon.Icon = _Form.Icon
+            lLoadingForm = New frmLoading
+            lLoadingForm.Show()
+            lLoadingForm.Focus()
+            Application.DoEvents()
+            SetLoadingFormProgress("Initializing Status Windows", 2)
+            lSettings.SetArraySizes()
+            lStatus = New Global.nexIRC.IRC.Status.Status(lSettings.lArraySizes.aStatusWindows)
+            SetLoadingFormProgress("Initializing Processes", 5)
+            lProcesses.Initialize()
+            SetLoadingFormProgress("Loading Settings", 7)
+            lSettings.LoadSettings()
+            lLoadingForm.Focus()
+            If lSettings.lServers.sIndex <> 0 Then lStatus.Create(lSettings.lIRC, lSettings.lServers)
+            _Form.Left = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Left", Convert.ToString(_Form.Left))))
+            _Form.Top = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Top", Convert.ToString(_Form.Top))))
+            _Form.Width = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Width", Convert.ToString(_Form.Width))))
+            _Form.Height = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Height", Convert.ToString(_Form.Height))))
+            If lSettings.lIRC.iIdent.iSettings.iEnabled = True Then
+                lIdent.Listen(113)
+            End If
+            SetLoadingFormProgress("Loading Complete", 100)
+            lLoadingForm.Close()
+            _Form.Text = "nexIRC v" & Application.ProductVersion
+            sideBarShown = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "SideBarShown", "False"))
+            _LeftBarButton.Left = 0
+            If (Not sideBarShown) Then
+                _LeftNav.Visible = False
+            Else
+                _LeftNav.Visible = True
+            End If
+            Form_Resize(_Form, _LeftBarButton, _LeftNav, _ToolStrip, _WindowsToolStrip)
+            RaiseEvent SetBackgroundColor()
+            _Form.Visible = True
+            'Catch ex As Exception
+            'Throw ex
+            'End Try
         End Sub
 
         Public Sub Form_Resize(_Form As Form, _LeftButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
@@ -656,6 +655,20 @@ Namespace nexIRC.MainWindow
                 Dim i As Integer
                 i = lStatus.ActiveIndex()
                 lStrings.ProcessReplaceCommand(i, eCommandTypes.cTIME)
+            Catch ex As Exception
+                Throw ex
+            End Try
+        End Sub
+
+        Public Sub tmrStartup_Tick(startupTimer As Timer)
+            Try
+                startupTimer.Enabled = False
+                If (Modules.lSettings.lIRC.iSettings.sCustomizeOnStartup = True) Then
+                    frmCustomize.Show()
+                End If
+                If (Modules.lSettings.lIRC.iSettings.sAutoConnect = True) Then
+                    lStatus.ToggleConnection(lStatus.ActiveIndex)
+                End If
             Catch ex As Exception
                 Throw ex
             End Try

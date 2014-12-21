@@ -870,14 +870,23 @@ Public Class clsProcessNumeric
                                 Exit Sub
                             Case 433
                                 lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NICKNAMEINUSE, lStatus.NickName(lStatusIndex))
-                                If (lSettings.ShowPrompts) Then
+                                If (lSettings.lIRC.iSettings.sAutoSelectAlternateNickname) Then
+                                    If (lSettings.lIRC.iNicks.nCount <> 1) Then
+                                        Dim nn = New Random(DateTime.Now.Millisecond).Next(1, lSettings.lIRC.iNicks.nCount)
+                                        lSettings.lIRC.iNicks.nIndex = nn
+                                        MessageBox.Show(lSettings.lIRC.iNicks.nCount.ToString() & ": " & lSettings.lIRC.iNicks.nIndex.ToString())
+                                        lStatus.NickName(lStatusIndex, True) = lSettings.lIRC.iNicks.nNick(lSettings.lIRC.iNicks.nIndex).nNick
+                                    End If
+                                Else
                                     If lSettings.lIRC.iSettings.sChangeNickNameWindow = True Then
                                         Dim f As New frmChangeNickName
                                         f = New frmChangeNickName
                                         f.ChangeNickName.lServerIndex = lStatusIndex
                                         f.Show()
                                     Else
-                                        mdiMain.ShowQueryBar("Nickname in use", eInfoBar.iNicknameInUse)
+                                        If (Modules.lSettings.lIRC.iSettings.sPrompts) Then
+                                            mdiMain.ShowQueryBar("Nickname '" & Modules.lSettings.lIRC.iNicks.nNick(Modules.lSettings.lIRC.iNicks.nIndex).nNick & "' is taken, select another?", eInfoBar.iNicknameInUse)
+                                        End If
                                     End If
                                 End If
                                 Exit Sub

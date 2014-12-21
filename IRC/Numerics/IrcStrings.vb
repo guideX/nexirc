@@ -572,16 +572,16 @@ Public Class IrcStrings
         End Try
     End Sub
 
-    Public Function GetFileTitle(ByVal lFileName As String) As String
-        Try
-            Dim msg() As String
-            msg = Split(lFileName, "\")
-            GetFileTitle = msg(UBound(msg))
-        Catch ex As Exception
-            Throw ex
-            Return Nothing
-        End Try
-    End Function
+    'Public Function GetFileTitle(ByVal lFileName As String) As String
+    'Try
+    'Dim msg() As String
+    'msg = Split(lFileName, "\")
+    'GetFileTitle = msg(UBound(msg))
+    'Catch ex As Exception
+    'throw ex
+    'eturn Nothing
+    'End Try
+    'End Function
 
     Public Sub Print(data As String, richTextBox As RadRichTextBox)
         Dim ircChar As String = "", s As Span, mint As Integer, i As Integer, msg As String, currentText As String = "", subText1 As String = "", subText2 As String = "", isForeColorSet As Boolean = False, isBackColorSet As Boolean = False

@@ -10,6 +10,7 @@ Imports nexIRC.Modules
 Imports nexIRC.nexIRC.IRC.Settings.clsDCC
 Imports nexIRC.IniFile
 Imports nexIRC.IRC.Customize
+Imports nexIRC.Settings2
 
 Public Class frmCustomize
     Public WithEvents lCustomize As New clsCustomize
@@ -43,7 +44,8 @@ Public Class frmCustomize
                 chkShowRawWindow.Checked,
                 chkMOTDInOwnWindow.Checked,
                 chkNoticesInOwnWindow.Checked,
-                textBufferSize
+                textBufferSize,
+                chkAutoSelectAlternateNickname.Checked
             )
             lCustomize.Apply_Settings_Startup(
                 chkAutoConnect.Checked,
@@ -197,6 +199,7 @@ Public Class frmCustomize
                 chkShowCustomize.Checked = .sCustomizeOnStartup
                 chkPopupChannelFolder.Checked = .sPopupChannelFolders
                 chkShowNicknameWindow.Checked = .sChangeNickNameWindow
+                chkAutoSelectAlternateNickname.Checked = .sAutoSelectAlternateNickname
                 'chkShowBrowser.Checked = .sShowBrowser
                 chkShowWindowsAutomatically.Checked = .sShowWindowsAutomatically
                 chkAutoMaximize.Checked = .sAutoMaximize
@@ -273,6 +276,12 @@ Public Class frmCustomize
         Try
             lCustomize.Form_Load(Me, cmdCancelNow, lvwServers)
             InitSettings()
+            With lSettings.lIRC.iIdent
+                txtIdentdPort.Text = .iPort.ToString
+                txtIdentdSystem.Text = .iSystem
+                txtIdentdUserID.Text = .iUserID
+                chkIdentdEnabled.Checked = .iSettings.iEnabled
+            End With
         Catch ex As Exception
             Throw ex
         End Try
@@ -335,7 +344,7 @@ Public Class frmCustomize
             Throw ex
         End Try
     End Sub
-    Private Sub cmdEditIdentSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdIdentdEdit.Click
+    Private Sub cmdEditIdentSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Try
             lCustomize.cmdEditIdentSettings_Click()
         Catch ex As Exception
@@ -397,6 +406,12 @@ Public Class frmCustomize
     Private Sub cmdConnectNow_Click(sender As System.Object, e As System.EventArgs) Handles cmdConnectNow.Click
         Try
             If lCustomize.cmdConnectNow_Click(chkNewStatus.Checked, Me) Then
+                With lSettings.lIRC.iIdent
+                    .iPort = CType(txtIdentdPort.Text, Integer)
+                    .iSettings.iEnabled = chkIdentdEnabled.Checked
+                    .iSystem = txtIdentdSystem.Text
+                    .iUserID = txtIdentdUserID.Text
+                End With
                 EventApply()
                 lSettings.SaveSettings()
             End If
@@ -408,6 +423,12 @@ Public Class frmCustomize
     Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click
         Try
             If lCustomize.cmdOK_Click(chkNewStatus.Checked, Me) Then
+                With lSettings.lIRC.iIdent
+                    .iPort = CType(txtIdentdPort.Text, Integer)
+                    .iSettings.iEnabled = chkIdentdEnabled.Checked
+                    .iSystem = txtIdentdSystem.Text
+                    .iUserID = txtIdentdUserID.Text
+                End With
                 EventApply()
             End If
             lSettings.SaveSettings()
@@ -418,6 +439,12 @@ Public Class frmCustomize
     End Sub
     Private Sub cmdApplyNow_Click(sender As System.Object, e As System.EventArgs) Handles cmdApplyNow.Click
         Try
+            With lSettings.lIRC.iIdent
+                .iPort = CType(txtIdentdPort.Text, Integer)
+                .iSettings.iEnabled = chkIdentdEnabled.Checked
+                .iSystem = txtIdentdSystem.Text
+                .iUserID = txtIdentdUserID.Text
+            End With
             EventApply()
             lCustomize.cmdApplyNow_Click(Me)
         Catch ex As Exception

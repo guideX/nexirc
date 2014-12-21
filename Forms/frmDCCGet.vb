@@ -69,16 +69,16 @@ Public Class frmDCCGet
             txtDownloadTo.Enabled = False
             If (File.Exists(lSettings.lINI.iBasePath & lblFilename.Text)) Then
                 If lSettings.lIRC.iSettings.sPrompts = True Then
-                    If lSettings_DCC.lDCC.dFileExistsAction = nexIRC.IRC.Settings.clsDCC.eDCCFileExistsAction.dPrompt = True Then
+                    If lSettings_DCC.lDCC.dFileExistsAction = Settings2.eDCCFileExistsAction.dPrompt Then
                         mBox = MsgBox("This file already exists, replace the original?", MsgBoxStyle.Question Or MsgBoxStyle.YesNoCancel)
-                    ElseIf lSettings_DCC.lDCC.dFileExistsAction = nexIRC.IRC.Settings.clsDCC.eDCCFileExistsAction.dOverwrite = True Then
+                    ElseIf lSettings_DCC.lDCC.dFileExistsAction = Settings2.eDCCFileExistsAction.dOverwrite Then
                         mBox = MsgBoxResult.Yes
-                    ElseIf lSettings_DCC.lDCC.dFileExistsAction = nexIRC.IRC.Settings.clsDCC.eDCCFileExistsAction.dIgnore = True Then
+                    ElseIf lSettings_DCC.lDCC.dFileExistsAction = Settings2.eDCCFileExistsAction.dIgnore Then
                         MsgBox("This file already exists!", MsgBoxStyle.Critical)
                         mBox = MsgBoxResult.No
                     End If
                 Else
-                    If lSettings_DCC.lDCC.dFileExistsAction = nexIRC.IRC.Settings.clsDCC.eDCCFileExistsAction.dIgnore = True Then
+                    If lSettings_DCC.lDCC.dFileExistsAction = Settings2.eDCCFileExistsAction.dIgnore Then
                         mBox = MsgBoxResult.No
                     Else
                         mBox = MsgBoxResult.Yes

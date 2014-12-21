@@ -219,17 +219,17 @@ Public Class clsIrcNumericHelper
             splt = Split(lData, " ")
             If lSettings_DCC.lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then Exit Sub
             If IsNickNameInDCCIgnoreList(Trim(msg)) = False Then
-                If lSettings_DCC.lDCC.dChatPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.ePrompt Then
+                If lSettings_DCC.lDCC.dChatPrompt = Settings2.eDCCPrompt.ePrompt Then
                     Dim lDCCChatPrompt As New frmDCCChatPrompt
                     lDCCChatPrompt.SetInfo(Trim(msg), splt(6), splt(7))
                     lDCCChatPrompt.SetStatusIndex(lStatusIndex)
                     lDCCChatPrompt.Show()
-                ElseIf lSettings_DCC.lDCC.dChatPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll Then
+                ElseIf lSettings_DCC.lDCC.dChatPrompt = Settings2.eDCCPrompt.eAcceptAll Then
                     Dim lDCCChat As New frmDCCChat
                     lDCCChat.cboUsers.Text = Trim(msg)
                     lDCCChat.lDccChatUI.SetInfo(splt(6), Trim(splt(7)))
                     lDCCChat.Show()
-                ElseIf lSettings_DCC.lDCC.dChatPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eIgnore Then
+                ElseIf lSettings_DCC.lDCC.dChatPrompt = Settings2.eDCCPrompt.eIgnore Then
                 End If
             End If
         Catch ex As Exception
@@ -245,7 +245,7 @@ Public Class clsIrcNumericHelper
             msg = splt(UBound(splt)).Trim().ToLower()
             With lSettings_DCC.lDCC.dIgnorelist
                 For i = 1 To .dCount
-                    If (.dItem(i).dType = nexIRC.IRC.Settings.clsDCC.gDCCIgnoreType.dFileTypes) Then
+                    If (.dItem(i).dType = Settings2.gDCCIgnoreType.dFileTypes) Then
                         If (.dItem(i).dData.Trim().ToLower() = msg.Trim().ToLower()) Then
                             result = True
                             Exit For
@@ -288,15 +288,15 @@ Public Class clsIrcNumericHelper
             End If
             If IsNickNameInDCCIgnoreList(msg) = False Then
                 If ReturnIsFileTypeIgnored(Trim(splt(5))) = False Then
-                    If lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.ePrompt Then
+                    If lSettings_DCC.lDCC.dSendPrompt = Settings2.eDCCPrompt.ePrompt Then
                         mdiMain.tspDCCToolBar.Items(0).Text = "Accept the file '" & Trim(splt(5)) & "' from the user '" & msg & "'?"
                         mdiMain.tspDCCToolBar.Visible = True
-                        mdiMain.lblUser.Tag = msg & Environment.Newline & Trim(splt(6)) & Environment.Newline & Trim(splt(7)) & Environment.Newline & Trim(splt(5)) & Environment.Newline & Trim(splt(8))
-                    ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll Then
+                        mdiMain.lblUser.Tag = msg & Environment.NewLine & Trim(splt(6)) & Environment.NewLine & Trim(splt(7)) & Environment.NewLine & Trim(splt(5)) & Environment.NewLine & Trim(splt(8))
+                    ElseIf lSettings_DCC.lDCC.dSendPrompt = Settings2.eDCCPrompt.eAcceptAll Then
                         lForm.InitDCCGet(Trim(msg), Trim(splt(6)), Trim(splt(7)), Trim(splt(5)), Trim(splt(8)))
                         'animate.Animate(lForm, animate.Effect.Center, 200, 1)
                         lForm.Show()
-                    ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eIgnore Then
+                    ElseIf lSettings_DCC.lDCC.dSendPrompt = Settings2.eDCCPrompt.eIgnore Then
                         lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring all DCC connections")
                     End If
                 Else

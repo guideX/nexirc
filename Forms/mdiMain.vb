@@ -12,6 +12,9 @@ Public Class mdiMain
     Public Sub New()
         InitializeComponent()
     End Sub
+
+    Private Property tmrStartupSettings As Object
+
     Public Sub ShowQueryBar(_Text As String, _Function As eInfoBar)
         lMainWindowUI.ShowQueryBar(_Text, _Function, lblQueryPrompt, tspQueryPrompt)
     End Sub
@@ -48,11 +51,9 @@ Public Class mdiMain
     Private Sub tmrFlashDCCToolBar_Tick(sender As System.Object, e As System.EventArgs) Handles tmrFlashDCCToolBar.Tick
         lMainWindowUI.FlashDCCToolBarTimer_Tick(tmrFlashDCCToolBar)
     End Sub
-    Private Sub tmrStartupSettings_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrStartupSettings.Tick
-        lMainWindowUI.StartupSettingsTimer_Tick(tmrStartupSettings)
-    End Sub
     Private Sub mdiMain_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        lMainWindowUI.Form_Load(Me, nicSystray, tmrStartupSettings, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
+        lMainWindowUI.Form_Load(Me, nicSystray, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
+        tmrStartup.Enabled = True
         tspWindows.ImageList = ImageList1
     End Sub
     Private Sub mdiMain_Resize(sender As System.Object, e As System.EventArgs) Handles MyBase.Resize
@@ -203,8 +204,8 @@ Public Class mdiMain
         lMainWindowUI.tmrWaitForQuit_Tick()
     End Sub
     Private Sub lMainWindowUI_EnableStartupSettingsTimer(tickInterval As Integer) Handles lMainWindowUI.EnableStartupSettingsTimer
-        tmrStartupSettings.Interval = tickInterval
-        tmrStartupSettings.Enabled = True
+        'tmrStartupSettings.Interval = tickInterval
+        'tmrStartupSettings.Enabled = True
     End Sub
     Private Sub tmrHideRedirect_Tick(sender As System.Object, e As System.EventArgs) Handles tmrHideRedirect.Tick
         lMainWindowUI.tmrHideRedirect_Tick(tspRedirect, tmrHideRedirect)
@@ -239,6 +240,10 @@ Public Class mdiMain
         Try
             tmrFirstFocus.Enabled = False
             Modules.lStatus.Window(0).Focus()
+            If Modules.lSettings.lIRC.iSettings.sCustomizeOnStartup = True Then
+                frmCustomize.Show()
+                frmCustomize.Focus()
+            End If
         Catch ex As Exception
             Throw ex
         End Try
@@ -247,6 +252,14 @@ Public Class mdiMain
     Private Sub cmd_Admin_Click(sender As System.Object, e As System.EventArgs) Handles cmd_Admin.Click
         Try
             lMainWindowUI.cmd_Admin_Click()
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
+
+    Private Sub tmrStartup_Tick(sender As System.Object, e As System.EventArgs) Handles tmrStartup.Tick
+        Try
+            lMainWindowUI.tmrStartup_Tick(tmrStartup)
         Catch ex As Exception
             Throw ex
         End Try

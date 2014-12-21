@@ -681,7 +681,8 @@ Namespace IRC.Customize
                                  _ShowRawWindow As Boolean,
                                  _MotdInOwnWindow As Boolean,
                                  _NoticesInOwnWindow As Boolean,
-                                 _TextBufferSize As Integer)
+                                 _TextBufferSize As Integer,
+                                 _AutoSelectAlternateNickname As Boolean)
             Try
                 With lSettings.lIRC.iSettings
                     .sPrompts = _Prompts
@@ -689,6 +690,7 @@ Namespace IRC.Customize
                     .sAutoMaximize = _AutoMaximized
                     .sPopupChannelFolders = _PopupChannelFolder
                     .sVideoBackground = _VideoBackground
+                    .sAutoSelectAlternateNickname = _AutoSelectAlternateNickname
                     .sChangeNickNameWindow = _ShowNickNameWindow
                     .sChannelFolderCloseOnJoin = _CloseChannelFolder
                     .sAutoAddToChannelFolder = _AddToChannelFolder
@@ -714,18 +716,18 @@ Namespace IRC.Customize
                                       _DownloadDirectory As String)
             Try
                 If (_DccChatPrompt) Then
-                    lSettings_DCC.lDCC.dChatPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.ePrompt
+                    lSettings_DCC.lDCC.dChatPrompt = Settings2.eDCCPrompt.ePrompt
                 ElseIf (_DccChatAcceptAll) Then
-                    lSettings_DCC.lDCC.dChatPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll
+                    lSettings_DCC.lDCC.dChatPrompt = Settings2.eDCCPrompt.eAcceptAll
                 ElseIf (_DccChatIgnore) Then
-                    lSettings_DCC.lDCC.dChatPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eIgnore
+                    lSettings_DCC.lDCC.dChatPrompt = Settings2.eDCCPrompt.eIgnore
                 End If
                 If (_DccSendPrompt) Then
-                    lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.ePrompt
+                    lSettings_DCC.lDCC.dSendPrompt = Settings2.eDCCPrompt.ePrompt
                 ElseIf (_DccSendAcceptAll) Then
-                    lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll
+                    lSettings_DCC.lDCC.dSendPrompt = Settings2.eDCCPrompt.eAcceptAll
                 ElseIf (_DccSendIgnore) Then
-                    lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eIgnore
+                    lSettings_DCC.lDCC.dSendPrompt = Settings2.eDCCPrompt.eIgnore
                 End If
                 lSettings_DCC.lDCC.dAutoCloseDialogs = _AutoCloseDccDialogs
                 lSettings_DCC.lDCC.dAutoIgnore = _OnlyAllowUsersInNotifyList

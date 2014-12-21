@@ -260,6 +260,7 @@ Public Class Settings
         Public sPopupChannelFolders As Boolean
         Public sMOTDInOwnWindow As Boolean
         Public sHideMOTD As Boolean
+        Public sAutoSelectAlternateNickname As Boolean
         Public sChangeNickNameWindow As Boolean
         Public sNoticesInOwnWindow As Boolean
         Public sStringSettings As gStringSettings
@@ -1008,6 +1009,7 @@ Public Class Settings
                 .sCustomizeOnStartup = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", "False"))
                 .sPopupChannelFolders = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "PopupChannelFolders", "True"))
                 .sMOTDInOwnWindow = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "MOTDInOwnWindow", "True"))
+                .sAutoSelectAlternateNickname = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoSelectAlternateNickname", "True"))
                 .sChangeNickNameWindow = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", "True"))
                 .sNoticesInOwnWindow = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", "True"))
                 .sURL = Files.ReadINI(lINI.iIRC, "Settings", "URL", "http://www.bing.com")
@@ -1082,7 +1084,7 @@ Public Class Settings
 
     Public Sub AddToDownloadManager(ByVal lFile As String, ByVal lNickname As String, Optional ByVal lShowDownloadManager As Boolean = False)
         Dim msg As String, msg2 As String
-        msg = lStrings.GetFileTitle(lFile)
+        msg = System.IO.Path.GetFileName(lFile)
         msg2 = Left(lFile, Len(lFile) - Len(msg))
         If Len(msg) <> 0 And Len(msg2) <> 0 And Len(lNickname) <> 0 Then
             If FindDownloadManagerIndexByFileName(msg) = 0 Then
@@ -1200,6 +1202,7 @@ Public Class Settings
             Files.WriteINI(lINI.iIRC, "Settings", "NoIRCMessages", Trim(.sNoIRCMessages.ToString))
             Files.WriteINI(lINI.iIRC, "Settings", "ExtendedMessages", Trim(.sExtendedMessages.ToString))
             Files.WriteINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", Trim(.sChangeNickNameWindow.ToString))
+            Files.WriteINI(lINI.iIRC, "Settings", "AutoSelectAlternateNickname", Trim(.sAutoSelectAlternateNickname.ToString))
             Files.WriteINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", Trim(.sNoticesInOwnWindow.ToString))
             Files.WriteINI(lINI.iIRC, "Settings", "HideMOTD", Trim(.sHideMOTD.ToString))
             Files.WriteINI(lINI.iIRC, "Settings", "ShowRawWindow", Trim(.sShowRawWindow.ToString))

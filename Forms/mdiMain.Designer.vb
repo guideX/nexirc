@@ -28,7 +28,6 @@ Partial Class mdiMain
         Me.cboAllServers = New System.Windows.Forms.ToolStripComboBox()
         Me.FontDialog1 = New System.Windows.Forms.FontDialog()
         Me.tspWindows = New System.Windows.Forms.ToolStrip()
-        Me.tmrStartupSettings = New System.Windows.Forms.Timer(Me.components)
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.tspMain = New System.Windows.Forms.ToolStrip()
         Me.cmd_Connection = New System.Windows.Forms.ToolStripSplitButton()
@@ -94,7 +93,6 @@ Partial Class mdiMain
         Me.cmdDeny = New System.Windows.Forms.ToolStripButton()
         Me.fdgOpen = New System.Windows.Forms.OpenFileDialog()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.tspRedirect = New System.Windows.Forms.ToolStrip()
         Me.lblRedirectMessage = New System.Windows.Forms.ToolStripLabel()
         Me.cmdRedirectAccept = New System.Windows.Forms.ToolStripButton()
@@ -102,6 +100,7 @@ Partial Class mdiMain
         Me.tmrWaitForQuit = New System.Windows.Forms.Timer(Me.components)
         Me.tmrHideRedirect = New System.Windows.Forms.Timer(Me.components)
         Me.tmrFirstFocus = New System.Windows.Forms.Timer(Me.components)
+        Me.tmrStartup = New System.Windows.Forms.Timer(Me.components)
         Me.tspMain.SuspendLayout()
         Me.pnlLeftNav.SuspendLayout()
         Me.tspQueryPrompt.SuspendLayout()
@@ -152,10 +151,6 @@ Partial Class mdiMain
         Me.tspWindows.Size = New System.Drawing.Size(819, 25)
         Me.tspWindows.TabIndex = 23
         Me.tspWindows.Text = "ToolStrip1"
-        '
-        'tmrStartupSettings
-        '
-        Me.tmrStartupSettings.Interval = 200
         '
         'ImageList1
         '
@@ -257,55 +252,55 @@ Partial Class mdiMain
         '
         Me.cmd_AwayMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_Away, Me.cmd_Back})
         Me.cmd_AwayMenu.Name = "cmd_AwayMenu"
-        Me.cmd_AwayMenu.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_AwayMenu.Size = New System.Drawing.Size(150, 22)
         Me.cmd_AwayMenu.Text = "Away"
         '
         'cmd_Away
         '
         Me.cmd_Away.Name = "cmd_Away"
-        Me.cmd_Away.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_Away.Size = New System.Drawing.Size(110, 22)
         Me.cmd_Away.Text = "Away"
         '
         'cmd_Back
         '
         Me.cmd_Back.Name = "cmd_Back"
-        Me.cmd_Back.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_Back.Size = New System.Drawing.Size(110, 22)
         Me.cmd_Back.Text = "Back"
         '
         'cmd_ServerLinks
         '
         Me.cmd_ServerLinks.Name = "cmd_ServerLinks"
-        Me.cmd_ServerLinks.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_ServerLinks.Size = New System.Drawing.Size(150, 22)
         Me.cmd_ServerLinks.Text = "Server Links"
         '
         'cmd_Whois
         '
         Me.cmd_Whois.Name = "cmd_Whois"
-        Me.cmd_Whois.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_Whois.Size = New System.Drawing.Size(150, 22)
         Me.cmd_Whois.Text = "Whois"
         '
         'cmd_Whowas
         '
         Me.cmd_Whowas.Name = "cmd_Whowas"
-        Me.cmd_Whowas.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_Whowas.Size = New System.Drawing.Size(150, 22)
         Me.cmd_Whowas.Text = "Whowas"
         '
         'cmd_Time
         '
         Me.cmd_Time.Name = "cmd_Time"
-        Me.cmd_Time.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_Time.Size = New System.Drawing.Size(150, 22)
         Me.cmd_Time.Text = "Time"
         '
         'cmd_Stats
         '
         Me.cmd_Stats.Name = "cmd_Stats"
-        Me.cmd_Stats.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_Stats.Size = New System.Drawing.Size(150, 22)
         Me.cmd_Stats.Text = "Stats"
         '
         'cmd_Admin
         '
         Me.cmd_Admin.Name = "cmd_Admin"
-        Me.cmd_Admin.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_Admin.Size = New System.Drawing.Size(150, 22)
         Me.cmd_Admin.Text = "Admin"
         '
         'cmd_Sep39879803269
@@ -461,7 +456,7 @@ Partial Class mdiMain
         Me.cmd_LeftBar.Checked = True
         Me.cmd_LeftBar.CheckState = System.Windows.Forms.CheckState.Checked
         Me.cmd_LeftBar.Name = "cmd_LeftBar"
-        Me.cmd_LeftBar.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_LeftBar.Size = New System.Drawing.Size(151, 22)
         Me.cmd_LeftBar.Text = "Left Bar"
         '
         'cmd_WindowBar
@@ -469,7 +464,7 @@ Partial Class mdiMain
         Me.cmd_WindowBar.Checked = True
         Me.cmd_WindowBar.CheckState = System.Windows.Forms.CheckState.Checked
         Me.cmd_WindowBar.Name = "cmd_WindowBar"
-        Me.cmd_WindowBar.Size = New System.Drawing.Size(152, 22)
+        Me.cmd_WindowBar.Size = New System.Drawing.Size(151, 22)
         Me.cmd_WindowBar.Text = "Window Bar"
         '
         'cmd_Window
@@ -707,6 +702,10 @@ Partial Class mdiMain
         '
         Me.tmrFirstFocus.Interval = 200
         '
+        'tmrStartup
+        '
+        Me.tmrStartup.Interval = 200
+        '
         'mdiMain
         '
         Me.AccessibleRole = System.Windows.Forms.AccessibleRole.Window
@@ -748,7 +747,6 @@ Partial Class mdiMain
     Friend WithEvents cboAllServers As System.Windows.Forms.ToolStripComboBox
     Friend WithEvents FontDialog1 As System.Windows.Forms.FontDialog
     Friend WithEvents tspWindows As System.Windows.Forms.ToolStrip
-    Friend WithEvents tmrStartupSettings As System.Windows.Forms.Timer
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
     Friend WithEvents tspMain As System.Windows.Forms.ToolStrip
     Friend WithEvents cmd_Connection As System.Windows.Forms.ToolStripSplitButton
@@ -813,7 +811,6 @@ Partial Class mdiMain
     Friend WithEvents ToolTip As System.Windows.Forms.ToolTip
     Friend WithEvents ToolStripSeparator4 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents cmd_ShowAbout As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents tspRedirect As System.Windows.Forms.ToolStrip
     Friend WithEvents lblRedirectMessage As System.Windows.Forms.ToolStripLabel
     Friend WithEvents cmdRedirectAccept As System.Windows.Forms.ToolStripButton
@@ -822,6 +819,7 @@ Partial Class mdiMain
     Friend WithEvents tmrHideRedirect As System.Windows.Forms.Timer
     Friend WithEvents tmrFirstFocus As System.Windows.Forms.Timer
     Friend WithEvents cmd_Admin As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tmrStartup As System.Windows.Forms.Timer
     'Friend WithEvents cmdConnection As System.Windows.Forms.ToolStripSplitButton
     'Friend WithEvents mnuNewStatusWindow As System.Windows.Forms.ToolStripMenuItem
     'Friend WithEvents mnuSep76829639 As System.Windows.Forms.ToolStripSeparator

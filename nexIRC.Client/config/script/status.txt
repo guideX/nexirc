@@ -1,0 +1,5 @@
+Sub MakeStatus()
+  Dim lIRCSettings As IRC_SETTINGS
+  Dim lServerSettings As SERVER_SETTINGS
+  lStatus.NewStatusWindowlIRCSettings, lServerSettings)
+End Sub

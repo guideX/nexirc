@@ -62,12 +62,12 @@ namespace nexIRC.IrcSettings {
                             channelFolders.Add(c);
                         }
                     }
+                    _cached = channelFolders;
+                    _useCache = true;
+                    return channelFolders;
                 } else {
-                    return _cached;
+                    return _cached.Where(c => c.Network == network).ToList();
                 }
-                _cached = channelFolders;
-                _useCache = true;
-                return channelFolders;
             } catch (Exception ex) {
                 throw ex;
             }
@@ -87,7 +87,8 @@ namespace nexIRC.IrcSettings {
             } catch (Exception ex) {
                 throw ex;
             }
-        }        /// <summary>
+        }        
+        /// <summary>
         /// Add
         /// </summary>
         /// <param name="channelFolder"></param>

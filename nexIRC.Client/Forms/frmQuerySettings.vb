@@ -121,32 +121,26 @@ Public Class frmQuerySettings
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
         Try
             Dim querySettings = Modules.IrcSettings.QuerySettings.Get()
-            'With lSettings.lQuerySettings
             With querySettings
+                .AutoAllowList = New List(Of String)
+                .AutoDenyList = New List(Of String)
+                .SpamPhrases = New List(Of String)
                 Dim i As Integer, n As Integer
                 For i = 0 To lstAutoAllowList.Items.Count - 1
-                    If Len(lstAutoAllowList.Items(i)) <> 0 Then
-                        n = n + 1
-                        .AutoAllowList(n) = lstAutoAllowList.Items(i).ToString
+                    If (Not String.IsNullOrEmpty(lstAutoAllowList.Items.Item(i).ToString())) Then
+                        .AutoAllowList.Add(lstAutoAllowList.Items(i).ToString)
                     End If
                 Next i
-                '.AutoAllowCount = n
-                n = 0
                 For i = 0 To lstAutoDenyList.Items.Count - 1
-                    If Len(lstAutoDenyList.Items(i)) <> 0 Then
-                        n = n + 1
-                        querySettings.AutoDenyList(n) = lstAutoDenyList.Items(i).ToString
+                    If (Not String.IsNullOrEmpty(lstAutoDenyList.Items(i).ToString())) Then
+                        .AutoDenyList.Add(lstAutoDenyList.Items(i).ToString)
                     End If
                 Next i
-                '.AutoDenyCount = n
-                n = 0
                 For i = 0 To lstSpamPhrases.Items.Count - 1
-                    If Len(lstSpamPhrases.Items(i)) <> 0 Then
-                        n = n + 1
-                        querySettings.SpamPhrases(n) = lstSpamPhrases.Items(i).ToString
+                    If (Not String.IsNullOrEmpty(lstSpamPhrases.Items(i).ToString())) Then
+                        .SpamPhrases.Add(lstSpamPhrases.Items(i).ToString)
                     End If
                 Next i
-                '.SpamPhraseCount = n
                 .StandByMessage = txtStandbyMessage.Text
                 .DeclineMessage = txtDeclineMessage.Text
                 .AutoShowWindow = chkAutoShowWindow.Checked

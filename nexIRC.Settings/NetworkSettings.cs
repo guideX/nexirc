@@ -12,8 +12,9 @@ namespace nexIRC.IrcSettings {
         public int Id { get; set; }
     }
     public class NetworkSettings {
-        //public List<NetworkData> Networks;
         private string _iniFile;
+        private List<NetworkData> _cache;
+        private bool _useCache;
         /// <summary>
         /// Entry Point
         /// </summary>
@@ -21,7 +22,6 @@ namespace nexIRC.IrcSettings {
         public NetworkSettings(string startupPath) {
             try {
                 _iniFile = startupPath + @"data\config\networks.ini";
-                //Networks = new List<NetworkData>();
             } catch (Exception ex) {
                 throw ex;
             }
@@ -32,17 +32,23 @@ namespace nexIRC.IrcSettings {
         /// <returns></returns>
         public List<NetworkData> Get() {
             try {
-                var n = Convert.ToInt32(Files.ReadINI(_iniFile, "Settings", "Count", "0"));
-                var result = new List<NetworkData>();
-                for (var i = 1; i <= n; i++) {
-                    var d = new NetworkData();
-                    d.Description = Files.ReadINI(_iniFile, i.ToString(), "Description", "");
-                    d.Id = i;
-                    if (!string.IsNullOrEmpty(d.Description)) {
-                        result.Add(d);
+                if (!_useCache) {
+                    var n = Convert.ToInt32(Files.ReadINI(_iniFile, "Settings", "Count", "0"));
+                    var result = new List<NetworkData>();
+                    for (var i = 1; i <= n; i++) {
+                        var d = new NetworkData();
+                        d.Description = Files.ReadINI(_iniFile, i.ToString(), "Description", "");
+                        d.Id = i;
+                        if (!string.IsNullOrEmpty(d.Description)) {
+                            result.Add(d);
+                        }
                     }
+                    _cache = result;
+                    _useCache = true;
+                    return result;
+                } else {
+                    return _cache;
                 }
-                return result;
             } catch (Exception ex) {
                 throw ex;
             }
@@ -91,6 +97,7 @@ namespace nexIRC.IrcSettings {
                         return true;
                     }
                 }
+                _useCache = false;
                 return false;
             } catch (Exception ex) {
                 throw ex;
@@ -109,6 +116,7 @@ namespace nexIRC.IrcSettings {
                     n++;
                     Files.WriteINI(_iniFile, n.ToString(), "Description", "");
                 }
+                _useCache = false;
                 return true;
             } catch (Exception ex) {
                 throw ex;
@@ -187,6 +195,7 @@ namespace nexIRC.IrcSettings {
                     Files.WriteINI(_iniFile, "Settings", "Count", n.ToString());
                     Files.WriteINI(_iniFile, n.ToString(), "Description", network.Description);
                 }
+                _useCache = false;
                 return n;
             } catch (Exception ex) {
                 throw ex;

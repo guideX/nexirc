@@ -25,9 +25,6 @@ namespace nexIRC.IrcSettings {
         public List<string> AutoAllowList { get; set; }
         public List<string> AutoDenyList { get; set; }
         public List<string> SpamPhrases { get; set; }
-        //public int SpamPhraseCount { get; set; }
-        //public int AutoAllowCount { get; set; }
-        //public int AutoDenyCount { get; set; }
         public bool AutoShowWindow { get; set; }
         /// <summary>
         /// Entry Point

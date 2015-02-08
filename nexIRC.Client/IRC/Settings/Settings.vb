@@ -22,8 +22,6 @@ Public Class Settings
         uHide = 3
     End Enum
 
-
-
     Enum ePlaylistType
         pOther = 0
         pVideo = 1

@@ -11,14 +11,14 @@ namespace nexIRC.IrcSettings {
         public string Description { get; set; }
         public int Id { get; set; }
     }
-    public class Networks {
+    public class NetworkSettings {
         //public List<NetworkData> Networks;
         private string _iniFile;
         /// <summary>
         /// Entry Point
         /// </summary>
         /// <param name="startupPath"></param>
-        public Networks(string startupPath) {
+        public NetworkSettings(string startupPath) {
             try {
                 _iniFile = startupPath + @"data\config\networks.ini";
                 //Networks = new List<NetworkData>();

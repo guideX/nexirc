@@ -2,7 +2,7 @@
 namespace nexIRC.IrcSettings {
     public class IrcSettings {
         public ChannelFolders ChannelFolders;
-        public Networks IrcNetworks;
+        public NetworkSettings IrcNetworks;
         /// <summary>
         /// Entry Point
         /// </summary>
@@ -10,7 +10,7 @@ namespace nexIRC.IrcSettings {
         public IrcSettings(string startupPath) {
             try {
                 ChannelFolders = new ChannelFolders(startupPath);
-                IrcNetworks = new Networks(startupPath);
+                IrcNetworks = new NetworkSettings(startupPath);
             } catch (Exception ex) {
                 throw ex;
             }

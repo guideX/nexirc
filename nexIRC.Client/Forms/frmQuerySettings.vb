@@ -33,14 +33,20 @@ Public Class frmQuerySettings
                     Case IrcSettings.QueryPermission.NoOne
                         optAutoDeny3.Checked = True
                 End Select
-                For i = 1 To .AutoAllowCount
-                    lstAutoAllowList.Items.Add(.AutoAllowList(i))
+                For i = 0 To .AutoAllowList.Count() - 1
+                    If (Not String.IsNullOrEmpty(.AutoAllowList(i))) Then
+                        lstAutoAllowList.Items.Add(.AutoAllowList(i))
+                    End If
                 Next i
-                For i = 1 To .AutoDenyCount
-                    lstAutoDenyList.Items.Add(.AutoDenyList(i))
+                For i = 0 To .AutoDenyList.Count() - 1
+                    If (Not String.IsNullOrEmpty(.AutoDenyList(i))) Then
+                        lstAutoDenyList.Items.Add(.AutoDenyList(i))
+                    End If
                 Next i
-                For i = 1 To .SpamPhraseCount
-                    lstSpamPhrases.Items.Add(.SpamPhrases(i))
+                For i = 0 To .SpamPhrases.Count() - 1
+                    If (Not String.IsNullOrEmpty(.SpamPhrases(i))) Then
+                        lstSpamPhrases.Items.Add(.SpamPhrases(i))
+                    End If
                 Next i
                 Modules.IrcSettings.QuerySettings.Save(data)
             End With
@@ -114,8 +120,9 @@ Public Class frmQuerySettings
 
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
         Try
+            Dim querySettings = Modules.IrcSettings.QuerySettings.Get()
             'With lSettings.lQuerySettings
-            With Modules.IrcSettings.QuerySettings.Get()
+            With querySettings
                 Dim i As Integer, n As Integer
                 For i = 0 To lstAutoAllowList.Items.Count - 1
                     If Len(lstAutoAllowList.Items(i)) <> 0 Then
@@ -123,23 +130,23 @@ Public Class frmQuerySettings
                         .AutoAllowList(n) = lstAutoAllowList.Items(i).ToString
                     End If
                 Next i
-                .AutoAllowCount = n
+                '.AutoAllowCount = n
                 n = 0
                 For i = 0 To lstAutoDenyList.Items.Count - 1
                     If Len(lstAutoDenyList.Items(i)) <> 0 Then
                         n = n + 1
-                        .AutoDenyList(n) = lstAutoDenyList.Items(i).ToString
+                        querySettings.AutoDenyList(n) = lstAutoDenyList.Items(i).ToString
                     End If
                 Next i
-                .AutoDenyCount = n
+                '.AutoDenyCount = n
                 n = 0
                 For i = 0 To lstSpamPhrases.Items.Count - 1
                     If Len(lstSpamPhrases.Items(i)) <> 0 Then
                         n = n + 1
-                        .SpamPhrases(n) = lstSpamPhrases.Items(i).ToString
+                        querySettings.SpamPhrases(n) = lstSpamPhrases.Items(i).ToString
                     End If
                 Next i
-                .SpamPhraseCount = n
+                '.SpamPhraseCount = n
                 .StandByMessage = txtStandbyMessage.Text
                 .DeclineMessage = txtDeclineMessage.Text
                 .AutoShowWindow = chkAutoShowWindow.Checked

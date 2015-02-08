@@ -1481,7 +1481,7 @@ Namespace IRC.Status
         Public Function PrivateMessage_HasSpam(ByVal lData As String) As Boolean
             Try
                 Dim _Result As Boolean = False
-                For _SpamPhraseIndex As Integer = 1 To Modules.IrcSettings.QuerySettings.Get().SpamPhraseCount
+                For _SpamPhraseIndex As Integer = 1 To Modules.IrcSettings.QuerySettings.Get().SpamPhrases.Count
                     If InStr(LCase(Modules.IrcSettings.QuerySettings.Get().SpamPhrases(_SpamPhraseIndex)), LCase(lData)) <> 0 Then
                         _Result = True
                         Exit For

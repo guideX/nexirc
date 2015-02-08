@@ -46,6 +46,7 @@
     <Compile Include="NetworkSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IrcSettings.cs" />
+    <Compile Include="QuerySettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\nexIRC.Utility\nexIRC.Utility.csproj">

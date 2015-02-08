@@ -8,38 +8,41 @@ Public Class frmQuerySettings
         Try
             Dim i As Integer
             Me.Icon = mdiMain.Icon
-            With lSettings.lQuerySettings
+            'With lSettings.lQuerySettings
+            Dim data = Modules.IrcSettings.QuerySettings.Get()
+            With data
                 lStatus.SetListBoxToConnections(lstConnections)
-                txtStandbyMessage.Text = .qStandByMessage
-                txtDeclineMessage.Text = .qDeclineMessage
-                chkPromptUser.Checked = .qPromptUser
-                chkSpamFilter.Checked = .qEnableSpamFilter
-                chkAutoShowWindow.Checked = .qAutoShowWindow
-                Select Case .qAutoAllow
-                    Case Settings.eQueryAutoAllow.qList
+                txtStandbyMessage.Text = .StandByMessage
+                txtDeclineMessage.Text = .DeclineMessage
+                chkPromptUser.Checked = .PromptUser
+                chkSpamFilter.Checked = .EnableSpamFilter
+                chkAutoShowWindow.Checked = .AutoShowWindow
+                Select Case .AutoAllow
+                    Case IrcSettings.QueryPermission.List
                         optAutoAllow1.Checked = True
-                    Case Settings.eQueryAutoAllow.qEveryOne
+                    Case IrcSettings.QueryPermission.EveryOne
                         optAutoAllow2.Checked = True
-                    Case Settings.eQueryAutoAllow.qNoOne
+                    Case IrcSettings.QueryPermission.NoOne
                         optAutoAllow3.Checked = True
                 End Select
-                Select Case .qAutoDeny
-                    Case Settings.eQueryAutoDeny.qList
+                Select Case .AutoDeny
+                    Case IrcSettings.QueryPermission.List
                         optAutoDeny1.Checked = True
-                    Case Settings.eQueryAutoDeny.qEveryOne
+                    Case IrcSettings.QueryPermission.EveryOne
                         optAutoDeny2.Checked = True
-                    Case Settings.eQueryAutoDeny.qNoOne
+                    Case IrcSettings.QueryPermission.NoOne
                         optAutoDeny3.Checked = True
                 End Select
-                For i = 1 To .qAutoAllowCount
-                    lstAutoAllowList.Items.Add(.qAutoAllowList(i))
+                For i = 1 To .AutoAllowCount
+                    lstAutoAllowList.Items.Add(.AutoAllowList(i))
                 Next i
-                For i = 1 To .qAutoDenyCount
-                    lstAutoDenyList.Items.Add(.qAutoDenyList(i))
+                For i = 1 To .AutoDenyCount
+                    lstAutoDenyList.Items.Add(.AutoDenyList(i))
                 Next i
-                For i = 1 To .qSpamPhraseCount
-                    lstSpamPhrases.Items.Add(.qSpamPhrases(i))
+                For i = 1 To .SpamPhraseCount
+                    lstSpamPhrases.Items.Add(.SpamPhrases(i))
                 Next i
+                Modules.IrcSettings.QuerySettings.Save(data)
             End With
         Catch ex As Exception
             Throw ex 'ProcessError(ex.Message, "Private Sub frmSecureQuerySettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
@@ -111,49 +114,50 @@ Public Class frmQuerySettings
 
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
         Try
-            With lSettings.lQuerySettings
+            'With lSettings.lQuerySettings
+            With Modules.IrcSettings.QuerySettings.Get()
                 Dim i As Integer, n As Integer
                 For i = 0 To lstAutoAllowList.Items.Count - 1
                     If Len(lstAutoAllowList.Items(i)) <> 0 Then
                         n = n + 1
-                        .qAutoAllowList(n) = lstAutoAllowList.Items(i).ToString
+                        .AutoAllowList(n) = lstAutoAllowList.Items(i).ToString
                     End If
                 Next i
-                .qAutoAllowCount = n
+                .AutoAllowCount = n
                 n = 0
                 For i = 0 To lstAutoDenyList.Items.Count - 1
                     If Len(lstAutoDenyList.Items(i)) <> 0 Then
                         n = n + 1
-                        .qAutoDenyList(n) = lstAutoDenyList.Items(i).ToString
+                        .AutoDenyList(n) = lstAutoDenyList.Items(i).ToString
                     End If
                 Next i
-                .qAutoDenyCount = n
+                .AutoDenyCount = n
                 n = 0
                 For i = 0 To lstSpamPhrases.Items.Count - 1
                     If Len(lstSpamPhrases.Items(i)) <> 0 Then
                         n = n + 1
-                        .qSpamPhrases(n) = lstSpamPhrases.Items(i).ToString
+                        .SpamPhrases(n) = lstSpamPhrases.Items(i).ToString
                     End If
                 Next i
-                .qSpamPhraseCount = n
-                .qStandByMessage = txtStandbyMessage.Text
-                .qDeclineMessage = txtDeclineMessage.Text
-                .qAutoShowWindow = chkAutoShowWindow.Checked
-                .qPromptUser = chkPromptUser.Checked
-                .qEnableSpamFilter = chkSpamFilter.Checked
+                .SpamPhraseCount = n
+                .StandByMessage = txtStandbyMessage.Text
+                .DeclineMessage = txtDeclineMessage.Text
+                .AutoShowWindow = chkAutoShowWindow.Checked
+                .PromptUser = chkPromptUser.Checked
+                .EnableSpamFilter = chkSpamFilter.Checked
                 If optAutoAllow1.Checked = True Then
-                    .qAutoAllow = Settings.eQueryAutoAllow.qList
+                    .AutoAllow = IrcSettings.QueryPermission.List
                 ElseIf optAutoAllow2.Checked = True Then
-                    .qAutoAllow = Settings.eQueryAutoAllow.qEveryOne
+                    .AutoAllow = IrcSettings.QueryPermission.EveryOne
                 ElseIf optAutoAllow3.Checked = True Then
-                    .qAutoAllow = Settings.eQueryAutoAllow.qNoOne
+                    .AutoAllow = IrcSettings.QueryPermission.NoOne
                 End If
                 If optAutoDeny1.Checked = True Then
-                    .qAutoDeny = Settings.eQueryAutoDeny.qList
+                    .AutoDeny = IrcSettings.QueryPermission.List
                 ElseIf optAutoDeny2.Checked = True Then
-                    .qAutoDeny = Settings.eQueryAutoDeny.qEveryOne
+                    .AutoDeny = IrcSettings.QueryPermission.EveryOne
                 ElseIf optAutoDeny3.Checked = True Then
-                    .qAutoDeny = Settings.eQueryAutoDeny.qNoOne
+                    .AutoDeny = IrcSettings.QueryPermission.NoOne
                 End If
             End With
             Me.Close()

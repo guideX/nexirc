@@ -1332,26 +1332,26 @@ Namespace IRC.Status
                     End If
                 Next i
                 If (Not forceAllow) Then
-                    If (lSettings.lQuerySettings.qAutoDeny = Settings.eQueryAutoDeny.qEveryOne) Then ' Is the user on the auto deny list?
+                    If (Modules.IrcSettings.QuerySettings.Get().AutoDeny = IrcSettings.QueryPermission.EveryOne) Then ' Is the user on the auto deny list?
                         deny = True
-                    ElseIf (lSettings.lQuerySettings.qAutoDeny = Settings.eQueryAutoDeny.qList) Then
-                        For i As Integer = 1 To lSettings.lQuerySettings.qAutoDenyList.Count() - 1
+                    ElseIf (Modules.IrcSettings.QuerySettings.Get().AutoDeny = IrcSettings.QueryPermission.List) Then
+                        For i As Integer = 1 To Modules.IrcSettings.QuerySettings.Get().AutoDenyList.Count()
                             If (privateMessageIndex <> 0) Then
-                                If (Not String.IsNullOrEmpty(lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName) And Not String.IsNullOrEmpty(lSettings.lQuerySettings.qAutoDenyList(i))) Then
-                                    If (lSettings.lQuerySettings.qAutoDenyList(i).Trim().ToLower() = lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName.Trim().ToLower()) Then
+                                If (Not String.IsNullOrEmpty(lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName) And Not String.IsNullOrEmpty(Modules.IrcSettings.QuerySettings.Get().AutoDenyList(i))) Then
+                                    If (Modules.IrcSettings.QuerySettings.Get().AutoDenyList(i).ToLower() = lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName.Trim().ToLower()) Then
                                         Exit Sub ' We found him, do nothing else.
                                     End If
                                 End If
                             End If
                         Next i
                     End If
-                    If (lSettings.lQuerySettings.qAutoAllow = Settings.eQueryAutoAllow.qEveryOne) Then ' Is the user on the auto allow list?
+                    If (Modules.IrcSettings.QuerySettings.Get().AutoAllow = IrcSettings.QueryPermission.EveryOne) Then ' Is the user on the auto allow list?
                         autoAllow = True
-                    ElseIf (lSettings.lQuerySettings.qAutoAllow = eQueryAutoAllow.qList) Then
-                        For i As Integer = 1 To lSettings.lQuerySettings.qAutoAllowList.Count() - 1
+                    ElseIf (Modules.IrcSettings.QuerySettings.Get().AutoAllow = IrcSettings.QueryPermission.List) Then
+                        For i As Integer = 1 To Modules.IrcSettings.QuerySettings.Get().AutoAllowList.Count() - 1
                             If (privateMessageIndex <> 0) Then
-                                If ((Not String.IsNullOrEmpty(lSettings.lQuerySettings.qAutoAllowList(i))) And (Not String.IsNullOrEmpty(lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName))) Then
-                                    If (lSettings.lQuerySettings.qAutoAllowList(i).Trim().ToLower() = lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName.Trim().ToLower()) Then
+                                If ((Not String.IsNullOrEmpty(Modules.IrcSettings.QuerySettings.Get().AutoAllowList(i))) And (Not String.IsNullOrEmpty(lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName))) Then
+                                    If (Modules.IrcSettings.QuerySettings.Get().AutoAllowList(i).Trim().ToLower() = lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName.Trim().ToLower()) Then
                                         autoAllow = True
                                         Exit For
                                     End If
@@ -1363,7 +1363,7 @@ Namespace IRC.Status
                     autoAllow = True
                     deny = False
                 End If
-                If ((Not autoAllow) And (lSettings.lQuerySettings.qEnableSpamFilter) And PrivateMessage_HasSpam(data)) Then Exit Sub ' If you're not auto allowing, if you have spam filter, check that data is spam free
+                If ((Not autoAllow) And (Modules.IrcSettings.QuerySettings.Get().EnableSpamFilter) And PrivateMessage_HasSpam(data)) Then Exit Sub ' If you're not auto allowing, if you have spam filter, check that data is spam free
                 If ((Not autoAllow) And (deny)) Then Exit Sub ' He's not on the auto allow, and deny is true, quit here.
                 If (privateMessageIndex = 0) Then
                     privateMessageIndex = (lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pCount + 1) ' Get the privateMessageIndex
@@ -1373,7 +1373,7 @@ Namespace IRC.Status
                         .pName = name
                         .pHost = host
                         .pStatusIndex = statusIndex
-                        If (autoAllow Or (Not lSettings.lQuerySettings.qPromptUser)) Then
+                        If (autoAllow Or (Not Modules.IrcSettings.QuerySettings.Get().PromptUser)) Then
                             .pTreeNodeVisible = True
                             .pTreeNode = lStatusObjects.sStatusObject(statusIndex).sTreeNode.Nodes.Add(.pName, .pName, 3, 3)
                             .pTreeNode.Tag = statusIndex.ToString()
@@ -1481,8 +1481,8 @@ Namespace IRC.Status
         Public Function PrivateMessage_HasSpam(ByVal lData As String) As Boolean
             Try
                 Dim _Result As Boolean = False
-                For _SpamPhraseIndex As Integer = 1 To lSettings.lQuerySettings.qSpamPhraseCount
-                    If InStr(LCase(lSettings.lQuerySettings.qSpamPhrases(_SpamPhraseIndex)), LCase(lData)) <> 0 Then
+                For _SpamPhraseIndex As Integer = 1 To Modules.IrcSettings.QuerySettings.Get().SpamPhraseCount
+                    If InStr(LCase(Modules.IrcSettings.QuerySettings.Get().SpamPhrases(_SpamPhraseIndex)), LCase(lData)) <> 0 Then
                         _Result = True
                         Exit For
                     End If

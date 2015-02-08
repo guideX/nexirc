@@ -314,7 +314,7 @@ Namespace nexIRC.MainWindow
                     End Select
                 ElseIf InStr(_QueryPromptLabel.Tag.ToString, ":") <> 0 Then
                     splt = Split(_QueryPromptLabel.Tag.ToString, ":")
-                    If lSettings.lQuerySettings.qAutoShowWindow = True Then
+                    If (Modules.IrcSettings.QuerySettings.Get().AutoShowWindow()) Then
                         _NickName = TextManipulation.Text.ParseData(_QueryPromptLabel.Text, "'", "(")
                         _HostName = TextManipulation.Text.ParseData(_QueryPromptLabel.Text, "(", ")")
                         lStatus.PrivateMessage_Add(Convert.ToInt32(Trim(splt(0))), _NickName, _HostName, splt(2), True)

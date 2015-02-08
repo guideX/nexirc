@@ -3,6 +3,7 @@ namespace nexIRC.IrcSettings {
     public class IrcSettings {
         public ChannelFolders ChannelFolders;
         public NetworkSettings IrcNetworks;
+        public QuerySettings QuerySettings;
         /// <summary>
         /// Entry Point
         /// </summary>
@@ -11,6 +12,7 @@ namespace nexIRC.IrcSettings {
             try {
                 ChannelFolders = new ChannelFolders(startupPath);
                 IrcNetworks = new NetworkSettings(startupPath);
+                QuerySettings = new QuerySettings(startupPath);
             } catch (Exception ex) {
                 throw ex;
             }

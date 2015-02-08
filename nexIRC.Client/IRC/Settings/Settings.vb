@@ -22,17 +22,7 @@ Public Class Settings
         uHide = 3
     End Enum
 
-    Enum eQueryAutoAllow
-        qList = 1
-        qEveryOne = 2
-        qNoOne = 3
-    End Enum
 
-    Enum eQueryAutoDeny
-        qList = 1
-        qEveryOne = 2
-        qNoOne = 3
-    End Enum
 
     Enum ePlaylistType
         pOther = 0
@@ -78,22 +68,6 @@ Public Class Settings
         Public aPlaylists As Integer
         Public aMediaFiles As Integer
         Public aSub As Integer
-    End Structure
-
-    Structure gQuery
-        Public qAutoAllow As eQueryAutoAllow
-        Public qAutoDeny As eQueryAutoDeny
-        Public qStandByMessage As String
-        Public qDeclineMessage As String
-        Public qEnableSpamFilter As Boolean
-        Public qPromptUser As Boolean
-        Public qAutoAllowList() As String
-        Public qAutoDenyList() As String
-        Public qSpamPhrases() As String
-        Public qSpamPhraseCount As Integer
-        Public qAutoAllowCount As Integer
-        Public qAutoDenyCount As Integer
-        Public qAutoShowWindow As Boolean
     End Structure
 
     Structure gModes
@@ -280,7 +254,6 @@ Public Class Settings
     Public lIRC As gIRC
     Public lServers As gServers
     Public lNotify As gNotifyList
-    Public lQuerySettings As gQuery
     Public lRecientServers As gRecientServers
     Public lCompatibility As gCompatibility
     Public lBlack As Boolean = False
@@ -491,66 +464,6 @@ Public Class Settings
         End Try
     End Function
 
-    Public Sub LoadQuerySettings()
-        Try
-            Dim i As Integer
-            With lQuerySettings
-                .qAutoAllow = CType(Files.ReadINI(lINI.iQuery, "Settings", "AutoAllow", "1"), eQueryAutoAllow)
-                .qAutoDeny = CType(Files.ReadINI(lINI.iQuery, "Settings", "AutoDeny", "1"), eQueryAutoDeny)
-                .qStandByMessage = Files.ReadINI(lINI.iQuery, "Settings", "StandByMessage", "")
-                .qDeclineMessage = Files.ReadINI(lINI.iQuery, "Settings", "DeclineMessage", "")
-                .qEnableSpamFilter = Convert.ToBoolean(Files.ReadINI(lINI.iQuery, "Settings", "EnableSpamFilter ", "True"))
-                .qPromptUser = Convert.ToBoolean(Files.ReadINI(lINI.iQuery, "Settings", "PromptUser", "False"))
-                .qAutoAllowCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iQuery, "Settings", "AutoAllowCount", "0")))
-                .qAutoDenyCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iQuery, "Settings", "AutoDenyCount", "0")))
-                .qSpamPhraseCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iQuery, "Settings", "SpamPhraseCount", "0")))
-                .qAutoShowWindow = Convert.ToBoolean(Trim(Files.ReadINI(lINI.iQuery, "Settings", "AutoShowWindow", "True")))
-                ReDim .qAutoAllowList(lArraySizes.aAutoAllowList)
-                ReDim .qAutoDenyList(lArraySizes.aAutoDenyList)
-                ReDim .qSpamPhrases(lArraySizes.aSpamFilterCount)
-                For i = 1 To .qAutoAllowCount
-                    .qAutoAllowList(i) = Files.ReadINI(lINI.iQuery, "AutoAllowList", Trim(i.ToString), "")
-                Next i
-                For i = 1 To .qAutoDenyCount
-                    .qAutoDenyList(i) = Files.ReadINI(lINI.iQuery, "AutoDenyList", Trim(i.ToString), "")
-                Next i
-                For i = 1 To .qSpamPhraseCount
-                    .qSpamPhrases(i) = Files.ReadINI(lINI.iQuery, "SpamPhrases", Trim(i.ToString), "")
-                Next
-            End With
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-
-    Public Sub SaveQuerySettings()
-        Try
-            Dim i As Integer
-            With lQuerySettings
-                Files.WriteINI(lINI.iQuery, "Settings", "AutoAllow", Trim(CType(.qAutoAllow, Integer).ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "AutoDeny", Trim(CType(.qAutoDeny, Integer).ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "StandByMessage", .qStandByMessage)
-                Files.WriteINI(lINI.iQuery, "Settings", "DeclineMessage", .qDeclineMessage)
-                Files.WriteINI(lINI.iQuery, "Settings", "EnableSpamFilter", Trim(.qEnableSpamFilter.ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "PromptUser", Trim(.qPromptUser.ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "AutoAllowCount", Trim(.qAutoAllowCount.ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "AutoDenyCount", Trim(.qAutoDenyCount.ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "SpamPhraseCount", Trim(.qSpamPhraseCount.ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "AutoShowWindow", Trim(.qAutoShowWindow.ToString))
-                For i = 1 To .qAutoAllowCount
-                    Files.WriteINI(lINI.iQuery, "AutoAllowList", Trim(i.ToString), .qAutoAllowList(i))
-                Next i
-                For i = 1 To .qAutoDenyCount
-                    Files.WriteINI(lINI.iQuery, "AutoDenyList", Trim(i.ToString), .qAutoDenyList(i))
-                Next i
-                For i = 1 To .qSpamPhraseCount
-                    Files.WriteINI(lINI.iQuery, "SpamPhrases", Trim(i.ToString), .qSpamPhrases(i))
-                Next i
-            End With
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
 
     Public Sub PopulateNotifyByListView(ByVal lListView As RadListView)
         Try
@@ -906,8 +819,7 @@ Public Class Settings
         End If
         mdiMain.SetLoadingFormProgress("Loading Strings", 80)
         lStrings.LoadStrings()
-        mdiMain.SetLoadingFormProgress("Loading Query Settings", 95)
-        LoadQuerySettings()
+        'mdiMain.SetLoadingFormProgress("Loading Query Settings", 95)
     End Sub
 
     Public Sub SaveWindowSizes()
@@ -1103,12 +1015,10 @@ Public Class Settings
         lSettings_Services.SaveServices()
         SaveIdentdSettings()
         SaveNickNames()
-        'SaveNetworks()
         SaveServers()
         SaveNotifyList()
         lSettings_DCC.SaveDCCSettings()
         SaveDownloadManagerSettings()
-        SaveQuerySettings()
     End Sub
 
     Public Function AddServer(ByVal lDescription As String, ByVal lIp As String, ByVal lNetworkIndex As Integer, ByVal lPort As Long) As Integer

@@ -10,7 +10,7 @@ Public Class frmChannelFolder
 #Region "Window Subs"
     Public Sub Init()
         'Try
-        channelFolderWindow.Init()
+        '        channelFolderWindow.Init()
         'Catch ex As Exception
         'Throw ex
         'End Try
@@ -42,10 +42,10 @@ Public Class frmChannelFolder
 
     Private Sub frmChannelFolder_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
         'Try
-        If (channelFolderWindow Is Nothing) Then
-            channelFolderWindow = New clsChannelFolderUI()
-        End If
-        channelFolderWindow.Form_Load()
+        'If (channelFolderWindow Is Nothing) Then
+        'channelFolderWindow = New clsChannelFolderUI()
+        'End If
+        channelFolderWindow.Form_Load(cboNetwork)
         'Catch ex As Exception
         'Throw ex
         'End Try
@@ -198,14 +198,7 @@ Public Class frmChannelFolder
 
     Private Sub channelFolderWindow_RemoveChannelListBoxItem(channel As String) Handles channelFolderWindow.RemoveChannelListBoxItem
         'Try
-        Dim channelFolderIndexes As List(Of Integer)
-        If (Not String.IsNullOrEmpty(channel)) Then
-            channelFolderIndexes = Modules.lSettings.FindChannelFolderIndexes(channel, cboNetwork.Text)
-            lstChannels.Items.RemoveAt(Modules.ReturnRadListBoxIndex(lstChannels, lstChannels.SelectedItem().ToString))
-            For Each index As Integer In channelFolderIndexes
-                lSettings.RemoveChannelFolder(index)
-            Next index
-        End If
+        Modules.IrcSettings.ChannelFolders.Delete(Modules.IrcSettings.ChannelFolders.Find(channel, cboNetwork.Text))
         'Catch ex As Exception
         'Throw ex
         'End Try

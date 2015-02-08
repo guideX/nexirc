@@ -19,6 +19,7 @@ Namespace Modules
         Public lSettings_DCC As New clsDCC
         Public lSettings_Services As New clsServices
         Public lIdent As New Ident
+        Public IrcSettings As New Global.nexIRC.IrcSettings.IrcSettings(Application.StartupPath & "\")
 
         Public Sub SetSelectedRadComboBoxItem(_RadComboBox As RadDropDownList, _Text As String)
             Dim i As Integer

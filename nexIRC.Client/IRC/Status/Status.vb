@@ -923,7 +923,7 @@ Namespace IRC.Status
         Public ReadOnly Property NewInitialText(ByVal _Index As Integer) As String
             Get
                 Try
-                    Return lSettings.lNetworks.nNetwork(lSettings.lServers.sServer(lSettings.lServers.sIndex).sNetworkIndex).nDescription & " (" & Trim(_Index.ToString().Trim()) & ")"
+                    Return Modules.IrcSettings.IrcNetworks.GetById(lSettings.lServers.sServer(lSettings.lServers.sIndex).sNetworkIndex).Description & " (" & Trim(_Index.ToString().Trim()) & ")"
                 Catch ex As Exception
                     Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property NewInitialText(ByVal lIndex As Integer) As String")
                     Return Nothing
@@ -997,7 +997,7 @@ Namespace IRC.Status
                                     .sServerLinks.sWindow.Show()
                                     .sServerLinks.sWindow.lServerLinksUI.SetStatusIndex(n)
                                     .sServerLinks.sWindow.lServerLinksUI.SetNetworkIndex(t, .sServerLinks.sWindow.cboNetworks)
-                                    .sServerLinks.sWindow.cboNetworks.Text = lSettings.lNetworks.nNetwork(t).nDescription
+                                    .sServerLinks.sWindow.cboNetworks.Text = Modules.IrcSettings.IrcNetworks.GetById(t).Description
                                     For i = 1 To .sServerLinks.sLinkCount
                                         .sServerLinks.sWindow.lServerLinksUI.AddToLinks(.sServerLinks.sLink(i).lServerIP, .sServerLinks.sLink(i).lPort, .sServerLinks.sWindow.lvwLinks)
                                     Next i

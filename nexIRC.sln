@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nexIRC.IRC", "nexIRC.IRC\ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nexIRC.Text", "nexIRC.Text\nexIRC.Text.csproj", "{6BE84EEE-17C5-4A28-9F1E-7CB61DA5C87D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nexIRC.Settings", "nexIRC.Settings\nexIRC.Settings.csproj", "{1A10CDFF-EDB2-401A-826E-CBE3DE3ACD6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nexIRC.IrcSettings", "nexIRC.Settings\nexIRC.IrcSettings.csproj", "{1A10CDFF-EDB2-401A-826E-CBE3DE3ACD6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

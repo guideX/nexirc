@@ -186,7 +186,7 @@ Namespace IRC.Customize
                 End If
                 If _MsgBoxResult = MsgBoxResult.Yes Then
                     _DropDownList.Items.Remove(_DropDownList.SelectedItem)
-                    lSettings.RemoveNetwork(lSettings.FindNetworkIndex(msg))
+                    Modules.IrcSettings.IrcNetworks.Delete(Modules.IrcSettings.IrcNetworks.Find(msg))
                 End If
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Private Sub lnkNetworkDelete_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkDelete.LinkClicked")
@@ -312,7 +312,7 @@ Namespace IRC.Customize
                 Dim f As frmChooseNetwork
                 f = New frmChooseNetwork
                 With f
-                    .lChooseNetwork.lNetworkIndex = lSettings.FindNetworkIndex(_Network)
+                    .lChooseNetwork.lNetworkIndex = Modules.IrcSettings.IrcNetworks.Find(_Network).Id
                     .lChooseNetwork.lServerToChange = lSettings.FindServerIndexByIp(_Server)
                     f.Show()
                 End With
@@ -382,7 +382,7 @@ Namespace IRC.Customize
         End Sub
         Public Sub cboNetworks_SelectedIndexChanged(_Network As String, _ServersListView As RadListView)
             Try
-                RefreshServers(_ServersListView, lSettings.FindNetworkIndex(_Network))
+                RefreshServers(_ServersListView, Modules.IrcSettings.IrcNetworks.Find(_Network).Id)
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub cboNetworks_SelectedIndexChanged()")
             End Try
@@ -509,21 +509,22 @@ Namespace IRC.Customize
                 Throw ex 'ProcessError(ex.Message, "Public Sub ClearServers(_RadListView As ListView)")
             End Try
         End Sub
-        Public Sub RefreshNetworks(_RadDropDownList As RadDropDownList)
-            Try
-                Dim i As Integer
-                _RadDropDownList.Items.Clear()
-                For i = 1 To lSettings.lNetworks.nCount
-                    With lSettings.lNetworks.nNetwork(i)
-                        If Len(.nDescription) <> 0 Then
-                            _RadDropDownList.Items.Add(.nDescription)
-                        End If
-                    End With
-                Next i
-            Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub RefreshNetworks()")
-            End Try
-        End Sub
+        'Public Sub RefreshNetworks(_RadDropDownList As RadDropDownList)
+        'Try
+        'Dim i As Integer
+        '_RadDropDownList.Items.Clear()
+        'For i = 1 To lSettings.lNetworks.nCount
+        'With lSettings.lNetworks.nNetwork(i)
+        'If Len(.nDescription) <> 0 Then
+        '_RadDropDownList.Items.Add(.nDescription)
+        'End If
+        'End With
+        'Next i
+        'Catch ex As Exception
+        'Throw ex 'ProcessError(ex.Message, "Public Sub RefreshNetworks()")
+        'End Try
+        'End Sub
+
         Public Sub RefreshServers(_RadListView As RadListView, _NetworkIndex As Integer)
             Try
                 Dim i As Integer, t As Integer = 0, _Ip As String = "", _Port As String = "", n As Integer = -1
@@ -581,7 +582,7 @@ Namespace IRC.Customize
             Try
                 If (_ServersListView.SelectedItem IsNot Nothing) Then
                     If (_ServersListView.SelectedItem IsNot Nothing) Then lSettings.lServers.sIndex = lSettings.FindServerIndexByIp(_ServersListView.SelectedItem.Item(1).ToString)
-                    lSettings.lNetworks.nIndex = lSettings.FindNetworkIndex(_SelectedNetwork)
+                    Modules.IrcSettings.IrcNetworks.SetDefault(Modules.IrcSettings.IrcNetworks.Find(_SelectedNetwork))
                     If Not (lStatus.Connected(lStatus.ActiveIndex)) Then
                         lStatus.SetStatus(lStatus.ActiveIndex)
                     End If

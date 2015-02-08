@@ -32,7 +32,7 @@ Namespace IRC.UtilityWindows
                     _PortTextBox.Focus()
                     Exit Sub
                 End If
-                _NetworkIndex = lSettings.FindNetworkIndex(_Network)
+                _NetworkIndex = Modules.IrcSettings.IrcNetworks.Find(_Network).Id
                 If _NetworkIndex <> 0 Then
                     _NetworkIndex = lSettings.AddServer(_Network, _IpTextBox.Text, _NetworkIndex, Convert.ToInt64(_PortTextBox.Text.Trim))
                 End If
@@ -51,7 +51,9 @@ Namespace IRC.UtilityWindows
                 Dim _NetworkDescription As String, _NetworkIndex As Integer
                 _NetworkDescription = InputBox("Enter a description for the new netwrok", "nexIRC - Add Network", "")
                 If Len(_NetworkDescription) <> 0 Then
-                    _NetworkIndex = lSettings.AddNetwork(_NetworkDescription)
+                    Dim network = New IrcSettings.NetworkData()
+                    network.Description = _NetworkDescription
+                    _NetworkIndex = Modules.IrcSettings.IrcNetworks.Add(network)
                     If _NetworkIndex <> 0 Then
                         lSettings.FillRadComboWithNetworks(_RadDropDownList)
                         _RadDropDownList.SelectedIndex = FindRadComboIndex(_RadDropDownList, _NetworkDescription)

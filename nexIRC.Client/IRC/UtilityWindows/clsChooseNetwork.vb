@@ -12,12 +12,17 @@ Namespace IRC.UtilityWindows
         Public Sub Form_Load(_RadDropDownList As RadDropDownList, _Form As Form)
             Try
                 Dim i As Integer
-                For i = 0 To lSettings.lNetworks.nCount
-                    With lSettings.lNetworks.nNetwork(i)
-                        If Len(.nDescription) <> 0 Then _RadDropDownList.Items.Add(.nDescription)
-                    End With
-                Next i
-                _RadDropDownList.Text = lSettings.lNetworks.nNetwork(lNetworkIndex).nDescription
+
+
+                Dim networks = Modules.IrcSettings.IrcNetworks.Get()
+
+
+                For Each network In networks
+                    If (Not String.IsNullOrEmpty(network.Description)) Then
+                        _RadDropDownList.Items.Add(network.Description)
+                    End If
+                Next network
+                _RadDropDownList.Text = Modules.IrcSettings.IrcNetworks.GetById(lNetworkIndex).Description
             Catch ex As Exception
                 Throw ex
             End Try
@@ -34,11 +39,11 @@ Namespace IRC.UtilityWindows
                 Dim i As Integer, msg As String
                 If lServerToChange <> 0 Then
                     msg = _Network
-                    i = lSettings.FindNetworkIndex(msg)
+                    i = Modules.IrcSettings.IrcNetworks.Find(msg).Id
                     lSettings.lServers.sServer(lServerToChange).sNetworkIndex = i
                     Files.WriteINI(lSettings.lINI.iServers, lServerToChange.ToString().Trim(), "NetworkIndex", i.ToString().Trim())
                     If lSettings.lWinVisible.wCustomize = True Then
-                        frmCustomize.cboNetworks.Text = lSettings.lNetworks.nNetwork(i).nDescription
+                        frmCustomize.cboNetworks.Text = Modules.IrcSettings.IrcNetworks.GetById(i).Description
                     End If
                 End If
                 _Form.Close()

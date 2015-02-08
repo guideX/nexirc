@@ -7,6 +7,9 @@ Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
 Imports System.Linq
+Imports nexIRC.Settings
+Imports Telerik.WinControls
+
 Public Class clsChannelFolderUI
     Private lStatusIndex As Integer
     Private lLastFocused As Control = Nothing
@@ -36,38 +39,24 @@ Public Class clsChannelFolderUI
             Throw ex 'ProcessError(ex.Message, "Private Sub lstChannels_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstChannels.DoubleClick")
         End Try
     End Sub
-    Public Sub cmdAdd_Click(_Channel As String, _Network As String)
+    Public Sub cmdAdd_Click(channel As String, network As String)
         Try
-            Dim i As Integer
-            If Len(_Channel) <> 0 Then
-                RaiseEvent AddChannelToListBox(_Channel)
-                i = lSettings.FindNetworkIndex(_Network)
-                If i <> 0 Then
-                    lSettings.AddToChannelFolders(_Channel, i)
-                End If
-            End If
-        Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub cmdAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAdd.Click")
-        End Try
-    End Sub
-    Public Sub Init()
-        Try
-            For i = 1 To lSettings.lNetworks.nCount
-                With lSettings.lNetworks.nNetwork(i)
-                    If Len(.nDescription.Trim) <> 0 Then RaiseEvent AddNetworkComboBoxItem(.nDescription)
-                End With
-            Next i
+            Dim channelFolder = New Global.nexIRC.IrcSettings.ChannelFolderData()
+            channelFolder.Channel = channel
+            channelFolder.Network = network
+            Modules.IrcSettings.ChannelFolders.Add(channelFolder)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Public Sub Form_Load()
+    Public Sub Form_Load(dropDown As RadDropDownList)
         'Try
         Dim i As Integer, msg As String
         RaiseEvent ClearNetworkComboBox()
-        Init()
-        msg = lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(lStatus.ActiveIndex())).nDescription
-        RaiseEvent SetDefaultNetwork(msg)
+        For Each network In Modules.IrcSettings.IrcNetworks.Get()
+            dropDown.Items.Add(network.Description)
+        Next network
+        RaiseEvent SetDefaultNetwork(Modules.IrcSettings.IrcNetworks.GetDefault().Description)
         RaiseEvent SetPopupChannelFoldersCheckBoxValue(lSettings.lIRC.iSettings.sPopupChannelFolders)
         RaiseEvent SetAutoCloseCheckBoxValue(lSettings.lIRC.iSettings.sChannelFolderCloseOnJoin)
         'Catch ex As Exception
@@ -88,35 +77,14 @@ Public Class clsChannelFolderUI
             Throw ex 'ProcessError(ex.Message, "Private Sub cmdRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemove.Click")
         End Try
     End Sub
-    Private Function ReturnListOfChannels(network As String) As List(Of String)
-        'Try
-        Dim channels As New List(Of String), n As Integer, msg As String
-        For Each channelFolder As Settings.gChannelFolder In lSettings.lChannelFolders.cChannelFolder.OrderBy(Function(f) f.cOrder)
-            n = lSettings.FindNetworkIndex(channelFolder.cNetwork)
-            msg = lSettings.lNetworks.nNetwork(n).nDescription
-            If (Not String.IsNullOrEmpty(msg)) Then
-                If (msg.Trim().ToLower() = network.Trim().ToLower()) Then
-                    If (channelFolder.cChannel.Trim().Length() <> 0) Then
-                        channels.Add(channelFolder.cChannel)
-                    End If
-                End If
-            End If
-        Next channelFolder
-        channels = channels.OrderBy(Function(c) c).ToList()
-        Return channels
-        'Catch ex As Exception
-        'Throw ex 'ProcessError(ex.Message, "Private Function ReturnListOfChannels(network As String) As String")
-        'Return Nothing
-        'End Try
-    End Function
+
     Public Sub cboNetwork_SelectedIndexChanged(_Network As String)
         'Try
-        Dim channels As List(Of String)
         RaiseEvent ClearChannelsListBox()
-        channels = ReturnListOfChannels(_Network)
-        For Each channel As String In channels
-            RaiseEvent AddChannelToListBox(channel)
-        Next channel
+        Dim channelFolders = Modules.IrcSettings.ChannelFolders.Get(_Network)
+        For Each channelFolder In channelFolders
+            RaiseEvent AddChannelToListBox(channelFolder.Channel)
+        Next channelFolder
         'Catch ex As Exception
         'Throw ex 'ProcessError(ex.Message, "Private Sub cboNetwork_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboNetwork.SelectedIndexChanged")
         'End Try
@@ -131,7 +99,7 @@ Public Class clsChannelFolderUI
     End Sub
     Public Sub cmdClose_Click()
         Try
-            lSettings.SaveChannelFolders()
+            'lSettings.SaveChannelFolders()
             RaiseEvent AnimateClose()
         Catch ex As Exception
             Throw ex
@@ -179,7 +147,7 @@ Public Class clsChannelFolderUI
     End Sub
     Public Sub txtChannel_MouseUp(sender As Object)
         Try
-            With CType(sender, TextBox)
+            With CType(sender, RadTextBox)
                 If lLastFocused IsNot sender AndAlso .SelectionLength = 0 Then .SelectAll()
             End With
             lLastFocused = CType(sender, Control)

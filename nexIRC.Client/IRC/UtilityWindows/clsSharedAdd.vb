@@ -70,7 +70,9 @@ Public Class clsSharedAdd
                     End If
                 Case eSharedAddType.sAddNetwork
                     If (Not String.IsNullOrEmpty(_Value)) Then
-                        lSettings.AddNetwork(_Value)
+                        Dim network = New IrcSettings.NetworkData()
+                        network.Description = _Value
+                        Modules.IrcSettings.IrcNetworks.Add(network)
                         frmCustomize.ClearServers()
                         RaiseEvent CloseForm()
                     Else

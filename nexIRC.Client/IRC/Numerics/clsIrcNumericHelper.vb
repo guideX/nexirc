@@ -67,7 +67,8 @@ Public Class clsIrcNumericHelper
             Dim n As Integer, b As Boolean
             If (excludeIndex <> 0) Then
                 Do Until b = True
-                    n = Convert.ToInt32(TextManipulation.Text.GetRnd(1, lSettings.lNetworks.nCount))
+                    'n = Convert.ToInt32(TextManipulation.Text.GetRnd(1, lSettings.lNetworks.nCount))
+                    n = Convert.ToInt32(TextManipulation.Text.GetRnd(1, Modules.IrcSettings.IrcNetworks.Count()))
                     If (n <> excludeIndex) Then b = True
                 Loop
                 result = n
@@ -340,7 +341,7 @@ Public Class clsIrcNumericHelper
                 For i = 1 To lSettings.lNotify.nCount
                     With lSettings.lNotify.nNotify(i)
                         If Len(.nNickName) <> 0 Then
-                            If LCase(Trim(.nNetwork)) = LCase(Trim(lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(lStatusIndex)).nDescription)) Or .nNetwork = "" Then
+                            If (.nNetwork.Trim().ToLower() = Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(lStatusIndex)).Description Or .nNetwork = "") Then
                                 If Len(msg) <> 0 Then
                                     msg = msg & " " & .nNickName
                                 Else

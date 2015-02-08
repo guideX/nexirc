@@ -85,7 +85,8 @@ Public Class MdiChildWindow
         Try
             Select Case _formType
                 Case FormTypes.Channel
-                    lSettings.AddToChannelFolders(lChannels.Name(_meIndex), lChannels.StatusIndex(_meIndex))
+                    Modules.IrcSettings.ChannelFolders.Add(lChannels.Name(_meIndex), Modules.IrcSettings.IrcNetworks.GetById(lChannels.StatusIndex(_meIndex)).Description)
+                    'Modules.IrcSettings.ChannelFolders.Add(lChannels.Name(_meIndex), lSettings.lNetworks.nNetwork(lChannels.StatusIndex(_meIndex)).nDescription)
             End Select
         Catch ex As Exception
             Throw ex

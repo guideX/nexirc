@@ -14,7 +14,7 @@ Public Class clsProcessNumeric
 
     Public Sub ProcessDataArrivalLine(ByVal lStatusIndex As Integer, ByVal lData As String)
         Try
-            Dim splt() As String, splt2() As String, splt3() As String, splt4() As String, i As Integer, n As Integer, msg As String, msg2 As String, msg3 As String ', _Input As String
+            Dim splt() As String, splt2() As String, splt3() As String, splt4() As String, i As Integer, n As Integer, msg As String, msg2 As String, msg3 As String, b As Boolean
             lData = Trim(lData)
             If (lData.Length = 0) Then
                 Exit Sub
@@ -117,7 +117,7 @@ Public Class clsProcessNumeric
                                 If lSettings.lIRC.iSettings.sPopupChannelFolders = True Then
                                     lChannelFolder.Show(lStatusIndex)
                                 End If
-                                lIrcNumericHelper.l001 = lStrings.ReturnReplacedString(eStringTypes.sRPL_WELCOME, lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(lStatusIndex)).nDescription, splt2(2))
+                                lIrcNumericHelper.l001 = lStrings.ReturnReplacedString(eStringTypes.sRPL_WELCOME, Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(lStatusIndex)).Description, splt2(2))
                                 Exit Sub
                             Case 2
                                 msg2 = Replace(TextManipulation.Text.ParseData(splt2(2), "host is ", ","), "ost is ", "")
@@ -452,7 +452,8 @@ Public Class clsProcessNumeric
                                             lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ISON, msg2, lSettings.lNotify.nNotify(n).nMessage)
                                             lStatus.AddToNotifyList(lStatusIndex, msg2)
                                         Else
-                                            If lSettings.lNotify.nNotify(n).nNetwork = lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(lStatusIndex)).nDescription Or Len(LCase(Trim(lSettings.lNotify.nNotify(n).nNetwork))) <> 0 Then
+                                            'If lSettings.lNotify.nNotify(n).nNetwork = lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(lStatusIndex)).nDescription Or Len(LCase(Trim(lSettings.lNotify.nNotify(n).nNetwork))) <> 0 Then
+                                            If lSettings.lNotify.nNotify(n).nNetwork = Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(lStatusIndex)).Description Or Len(LCase(Trim(lSettings.lNotify.nNotify(n).nNetwork))) <> 0 Then
                                                 lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ISON, msg2, lSettings.lNotify.nNotify(n).nMessage)
                                                 lStatus.AddToNotifyList(lStatusIndex, msg2)
                                             End If
@@ -692,10 +693,10 @@ Public Class clsProcessNumeric
                                 Exit Sub
                             Case 375
                                 If lSettings.lIRC.iSettings.sMOTDInOwnWindow = True Then
-                                    lStatus.Motd_AddText(lStatusIndex, lStrings.ReturnReplacedString(eStringTypes.sRPL_MOTDSTART, lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(lStatusIndex)).nDescription))
+                                    lStatus.Motd_AddText(lStatusIndex, lStrings.ReturnReplacedString(eStringTypes.sRPL_MOTDSTART, Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(lStatusIndex)).Description))
                                 Else
                                     If lSettings.lIRC.iSettings.sHideMOTD = False Then
-                                        lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_MOTDSTART, lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(lStatusIndex)).nDescription)
+                                        lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_MOTDSTART, Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(lStatusIndex)).Description)
                                     End If
                                 End If
                                 Exit Sub
@@ -871,11 +872,23 @@ Public Class clsProcessNumeric
                             Case 433
                                 lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NICKNAMEINUSE, lStatus.NickName(lStatusIndex))
                                 If (lSettings.lIRC.iSettings.sAutoSelectAlternateNickname) Then
+                                    Dim nn = New Random(DateTime.Now.Millisecond).Next(1, lSettings.lIRC.iNicks.nCount + 1)
+                                    Dim newNick = lSettings.lIRC.iNicks.nNick(nn)
                                     If (lSettings.lIRC.iNicks.nCount <> 1) Then
-                                        Dim nn = New Random(DateTime.Now.Millisecond).Next(1, lSettings.lIRC.iNicks.nCount)
-                                        lSettings.lIRC.iNicks.nIndex = nn
-                                        MessageBox.Show(lSettings.lIRC.iNicks.nCount.ToString() & ": " & lSettings.lIRC.iNicks.nIndex.ToString())
-                                        lStatus.NickName(lStatusIndex, True) = lSettings.lIRC.iNicks.nNick(lSettings.lIRC.iNicks.nIndex).nNick
+                                        b = False
+                                        If (lSettings.lIRC.iSettings.sPrompts) Then
+                                            Dim msgboxResult = MessageBox.Show("Change nickname to " & newNick.nNick & "?", "Auto Select Nickname?", MessageBoxButtons.OKCancel)
+                                            If (msgboxResult = DialogResult.OK) Then
+                                                b = True
+                                            End If
+                                        Else
+                                            b = True
+                                        End If
+                                        If (b) Then
+                                            lSettings.lIRC.iNicks.nIndex = nn
+                                            'lStatus.NickName(lStatusIndex, True) = lSettings.lIRC.iNicks.nNick(lSettings.lIRC.iNicks.nIndex).nNick
+                                            lStatus.NickName(lStatusIndex, True) = newNick.nNick
+                                        End If
                                     End If
                                 Else
                                     If lSettings.lIRC.iSettings.sChangeNickNameWindow = True Then

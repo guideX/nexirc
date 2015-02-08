@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("nexIRC.Settings")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("nexIRC.IrcSettings")]
+[assembly: AssemblyDescription("nexIRC.IrcSettings")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("nexIRC.Settings")]
+[assembly: AssemblyCompany("nexIRC.IrcSettings")]
+[assembly: AssemblyProduct("nexIRC.IrcSettings")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

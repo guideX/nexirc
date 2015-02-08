@@ -118,11 +118,15 @@ Public Class frmCustomize
             Next i
             lvwCompatibility.SelectedIndex = 0
             lStrings.PopulateListViewWithStrings(lvwStrings)
-            For i = 1 To lSettings.lNetworks.nCount
-                With lSettings.lNetworks.nNetwork(i)
-                    cboNetworkNotify.Items.Add(.nDescription)
-                End With
-            Next i
+            'For i = 1 To lSettings.lNetworks.nCount
+            'With lSettings.lNetworks.nNetwork(i)
+            'cboNetworkNotify.Items.Add(.nDescription)
+            'End With
+            'Next i
+            Dim networks = Modules.IrcSettings.IrcNetworks.Get()
+            For Each network In networks
+                cboNetworkNotify.Items.Add(network.Description)
+            Next network
             For i = 1 To lSettings.lNotify.nCount
                 With lSettings.lNotify.nNotify(i)
                     lCustomize.AddToNotifyListView(.nNickName, .nMessage, .nNetwork, lvwNotify)
@@ -206,18 +210,27 @@ Public Class frmCustomize
                 chkAutoConnect.Checked = .sAutoConnect
                 chkVideoBackground.Checked = .sVideoBackground
             End With
-            If lSettings.lNetworks.nCount <> 0 Then
-                For i = 1 To lSettings.lNetworks.nCount
-                    With lSettings.lNetworks.nNetwork(i)
-                        If (Not String.IsNullOrEmpty(.nDescription)) Then
-                            cboNetworks.Items.Add(.nDescription)
-                        End If
-                    End With
-                Next i
-                cboNetworks.Text = lSettings.lNetworks.nNetwork(lSettings.lNetworks.nIndex).nDescription
-                lCustomize.lStartupNetwork = lSettings.lNetworks.nNetwork(lSettings.lNetworks.nIndex).nDescription
-                lCustomize.RefreshServers(lvwServers, lSettings.lNetworks.nIndex)
+            If (networks.Count <> 0) Then
+                For Each network In networks
+                    If (Not String.IsNullOrEmpty(network.Description)) Then
+                        cboNetworks.Items.Add(network.Description)
+                        cboNetworks.Text = Modules.IrcSettings.IrcNetworks.GetDefault().Description
+                        lCustomize.RefreshServers(lvwServers, Modules.IrcSettings.IrcNetworks.GetDefault().Id)
+                    End If
+                Next
             End If
+            'If lSettings.lNetworks.nCount <> 0 Then
+            'For i = 1 To lSettings.lNetworks.nCount
+            'With lSettings.lNetworks.nNetwork(i)
+            'If (Not String.IsNullOrEmpty(.nDescription)) Then
+            'cboNetworks.Items.Add(.nDescription)
+            'End If
+            'End With
+            'Next i
+            'cboNetworks.Text = lSettings.lNetworks.nNetwork(lSettings.lNetworks.nIndex).nDescription
+            'lCustomize.lStartupNetwork = lSettings.lNetworks.nNetwork(lSettings.lNetworks.nIndex).nDescription
+            'lCustomize.RefreshServers(lvwServers, lSettings.lNetworks.nIndex)
+            'End If
             lSettings.lServers.sIndex = Convert.ToInt32(Files.ReadINI(lSettings.lINI.iServers, "Settings", "Index", "0"))
             chkMOTDInOwnWindow.Checked = lSettings.lIRC.iSettings.sMOTDInOwnWindow
             chkNoticesInOwnWindow.Checked = lSettings.lIRC.iSettings.sNoticesInOwnWindow

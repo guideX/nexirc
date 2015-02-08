@@ -220,6 +220,14 @@ Namespace IRC.Channels
                 Return Nothing
             End Try
         End Function
+        Public Function NetworkName(channelIndex As Integer) As String
+            Try
+                Return Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(lChannels.cChannel(channelIndex).cStatusIndex)).Description
+            Catch ex As Exception
+                Throw ex
+                Return Nothing
+            End Try
+        End Function
         Public Sub SetChannelVisible(_ChannelIndex As Integer, ByVal _Visible As Boolean)
             Try
                 With lChannels.cChannel(_ChannelIndex)
@@ -381,8 +389,7 @@ Namespace IRC.Channels
                     _ChannelIndex = Add(_Channel, _StatusIndex)
                     Form_Load(_ChannelIndex)
                     DoChannelColor(_ChannelIndex, lStrings.ReturnReplacedString(eStringTypes.sYOUJOIN, _Channel))
-                    lSettings.AddToChannelFolders(_Channel, lStatus.NetworkIndex(_StatusIndex))
-                    lChannelFolder.RefreshChannelFolderChannelList()
+                    Modules.IrcSettings.ChannelFolders.Add(_Channel, Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(_StatusIndex)).Description)
                 Else
                     If lSettings.lIRC.iSettings.sShowUserAddresses = True Then
                         _TextToDisplay = lStrings.ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName & " (" & _IpAddress & ")", _Channel)

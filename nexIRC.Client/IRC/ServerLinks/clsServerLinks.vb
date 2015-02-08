@@ -9,7 +9,9 @@ Public Class clsServerLinks
     Public Sub SetNetworkIndex(ByVal lIndex As Integer, _ComboBox As ComboBox)
         Try
             lNetworkIndex = lIndex
-            _ComboBox.Text = lSettings.lNetworks.nNetwork(lIndex).nDescription
+            '_ComboBox.Text = lSettings.lNetworks.nNetwork(lIndex).nDescription
+            Dim networks = Modules.IrcSettings.IrcNetworks.Get()
+
         Catch ex As Exception
             Throw ex 'ProcessError(ex.Message, "Public Sub SetNetworkIndex(ByVal lIndex As Integer)")
         End Try
@@ -50,13 +52,7 @@ Public Class clsServerLinks
         Try
             Dim i As Integer
             _Form.Icon = mdiMain.Icon
-            For i = 1 To lSettings.lNetworks.nCount
-                With lSettings.lNetworks.nNetwork(i)
-                    If Len(lSettings.lNetworks.nNetwork(i).nDescription) <> 0 Then
-                        _ComboBox.Items.Add(.nDescription)
-                    End If
-                End With
-            Next i
+            lSettings.FillComboWithNetworks(_ComboBox)
             With _ListView.Columns
                 .Add("Server IP", 160)
                 .Add("Port", 140)
@@ -78,7 +74,9 @@ Public Class clsServerLinks
                     lItem = _ListView.Items(i)
                     If Len(lItem.Text) <> 0 Then
                         If lItem.Checked = True Then
-                            lSettings.AddServer(_ComboBox.Text & ": " & lItem.Text, lItem.Text, lSettings.FindNetworkIndex(_ComboBox.Text), Convert.ToInt64(Trim(lItem.SubItems(1).Text)))
+                            'lSettings.AddServer(_ComboBox.Text & ": " & lItem.Text, lItem.Text, lSettings.FindNetworkIndex(_ComboBox.Text), Convert.ToInt64(Trim(lItem.SubItems(1).Text)))
+                            lSettings.AddServer(_ComboBox.Text & ": " & lItem.Text, lItem.Text, Modules.IrcSettings.IrcNetworks.Find(_ComboBox.Text).Id, Convert.ToInt64(Trim(lItem.SubItems(1).Text)))
+
                         End If
                     End If
                 Next i

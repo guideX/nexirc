@@ -96,12 +96,16 @@ namespace nexIRC.Sockets {
                     }
                 }
                 obj_Socket.BeginReceive(obj_SocketState.Buffer, 0, obj_SocketState.BufferSize, 0, new AsyncCallback(onDataArrival), obj_SocketState);
+            } catch (SocketException sex) {
+                if (SocketDisconnected != null) {
+                    SocketDisconnected(SocketID);
+                }
+                //throw sex;
             } catch (Exception ex) {
-                if ((ex.Message.Contains("Cannot access a disposed object"))) {
-                    if (SocketDisconnected != null) {
-                        SocketDisconnected(SocketID);
-                    }
-                } else {
+                if (SocketDisconnected != null) {
+                    SocketDisconnected(SocketID);
+                }
+                if ((!ex.Message.Contains("Cannot access a disposed object"))) {
                     throw ex;
                 }
             }

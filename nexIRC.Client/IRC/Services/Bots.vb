@@ -60,7 +60,7 @@ Public Class NickBot
         Dim networkId As Integer
         Try
             networkId = lStatus.NetworkIndex(StatusId)
-            Select Case lSettings.lNetworks.nNetwork(networkId).nDescription.ToLower().Trim()
+            Select Case Modules.IrcSettings.IrcNetworks.GetById(networkId).Description
                 Case "freenode"
                     Return "Nickserv"
                 Case Else
@@ -95,7 +95,7 @@ Public Class NickBot
         Try
             settings = New BotSettings()
             If (lSettings_Services.lNickServ.nLoginOnConnect) Then
-                Select Case lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(StatusId)).nDescription.ToLower().Trim()
+                Select Case Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(StatusId)).Description.ToLower().Trim()
                     Case "freenode"
                         If (lSettings_Services.lNickServ.nShowOnConnect = False) Then
                             If (Not String.IsNullOrEmpty(lSettings_Services.lNickServ.nLoginPassword)) And (Not String.IsNullOrEmpty(lSettings_Services.lNickServ.nLoginNickname)) Then
@@ -117,7 +117,7 @@ Public Class NickBot
 
     Public Sub LoginForm()
         Try
-            Select Case lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(StatusId)).nDescription.ToLower().Trim()
+            Select Case Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(StatusId)).Description.ToLower().Trim()
                 Case "freenode"
                     Dim f As New frmNickServLogin
                     f.SetStatusIndex(StatusId)
@@ -130,7 +130,7 @@ Public Class NickBot
 
     Public Sub Login(settings As BotSettings)
         Try
-            Select Case lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(StatusId)).nDescription.ToLower().Trim()
+            Select Case Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(StatusId)).Description.ToLower().Trim()
                 Case "freenode"
                     If (Not String.IsNullOrEmpty(settings.Password) And Not String.IsNullOrEmpty(settings.Email)) Then
                         If (Not _statusId = 0) Then
@@ -148,7 +148,7 @@ Public Class NickBot
 
     Public Sub Register(settings As BotSettings)
         Try
-            Select Case lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(StatusId)).nDescription.ToLower().Trim()
+            Select Case Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(StatusId)).Description.ToLower().Trim()
                 Case "freenode"
                     If (Not String.IsNullOrEmpty(settings.Password) And Not String.IsNullOrEmpty(settings.Email)) Then
                         If (Not _statusId = 0) Then
@@ -168,7 +168,7 @@ Public Class NickBot
 
     Public Sub Ghost(user As String)
         Try
-            Select Case lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(StatusId)).nDescription.ToLower().Trim()
+            Select Case Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(StatusId)).Description.ToLower().Trim()
                 Case "freenode"
                     If (Not String.IsNullOrEmpty(user)) Then
                         If (Not _statusId = 0) Then

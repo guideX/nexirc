@@ -14,7 +14,7 @@ Public Class clsChannelListUI
     Private lMeIndex As Integer
     Public Sub cmdAddToChannelFolder_Click(channel As String)
         Try
-            lSettings.AddToChannelFolders(channel, lSettings.lNetworks.nIndex)
+            Modules.IrcSettings.ChannelFolders.Add(channel, Modules.IrcSettings.IrcNetworks.GetDefault().Description)
         Catch ex As Exception
             Throw ex
         End Try

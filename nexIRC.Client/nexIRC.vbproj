@@ -519,9 +519,9 @@
       <Project>{AB9A755C-8AFE-42CD-97DD-7E69634E894B}</Project>
       <Name>nexIRC.IRC</Name>
     </ProjectReference>
-    <ProjectReference Include="..\nexIRC.Settings\nexIRC.Settings.csproj">
+    <ProjectReference Include="..\nexIRC.Settings\nexIRC.IrcSettings.csproj">
       <Project>{1A10CDFF-EDB2-401A-826E-CBE3DE3ACD6E}</Project>
-      <Name>nexIRC.Settings</Name>
+      <Name>nexIRC.IrcSettings</Name>
     </ProjectReference>
     <ProjectReference Include="..\nexIRC.Socket\nexIRC.Sockets.csproj">
       <Project>{B9E7C877-8236-4229-9628-83B21CD2B100}</Project>

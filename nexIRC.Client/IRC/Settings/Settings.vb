@@ -51,21 +51,6 @@ Public Class Settings
         Public cCount As Integer
     End Structure
 
-    Structure gMediaFiles
-        Public mFile() As String
-        Public mCount As Integer
-    End Structure
-
-    Structure gPlaylist
-        Public pName As String
-        Public pType As ePlaylistType
-    End Structure
-
-    Structure gPlaylists
-        Public pPlaylist() As gPlaylist
-        Public pCount As Integer
-    End Structure
-
     Structure gArraySizes
         Public aCompatibility As Integer
         Public aProcess As Integer
@@ -111,17 +96,6 @@ Public Class Settings
         Public qAutoShowWindow As Boolean
     End Structure
 
-    Structure gChannelFolder
-        Public cChannel As String
-        Public cNetwork As String
-        Public cOrder As Integer
-    End Structure
-
-    Structure gChannelFolders
-        Public cChannelFolder() As gChannelFolder
-        Public cCount As Integer
-    End Structure
-
     Structure gModes
         Public mInvisible As Boolean
         Public mWallops As Boolean
@@ -129,17 +103,6 @@ Public Class Settings
         Public mOperator As Boolean
         Public mLocalOperator As Boolean
         Public mServerNotices As Boolean
-    End Structure
-
-    Structure gNetwork
-        Public nDescription As String
-    End Structure
-
-    Structure gNetworks
-        Public nCount As Integer
-        Public nIndex As Integer
-        Public nSelected As Object
-        Public nNetwork() As gNetwork
     End Structure
 
     Structure gServer
@@ -217,7 +180,6 @@ Public Class Settings
     Structure gStringSettings
         Public sUnknowns As eUnknownsIn
         Public sUnsupported As eUnsupportedIn
-        'Public sServerInNotices As Boolean
     End Structure
 
     Structure gDownload
@@ -269,7 +231,6 @@ Public Class Settings
         Public sShowWindowsAutomatically As Boolean
         Public sAutoMaximize As Boolean
         Public sQuitMessage As String
-        'Public sHideStatusOnClose As Boolean
         Public sAutoConnect As Boolean
         Public sVideoBackground As Boolean
         Public sChannelFolderCloseOnJoin As Boolean
@@ -318,13 +279,9 @@ Public Class Settings
     Public lWinVisible As gWinVisible
     Public lIRC As gIRC
     Public lServers As gServers
-    Public lNetworks As gNetworks
-    Public lChannelFolders As gChannelFolders
     Public lNotify As gNotifyList
     Public lQuerySettings As gQuery
     Public lRecientServers As gRecientServers
-    Public lPlaylists As gPlaylists
-    Public lMediaFiles As gMediaFiles
     Public lCompatibility As gCompatibility
     Public lBlack As Boolean = False
 
@@ -432,80 +389,6 @@ Public Class Settings
             Throw ex
         End Try
     End Sub
-
-    Public Sub LoadPlaylists()
-        Try
-            Dim i As Integer
-            ReDim lPlaylists.pPlaylist(lArraySizes.aPlaylists)
-            lPlaylists.pCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, "Settings", "Count", "0")))
-            For i = 1 To lPlaylists.pCount
-                With lPlaylists.pPlaylist(i)
-                    .pName = Files.ReadINI(lINI.iPlaylists, "Settings", Trim(i.ToString), "Name")
-                    .pType = CType(Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, Trim(i.ToString), "Type", "0"))), ePlaylistType)
-                End With
-            Next i
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-
-    Public Sub NewPlaylist(ByVal lName As String)
-        Try
-            lPlaylists.pCount = lPlaylists.pCount + 1
-            With lPlaylists.pPlaylist(lPlaylists.pCount)
-                .pName = lName
-            End With
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-
-    Public Sub LoadMediaFiles()
-        Try
-            Dim i As Integer
-            With lMediaFiles
-                .mCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iMedia, "Settings", "Count", "0")))
-                For i = 1 To .mCount
-                    .mFile(i) = Files.ReadINI(lINI.iMedia, Trim(i.ToString), "File", "")
-                Next i
-            End With
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-
-    Public Sub SaveMediaFiles()
-        Try
-            Dim i As Integer
-            With lMediaFiles
-                Files.WriteINI(lINI.iMedia, "Settings", "Count", Trim(lMediaFiles.mCount.ToString))
-                For i = 1 To lMediaFiles.mCount
-                    Files.WriteINI(lINI.iMedia, Trim(i.ToString), "File", .mFile(i))
-                Next i
-            End With
-        Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub SaveMediaFiles()")
-        End Try
-    End Sub
-
-    Public Function ReturnDownloadManagerFullPath(ByVal lFileName As String) As String
-        Try
-            Dim i As Integer, msg As String = ""
-            If Len(lFileName) <> 0 Then
-                For i = 0 To lDownloadManager.dCount
-                    With lDownloadManager.dDownload(i)
-                        If LCase(Trim(.dFileName)) = LCase(Trim(lFileName)) Then
-                            msg = .dFilePath & .dFileName
-                        End If
-                    End With
-                Next i
-            End If
-            Return msg
-        Catch ex As Exception
-            Throw ex
-            Return Nothing
-        End Try
-    End Function
 
     Public Sub AddToRecientServerList(ByVal lServerIndex As Integer)
         Try
@@ -809,7 +692,7 @@ Public Class Settings
             .aStatusWindows = 300
             .aStrings = 300
         End With
-        ReDim lNetworks.nNetwork(lArraySizes.aNetworks)
+        'ReDim lNetworks.nNetwork(lArraySizes.aNetworks)
         ReDim lServers.sServer(lArraySizes.aServers)
         ReDim lIRC.iNicks.nNick(lArraySizes.aNickNames)
     End Sub
@@ -864,21 +747,6 @@ Public Class Settings
                 .iSystem = Files.ReadINI(lINI.iIdent, "Settings", "System", "")
             End If
         End With
-    End Sub
-
-    Public Sub LoadNetworks()
-        Dim i As Integer
-        With lNetworks
-            .nCount = Convert.ToInt32(Files.ReadINI(lINI.iNetworks, "Settings", "Count", "0"))
-            If .nCount <> 0 Then .nIndex = Convert.ToInt32(Files.ReadINI(lINI.iNetworks, "Settings", "Index", ""))
-        End With
-        If lNetworks.nCount <> 0 Then
-            For i = 1 To lNetworks.nCount
-                With lNetworks.nNetwork(i)
-                    .nDescription = Files.ReadINI(lINI.iNetworks, Trim(Convert.ToString(i)), "Description", "")
-                End With
-            Next i
-        End If
     End Sub
 
     Private Sub LoadServers()
@@ -974,14 +842,14 @@ Public Class Settings
             lSettings_Services.LoadServices()
             mdiMain.SetLoadingFormProgress("Loading String Settings", 15)
             LoadStringSettings()
-            mdiMain.SetLoadingFormProgress("Loading Channel Folders", 17)
-            LoadChannelFolders()
+            'mdiMain.SetLoadingFormProgress("Loading Channel Folders", 17)
+            'LoadChannelFolders()
             mdiMain.SetLoadingFormProgress("Loading Nicknames", 22)
             LoadNickNames()
             mdiMain.SetLoadingFormProgress("Loading Ident", 25)
             LoadIdent()
-            mdiMain.SetLoadingFormProgress("Loading Networks", 27)
-            LoadNetworks()
+            'mdiMain.SetLoadingFormProgress("Loading Networks", 27)
+            'LoadNetworks()
             mdiMain.SetLoadingFormProgress("Loading Servers", 32)
             LoadServers()
             mdiMain.SetLoadingFormProgress("Loading Modes", 50)
@@ -1235,7 +1103,7 @@ Public Class Settings
         lSettings_Services.SaveServices()
         SaveIdentdSettings()
         SaveNickNames()
-        SaveNetworks()
+        'SaveNetworks()
         SaveServers()
         SaveNotifyList()
         lSettings_DCC.SaveDCCSettings()
@@ -1259,20 +1127,20 @@ Public Class Settings
         AddServer = lServers.sCount
     End Function
 
-    Public Function AddNetwork(ByVal lDescription As String) As Integer
-        If Len(lDescription) <> 0 Then
-            lNetworks.nCount = lNetworks.nCount + 1
-            With lNetworks.nNetwork(lNetworks.nCount)
-                .nDescription = lDescription
-            End With
-            If lWinVisible.wCustomize = True Then
-                frmCustomize.lCustomize.RefreshNetworks(frmCustomize.cboNetworks)
-                frmCustomize.cboNetworks.Text = lDescription
-            End If
-        End If
-        SaveNetworks()
-        AddNetwork = lNetworks.nCount
-    End Function
+    'Public Function AddNetwork(ByVal lDescription As String) As Integer
+    'If Len(lDescription) <> 0 Then
+    'lNetworks.nCount = lNetworks.nCount + 1
+    'With lNetworks.nNetwork(lNetworks.nCount)
+    '.nDescription = lDescription
+    'End With
+    'If lWinVisible.wCustomize = True Then
+    'frmCustomize.lCustomize.RefreshNetworks(frmCustomize.cboNetworks)
+    'frmCustomize.cboNetworks.Text = lDescription
+    'End If
+    'End If
+    ''SaveNetworks()
+    'AddNetwork = lNetworks.nCount
+    'End Function
 
     Public Sub SaveServers()
         Dim i As Integer
@@ -1286,19 +1154,6 @@ Public Class Settings
                 Files.WriteINI(lINI.iServers, Trim(Convert.ToString(i)), "NetworkIndex", Trim(.sNetworkIndex.ToString))
             End With
         Next i
-    End Sub
-
-    Private Sub SaveNetworks()
-        Dim i As Integer
-        If lNetworks.nCount <> 0 Then
-            Files.WriteINI(lINI.iNetworks, "Settings", "Count", Trim(lNetworks.nCount.ToString))
-            Files.WriteINI(lINI.iNetworks, "Settings", "Index", Trim(lNetworks.nIndex.ToString))
-            For i = 1 To lNetworks.nCount
-                With lNetworks.nNetwork(i)
-                    Files.WriteINI(lINI.iNetworks, Trim(Convert.ToString(i)), "Description", .nDescription)
-                End With
-            Next i
-        End If
     End Sub
 
     Public Function FindServerIndexByIp(ByVal lIp As String) As Integer
@@ -1341,22 +1196,22 @@ Public Class Settings
         End Try
     End Function
 
-    Public Function FindNetworkIndex(ByVal description As String) As Integer
-        Dim i As Integer, result As Integer
-        'Try
-        If (description = Nothing) Then description = ""
-        For i = 1 To lNetworks.nCount
-            If (description.Trim().ToLower() = lNetworks.nNetwork(i).nDescription.Trim().ToLower()) Then
-                result = i
-                Exit For
-            End If
-        Next i
-        Return result
-        'Catch ex As Exception
-        'Throw ex
-        'Return Nothing
-        'End Try
-    End Function
+    'Public Function FindNetworkIndex(ByVal description As String) As Integer
+    'Dim i As Integer, result As Integer
+    'Try
+    'If (description = Nothing) Then description = ""
+    'For i = 1 To lNetworks.nCount
+    'If (description.Trim().ToLower() = lNetworks.nNetwork(i).nDescription.Trim().ToLower()) Then
+    'result = i
+    'Exit For
+    'End If
+    'Next i
+    'Return result
+    ''Catch ex As Exception
+    ''Throw ex
+    ''Return Nothing
+    ''End Try
+    'End Function
 
     Public Sub FillComboWithServers(ByVal lCombo As ComboBox, Optional ByVal lNetworkIndex As Integer = 0, Optional ByVal lClearCombo As Boolean = False)
         Try
@@ -1384,19 +1239,14 @@ Public Class Settings
 
     Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)
         Try
-            Dim i As Integer
             If _Clear = True Then _RadDropDownList.Items.Clear()
-            For i = 1 To lNetworks.nCount
-                With lNetworks.nNetwork(i)
-                    If (.nDescription IsNot Nothing) Then
-                        If (.nDescription.Length <> 0) Then
-                            _RadDropDownList.Items.Add(.nDescription)
-                        End If
-                    End If
-                End With
-            Next i
+            For Each network In Modules.IrcSettings.IrcNetworks.Get()
+                If (Not String.IsNullOrEmpty(network.Description)) Then
+                    _RadDropDownList.Items.Add(network.Description)
+                End If
+            Next network
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)")
+            Throw ex
         End Try
     End Sub
 
@@ -1404,17 +1254,13 @@ Public Class Settings
         Try
             Dim i As Integer
             If lClearCombo = True Then lCombo.Items.Clear()
-            For i = 1 To lNetworks.nCount
-                With lNetworks.nNetwork(i)
-                    If (.nDescription IsNot Nothing) Then
-                        If (.nDescription.Length <> 0) Then
-                            lCombo.Items.Add(.nDescription)
-                        End If
-                    End If
-                End With
-            Next i
+            For Each network In Modules.IrcSettings.IrcNetworks.Get()
+                If (Not String.IsNullOrEmpty(network.Description)) Then
+                    lCombo.Items.Add(network.Description)
+                End If
+            Next network
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub FillComboWithNetworks(ByVal lCombo As ComboBox, Optional ByVal lClearCombo As Boolean = False)")
+            Throw ex
         End Try
     End Sub
 
@@ -1459,39 +1305,6 @@ Public Class Settings
         End Try
     End Function
 
-    Public Sub RemoveNetwork(ByVal lIndex As Integer)
-        Try
-            lNetworks.nNetwork(lIndex).nDescription = ""
-            CleanUpNetworks()
-        Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub RemoveNetwork(ByVal lIndex As Integer)")
-        End Try
-    End Sub
-
-    Public Sub CleanUpNetworks()
-        Try
-            Dim msg() As String, c As Integer, i As Integer
-            ReDim msg(lArraySizes.aNetworks)
-            For i = 1 To lArraySizes.aNetworks
-                With lNetworks.nNetwork(i)
-                    If Len(.nDescription) <> 0 Then
-                        c = c + 1
-                        msg(c) = .nDescription
-                    End If
-                    .nDescription = ""
-                End With
-            Next i
-            lNetworks.nCount = c
-            For i = 1 To c
-                With lNetworks.nNetwork(i)
-                    .nDescription = msg(i)
-                End With
-            Next i
-        Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub CleanUpNetworks()")
-        End Try
-    End Sub
-
     Public Function ShowPrompts() As Boolean
         Try
             With lIRC.iSettings
@@ -1516,103 +1329,6 @@ Public Class Settings
             Throw ex
         End Try
     End Sub
-
-    Public Sub LoadChannelFolders()
-        Try
-            Dim i As Integer, msg As String
-            ReDim lChannelFolders.cChannelFolder(lArraySizes.aChannelFolder)
-            lChannelFolders.cCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iChannelFolders, "Settings", "Count", "0")))
-            For i = 1 To lChannelFolders.cCount
-                With lChannelFolders.cChannelFolder(i)
-                    .cChannel = Files.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Channel", "")
-                    .cNetwork = Files.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Network", "")
-                    msg = Files.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Order", "0")
-                    If (IsNumeric(msg)) Then
-                        .cOrder = Convert.ToInt32(msg)
-                    End If
-                End With
-            Next i
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-
-    Public Sub SaveChannelFolders()
-        Try
-            Dim i As Integer
-            Files.WriteINI(lINI.iChannelFolders, "Settings", "Count", Trim(Str(lChannelFolders.cCount)))
-            For i = 1 To lChannelFolders.cCount
-                With lChannelFolders.cChannelFolder(i)
-                    Files.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Channel", .cChannel)
-                    Files.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Network", .cNetwork)
-                    Files.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Order", .cOrder.ToString())
-                End With
-            Next i
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-
-    Public Sub AddToChannelFolders(ByVal channel As String, ByVal networkIndex As Integer)
-        Dim i As Integer
-        'Try
-        For i = 1 To lChannelFolders.cCount
-            If (channel.Trim().ToLower() = lChannelFolders.cChannelFolder(i).cChannel.Trim().ToLower() And lNetworks.nNetwork(networkIndex).nDescription.Trim().ToLower() = lChannelFolders.cChannelFolder(i).cNetwork.Trim().ToLower()) Then
-                Exit Sub
-            End If
-        Next i
-        If (Not String.IsNullOrEmpty(channel)) Then
-            MoveAllChannelFoldersDown()
-            lChannelFolders.cCount = lChannelFolders.cCount + 1
-            With lChannelFolders.cChannelFolder(lChannelFolders.cCount)
-                .cChannel = channel
-                .cNetwork = lNetworks.nNetwork(networkIndex).nDescription
-                .cOrder = 0
-            End With
-            SaveChannelFolders()
-        End If
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
-    End Sub
-
-    Private Sub MoveAllChannelFoldersDown()
-        Dim i As Integer
-        'Try
-        For i = 1 To lChannelFolders.cCount - 1
-
-            lChannelFolders.cChannelFolder(i).cOrder = lChannelFolders.cChannelFolder(i).cOrder + 1
-        Next i
-        'Catch ex As Exception
-        'Throw ex
-        'End Try
-    End Sub
-
-    Public Sub RemoveChannelFolder(ByVal lIndex As Integer)
-        Try
-            With lChannelFolders.cChannelFolder(lIndex)
-                .cChannel = ""
-            End With
-            SaveChannelFolders()
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-
-    Public Function FindChannelFolderIndexes(ByVal channel As String, network As String) As List(Of Integer)
-        Dim result As List(Of Integer)
-        Try
-            result = New List(Of Integer)()
-            For i As Integer = 1 To (lChannelFolders.cChannelFolder.Count - 1)
-                If ((channel.ToLower().Trim() = lChannelFolders.cChannelFolder(i).cChannel) And (network = lChannelFolders.cChannelFolder(i).cNetwork)) Then
-                    result.Add(i)
-                End If
-            Next i
-            Return result
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Function
 
     Public Sub RemoveServer(ByVal lIndex As Integer)
         Try

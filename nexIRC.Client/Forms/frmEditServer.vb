@@ -16,7 +16,7 @@ Public Class frmEditServer
             txtIp.Text = lSettings.lServers.sServer(lIndex).sIP
             txtPort.Text = Convert.ToString(lSettings.lServers.sServer(lIndex).sPort)
             lSettings.FillComboWithNetworks(cboNetwork, True)
-            cboNetwork.Text = lSettings.lNetworks.nNetwork(lSettings.lServers.sServer(lIndex).sNetworkIndex).nDescription
+            cboNetwork.Text = Modules.IrcSettings.IrcNetworks.GetById(lSettings.lServers.sServer(lIndex).sNetworkIndex).Description
             lInfoSet = True
         Catch ex As Exception
             Throw ex
@@ -34,7 +34,7 @@ Public Class frmEditServer
                     .sDescription = txtDescription.Text
                     .sIP = txtIp.Text
                     .sPort = Convert.ToInt64(Trim(txtPort.Text))
-                    .sNetworkIndex = lSettings.FindNetworkIndex(cboNetwork.Text)
+                    .sNetworkIndex = Modules.IrcSettings.IrcNetworks.Find(cboNetwork.Text).Id
                     If lSettings.lWinVisible.wCustomize = True Then
                         frmCustomize.UpdateSelectedServer(txtDescription.Text, txtIp.Text, txtPort.Text)
                     End If

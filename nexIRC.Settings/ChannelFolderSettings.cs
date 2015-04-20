@@ -6,7 +6,7 @@ namespace nexIRC.IrcSettings {
     /// <summary>
     /// What contains the Channel Folder Data
     /// </summary>
-    public class ChannelFolderData {
+    public class ChannelFolderModel {
         public string Channel { get; set; }
         public string Network { get; set; }
         public int Order;
@@ -16,7 +16,7 @@ namespace nexIRC.IrcSettings {
     /// </summary>
     public class ChannelFolders {
         private string _iniFile;
-        private List<ChannelFolderData> _cached;
+        private List<ChannelFolderModel> _cached;
         private bool _useCache = false;
         /// <summary>
         /// Entry Point
@@ -32,13 +32,13 @@ namespace nexIRC.IrcSettings {
         /// Get Channel Folders
         /// </summary>
         /// <returns></returns>
-        public List<ChannelFolderData> Get(string network = "") {
-            var channelFolders = new List<ChannelFolderData>();
+        public List<ChannelFolderModel> Get(string network = "") {
+            var channelFolders = new List<ChannelFolderModel>();
             try {
                 if(!_useCache) {
                     var n = Convert.ToInt32(Files.ReadINI(_iniFile, "Settings", "Count", "0"));
                     for (var i = 1; i <= n; i++) {
-                        var c = new ChannelFolderData();
+                        var c = new ChannelFolderModel();
                         var b = false;
                         c.Network = Files.ReadINI(_iniFile, i.ToString(), "Network", "");
                         if (!string.IsNullOrEmpty(network)) {
@@ -76,7 +76,7 @@ namespace nexIRC.IrcSettings {
         /// Add
         /// </summary>
         /// <param name="channelFolder"></param>
-        public bool Add(ChannelFolderData channelFolder) {
+        public bool Add(ChannelFolderModel channelFolder) {
             try {
                 var channelFolders = Get();
                 channelFolders.Add(channelFolder);
@@ -96,7 +96,7 @@ namespace nexIRC.IrcSettings {
             try {
                 if (!string.IsNullOrEmpty(channel) && !string.IsNullOrEmpty(network)) {
                     var channelFolders = Get();
-                    var channelFolder = new ChannelFolderData();
+                    var channelFolder = new ChannelFolderModel();
                     channelFolder.Channel = channel;
                     channelFolder.Network = network;
                     channelFolder.Order = 0;
@@ -136,7 +136,7 @@ namespace nexIRC.IrcSettings {
         /// </summary>
         /// <param name="channelFolders"></param>
         /// <returns></returns>
-        public bool Save(List<ChannelFolderData> channelFolders) {
+        public bool Save(List<ChannelFolderModel> channelFolders) {
             try {
                 var n = 0;
                 Files.WriteINI(_iniFile, "Settings", "Count", channelFolders.Count.ToString());
@@ -157,9 +157,9 @@ namespace nexIRC.IrcSettings {
         /// </summary>
         /// <param name="channelFolders"></param>
         /// <returns></returns>
-        public List<ChannelFolderData> Clean(List<ChannelFolderData> channelFolders) {
+        public List<ChannelFolderModel> Clean(List<ChannelFolderModel> channelFolders) {
             try {
-                var result = new List<ChannelFolderData>();
+                var result = new List<ChannelFolderModel>();
                 foreach (var channelFolder in channelFolders) {
                     if (!string.IsNullOrEmpty(channelFolder.Channel) && !string.IsNullOrEmpty(channelFolder.Network)) {
                         result.Add(channelFolder);
@@ -175,7 +175,7 @@ namespace nexIRC.IrcSettings {
         /// </summary>
         /// <param name="channelFolderString"></param>
         /// <returns></returns>
-        public ChannelFolderData Find(string channelFolderString) {
+        public ChannelFolderModel Find(string channelFolderString) {
             try {
                 return Get().Where(cf => cf.Channel == channelFolderString).FirstOrDefault();
             } catch (Exception ex) {
@@ -188,7 +188,7 @@ namespace nexIRC.IrcSettings {
         /// <param name="channelFolderString"></param>
         /// <param name="network"></param>
         /// <returns></returns>
-        public ChannelFolderData Find(string channelFolderString, string network) {
+        public ChannelFolderModel Find(string channelFolderString, string network) {
             try {
                 return Get().Where(cf => cf.Channel == channelFolderString && cf.Network == network).FirstOrDefault();
             } catch (Exception ex) {
@@ -200,7 +200,7 @@ namespace nexIRC.IrcSettings {
         /// </summary>
         /// <param name="channelFolder"></param>
         /// <returns></returns>
-        public bool Delete(ChannelFolderData channelFolder) {
+        public bool Delete(ChannelFolderModel channelFolder) {
             try {
                 var channelFolders = Get();
                 var itemToRemove = channelFolders.Where(cf => cf.Channel == channelFolder.Channel && cf.Network == channelFolder.Network && cf.Order == channelFolder.Order).FirstOrDefault();

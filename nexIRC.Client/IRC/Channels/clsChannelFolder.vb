@@ -41,7 +41,7 @@ Public Class clsChannelFolderUI
     End Sub
     Public Sub cmdAdd_Click(channel As String, network As String)
         Try
-            Dim channelFolder = New Global.nexIRC.IrcSettings.ChannelFolderData()
+            Dim channelFolder = New Global.nexIRC.IrcSettings.ChannelFolderModel()
             channelFolder.Channel = channel
             channelFolder.Network = network
             Modules.IrcSettings.ChannelFolders.Add(channelFolder)

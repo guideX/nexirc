@@ -6,3 +6,4 @@ C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.IRC\bin\Debug\nexIRC.IRC.dll
 C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.IRC\bin\Debug\nexIRC.IRC.pdb
 C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.IRC\obj\Debug\nexIRC.IRC.dll
 C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.IRC\obj\Debug\nexIRC.IRC.pdb
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.IRC\obj\Debug\nexIRC.IRC.csprojResolveAssemblyReference.cache

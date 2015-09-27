@@ -1,5 +1,0 @@
-C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Text\bin\Debug\nexIRC.Strings.dll
-C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Text\bin\Debug\nexIRC.Strings.pdb
-C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Text\obj\Debug\nexIRC.Strings.dll
-C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Text\obj\Debug\nexIRC.Strings.pdb
-C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Text\obj\Debug\nexIRC.Text.csprojResolveAssemblyReference.cache

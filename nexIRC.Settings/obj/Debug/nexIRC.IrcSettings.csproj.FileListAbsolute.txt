@@ -1,7 +1,0 @@
-C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Settings\obj\Debug\nexIRC.IrcSettings.csprojResolveAssemblyReference.cache
-C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Settings\bin\Debug\nexIRC.IrcSettings.dll
-C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Settings\bin\Debug\nexIRC.IrcSettings.pdb
-C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Settings\bin\Debug\nexIRC.Utility.dll
-C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Settings\bin\Debug\nexIRC.Utility.pdb
-C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Settings\obj\Debug\nexIRC.IrcSettings.dll
-C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Settings\obj\Debug\nexIRC.IrcSettings.pdb

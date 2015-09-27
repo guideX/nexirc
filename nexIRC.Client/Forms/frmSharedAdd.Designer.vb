@@ -110,6 +110,7 @@ Partial Class frmSharedAdd
         '
         Me.RootElement.ApplyShapeToControl = True
         Me.Text = "nexIRC - Add"
+        Me.ThemeName = "Office2010Black"
         CType(Me.RadLabel1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtDescription, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).EndInit()

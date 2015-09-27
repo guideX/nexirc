@@ -61,6 +61,7 @@ Partial Class FrmKick
         Me.cmdCancel.Size = New System.Drawing.Size(72, 24)
         Me.cmdCancel.TabIndex = 15
         Me.cmdCancel.Text = "Cancel"
+        Me.cmdCancel.ThemeName = "Office2010Black"
         '
         'cmdOK
         '
@@ -69,6 +70,7 @@ Partial Class FrmKick
         Me.cmdOK.Size = New System.Drawing.Size(72, 24)
         Me.cmdOK.TabIndex = 14
         Me.cmdOK.Text = "OK"
+        Me.cmdOK.ThemeName = "Office2010Black"
         '
         'txtNickname
         '
@@ -104,6 +106,7 @@ Partial Class FrmKick
         '
         Me.RootElement.ApplyShapeToControl = True
         Me.Text = "nexIRC - Kick"
+        Me.ThemeName = "Office2010Black"
         CType(Me.txtChannel, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadLabel2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).EndInit()

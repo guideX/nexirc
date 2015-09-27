@@ -40,12 +40,12 @@ Partial Class frmAbout
         Me.LinkLabel6 = New System.Windows.Forms.LinkLabel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.LinkLabel5 = New System.Windows.Forms.LinkLabel()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Office2010BlackTheme1 = New Telerik.WinControls.Themes.Office2010BlackTheme()
+        Me.Office2010BlueTheme1 = New Telerik.WinControls.Themes.Office2010BlueTheme()
         CType(Me.RadPageView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RadPageView1.SuspendLayout()
         Me.RadPageViewPage1.SuspendLayout()
         Me.RadPageViewPage2.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -53,13 +53,16 @@ Partial Class frmAbout
         '
         Me.RadPageView1.Controls.Add(Me.RadPageViewPage1)
         Me.RadPageView1.Controls.Add(Me.RadPageViewPage2)
-        Me.RadPageView1.Location = New System.Drawing.Point(12, 142)
+        Me.RadPageView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.RadPageView1.Location = New System.Drawing.Point(0, 0)
         Me.RadPageView1.Name = "RadPageView1"
         Me.RadPageView1.SelectedPage = Me.RadPageViewPage1
-        Me.RadPageView1.Size = New System.Drawing.Size(286, 206)
+        Me.RadPageView1.Size = New System.Drawing.Size(308, 241)
         Me.RadPageView1.TabIndex = 2
         Me.RadPageView1.Text = "RadPageView1"
+        Me.RadPageView1.ThemeName = "Office2010Black"
         Me.RadPageView1.Visible = False
+        CType(Me.RadPageView1.GetChildAt(0), Telerik.WinControls.UI.RadPageViewStripElement).ItemFitMode = Telerik.WinControls.UI.StripViewItemFitMode.Fill
         '
         'RadPageViewPage1
         '
@@ -72,9 +75,9 @@ Partial Class frmAbout
         Me.RadPageViewPage1.Controls.Add(Me.Label2)
         Me.RadPageViewPage1.Controls.Add(Me.LinkLabel1)
         Me.RadPageViewPage1.Controls.Add(Me.Label1)
-        Me.RadPageViewPage1.Location = New System.Drawing.Point(10, 37)
+        Me.RadPageViewPage1.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage1.Name = "RadPageViewPage1"
-        Me.RadPageViewPage1.Size = New System.Drawing.Size(265, 158)
+        Me.RadPageViewPage1.Size = New System.Drawing.Size(284, 189)
         Me.RadPageViewPage1.Text = "About"
         '
         'LinkLabel4
@@ -181,9 +184,9 @@ Partial Class frmAbout
         Me.RadPageViewPage2.Controls.Add(Me.LinkLabel6)
         Me.RadPageViewPage2.Controls.Add(Me.Label6)
         Me.RadPageViewPage2.Controls.Add(Me.LinkLabel5)
-        Me.RadPageViewPage2.Location = New System.Drawing.Point(10, 37)
+        Me.RadPageViewPage2.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage2.Name = "RadPageViewPage2"
-        Me.RadPageViewPage2.Size = New System.Drawing.Size(265, 158)
+        Me.RadPageViewPage2.Size = New System.Drawing.Size(284, 189)
         Me.RadPageViewPage2.Text = "Credits"
         '
         'Label8
@@ -238,24 +241,12 @@ Partial Class frmAbout
         Me.LinkLabel5.TabStop = True
         Me.LinkLabel5.Text = "coding"
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = Global.nexIRC.My.Resources.Resources.nexircnew
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(286, 124)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 1
-        Me.PictureBox1.TabStop = False
-        Me.PictureBox1.Visible = False
-        '
         'frmAbout
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(308, 360)
+        Me.ClientSize = New System.Drawing.Size(308, 241)
         Me.Controls.Add(Me.RadPageView1)
-        Me.Controls.Add(Me.PictureBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -267,19 +258,17 @@ Partial Class frmAbout
         Me.RootElement.ApplyShapeToControl = True
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "About nexIRC"
-        Me.ThemeName = "Vista"
+        Me.ThemeName = "Office2010Black"
         CType(Me.RadPageView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.RadPageView1.ResumeLayout(False)
         Me.RadPageViewPage1.ResumeLayout(False)
         Me.RadPageViewPage1.PerformLayout()
         Me.RadPageViewPage2.ResumeLayout(False)
         Me.RadPageViewPage2.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents RadPageView1 As Telerik.WinControls.UI.RadPageView
     Friend WithEvents RadPageViewPage1 As Telerik.WinControls.UI.RadPageViewPage
     Friend WithEvents RadPageViewPage2 As Telerik.WinControls.UI.RadPageViewPage
@@ -297,5 +286,7 @@ Partial Class frmAbout
     Friend WithEvents LinkLabel6 As System.Windows.Forms.LinkLabel
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents LinkLabel5 As System.Windows.Forms.LinkLabel
+    Friend WithEvents Office2010BlackTheme1 As Telerik.WinControls.Themes.Office2010BlackTheme
+    Friend WithEvents Office2010BlueTheme1 As Telerik.WinControls.Themes.Office2010BlueTheme
 End Class
 

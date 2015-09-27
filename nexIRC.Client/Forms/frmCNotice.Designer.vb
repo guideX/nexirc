@@ -30,6 +30,7 @@ Partial Class FrmCNotice
         Me.RadLabel1 = New Telerik.WinControls.UI.RadLabel()
         Me.RadLabel3 = New Telerik.WinControls.UI.RadLabel()
         Me.txtMessage = New Telerik.WinControls.UI.RadTextBox()
+        Me.Office2010BlackTheme1 = New Telerik.WinControls.Themes.Office2010BlackTheme()
         CType(Me.txtChannel, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadLabel2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -48,6 +49,7 @@ Partial Class FrmCNotice
         Me.txtChannel.Size = New System.Drawing.Size(259, 20)
         Me.txtChannel.TabIndex = 23
         Me.txtChannel.TabStop = False
+        Me.txtChannel.ThemeName = "Office2010Black"
         '
         'RadLabel2
         '
@@ -56,6 +58,7 @@ Partial Class FrmCNotice
         Me.RadLabel2.Size = New System.Drawing.Size(49, 18)
         Me.RadLabel2.TabIndex = 22
         Me.RadLabel2.Text = "Channel:"
+        Me.RadLabel2.ThemeName = "Office2010Black"
         '
         'cmdCancel
         '
@@ -64,6 +67,7 @@ Partial Class FrmCNotice
         Me.cmdCancel.Size = New System.Drawing.Size(72, 24)
         Me.cmdCancel.TabIndex = 21
         Me.cmdCancel.Text = "Cancel"
+        Me.cmdCancel.ThemeName = "Office2010Black"
         '
         'cmdOK
         '
@@ -72,6 +76,7 @@ Partial Class FrmCNotice
         Me.cmdOK.Size = New System.Drawing.Size(72, 24)
         Me.cmdOK.TabIndex = 20
         Me.cmdOK.Text = "OK"
+        Me.cmdOK.ThemeName = "Office2010Black"
         '
         'txtNickname
         '
@@ -80,6 +85,7 @@ Partial Class FrmCNotice
         Me.txtNickname.Size = New System.Drawing.Size(259, 20)
         Me.txtNickname.TabIndex = 19
         Me.txtNickname.TabStop = False
+        Me.txtNickname.ThemeName = "Office2010Black"
         '
         'RadLabel1
         '
@@ -88,6 +94,7 @@ Partial Class FrmCNotice
         Me.RadLabel1.Size = New System.Drawing.Size(59, 18)
         Me.RadLabel1.TabIndex = 18
         Me.RadLabel1.Text = "Nickname:"
+        Me.RadLabel1.ThemeName = "Office2010Black"
         '
         'RadLabel3
         '
@@ -96,6 +103,7 @@ Partial Class FrmCNotice
         Me.RadLabel3.Size = New System.Drawing.Size(53, 18)
         Me.RadLabel3.TabIndex = 23
         Me.RadLabel3.Text = "Message:"
+        Me.RadLabel3.ThemeName = "Office2010Black"
         '
         'txtMessage
         '
@@ -109,6 +117,7 @@ Partial Class FrmCNotice
         Me.txtMessage.Size = New System.Drawing.Size(259, 70)
         Me.txtMessage.TabIndex = 24
         Me.txtMessage.TabStop = False
+        Me.txtMessage.ThemeName = "Office2010Black"
         '
         'FrmCNotice
         '
@@ -128,7 +137,8 @@ Partial Class FrmCNotice
         '
         '
         Me.RootElement.ApplyShapeToControl = True
-        Me.Text = "FrmCNotice"
+        Me.Text = "CNotice"
+        Me.ThemeName = "Office2010Black"
         CType(Me.txtChannel, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadLabel2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).EndInit()
@@ -150,5 +160,6 @@ Partial Class FrmCNotice
     Friend WithEvents RadLabel1 As Telerik.WinControls.UI.RadLabel
     Friend WithEvents RadLabel3 As Telerik.WinControls.UI.RadLabel
     Friend WithEvents txtMessage As Telerik.WinControls.UI.RadTextBox
+    Friend WithEvents Office2010BlackTheme1 As Telerik.WinControls.Themes.Office2010BlackTheme
 End Class
 

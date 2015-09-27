@@ -6,17 +6,6 @@ Imports System.Net
 Imports nexIRC.Modules
 
 Public Class frmNetworkSettings
-    Private Function ReturnIpAddress() As String
-        Try
-            Dim h As String
-            h = System.Net.Dns.GetHostName()
-            Return System.Net.Dns.GetHostByName(h).AddressList(0).ToString()
-        Catch ex As Exception
-            Throw ex
-            Return Nothing
-        End Try
-    End Function
-
     Private Sub frmNetworkSettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'On Error Resume Next
         Me.Icon = mdiMain.Icon

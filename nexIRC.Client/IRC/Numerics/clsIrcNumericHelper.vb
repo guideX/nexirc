@@ -3,9 +3,11 @@ Option Strict On
 Imports System
 Imports System.Net
 Imports nexIRC.IRC.Channels.clsChannel
-Imports nexIRC.Classes.UI
 Imports nexIRC.clsIrcNumerics
 Imports nexIRC.Modules
+Imports nexIRC.Business.Enums
+Imports nexIRC.Business.Helpers
+
 Public Class clsIrcNumericHelper
     Public l001 As String, l002 As String, l003 As String, l004 As String, l311 As String, l312 As String, l313 As String, l316 As String, l317 As String, l319 As String, l378 As String, l379 As String, l401 As String, l250 As String, l251 As String, l252 As String, l253 As String, l254 As String, l255 As String, l265 As String, l266 As String, l616 As String, l615 As String, lWhoisUser As String
     Public Sub ResetMessages()
@@ -43,14 +45,14 @@ Public Class clsIrcNumericHelper
             If lSettings_DCC.lDCC.dRandomizePort = True Then
                 If (lSettings_DCC.lDCC.dSendPort.Contains("-")) Then
                     splt = Split(lSettings_DCC.lDCC.dSendPort, "-")
-                    p = TextManipulation.Text.GetRnd(Convert.ToInt32(splt(0).Trim()), Convert.ToInt32(splt(1).Trim()))
+                    p = TextHelper.GetRnd(Convert.ToInt32(splt(0).Trim()), Convert.ToInt32(splt(1).Trim()))
                 Else
-                    p = TextManipulation.Text.GetRnd(128, 9999)
+                    p = TextHelper.GetRnd(128, 9999)
                 End If
             Else
                 If (lSettings_DCC.lDCC.dSendPort.Contains("-")) Then
                     splt = Split(lSettings_DCC.lDCC.dSendPort, "-")
-                    p = TextManipulation.Text.GetRnd(Convert.ToInt32(splt(0).Trim()), Convert.ToInt32(splt(1).Trim()))
+                    p = TextHelper.GetRnd(Convert.ToInt32(splt(0).Trim()), Convert.ToInt32(splt(1).Trim()))
                 Else
                     p = Convert.ToInt64(lSettings_DCC.lDCC.dSendPort.Trim())
                 End If
@@ -67,8 +69,8 @@ Public Class clsIrcNumericHelper
             Dim n As Integer, b As Boolean
             If (excludeIndex <> 0) Then
                 Do Until b = True
-                    'n = Convert.ToInt32(TextManipulation.Text.GetRnd(1, lSettings.lNetworks.nCount))
-                    n = Convert.ToInt32(TextManipulation.Text.GetRnd(1, Modules.IrcSettings.IrcNetworks.Count()))
+                    'n = Convert.ToInt32(TextHelper.GetRnd(1, lSettings.lNetworks.nCount))
+                    n = Convert.ToInt32(TextHelper.GetRnd(1, Modules.IrcSettings.IrcNetworks.Count()))
                     If (n <> excludeIndex) Then b = True
                 Loop
                 result = n
@@ -99,6 +101,7 @@ Public Class clsIrcNumericHelper
             Throw ex
         End Try
     End Sub
+
     Public Function ReturnMyIp() As String
         Try
             Dim h As System.Net.IPHostEntry = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName)
@@ -112,23 +115,23 @@ Public Class clsIrcNumericHelper
     Public Sub ProcessWhoisCommand(ByVal _StatusIndex As Integer)
         Try
             Dim msg As String = "", _Start As String, _End As String
-            _Start = lStrings.ReturnReplacedString(eStringTypes.sWHOIS_START).Trim & Environment.Newline
+            _Start = lStrings.ReturnReplacedString(eStringTypes.sWHOIS_START).Trim & Environment.NewLine
             _End = lStrings.ReturnReplacedString(eStringTypes.sWHOIS_END).Trim
-            If Len(l311) <> 0 Then msg = msg & l311 & Environment.Newline
-            If Len(l312) <> 0 Then msg = msg & l312 & Environment.Newline
-            If Len(l313) <> 0 Then msg = msg & l313 & Environment.Newline
-            If Len(l316) <> 0 Then msg = msg & l316 & Environment.Newline
-            If Len(l317) <> 0 Then msg = msg & l317 & Environment.Newline
-            If Len(l319) <> 0 Then msg = msg & l319 & Environment.Newline
-            If Len(l378) <> 0 Then msg = msg & l378 & Environment.Newline
-            If Len(l379) <> 0 Then msg = msg & l379 & Environment.Newline
-            If Len(l401) <> 0 Then msg = msg & l401 & Environment.Newline
-            If Len(l615) <> 0 Then msg = msg & l615 & Environment.Newline
-            If Len(l616) <> 0 Then msg = msg & l616 & Environment.Newline
+            If Len(l311) <> 0 Then msg = msg & l311 & Environment.NewLine
+            If Len(l312) <> 0 Then msg = msg & l312 & Environment.NewLine
+            If Len(l313) <> 0 Then msg = msg & l313 & Environment.NewLine
+            If Len(l316) <> 0 Then msg = msg & l316 & Environment.NewLine
+            If Len(l317) <> 0 Then msg = msg & l317 & Environment.NewLine
+            If Len(l319) <> 0 Then msg = msg & l319 & Environment.NewLine
+            If Len(l378) <> 0 Then msg = msg & l378 & Environment.NewLine
+            If Len(l379) <> 0 Then msg = msg & l379 & Environment.NewLine
+            If Len(l401) <> 0 Then msg = msg & l401 & Environment.NewLine
+            If Len(l615) <> 0 Then msg = msg & l615 & Environment.NewLine
+            If Len(l616) <> 0 Then msg = msg & l616 & Environment.NewLine
             If Len(msg) <> 0 Then
                 msg = _Start & msg & _End
-                If (lChannels.HaveChannels(_StatusIndex) = True) Then
-                    lChannels.AddText_WhereUserExists(_StatusIndex, lWhoisUser, msg)
+                If (mdlObjects.lChannels.HaveChannels(_StatusIndex) = True) Then
+                    mdlObjects.lChannels.AddText_WhereUserExists(_StatusIndex, lWhoisUser, msg)
                 Else
                     lStatus.AddText(msg, _StatusIndex)
                 End If
@@ -143,7 +146,7 @@ Public Class clsIrcNumericHelper
             Dim msg As String, msg2 As String, msg3 As String
             msg2 = lStrings.ReturnReplacedString(eStringTypes.sLUSERS_BEGIN)
             msg3 = lStrings.ReturnReplacedString(eStringTypes.sLUSERS_END)
-            msg = "-" & Environment.Newline & msg2 & Chr(13)
+            msg = "-" & Environment.NewLine & msg2 & Chr(13)
             If Len(Trim(l251)) <> 0 Then msg = msg & l251 & Chr(13)
             If Len(Trim(l252)) <> 0 Then msg = msg & l252 & Chr(13)
             If Len(Trim(l254)) <> 0 Then msg = msg & l254 & Chr(13)
@@ -178,12 +181,12 @@ Public Class clsIrcNumericHelper
             Return Nothing
         End Try
     End Function
-    Public Sub ProcessNickNameChange(_StatusIndex As Integer, _Data As String)
+    Public Sub ProcessNickNameChange(ByVal _StatusIndex As Integer, ByVal _Data As String)
         Dim splt() As String, _OldNick As String, _NewNick As String ', _HostName As String
         Try
             splt = Split(_Data, ":")
-            _OldNick = TextManipulation.Text.ParseData(_Data, ":", "!")
-            _NewNick = TextManipulation.Text.ParseData(_Data, "=", " NICK :")
+            _OldNick = TextHelper.ParseData(_Data, ":", "!")
+            _NewNick = TextHelper.ParseData(_Data, "=", " NICK :")
             '_HostName = Right(_Data, Len(_Data) - (Len(splt(1)) + 2))
             'ProcessReplaceString(_StatusIndex, eStringTypes.sNICK_CHANGE, _OldNick, _NewNick, _HostName)
             If _OldNick = lStatus.NickName(_StatusIndex) Then
@@ -194,7 +197,7 @@ Public Class clsIrcNumericHelper
         End Try
     End Sub
 
-    Public Sub ProcessISUPPORT(lData As String)
+    Public Sub ProcessISUPPORT(ByVal lData As String)
         Try
             'TODO
         Catch ex As Exception
@@ -206,8 +209,8 @@ Public Class clsIrcNumericHelper
         Try
             Dim msg As String, splt() As String
             splt = Split(lData, " ")
-            msg = lStrings.ReturnReplacedString(eStringTypes.sCHANNEL_ACTION, TextManipulation.Text.ParseData(lData, ":", "!"), Right(lData, Len(lData) - Len(splt(0) & " " & splt(1) & " " & splt(2) & " " & splt(3))))
-            lChannels.DoChannelColor(lChannels.Find(lStatusIndex, splt(2)), msg)
+            msg = lStrings.ReturnReplacedString(eStringTypes.sCHANNEL_ACTION, TextHelper.ParseData(lData, ":", "!"), Right(lData, Len(lData) - Len(splt(0) & " " & splt(1) & " " & splt(2) & " " & splt(3))))
+            mdlObjects.lChannels.DoChannelColor(mdlObjects.lChannels.Find(lStatusIndex, splt(2)), msg)
         Catch ex As Exception
             Throw ex
         End Try
@@ -216,21 +219,21 @@ Public Class clsIrcNumericHelper
     Public Sub DCCChatProc(ByVal lStatusIndex As Integer, ByVal lData As String)
         Try
             Dim splt() As String, msg As String
-            msg = TextManipulation.Text.ParseData(lData, ":", "!")
+            msg = TextHelper.ParseData(lData, ":", "!")
             splt = Split(lData, " ")
             If lSettings_DCC.lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then Exit Sub
             If IsNickNameInDCCIgnoreList(Trim(msg)) = False Then
-                If lSettings_DCC.lDCC.dChatPrompt = Settings2.eDCCPrompt.ePrompt Then
-                    Dim lDCCChatPrompt As New frmDCCChatPrompt
+                If lSettings_DCC.lDCC.dChatPrompt = eDccPrompt.ePrompt Then
+                    Dim lDCCChatPrompt As New frmDccChatPrompt
                     lDCCChatPrompt.SetInfo(Trim(msg), splt(6), splt(7))
                     lDCCChatPrompt.SetStatusIndex(lStatusIndex)
                     lDCCChatPrompt.Show()
-                ElseIf lSettings_DCC.lDCC.dChatPrompt = Settings2.eDCCPrompt.eAcceptAll Then
+                ElseIf lSettings_DCC.lDCC.dChatPrompt = eDccPrompt.eAcceptAll Then
                     Dim lDCCChat As New frmDCCChat
                     lDCCChat.cboUsers.Text = Trim(msg)
                     lDCCChat.lDccChatUI.SetInfo(splt(6), Trim(splt(7)))
                     lDCCChat.Show()
-                ElseIf lSettings_DCC.lDCC.dChatPrompt = Settings2.eDCCPrompt.eIgnore Then
+                ElseIf lSettings_DCC.lDCC.dChatPrompt = eDccPrompt.eIgnore Then
                 End If
             End If
         Catch ex As Exception
@@ -281,7 +284,7 @@ Public Class clsIrcNumericHelper
     Public Sub DCCSendProc(ByVal lData As String)
         Try
             Dim lForm As New frmDCCGet, splt() As String, splt2() As String, msg As String
-            msg = TextManipulation.Text.ParseData(lData, ":", "!")
+            msg = TextHelper.ParseData(lData, ":", "!")
             splt = Split(lData, " ")
             If lSettings_DCC.lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then
                 lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Auto Ignore is enabled, and user is unknown '" & msg & "'.")
@@ -289,15 +292,15 @@ Public Class clsIrcNumericHelper
             End If
             If IsNickNameInDCCIgnoreList(msg) = False Then
                 If ReturnIsFileTypeIgnored(Trim(splt(5))) = False Then
-                    If lSettings_DCC.lDCC.dSendPrompt = Settings2.eDCCPrompt.ePrompt Then
+                    If lSettings_DCC.lDCC.dSendPrompt = eDccPrompt.ePrompt Then
                         mdiMain.tspDCCToolBar.Items(0).Text = "Accept the file '" & Trim(splt(5)) & "' from the user '" & msg & "'?"
                         mdiMain.tspDCCToolBar.Visible = True
                         mdiMain.lblUser.Tag = msg & Environment.NewLine & Trim(splt(6)) & Environment.NewLine & Trim(splt(7)) & Environment.NewLine & Trim(splt(5)) & Environment.NewLine & Trim(splt(8))
-                    ElseIf lSettings_DCC.lDCC.dSendPrompt = Settings2.eDCCPrompt.eAcceptAll Then
+                    ElseIf lSettings_DCC.lDCC.dSendPrompt = eDccPrompt.eAcceptAll Then
                         lForm.InitDCCGet(Trim(msg), Trim(splt(6)), Trim(splt(7)), Trim(splt(5)), Trim(splt(8)))
                         'animate.Animate(lForm, animate.Effect.Center, 200, 1)
                         lForm.Show()
-                    ElseIf lSettings_DCC.lDCC.dSendPrompt = Settings2.eDCCPrompt.eIgnore Then
+                    ElseIf lSettings_DCC.lDCC.dSendPrompt = eDccPrompt.eIgnore Then
                         lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring all DCC connections")
                     End If
                 Else
@@ -363,8 +366,8 @@ Public Class clsIrcNumericHelper
     Public Sub ProcessDataArrival(ByVal lStatusIndex As Integer, ByVal lData As String)
         Try
             Dim splt() As String, i As Integer
-            If InStr(lData, Environment.Newline) <> 0 Then
-                splt = Split(lData, Environment.Newline)
+            If InStr(lData, Environment.NewLine) <> 0 Then
+                splt = Split(lData, Environment.NewLine)
                 For i = 0 To UBound(splt)
                     lProcessNumeric.ProcessDataArrivalLine(lStatusIndex, splt(i))
                 Next i

@@ -4,6 +4,8 @@ Option Explicit On
 Option Strict On
 Imports Telerik.WinControls.UI
 Imports nexIRC.Modules
+Imports nexIRC.Business.Enums
+
 Public Class clsSharedAdd
     Public Enum eSharedAddType
         sAddNetwork = 1
@@ -13,9 +15,9 @@ Public Class clsSharedAdd
         sKick = 5
         sKill = 6
     End Enum
-    Public Event ChangeCaption(_Data As String)
-    Public Event ChangeMoreInformationLabel1(data As String)
-    Public Event ChangeMoreInformationLabel2(data As String)
+    Public Event ChangeCaption(ByVal _Data As String)
+    Public Event ChangeMoreInformationLabel1(ByVal data As String)
+    Public Event ChangeMoreInformationLabel2(ByVal data As String)
     Public Event CloseForm()
     Public Event FocusTextBox()
     Public StatusIndex As Integer
@@ -29,7 +31,7 @@ Public Class clsSharedAdd
                 Return Nothing
             End Try
         End Get
-        Set(_SharedAddType As eSharedAddType)
+        Set(ByVal _SharedAddType As eSharedAddType)
             Try
                 lSharedAddType = _SharedAddType
                 Select Case _SharedAddType
@@ -59,7 +61,7 @@ Public Class clsSharedAdd
             End Try
         End Set
     End Property
-    Private Sub OK_Button(_Value As String)
+    Private Sub OK_Button(ByVal _Value As String)
         Try
             Select Case lSharedAddType
                 Case eSharedAddType.sAddNickName
@@ -80,10 +82,10 @@ Public Class clsSharedAdd
                     End If
                 Case eSharedAddType.sCommandError
                     If (Not String.IsNullOrEmpty(_Value)) Then
-                        Modules.lStrings.ProcessReplaceCommand(StatusIndex, clsCommandTypes.eCommandTypes.cERROR, _Value)
+                        Modules.lStrings.ProcessReplaceCommand(StatusIndex, IrcCommandTypes.cERROR, _Value)
                     End If
                 Case eSharedAddType.sInfo
-                    Modules.lStrings.ProcessReplaceCommand(StatusIndex, clsCommandTypes.eCommandTypes.cINFO, _Value)
+                    Modules.lStrings.ProcessReplaceCommand(StatusIndex, IrcCommandTypes.cINFO, _Value)
             End Select
         Catch ex As Exception
             Throw ex
@@ -100,7 +102,7 @@ Public Class clsSharedAdd
             Throw ex
         End Try
     End Sub
-    Public Sub txtNetworkDescription_KeyPress(ByVal e As System.Windows.Forms.KeyPressEventArgs, _Form As Form, _DescriptionTextBox As RadTextBox)
+    Public Sub txtNetworkDescription_KeyPress(ByVal e As System.Windows.Forms.KeyPressEventArgs, ByVal _Form As Form, ByVal _DescriptionTextBox As RadTextBox)
         Try
             If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Return) Then
                 e.Handled = True
@@ -113,7 +115,7 @@ Public Class clsSharedAdd
     Public Sub mnuExit_Click()
         RaiseEvent CloseForm()
     End Sub
-    Public Sub cmdOK_Click(_Value As String, _Form As Form)
+    Public Sub cmdOK_Click(ByVal _Value As String, ByVal _Form As Form)
         OK_Button(_Value)
     End Sub
     Public Sub ExitToolStripMenuItem_Click()

@@ -1,35 +1,34 @@
 ﻿Option Explicit On
 Option Strict On
-Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
-Imports nexIRC.Classes.IO
 Imports Telerik.WinControls.UI
 Imports nexIRC.clsCommandTypes
-Imports nexIRC.IniFile
+Imports nexIRC.Business.Helpers
+Imports nexIRC.Business.Enums
 
 Public Class clsChannelListUI
     Public Event SaveColumnWidths()
     Public lSortOrder As SortOrder
     Private lCurrentChannel As String
     Private lMeIndex As Integer
-    Public Sub cmdAddToChannelFolder_Click(channel As String)
+    Public Sub cmdAddToChannelFolder_Click(ByVal channel As String)
         Try
             Modules.IrcSettings.ChannelFolders.Add(channel, Modules.IrcSettings.IrcNetworks.GetDefault().Description)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Public Sub cmdRefresh_Click(form As Form)
+    Public Sub cmdRefresh_Click(ByVal form As Form)
         Try
             Dim n As Integer = lStatus.ActiveIndex
-            lStrings.ProcessReplaceCommand(n, eCommandTypes.cLIST, lStatus.ServerDescription(n))
+            lStrings.ProcessReplaceCommand(n, IrcCommandTypes.cLIST, lStatus.ServerDescription(n))
             form.Close()
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
     Public WriteOnly Property MeIndex() As Integer
-        Set(_MeIndex As Integer)
+        Set(ByVal _MeIndex As Integer)
             Try
                 lMeIndex = _MeIndex
                 lChannelLists.SetOpen(lMeIndex)
@@ -38,36 +37,36 @@ Public Class clsChannelListUI
             End Try
         End Set
     End Property
-    Public Sub FormClosed(_ChannelsListView As ListView, _FormLeft As Integer, _FormTop As Integer, _FormWidth As Integer, _FormHeight As Integer)
+    Public Sub FormClosed(ByVal _ChannelsListView As ListView, ByVal _FormLeft As Integer, ByVal _FormTop As Integer, ByVal _FormWidth As Integer, ByVal _FormHeight As Integer)
         Try
-            Files.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Left", _FormLeft.ToString)
-            Files.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Top", _FormTop.ToString)
-            Files.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Width", _FormWidth.ToString)
-            Files.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Height", _FormHeight.ToString)
+            IniFileHelper.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Left", _FormLeft.ToString)
+            IniFileHelper.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Top", _FormTop.ToString)
+            IniFileHelper.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Width", _FormWidth.ToString)
+            IniFileHelper.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Height", _FormHeight.ToString)
             lChannelLists.SetClosed(lMeIndex)
             RaiseEvent SaveColumnWidths()
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Public Sub ResetList(_ListView As ListView)
+    Public Sub ResetList(ByVal _ListView As ListView)
         Try
             _ListView.Items.Clear()
             _ListView.View = View.Details
             _ListView.HeaderStyle = ColumnHeaderStyle.Clickable
-            _ListView.Columns.Add("Channel", Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "1", "150"))), HorizontalAlignment.Left)
-            _ListView.Columns.Add("Topic", Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "2", "350"))), HorizontalAlignment.Left)
-            _ListView.Columns.Add("Users", Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "3", "100"))), HorizontalAlignment.Left)
+            _ListView.Columns.Add("Channel", Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "1", "150"))), HorizontalAlignment.Left)
+            _ListView.Columns.Add("Topic", Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "2", "350"))), HorizontalAlignment.Left)
+            _ListView.Columns.Add("Users", Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "3", "100"))), HorizontalAlignment.Left)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Public Sub Load(_Form As Form, _ListView As ListView)
+    Public Sub Load(ByVal _Form As Form, ByVal _ListView As ListView)
         Try
-            _Form.Left = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "ChannelList", "Left", "300")))
-            _Form.Top = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "ChannelList", "Top", "300")))
-            _Form.Width = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "ChannelList", "Width", "300")))
-            _Form.Height = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "ChannelList", "Height", "300")))
+            _Form.Left = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "ChannelList", "Left", "300")))
+            _Form.Top = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "ChannelList", "Top", "300")))
+            _Form.Width = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "ChannelList", "Width", "300")))
+            _Form.Height = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "ChannelList", "Height", "300")))
             _Form.MdiParent() = mdiMain
             _Form.Icon = mdiMain.Icon
             ResetList(_ListView)
@@ -75,7 +74,7 @@ Public Class clsChannelListUI
             Throw ex
         End Try
     End Sub
-    Public Sub Resize(_ListView As ListView, _Form As Form, _ToolStripHeight As Integer)
+    Public Sub Resize(ByVal _ListView As ListView, ByVal _Form As Form, ByVal _ToolStripHeight As Integer)
         Try
             _ListView.Width = _Form.ClientSize.Width
             _ListView.Height = _Form.ClientSize.Height - _ToolStripHeight
@@ -83,7 +82,7 @@ Public Class clsChannelListUI
             Throw ex
         End Try
     End Sub
-    Public Sub DoubleClick(_ListView As ListView)
+    Public Sub DoubleClick(ByVal _ListView As ListView)
         Try
             Dim i As Integer
             For i = 0 To _ListView.SelectedItems.Count
@@ -93,7 +92,7 @@ Public Class clsChannelListUI
             Throw ex
         End Try
     End Sub
-    Public Sub ItemSelectionChanged(_ListView As ListView, _ItemIndex As Integer)
+    Public Sub ItemSelectionChanged(ByVal _ListView As ListView, ByVal _ItemIndex As Integer)
         Try
             lCurrentChannel = _ListView.Items(_ItemIndex).Text
         Catch ex As Exception
@@ -125,7 +124,7 @@ Public Class clsChannelList
         Public cCount As Integer
     End Structure
     Private lChannelLists As gChannelLists
-    Public Function ReturnChannelListIndex(_StatusIndex As Integer) As Integer
+    Public Function ReturnChannelListIndex(ByVal _StatusIndex As Integer) As Integer
         Try
             Dim n As Integer = 0
             For i As Integer = 1 To lChannelLists.cCount
@@ -139,7 +138,7 @@ Public Class clsChannelList
             Return Nothing
         End Try
     End Function
-    Public Function ReturnStatusIndex(_ChannelListIndex As Integer) As Integer
+    Public Function ReturnStatusIndex(ByVal _ChannelListIndex As Integer) As Integer
         Try
             If (lChannelLists.cChannelList IsNot Nothing) Then
                 Return lChannelLists.cChannelList(_ChannelListIndex).cStatusIndex
@@ -151,7 +150,7 @@ Public Class clsChannelList
             Return Nothing
         End Try
     End Function
-    Public Sub NewChannelList(_StatusIndex As Integer)
+    Public Sub NewChannelList(ByVal _StatusIndex As Integer)
         Try
             Dim b As Boolean = False, _ChannelListIndex As Integer
             For i As Integer = 1 To lChannelLists.cCount
@@ -181,7 +180,7 @@ Public Class clsChannelList
             Throw ex
         End Try
     End Sub
-    Public Sub Clear(_ChannelListIndex As Integer)
+    Public Sub Clear(ByVal _ChannelListIndex As Integer)
         Try
             With lChannelLists.cChannelList(_ChannelListIndex)
                 .cWindow.lvwChannels.Clear()
@@ -190,7 +189,7 @@ Public Class clsChannelList
             Throw ex
         End Try
     End Sub
-    Public Sub Unload(_ChannelListIndex As Integer)
+    Public Sub Unload(ByVal _ChannelListIndex As Integer)
         Try
             If lChannelLists.cCount <> 0 Then
                 With lChannelLists.cChannelList(_ChannelListIndex)
@@ -205,8 +204,8 @@ Public Class clsChannelList
             Throw ex
         End Try
     End Sub
-    Public WriteOnly Property StatusDescription(_ChannelListIndex As Integer) As String
-        Set(_StatusDescription As String)
+    Public WriteOnly Property StatusDescription(ByVal _ChannelListIndex As Integer) As String
+        Set(ByVal _StatusDescription As String)
             Try
                 lChannelLists.cChannelList(_ChannelListIndex).cStatusDescription = _StatusDescription
             Catch ex As Exception
@@ -214,7 +213,7 @@ Public Class clsChannelList
             End Try
         End Set
     End Property
-    Public Sub Display(_ChannelListIndex As Integer)
+    Public Sub Display(ByVal _ChannelListIndex As Integer)
         Try
             With lChannelLists.cChannelList(_ChannelListIndex)
                 '.cWindow.Text = "Channel List [" & lStatusObjects.sStatusObject(lStatusIndex).sDescription & "]"
@@ -229,7 +228,7 @@ Public Class clsChannelList
             Throw ex
         End Try
     End Sub
-    Private Sub SetItems(_ChannelListIndex As Integer)
+    Private Sub SetItems(ByVal _ChannelListIndex As Integer)
         Try
             Dim _Item As ListViewItem
             With lChannelLists.cChannelList(_ChannelListIndex)
@@ -243,7 +242,7 @@ Public Class clsChannelList
             Throw ex
         End Try
     End Sub
-    Public Sub Close(_ChannelListIndex As Integer)
+    Public Sub Close(ByVal _ChannelListIndex As Integer)
         Try
             With lChannelLists.cChannelList(_ChannelListIndex)
                 If .cVisible = True Then .cWindow.Close()
@@ -252,7 +251,7 @@ Public Class clsChannelList
             Throw ex
         End Try
     End Sub
-    Public Sub HideTreeNode(_ChannelListIndex As Integer)
+    Public Sub HideTreeNode(ByVal _ChannelListIndex As Integer)
         Try
             With lChannelLists.cChannelList(_ChannelListIndex)
                 If .cTreeNodeVisible = True Then
@@ -264,7 +263,7 @@ Public Class clsChannelList
             Throw ex
         End Try
     End Sub
-    Public Sub DoubleClick(_ChannelListIndex As Integer)
+    Public Sub DoubleClick(ByVal _ChannelListIndex As Integer)
         Try
             With lChannelLists.cChannelList(_ChannelListIndex)
                 If .cVisible = False Then
@@ -293,7 +292,7 @@ Public Class clsChannelList
             Throw ex
         End Try
     End Sub
-    Public Function DoesChannelExist(_ChannelListIndex As Integer, _Channel As String) As Boolean
+    Public Function DoesChannelExist(ByVal _ChannelListIndex As Integer, ByVal _Channel As String) As Boolean
         Try
             Dim _Result As Boolean = False
             With lChannelLists.cChannelList(_ChannelListIndex)
@@ -309,7 +308,7 @@ Public Class clsChannelList
             Return Nothing
         End Try
     End Function
-    Public Sub Add(_ChannelListIndex As Integer, ByVal _Data As String)
+    Public Sub Add(ByVal _ChannelListIndex As Integer, ByVal _Data As String)
         Try
             Dim splt() As String, splt2() As String, i As Integer, msg As String
             If Left(_Data, 1) <> ":" Then _Data = ":" & _Data
@@ -319,7 +318,7 @@ Public Class clsChannelList
                 splt2 = Split(splt(1), " ")
                 i = Len(splt2(0)) + Len(splt2(1)) + Len(splt2(2)) + Len(splt2(3)) + Len(splt2(4)) + 7
                 msg = Right(_Data, Len(_Data) - i)
-                msg = TextManipulation.Text.StripColorCodes(msg)
+                msg = TextHelper.StripColorCodes(msg)
                 If msg = Nothing Then msg = ""
                 If DoesChannelExist(_ChannelListIndex, splt2(3)) = False Then
                     With lChannelLists.cChannelList(_ChannelListIndex)
@@ -342,7 +341,7 @@ Public Class clsChannelList
             Throw ex
         End Try
     End Sub
-    Public Sub SetOpen(_ChannelListIndex As Integer)
+    Public Sub SetOpen(ByVal _ChannelListIndex As Integer)
         Try
             With lChannelLists.cChannelList(_ChannelListIndex)
                 .cVisible = True
@@ -351,7 +350,7 @@ Public Class clsChannelList
             Throw ex
         End Try
     End Sub
-    Public Sub SetClosed(_ChannelListIndex As Integer)
+    Public Sub SetClosed(ByVal _ChannelListIndex As Integer)
         Try
             With lChannelLists.cChannelList(_ChannelListIndex)
                 .cVisible = False

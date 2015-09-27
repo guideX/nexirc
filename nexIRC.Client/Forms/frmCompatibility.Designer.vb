@@ -43,6 +43,7 @@ Partial Class frmCompatibility
         Me.lvwCompatibility.Size = New System.Drawing.Size(290, 153)
         Me.lvwCompatibility.TabIndex = 0
         Me.lvwCompatibility.Text = "RadListView1"
+        Me.lvwCompatibility.ThemeName = "Office2010Black"
         '
         'cmdOK
         '
@@ -51,6 +52,7 @@ Partial Class frmCompatibility
         Me.cmdOK.Size = New System.Drawing.Size(59, 24)
         Me.cmdOK.TabIndex = 1
         Me.cmdOK.Text = "OK"
+        Me.cmdOK.ThemeName = "Office2010Black"
         '
         'cmdCancel
         '
@@ -59,6 +61,7 @@ Partial Class frmCompatibility
         Me.cmdCancel.Size = New System.Drawing.Size(59, 24)
         Me.cmdCancel.TabIndex = 2
         Me.cmdCancel.Text = "Cancel"
+        Me.cmdCancel.ThemeName = "Office2010Black"
         '
         'lnkRemove
         '
@@ -98,6 +101,7 @@ Partial Class frmCompatibility
         '
         Me.RootElement.ApplyShapeToControl = True
         Me.Text = "nexIRC - Compatibility"
+        Me.ThemeName = "Office2010Black"
         CType(Me.lvwCompatibility, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).EndInit()

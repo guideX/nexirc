@@ -2,18 +2,20 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Classes.IO
-Imports nexIRC.Classes.UI
+'Imports nexIRC.Classes.IO
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
 Imports Telerik.WinControls.UI
 Imports Telerik.WinControls
-Imports nexIRC.IniFile
+Imports nexIRC.UI
+Imports nexIRC.Business.Helpers
+Imports nexIRC.IrcSettings
+Imports nexIRC.Business.Enums
 
 Namespace nexIRC.MainWindow
     Public Class clsMainWindowUI
         Public WithEvents lProcesses As New IrcProcess
-        Private lLoadingForm As New frmLoading
+        Private lLoadingForm As New FrmLoading
         Private lFlashesLeft As Integer
 
         Public Structure gBrowser
@@ -37,12 +39,12 @@ Namespace nexIRC.MainWindow
         End Enum
 
         Public Event SetBackgroundColor()
-        Public Event QueryBarPromptLabelVisible(text As String, tag As String)
-        Public Event SetDimensions(left As Integer, top As Integer, width As Integer, height As Integer)
-        Public Event EnableStartupSettingsTimer(tickInterval As Integer)
-        Public Event FormTitle(title As String)
+        Public Event QueryBarPromptLabelVisible(ByVal text As String, ByVal tag As String)
+        Public Event SetDimensions(ByVal left As Integer, ByVal top As Integer, ByVal width As Integer, ByVal height As Integer)
+        Public Event EnableStartupSettingsTimer(ByVal tickInterval As Integer)
+        Public Event FormTitle(ByVal title As String)
 
-        Public Sub ShowQueryBar(ByVal _Text As String, ByVal _Function As eInfoBar, _QueryPromptLabel As ToolStripLabel, _ToolStrip As ToolStrip)
+        Public Sub ShowQueryBar(ByVal _Text As String, ByVal _Function As eInfoBar, ByVal _QueryPromptLabel As ToolStripLabel, ByVal _ToolStrip As ToolStrip)
             Try
                 If Len(_Text) <> 0 Then
                     RaiseEvent QueryBarPromptLabelVisible(_Text, Trim(CType(_Function, Integer).ToString))
@@ -52,7 +54,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub SetFlashesLeft(ByVal _Value As Integer, _FlashDCCToolBarTimer As Timer)
+        Public Sub SetFlashesLeft(ByVal _Value As Integer, ByVal _FlashDCCToolBarTimer As Timer)
             Try
                 lFlashesLeft = _Value
                 _FlashDCCToolBarTimer.Enabled = True
@@ -61,7 +63,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Function AddWindowBar(ByVal _Text As String, ByVal _ImageType As gWindowBarImageTypes, _ImageList As ImageList, _ToolStrip As ToolStrip) As ToolStripItem
+        Public Function AddWindowBar(ByVal _Text As String, ByVal _ImageType As gWindowBarImageTypes, ByVal _ImageList As ImageList, ByVal _ToolStrip As ToolStrip) As ToolStripItem
             Try
                 Dim lImage As Image, i As Integer
                 Select Case _ImageType
@@ -82,7 +84,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Function
 
-        Public Sub RemoveWindowBar(ByVal _Text As String, _ToolStrip As ToolStrip)
+        Public Sub RemoveWindowBar(ByVal _Text As String, ByVal _ToolStrip As ToolStrip)
             Try
                 Dim i As Integer
                 For i = 0 To _ToolStrip.Items.Count - 1
@@ -96,7 +98,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub ClearWindowBar(_ToolStrip As ToolStrip)
+        Public Sub ClearWindowBar(ByVal _ToolStrip As ToolStrip)
             Try
                 _ToolStrip.Items.Clear()
             Catch ex As Exception
@@ -104,20 +106,20 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub FormClosed(_Form As Form, _NotifyIcon As NotifyIcon, _SideBarShown As Boolean)
+        Public Sub FormClosed(ByVal _Form As Form, ByVal _NotifyIcon As NotifyIcon, ByVal _SideBarShown As Boolean)
             Try
                 If _Form.WindowState = FormWindowState.Minimized Then _NotifyIcon.Visible = True
-                Files.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Left", _Form.Left.ToString().Trim())
-                Files.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Top", _Form.Top.ToString().Trim())
-                Files.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Width", _Form.Width.ToString().Trim())
-                Files.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Height", _Form.Height.ToString().Trim())
-                Files.WriteINI(lSettings.lINI.iIRC, "mdiMain", "SideBarShown", _SideBarShown.ToString())
+                IniFileHelper.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Left", _Form.Left.ToString().Trim())
+                IniFileHelper.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Top", _Form.Top.ToString().Trim())
+                IniFileHelper.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Width", _Form.Width.ToString().Trim())
+                IniFileHelper.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Height", _Form.Height.ToString().Trim())
+                IniFileHelper.WriteINI(lSettings.lINI.iIRC, "mdiMain", "SideBarShown", _SideBarShown.ToString())
             Catch ex As Exception
                 Throw ex
             End Try
         End Sub
 
-        Public Sub FormClosing(e As System.Windows.Forms.FormClosingEventArgs, _Form As Form, _WaitForQuitTimer As Timer)
+        Public Sub FormClosing(ByVal e As System.Windows.Forms.FormClosingEventArgs, ByVal _Form As Form, ByVal _WaitForQuitTimer As Timer)
             Try
                 lStatus.Closing = True
                 If lStatus.QuitAll() = False Then
@@ -140,7 +142,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Function OpenDialogFileNames(_DialogOpen As OpenFileDialog, ByVal _InitDir As String, ByVal _Title As String, ByVal _Filter As String) As String()
+        Public Function OpenDialogFileNames(ByVal _DialogOpen As OpenFileDialog, ByVal _InitDir As String, ByVal _Title As String, ByVal _Filter As String) As String()
             Try
                 With _DialogOpen
                     .Filter = _Filter
@@ -156,13 +158,13 @@ Namespace nexIRC.MainWindow
             End Try
         End Function
 
-        Public Sub Form_Load(_Form As Form, _NotifyIcon As NotifyIcon, _LeftBarButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
+        Public Sub Form_Load(ByVal _Form As Form, ByVal _NotifyIcon As NotifyIcon, ByVal _LeftBarButton As Button, ByVal _LeftNav As Panel, ByVal _ToolStrip As ToolStrip, ByVal _WindowsToolStrip As ToolStrip)
             Dim sideBarShown As Boolean
             'Try
             _WindowsToolStrip.ForeColor = Color.White
             _NotifyIcon.Visible = True
             _NotifyIcon.Icon = _Form.Icon
-            lLoadingForm = New frmLoading
+            lLoadingForm = New FrmLoading
             lLoadingForm.Show()
             lLoadingForm.Focus()
             Application.DoEvents()
@@ -175,17 +177,17 @@ Namespace nexIRC.MainWindow
             lSettings.LoadSettings()
             lLoadingForm.Focus()
             If lSettings.lServers.sIndex <> 0 Then lStatus.Create(lSettings.lIRC, lSettings.lServers)
-            _Form.Left = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Left", Convert.ToString(_Form.Left))))
-            _Form.Top = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Top", Convert.ToString(_Form.Top))))
-            _Form.Width = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Width", Convert.ToString(_Form.Width))))
-            _Form.Height = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Height", Convert.ToString(_Form.Height))))
+            _Form.Left = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Left", Convert.ToString(_Form.Left))))
+            _Form.Top = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Top", Convert.ToString(_Form.Top))))
+            _Form.Width = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Width", Convert.ToString(_Form.Width))))
+            _Form.Height = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Height", Convert.ToString(_Form.Height))))
             If lSettings.lIRC.iIdent.iSettings.iEnabled = True Then
                 lIdent.Listen(113)
             End If
             SetLoadingFormProgress("Loading Complete", 100)
             lLoadingForm.Close()
             _Form.Text = "nexIRC v" & Application.ProductVersion
-            sideBarShown = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "SideBarShown", "False"))
+            sideBarShown = Convert.ToBoolean(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "mdiMain", "SideBarShown", "False"))
             _LeftBarButton.Left = 0
             If (Not sideBarShown) Then
                 _LeftNav.Visible = False
@@ -200,7 +202,7 @@ Namespace nexIRC.MainWindow
             'End Try
         End Sub
 
-        Public Sub Form_Resize(_Form As Form, _LeftButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
+        Public Sub Form_Resize(ByVal _Form As Form, ByVal _LeftButton As Button, ByVal _LeftNav As Panel, ByVal _ToolStrip As ToolStrip, ByVal _WindowsToolStrip As ToolStrip)
             Try
                 _LeftButton.Top = Convert.ToInt32(_Form.ClientSize.Height / 2)
                 If _LeftNav.Visible = True Then
@@ -224,7 +226,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub HideChildren(_Form As Form, ByVal _Except As Form, _ActiveForm As Form)
+        Public Sub HideChildren(ByVal _Form As Form, ByVal _Except As Form, ByVal _ActiveForm As Form)
             Try
                 Dim i As Integer
                 If _ActiveForm.Name = _Except.Name Then Exit Sub
@@ -237,7 +239,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub StartupSettingsTimer_Tick(_Timer As Timer)
+        Public Sub StartupSettingsTimer_Tick(ByVal _Timer As Timer)
             Try
                 _Timer.Enabled = False
                 If lSettings.lIRC.iSettings.sCustomizeOnStartup = True Then
@@ -249,7 +251,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub FlashDCCToolBarTimer_Tick(_Timer As Timer)
+        Public Sub FlashDCCToolBarTimer_Tick(ByVal _Timer As Timer)
             Try
                 If lFlashesLeft = 0 Then
                     _Timer.Enabled = False
@@ -266,7 +268,7 @@ Namespace nexIRC.MainWindow
             Try
                 If (IsNumeric(e.ClickedItem.Tag.ToString()) = True) Then
                     meIndex = CType(e.ClickedItem.Tag.ToString(), Integer)
-                    If TextManipulation.Text.DoLeft(e.ClickedItem.Text, 1) = "#" Then
+                    If TextHelper.DoLeft(e.ClickedItem.Text, 1) = "#" Then
                         channelIndex = lChannels.Find(meIndex, e.ClickedItem.Text.ToString)
                         If (lChannels.Visible(channelIndex)) Then
                             lChannels.Focus(channelIndex)
@@ -295,7 +297,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub Connections_DoubleClick(_SelectedNode As TreeNode)
+        Public Sub Connections_DoubleClick(ByVal _SelectedNode As TreeNode)
             Try
                 lStatus.DblClickConnections(_SelectedNode)
             Catch ex As Exception
@@ -303,7 +305,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub cmdAcceptQuery_Click(_QueryPromptLabel As ToolStripItem, _QueryPromptToolStrip As ToolStrip)
+        Public Sub cmdAcceptQuery_Click(ByVal _QueryPromptLabel As ToolStripItem, ByVal _QueryPromptToolStrip As ToolStrip)
             Try
                 Dim splt() As String, _NickName As String, _HostName As String
                 If Len(_QueryPromptLabel.Tag.ToString) = 1 Then
@@ -314,9 +316,9 @@ Namespace nexIRC.MainWindow
                     End Select
                 ElseIf InStr(_QueryPromptLabel.Tag.ToString, ":") <> 0 Then
                     splt = Split(_QueryPromptLabel.Tag.ToString, ":")
-                    If (Modules.IrcSettings.QuerySettings.Get().AutoShowWindow()) Then
-                        _NickName = TextManipulation.Text.ParseData(_QueryPromptLabel.Text, "'", "(")
-                        _HostName = TextManipulation.Text.ParseData(_QueryPromptLabel.Text, "(", ")")
+                    If (New QuerySettings(Application.StartupPath).Get().AutoShowWindow()) Then
+                        _NickName = TextHelper.ParseData(_QueryPromptLabel.Text, "'", "(")
+                        _HostName = TextHelper.ParseData(_QueryPromptLabel.Text, "(", ")")
                         lStatus.PrivateMessage_Add(Convert.ToInt32(Trim(splt(0))), _NickName, _HostName, splt(2), True)
                     End If
                     _QueryPromptToolStrip.Visible = False
@@ -326,7 +328,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub cmdDeclineQuery_Click(_QueryPromptToolStrip As ToolStrip)
+        Public Sub cmdDeclineQuery_Click(ByVal _QueryPromptToolStrip As ToolStrip)
             Try
                 _QueryPromptToolStrip.Visible = False
             Catch ex As Exception
@@ -340,9 +342,9 @@ Namespace nexIRC.MainWindow
             Next i
         End Sub
 
-        Public Sub cmd_ClearHistory_Click(_Recent1 As RadMenuItem, _Recent2 As RadMenuItem, _Recent3 As RadMenuItem)
+        Public Sub cmd_ClearHistory_Click(ByVal _Recent1 As RadMenuItem, ByVal _Recent2 As RadMenuItem, ByVal _Recent3 As RadMenuItem)
             Try
-                Dim i As Integer
+                'Dim i As Integer
                 _Recent1.Text = "(Empty)"
                 _Recent2.Text = "(Empty)"
                 _Recent3.Text = "(Empty)"
@@ -355,12 +357,12 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Private Sub InitializeSharedAddWindow(type As clsSharedAdd.eSharedAddType)
+        Private Sub InitializeSharedAddWindow(ByVal type As clsSharedAdd.eSharedAddType)
             Dim form As frmSharedAdd
             Try
                 form = New frmSharedAdd()
                 form.lSharedAddUI.SharedAddType = type
-                form.lSharedAddUI.StatusIndex = Modules.lStatus.ActiveIndex
+                form.lSharedAddUI.StatusIndex = lStatus.ActiveIndex
                 form.Show()
             Catch ex As Exception
                 Throw ex
@@ -392,11 +394,11 @@ Namespace nexIRC.MainWindow
         End Sub
 
         Public Sub cmd_Help()
-            Modules.lStrings.ProcessReplaceCommand(Modules.lStatus.ActiveIndex, clsCommandTypes.eCommandTypes.cHELP)
+            lStrings.ProcessReplaceCommand(lStatus.ActiveIndex, IrcCommandTypes.cHELP)
         End Sub
 
         Public Sub cmd_Die()
-            lStrings.ProcessReplaceCommand(lStatus.ActiveIndex, clsCommandTypes.eCommandTypes.cDIE)
+            lStrings.ProcessReplaceCommand(lStatus.ActiveIndex, IrcCommandTypes.cDIE)
         End Sub
 
         Public Sub cmd_Invite()
@@ -404,9 +406,9 @@ Namespace nexIRC.MainWindow
             f.Show()
         End Sub
 
-        Public Sub cmd_ClearHistory_Click(_Recent1 As ToolStripMenuItem, _Recent2 As ToolStripMenuItem, _Recent3 As ToolStripMenuItem)
+        Public Sub cmd_ClearHistory_Click(ByVal _Recent1 As ToolStripMenuItem, ByVal _Recent2 As ToolStripMenuItem, ByVal _Recent3 As ToolStripMenuItem)
             Try
-                Dim i As Integer
+                'Dim i As Integer
                 _Recent1.Text = "(Empty)"
                 _Recent2.Text = "(Empty)"
                 _Recent3.Text = "(Empty)"
@@ -463,10 +465,10 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_ListChannels_Click()
             Dim n As Integer = lStatus.ActiveIndex
-            lStrings.ProcessReplaceCommand(n, eCommandTypes.cLIST, lStatus.ServerDescription(n))
+            lStrings.ProcessReplaceCommand(n, IrcCommandTypes.cLIST, lStatus.ServerDescription(n))
         End Sub
 
-        Public Sub cmd_LeftBar_Click(_LeftBarButton As ToolStripMenuItem, _LeftPanel As Panel, _Form As Form)
+        Public Sub cmd_LeftBar_Click(ByVal _LeftBarButton As ToolStripMenuItem, ByVal _LeftPanel As Panel, ByVal _Form As Form)
             Try
                 If _LeftBarButton.Checked = True Then
                     _LeftBarButton.Checked = False
@@ -482,7 +484,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub cmd_WindowBar_Click(_WindowBarButton As ToolStripMenuItem, _WindowsToolStrip As ToolStrip, _Form As Form)
+        Public Sub cmd_WindowBar_Click(ByVal _WindowBarButton As ToolStripMenuItem, ByVal _WindowsToolStrip As ToolStrip, ByVal _Form As Form)
             Try
                 If _WindowBarButton.Checked = True Then
                     _WindowBarButton.Checked = False
@@ -497,17 +499,17 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub cmd_Cascade_Click(_Form As Form)
+        Public Sub cmd_Cascade_Click(ByVal _Form As Form)
             _Form.LayoutMdi(MdiLayout.Cascade)
         End Sub
-        Public Sub cmd_TileHorizontal_Click(_Form As Form)
+        Public Sub cmd_TileHorizontal_Click(ByVal _Form As Form)
             _Form.LayoutMdi(MdiLayout.TileHorizontal)
         End Sub
-        Public Sub cmd_TileVertical_Click(_Form As Form)
+        Public Sub cmd_TileVertical_Click(ByVal _Form As Form)
             _Form.LayoutMdi(MdiLayout.TileVertical)
         End Sub
 
-        Public Sub cmd_ArrangeIcons_Click(_Form As Form)
+        Public Sub cmd_ArrangeIcons_Click(ByVal _Form As Form)
             Try
                 _Form.LayoutMdi(MdiLayout.ArrangeIcons)
             Catch ex As Exception
@@ -523,7 +525,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub cmd_Window_ButtonClick(_Form As Form)
+        Public Sub cmd_Window_ButtonClick(ByVal _Form As Form)
             Try
                 _Form.LayoutMdi(MdiLayout.Cascade)
             Catch ex As Exception
@@ -578,7 +580,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub cmd_RecientServer1_Click(_Recent1 As String)
+        Public Sub cmd_RecientServer1_Click(ByVal _Recent1 As String)
             Try
                 If Len(_Recent1) <> 0 And _Recent1 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent1, 6667)
             Catch ex As Exception
@@ -586,7 +588,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub cmd_RecientServer2_Click(_Recent2 As String)
+        Public Sub cmd_RecientServer2_Click(ByVal _Recent2 As String)
             Try
                 If Len(_Recent2) <> 0 And _Recent2 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent2, 6667)
             Catch ex As Exception
@@ -594,7 +596,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub cmd_RecientServer3_Click(_Recent3 As String)
+        Public Sub cmd_RecientServer3_Click(ByVal _Recent3 As String)
             Try
                 If Len(_Recent3) <> 0 And _Recent3 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent3, 6667)
             Catch ex As Exception
@@ -602,16 +604,16 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub cmdLeftBar_Click(_ActiveForm As Form, _cmd_LeftBarButton As ToolStripMenuItem, _LeftPanel As Panel, _Form As Form)
+        Public Sub cmdLeftBar_Click(ByVal _ActiveForm As Form, ByVal _cmd_LeftBarButton As ToolStripMenuItem, ByVal _LeftPanel As Panel, ByVal _Form As Form)
             Try
                 If _cmd_LeftBarButton.Checked = True Then
-                    Animate.Animate(_LeftPanel, Animate.Effect.Slide, 200, 1)
+                    Animate.AnimateNow(_LeftPanel, Animate.Effect.Slide, 200, 1)
                     mdiMain.cmdLeftBar.Left = 168
                     _cmd_LeftBarButton.Checked = False
                 Else
                     _cmd_LeftBarButton.Checked = True
                     mdiMain.cmdLeftBar.Left = 0
-                    Animate.Animate(_LeftPanel, Animate.Effect.Slide, 200, 1)
+                    Animate.AnimateNow(_LeftPanel, Animate.Effect.Slide, 200, 1)
                 End If
                 _Form.Width = _Form.Width + 1
                 _ActiveForm.Focus()
@@ -633,7 +635,7 @@ Namespace nexIRC.MainWindow
                 Dim msg As String, i As Integer
                 i = lStatus.ActiveIndex()
                 msg = InputBox("Enter whois nickname")
-                If Len(msg) <> 0 Then lStrings.ProcessReplaceCommand(i, eCommandTypes.cWHOIS, msg)
+                If Len(msg) <> 0 Then lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cWHOIS, msg)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -644,7 +646,7 @@ Namespace nexIRC.MainWindow
                 Dim msg As String, i As Integer
                 i = lStatus.ActiveIndex()
                 msg = InputBox("Enter whowas nickname")
-                If Len(msg) <> 0 Then lStrings.ProcessReplaceCommand(i, eCommandTypes.cWHOWAS, msg)
+                If Len(msg) <> 0 Then lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cWHOWAS, msg)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -654,19 +656,19 @@ Namespace nexIRC.MainWindow
             Try
                 Dim i As Integer
                 i = lStatus.ActiveIndex()
-                lStrings.ProcessReplaceCommand(i, eCommandTypes.cTIME)
+                lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cTIME)
             Catch ex As Exception
                 Throw ex
             End Try
         End Sub
 
-        Public Sub tmrStartup_Tick(startupTimer As Timer)
+        Public Sub tmrStartup_Tick(ByVal startupTimer As Timer)
             Try
                 startupTimer.Enabled = False
-                If (Modules.lSettings.lIRC.iSettings.sCustomizeOnStartup = True) Then
+                If (lSettings.lIRC.iSettings.sCustomizeOnStartup = True) Then
                     frmCustomize.Show()
                 End If
-                If (Modules.lSettings.lIRC.iSettings.sAutoConnect = True) Then
+                If (lSettings.lIRC.iSettings.sAutoConnect = True) Then
                     lStatus.ToggleConnection(lStatus.ActiveIndex)
                 End If
             Catch ex As Exception
@@ -676,7 +678,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_Admin_Click()
             Try
-                lStrings.ProcessReplaceCommand(lStatus.ActiveIndex, eCommandTypes.cADMIN)
+                lStrings.ProcessReplaceCommand(lStatus.ActiveIndex, IrcCommandTypes.cADMIN)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -686,7 +688,7 @@ Namespace nexIRC.MainWindow
             Try
                 Dim i As Integer
                 i = lStatus.ActiveIndex()
-                lStrings.ProcessReplaceCommand(i, eCommandTypes.cSTATS)
+                lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cSTATS)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -697,7 +699,7 @@ Namespace nexIRC.MainWindow
                 Dim i As Integer, msg As String
                 i = lStatus.ActiveIndex()
                 msg = InputBox("Enter away message:")
-                lStrings.ProcessReplaceCommand(i, eCommandTypes.cAWAY, msg)
+                lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cAWAY, msg)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -707,13 +709,13 @@ Namespace nexIRC.MainWindow
             Try
                 Dim i As Integer
                 i = lStatus.ActiveIndex()
-                lStrings.ProcessReplaceCommand(i, eCommandTypes.cBACK)
+                lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cBACK)
             Catch ex As Exception
                 Throw ex
             End Try
         End Sub
 
-        Public Sub mnuExit_Click(_Form As Form)
+        Public Sub mnuExit_Click(ByVal _Form As Form)
             Try
                 _Form.Close()
             Catch ex As Exception
@@ -729,7 +731,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub cmdAccept_Click(_UserToolStripLabel As ToolStripLabel, _ToolStrip As ToolStrip, _DCCToolBarToolStrip As ToolStrip)
+        Public Sub cmdAccept_Click(ByVal _UserToolStripLabel As ToolStripLabel, ByVal _ToolStrip As ToolStrip, ByVal _DCCToolBarToolStrip As ToolStrip)
             Try
                 Dim splt() As String, lForm As New frmDCCGet
                 splt = Split(_UserToolStripLabel.Tag.ToString, Environment.NewLine)
@@ -743,7 +745,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub cmdDeny_Click(_DCCToolBarToolStrip As ToolStrip)
+        Public Sub cmdDeny_Click(ByVal _DCCToolBarToolStrip As ToolStrip)
             Try
                 _DCCToolBarToolStrip.Visible = False
             Catch ex As Exception
@@ -751,7 +753,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub nicSystray_MouseDoubleClick(_Form As Form)
+        Public Sub nicSystray_MouseDoubleClick(ByVal _Form As Form)
             Try
                 _Form.Show()
                 _Form.WindowState = FormWindowState.Normal
@@ -777,7 +779,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub cmdRedirectDeny_Click(_RedirectToolStrip As ToolStrip)
+        Public Sub cmdRedirectDeny_Click(ByVal _RedirectToolStrip As ToolStrip)
             Try
                 _RedirectToolStrip.Visible = False
             Catch ex As Exception
@@ -785,7 +787,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub cmdRedirectAccept_Click(_RedirectToolStrip As ToolStrip, _RedirectMessageLabel As ToolStripLabel)
+        Public Sub cmdRedirectAccept_Click(ByVal _RedirectToolStrip As ToolStrip, ByVal _RedirectMessageLabel As ToolStripLabel)
             Try
                 Dim splt() As String
                 _RedirectToolStrip.Visible = False
@@ -806,7 +808,7 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
 
-        Public Sub tmrHideRedirect_Tick(_RedirectToolStrip As ToolStrip, _HideRedirectTimer As Timer)
+        Public Sub tmrHideRedirect_Tick(ByVal _RedirectToolStrip As ToolStrip, ByVal _HideRedirectTimer As Timer)
             Try
                 _RedirectToolStrip.Visible = False
                 _HideRedirectTimer.Enabled = False

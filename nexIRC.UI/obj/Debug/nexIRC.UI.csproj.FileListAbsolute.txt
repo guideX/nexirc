@@ -1,0 +1,4 @@
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\bin\Debug\nexIRC.UI.dll
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\bin\Debug\nexIRC.UI.pdb
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\obj\Debug\nexIRC.UI.dll
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\obj\Debug\nexIRC.UI.pdb

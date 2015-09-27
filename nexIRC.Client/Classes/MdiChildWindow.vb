@@ -2,11 +2,10 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Classes.UI
-Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
 Imports Telerik.WinControls.UI
 Imports Telerik.WinControls.RichTextBox
+Imports nexIRC.Business.Enums
 
 Public Class MdiChildWindow
     Public Enum FormTypes
@@ -25,23 +24,23 @@ Public Class MdiChildWindow
     Public Event ScrollToCaret()
     Public Event CloseForm()
     Public Event ClearNickList()
-    Public Event IncomingTextBoxDimensions(width As Integer, height As Integer)
-    Public Event OutgoingTextBoxDimensions(width As Integer, top As Integer)
+    Public Event IncomingTextBoxDimensions(ByVal width As Integer, ByVal height As Integer)
+    Public Event OutgoingTextBoxDimensions(ByVal width As Integer, ByVal top As Integer)
     Public Event DisableGetNamesTimer()
-    Public Event FormDimensions(width As Integer, height As Integer)
+    Public Event FormDimensions(ByVal width As Integer, ByVal height As Integer)
     Public Event FormFocus()
-    Public Event FormIcon(icon As System.Drawing.Icon)
-    Public Event SetParent(parentForm As Form)
-    Public Event SetIncomingColors(backgroundColor As Color, foregroundColor As Color)
-    Public Event SetOutgoingColors(backgroundColor As Color, foregroundColor As Color)
-    Public Event SetNicklistColors(backgroundColor As Color, foregroundColor As Color)
+    Public Event FormIcon(ByVal icon As System.Drawing.Icon)
+    Public Event SetParent(ByVal parentForm As Form)
+    Public Event SetIncomingColors(ByVal backgroundColor As Color, ByVal foregroundColor As Color)
+    Public Event SetOutgoingColors(ByVal backgroundColor As Color, ByVal foregroundColor As Color)
+    Public Event SetNicklistColors(ByVal backgroundColor As Color, ByVal foregroundColor As Color)
     Public Event BringToFront()
     Public Event EmptyOutgoingTextBox()
-    Public Event SetWindowState(windowState As FormWindowState)
+    Public Event SetWindowState(ByVal windowState As FormWindowState)
     Public Event SetTextBoxEditAbilities()
     Public NicklistQue As New List(Of String)
     Public Event DisableNameDelayTimer()
-    Public Event AddToNickList(nickName As String)
+    Public Event AddToNickList(ByVal nickName As String)
     Private ReadOnly DisableNameDelayTimerMax As Integer = 100
     Private _meIndex As Integer
     Private _formType As FormTypes
@@ -72,7 +71,7 @@ Public Class MdiChildWindow
                 Throw ex
             End Try
         End Get
-        Set(value As FormTypes)
+        Set(ByVal value As FormTypes)
             Try
                 _formType = value
             Catch ex As Exception
@@ -98,7 +97,7 @@ Public Class MdiChildWindow
             Select Case _formType
                 Case FormTypes.Channel
                     RaiseEvent ClearNickList()
-                    lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cNAMES, lChannels.Name(_meIndex))
+                    lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), IrcCommandTypes.cNAMES, lChannels.Name(_meIndex))
             End Select
         Catch ex As Exception
             Throw ex
@@ -113,7 +112,7 @@ Public Class MdiChildWindow
         End Try
     End Sub
 
-    Public Sub txtOutgoing_KeyDown(ByRef e As System.Windows.Forms.KeyEventArgs, text As String)
+    Public Sub txtOutgoing_KeyDown(ByRef e As System.Windows.Forms.KeyEventArgs, ByVal text As String)
         Try
             Select Case _formType
                 Case FormTypes.Status
@@ -166,7 +165,7 @@ Public Class MdiChildWindow
         End Try
     End Sub
 
-    Public Sub txtIncomingColor_MouseDown(form As Form)
+    Public Sub txtIncomingColor_MouseDown(ByVal form As Form)
         Try
             RaiseEvent BringToFront()
         Catch ex As Exception
@@ -174,7 +173,7 @@ Public Class MdiChildWindow
         End Try
     End Sub
 
-    Public Sub txtIncomingColor_MouseUp(selectedText As String, ByRef txtOutgoing As TextBox)
+    Public Sub txtIncomingColor_MouseUp(ByVal selectedText As String, ByRef txtOutgoing As TextBox)
         Try
             RaiseEvent ClearIncomingTextBoxSelection()
             If (Not String.IsNullOrEmpty(selectedText)) Then
@@ -187,7 +186,7 @@ Public Class MdiChildWindow
         End Try
     End Sub
 
-    Public Sub txtIncomingColor_MouseUp(text As String, txtIncoming As RadRichTextBox, txtOutgoing As RadTextBox)
+    Public Sub txtIncomingColor_MouseUp(ByVal text As String, ByVal txtIncoming As RadRichTextBox, ByVal txtOutgoing As RadTextBox)
         Try
             RaiseEvent ClearIncomingTextBoxSelection()
             If (Not String.IsNullOrEmpty(text)) Then
@@ -204,7 +203,7 @@ Public Class MdiChildWindow
         Get
             Return _meIndex
         End Get
-        Set(MeIndex As Integer)
+        Set(ByVal MeIndex As Integer)
             Try
                 Select Case _formType
                     Case FormTypes.Channel
@@ -222,7 +221,7 @@ Public Class MdiChildWindow
         End Set
     End Property
 
-    Public Sub Form_Resize(formClientSizeWidth As Integer, formClientSizeHeight As Integer, outgoingTextboxHeight As Integer, incomingTextBoxTop As Integer)
+    Public Sub Form_Resize(ByVal formClientSizeWidth As Integer, ByVal formClientSizeHeight As Integer, ByVal outgoingTextboxHeight As Integer, ByVal incomingTextBoxTop As Integer)
         Dim incomingWidth As Integer, incomingHeight As Integer
         Try
             Select Case _formType
@@ -293,10 +292,10 @@ Public Class MdiChildWindow
         End Try
     End Sub
 
-    Public Event SetNickBotNickName(nickName As String)
+    Public Event SetNickBotNickName(ByVal nickName As String)
     Public Event SetNickListSortSettings()
 
-    Public Sub Form_Load(formType As FormTypes)
+    Public Sub Form_Load(ByVal formType As FormTypes)
         Try
             _formType = formType
             RaiseEvent FormIcon(mdiMain.Icon)
@@ -320,7 +319,7 @@ Public Class MdiChildWindow
         End Try
     End Sub
 
-    Public Sub Form_Load(ByRef incomingTextBox As RadRichTextBox, ByRef outgoingTextBox As RadTextBox, form As Form, formType As FormTypes)
+    Public Sub Form_Load(ByRef incomingTextBox As RadRichTextBox, ByRef outgoingTextBox As RadTextBox, ByVal form As Form, ByVal formType As FormTypes)
         Try
             _formType = formType
             form.Icon = mdiMain.Icon
@@ -342,7 +341,7 @@ Public Class MdiChildWindow
         End Try
     End Sub
 
-    Public Sub Form_GotFocus(form As Form)
+    Public Sub Form_GotFocus(ByVal form As Form)
         Try
             Dim statusId As Integer = ReturnMeStatusIndex()
             If (statusId <> 0) Then
@@ -389,7 +388,7 @@ Public Class MdiChildWindow
         End Try
     End Sub
 
-    Public Sub txtIncomingColor_TextChanged(verticalScrollMaximum As Integer)
+    Public Sub txtIncomingColor_TextChanged(ByVal verticalScrollMaximum As Integer)
         Try
             RaiseEvent ScrollToCaret()
         Catch ex As Exception
@@ -397,12 +396,12 @@ Public Class MdiChildWindow
         End Try
     End Sub
 
-    Public Sub tmrGetNames_Tick(nickListItemsCount As Integer)
+    Public Sub tmrGetNames_Tick(ByVal nickListItemsCount As Integer)
         Try
             Select Case _formType
                 Case FormTypes.Channel
                     If nickListItemsCount = 0 Then
-                        lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cNAMES, lChannels.Name(MeIndex))
+                        lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), IrcCommandTypes.cNAMES, lChannels.Name(MeIndex))
                     End If
             End Select
             RaiseEvent DisableGetNamesTimer()
@@ -493,7 +492,7 @@ Public Class MdiChildWindow
 
     Public Sub cmdListChannels_Click()
         Try
-            lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cLIST)
+            lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), IrcCommandTypes.cLIST)
         Catch ex As Exception
             Throw ex
         End Try
@@ -505,7 +504,7 @@ Public Class MdiChildWindow
                 Case FormTypes.Channel
                     RaiseEvent CloseForm()
                     lChannels.RemoveTree(_meIndex)
-                    lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cPART, lChannels.Name(_meIndex))
+                    lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), IrcCommandTypes.cPART, lChannels.Name(_meIndex))
             End Select
         Catch ex As Exception
             Throw ex
@@ -531,7 +530,7 @@ Public Class MdiChildWindow
             Select Case _formType
                 Case FormTypes.Channel
                     message = InputBox("Enter notice message:")
-                    If (Not String.IsNullOrEmpty(message)) Then lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cNOTICE, lChannels.Name(MeIndex), message)
+                    If (Not String.IsNullOrEmpty(message)) Then lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), IrcCommandTypes.cNOTICE, lChannels.Name(MeIndex), message)
             End Select
         Catch ex As Exception
             Throw ex

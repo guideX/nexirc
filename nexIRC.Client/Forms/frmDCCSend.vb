@@ -2,11 +2,9 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Classes.IO
 Imports nexIRC.Modules
 Imports nexIRC.Sockets
-Imports Classes.Communications
-Imports nexIRC.IniFile
+Imports nexIRC.Business.Helpers
 
 Public Class frmDCCSend
     Private WithEvents lListen As AsyncServer
@@ -70,12 +68,12 @@ Public Class frmDCCSend
         lStatusIndex = lIndex
     End Sub
     Private Sub frmDCCSend_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        Files.WriteINI(lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", cboNickname.Text)
+        IniFileHelper.WriteINI(lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", cboNickname.Text)
         If lFileOpen = True Then FileClose(lFile.fFileNumber)
     End Sub
     Private Sub frmDCCSend_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim i As Integer
-        cboNickname.Text = Files.ReadINI(lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", "")
+        cboNickname.Text = IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", "")
         Me.Icon = mdiMain.Icon
         For i = 1 To lSettings.lNotify.nCount
             cboNickname.Items.Add(lSettings.lNotify.nNotify(i).nNickName)
@@ -107,7 +105,7 @@ Public Class frmDCCSend
                         msg = lProcessNumeric.lIrcNumericHelper.ReturnMyIp()
                     End If
                     msg3 = Replace(System.IO.Path.GetFileName(txtFilename.Text), " ", "_")
-                    msg2 = "PRIVMSG " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " " & TextManipulation.Text.EncodeIPAddr(msg) & " " & Trim(cboPort.Text) & " " & (FileLen(txtFilename.Text)) & ""
+                    msg2 = "PRIVMSG " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " " & TextHelper.EncodeIPAddr(msg) & " " & Trim(cboPort.Text) & " " & (FileLen(txtFilename.Text)) & ""
                     lStatus.DoStatusSocket(lStatusIndex, "NOTICE " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " (" & msg & ")")
                     lStatus.DoStatusSocket(lStatusIndex, msg2)
                 End If

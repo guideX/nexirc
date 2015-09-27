@@ -26,6 +26,7 @@ Partial Class frmChooseNetwork
         Me.cboNetworks = New Telerik.WinControls.UI.RadDropDownList()
         Me.cmdOK = New Telerik.WinControls.UI.RadButton()
         Me.cmdCancel = New Telerik.WinControls.UI.RadButton()
+        Me.Office2010BlackTheme1 = New Telerik.WinControls.Themes.Office2010BlackTheme()
         CType(Me.cboNetworks, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -40,6 +41,7 @@ Partial Class frmChooseNetwork
         Me.cboNetworks.ShowImageInEditorArea = True
         Me.cboNetworks.Size = New System.Drawing.Size(284, 20)
         Me.cboNetworks.TabIndex = 0
+        Me.cboNetworks.ThemeName = "Office2010Black"
         '
         'cmdOK
         '
@@ -48,6 +50,7 @@ Partial Class frmChooseNetwork
         Me.cmdOK.Size = New System.Drawing.Size(90, 24)
         Me.cmdOK.TabIndex = 1
         Me.cmdOK.Text = "OK"
+        Me.cmdOK.ThemeName = "Office2010Black"
         '
         'cmdCancel
         '
@@ -56,6 +59,7 @@ Partial Class frmChooseNetwork
         Me.cmdCancel.Size = New System.Drawing.Size(90, 24)
         Me.cmdCancel.TabIndex = 2
         Me.cmdCancel.Text = "Cancel"
+        Me.cmdCancel.ThemeName = "Office2010Black"
         '
         'frmChooseNetwork
         '
@@ -73,6 +77,7 @@ Partial Class frmChooseNetwork
         '
         Me.RootElement.ApplyShapeToControl = True
         Me.Text = "nexIRC - Choose Network"
+        Me.ThemeName = "Office2010Black"
         CType(Me.cboNetworks, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).EndInit()
@@ -84,5 +89,6 @@ Partial Class frmChooseNetwork
     Friend WithEvents cboNetworks As Telerik.WinControls.UI.RadDropDownList
     Friend WithEvents cmdOK As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdCancel As Telerik.WinControls.UI.RadButton
+    Friend WithEvents Office2010BlackTheme1 As Telerik.WinControls.Themes.Office2010BlackTheme
 End Class
 

@@ -48,12 +48,6 @@
     <Compile Include="IrcSettings.cs" />
     <Compile Include="QuerySettings.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\nexIRC.Utility\nexIRC.Utility.csproj">
-      <Project>{6948E659-61CF-46E1-8B7E-E64712DE671C}</Project>
-      <Name>nexIRC.Utility</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

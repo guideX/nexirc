@@ -51,7 +51,11 @@ Public Class mdiMain
     Private Sub tmrFlashDCCToolBar_Tick(sender As System.Object, e As System.EventArgs) Handles tmrFlashDCCToolBar.Tick
         lMainWindowUI.FlashDCCToolBarTimer_Tick(tmrFlashDCCToolBar)
     End Sub
-    Private Sub mdiMain_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub mdiMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        'Dim theme As Telerik.WinControls.Themes.Office2010BlackTheme
+        'ThemeResolutionService.ClearTheme("Office2010Black")
+        'ThemeResolutionService.ApplicationThemeName = "Office2010Black"
+        '= "Office2010Black"
         lMainWindowUI.Form_Load(Me, nicSystray, cmdLeftBar, pnlLeftNav, tspMain, tspWindows)
         tmrStartup.Enabled = True
         tspWindows.ImageList = ImageList1

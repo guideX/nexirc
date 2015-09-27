@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using nexIRC.IniFile;
 namespace nexIRC.IrcSettings {
     /// <summary>
     /// What contains the Channel Folder Data
@@ -36,11 +35,11 @@ namespace nexIRC.IrcSettings {
             var channelFolders = new List<ChannelFolderModel>();
             try {
                 if(!_useCache) {
-                    var n = Convert.ToInt32(Files.ReadINI(_iniFile, "Settings", "Count", "0"));
+                    var n = Convert.ToInt32(IniFileHelper.ReadINI(_iniFile, "Settings", "Count", "0"));
                     for (var i = 1; i <= n; i++) {
                         var c = new ChannelFolderModel();
                         var b = false;
-                        c.Network = Files.ReadINI(_iniFile, i.ToString(), "Network", "");
+                        c.Network = IniFileHelper.ReadINI(_iniFile, i.ToString(), "Network", "");
                         if (!string.IsNullOrEmpty(network)) {
                             if (!string.IsNullOrEmpty(c.Network)) {
                                 if (c.Network == network) {
@@ -53,8 +52,8 @@ namespace nexIRC.IrcSettings {
                             b = true;
                         }
                         if (b) {
-                            c.Channel = Files.ReadINI(_iniFile, i.ToString(), "Channel", "");
-                            var msg = Files.ReadINI(_iniFile, i.ToString(), "Order", "0");
+                            c.Channel = IniFileHelper.ReadINI(_iniFile, i.ToString(), "Channel", "");
+                            var msg = IniFileHelper.ReadINI(_iniFile, i.ToString(), "Order", "0");
                             var t = 0;
                             if (int.TryParse(msg, out t)) {
                                 c.Order = t;

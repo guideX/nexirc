@@ -2,15 +2,13 @@
 Option Explicit On
 'Option Strict On
 Imports Telerik.WinControls.UI
-'Imports nexIRC.Classes.IO
-Imports nexIRC.Classes.UI
-Imports nexIRC.clsCommandTypes
 Imports nexIRC.clsIrcNumerics
 Imports nexIRC.Modules
 Imports Telerik.WinControls.RichTextBox
 Imports Telerik.WinControls.RichTextBox.Model
 Imports Telerik.WinControls.RichTextBox.Layout
-Imports nexIRC.IniFile
+Imports nexIRC.Business.Helpers
+Imports nexIRC.Business.Enums
 
 Public Class IrcStrings
     Structure gCommandReturnData
@@ -20,7 +18,7 @@ Public Class IrcStrings
 
     Structure gCommand
         Public cData As String
-        Public cCommandType As eCommandTypes
+        Public cCommandType As IrcCommandTypes
         Public cDisplay As String
         Public cParam1 As String
         Public cParam2 As String
@@ -52,7 +50,7 @@ Public Class IrcStrings
     Private Const lColorChar As String = ""
     Private lBackgroundColor As Integer
 
-    Public Sub ProcessReplaceCommand(ByVal lStatusIndex As Integer, ByVal lType As eCommandTypes, Optional ByVal p1 As String = "", Optional ByVal p2 As String = "", Optional ByVal p3 As String = "", Optional ByVal p4 As String = "")
+    Public Sub ProcessReplaceCommand(ByVal lStatusIndex As Integer, ByVal lType As IrcCommandTypes, Optional ByVal p1 As String = "", Optional ByVal p2 As String = "", Optional ByVal p3 As String = "", Optional ByVal p4 As String = "")
         Try
             Dim commandData As gCommandReturnData
             commandData = ReturnReplacedCommand(lType, p1, p2, p3, p4)
@@ -65,7 +63,7 @@ Public Class IrcStrings
         End Try
     End Sub
 
-    Private Function FindCommandIndex(ByVal lType As eCommandTypes) As Integer
+    Private Function FindCommandIndex(ByVal lType As IrcCommandTypes) As Integer
         Dim i As Integer, result As Integer
         Try
             For i = 1 To lCommands.cCount
@@ -81,7 +79,7 @@ Public Class IrcStrings
         End Try
     End Function
 
-    Public Function ReturnReplacedCommand(ByVal lType As eCommandTypes, Optional ByVal p1 As String = "", Optional ByVal p2 As String = "", Optional ByVal p3 As String = "", Optional ByVal p4 As String = "") As gCommandReturnData
+    Public Function ReturnReplacedCommand(ByVal lType As IrcCommandTypes, Optional ByVal p1 As String = "", Optional ByVal p2 As String = "", Optional ByVal p3 As String = "", Optional ByVal p4 As String = "") As gCommandReturnData
         Try
             Dim msg As String, msg2 As String, i As Integer
             i = FindCommandIndex(lType)
@@ -145,8 +143,8 @@ Public Class IrcStrings
             Dim i As Integer
             If Len(lStringParameterName) <> 0 Then
                 For i = 1 To 100
-                    If Trim(LCase(Files.ReadINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), ""))) = lStringParameterName Then
-                        Files.WriteINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), "")
+                    If Trim(LCase(IniFileHelper.ReadINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), ""))) = lStringParameterName Then
+                        IniFileHelper.WriteINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), "")
                         Exit For
                     End If
                 Next i
@@ -161,12 +159,12 @@ Public Class IrcStrings
             Dim i As Integer, n As Integer
             If Len(lStringParameterName) <> 0 Then
                 For i = 1 To 100
-                    If Len(Files.ReadINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), "")) = 0 Then
+                    If Len(IniFileHelper.ReadINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), "")) = 0 Then
                         n = i
                         Exit For
                     End If
                 Next i
-                Files.WriteINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(n.ToString), lStringParameterName)
+                IniFileHelper.WriteINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(n.ToString), lStringParameterName)
                 lStrings.sFixedString(lTextStringIndex).sFind(n) = lStringParameterName
             End If
         Catch ex As Exception
@@ -229,7 +227,7 @@ Public Class IrcStrings
         Try
             If Len(lData) <> 0 And lIndex <> 0 Then
                 lStrings.sFixedString(lIndex).sData = lData
-                Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Data", lData)
+                IniFileHelper.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Data", lData)
             End If
         Catch ex As Exception
             Throw ex
@@ -240,7 +238,7 @@ Public Class IrcStrings
         Try
             If lIndex <> 0 And Len(lData) <> 0 Then
                 lStrings.sFixedString(lIndex).sDescription = lData
-                Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Description", lData)
+                IniFileHelper.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Description", lData)
             End If
         Catch ex As Exception
             Throw ex
@@ -251,7 +249,7 @@ Public Class IrcStrings
         Try
             If lIndex <> 0 And Len(lData) <> 0 Then
                 lStrings.sFixedString(lIndex).sSyntax = lData
-                Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Syntax", lData)
+                IniFileHelper.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Syntax", lData)
             End If
         Catch ex As Exception
             Throw ex
@@ -262,7 +260,7 @@ Public Class IrcStrings
         Try
             If lIndex <> 0 And Len(lData) <> 0 Then
                 lStrings.sFixedString(lIndex).sSupport = lData
-                Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Support", lData)
+                IniFileHelper.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Support", lData)
             End If
         Catch ex As Exception
             Throw ex
@@ -397,13 +395,13 @@ Public Class IrcStrings
             Dim i As Integer
             For i = 1 To 200
                 If Len(lStrings.sFixedString(i).sData) <> 0 Then
-                    Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Type", Trim(Str(lStrings.sFixedString(i).sType)))
-                    Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Data", Trim(lStrings.sFixedString(i).sData))
-                    If Len(lStrings.sFixedString(i).sFind(1)) <> 0 Then Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find1", lStrings.sFixedString(i).sFind(1))
-                    If Len(lStrings.sFixedString(i).sFind(2)) <> 0 Then Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find2", lStrings.sFixedString(i).sFind(2))
-                    If Len(lStrings.sFixedString(i).sFind(3)) <> 0 Then Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find3", lStrings.sFixedString(i).sFind(3))
-                    If Len(lStrings.sFixedString(i).sFind(4)) <> 0 Then Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find4", lStrings.sFixedString(i).sFind(4))
-                    If Len(lStrings.sFixedString(i).sFind(5)) <> 0 Then Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find5", lStrings.sFixedString(i).sFind(5))
+                    IniFileHelper.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Type", Trim(Str(lStrings.sFixedString(i).sType)))
+                    IniFileHelper.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Data", Trim(lStrings.sFixedString(i).sData))
+                    If Len(lStrings.sFixedString(i).sFind(1)) <> 0 Then IniFileHelper.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find1", lStrings.sFixedString(i).sFind(1))
+                    If Len(lStrings.sFixedString(i).sFind(2)) <> 0 Then IniFileHelper.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find2", lStrings.sFixedString(i).sFind(2))
+                    If Len(lStrings.sFixedString(i).sFind(3)) <> 0 Then IniFileHelper.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find3", lStrings.sFixedString(i).sFind(3))
+                    If Len(lStrings.sFixedString(i).sFind(4)) <> 0 Then IniFileHelper.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find4", lStrings.sFixedString(i).sFind(4))
+                    If Len(lStrings.sFixedString(i).sFind(5)) <> 0 Then IniFileHelper.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find5", lStrings.sFixedString(i).sFind(5))
                 End If
             Next i
         Catch ex As Exception
@@ -464,17 +462,17 @@ Public Class IrcStrings
         Try
             Dim i As Integer
             ReDim lCommands.cCommad(100)
-            lCommands.cCount = Convert.ToInt32(Files.ReadINI(lSettings.ReturnCommandsINI, "Settings", "Count", "0"))
+            lCommands.cCount = Convert.ToInt32(IniFileHelper.ReadINI(lSettings.ReturnCommandsINI, "Settings", "Count", "0"))
             For i = 1 To lCommands.cCount
                 With lCommands.cCommad(i)
-                    .cData = Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Command", "")
+                    .cData = IniFileHelper.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Command", "")
                     If Len(.cData) <> 0 Then
-                        .cCommandType = CType(Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Type", ""), eCommandTypes)
-                        .cDisplay = Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Display", "")
-                        .cParam1 = Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param1", "")
-                        If Len(.cParam1) <> 0 Then .cParam2 = Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param2", "")
-                        If Len(.cParam2) <> 0 Then .cParam3 = Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param3", "")
-                        If Len(.cParam3) <> 0 Then .cParam4 = Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param4", "")
+                        .cCommandType = CType(IniFileHelper.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Type", ""), IrcCommandTypes)
+                        .cDisplay = IniFileHelper.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Display", "")
+                        .cParam1 = IniFileHelper.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param1", "")
+                        If Len(.cParam1) <> 0 Then .cParam2 = IniFileHelper.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param2", "")
+                        If Len(.cParam2) <> 0 Then .cParam3 = IniFileHelper.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param3", "")
+                        If Len(.cParam3) <> 0 Then .cParam4 = IniFileHelper.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param4", "")
                     End If
                 End With
             Next i
@@ -496,7 +494,7 @@ Public Class IrcStrings
                 If LCase(msg) = "[settings]" Then
                 Else
                     If Left(msg, 1) = "[" And Right(msg, 1) = "]" Then
-                        lIndex = Convert.ToInt32(Trim(TextManipulation.Text.ParseData(msg, "[", "]")))
+                        lIndex = Convert.ToInt32(Trim(TextHelper.ParseData(msg, "[", "]")))
                         ReDim lStrings.sFixedString(lIndex).sFind(8)
                     Else
                         splt2 = Split(msg, "=")
@@ -583,7 +581,7 @@ Public Class IrcStrings
     'End Try
     'End Function
 
-    Public Sub Print(data As String, richTextBox As RadRichTextBox)
+    Public Sub Print(ByVal data As String, ByVal richTextBox As RadRichTextBox)
         Dim ircChar As String = "", s As Span, mint As Integer, i As Integer, msg As String, currentText As String = "", subText1 As String = "", subText2 As String = "", isForeColorSet As Boolean = False, isBackColorSet As Boolean = False
         richTextBox.Document.Selection.Clear()
         richTextBox.Document.CaretPosition.MoveToLastPositionInDocument()
@@ -627,11 +625,11 @@ Public Class IrcStrings
                                     If (Integer.TryParse(subText2, mint)) Then
                                         isForeColorSet = True
                                         data = data.Remove(0, 2)
-                                        s.ForeColor = TextManipulation.Text.ConvertIntToSystemColor(mint, True)
+                                        s.ForeColor = TextHelper.ConvertIntToSystemColor(mint, True)
                                     ElseIf (Integer.TryParse(subText1, mint)) Then
                                         isForeColorSet = True
                                         data = data.Remove(0, 1)
-                                        s.ForeColor = TextManipulation.Text.ConvertIntToSystemColor(mint, True)
+                                        s.ForeColor = TextHelper.ConvertIntToSystemColor(mint, True)
                                     End If
                                     If (data.Substring(0, 1) = ",") Then
                                         subText2 = data.Substring(0, 2)

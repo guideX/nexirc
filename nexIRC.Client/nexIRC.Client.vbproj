@@ -103,9 +103,6 @@
     <Compile Include="Classes\Ident.vb" />
     <Compile Include="Classes\IrcProcess.vb" />
     <Compile Include="Classes\MdiChildWindow.vb" />
-    <Compile Include="Classes\UI\Animate.vb" />
-    <Compile Include="Classes\UI\ListViewSorter.vb" />
-    <Compile Include="Classes\UI\ScrollToBottom.vb" />
     <Compile Include="Forms\frmAbout.Designer.vb">
       <DependentUpon>frmAbout.vb</DependentUpon>
     </Compile>
@@ -154,6 +151,12 @@
     <Compile Include="Forms\frmCNotice.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmDccChatPrompt.Designer.vb">
+      <DependentUpon>frmDccChatPrompt.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDccChatPrompt.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmCompatibility.Designer.vb">
       <DependentUpon>frmCompatibility.vb</DependentUpon>
     </Compile>
@@ -170,12 +173,6 @@
       <DependentUpon>frmDCCChat.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmDCCChat.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmDCCChatPrompt.Designer.vb">
-      <DependentUpon>frmDCCChatPrompt.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmDCCChatPrompt.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmDCCGet.Designer.vb">
@@ -256,12 +253,6 @@
     <Compile Include="Forms\frmNoticeWindow.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmParent.Designer.vb">
-      <DependentUpon>frmParent.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmParent.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\frmQuerySettings.Designer.vb">
       <DependentUpon>frmQuerySettings.vb</DependentUpon>
     </Compile>
@@ -310,11 +301,11 @@
     <Compile Include="IRC\Customize\clsCustomize.vb" />
     <Compile Include="IRC\DCC\clsDccChat.vb" />
     <Compile Include="IRC\MainWindow\clsMainWindowUI.vb" />
-    <Compile Include="IRC\Numerics\clsCommandTypes.vb" />
     <Compile Include="IRC\Numerics\clsIrcNumericHelper.vb" />
     <Compile Include="IRC\Numerics\clsIrcNumerics.vb" />
     <Compile Include="IRC\Numerics\clsProcessNumeric.vb" />
     <Compile Include="IRC\Numerics\IrcStrings.vb" />
+    <Compile Include="IRC\Numerics\Modules.vb" />
     <Compile Include="IRC\SendNotice\clsSendNotice.vb" />
     <Compile Include="IRC\ServerLinks\clsServerLinks.vb" />
     <Compile Include="IRC\Services\Bots.vb" />
@@ -345,9 +336,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="User Controls\clsVideo.vb">
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Classes\MdiChildWindow.resx">
@@ -377,6 +365,9 @@
     <EmbeddedResource Include="Forms\frmCNotice.resx">
       <DependentUpon>frmCNotice.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDccChatPrompt.resx">
+      <DependentUpon>frmDccChatPrompt.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmCompatibility.resx">
       <DependentUpon>frmCompatibility.vb</DependentUpon>
     </EmbeddedResource>
@@ -385,9 +376,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDCCChat.resx">
       <DependentUpon>frmDCCChat.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmDCCChatPrompt.resx">
-      <DependentUpon>frmDCCChatPrompt.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDCCGet.resx">
       <DependentUpon>frmDCCGet.vb</DependentUpon>
@@ -428,9 +416,6 @@
     <EmbeddedResource Include="Forms\frmNoticeWindow.resx">
       <DependentUpon>frmNoticeWindow.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmParent.resx">
-      <DependentUpon>frmParent.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmQuerySettings.resx">
       <DependentUpon>frmQuerySettings.vb</DependentUpon>
     </EmbeddedResource>
@@ -458,9 +443,6 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="User Controls\clsVideo.resx">
-      <DependentUpon>clsVideo.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -515,25 +497,17 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\nexIRC.IRC\nexIRC.IRC.csproj">
-      <Project>{AB9A755C-8AFE-42CD-97DD-7E69634E894B}</Project>
-      <Name>nexIRC.IRC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\nexIRC.Settings\nexIRC.IrcSettings.csproj">
-      <Project>{1A10CDFF-EDB2-401A-826E-CBE3DE3ACD6E}</Project>
-      <Name>nexIRC.IrcSettings</Name>
+    <ProjectReference Include="..\nexIRC.Business\nexIRC.Business.csproj">
+      <Project>{93FD68D0-62C4-4C75-ABE4-4B5F946813DB}</Project>
+      <Name>nexIRC.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\nexIRC.Socket\nexIRC.Sockets.csproj">
       <Project>{B9E7C877-8236-4229-9628-83B21CD2B100}</Project>
       <Name>nexIRC.Sockets</Name>
     </ProjectReference>
-    <ProjectReference Include="..\nexIRC.Utility\nexIRC.Utility.csproj">
-      <Project>{6948E659-61CF-46E1-8B7E-E64712DE671C}</Project>
-      <Name>nexIRC.Utility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\nexIRC.Text\nexIRC.Text.csproj">
-      <Project>{6BE84EEE-17C5-4A28-9F1E-7CB61DA5C87D}</Project>
-      <Name>nexIRC.Text</Name>
+    <ProjectReference Include="..\nexIRC.UI\nexIRC.UI.csproj">
+      <Project>{52554E28-BF47-43F3-9B58-D1FDCD69AD01}</Project>
+      <Name>nexIRC.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

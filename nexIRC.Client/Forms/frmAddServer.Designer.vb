@@ -33,6 +33,7 @@ Partial Class frmAddServer
         Me.cmdNewNetwork = New Telerik.WinControls.UI.RadButton()
         Me.cmdOK = New Telerik.WinControls.UI.RadButton()
         Me.cmdCancel = New Telerik.WinControls.UI.RadButton()
+        Me.Office2010BlackTheme1 = New Telerik.WinControls.Themes.Office2010BlackTheme()
         CType(Me.lblDescription, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadLabel2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.lblNetwork, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -53,6 +54,7 @@ Partial Class frmAddServer
         Me.lblDescription.Size = New System.Drawing.Size(66, 18)
         Me.lblDescription.TabIndex = 0
         Me.lblDescription.Text = "Description:"
+        Me.lblDescription.ThemeName = "Office2010Black"
         '
         'RadLabel2
         '
@@ -61,6 +63,7 @@ Partial Class frmAddServer
         Me.RadLabel2.Size = New System.Drawing.Size(43, 18)
         Me.RadLabel2.TabIndex = 1
         Me.RadLabel2.Text = "IP/Port:"
+        Me.RadLabel2.ThemeName = "Office2010Black"
         '
         'lblNetwork
         '
@@ -69,6 +72,7 @@ Partial Class frmAddServer
         Me.lblNetwork.Size = New System.Drawing.Size(51, 18)
         Me.lblNetwork.TabIndex = 2
         Me.lblNetwork.Text = "Network:"
+        Me.lblNetwork.ThemeName = "Office2010Black"
         '
         'txtDescription
         '
@@ -77,6 +81,7 @@ Partial Class frmAddServer
         Me.txtDescription.Size = New System.Drawing.Size(206, 20)
         Me.txtDescription.TabIndex = 3
         Me.txtDescription.TabStop = False
+        Me.txtDescription.ThemeName = "Office2010Black"
         '
         'txtPort
         '
@@ -85,6 +90,7 @@ Partial Class frmAddServer
         Me.txtPort.Size = New System.Drawing.Size(100, 20)
         Me.txtPort.TabIndex = 4
         Me.txtPort.TabStop = False
+        Me.txtPort.ThemeName = "Office2010Black"
         '
         'txtIP
         '
@@ -93,6 +99,7 @@ Partial Class frmAddServer
         Me.txtIP.Size = New System.Drawing.Size(100, 20)
         Me.txtIP.TabIndex = 5
         Me.txtIP.TabStop = False
+        Me.txtIP.ThemeName = "Office2010Black"
         '
         'cboNetwork
         '
@@ -102,6 +109,7 @@ Partial Class frmAddServer
         Me.cboNetwork.ShowImageInEditorArea = True
         Me.cboNetwork.Size = New System.Drawing.Size(206, 20)
         Me.cboNetwork.TabIndex = 6
+        Me.cboNetwork.ThemeName = "Office2010Black"
         '
         'cmdNewNetwork
         '
@@ -110,6 +118,7 @@ Partial Class frmAddServer
         Me.cmdNewNetwork.Size = New System.Drawing.Size(206, 24)
         Me.cmdNewNetwork.TabIndex = 7
         Me.cmdNewNetwork.Text = "New Network"
+        Me.cmdNewNetwork.ThemeName = "Office2010Black"
         '
         'cmdOK
         '
@@ -118,6 +127,7 @@ Partial Class frmAddServer
         Me.cmdOK.Size = New System.Drawing.Size(100, 24)
         Me.cmdOK.TabIndex = 8
         Me.cmdOK.Text = "OK"
+        Me.cmdOK.ThemeName = "Office2010Black"
         '
         'cmdCancel
         '
@@ -126,6 +136,7 @@ Partial Class frmAddServer
         Me.cmdCancel.Size = New System.Drawing.Size(100, 24)
         Me.cmdCancel.TabIndex = 9
         Me.cmdCancel.Text = "Cancel"
+        Me.cmdCancel.ThemeName = "Office2010Black"
         '
         'frmAddServer
         '
@@ -150,6 +161,7 @@ Partial Class frmAddServer
         '
         Me.RootElement.ApplyShapeToControl = True
         Me.Text = "nexIRC - Add Server"
+        Me.ThemeName = "Office2010Black"
         CType(Me.lblDescription, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadLabel2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.lblNetwork, System.ComponentModel.ISupportInitialize).EndInit()
@@ -175,5 +187,6 @@ Partial Class frmAddServer
     Friend WithEvents cmdNewNetwork As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdOK As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdCancel As Telerik.WinControls.UI.RadButton
+    Friend WithEvents Office2010BlackTheme1 As Telerik.WinControls.Themes.Office2010BlackTheme
 End Class
 

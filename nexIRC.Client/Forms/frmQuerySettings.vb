@@ -125,7 +125,7 @@ Public Class frmQuerySettings
                 .AutoAllowList = New List(Of String)
                 .AutoDenyList = New List(Of String)
                 .SpamPhrases = New List(Of String)
-                Dim i As Integer, n As Integer
+                Dim i As Integer ', n As Integer
                 For i = 0 To lstAutoAllowList.Items.Count - 1
                     If (Not String.IsNullOrEmpty(lstAutoAllowList.Items.Item(i).ToString())) Then
                         .AutoAllowList.Add(lstAutoAllowList.Items(i).ToString)

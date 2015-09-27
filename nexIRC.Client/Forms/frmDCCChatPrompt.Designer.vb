@@ -1,9 +1,9 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmDCCChatPrompt
-    Inherits System.Windows.Forms.Form
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class frmDccChatPrompt
+    Inherits Telerik.WinControls.UI.RadForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,96 +20,114 @@ Partial Class frmDCCChatPrompt
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.lblNickName = New System.Windows.Forms.Label
-        Me.lblAddress = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.cmdCancel = New System.Windows.Forms.Button
-        Me.cmdOK = New System.Windows.Forms.Button
+        Me.lblNickName = New Telerik.WinControls.UI.RadLabel()
+        Me.cmdCancel = New Telerik.WinControls.UI.RadButton()
+        Me.cmdOK = New Telerik.WinControls.UI.RadButton()
+        Me.RadLabel1 = New Telerik.WinControls.UI.RadLabel()
+        Me.RadLabel3 = New Telerik.WinControls.UI.RadLabel()
+        Me.Office2010BlackTheme1 = New Telerik.WinControls.Themes.Office2010BlackTheme()
+        Me.lblAddress = New Telerik.WinControls.UI.RadLabel()
+        CType(Me.lblNickName, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RadLabel1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RadLabel3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.lblAddress, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 9)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(56, 13)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Nickname:"
         '
         'lblNickName
         '
-        Me.lblNickName.AutoSize = True
-        Me.lblNickName.Location = New System.Drawing.Point(128, 9)
+        Me.lblNickName.Location = New System.Drawing.Point(163, 12)
         Me.lblNickName.Name = "lblNickName"
-        Me.lblNickName.Size = New System.Drawing.Size(48, 13)
-        Me.lblNickName.TabIndex = 1
+        Me.lblNickName.Size = New System.Drawing.Size(49, 18)
+        Me.lblNickName.TabIndex = 22
         Me.lblNickName.Text = "<None>"
-        '
-        'lblAddress
-        '
-        Me.lblAddress.AutoSize = True
-        Me.lblAddress.Location = New System.Drawing.Point(128, 22)
-        Me.lblAddress.Name = "lblAddress"
-        Me.lblAddress.Size = New System.Drawing.Size(48, 13)
-        Me.lblAddress.TabIndex = 3
-        Me.lblAddress.Text = "<None>"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 22)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(50, 13)
-        Me.Label3.TabIndex = 2
-        Me.Label3.Text = "Address:"
+        Me.lblNickName.ThemeName = "Office2010Black"
         '
         'cmdCancel
         '
-        Me.cmdCancel.Location = New System.Drawing.Point(167, 49)
+        Me.cmdCancel.Location = New System.Drawing.Point(163, 60)
         Me.cmdCancel.Name = "cmdCancel"
-        Me.cmdCancel.Size = New System.Drawing.Size(75, 23)
-        Me.cmdCancel.TabIndex = 4
+        Me.cmdCancel.Size = New System.Drawing.Size(72, 24)
+        Me.cmdCancel.TabIndex = 21
         Me.cmdCancel.Text = "Cancel"
-        Me.cmdCancel.UseVisualStyleBackColor = True
+        Me.cmdCancel.ThemeName = "Office2010Black"
         '
         'cmdOK
         '
-        Me.cmdOK.Location = New System.Drawing.Point(86, 49)
+        Me.cmdOK.Location = New System.Drawing.Point(85, 60)
         Me.cmdOK.Name = "cmdOK"
-        Me.cmdOK.Size = New System.Drawing.Size(75, 23)
-        Me.cmdOK.TabIndex = 5
+        Me.cmdOK.Size = New System.Drawing.Size(72, 24)
+        Me.cmdOK.TabIndex = 20
         Me.cmdOK.Text = "OK"
-        Me.cmdOK.UseVisualStyleBackColor = True
+        Me.cmdOK.ThemeName = "Office2010Black"
         '
-        'frmDCCChatPrompt
+        'RadLabel1
+        '
+        Me.RadLabel1.Location = New System.Drawing.Point(12, 12)
+        Me.RadLabel1.Name = "RadLabel1"
+        Me.RadLabel1.Size = New System.Drawing.Size(59, 18)
+        Me.RadLabel1.TabIndex = 18
+        Me.RadLabel1.Text = "Nickname:"
+        Me.RadLabel1.ThemeName = "Office2010Black"
+        '
+        'RadLabel3
+        '
+        Me.RadLabel3.Location = New System.Drawing.Point(12, 36)
+        Me.RadLabel3.Name = "RadLabel3"
+        Me.RadLabel3.Size = New System.Drawing.Size(49, 18)
+        Me.RadLabel3.TabIndex = 23
+        Me.RadLabel3.Text = "Address:"
+        Me.RadLabel3.ThemeName = "Office2010Black"
+        '
+        'lblAddress
+        '
+        Me.lblAddress.Location = New System.Drawing.Point(163, 36)
+        Me.lblAddress.Name = "lblAddress"
+        Me.lblAddress.Size = New System.Drawing.Size(49, 18)
+        Me.lblAddress.TabIndex = 24
+        Me.lblAddress.Text = "<None>"
+        Me.lblAddress.ThemeName = "Office2010Black"
+        '
+        'frmDccChatPrompt
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(254, 84)
-        Me.Controls.Add(Me.cmdOK)
-        Me.Controls.Add(Me.cmdCancel)
+        Me.ClientSize = New System.Drawing.Size(240, 93)
         Me.Controls.Add(Me.lblAddress)
-        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.RadLabel3)
         Me.Controls.Add(Me.lblNickName)
-        Me.Controls.Add(Me.Label1)
-        Me.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Controls.Add(Me.cmdCancel)
+        Me.Controls.Add(Me.cmdOK)
+        Me.Controls.Add(Me.RadLabel1)
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
-        Me.Name = "frmDCCChatPrompt"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "nexIRC - Accept DCC Chat?"
+        Me.Name = "frmDccChatPrompt"
+        '
+        '
+        '
+        Me.RootElement.ApplyShapeToControl = True
+        Me.Text = "nexIRC - Accept?"
+        Me.ThemeName = "Office2010Black"
+        CType(Me.lblNickName, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RadLabel1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RadLabel3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.lblAddress, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents lblNickName As System.Windows.Forms.Label
-    Friend WithEvents lblAddress As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents cmdCancel As System.Windows.Forms.Button
-    Friend WithEvents cmdOK As System.Windows.Forms.Button
+    Friend WithEvents lblNickName As Telerik.WinControls.UI.RadLabel
+    Friend WithEvents cmdCancel As Telerik.WinControls.UI.RadButton
+    Friend WithEvents cmdOK As Telerik.WinControls.UI.RadButton
+    Friend WithEvents RadLabel1 As Telerik.WinControls.UI.RadLabel
+    Friend WithEvents RadLabel3 As Telerik.WinControls.UI.RadLabel
+    Friend WithEvents Office2010BlackTheme1 As Telerik.WinControls.Themes.Office2010BlackTheme
+    Friend WithEvents lblAddress As Telerik.WinControls.UI.RadLabel
 End Class
+

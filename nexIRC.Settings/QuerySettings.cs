@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using nexIRC.IniFile;
 namespace nexIRC.IrcSettings {
     /// <summary>
     /// Query Permission
@@ -43,7 +42,7 @@ namespace nexIRC.IrcSettings {
         private bool _useCached = false;
         private QuerySettingsData _cached;
         private string _iniFile;
-        private string _startupPath;
+        //private string _startupPath;
         /// <summary>
         /// Entry Point
         /// </summary>
@@ -70,29 +69,29 @@ namespace nexIRC.IrcSettings {
                     data.AutoAllowList = new List<string>();
                     data.AutoDenyList = new List<string>();
                     int n = 0;
-                    if (int.TryParse(Files.ReadINI(_iniFile, "Settings", "AutoAllow", "1"), out n)) {
+                    if (int.TryParse(IniFileHelper.ReadINI(_iniFile, "Settings", "AutoAllow", "1"), out n)) {
                         data.AutoAllow = (QueryPermission)n;
                     }
-                    if (int.TryParse(Files.ReadINI(_iniFile, "Settings", "AutoDeny", "1"), out n)) {
+                    if (int.TryParse(IniFileHelper.ReadINI(_iniFile, "Settings", "AutoDeny", "1"), out n)) {
                         data.AutoDeny = (QueryPermission)n;
                     }
-                    data.StandByMessage = Files.ReadINI(_iniFile, "Settings", "StandByMessage", "");
-                    data.DeclineMessage = Files.ReadINI(_iniFile, "Settings", "DeclineMessage", "");
-                    data.EnableSpamFilter = Convert.ToBoolean(Files.ReadINI(_iniFile, "Settings", "EnableSpamFilter ", "True"));
-                    data.PromptUser = Convert.ToBoolean(Files.ReadINI(_iniFile, "Settings", "PromptUser", "False"));
-                    var autoAllowCount = Convert.ToInt32(Files.ReadINI(_iniFile, "Settings", "AutoAllowCount", "0"));
-                    var autoDenyCount = Convert.ToInt32(Files.ReadINI(_iniFile, "Settings", "AutoDenyCount", "0"));
-                    var spamPhraseCount = Convert.ToInt32(Files.ReadINI(_iniFile, "Settings", "SpamPhraseCount", "0"));
-                    data.AutoShowWindow = Convert.ToBoolean(Files.ReadINI(_iniFile, "Settings", "AutoShowWindow", "True"));
+                    data.StandByMessage = IniFileHelper.ReadINI(_iniFile, "Settings", "StandByMessage", "");
+                    data.DeclineMessage = IniFileHelper.ReadINI(_iniFile, "Settings", "DeclineMessage", "");
+                    data.EnableSpamFilter = Convert.ToBoolean(IniFileHelper.ReadINI(_iniFile, "Settings", "EnableSpamFilter ", "True"));
+                    data.PromptUser = Convert.ToBoolean(IniFileHelper.ReadINI(_iniFile, "Settings", "PromptUser", "False"));
+                    var autoAllowCount = Convert.ToInt32(IniFileHelper.ReadINI(_iniFile, "Settings", "AutoAllowCount", "0"));
+                    var autoDenyCount = Convert.ToInt32(IniFileHelper.ReadINI(_iniFile, "Settings", "AutoDenyCount", "0"));
+                    var spamPhraseCount = Convert.ToInt32(IniFileHelper.ReadINI(_iniFile, "Settings", "SpamPhraseCount", "0"));
+                    data.AutoShowWindow = Convert.ToBoolean(IniFileHelper.ReadINI(_iniFile, "Settings", "AutoShowWindow", "True"));
                     data.AutoAllowList = new List<string>();
                     for (var i = 1; i <= autoAllowCount; i++) {
-                        data.AutoAllowList.Add(Files.ReadINI(_iniFile, "AutoAllowList", i.ToString(), ""));
+                        data.AutoAllowList.Add(IniFileHelper.ReadINI(_iniFile, "AutoAllowList", i.ToString(), ""));
                     }
                     for (var i = 1; i <= autoDenyCount; i++) {
-                        data.AutoDenyList.Add(Files.ReadINI(_iniFile, "AutoDenyList", i.ToString(), ""));
+                        data.AutoDenyList.Add(IniFileHelper.ReadINI(_iniFile, "AutoDenyList", i.ToString(), ""));
                     }
                     for (var i = 1; i <= spamPhraseCount; i++) {
-                        data.SpamPhrases.Add(Files.ReadINI(_iniFile, "SpamPhrases", i.ToString(), ""));
+                        data.SpamPhrases.Add(IniFileHelper.ReadINI(_iniFile, "SpamPhrases", i.ToString(), ""));
                     }
                     _useCached = true;
                     _cached = data;

@@ -50,7 +50,7 @@ Public Class clsServerLinks
     End Sub
     Public Sub Form_Load(_Form As Form, _ComboBox As ComboBox, _ListView As ListView)
         Try
-            Dim i As Integer
+            'Dim i As Integer
             _Form.Icon = mdiMain.Icon
             lSettings.FillComboWithNetworks(_ComboBox)
             With _ListView.Columns

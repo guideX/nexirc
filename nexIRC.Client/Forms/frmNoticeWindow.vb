@@ -3,6 +3,8 @@
 Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
+Imports nexIRC.Business.Helpers
+
 Public Class frmNoticeWindow
     Private lStatusIndex As Integer
     Private _privateMessageNickName As String
@@ -16,7 +18,7 @@ Public Class frmNoticeWindow
                 Throw ex
             End Try
         End Get
-        Set(value As String)
+        Set(ByVal value As String)
             Try
                 _privateMessageNickName = value
             Catch ex As Exception
@@ -33,7 +35,7 @@ Public Class frmNoticeWindow
                 Throw ex
             End Try
         End Get
-        Set(value As MdiChildWindow.FormTypes)
+        Set(ByVal value As MdiChildWindow.FormTypes)
             Try
                 lMdiWindow.FormType = value
             Catch ex As Exception
@@ -106,7 +108,7 @@ Public Class frmNoticeWindow
         Try
             Dim msg As String
             If e.KeyCode = 13 Then
-                If TextManipulation.Text.LeftRight(txtOutgoing.Text, 0, 1) = "/" Then
+                If TextHelper.LeftRight(txtOutgoing.Text, 0, 1) = "/" Then
                     msg = txtOutgoing.Text
                     txtOutgoing.Text = ""
                     lStatus.ProcessUserInput(lStatusIndex, msg)
@@ -199,7 +201,7 @@ Public Class frmNoticeWindow
             Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_EmptyOutgoingTextBox() Handles lMdiWindow.EmptyOutgoingTextBox")
         End Try
     End Sub
-    Private Sub lMdiChildWindow_FormDimensions(width As Integer, height As Integer) Handles lMdiWindow.FormDimensions
+    Private Sub lMdiChildWindow_FormDimensions(ByVal width As Integer, ByVal height As Integer) Handles lMdiWindow.FormDimensions
         Try
             Me.Width = width
             Me.Height = height
@@ -214,14 +216,14 @@ Public Class frmNoticeWindow
             Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormFocus() Handles lMdiWindow.FormFocus")
         End Try
     End Sub
-    Private Sub lMdiChildWindow_FormIcon(icon As System.Drawing.Icon) Handles lMdiWindow.FormIcon
+    Private Sub lMdiChildWindow_FormIcon(ByVal icon As System.Drawing.Icon) Handles lMdiWindow.FormIcon
         Try
             Me.Icon = icon
         Catch ex As Exception
             Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormIcon(icon As System.Drawing.Icon) Handles lMdiWindow.FormIcon")
         End Try
     End Sub
-    Private Sub lMdiChildWindow_IncomingTextBoxDimensions(width As Integer, height As Integer) Handles lMdiWindow.IncomingTextBoxDimensions
+    Private Sub lMdiChildWindow_IncomingTextBoxDimensions(ByVal width As Integer, ByVal height As Integer) Handles lMdiWindow.IncomingTextBoxDimensions
         Try
             txtIncoming.Width = width
             txtIncoming.Height = height
@@ -236,7 +238,7 @@ Public Class frmNoticeWindow
             Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_OutgoingSetFocus() Handles lMdiWindow.OutgoingSetFocus")
         End Try
     End Sub
-    Private Sub lMdiChildWindow_OutgoingTextBoxDimensions(width As Integer, top As Integer) Handles lMdiWindow.OutgoingTextBoxDimensions
+    Private Sub lMdiChildWindow_OutgoingTextBoxDimensions(ByVal width As Integer, ByVal top As Integer) Handles lMdiWindow.OutgoingTextBoxDimensions
         Try
             txtOutgoing.Width = width
             txtOutgoing.Top = top
@@ -257,7 +259,7 @@ Public Class frmNoticeWindow
             Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_ScrollToCaret() Handles lMdiWindow.ScrollToCaret")
         End Try
     End Sub
-    Private Sub lMdiChildWindow_SetIncomingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetIncomingColors
+    Private Sub lMdiChildWindow_SetIncomingColors(ByVal backgroundColor As System.Drawing.Color, ByVal foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetIncomingColors
         Try
             txtIncoming.RichTextBoxElement.PageBackground = backgroundColor
             txtIncoming.RichTextBoxElement.ForeColor = foregroundColor
@@ -268,7 +270,7 @@ Public Class frmNoticeWindow
         End Try
     End Sub
 
-    Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetOutgoingColors
+    Private Sub lMdiChildWindow_SetOutgoingColors(ByVal backgroundColor As System.Drawing.Color, ByVal foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetOutgoingColors
         Try
             txtOutgoing.TextBoxElement.BackColor = backgroundColor
             txtOutgoing.TextBoxElement.ForeColor = foregroundColor
@@ -282,14 +284,14 @@ Public Class frmNoticeWindow
             Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles lMdiWindow.SetOutgoingColors")
         End Try
     End Sub
-    Private Sub lMdiChildWindow_SetParent(parentForm As System.Windows.Forms.Form) Handles lMdiWindow.SetParent
+    Private Sub lMdiChildWindow_SetParent(ByVal parentForm As System.Windows.Forms.Form) Handles lMdiWindow.SetParent
         Try
             Me.MdiParent = parentForm
         Catch ex As Exception
             Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetParent(parentForm As System.Windows.Forms.Form) Handles lMdiWindow.SetParent")
         End Try
     End Sub
-    Private Sub lMdiChildWindow_SetWindowState(windowState As System.Windows.Forms.FormWindowState) Handles lMdiWindow.SetWindowState
+    Private Sub lMdiChildWindow_SetWindowState(ByVal windowState As System.Windows.Forms.FormWindowState) Handles lMdiWindow.SetWindowState
         Try
             Me.WindowState = windowState
         Catch ex As Exception
@@ -297,7 +299,7 @@ Public Class frmNoticeWindow
         End Try
     End Sub
 
-    Private Sub Button1_Click(sender As System.Object, e As System.EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         MessageBox.Show(lMdiWindow.FormType.ToString())
     End Sub
 End Class

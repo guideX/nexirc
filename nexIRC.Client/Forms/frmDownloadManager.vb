@@ -4,6 +4,8 @@
 Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
+Imports nexIRC.Business.Helpers
+
 Public Class frmDownloadManager
     Private Sub frmDownloadManager_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
@@ -50,7 +52,7 @@ Public Class frmDownloadManager
     Private Sub cmdRun_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRun.Click
         Try
             Dim msg As String = lvwDownloadManager.SelectedItems(0).Text, v As Boolean, p As Boolean
-            Select Case TextManipulation.Text.DoRight(msg, 4)
+            Select Case TextHelper.DoRight(msg, 4)
                 Case ".txt"
 
                 Case ".gif"
@@ -89,7 +91,7 @@ Public Class frmDownloadManager
     Private Sub lvwDownloadManager_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwDownloadManager.DoubleClick
         Try
             Dim msg As String = lvwDownloadManager.SelectedItems(0).Text
-            Select Case TextManipulation.Text.DoRight(LCase(Trim(msg)), 4)
+            Select Case TextHelper.DoRight(LCase(Trim(msg)), 4)
                 Case ".txt"
             End Select
             MsgBox(msg)

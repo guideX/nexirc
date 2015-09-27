@@ -163,16 +163,13 @@ Partial Class frmCustomize
         Me.optDccChatIgnore = New Telerik.WinControls.UI.RadRadioButton()
         Me.optDccChatPrompt = New Telerik.WinControls.UI.RadRadioButton()
         Me.chkNewStatus = New Telerik.WinControls.UI.RadCheckBox()
-        Me.TelerikMetroTheme1 = New Telerik.WinControls.Themes.TelerikMetroTheme()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.TelerikMetroTheme2 = New Telerik.WinControls.Themes.TelerikMetroTheme()
-        Me.Office2010SilverTheme1 = New Telerik.WinControls.Themes.Office2010SilverTheme()
-        Me.AquaTheme1 = New Telerik.WinControls.Themes.AquaTheme()
+        Me.tmrCloseMe = New System.Windows.Forms.Timer(Me.components)
         Me.cmdApplyNow = New Telerik.WinControls.UI.RadButton()
         Me.cmdOK = New Telerik.WinControls.UI.RadButton()
         Me.cmdConnectNow = New Telerik.WinControls.UI.RadButton()
         Me.cmdCancelNow = New Telerik.WinControls.UI.RadButton()
-        Me.tmrCloseMe = New System.Windows.Forms.Timer(Me.components)
+        Me.Office2010BlackTheme1 = New Telerik.WinControls.Themes.Office2010BlackTheme()
         CType(Me.RadPageView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RadPageView1.SuspendLayout()
         Me.RadPageViewPage1.SuspendLayout()
@@ -320,6 +317,7 @@ Partial Class frmCustomize
         Me.RadPageView1.Size = New System.Drawing.Size(542, 381)
         Me.RadPageView1.TabIndex = 31
         Me.RadPageView1.Text = "RadPageView1"
+        Me.RadPageView1.ThemeName = "Office2010Black"
         '
         'RadPageViewPage1
         '
@@ -333,9 +331,9 @@ Partial Class frmCustomize
         Me.RadPageViewPage1.Controls.Add(Me.lnkNetworkDelete)
         Me.RadPageViewPage1.Controls.Add(Me.cmdServerEdit)
         Me.RadPageViewPage1.Image = Global.nexIRC.My.Resources.Resources.web
-        Me.RadPageViewPage1.Location = New System.Drawing.Point(10, 37)
+        Me.RadPageViewPage1.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage1.Name = "RadPageViewPage1"
-        Me.RadPageViewPage1.Size = New System.Drawing.Size(521, 333)
+        Me.RadPageViewPage1.Size = New System.Drawing.Size(518, 329)
         Me.RadPageViewPage1.Text = "Network"
         '
         'lvwServers
@@ -357,6 +355,7 @@ Partial Class frmCustomize
         Me.lvwServers.Name = "lvwServers"
         Me.lvwServers.Size = New System.Drawing.Size(516, 265)
         Me.lvwServers.TabIndex = 23
+        Me.lvwServers.ThemeName = "Office2010Black"
         Me.lvwServers.ViewType = Telerik.WinControls.UI.ListViewType.DetailsView
         '
         'cboNetworks
@@ -368,6 +367,7 @@ Partial Class frmCustomize
         Me.cboNetworks.ShowImageInEditorArea = True
         Me.cboNetworks.Size = New System.Drawing.Size(436, 20)
         Me.cboNetworks.TabIndex = 22
+        Me.cboNetworks.ThemeName = "Office2010Black"
         '
         'cmdServersMove
         '
@@ -383,6 +383,7 @@ Partial Class frmCustomize
         Me.cmdServersMove.TabIndex = 19
         Me.cmdServersMove.Text = "&Move"
         Me.cmdServersMove.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdServersMove.ThemeName = "Office2010Black"
         '
         'cmdServersClear
         '
@@ -398,6 +399,7 @@ Partial Class frmCustomize
         Me.cmdServersClear.TabIndex = 19
         Me.cmdServersClear.Text = "C&lear"
         Me.cmdServersClear.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdServersClear.ThemeName = "Office2010Black"
         '
         'cmdServerAdd
         '
@@ -413,6 +415,7 @@ Partial Class frmCustomize
         Me.cmdServerAdd.TabIndex = 20
         Me.cmdServerAdd.Text = "&Add"
         Me.cmdServerAdd.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdServerAdd.ThemeName = "Office2010Black"
         '
         'lnkNetworkAdd
         '
@@ -438,6 +441,7 @@ Partial Class frmCustomize
         Me.cmdServerDelete.TabIndex = 19
         Me.cmdServerDelete.Text = "&Delete"
         Me.cmdServerDelete.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdServerDelete.ThemeName = "Office2010Black"
         '
         'lnkNetworkDelete
         '
@@ -463,6 +467,7 @@ Partial Class frmCustomize
         Me.cmdServerEdit.TabIndex = 18
         Me.cmdServerEdit.Text = "&Edit"
         Me.cmdServerEdit.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdServerEdit.ThemeName = "Office2010Black"
         '
         'RadPageViewPage2
         '
@@ -488,18 +493,20 @@ Partial Class frmCustomize
         Me.RadPageViewPage2.Controls.Add(Me.cmdRemoveMyNickName)
         Me.RadPageViewPage2.Controls.Add(Me.cmdAddMyNickName)
         Me.RadPageViewPage2.Image = Global.nexIRC.My.Resources.Resources.tools
-        Me.RadPageViewPage2.Location = New System.Drawing.Point(10, 37)
+        Me.RadPageViewPage2.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage2.Name = "RadPageViewPage2"
-        Me.RadPageViewPage2.Size = New System.Drawing.Size(521, 333)
+        Me.RadPageViewPage2.Size = New System.Drawing.Size(518, 329)
         Me.RadPageViewPage2.Text = "User"
         '
         'chkIdentdEnabled
         '
+        Me.chkIdentdEnabled.BackColor = System.Drawing.Color.Transparent
         Me.chkIdentdEnabled.Location = New System.Drawing.Point(140, 137)
         Me.chkIdentdEnabled.Name = "chkIdentdEnabled"
         Me.chkIdentdEnabled.Size = New System.Drawing.Size(96, 18)
         Me.chkIdentdEnabled.TabIndex = 82
         Me.chkIdentdEnabled.Text = "Identd Enabled"
+        Me.chkIdentdEnabled.ThemeName = "Office2010Black"
         '
         'txtIdentdPort
         '
@@ -508,6 +515,7 @@ Partial Class frmCustomize
         Me.txtIdentdPort.Size = New System.Drawing.Size(375, 20)
         Me.txtIdentdPort.TabIndex = 80
         Me.txtIdentdPort.TabStop = False
+        Me.txtIdentdPort.ThemeName = "Office2010Black"
         '
         'lblIdentdPort
         '
@@ -517,6 +525,7 @@ Partial Class frmCustomize
         Me.lblIdentdPort.Size = New System.Drawing.Size(65, 18)
         Me.lblIdentdPort.TabIndex = 81
         Me.lblIdentdPort.Text = "Identd Port:"
+        Me.lblIdentdPort.ThemeName = "Office2010Black"
         '
         'txtIdentdSystem
         '
@@ -525,6 +534,7 @@ Partial Class frmCustomize
         Me.txtIdentdSystem.Size = New System.Drawing.Size(375, 20)
         Me.txtIdentdSystem.TabIndex = 78
         Me.txtIdentdSystem.TabStop = False
+        Me.txtIdentdSystem.ThemeName = "Office2010Black"
         '
         'RadLabel20
         '
@@ -534,6 +544,7 @@ Partial Class frmCustomize
         Me.RadLabel20.Size = New System.Drawing.Size(80, 18)
         Me.RadLabel20.TabIndex = 79
         Me.RadLabel20.Text = "Identd System:"
+        Me.RadLabel20.ThemeName = "Office2010Black"
         '
         'txtIdentdUserID
         '
@@ -542,6 +553,7 @@ Partial Class frmCustomize
         Me.txtIdentdUserID.Size = New System.Drawing.Size(375, 20)
         Me.txtIdentdUserID.TabIndex = 76
         Me.txtIdentdUserID.TabStop = False
+        Me.txtIdentdUserID.ThemeName = "Office2010Black"
         '
         'RadLabel2
         '
@@ -551,23 +563,30 @@ Partial Class frmCustomize
         Me.RadLabel2.Size = New System.Drawing.Size(76, 18)
         Me.RadLabel2.TabIndex = 77
         Me.RadLabel2.Text = "Identd UserId:"
+        Me.RadLabel2.ThemeName = "Office2010Black"
         '
         'txtOperPassword
         '
+        Me.txtOperPassword.BackColor = System.Drawing.Color.Transparent
         Me.txtOperPassword.Location = New System.Drawing.Point(349, 239)
         Me.txtOperPassword.Name = "txtOperPassword"
         Me.txtOperPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txtOperPassword.Size = New System.Drawing.Size(166, 20)
+        Me.txtOperPassword.Size = New System.Drawing.Size(166, 24)
         Me.txtOperPassword.TabIndex = 75
         Me.txtOperPassword.TabStop = False
+        Me.txtOperPassword.ThemeName = "Office2010Black"
+        Me.txtOperPassword.UseGenericBorderPaint = True
         '
         'txtOperName
         '
+        Me.txtOperName.BackColor = System.Drawing.Color.Transparent
         Me.txtOperName.Location = New System.Drawing.Point(140, 239)
         Me.txtOperName.Name = "txtOperName"
-        Me.txtOperName.Size = New System.Drawing.Size(203, 20)
+        Me.txtOperName.Size = New System.Drawing.Size(203, 24)
         Me.txtOperName.TabIndex = 73
         Me.txtOperName.TabStop = False
+        Me.txtOperName.ThemeName = "Office2010Black"
+        Me.txtOperName.UseGenericBorderPaint = True
         '
         'RadLabel19
         '
@@ -577,15 +596,19 @@ Partial Class frmCustomize
         Me.RadLabel19.Size = New System.Drawing.Size(111, 18)
         Me.RadLabel19.TabIndex = 74
         Me.RadLabel19.Text = "Oper User/Password:"
+        Me.RadLabel19.ThemeName = "Office2010Black"
         '
         'txtPassword
         '
+        Me.txtPassword.BackColor = System.Drawing.Color.Transparent
         Me.txtPassword.Location = New System.Drawing.Point(140, 213)
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txtPassword.Size = New System.Drawing.Size(375, 20)
+        Me.txtPassword.Size = New System.Drawing.Size(375, 24)
         Me.txtPassword.TabIndex = 71
         Me.txtPassword.TabStop = False
+        Me.txtPassword.ThemeName = "Office2010Black"
+        Me.txtPassword.UseGenericBorderPaint = True
         '
         'RadLabel18
         '
@@ -595,14 +618,18 @@ Partial Class frmCustomize
         Me.RadLabel18.Size = New System.Drawing.Size(56, 18)
         Me.RadLabel18.TabIndex = 72
         Me.RadLabel18.Text = "Password:"
+        Me.RadLabel18.ThemeName = "Office2010Black"
         '
         'txtRealName
         '
+        Me.txtRealName.BackColor = System.Drawing.Color.Transparent
         Me.txtRealName.Location = New System.Drawing.Point(140, 187)
         Me.txtRealName.Name = "txtRealName"
-        Me.txtRealName.Size = New System.Drawing.Size(375, 20)
+        Me.txtRealName.Size = New System.Drawing.Size(375, 24)
         Me.txtRealName.TabIndex = 69
         Me.txtRealName.TabStop = False
+        Me.txtRealName.ThemeName = "Office2010Black"
+        Me.txtRealName.UseGenericBorderPaint = True
         '
         'RadLabel17
         '
@@ -612,14 +639,18 @@ Partial Class frmCustomize
         Me.RadLabel17.Size = New System.Drawing.Size(63, 18)
         Me.RadLabel17.TabIndex = 70
         Me.RadLabel17.Text = "Real Name:"
+        Me.RadLabel17.ThemeName = "Office2010Black"
         '
         'txtUserEmail
         '
+        Me.txtUserEmail.BackColor = System.Drawing.Color.Transparent
         Me.txtUserEmail.Location = New System.Drawing.Point(140, 161)
         Me.txtUserEmail.Name = "txtUserEmail"
-        Me.txtUserEmail.Size = New System.Drawing.Size(375, 20)
+        Me.txtUserEmail.Size = New System.Drawing.Size(375, 24)
         Me.txtUserEmail.TabIndex = 67
         Me.txtUserEmail.TabStop = False
+        Me.txtUserEmail.ThemeName = "Office2010Black"
+        Me.txtUserEmail.UseGenericBorderPaint = True
         '
         'RadLabel16
         '
@@ -629,6 +660,7 @@ Partial Class frmCustomize
         Me.RadLabel16.Size = New System.Drawing.Size(40, 18)
         Me.RadLabel16.TabIndex = 68
         Me.RadLabel16.Text = "E-mail:"
+        Me.RadLabel16.ThemeName = "Office2010Black"
         '
         'RadLabel3
         '
@@ -638,6 +670,7 @@ Partial Class frmCustomize
         Me.RadLabel3.Size = New System.Drawing.Size(59, 18)
         Me.RadLabel3.TabIndex = 66
         Me.RadLabel3.Text = "Nickname:"
+        Me.RadLabel3.ThemeName = "Office2010Black"
         '
         'cboMyNickNames
         '
@@ -648,6 +681,7 @@ Partial Class frmCustomize
         Me.cboMyNickNames.ShowImageInEditorArea = True
         Me.cboMyNickNames.Size = New System.Drawing.Size(375, 20)
         Me.cboMyNickNames.TabIndex = 62
+        Me.cboMyNickNames.ThemeName = "Office2010Black"
         '
         'cmdClearMyNickName
         '
@@ -656,6 +690,7 @@ Partial Class frmCustomize
         Me.cmdClearMyNickName.Size = New System.Drawing.Size(121, 24)
         Me.cmdClearMyNickName.TabIndex = 61
         Me.cmdClearMyNickName.Text = "Clear"
+        Me.cmdClearMyNickName.ThemeName = "Office2010Black"
         '
         'cmdRemoveMyNickName
         '
@@ -664,6 +699,7 @@ Partial Class frmCustomize
         Me.cmdRemoveMyNickName.Size = New System.Drawing.Size(121, 24)
         Me.cmdRemoveMyNickName.TabIndex = 60
         Me.cmdRemoveMyNickName.Text = "Remove"
+        Me.cmdRemoveMyNickName.ThemeName = "Office2010Black"
         '
         'cmdAddMyNickName
         '
@@ -672,15 +708,16 @@ Partial Class frmCustomize
         Me.cmdAddMyNickName.Size = New System.Drawing.Size(121, 24)
         Me.cmdAddMyNickName.TabIndex = 59
         Me.cmdAddMyNickName.Text = "Add"
+        Me.cmdAddMyNickName.ThemeName = "Office2010Black"
         '
         'RadPageViewPage3
         '
         Me.RadPageViewPage3.Controls.Add(Me.RadPageView2)
         Me.RadPageViewPage3.Controls.Add(Me.RadLabel5)
         Me.RadPageViewPage3.Image = Global.nexIRC.My.Resources.Resources.applications
-        Me.RadPageViewPage3.Location = New System.Drawing.Point(10, 37)
+        Me.RadPageViewPage3.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage3.Name = "RadPageViewPage3"
-        Me.RadPageViewPage3.Size = New System.Drawing.Size(521, 333)
+        Me.RadPageViewPage3.Size = New System.Drawing.Size(518, 329)
         Me.RadPageViewPage3.Text = "Settings"
         '
         'RadPageView2
@@ -693,9 +730,10 @@ Partial Class frmCustomize
         Me.RadPageView2.Location = New System.Drawing.Point(0, 0)
         Me.RadPageView2.Name = "RadPageView2"
         Me.RadPageView2.SelectedPage = Me.RadPageViewPage7
-        Me.RadPageView2.Size = New System.Drawing.Size(521, 333)
+        Me.RadPageView2.Size = New System.Drawing.Size(518, 329)
         Me.RadPageView2.TabIndex = 66
         Me.RadPageView2.Text = "RadPageView2"
+        Me.RadPageView2.ThemeName = "Office2010Black"
         '
         'RadPageViewPage7
         '
@@ -714,9 +752,9 @@ Partial Class frmCustomize
         Me.RadPageViewPage7.Controls.Add(Me.chkAutoMaximize)
         Me.RadPageViewPage7.Controls.Add(Me.chkPopupChannelFolder)
         Me.RadPageViewPage7.Controls.Add(Me.chkVideoBackground)
-        Me.RadPageViewPage7.Location = New System.Drawing.Point(10, 37)
+        Me.RadPageViewPage7.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage7.Name = "RadPageViewPage7"
-        Me.RadPageViewPage7.Size = New System.Drawing.Size(500, 285)
+        Me.RadPageViewPage7.Size = New System.Drawing.Size(494, 277)
         Me.RadPageViewPage7.Text = "Interface"
         '
         'chkAutoSelectAlternateNickname
@@ -727,18 +765,22 @@ Partial Class frmCustomize
         Me.chkAutoSelectAlternateNickname.Size = New System.Drawing.Size(179, 18)
         Me.chkAutoSelectAlternateNickname.TabIndex = 63
         Me.chkAutoSelectAlternateNickname.Text = "Auto Select Alternate Nickname"
+        Me.chkAutoSelectAlternateNickname.ThemeName = "Office2010Black"
         '
         'txtTextBufferSize
         '
+        Me.txtTextBufferSize.BackColor = System.Drawing.Color.Transparent
         Me.txtTextBufferSize.Location = New System.Drawing.Point(237, 3)
         Me.txtTextBufferSize.Name = "txtTextBufferSize"
         Me.txtTextBufferSize.Size = New System.Drawing.Size(100, 20)
         Me.txtTextBufferSize.TabIndex = 70
         Me.txtTextBufferSize.TabStop = False
+        Me.txtTextBufferSize.ThemeName = "Office2010Black"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Location = New System.Drawing.Point(163, 5)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(65, 13)
@@ -753,6 +795,7 @@ Partial Class frmCustomize
         Me.chkShowRawWindow.Size = New System.Drawing.Size(124, 18)
         Me.chkShowRawWindow.TabIndex = 68
         Me.chkShowRawWindow.Text = "Raw in Own Window"
+        Me.chkShowRawWindow.ThemeName = "Office2010Black"
         '
         'chkMOTDInOwnWindow
         '
@@ -762,6 +805,7 @@ Partial Class frmCustomize
         Me.chkMOTDInOwnWindow.Size = New System.Drawing.Size(130, 18)
         Me.chkMOTDInOwnWindow.TabIndex = 67
         Me.chkMOTDInOwnWindow.Text = "Motd in Own Window"
+        Me.chkMOTDInOwnWindow.ThemeName = "Office2010Black"
         '
         'chkNoticesInOwnWindow
         '
@@ -771,6 +815,7 @@ Partial Class frmCustomize
         Me.chkNoticesInOwnWindow.Size = New System.Drawing.Size(141, 18)
         Me.chkNoticesInOwnWindow.TabIndex = 66
         Me.chkNoticesInOwnWindow.Text = "Notices in Own Window"
+        Me.chkNoticesInOwnWindow.ThemeName = "Office2010Black"
         '
         'chkShowPrompts
         '
@@ -780,6 +825,7 @@ Partial Class frmCustomize
         Me.chkShowPrompts.Size = New System.Drawing.Size(93, 18)
         Me.chkShowPrompts.TabIndex = 55
         Me.chkShowPrompts.Text = "Show Prompts"
+        Me.chkShowPrompts.ThemeName = "Office2010Black"
         '
         'chkShowWindowsAutomatically
         '
@@ -789,15 +835,17 @@ Partial Class frmCustomize
         Me.chkShowWindowsAutomatically.Size = New System.Drawing.Size(124, 18)
         Me.chkShowWindowsAutomatically.TabIndex = 56
         Me.chkShowWindowsAutomatically.Text = "Auto Show Windows"
+        Me.chkShowWindowsAutomatically.ThemeName = "Office2010Black"
         '
         'chkCloseStatusWindow
         '
         Me.chkCloseStatusWindow.BackColor = System.Drawing.Color.Transparent
-        Me.chkCloseStatusWindow.Location = New System.Drawing.Point(3, 266)
+        Me.chkCloseStatusWindow.Location = New System.Drawing.Point(166, 75)
         Me.chkCloseStatusWindow.Name = "chkCloseStatusWindow"
         Me.chkCloseStatusWindow.Size = New System.Drawing.Size(125, 18)
         Me.chkCloseStatusWindow.TabIndex = 62
         Me.chkCloseStatusWindow.Text = "Close Status Window"
+        Me.chkCloseStatusWindow.ThemeName = "Office2010Black"
         '
         'chkAddToChannelFolder
         '
@@ -807,6 +855,7 @@ Partial Class frmCustomize
         Me.chkAddToChannelFolder.Size = New System.Drawing.Size(133, 18)
         Me.chkAddToChannelFolder.TabIndex = 62
         Me.chkAddToChannelFolder.Text = "Add to Channel Folder"
+        Me.chkAddToChannelFolder.ThemeName = "Office2010Black"
         '
         'chkCloseChannelFolder
         '
@@ -816,6 +865,7 @@ Partial Class frmCustomize
         Me.chkCloseChannelFolder.Size = New System.Drawing.Size(126, 18)
         Me.chkCloseChannelFolder.TabIndex = 62
         Me.chkCloseChannelFolder.Text = "Close Channel Folder"
+        Me.chkCloseChannelFolder.ThemeName = "Office2010Black"
         '
         'chkShowNicknameWindow
         '
@@ -825,6 +875,7 @@ Partial Class frmCustomize
         Me.chkShowNicknameWindow.Size = New System.Drawing.Size(145, 18)
         Me.chkShowNicknameWindow.TabIndex = 62
         Me.chkShowNicknameWindow.Text = "Show Nickname Window"
+        Me.chkShowNicknameWindow.ThemeName = "Office2010Black"
         '
         'chkAutoMaximize
         '
@@ -834,6 +885,7 @@ Partial Class frmCustomize
         Me.chkAutoMaximize.Size = New System.Drawing.Size(95, 18)
         Me.chkAutoMaximize.TabIndex = 59
         Me.chkAutoMaximize.Text = "Auto Maximize"
+        Me.chkAutoMaximize.ThemeName = "Office2010Black"
         '
         'chkPopupChannelFolder
         '
@@ -843,6 +895,7 @@ Partial Class frmCustomize
         Me.chkPopupChannelFolder.Size = New System.Drawing.Size(127, 18)
         Me.chkPopupChannelFolder.TabIndex = 60
         Me.chkPopupChannelFolder.Text = "Popup channel folder"
+        Me.chkPopupChannelFolder.ThemeName = "Office2010Black"
         '
         'chkVideoBackground
         '
@@ -852,14 +905,15 @@ Partial Class frmCustomize
         Me.chkVideoBackground.Size = New System.Drawing.Size(112, 18)
         Me.chkVideoBackground.TabIndex = 62
         Me.chkVideoBackground.Text = "Video Background"
+        Me.chkVideoBackground.ThemeName = "Office2010Black"
         '
         'RadPageViewPage8
         '
         Me.RadPageViewPage8.Controls.Add(Me.chkAutoConnect)
         Me.RadPageViewPage8.Controls.Add(Me.chkShowCustomize)
-        Me.RadPageViewPage8.Location = New System.Drawing.Point(10, 37)
+        Me.RadPageViewPage8.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage8.Name = "RadPageViewPage8"
-        Me.RadPageViewPage8.Size = New System.Drawing.Size(500, 285)
+        Me.RadPageViewPage8.Size = New System.Drawing.Size(494, 277)
         Me.RadPageViewPage8.Text = "On Startup"
         '
         'chkAutoConnect
@@ -870,6 +924,7 @@ Partial Class frmCustomize
         Me.chkAutoConnect.Size = New System.Drawing.Size(89, 18)
         Me.chkAutoConnect.TabIndex = 59
         Me.chkAutoConnect.Text = "Auto Connect"
+        Me.chkAutoConnect.ThemeName = "Office2010Black"
         '
         'chkShowCustomize
         '
@@ -879,6 +934,7 @@ Partial Class frmCustomize
         Me.chkShowCustomize.Size = New System.Drawing.Size(103, 18)
         Me.chkShowCustomize.TabIndex = 60
         Me.chkShowCustomize.Text = "Show Customize"
+        Me.chkShowCustomize.ThemeName = "Office2010Black"
         '
         'RadPageViewPage9
         '
@@ -888,9 +944,9 @@ Partial Class frmCustomize
         Me.RadPageViewPage9.Controls.Add(Me.chkOperator)
         Me.RadPageViewPage9.Controls.Add(Me.chkLocalOp)
         Me.RadPageViewPage9.Controls.Add(Me.chkServerNotices)
-        Me.RadPageViewPage9.Location = New System.Drawing.Point(10, 37)
+        Me.RadPageViewPage9.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage9.Name = "RadPageViewPage9"
-        Me.RadPageViewPage9.Size = New System.Drawing.Size(500, 285)
+        Me.RadPageViewPage9.Size = New System.Drawing.Size(494, 277)
         Me.RadPageViewPage9.Text = "Server Modes"
         '
         'chkInvisible
@@ -901,6 +957,7 @@ Partial Class frmCustomize
         Me.chkInvisible.Size = New System.Drawing.Size(61, 18)
         Me.chkInvisible.TabIndex = 51
         Me.chkInvisible.Text = "Invisible"
+        Me.chkInvisible.ThemeName = "Office2010Black"
         '
         'chkWallops
         '
@@ -910,6 +967,7 @@ Partial Class frmCustomize
         Me.chkWallops.Size = New System.Drawing.Size(60, 18)
         Me.chkWallops.TabIndex = 57
         Me.chkWallops.Text = "Wallops"
+        Me.chkWallops.ThemeName = "Office2010Black"
         '
         'chkRestricted
         '
@@ -919,6 +977,7 @@ Partial Class frmCustomize
         Me.chkRestricted.Size = New System.Drawing.Size(70, 18)
         Me.chkRestricted.TabIndex = 58
         Me.chkRestricted.Text = "Restricted"
+        Me.chkRestricted.ThemeName = "Office2010Black"
         '
         'chkOperator
         '
@@ -928,6 +987,7 @@ Partial Class frmCustomize
         Me.chkOperator.Size = New System.Drawing.Size(65, 18)
         Me.chkOperator.TabIndex = 52
         Me.chkOperator.Text = "Operator"
+        Me.chkOperator.ThemeName = "Office2010Black"
         '
         'chkLocalOp
         '
@@ -937,6 +997,7 @@ Partial Class frmCustomize
         Me.chkLocalOp.Size = New System.Drawing.Size(64, 18)
         Me.chkLocalOp.TabIndex = 52
         Me.chkLocalOp.Text = "Local Op"
+        Me.chkLocalOp.ThemeName = "Office2010Black"
         '
         'chkServerNotices
         '
@@ -946,6 +1007,7 @@ Partial Class frmCustomize
         Me.chkServerNotices.Size = New System.Drawing.Size(92, 18)
         Me.chkServerNotices.TabIndex = 52
         Me.chkServerNotices.Text = "Server Notices"
+        Me.chkServerNotices.ThemeName = "Office2010Black"
         '
         'RadPageViewPage10
         '
@@ -954,9 +1016,9 @@ Partial Class frmCustomize
         Me.RadPageViewPage10.Controls.Add(Me.chkExtendedMessages)
         Me.RadPageViewPage10.Controls.Add(Me.chkShowUserAddresses)
         Me.RadPageViewPage10.Controls.Add(Me.chkHideMOTDs)
-        Me.RadPageViewPage10.Location = New System.Drawing.Point(10, 37)
+        Me.RadPageViewPage10.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage10.Name = "RadPageViewPage10"
-        Me.RadPageViewPage10.Size = New System.Drawing.Size(500, 285)
+        Me.RadPageViewPage10.Size = New System.Drawing.Size(494, 277)
         Me.RadPageViewPage10.Text = "IRC"
         '
         'chkNoIRCMessages
@@ -967,9 +1029,11 @@ Partial Class frmCustomize
         Me.chkNoIRCMessages.Size = New System.Drawing.Size(107, 18)
         Me.chkNoIRCMessages.TabIndex = 51
         Me.chkNoIRCMessages.Text = "No IRC Messages"
+        Me.chkNoIRCMessages.ThemeName = "Office2010Black"
         '
         'cmdQuerySettings
         '
+        Me.cmdQuerySettings.BackColor = System.Drawing.Color.Transparent
         Me.cmdQuerySettings.Image = Global.nexIRC.My.Resources.Resources.configure
         Me.cmdQuerySettings.Location = New System.Drawing.Point(3, 111)
         Me.cmdQuerySettings.Name = "cmdQuerySettings"
@@ -982,6 +1046,7 @@ Partial Class frmCustomize
         Me.cmdQuerySettings.TabIndex = 64
         Me.cmdQuerySettings.Text = "Query Settings"
         Me.cmdQuerySettings.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdQuerySettings.ThemeName = "Office2010Black"
         '
         'chkExtendedMessages
         '
@@ -991,6 +1056,7 @@ Partial Class frmCustomize
         Me.chkExtendedMessages.Size = New System.Drawing.Size(119, 18)
         Me.chkExtendedMessages.TabIndex = 52
         Me.chkExtendedMessages.Text = "Extended Messages"
+        Me.chkExtendedMessages.ThemeName = "Office2010Black"
         '
         'chkShowUserAddresses
         '
@@ -1000,6 +1066,7 @@ Partial Class frmCustomize
         Me.chkShowUserAddresses.Size = New System.Drawing.Size(124, 18)
         Me.chkShowUserAddresses.TabIndex = 55
         Me.chkShowUserAddresses.Text = "Show user addresses"
+        Me.chkShowUserAddresses.ThemeName = "Office2010Black"
         '
         'chkHideMOTDs
         '
@@ -1009,6 +1076,7 @@ Partial Class frmCustomize
         Me.chkHideMOTDs.Size = New System.Drawing.Size(79, 18)
         Me.chkHideMOTDs.TabIndex = 62
         Me.chkHideMOTDs.Text = "Hide MOTD"
+        Me.chkHideMOTDs.ThemeName = "Office2010Black"
         '
         'RadLabel5
         '
@@ -1032,9 +1100,9 @@ Partial Class frmCustomize
         Me.RadPageViewPage4.Controls.Add(Me.RadLabel4)
         Me.RadPageViewPage4.Controls.Add(Me.lvwNotify)
         Me.RadPageViewPage4.Image = Global.nexIRC.My.Resources.Resources.preferences
-        Me.RadPageViewPage4.Location = New System.Drawing.Point(10, 37)
+        Me.RadPageViewPage4.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage4.Name = "RadPageViewPage4"
-        Me.RadPageViewPage4.Size = New System.Drawing.Size(521, 333)
+        Me.RadPageViewPage4.Size = New System.Drawing.Size(518, 329)
         Me.RadPageViewPage4.Text = "Notify"
         '
         'cmdNotifyClear
@@ -1044,6 +1112,7 @@ Partial Class frmCustomize
         Me.cmdNotifyClear.Size = New System.Drawing.Size(130, 24)
         Me.cmdNotifyClear.TabIndex = 30
         Me.cmdNotifyClear.Text = "Clear"
+        Me.cmdNotifyClear.ThemeName = "Office2010Black"
         '
         'cmdNotifyRemove
         '
@@ -1052,6 +1121,7 @@ Partial Class frmCustomize
         Me.cmdNotifyRemove.Size = New System.Drawing.Size(130, 24)
         Me.cmdNotifyRemove.TabIndex = 29
         Me.cmdNotifyRemove.Text = "Remove"
+        Me.cmdNotifyRemove.ThemeName = "Office2010Black"
         '
         'cmdNotifyAdd
         '
@@ -1060,6 +1130,7 @@ Partial Class frmCustomize
         Me.cmdNotifyAdd.Size = New System.Drawing.Size(130, 24)
         Me.cmdNotifyAdd.TabIndex = 28
         Me.cmdNotifyAdd.Text = "Add"
+        Me.cmdNotifyAdd.ThemeName = "Office2010Black"
         '
         'cboNetworkNotify
         '
@@ -1069,6 +1140,7 @@ Partial Class frmCustomize
         Me.cboNetworkNotify.ShowImageInEditorArea = True
         Me.cboNetworkNotify.Size = New System.Drawing.Size(402, 20)
         Me.cboNetworkNotify.TabIndex = 0
+        Me.cboNetworkNotify.ThemeName = "Office2010Black"
         '
         'RadLabel7
         '
@@ -1078,6 +1150,7 @@ Partial Class frmCustomize
         Me.RadLabel7.Size = New System.Drawing.Size(51, 18)
         Me.RadLabel7.TabIndex = 26
         Me.RadLabel7.Text = "Network:"
+        Me.RadLabel7.ThemeName = "Office2010Black"
         '
         'txtNotifyMessage
         '
@@ -1086,6 +1159,7 @@ Partial Class frmCustomize
         Me.txtNotifyMessage.Size = New System.Drawing.Size(402, 20)
         Me.txtNotifyMessage.TabIndex = 27
         Me.txtNotifyMessage.TabStop = False
+        Me.txtNotifyMessage.ThemeName = "Office2010Black"
         '
         'RadLabel6
         '
@@ -1095,6 +1169,7 @@ Partial Class frmCustomize
         Me.RadLabel6.Size = New System.Drawing.Size(53, 18)
         Me.RadLabel6.TabIndex = 26
         Me.RadLabel6.Text = "Message:"
+        Me.RadLabel6.ThemeName = "Office2010Black"
         '
         'txtNotifyNickname
         '
@@ -1103,6 +1178,7 @@ Partial Class frmCustomize
         Me.txtNotifyNickname.Size = New System.Drawing.Size(402, 20)
         Me.txtNotifyNickname.TabIndex = 25
         Me.txtNotifyNickname.TabStop = False
+        Me.txtNotifyNickname.ThemeName = "Office2010Black"
         '
         'RadLabel4
         '
@@ -1112,6 +1188,7 @@ Partial Class frmCustomize
         Me.RadLabel4.Size = New System.Drawing.Size(59, 18)
         Me.RadLabel4.TabIndex = 24
         Me.RadLabel4.Text = "Nickname:"
+        Me.RadLabel4.ThemeName = "Office2010Black"
         '
         'lvwNotify
         '
@@ -1130,6 +1207,7 @@ Partial Class frmCustomize
         Me.lvwNotify.Size = New System.Drawing.Size(514, 219)
         Me.lvwNotify.TabIndex = 23
         Me.lvwNotify.Text = "RadListView1"
+        Me.lvwNotify.ThemeName = "Office2010Black"
         Me.lvwNotify.ViewType = Telerik.WinControls.UI.ListViewType.DetailsView
         '
         'RadPageViewPage5
@@ -1144,9 +1222,9 @@ Partial Class frmCustomize
         Me.RadPageViewPage5.Controls.Add(Me.RadPanel1)
         Me.RadPageViewPage5.Controls.Add(Me.lvwStrings)
         Me.RadPageViewPage5.Image = Global.nexIRC.My.Resources.Resources.film
-        Me.RadPageViewPage5.Location = New System.Drawing.Point(10, 37)
+        Me.RadPageViewPage5.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage5.Name = "RadPageViewPage5"
-        Me.RadPageViewPage5.Size = New System.Drawing.Size(521, 333)
+        Me.RadPageViewPage5.Size = New System.Drawing.Size(518, 329)
         Me.RadPageViewPage5.Text = "Text"
         '
         'cmdCompatibilityDisable
@@ -1156,6 +1234,7 @@ Partial Class frmCustomize
         Me.cmdCompatibilityDisable.Size = New System.Drawing.Size(130, 24)
         Me.cmdCompatibilityDisable.TabIndex = 21
         Me.cmdCompatibilityDisable.Text = "Disable"
+        Me.cmdCompatibilityDisable.ThemeName = "Office2010Black"
         '
         'cmdCompatibilityEnable
         '
@@ -1164,6 +1243,7 @@ Partial Class frmCustomize
         Me.cmdCompatibilityEnable.Size = New System.Drawing.Size(130, 24)
         Me.cmdCompatibilityEnable.TabIndex = 20
         Me.cmdCompatibilityEnable.Text = "Enable"
+        Me.cmdCompatibilityEnable.ThemeName = "Office2010Black"
         '
         'lvwCompatibility
         '
@@ -1181,6 +1261,7 @@ Partial Class frmCustomize
         Me.lvwCompatibility.Name = "lvwCompatibility"
         Me.lvwCompatibility.Size = New System.Drawing.Size(394, 110)
         Me.lvwCompatibility.TabIndex = 19
+        Me.lvwCompatibility.ThemeName = "Office2010Black"
         Me.lvwCompatibility.ViewType = Telerik.WinControls.UI.ListViewType.DetailsView
         '
         'cmdEditString
@@ -1190,6 +1271,7 @@ Partial Class frmCustomize
         Me.cmdEditString.Size = New System.Drawing.Size(130, 24)
         Me.cmdEditString.TabIndex = 17
         Me.cmdEditString.Text = "Edit Text String"
+        Me.cmdEditString.ThemeName = "Office2010Black"
         '
         'RadLabel9
         '
@@ -1199,6 +1281,7 @@ Partial Class frmCustomize
         Me.RadLabel9.Size = New System.Drawing.Size(72, 18)
         Me.RadLabel9.TabIndex = 15
         Me.RadLabel9.Text = "Unsupported"
+        Me.RadLabel9.ThemeName = "Office2010Black"
         '
         'RadPanel2
         '
@@ -1211,6 +1294,7 @@ Partial Class frmCustomize
         Me.RadPanel2.Size = New System.Drawing.Size(112, 79)
         Me.RadPanel2.TabIndex = 16
         Me.RadPanel2.TextAlignment = System.Drawing.ContentAlignment.TopLeft
+        Me.RadPanel2.ThemeName = "Office2010Black"
         '
         'rdbUnsupportedOwn
         '
@@ -1219,6 +1303,7 @@ Partial Class frmCustomize
         Me.rdbUnsupportedOwn.Size = New System.Drawing.Size(51, 18)
         Me.rdbUnsupportedOwn.TabIndex = 1
         Me.rdbUnsupportedOwn.Text = "Own"
+        Me.rdbUnsupportedOwn.ThemeName = "Office2010Black"
         '
         'rdbUnsupportedHide
         '
@@ -1227,6 +1312,7 @@ Partial Class frmCustomize
         Me.rdbUnsupportedHide.Size = New System.Drawing.Size(59, 18)
         Me.rdbUnsupportedHide.TabIndex = 2
         Me.rdbUnsupportedHide.Text = "Hide"
+        Me.rdbUnsupportedHide.ThemeName = "Office2010Black"
         '
         'rdbUnsupportedStatus
         '
@@ -1235,6 +1321,7 @@ Partial Class frmCustomize
         Me.rdbUnsupportedStatus.Size = New System.Drawing.Size(59, 18)
         Me.rdbUnsupportedStatus.TabIndex = 0
         Me.rdbUnsupportedStatus.Text = "Status"
+        Me.rdbUnsupportedStatus.ThemeName = "Office2010Black"
         '
         'RadLabel8
         '
@@ -1244,6 +1331,7 @@ Partial Class frmCustomize
         Me.RadLabel8.Size = New System.Drawing.Size(78, 18)
         Me.RadLabel8.TabIndex = 3
         Me.RadLabel8.Text = "Unknown Text"
+        Me.RadLabel8.ThemeName = "Office2010Black"
         '
         'RadPanel1
         '
@@ -1256,6 +1344,7 @@ Partial Class frmCustomize
         Me.RadPanel1.Size = New System.Drawing.Size(112, 79)
         Me.RadPanel1.TabIndex = 14
         Me.RadPanel1.TextAlignment = System.Drawing.ContentAlignment.TopLeft
+        Me.RadPanel1.ThemeName = "Office2010Black"
         '
         'rdbUnknownTextOwn
         '
@@ -1264,6 +1353,7 @@ Partial Class frmCustomize
         Me.rdbUnknownTextOwn.Size = New System.Drawing.Size(51, 18)
         Me.rdbUnknownTextOwn.TabIndex = 1
         Me.rdbUnknownTextOwn.Text = "Own"
+        Me.rdbUnknownTextOwn.ThemeName = "Office2010Black"
         '
         'rdbUnknownTextHide
         '
@@ -1272,6 +1362,7 @@ Partial Class frmCustomize
         Me.rdbUnknownTextHide.Size = New System.Drawing.Size(59, 18)
         Me.rdbUnknownTextHide.TabIndex = 2
         Me.rdbUnknownTextHide.Text = "Hide"
+        Me.rdbUnknownTextHide.ThemeName = "Office2010Black"
         '
         'rdbUnknownTextStatus
         '
@@ -1280,6 +1371,7 @@ Partial Class frmCustomize
         Me.rdbUnknownTextStatus.Size = New System.Drawing.Size(59, 18)
         Me.rdbUnknownTextStatus.TabIndex = 0
         Me.rdbUnknownTextStatus.Text = "Status"
+        Me.rdbUnknownTextStatus.ThemeName = "Office2010Black"
         '
         'lvwStrings
         '
@@ -1303,6 +1395,7 @@ Partial Class frmCustomize
         Me.lvwStrings.Name = "lvwStrings"
         Me.lvwStrings.Size = New System.Drawing.Size(394, 144)
         Me.lvwStrings.TabIndex = 13
+        Me.lvwStrings.ThemeName = "Office2010Black"
         Me.lvwStrings.ViewType = Telerik.WinControls.UI.ListViewType.DetailsView
         '
         'RadPageViewPage6
@@ -1328,45 +1421,49 @@ Partial Class frmCustomize
         Me.RadPageViewPage6.Controls.Add(Me.RadLabel11)
         Me.RadPageViewPage6.Controls.Add(Me.RadPanel4)
         Me.RadPageViewPage6.Image = Global.nexIRC.My.Resources.Resources.network1
-        Me.RadPageViewPage6.Location = New System.Drawing.Point(10, 37)
+        Me.RadPageViewPage6.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage6.Name = "RadPageViewPage6"
-        Me.RadPageViewPage6.Size = New System.Drawing.Size(521, 333)
+        Me.RadPageViewPage6.Size = New System.Drawing.Size(518, 329)
         Me.RadPageViewPage6.Text = "DCC"
         '
         'cmdDCCIgnoreRemove
         '
-        Me.cmdDCCIgnoreRemove.Location = New System.Drawing.Point(399, 307)
+        Me.cmdDCCIgnoreRemove.Location = New System.Drawing.Point(399, 292)
         Me.cmdDCCIgnoreRemove.Name = "cmdDCCIgnoreRemove"
         Me.cmdDCCIgnoreRemove.Size = New System.Drawing.Size(40, 24)
         Me.cmdDCCIgnoreRemove.TabIndex = 54
         Me.cmdDCCIgnoreRemove.Text = "Delete"
+        Me.cmdDCCIgnoreRemove.ThemeName = "Office2010Black"
         '
         'cmdDCCIgnoreAdd
         '
-        Me.cmdDCCIgnoreAdd.Location = New System.Drawing.Point(353, 307)
+        Me.cmdDCCIgnoreAdd.Location = New System.Drawing.Point(353, 292)
         Me.cmdDCCIgnoreAdd.Name = "cmdDCCIgnoreAdd"
         Me.cmdDCCIgnoreAdd.Size = New System.Drawing.Size(40, 24)
         Me.cmdDCCIgnoreAdd.TabIndex = 53
         Me.cmdDCCIgnoreAdd.Text = "Add"
+        Me.cmdDCCIgnoreAdd.ThemeName = "Office2010Black"
         '
         'lstDCCIgnoreItems
         '
         Me.lstDCCIgnoreItems.CaseSensitiveSort = True
         Me.lstDCCIgnoreItems.ItemHeight = 18
-        Me.lstDCCIgnoreItems.Location = New System.Drawing.Point(353, 203)
+        Me.lstDCCIgnoreItems.Location = New System.Drawing.Point(353, 188)
         Me.lstDCCIgnoreItems.Name = "lstDCCIgnoreItems"
         Me.lstDCCIgnoreItems.Size = New System.Drawing.Size(165, 98)
         Me.lstDCCIgnoreItems.TabIndex = 52
         Me.lstDCCIgnoreItems.Text = "RadListControl1"
+        Me.lstDCCIgnoreItems.ThemeName = "Office2010Black"
         '
         'RadLabel15
         '
         Me.RadLabel15.BackColor = System.Drawing.Color.Transparent
-        Me.RadLabel15.Location = New System.Drawing.Point(353, 180)
+        Me.RadLabel15.Location = New System.Drawing.Point(353, 165)
         Me.RadLabel15.Name = "RadLabel15"
         Me.RadLabel15.Size = New System.Drawing.Size(72, 18)
         Me.RadLabel15.TabIndex = 51
         Me.RadLabel15.Text = "Ignore Items:"
+        Me.RadLabel15.ThemeName = "Office2010Black"
         '
         'cmdRemoveIgnoreExtension
         '
@@ -1375,6 +1472,7 @@ Partial Class frmCustomize
         Me.cmdRemoveIgnoreExtension.Size = New System.Drawing.Size(40, 24)
         Me.cmdRemoveIgnoreExtension.TabIndex = 50
         Me.cmdRemoveIgnoreExtension.Text = "Delete"
+        Me.cmdRemoveIgnoreExtension.ThemeName = "Office2010Black"
         '
         'cmdAddIgnoreExtension
         '
@@ -1383,6 +1481,7 @@ Partial Class frmCustomize
         Me.cmdAddIgnoreExtension.Size = New System.Drawing.Size(40, 24)
         Me.cmdAddIgnoreExtension.TabIndex = 49
         Me.cmdAddIgnoreExtension.Text = "Add"
+        Me.cmdAddIgnoreExtension.ThemeName = "Office2010Black"
         '
         'lstIgnoreExtensions
         '
@@ -1393,6 +1492,7 @@ Partial Class frmCustomize
         Me.lstIgnoreExtensions.Size = New System.Drawing.Size(165, 98)
         Me.lstIgnoreExtensions.TabIndex = 48
         Me.lstIgnoreExtensions.Text = "RadListControl1"
+        Me.lstIgnoreExtensions.ThemeName = "Office2010Black"
         '
         'RadLabel14
         '
@@ -1402,6 +1502,7 @@ Partial Class frmCustomize
         Me.RadLabel14.Size = New System.Drawing.Size(97, 18)
         Me.RadLabel14.TabIndex = 47
         Me.RadLabel14.Text = "Ignore Extensions:"
+        Me.RadLabel14.ThemeName = "Office2010Black"
         '
         'txtDownloadDirectory
         '
@@ -1410,6 +1511,7 @@ Partial Class frmCustomize
         Me.txtDownloadDirectory.Size = New System.Drawing.Size(134, 20)
         Me.txtDownloadDirectory.TabIndex = 46
         Me.txtDownloadDirectory.TabStop = False
+        Me.txtDownloadDirectory.ThemeName = "Office2010Black"
         '
         'RadLabel13
         '
@@ -1419,6 +1521,7 @@ Partial Class frmCustomize
         Me.RadLabel13.Size = New System.Drawing.Size(108, 18)
         Me.RadLabel13.TabIndex = 45
         Me.RadLabel13.Text = "Download Directory:"
+        Me.RadLabel13.ThemeName = "Office2010Black"
         '
         'chkPopupDownloadManager
         '
@@ -1428,6 +1531,7 @@ Partial Class frmCustomize
         Me.chkPopupDownloadManager.Size = New System.Drawing.Size(155, 18)
         Me.chkPopupDownloadManager.TabIndex = 44
         Me.chkPopupDownloadManager.Text = "Popup Download Manager"
+        Me.chkPopupDownloadManager.ThemeName = "Office2010Black"
         '
         'chkAutoIgnoreExceptNotify
         '
@@ -1437,6 +1541,7 @@ Partial Class frmCustomize
         Me.chkAutoIgnoreExceptNotify.Size = New System.Drawing.Size(163, 18)
         Me.chkAutoIgnoreExceptNotify.TabIndex = 43
         Me.chkAutoIgnoreExceptNotify.Text = "Only allow users in notify list"
+        Me.chkAutoIgnoreExceptNotify.ThemeName = "Office2010Black"
         '
         'chkAutoCloseDialogs
         '
@@ -1446,6 +1551,7 @@ Partial Class frmCustomize
         Me.chkAutoCloseDialogs.Size = New System.Drawing.Size(137, 18)
         Me.chkAutoCloseDialogs.TabIndex = 42
         Me.chkAutoCloseDialogs.Text = "Auto Close Dcc Dialogs"
+        Me.chkAutoCloseDialogs.ThemeName = "Office2010Black"
         '
         'cboDCCFileExists
         '
@@ -1464,6 +1570,7 @@ Partial Class frmCustomize
         Me.cboDCCFileExists.ShowImageInEditorArea = True
         Me.cboDCCFileExists.Size = New System.Drawing.Size(134, 20)
         Me.cboDCCFileExists.TabIndex = 41
+        Me.cboDCCFileExists.ThemeName = "Office2010Black"
         '
         'RadLabel12
         '
@@ -1473,6 +1580,7 @@ Partial Class frmCustomize
         Me.RadLabel12.Size = New System.Drawing.Size(135, 18)
         Me.RadLabel12.TabIndex = 40
         Me.RadLabel12.Text = "When a file already Exists:"
+        Me.RadLabel12.ThemeName = "Office2010Black"
         '
         'cmdNetworkSettings
         '
@@ -1481,6 +1589,7 @@ Partial Class frmCustomize
         Me.cmdNetworkSettings.Size = New System.Drawing.Size(134, 24)
         Me.cmdNetworkSettings.TabIndex = 39
         Me.cmdNetworkSettings.Text = "Edit Network Settings"
+        Me.cmdNetworkSettings.ThemeName = "Office2010Black"
         '
         'RadLabel10
         '
@@ -1490,6 +1599,7 @@ Partial Class frmCustomize
         Me.RadLabel10.Size = New System.Drawing.Size(53, 18)
         Me.RadLabel10.TabIndex = 37
         Me.RadLabel10.Text = "Dcc Send"
+        Me.RadLabel10.ThemeName = "Office2010Black"
         '
         'RadPanel3
         '
@@ -1502,6 +1612,7 @@ Partial Class frmCustomize
         Me.RadPanel3.Size = New System.Drawing.Size(112, 79)
         Me.RadPanel3.TabIndex = 38
         Me.RadPanel3.TextAlignment = System.Drawing.ContentAlignment.TopLeft
+        Me.RadPanel3.ThemeName = "Office2010Black"
         '
         'optDccSendAcceptAll
         '
@@ -1510,6 +1621,7 @@ Partial Class frmCustomize
         Me.optDccSendAcceptAll.Size = New System.Drawing.Size(79, 18)
         Me.optDccSendAcceptAll.TabIndex = 1
         Me.optDccSendAcceptAll.Text = "Accept All"
+        Me.optDccSendAcceptAll.ThemeName = "Office2010Black"
         '
         'optDccSendIgnore
         '
@@ -1518,6 +1630,7 @@ Partial Class frmCustomize
         Me.optDccSendIgnore.Size = New System.Drawing.Size(59, 18)
         Me.optDccSendIgnore.TabIndex = 2
         Me.optDccSendIgnore.Text = "Ignore"
+        Me.optDccSendIgnore.ThemeName = "Office2010Black"
         '
         'optDccSendPrompt
         '
@@ -1526,6 +1639,7 @@ Partial Class frmCustomize
         Me.optDccSendPrompt.Size = New System.Drawing.Size(59, 18)
         Me.optDccSendPrompt.TabIndex = 0
         Me.optDccSendPrompt.Text = "Prompt"
+        Me.optDccSendPrompt.ThemeName = "Office2010Black"
         '
         'RadLabel11
         '
@@ -1535,6 +1649,7 @@ Partial Class frmCustomize
         Me.RadLabel11.Size = New System.Drawing.Size(51, 18)
         Me.RadLabel11.TabIndex = 35
         Me.RadLabel11.Text = "Dcc Chat"
+        Me.RadLabel11.ThemeName = "Office2010Black"
         '
         'RadPanel4
         '
@@ -1547,6 +1662,7 @@ Partial Class frmCustomize
         Me.RadPanel4.Size = New System.Drawing.Size(112, 79)
         Me.RadPanel4.TabIndex = 36
         Me.RadPanel4.TextAlignment = System.Drawing.ContentAlignment.TopLeft
+        Me.RadPanel4.ThemeName = "Office2010Black"
         '
         'optDccChatAcceptAll
         '
@@ -1555,6 +1671,7 @@ Partial Class frmCustomize
         Me.optDccChatAcceptAll.Size = New System.Drawing.Size(79, 18)
         Me.optDccChatAcceptAll.TabIndex = 1
         Me.optDccChatAcceptAll.Text = "Accept All"
+        Me.optDccChatAcceptAll.ThemeName = "Office2010Black"
         '
         'optDccChatIgnore
         '
@@ -1563,6 +1680,7 @@ Partial Class frmCustomize
         Me.optDccChatIgnore.Size = New System.Drawing.Size(59, 18)
         Me.optDccChatIgnore.TabIndex = 2
         Me.optDccChatIgnore.Text = "Ignore"
+        Me.optDccChatIgnore.ThemeName = "Office2010Black"
         '
         'optDccChatPrompt
         '
@@ -1571,14 +1689,17 @@ Partial Class frmCustomize
         Me.optDccChatPrompt.Size = New System.Drawing.Size(59, 18)
         Me.optDccChatPrompt.TabIndex = 0
         Me.optDccChatPrompt.Text = "Prompt"
+        Me.optDccChatPrompt.ThemeName = "Office2010Black"
         '
         'chkNewStatus
         '
+        Me.chkNewStatus.BackColor = System.Drawing.Color.Transparent
         Me.chkNewStatus.Location = New System.Drawing.Point(92, 388)
         Me.chkNewStatus.Name = "chkNewStatus"
-        Me.chkNewStatus.Size = New System.Drawing.Size(121, 18)
+        Me.chkNewStatus.Size = New System.Drawing.Size(119, 16)
         Me.chkNewStatus.TabIndex = 27
         Me.chkNewStatus.Text = "New Status Window"
+        Me.chkNewStatus.ThemeName = "Office2010Black"
         '
         'ImageList1
         '
@@ -1600,6 +1721,10 @@ Partial Class frmCustomize
         Me.ImageList1.Images.SetKeyName(13, "documents.png")
         Me.ImageList1.Images.SetKeyName(14, "copy.png")
         '
+        'tmrCloseMe
+        '
+        Me.tmrCloseMe.Interval = 200
+        '
         'cmdApplyNow
         '
         Me.cmdApplyNow.Image = Global.nexIRC.My.Resources.Resources.accept
@@ -1614,6 +1739,7 @@ Partial Class frmCustomize
         Me.cmdApplyNow.TabIndex = 29
         Me.cmdApplyNow.Text = "&Apply"
         Me.cmdApplyNow.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdApplyNow.ThemeName = "Office2010Black"
         '
         'cmdOK
         '
@@ -1629,6 +1755,7 @@ Partial Class frmCustomize
         Me.cmdOK.TabIndex = 28
         Me.cmdOK.Text = "&OK"
         Me.cmdOK.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdOK.ThemeName = "Office2010Black"
         '
         'cmdConnectNow
         '
@@ -1644,6 +1771,7 @@ Partial Class frmCustomize
         Me.cmdConnectNow.TabIndex = 26
         Me.cmdConnectNow.Text = "&Connect"
         Me.cmdConnectNow.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdConnectNow.ThemeName = "Office2010Black"
         '
         'cmdCancelNow
         '
@@ -1659,10 +1787,7 @@ Partial Class frmCustomize
         Me.cmdCancelNow.TabIndex = 30
         Me.cmdCancelNow.Text = "Ca&ncel"
         Me.cmdCancelNow.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'tmrCloseMe
-        '
-        Me.tmrCloseMe.Interval = 200
+        Me.cmdCancelNow.ThemeName = "Office2010Black"
         '
         'frmCustomize
         '
@@ -1682,6 +1807,7 @@ Partial Class frmCustomize
         '
         Me.RootElement.ApplyShapeToControl = True
         Me.Text = "nexIRC - Customize"
+        Me.ThemeName = "Office2010Black"
         CType(Me.RadPageView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.RadPageView1.ResumeLayout(False)
         Me.RadPageViewPage1.ResumeLayout(False)
@@ -1881,15 +2007,11 @@ Partial Class frmCustomize
     Friend WithEvents RadPageViewPage5 As Telerik.WinControls.UI.RadPageViewPage
     Friend WithEvents RadPageView1 As Telerik.WinControls.UI.RadPageView
     Friend WithEvents chkNewStatus As Telerik.WinControls.UI.RadCheckBox
-    Friend WithEvents TelerikMetroTheme1 As Telerik.WinControls.Themes.TelerikMetroTheme
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
     Friend WithEvents cmdApplyNow As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdOK As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdConnectNow As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdCancelNow As Telerik.WinControls.UI.RadButton
-    Friend WithEvents TelerikMetroTheme2 As Telerik.WinControls.Themes.TelerikMetroTheme
-    Friend WithEvents Office2010SilverTheme1 As Telerik.WinControls.Themes.Office2010SilverTheme
-    Friend WithEvents AquaTheme1 As Telerik.WinControls.Themes.AquaTheme
     Friend WithEvents RadLabel7 As Telerik.WinControls.UI.RadLabel
     Friend WithEvents txtNotifyMessage As Telerik.WinControls.UI.RadTextBox
     Friend WithEvents RadLabel6 As Telerik.WinControls.UI.RadLabel
@@ -1960,5 +2082,6 @@ Partial Class frmCustomize
     Friend WithEvents lblIdentdPort As Telerik.WinControls.UI.RadLabel
     Friend WithEvents chkIdentdEnabled As Telerik.WinControls.UI.RadCheckBox
     Friend WithEvents chkAutoSelectAlternateNickname As Telerik.WinControls.UI.RadCheckBox
+    Friend WithEvents Office2010BlackTheme1 As Telerik.WinControls.Themes.Office2010BlackTheme
 End Class
 

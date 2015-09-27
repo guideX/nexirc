@@ -45,6 +45,7 @@ Partial Class FrmInvite
         Me.cmdCancel.Size = New System.Drawing.Size(72, 24)
         Me.cmdCancel.TabIndex = 9
         Me.cmdCancel.Text = "Cancel"
+        Me.cmdCancel.ThemeName = "Office2010Black"
         '
         'cmdOK
         '
@@ -54,6 +55,7 @@ Partial Class FrmInvite
         Me.cmdOK.Size = New System.Drawing.Size(72, 24)
         Me.cmdOK.TabIndex = 8
         Me.cmdOK.Text = "OK"
+        Me.cmdOK.ThemeName = "Office2010Black"
         '
         'txtNickname
         '
@@ -62,6 +64,7 @@ Partial Class FrmInvite
         Me.txtNickname.Size = New System.Drawing.Size(259, 20)
         Me.txtNickname.TabIndex = 7
         Me.txtNickname.TabStop = False
+        Me.txtNickname.ThemeName = "Office2010Black"
         '
         'RadLabel1
         '
@@ -70,6 +73,7 @@ Partial Class FrmInvite
         Me.RadLabel1.Size = New System.Drawing.Size(59, 18)
         Me.RadLabel1.TabIndex = 6
         Me.RadLabel1.Text = "Nickname:"
+        Me.RadLabel1.ThemeName = "Office2010Black"
         '
         'txtChannel
         '
@@ -78,6 +82,7 @@ Partial Class FrmInvite
         Me.txtChannel.Size = New System.Drawing.Size(259, 20)
         Me.txtChannel.TabIndex = 11
         Me.txtChannel.TabStop = False
+        Me.txtChannel.ThemeName = "Office2010Black"
         '
         'RadLabel2
         '
@@ -86,6 +91,7 @@ Partial Class FrmInvite
         Me.RadLabel2.Size = New System.Drawing.Size(49, 18)
         Me.RadLabel2.TabIndex = 10
         Me.RadLabel2.Text = "Channel:"
+        Me.RadLabel2.ThemeName = "Office2010Black"
         '
         'FrmInvite
         '
@@ -106,6 +112,7 @@ Partial Class FrmInvite
         '
         Me.RootElement.ApplyShapeToControl = True
         Me.Text = "nexIRC - Invite"
+        Me.ThemeName = "Office2010Black"
         CType(Me.cmdCancel, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNickname, System.ComponentModel.ISupportInitialize).EndInit()

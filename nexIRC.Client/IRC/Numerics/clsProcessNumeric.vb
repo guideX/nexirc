@@ -1,9 +1,9 @@
 ﻿Option Explicit On
 Option Strict On
 Imports nexIRC.clsIrcNumerics
-Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
 Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
+Imports nexIRC.Business.Helpers
 
 Public Class clsProcessNumeric
     Private Delegate Sub StatusDataDelegate(ByVal lStatusIndex As Integer, ByVal lData As String)
@@ -120,9 +120,9 @@ Public Class clsProcessNumeric
                                 lIrcNumericHelper.l001 = lStrings.ReturnReplacedString(eStringTypes.sRPL_WELCOME, Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(lStatusIndex)).Description, splt2(2))
                                 Exit Sub
                             Case 2
-                                msg2 = Replace(TextManipulation.Text.ParseData(splt2(2), "host is ", ","), "ost is ", "")
+                                msg2 = Replace(TextHelper.ParseData(splt2(2), "host is ", ","), "ost is ", "")
                                 msg2 = Replace(msg2, "host is ", "")
-                                msg3 = TextManipulation.Text.ParseData(splt2(2), "version ", Right(splt2(2), 2)) & Right(splt2(2), 3)
+                                msg3 = TextHelper.ParseData(splt2(2), "version ", Right(splt2(2), 2)) & Right(splt2(2), 3)
                                 msg3 = Replace(msg3, "ersion", "")
                                 msg3 = Replace(msg3, "version", "")
                                 lIrcNumericHelper.l002 = lStrings.ReturnReplacedString(eStringTypes.sRPL_YOURHOST, msg2, msg3)
@@ -131,7 +131,7 @@ Public Class clsProcessNumeric
                                 End If
                                 Exit Sub
                             Case 3
-                                msg2 = TextManipulation.Text.ParseData(splt2(2), "created", Convert.ToString(Right(splt2(2), 1)))
+                                msg2 = TextHelper.ParseData(splt2(2), "created", Convert.ToString(Right(splt2(2), 1)))
                                 msg2 = Replace(splt2(2), "reated", "")
                                 lIrcNumericHelper.l003 = lStrings.ReturnReplacedString(eStringTypes.sRPL_CREATED, msg2)
                                 If lSettings.lIRC.iSettings.sNoIRCMessages = False Then
@@ -1110,7 +1110,7 @@ Public Class clsProcessNumeric
                 If Trim(LCase(splt(1))) = "nick" Then
                     splt2 = Split(lData, " ")
                     splt2(2) = splt2(2).Replace(":", "")
-                    splt2(0) = TextManipulation.Text.ParseData(splt2(0), ":", "!").Replace(":", "").Replace("!", "")
+                    splt2(0) = TextHelper.ParseData(splt2(0), ":", "!").Replace(":", "").Replace("!", "")
                     splt2(1) = lData
                     splt2(1) = Left(lData, Len(lData) - (Len(splt2(2)) + 7))
                     splt2(1) = Right(splt2(1), Len(splt2(1)) - (Len(splt2(0)) + 2))
@@ -1153,7 +1153,7 @@ Public Class clsProcessNumeric
                     End If
                     If Left(lData, 1) = ":" Then lData = Right(lData, Len(lData) - 1)
                     msg3 = Right(lData, Len(lData) - (Len(splt(0)) + Len(splt(1)) + Len(splt(2)) + 3))
-                    msg2 = TextManipulation.Text.ParseData(splt(0), ":", "!")
+                    msg2 = TextHelper.ParseData(splt(0), ":", "!")
                     msg2 = lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, msg2, msg3)
                     i = lChannels.Find(lStatusIndex, splt(2))
                     If i <> 0 Then
@@ -1161,7 +1161,7 @@ Public Class clsProcessNumeric
                         Exit Sub
                     Else
                         If Trim(msg3) <> "VERSION" Then
-                            msg2 = TextManipulation.Text.ParseData(splt(0), ":", "!")
+                            msg2 = TextHelper.ParseData(splt(0), ":", "!")
                             lStatus.PrivateMessage_Add(lStatusIndex, msg2, Right(splt(0), Len(splt(0)) - (Len(msg2) + 2)), msg3)
                             Exit Sub
                         Else

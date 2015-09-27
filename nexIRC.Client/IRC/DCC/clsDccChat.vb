@@ -6,6 +6,7 @@ Option Strict On
 Imports nexIRC.Modules
 Imports nexIRC.Sockets
 Imports Telerik.WinControls.UI
+Imports nexIRC.Business.Helpers
 
 Public Class clsDccChat
     Private WithEvents lListen As AsyncServer
@@ -18,7 +19,7 @@ Public Class clsDccChat
     Private lStatusIndex As Integer
     Private Delegate Sub EmptyDelegate()
     Private Delegate Sub StringDelegate(ByVal lData As String)
-    Private Delegate Sub StringDelegateWithTextBox(_Data As String, _TextBox As TextBox)
+    Private Delegate Sub StringDelegateWithTextBox(ByVal _Data As String, ByVal _TextBox As TextBox)
     Private Delegate Sub ConnectDelegate(ByVal l_RemoteIp As String, ByVal l_RemotePort As Long)
     Private lInvokeForm As Form
     Private lIncomingTextBox As TextBox
@@ -36,10 +37,10 @@ Public Class clsDccChat
         End Try
     End Sub
 
-    Public Sub AddText(_Text As String)
+    Public Sub AddText(ByVal _Text As String)
         Try
             If Len(_Text) <> 0 Then
-                If TextManipulation.Text.DoRight(_Text, 1) <> Environment.NewLine Then
+                If TextHelper.DoRight(_Text, 1) <> Environment.NewLine Then
                     lIncomingTextBox.Text = _Text & Environment.NewLine & lIncomingTextBox.Text
                 Else
                     lIncomingTextBox.Text = _Text & lIncomingTextBox.Text
@@ -87,7 +88,7 @@ Public Class clsDccChat
         End Try
     End Sub
 
-    Public Sub Form_Load(_Form As Form, _UsersDropDownList As ToolStripComboBox, _ConnectButton As ToolStripButton, _DisconnectButton As ToolStripButton, _IncomingTextBox As RichTextBox, _ToolStrip As ToolStrip, _OutgoingTextBox As TextBox)
+    Public Sub Form_Load(ByVal _Form As Form, ByVal _UsersDropDownList As ToolStripComboBox, ByVal _ConnectButton As ToolStripButton, ByVal _DisconnectButton As ToolStripButton, ByVal _IncomingTextBox As RichTextBox, ByVal _ToolStrip As ToolStrip, ByVal _OutgoingTextBox As TextBox)
         Try
             Dim lPort As Long, lConnect As New ConnectDelegate(AddressOf ConnectToDCCChat), i As Integer
             lInvokeForm = _Form
@@ -206,7 +207,7 @@ Public Class clsDccChat
                     End If
                     msg = msg.Replace(Chr(10), "").Replace(Chr(13), "").Replace(Environment.NewLine, "").Trim
                     lStatus.DoStatusSocket(lStatusIndex, "NOTICE " & lUsersDropDownList.Text & " :DCC CHAT (" & msg & ")")
-                    lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & lUsersDropDownList.Text & " :DCC CHAT chat " & TextManipulation.Text.EncodeIPAddr(msg) & " " & Trim(p.ToString) & "")
+                    lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & lUsersDropDownList.Text & " :DCC CHAT chat " & TextHelper.EncodeIPAddr(msg) & " " & Trim(p.ToString) & "")
                     lInvokeForm.Invoke(lAddText, "Attempting Connection")
                     lUsersDropDownList.Enabled = False
                     lConnectButton.Enabled = False
@@ -259,7 +260,7 @@ Public Class clsDccChat
         End Try
     End Sub
 
-    Public Sub txtOutgoing_KeyDown(e As System.Windows.Forms.KeyEventArgs)
+    Public Sub txtOutgoing_KeyDown(ByVal e As System.Windows.Forms.KeyEventArgs)
         Try
             Dim msg As String
             If e.KeyCode = 13 Then
@@ -277,7 +278,7 @@ Public Class clsDccChat
         End Try
     End Sub
 
-    Public Sub txtOutgoing_KeyPress(e As System.Windows.Forms.KeyPressEventArgs)
+    Public Sub txtOutgoing_KeyPress(ByVal e As System.Windows.Forms.KeyPressEventArgs)
         Try
             If e.KeyChar = Chr(13) Then e.Handled = True
         Catch ex As Exception

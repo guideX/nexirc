@@ -2,9 +2,9 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Classes.IO
+'Imports nexIRC.Classes.IO
 Imports nexIRC.Modules
-Imports nexIRC.IniFile
+Imports nexIRC.Business.Helpers
 
 Public Class frmChannelList
     Private WithEvents lChannelListUI As New clsChannelListUI
@@ -33,7 +33,7 @@ Public Class frmChannelList
         End Try
     End Sub
 
-    Private Sub ListView_ColumnClick(sender As Object, e As Windows.Forms.ColumnClickEventArgs)
+    Private Sub ListView_ColumnClick(ByVal sender As Object, ByVal e As Windows.Forms.ColumnClickEventArgs)
         Try
             If (lChannelListUI.lSortOrder = SortOrder.Ascending) Then
                 lChannelListUI.lSortOrder = SortOrder.Descending
@@ -46,7 +46,7 @@ Public Class frmChannelList
         End Try
     End Sub
 
-    Private Sub lvwChannels_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles lvwChannels.ColumnClick
+    Private Sub lvwChannels_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvwChannels.ColumnClick
         Try
             AddHandler lvwChannels.ColumnClick, AddressOf ListView_ColumnClick
         Catch ex As Exception
@@ -79,7 +79,7 @@ Public Class frmChannelList
     End Sub
 
     Public WriteOnly Property MeIndex() As Integer
-        Set(_Index As Integer)
+        Set(ByVal _Index As Integer)
             Try
                 lChannelListUI.MeIndex = _Index
             Catch ex As Exception
@@ -91,7 +91,7 @@ Public Class frmChannelList
     Private Sub lChannelListUI_SaveColumnWidths() Handles lChannelListUI.SaveColumnWidths
         Try
             For i As Integer = 1 To 3
-                Files.WriteINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", i.ToString, lvwChannels.Columns(i - 1).Width.ToString)
+                IniFileHelper.WriteINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", i.ToString, lvwChannels.Columns(i - 1).Width.ToString)
             Next i
         Catch ex As Exception
             Throw ex

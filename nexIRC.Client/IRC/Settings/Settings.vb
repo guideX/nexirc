@@ -5,10 +5,9 @@ Option Strict On
 Imports System.Net
 Imports System.IO
 Imports Telerik.WinControls.UI
-Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
-Imports nexIRC.IniFile
-
+Imports nexIRC.Business.Helpers
+Imports nexIRC.Business
 Public Class Settings
     Enum eUnsupportedIn
         uStatusWindow = 1
@@ -278,11 +277,11 @@ Public Class Settings
         Try
             Dim i As Integer
             If lCompatibility.cModified = True Then
-                Files.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.cCount.ToString))
+                IniFileHelper.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.cCount.ToString))
                 For i = 1 To lCompatibility.cCount
                     With lCompatibility.cCompatibility(i)
-                        Files.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", .cDescription)
-                        Files.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", Trim(.cEnabled.ToString))
+                        IniFileHelper.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", .cDescription)
+                        IniFileHelper.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", Trim(.cEnabled.ToString))
                     End With
                 Next i
             End If
@@ -294,12 +293,12 @@ Public Class Settings
     Public Sub LoadCompatibility()
         Try
             Dim i As Integer
-            lCompatibility.cCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iCompatibility, "Settings", "Count", "0")))
+            lCompatibility.cCount = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iCompatibility, "Settings", "Count", "0")))
             ReDim lCompatibility.cCompatibility(1000)
             For i = 1 To lCompatibility.cCount
                 With lCompatibility.cCompatibility(i)
-                    .cDescription = Files.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Description", "")
-                    .cEnabled = Convert.ToBoolean(Files.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", "False"))
+                    .cDescription = IniFileHelper.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Description", "")
+                    .cEnabled = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", "False"))
                 End With
             Next i
         Catch ex As Exception
@@ -384,7 +383,7 @@ Public Class Settings
             lRecientServers.sCount = lArraySizes.aRecientServers
             ReDim lRecientServers.sItem(lRecientServers.sCount)
             For i = 1 To lRecientServers.sCount
-                lRecientServers.sItem(i) = Files.ReadINI(lINI.iRecientServers, "Items", Trim(i.ToString), "")
+                lRecientServers.sItem(i) = IniFileHelper.ReadINI(lINI.iRecientServers, "Items", Trim(i.ToString), "")
             Next i
             RefreshRecientServersMenu()
         Catch ex As Exception
@@ -424,7 +423,7 @@ Public Class Settings
         Try
             Dim i As Integer
             For i = 1 To lRecientServers.sCount
-                Files.WriteINI(lINI.iRecientServers, "Items", Trim(i.ToString), lRecientServers.sItem(i))
+                IniFileHelper.WriteINI(lINI.iRecientServers, "Items", Trim(i.ToString), lRecientServers.sItem(i))
             Next i
         Catch ex As Exception
             Throw ex
@@ -509,19 +508,19 @@ Public Class Settings
     Public Sub LoadNotifyList()
         Dim i As Integer
         ReDim lNotify.nNotify(lArraySizes.aNotifyItems)
-        lNotify.nCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iNotify, "Settings", "Count", "0")))
+        lNotify.nCount = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iNotify, "Settings", "Count", "0")))
         If lNotify.nCount <> 0 Then
             For i = 1 To lNotify.nCount
                 With lNotify.nNotify(i)
-                    .nNickName = Files.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "NickName", "")
-                    .nMessage = Files.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "Message", "")
-                    .nNetwork = Files.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "Network", "")
+                    .nNickName = IniFileHelper.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "NickName", "")
+                    .nMessage = IniFileHelper.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "Message", "")
+                    .nNetwork = IniFileHelper.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "Network", "")
                 End With
             Next i
         End If
     End Sub
 
-    Public Sub AddToNotifyList(_Item As gNotify)
+    Public Sub AddToNotifyList(ByVal _Item As gNotify)
         Try
             lNotify.nCount = lNotify.nCount + 1
             With lNotify.nNotify(lNotify.nCount)
@@ -537,12 +536,12 @@ Public Class Settings
     Public Sub SaveNotifyList()
         Dim i As Integer
         If lNotify.nModified = True Then
-            Files.WriteINI(lINI.iNotify, "Settings", "Count", Trim(lNotify.nCount.ToString))
+            IniFileHelper.WriteINI(lINI.iNotify, "Settings", "Count", Trim(lNotify.nCount.ToString))
             For i = 1 To lNotify.nCount
                 With lNotify.nNotify(i)
-                    Files.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "NickName", .nNickName)
-                    Files.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "Message", .nMessage)
-                    Files.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "Network", .nNetwork)
+                    IniFileHelper.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "NickName", .nNickName)
+                    IniFileHelper.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "Message", .nMessage)
+                    IniFileHelper.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "Network", .nNetwork)
                 End With
             Next i
             lNotify.nModified = False
@@ -637,13 +636,13 @@ Public Class Settings
     Private Sub LoadNickNames()
         Dim i As Integer
         With lIRC.iNicks
-            .nCount = Convert.ToInt32(Files.ReadINI(lINI.iNicks, "Settings", "Count", "0"))
-            If .nCount <> 0 Then .nIndex = Convert.ToInt32(Files.ReadINI(lINI.iNicks, "Settings", "Index", "0"))
+            .nCount = Convert.ToInt32(IniFileHelper.ReadINI(lINI.iNicks, "Settings", "Count", "0"))
+            If .nCount <> 0 Then .nIndex = Convert.ToInt32(IniFileHelper.ReadINI(lINI.iNicks, "Settings", "Index", "0"))
         End With
         If lIRC.iNicks.nCount <> 0 Then
             For i = 1 To lIRC.iNicks.nCount
                 With lIRC.iNicks.nNick(i)
-                    .nNick = Files.ReadINI(lINI.iNicks, Trim(Str(i)), "Nick", "")
+                    .nNick = IniFileHelper.ReadINI(lINI.iNicks, Trim(Str(i)), "Nick", "")
                 End With
             Next i
         End If
@@ -651,11 +650,11 @@ Public Class Settings
 
     Private Sub LoadIdent()
         With lIRC.iIdent
-            .iSettings.iEnabled = Convert.ToBoolean(Files.ReadINI(lINI.iIdent, "Settings", "Enabled", Convert.ToString(True)))
+            .iSettings.iEnabled = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIdent, "Settings", "Enabled", Convert.ToString(True)))
             If .iSettings.iEnabled = True Then
-                .iUserID = Files.ReadINI(lINI.iIdent, "Settings", "UserID", "")
-                .iPort = Convert.ToInt64(Files.ReadINI(lINI.iIdent, "Settings", "Port", "0"))
-                .iSystem = Files.ReadINI(lINI.iIdent, "Settings", "System", "")
+                .iUserID = IniFileHelper.ReadINI(lINI.iIdent, "Settings", "UserID", "")
+                .iPort = Convert.ToInt64(IniFileHelper.ReadINI(lINI.iIdent, "Settings", "Port", "0"))
+                .iSystem = IniFileHelper.ReadINI(lINI.iIdent, "Settings", "System", "")
             End If
         End With
     End Sub
@@ -670,7 +669,7 @@ Public Class Settings
             If LCase(msg) = "[settings]" Then
             Else
                 If Left(msg, 1) = "[" And Right(msg, 1) = "]" Then
-                    lIndex = Convert.ToInt32(Trim(TextManipulation.Text.ParseData(msg, "[", "]")))
+                    lIndex = Convert.ToInt32(Trim(TextHelper.ParseData(msg, "[", "]")))
                     lServers.sCount = lIndex
                 Else
                     splt2 = Split(msg, "=")
@@ -698,7 +697,7 @@ Public Class Settings
         Dim i As Integer
         With lIRC.iSettings.sStringSettings
             i = 0
-            i = Convert.ToInt32(Trim(Files.ReadINI(lINI.iStringSettings, "Settings", "Unknowns", "2")))
+            i = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iStringSettings, "Settings", "Unknowns", "2")))
             Select Case i
                 Case 1
                     .sUnknowns = eUnknownsIn.uStatusWindow
@@ -708,7 +707,7 @@ Public Class Settings
                     .sUnknowns = eUnknownsIn.uHide
             End Select
             i = 0
-            i = Convert.ToInt32(Trim(Files.ReadINI(lINI.iStringSettings, "Settings", "Unsupported", "2")))
+            i = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iStringSettings, "Settings", "Unsupported", "2")))
             Select Case i
                 Case 1
                     .sUnsupported = eUnsupportedIn.uStatusWindow
@@ -717,7 +716,7 @@ Public Class Settings
                 Case 3
                     .sUnsupported = eUnsupportedIn.uHide
             End Select
-            '.sServerInNotices = Convert.ToBoolean(Trim(files.ReadINI(lINI.iStringSettings, "Settings", "ServerInNotices", "True")))
+            '.sServerInNotices = Convert.ToBoolean(Trim(IniFileHelper.ReadINI(lINI.iStringSettings, "Settings", "ServerInNotices", "True")))
         End With
     End Sub
 
@@ -725,11 +724,11 @@ Public Class Settings
         Dim i As Integer
         ReDim lDownloadManager.dDownload(lArraySizes.aDownloadManager)
         With lDownloadManager
-            .dCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iDownloadManager, "Settings", "Count", "0")))
+            .dCount = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iDownloadManager, "Settings", "Count", "0")))
             For i = 1 To .dCount
-                .dDownload(i).dFileName = Files.ReadINI(lINI.iDownloadManager, Trim(i.ToString), "FileName", "")
-                .dDownload(i).dFilePath = Files.ReadINI(lINI.iDownloadManager, Trim(i.ToString), "FilePath", "")
-                .dDownload(i).dNickName = Files.ReadINI(lINI.iDownloadManager, Trim(i.ToString), "NickName", "")
+                .dDownload(i).dFileName = IniFileHelper.ReadINI(lINI.iDownloadManager, Trim(i.ToString), "FileName", "")
+                .dDownload(i).dFilePath = IniFileHelper.ReadINI(lINI.iDownloadManager, Trim(i.ToString), "FilePath", "")
+                .dDownload(i).dNickName = IniFileHelper.ReadINI(lINI.iDownloadManager, Trim(i.ToString), "NickName", "")
             Next i
         End With
     End Sub
@@ -777,42 +776,42 @@ Public Class Settings
             LoadDownloadManager()
             mdiMain.SetLoadingFormProgress("Loading IRC Settings", 70)
             With lIRC.iSettings
-                .sChannelFolderCloseOnJoin = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ChannelFolderCloseOnJoin", "True"))
-                .sShowUserAddresses = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ShowUserAddresses", "True"))
-                .sHideMOTD = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "HideMOTD", "True"))
-                .sPrompts = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Prompts", "True"))
-                .sShowRawWindow = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ShowRawWindow", "False"))
-                .sExtendedMessages = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ExtendedMessages", "True"))
-                .sNoIRCMessages = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "NoIRCMessages", "False"))
-                .sCustomizeOnStartup = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", "False"))
-                .sPopupChannelFolders = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "PopupChannelFolders", "True"))
-                .sMOTDInOwnWindow = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "MOTDInOwnWindow", "True"))
-                .sAutoSelectAlternateNickname = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoSelectAlternateNickname", "True"))
-                .sChangeNickNameWindow = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", "True"))
-                .sNoticesInOwnWindow = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", "True"))
-                .sURL = Files.ReadINI(lINI.iIRC, "Settings", "URL", "http://www.bing.com")
-                .sShowWindowsAutomatically = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", "False"))
-                .sAutoMaximize = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoMaximize", "False"))
-                .sQuitMessage = Files.ReadINI(lINI.iIRC, "Settings", "QuitMessage", "nexIRC - http://www.team-nexgen.org/")
-                .sAutoConnect = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoConnect", "False"))
-                .sVideoBackground = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "VideoBackground", "True"))
-                .sAutoNavigateChannelUrls = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoNavigateChannelUrls", "True"))
-                .sCloseWindowOnDisconnect = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "CloseWindowOnDisconnect", "False"))
-                .sAutoAddToChannelFolder = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoAddToChannelFolder", "True"))
-                .sWindowSizes.iChannel.wWidth = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialChannelWidth", "600")))
-                .sWindowSizes.iChannel.wHeight = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialChannelHeight", "200")))
-                .sWindowSizes.lStatus.wWidth = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialStatusWidth", "600")))
-                .sWindowSizes.lStatus.wHeight = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialStatusHeight", "200")))
-                .sWindowSizes.iNotice.wWidth = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialNoticeWidth", "600")))
-                .sWindowSizes.iNotice.wHeight = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialNoticeHeight", "200")))
-                .sTextBufferSize = Convert.ToInt32(Files.ReadINI(lINI.iIRC, "Settings", "TextBufferSize", "150"))
+                .sChannelFolderCloseOnJoin = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "ChannelFolderCloseOnJoin", "True"))
+                .sShowUserAddresses = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "ShowUserAddresses", "True"))
+                .sHideMOTD = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "HideMOTD", "True"))
+                .sPrompts = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "Prompts", "True"))
+                .sShowRawWindow = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "ShowRawWindow", "False"))
+                .sExtendedMessages = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "ExtendedMessages", "True"))
+                .sNoIRCMessages = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "NoIRCMessages", "False"))
+                .sCustomizeOnStartup = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", "False"))
+                .sPopupChannelFolders = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "PopupChannelFolders", "True"))
+                .sMOTDInOwnWindow = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "MOTDInOwnWindow", "True"))
+                .sAutoSelectAlternateNickname = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "AutoSelectAlternateNickname", "True"))
+                .sChangeNickNameWindow = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", "True"))
+                .sNoticesInOwnWindow = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", "True"))
+                .sURL = IniFileHelper.ReadINI(lINI.iIRC, "Settings", "URL", "http://www.bing.com")
+                .sShowWindowsAutomatically = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", "False"))
+                .sAutoMaximize = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "AutoMaximize", "False"))
+                .sQuitMessage = IniFileHelper.ReadINI(lINI.iIRC, "Settings", "QuitMessage", "nexIRC - http://www.team-nexgen.org/")
+                .sAutoConnect = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "AutoConnect", "False"))
+                .sVideoBackground = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "VideoBackground", "True"))
+                .sAutoNavigateChannelUrls = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "AutoNavigateChannelUrls", "True"))
+                .sCloseWindowOnDisconnect = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "CloseWindowOnDisconnect", "False"))
+                .sAutoAddToChannelFolder = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "AutoAddToChannelFolder", "True"))
+                .sWindowSizes.iChannel.wWidth = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "InitialChannelWidth", "600")))
+                .sWindowSizes.iChannel.wHeight = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "InitialChannelHeight", "200")))
+                .sWindowSizes.lStatus.wWidth = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "InitialStatusWidth", "600")))
+                .sWindowSizes.lStatus.wHeight = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "InitialStatusHeight", "200")))
+                .sWindowSizes.iNotice.wWidth = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "InitialNoticeWidth", "600")))
+                .sWindowSizes.iNotice.wHeight = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "InitialNoticeHeight", "200")))
+                .sTextBufferSize = Convert.ToInt32(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "TextBufferSize", "150"))
             End With
             With lIRC
-                .iEMail = Files.ReadINI(lINI.iIRC, "Settings", "EMail", "user@team-nexgen.org")
-                .iPass = Files.ReadINI(lINI.iIRC, "Settings", "Password", "")
-                .iRealName = Files.ReadINI(lINI.iIRC, "Settings", "RealName", "nexIRC User")
-                .iOperName = Files.ReadINI(lINI.iIRC, "Settings", "OperName", "")
-                .iOperPass = Files.ReadINI(lINI.iIRC, "Settings", "OperPass", "")
+                .iEMail = IniFileHelper.ReadINI(lINI.iIRC, "Settings", "EMail", "user@team-nexgen.org")
+                .iPass = IniFileHelper.ReadINI(lINI.iIRC, "Settings", "Password", "")
+                .iRealName = IniFileHelper.ReadINI(lINI.iIRC, "Settings", "RealName", "nexIRC User")
+                .iOperName = IniFileHelper.ReadINI(lINI.iIRC, "Settings", "OperName", "")
+                .iOperPass = IniFileHelper.ReadINI(lINI.iIRC, "Settings", "OperPass", "")
             End With
         End If
         mdiMain.SetLoadingFormProgress("Loading Strings", 80)
@@ -822,12 +821,12 @@ Public Class Settings
 
     Public Sub SaveWindowSizes()
         With lIRC.iSettings
-            Files.WriteINI(lINI.iIRC, "Settings", "InitialChannelWidth", .sWindowSizes.iChannel.wWidth.ToString.Trim)
-            Files.WriteINI(lINI.iIRC, "Settings", "InitialChannelHeight", .sWindowSizes.iChannel.wHeight.ToString.Trim)
-            Files.WriteINI(lINI.iIRC, "Settings", "InitialStatusWidth", .sWindowSizes.lStatus.wWidth.ToString.Trim)
-            Files.WriteINI(lINI.iIRC, "Settings", "InitialStatusHeight", .sWindowSizes.lStatus.wHeight.ToString.Trim)
-            Files.WriteINI(lINI.iIRC, "Settings", "InitialNoticeWidth", .sWindowSizes.iNotice.wWidth.ToString.Trim)
-            Files.WriteINI(lINI.iIRC, "Settings", "InitialNoticeHeight", .sWindowSizes.iNotice.wHeight.ToString.Trim)
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "InitialChannelWidth", .sWindowSizes.iChannel.wWidth.ToString.Trim)
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "InitialChannelHeight", .sWindowSizes.iChannel.wHeight.ToString.Trim)
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "InitialStatusWidth", .sWindowSizes.lStatus.wWidth.ToString.Trim)
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "InitialStatusHeight", .sWindowSizes.lStatus.wHeight.ToString.Trim)
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "InitialNoticeWidth", .sWindowSizes.iNotice.wWidth.ToString.Trim)
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "InitialNoticeHeight", .sWindowSizes.iNotice.wHeight.ToString.Trim)
         End With
     End Sub
 
@@ -883,9 +882,9 @@ Public Class Settings
                 .dFileName = ""
                 .dFilePath = ""
                 .dNickName = ""
-                Files.WriteINI(lINI.iDownloadManager, Trim(lIndex.ToString), "FileName", "")
-                Files.WriteINI(lINI.iDownloadManager, Trim(lIndex.ToString), "FilePath", "")
-                Files.WriteINI(lINI.iDownloadManager, Trim(lIndex.ToString), "NickName", "")
+                IniFileHelper.WriteINI(lINI.iDownloadManager, Trim(lIndex.ToString), "FileName", "")
+                IniFileHelper.WriteINI(lINI.iDownloadManager, Trim(lIndex.ToString), "FilePath", "")
+                IniFileHelper.WriteINI(lINI.iDownloadManager, Trim(lIndex.ToString), "NickName", "")
             End With
         End If
     End Sub
@@ -903,21 +902,21 @@ Public Class Settings
             End With
         Next i
         If n <> 0 Then
-            Files.WriteINI(lINI.iDownloadManager, "Settings", "Count", Trim(lDownloadManager.dCount.ToString))
+            IniFileHelper.WriteINI(lINI.iDownloadManager, "Settings", "Count", Trim(lDownloadManager.dCount.ToString))
             For i = 1 To n
-                Files.WriteINI(lINI.iDownloadManager, Trim(i.ToString), "FileName", lFileName(i))
-                Files.WriteINI(lINI.iDownloadManager, Trim(i.ToString), "FilePath", lFilePath(i))
-                Files.WriteINI(lINI.iDownloadManager, Trim(i.ToString), "NickName", lNickName(i))
+                IniFileHelper.WriteINI(lINI.iDownloadManager, Trim(i.ToString), "FileName", lFileName(i))
+                IniFileHelper.WriteINI(lINI.iDownloadManager, Trim(i.ToString), "FilePath", lFilePath(i))
+                IniFileHelper.WriteINI(lINI.iDownloadManager, Trim(i.ToString), "NickName", lNickName(i))
             Next i
         End If
     End Sub
 
     Private Sub SaveIdentdSettings()
         With lIRC.iIdent
-            Files.WriteINI(lINI.iIdent, "Settings", "UserID", .iUserID)
-            Files.WriteINI(lINI.iIdent, "Settings", "System", .iSystem)
-            Files.WriteINI(lINI.iIdent, "Settings", "Port", Trim(Convert.ToString(.iPort)))
-            Files.WriteINI(lINI.iIdent, "Settings", "Enabled", Trim(.iSettings.iEnabled.ToString))
+            IniFileHelper.WriteINI(lINI.iIdent, "Settings", "UserID", .iUserID)
+            IniFileHelper.WriteINI(lINI.iIdent, "Settings", "System", .iSystem)
+            IniFileHelper.WriteINI(lINI.iIdent, "Settings", "Port", Trim(Convert.ToString(.iPort)))
+            IniFileHelper.WriteINI(lINI.iIdent, "Settings", "Enabled", Trim(.iSettings.iEnabled.ToString))
         End With
     End Sub
 
@@ -954,10 +953,10 @@ Public Class Settings
             n = 0
             For Each nickName In nickNames
                 n = n + 1
-                Files.WriteINI(lINI.iNicks, n.ToString(), "Nick", nickName)
+                IniFileHelper.WriteINI(lINI.iNicks, n.ToString(), "Nick", nickName)
             Next nickName
-            If (lIRC.iNicks.nIndex <> 0) Then Files.WriteINI(lINI.iNicks, "Settings", "Index", lIRC.iNicks.nIndex.ToString())
-            If (lIRC.iNicks.nIndex <> 0) Then Files.WriteINI(lINI.iNicks, "Settings", "Count", n.ToString())
+            If (lIRC.iNicks.nIndex <> 0) Then IniFileHelper.WriteINI(lINI.iNicks, "Settings", "Index", lIRC.iNicks.nIndex.ToString())
+            If (lIRC.iNicks.nIndex <> 0) Then IniFileHelper.WriteINI(lINI.iNicks, "Settings", "Count", n.ToString())
         Catch ex As Exception
             Throw ex
         End Try
@@ -965,48 +964,48 @@ Public Class Settings
 
     Public Sub SaveSettings()
         With lIRC.iSettings
-            Files.WriteINI(lINI.iIRC, "Settings", "TextBufferSize", .sTextBufferSize.ToString().Trim())
-            Files.WriteINI(lINI.iIRC, "Settings", "AutoNavigateChannelUrls", Trim(.sAutoNavigateChannelUrls.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ChannelFolderCloseOnJoin", Trim(.sChannelFolderCloseOnJoin.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "VideoBackground", Trim(.sVideoBackground.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "QuitMessage", .sQuitMessage)
-            Files.WriteINI(lINI.iIRC, "Settings", "Prompts", Trim(.sPrompts.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ShowUserAddresses", Trim(.sShowUserAddresses.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "URL", .sURL)
-            Files.WriteINI(lINI.iIRC, "Settings", "MOTDInOwnWindow", Trim(.sMOTDInOwnWindow.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "PopupChannelFolders", Trim(.sPopupChannelFolders.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", Trim(.sCustomizeOnStartup.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "NoIRCMessages", Trim(.sNoIRCMessages.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ExtendedMessages", Trim(.sExtendedMessages.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", Trim(.sChangeNickNameWindow.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "AutoSelectAlternateNickname", Trim(.sAutoSelectAlternateNickname.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", Trim(.sNoticesInOwnWindow.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "HideMOTD", Trim(.sHideMOTD.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ShowRawWindow", Trim(.sShowRawWindow.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", Trim(.sShowWindowsAutomatically.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "AutoMaximize", Trim(.sAutoMaximize.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "AutoConnect", Trim(.sAutoConnect.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "CloseWindowOnDisconnect", Trim(.sCloseWindowOnDisconnect.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "TextBufferSize", .sTextBufferSize.ToString().Trim())
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "AutoNavigateChannelUrls", Trim(.sAutoNavigateChannelUrls.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "ChannelFolderCloseOnJoin", Trim(.sChannelFolderCloseOnJoin.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "VideoBackground", Trim(.sVideoBackground.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "QuitMessage", .sQuitMessage)
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "Prompts", Trim(.sPrompts.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "ShowUserAddresses", Trim(.sShowUserAddresses.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "URL", .sURL)
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "MOTDInOwnWindow", Trim(.sMOTDInOwnWindow.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "PopupChannelFolders", Trim(.sPopupChannelFolders.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", Trim(.sCustomizeOnStartup.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "NoIRCMessages", Trim(.sNoIRCMessages.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "ExtendedMessages", Trim(.sExtendedMessages.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", Trim(.sChangeNickNameWindow.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "AutoSelectAlternateNickname", Trim(.sAutoSelectAlternateNickname.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", Trim(.sNoticesInOwnWindow.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "HideMOTD", Trim(.sHideMOTD.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "ShowRawWindow", Trim(.sShowRawWindow.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", Trim(.sShowWindowsAutomatically.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "AutoMaximize", Trim(.sAutoMaximize.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "AutoConnect", Trim(.sAutoConnect.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "CloseWindowOnDisconnect", Trim(.sCloseWindowOnDisconnect.ToString))
             SaveWindowSizes()
         End With
         With lIRC.iSettings.sStringSettings
-            Files.WriteINI(lINI.iStringSettings, "Settings", "Unknowns", Trim(Str(.sUnknowns)))
-            Files.WriteINI(lINI.iStringSettings, "Settings", "Unsupported", Trim(Str(.sUnsupported)))
+            IniFileHelper.WriteINI(lINI.iStringSettings, "Settings", "Unknowns", Trim(Str(.sUnknowns)))
+            IniFileHelper.WriteINI(lINI.iStringSettings, "Settings", "Unsupported", Trim(Str(.sUnsupported)))
         End With
         With lIRC.iModes
-            Files.WriteINI(lINI.iIRC, "Settings", "Invisible", Trim(.mInvisible.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "LocalOperator", Trim(.mLocalOperator.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "Operator", Trim(.mOperator.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "Restricted", Trim(.mRestricted.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ServerNotices", Trim(.mServerNotices.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "Wallops", Trim(.mWallops.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "Invisible", Trim(.mInvisible.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "LocalOperator", Trim(.mLocalOperator.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "Operator", Trim(.mOperator.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "Restricted", Trim(.mRestricted.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "ServerNotices", Trim(.mServerNotices.ToString))
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "Wallops", Trim(.mWallops.ToString))
         End With
         With lIRC
-            Files.WriteINI(lINI.iIRC, "Settings", "OperName", .iOperName)
-            Files.WriteINI(lINI.iIRC, "Settings", "OperPass", .iOperPass)
-            Files.WriteINI(lINI.iIRC, "Settings", "EMail", .iEMail)
-            Files.WriteINI(lINI.iIRC, "Settings", "Password", .iPass)
-            Files.WriteINI(lINI.iIRC, "Settings", "RealName", .iRealName)
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "OperName", .iOperName)
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "OperPass", .iOperPass)
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "EMail", .iEMail)
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "Password", .iPass)
+            IniFileHelper.WriteINI(lINI.iIRC, "Settings", "RealName", .iRealName)
         End With
         SaveCompatibility()
         SaveRecientServers()
@@ -1052,14 +1051,14 @@ Public Class Settings
 
     Public Sub SaveServers()
         Dim i As Integer
-        Files.WriteINI(lINI.iServers, "Settings", "Count", lServers.sCount.ToString().Trim)
-        Files.WriteINI(lINI.iServers, "Settings", "Index", lServers.sIndex.ToString().Trim)
+        IniFileHelper.WriteINI(lINI.iServers, "Settings", "Count", lServers.sCount.ToString().Trim)
+        IniFileHelper.WriteINI(lINI.iServers, "Settings", "Index", lServers.sIndex.ToString().Trim)
         For i = 1 To lServers.sCount
             With lServers.sServer(i)
-                Files.WriteINI(lINI.iServers, Trim(Convert.ToString(i)), "Ip", .sIP)
-                Files.WriteINI(lINI.iServers, Trim(Convert.ToString(i)), "Port", Trim(Convert.ToString(.sPort)))
-                Files.WriteINI(lINI.iServers, Trim(Convert.ToString(i)), "Description", .sDescription)
-                Files.WriteINI(lINI.iServers, Trim(Convert.ToString(i)), "NetworkIndex", Trim(.sNetworkIndex.ToString))
+                IniFileHelper.WriteINI(lINI.iServers, Trim(Convert.ToString(i)), "Ip", .sIP)
+                IniFileHelper.WriteINI(lINI.iServers, Trim(Convert.ToString(i)), "Port", Trim(Convert.ToString(.sPort)))
+                IniFileHelper.WriteINI(lINI.iServers, Trim(Convert.ToString(i)), "Description", .sDescription)
+                IniFileHelper.WriteINI(lINI.iServers, Trim(Convert.ToString(i)), "NetworkIndex", Trim(.sNetworkIndex.ToString))
             End With
         Next i
     End Sub
@@ -1160,7 +1159,7 @@ Public Class Settings
 
     Public Sub FillComboWithNetworks(ByVal lCombo As ComboBox, Optional ByVal lClearCombo As Boolean = False)
         Try
-            Dim i As Integer
+            'Dim i As Integer
             If lClearCombo = True Then lCombo.Items.Clear()
             For Each network In Modules.IrcSettings.IrcNetworks.Get()
                 If (Not String.IsNullOrEmpty(network.Description)) Then
@@ -1227,11 +1226,11 @@ Public Class Settings
     Public Sub LoadModes()
         Try
             With lIRC.iModes
-                .mInvisible = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Invisible", "True"))
-                .mLocalOperator = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "LocalOperator", "False"))
-                .mOperator = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Operator", "False"))
-                .mRestricted = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Restricted", "False"))
-                .mServerNotices = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ServerNotices", "True"))
+                .mInvisible = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "Invisible", "True"))
+                .mLocalOperator = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "LocalOperator", "False"))
+                .mOperator = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "Operator", "False"))
+                .mRestricted = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "Restricted", "False"))
+                .mServerNotices = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "ServerNotices", "True"))
             End With
         Catch ex As Exception
             Throw ex

@@ -8,9 +8,10 @@ Imports Telerik.WinControls.UI
 'Imports nexIRC.IRC.Customize
 Imports nexIRC.Modules
 Imports nexIRC.nexIRC.IRC.Settings.clsDCC
-Imports nexIRC.IniFile
 Imports nexIRC.IRC.Customize
 Imports nexIRC.Settings2
+Imports nexIRC.Business.Helpers
+Imports nexIRC.Business.Enums
 
 Public Class frmCustomize
     Public WithEvents lCustomize As New clsCustomize
@@ -150,19 +151,19 @@ Public Class frmCustomize
             End With
             With lSettings_DCC.lDCC
                 Select Case .dChatPrompt
-                    Case eDCCPrompt.ePrompt
+                    Case eDccPrompt.ePrompt
                         optDccChatPrompt.IsChecked = True
-                    Case eDCCPrompt.eAcceptAll
+                    Case eDccPrompt.eAcceptAll
                         optDccChatAcceptAll.IsChecked = True
-                    Case eDCCPrompt.eIgnore
+                    Case eDccPrompt.eIgnore
                         optDccChatIgnore.IsChecked = True
                 End Select
                 Select Case .dSendPrompt
-                    Case eDCCPrompt.ePrompt
+                    Case eDccPrompt.ePrompt
                         optDccSendPrompt.IsChecked = True
-                    Case eDCCPrompt.eAcceptAll
+                    Case eDccPrompt.eAcceptAll
                         optDccSendAcceptAll.IsChecked = True
-                    Case eDCCPrompt.eIgnore
+                    Case eDccPrompt.eIgnore
                         optDccSendIgnore.IsChecked = True
                 End Select
                 txtDownloadDirectory.Text = lSettings_DCC.lDCC.dDownloadDirectory
@@ -170,11 +171,11 @@ Public Class frmCustomize
                 chkAutoCloseDialogs.Checked = lSettings_DCC.lDCC.dAutoCloseDialogs
                 chkPopupDownloadManager.Checked = lSettings_DCC.lDCC.dPopupDownloadManager
                 Select Case .dFileExistsAction
-                    Case eDCCFileExistsAction.dPrompt
+                    Case eDccFileExistsAction.dPrompt
                         cboDCCFileExists.SelectedIndex = 0
-                    Case eDCCFileExistsAction.dOverwrite
+                    Case eDccFileExistsAction.dOverwrite
                         cboDCCFileExists.SelectedIndex = 1
-                    Case eDCCFileExistsAction.dIgnore
+                    Case eDccFileExistsAction.dIgnore
                         cboDCCFileExists.SelectedIndex = 2
                 End Select
                 For i = 1 To .dIgnorelist.dCount
@@ -231,7 +232,7 @@ Public Class frmCustomize
             'lCustomize.lStartupNetwork = lSettings.lNetworks.nNetwork(lSettings.lNetworks.nIndex).nDescription
             'lCustomize.RefreshServers(lvwServers, lSettings.lNetworks.nIndex)
             'End If
-            lSettings.lServers.sIndex = Convert.ToInt32(Files.ReadINI(lSettings.lINI.iServers, "Settings", "Index", "0"))
+            lSettings.lServers.sIndex = Convert.ToInt32(IniFileHelper.ReadINI(lSettings.lINI.iServers, "Settings", "Index", "0"))
             chkMOTDInOwnWindow.Checked = lSettings.lIRC.iSettings.sMOTDInOwnWindow
             chkNoticesInOwnWindow.Checked = lSettings.lIRC.iSettings.sNoticesInOwnWindow
             chkShowRawWindow.Checked = lSettings.lIRC.iSettings.sShowRawWindow
@@ -271,7 +272,7 @@ Public Class frmCustomize
         End Try
     End Sub
 
-    Public Sub UpdateSelectedServer(_Description As String, _Ip As String, _Port As String)
+    Public Sub UpdateSelectedServer(ByVal _Description As String, ByVal _Ip As String, ByVal _Port As String)
         Try
             lCustomize.UpdateSelectedServer(lvwServers, _Description, _Ip, _Port)
         Catch ex As Exception
@@ -295,6 +296,8 @@ Public Class frmCustomize
                 txtIdentdUserID.Text = .iUserID
                 chkIdentdEnabled.Checked = .iSettings.iEnabled
             End With
+            Me.Width = 551
+            Me.Height = 448
         Catch ex As Exception
             Throw ex
         End Try
@@ -371,14 +374,14 @@ Public Class frmCustomize
             Throw ex
         End Try
     End Sub
-    Private Sub lnkNetworkDelete_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkDelete.LinkClicked
+    Private Sub lnkNetworkDelete_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkDelete.LinkClicked
         Try
             lCustomize.lnkNetworkDelete_LinkClicked(cboNetworks)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub lnkNetworkAdd_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkAdd.LinkClicked
+    Private Sub lnkNetworkAdd_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lnkNetworkAdd.LinkClicked
         Try
             lCustomize.lnkNetworkAdd_LinkClicked()
             'animate.Animate(f, animate.Effect.Center, 200, 1)
@@ -386,28 +389,28 @@ Public Class frmCustomize
             Throw ex
         End Try
     End Sub
-    Private Sub cmdServerEdit_Click(sender As System.Object, e As System.EventArgs) Handles cmdServerEdit.Click
+    Private Sub cmdServerEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdServerEdit.Click
         Try
             lCustomize.cmdServerEdit_Click(lvwServers)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub cmdServerDelete_Click(sender As System.Object, e As System.EventArgs) Handles cmdServerDelete.Click
+    Private Sub cmdServerDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdServerDelete.Click
         Try
             lCustomize.cmdServerDelete_Click(lvwServers)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub cmdServersClear_Click(sender As System.Object, e As System.EventArgs) Handles cmdServersClear.Click
+    Private Sub cmdServersClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdServersClear.Click
         Try
             lCustomize.cmdServersClear_Click(cboNetworks.Text, lvwServers)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub cmdServersMove_Click(sender As System.Object, e As System.EventArgs) Handles cmdServersMove.Click
+    Private Sub cmdServersMove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdServersMove.Click
         Try
             If (lvwServers.SelectedItem IsNot Nothing) Then
                 lCustomize.cmdServersMove_Click(cboNetworks.Text, lvwServers.SelectedItem.Item(1).ToString)
@@ -416,7 +419,7 @@ Public Class frmCustomize
             Throw ex
         End Try
     End Sub
-    Private Sub cmdConnectNow_Click(sender As System.Object, e As System.EventArgs) Handles cmdConnectNow.Click
+    Private Sub cmdConnectNow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnectNow.Click
         Try
             If lCustomize.cmdConnectNow_Click(chkNewStatus.Checked, Me) Then
                 With lSettings.lIRC.iIdent
@@ -433,7 +436,7 @@ Public Class frmCustomize
             Throw ex
         End Try
     End Sub
-    Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click
+    Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
         Try
             If lCustomize.cmdOK_Click(chkNewStatus.Checked, Me) Then
                 With lSettings.lIRC.iIdent
@@ -450,7 +453,7 @@ Public Class frmCustomize
             Throw ex
         End Try
     End Sub
-    Private Sub cmdApplyNow_Click(sender As System.Object, e As System.EventArgs) Handles cmdApplyNow.Click
+    Private Sub cmdApplyNow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdApplyNow.Click
         Try
             With lSettings.lIRC.iIdent
                 .iPort = CType(txtIdentdPort.Text, Integer)
@@ -464,63 +467,63 @@ Public Class frmCustomize
             Throw ex
         End Try
     End Sub
-    Private Sub cmdCancelNow_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancelNow.Click
+    Private Sub cmdCancelNow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancelNow.Click
         Try
             lCustomize.cmdCancelNow_Click(Me)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub cboNetworks_SelectedIndexChanged(sender As System.Object, e As Telerik.WinControls.UI.Data.PositionChangedEventArgs) Handles cboNetworks.SelectedIndexChanged
+    Private Sub cboNetworks_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As Telerik.WinControls.UI.Data.PositionChangedEventArgs) Handles cboNetworks.SelectedIndexChanged
         Try
             lCustomize.cboNetworks_SelectedIndexChanged(cboNetworks.SelectedItem.Text, lvwServers)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub cmdAddMyNickName_Click(sender As System.Object, e As System.EventArgs) Handles cmdAddMyNickName.Click
+    Private Sub cmdAddMyNickName_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddMyNickName.Click
         Try
             lCustomize.cmdAddNickName_Click()
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub cmdRemove_Click(sender As System.Object, e As System.EventArgs) Handles cmdRemoveMyNickName.Click
+    Private Sub cmdRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveMyNickName.Click
         Try
             lCustomize.cmdRemoveNickName(cboMyNickNames)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub cmdClearMyNickName_Click(sender As System.Object, e As System.EventArgs) Handles cmdClearMyNickName.Click
+    Private Sub cmdClearMyNickName_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClearMyNickName.Click
         Try
             lCustomize.cmdClearMyNickName_Click(cboMyNickNames)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub cmdQuerySettings_Click(sender As System.Object, e As System.EventArgs) Handles cmdQuerySettings.Click
+    Private Sub cmdQuerySettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdQuerySettings.Click
         Try
             lCustomize.cmdQuerySettings_Click()
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub txtNotifyNickname_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtNotifyNickname.TextChanged
+    Private Sub txtNotifyNickname_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtNotifyNickname.TextChanged
         Try
             lCustomize.txtNotifyNickname_TextChanged(txtNotifyNickname.Text, lvwNotify)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub txtNotifyMessage_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtNotifyMessage.TextChanged
+    Private Sub txtNotifyMessage_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtNotifyMessage.TextChanged
         Try
             lCustomize.txtNotifyMessage_TextChanged(txtNotifyMessage.Text, lvwNotify)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub cboNetworkNotify_SelectedIndexChanged(sender As System.Object, e As Telerik.WinControls.UI.Data.PositionChangedEventArgs) Handles cboNetworkNotify.SelectedIndexChanged
+    Private Sub cboNetworkNotify_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As Telerik.WinControls.UI.Data.PositionChangedEventArgs) Handles cboNetworkNotify.SelectedIndexChanged
         Try
             lCustomize.txtNotifyNetwork_TextChanged(cboNetworkNotify.Text, lvwNotify)
         Catch ex As Exception
@@ -555,7 +558,7 @@ Public Class frmCustomize
             Throw ex
         End Try
     End Sub
-    Private Sub lvwServers_DoubleClick(sender As Object, e As System.EventArgs) Handles lvwServers.DoubleClick
+    Private Sub lvwServers_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwServers.DoubleClick
         Try
             lCustomize.lvwServers_DoubleClick(chkNewStatus, Me)
             'Me.Close()
@@ -570,14 +573,14 @@ Public Class frmCustomize
             Throw ex
         End Try
     End Sub
-    Private Sub cmdCompatibilityEnable_Click(sender As System.Object, e As System.EventArgs) Handles cmdCompatibilityEnable.Click
+    Private Sub cmdCompatibilityEnable_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCompatibilityEnable.Click
         Try
             lCustomize.cmdCompatibilityEnable_Click(lvwCompatibility.SelectedItem.Item(0).ToString(), lvwCompatibility.SelectedItem)
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
-    Private Sub cmdCompatibilityDisable_Click(sender As Object, e As System.EventArgs) Handles cmdCompatibilityDisable.Click
+    Private Sub cmdCompatibilityDisable_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdCompatibilityDisable.Click
         Try
             lCustomize.cmdCompatibilityDisable_Click(lvwCompatibility.SelectedItem.Item(0).ToString(), lvwCompatibility.SelectedItem)
         Catch ex As Exception
@@ -585,7 +588,7 @@ Public Class frmCustomize
         End Try
     End Sub
 
-    Private Sub lvwServers_SelectedItemChanged(sender As System.Object, e As Telerik.WinControls.UI.ListViewItemEventArgs) Handles lvwServers.SelectedItemChanged
+    Private Sub lvwServers_SelectedItemChanged(ByVal sender As System.Object, ByVal e As Telerik.WinControls.UI.ListViewItemEventArgs) Handles lvwServers.SelectedItemChanged
 
     End Sub
 
@@ -606,12 +609,20 @@ Public Class frmCustomize
         End Try
     End Sub
 
-    Private Sub tmrCloseMe_Tick(sender As System.Object, e As System.EventArgs) Handles tmrCloseMe.Tick
+    Private Sub tmrCloseMe_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCloseMe.Tick
         Try
             tmrCloseMe.Enabled = False
             Me.Close()
         Catch ex As Exception
             Throw ex
         End Try
+    End Sub
+
+    Private Sub lstIgnoreExtensions_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As Telerik.WinControls.UI.Data.PositionChangedEventArgs) Handles lstIgnoreExtensions.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub lvwNotify_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As Telerik.WinControls.UI.ListViewItemEventArgs) Handles lvwNotify.SelectedItemChanged
+
     End Sub
 End Class

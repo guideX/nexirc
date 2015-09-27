@@ -28,6 +28,8 @@ Partial Class frmChangeNickName
         Me.cmdOK = New Telerik.WinControls.UI.RadButton()
         Me.cmdCancel = New Telerik.WinControls.UI.RadButton()
         Me.cmdAdd = New Telerik.WinControls.UI.RadButton()
+        Me.Office2010BlackTheme1 = New Telerik.WinControls.Themes.Office2010BlackTheme()
+        Me.Office2007BlackTheme1 = New Telerik.WinControls.Themes.Office2007BlackTheme()
         CType(Me.lstNickNames, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNickName, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -45,6 +47,7 @@ Partial Class frmChangeNickName
         Me.lstNickNames.Size = New System.Drawing.Size(235, 167)
         Me.lstNickNames.TabIndex = 0
         Me.lstNickNames.Text = "RadListControl1"
+        Me.lstNickNames.ThemeName = "Office2010Black"
         '
         'txtNickName
         '
@@ -53,6 +56,7 @@ Partial Class frmChangeNickName
         Me.txtNickName.Size = New System.Drawing.Size(181, 20)
         Me.txtNickName.TabIndex = 1
         Me.txtNickName.TabStop = False
+        Me.txtNickName.ThemeName = "Office2010Black"
         '
         'cmdOK
         '
@@ -61,6 +65,7 @@ Partial Class frmChangeNickName
         Me.cmdOK.Size = New System.Drawing.Size(83, 24)
         Me.cmdOK.TabIndex = 2
         Me.cmdOK.Text = "OK"
+        Me.cmdOK.ThemeName = "Office2010Black"
         '
         'cmdCancel
         '
@@ -69,6 +74,7 @@ Partial Class frmChangeNickName
         Me.cmdCancel.Size = New System.Drawing.Size(83, 24)
         Me.cmdCancel.TabIndex = 3
         Me.cmdCancel.Text = "Cancel"
+        Me.cmdCancel.ThemeName = "Office2010Black"
         '
         'cmdAdd
         '
@@ -77,12 +83,13 @@ Partial Class frmChangeNickName
         Me.cmdAdd.Size = New System.Drawing.Size(48, 20)
         Me.cmdAdd.TabIndex = 3
         Me.cmdAdd.Text = "Add"
+        Me.cmdAdd.ThemeName = "Office2010Black"
         '
         'frmChangeNickName
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(263, 248)
+        Me.ClientSize = New System.Drawing.Size(263, 246)
         Me.Controls.Add(Me.cmdAdd)
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.cmdOK)
@@ -96,6 +103,7 @@ Partial Class frmChangeNickName
         '
         Me.RootElement.ApplyShapeToControl = True
         Me.Text = "nexIRC - Change Nickname"
+        Me.ThemeName = "Office2010Black"
         CType(Me.lstNickNames, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNickName, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).EndInit()
@@ -111,5 +119,7 @@ Partial Class frmChangeNickName
     Friend WithEvents cmdOK As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdCancel As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdAdd As Telerik.WinControls.UI.RadButton
+    Friend WithEvents Office2010BlackTheme1 As Telerik.WinControls.Themes.Office2010BlackTheme
+    Friend WithEvents Office2007BlackTheme1 As Telerik.WinControls.Themes.Office2007BlackTheme
 End Class
 

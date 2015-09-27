@@ -2,7 +2,6 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
 
 Public Class frmChannelFolder

@@ -81,8 +81,6 @@ Partial Class mdiMain
         Me.cmd_ArrangeIcons = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.cmd_ShowAbout = New System.Windows.Forms.ToolStripMenuItem()
-        Me.pnlLeftNav = New System.Windows.Forms.Panel()
-        Me.tvwConnections = New System.Windows.Forms.TreeView()
         Me.lblQueryPrompt = New System.Windows.Forms.ToolStripLabel()
         Me.tspQueryPrompt = New System.Windows.Forms.ToolStrip()
         Me.cmdAcceptQuery = New System.Windows.Forms.ToolStripButton()
@@ -101,11 +99,13 @@ Partial Class mdiMain
         Me.tmrHideRedirect = New System.Windows.Forms.Timer(Me.components)
         Me.tmrFirstFocus = New System.Windows.Forms.Timer(Me.components)
         Me.tmrStartup = New System.Windows.Forms.Timer(Me.components)
+        Me.pnlLeftNav = New System.Windows.Forms.Panel()
+        Me.tvwConnections = New System.Windows.Forms.TreeView()
         Me.tspMain.SuspendLayout()
-        Me.pnlLeftNav.SuspendLayout()
         Me.tspQueryPrompt.SuspendLayout()
         Me.tspDCCToolBar.SuspendLayout()
         Me.tspRedirect.SuspendLayout()
+        Me.pnlLeftNav.SuspendLayout()
         Me.SuspendLayout()
         '
         'nicSystray
@@ -130,7 +130,7 @@ Partial Class mdiMain
         'cboAllServers
         '
         Me.cboAllServers.Name = "cboAllServers"
-        Me.cboAllServers.Size = New System.Drawing.Size(121, 23)
+        Me.cboAllServers.Size = New System.Drawing.Size(121, 21)
         '
         'FontDialog1
         '
@@ -142,6 +142,7 @@ Partial Class mdiMain
         Me.tspWindows.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.tspWindows.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.tspWindows.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tspWindows.GripMargin = New System.Windows.Forms.Padding(0)
         Me.tspWindows.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.tspWindows.Location = New System.Drawing.Point(0, 331)
         Me.tspWindows.Name = "tspWindows"
@@ -516,39 +517,6 @@ Partial Class mdiMain
         Me.cmd_ShowAbout.Size = New System.Drawing.Size(166, 22)
         Me.cmd_ShowAbout.Text = "Show About"
         '
-        'pnlLeftNav
-        '
-        Me.pnlLeftNav.BackColor = System.Drawing.Color.Black
-        Me.pnlLeftNav.Controls.Add(Me.tvwConnections)
-        Me.pnlLeftNav.Cursor = System.Windows.Forms.Cursors.Default
-        Me.pnlLeftNav.Dock = System.Windows.Forms.DockStyle.Left
-        Me.pnlLeftNav.Location = New System.Drawing.Point(0, 25)
-        Me.pnlLeftNav.Margin = New System.Windows.Forms.Padding(4)
-        Me.pnlLeftNav.Name = "pnlLeftNav"
-        Me.pnlLeftNav.Padding = New System.Windows.Forms.Padding(1)
-        Me.pnlLeftNav.Size = New System.Drawing.Size(167, 306)
-        Me.pnlLeftNav.TabIndex = 25
-        '
-        'tvwConnections
-        '
-        Me.tvwConnections.BackColor = System.Drawing.Color.Black
-        Me.tvwConnections.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.tvwConnections.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tvwConnections.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tvwConnections.ForeColor = System.Drawing.Color.White
-        Me.tvwConnections.FullRowSelect = True
-        Me.tvwConnections.ImageIndex = 0
-        Me.tvwConnections.ImageList = Me.ImageList1
-        Me.tvwConnections.Indent = 15
-        Me.tvwConnections.ItemHeight = 18
-        Me.tvwConnections.LineColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.tvwConnections.Location = New System.Drawing.Point(1, 1)
-        Me.tvwConnections.Margin = New System.Windows.Forms.Padding(0)
-        Me.tvwConnections.Name = "tvwConnections"
-        Me.tvwConnections.SelectedImageIndex = 0
-        Me.tvwConnections.Size = New System.Drawing.Size(165, 304)
-        Me.tvwConnections.TabIndex = 13
-        '
         'lblQueryPrompt
         '
         Me.lblQueryPrompt.ForeColor = System.Drawing.Color.Black
@@ -706,6 +674,39 @@ Partial Class mdiMain
         '
         Me.tmrStartup.Interval = 200
         '
+        'pnlLeftNav
+        '
+        Me.pnlLeftNav.BackColor = System.Drawing.Color.Black
+        Me.pnlLeftNav.Controls.Add(Me.tvwConnections)
+        Me.pnlLeftNav.Cursor = System.Windows.Forms.Cursors.Default
+        Me.pnlLeftNav.Dock = System.Windows.Forms.DockStyle.Left
+        Me.pnlLeftNav.Location = New System.Drawing.Point(0, 25)
+        Me.pnlLeftNav.Margin = New System.Windows.Forms.Padding(4)
+        Me.pnlLeftNav.Name = "pnlLeftNav"
+        Me.pnlLeftNav.Padding = New System.Windows.Forms.Padding(1)
+        Me.pnlLeftNav.Size = New System.Drawing.Size(167, 306)
+        Me.pnlLeftNav.TabIndex = 25
+        '
+        'tvwConnections
+        '
+        Me.tvwConnections.BackColor = System.Drawing.Color.Black
+        Me.tvwConnections.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.tvwConnections.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tvwConnections.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tvwConnections.ForeColor = System.Drawing.Color.White
+        Me.tvwConnections.FullRowSelect = True
+        Me.tvwConnections.ImageIndex = 0
+        Me.tvwConnections.ImageList = Me.ImageList1
+        Me.tvwConnections.Indent = 15
+        Me.tvwConnections.ItemHeight = 18
+        Me.tvwConnections.LineColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tvwConnections.Location = New System.Drawing.Point(1, 1)
+        Me.tvwConnections.Margin = New System.Windows.Forms.Padding(0)
+        Me.tvwConnections.Name = "tvwConnections"
+        Me.tvwConnections.SelectedImageIndex = 0
+        Me.tvwConnections.Size = New System.Drawing.Size(165, 304)
+        Me.tvwConnections.TabIndex = 13
+        '
         'mdiMain
         '
         Me.AccessibleRole = System.Windows.Forms.AccessibleRole.Window
@@ -730,13 +731,13 @@ Partial Class mdiMain
         Me.Text = "nexIRC"
         Me.tspMain.ResumeLayout(False)
         Me.tspMain.PerformLayout()
-        Me.pnlLeftNav.ResumeLayout(False)
         Me.tspQueryPrompt.ResumeLayout(False)
         Me.tspQueryPrompt.PerformLayout()
         Me.tspDCCToolBar.ResumeLayout(False)
         Me.tspDCCToolBar.PerformLayout()
         Me.tspRedirect.ResumeLayout(False)
         Me.tspRedirect.PerformLayout()
+        Me.pnlLeftNav.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -797,8 +798,6 @@ Partial Class mdiMain
     Friend WithEvents cmd_Cascade As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmd_Sep3869626 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents cmd_ArrangeIcons As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents pnlLeftNav As System.Windows.Forms.Panel
-    Friend WithEvents tvwConnections As System.Windows.Forms.TreeView
     Friend WithEvents lblQueryPrompt As System.Windows.Forms.ToolStripLabel
     Friend WithEvents cmdAcceptQuery As System.Windows.Forms.ToolStripButton
     Friend WithEvents cmdDeclineQuery As System.Windows.Forms.ToolStripButton
@@ -820,6 +819,8 @@ Partial Class mdiMain
     Friend WithEvents tmrFirstFocus As System.Windows.Forms.Timer
     Friend WithEvents cmd_Admin As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tmrStartup As System.Windows.Forms.Timer
+    Friend WithEvents pnlLeftNav As Panel
+    Friend WithEvents tvwConnections As TreeView
     'Friend WithEvents cmdConnection As System.Windows.Forms.ToolStripSplitButton
     'Friend WithEvents mnuNewStatusWindow As System.Windows.Forms.ToolStripMenuItem
     'Friend WithEvents mnuSep76829639 As System.Windows.Forms.ToolStripSeparator

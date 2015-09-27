@@ -5,8 +5,9 @@ Option Strict On
 Imports nexIRC.Settings
 Imports nexIRC.Modules
 Imports System.Net
-Imports nexIRC.IniFile
 Imports nexIRC.Settings2
+Imports nexIRC.Business.Helpers
+Imports nexIRC.Business.Enums
 
 Namespace nexIRC.IRC.Settings
     Public Class clsDCC
@@ -17,52 +18,52 @@ Namespace nexIRC.IRC.Settings
                 Dim i As Integer, n As Integer
                 With lDCC
                     ReDim .dIgnorelist.dItem(lSettings.lArraySizes.aDCCIgnore)
-                    Dim fileExistsAction = Files.ReadINI(lSettings.lINI.iDCC, "Settings", "FileExistsAction", "1")
+                    Dim fileExistsAction = IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "FileExistsAction", "1")
                     If (IsNumeric(fileExistsAction)) Then
                         Select Case Convert.ToInt32(fileExistsAction)
                             Case 1
-                                .dFileExistsAction = eDCCFileExistsAction.dPrompt
+                                .dFileExistsAction = eDccFileExistsAction.dPrompt
                             Case 2
-                                .dFileExistsAction = eDCCFileExistsAction.dOverwrite
+                                .dFileExistsAction = eDccFileExistsAction.dOverwrite
                             Case 3
-                                .dFileExistsAction = eDCCFileExistsAction.dPrompt
+                                .dFileExistsAction = eDccFileExistsAction.dPrompt
                         End Select
                     End If
-                    n = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "1")))
+                    n = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "1")))
                     If n = 1 Then
-                        .dChatPrompt = eDCCPrompt.ePrompt
+                        .dChatPrompt = eDccPrompt.ePrompt
                     ElseIf n = 2 Then
-                        .dChatPrompt = eDCCPrompt.eAcceptAll
+                        .dChatPrompt = eDccPrompt.eAcceptAll
                     ElseIf n = 3 Then
-                        .dChatPrompt = eDCCPrompt.eIgnore
+                        .dChatPrompt = eDccPrompt.eIgnore
                     End If
-                    n = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "1")))
+                    n = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "1")))
                     If n = 1 Then
-                        .dSendPrompt = eDCCPrompt.ePrompt
+                        .dSendPrompt = eDccPrompt.ePrompt
                     ElseIf n = 2 Then
-                        .dSendPrompt = eDCCPrompt.eAcceptAll
+                        .dSendPrompt = eDccPrompt.eAcceptAll
                     ElseIf n = 3 Then
-                        .dSendPrompt = eDCCPrompt.eIgnore
+                        .dSendPrompt = eDccPrompt.eIgnore
                     End If
-                    .dPopupDownloadManager = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "PopupDownloadManager", "False"))
-                    .dDownloadDirectory = Files.ReadINI(lSettings.lINI.iDCC, "Settings", "DownloadDirectory", "")
+                    .dPopupDownloadManager = Convert.ToBoolean(IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "PopupDownloadManager", "False"))
+                    .dDownloadDirectory = IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "DownloadDirectory", "")
                     If String.IsNullOrEmpty(.dDownloadDirectory) = True Then .dDownloadDirectory = Application.StartupPath & "\"
                     .dDownloadDirectory = Replace(.dDownloadDirectory, "\\", "")
-                    .dBufferSize = Convert.ToInt64(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "BufferSize", "1024")))
-                    .dUseIpAddress = Convert.ToBoolean(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "UseIpAddress", "False")))
-                    .dCustomIpAddress = Files.ReadINI(lSettings.lINI.iDCC, "Settings", "CustomIpAddress", "")
+                    .dBufferSize = Convert.ToInt64(Trim(IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "BufferSize", "1024")))
+                    .dUseIpAddress = Convert.ToBoolean(Trim(IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "UseIpAddress", "False")))
+                    .dCustomIpAddress = IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "CustomIpAddress", "")
                     If Len(.dCustomIpAddress) = 0 Then .dCustomIpAddress = DccSettings.ReturnOutsideIPAddress()
-                    .dIgnorelist.dCount = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", "0")))
-                    .dSendPort = Files.ReadINI(lSettings.lINI.iDCC, "Settings", "SendPort", "1024")
-                    .dRandomizePort = Convert.ToBoolean(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "RandomizePort", "True")))
-                    .dIgnorelist.dCount = Convert.ToInt32(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString)))
-                    .dAutoIgnore = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "AutoIgnore", "True"))
-                    .dAutoCloseDialogs = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "AutoCloseDialogs", "False"))
+                    .dIgnorelist.dCount = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", "0")))
+                    .dSendPort = IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "SendPort", "1024")
+                    .dRandomizePort = Convert.ToBoolean(Trim(IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "RandomizePort", "True")))
+                    .dIgnorelist.dCount = Convert.ToInt32(IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString)))
+                    .dAutoIgnore = Convert.ToBoolean(IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "AutoIgnore", "True"))
+                    .dAutoCloseDialogs = Convert.ToBoolean(IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "AutoCloseDialogs", "False"))
                 End With
                 For i = 1 To lDCC.dIgnorelist.dCount
                     With lDCC.dIgnorelist.dItem(i)
-                        .dData = Files.ReadINI(lSettings.lINI.iDCC, i.ToString().Trim(), "Data", "")
-                        Dim type = Files.ReadINI(lSettings.lINI.iDCC, i.ToString().Trim(), "Type", "0")
+                        .dData = IniFileHelper.ReadINI(lSettings.lINI.iDCC, i.ToString().Trim(), "Data", "")
+                        Dim type = IniFileHelper.ReadINI(lSettings.lINI.iDCC, i.ToString().Trim(), "Type", "0")
                         If (IsNumeric(type)) Then
                             Select Case Convert.ToInt32(type)
                                 Case 1

@@ -1,0 +1,4 @@
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Business\bin\Debug\nexIRC.Business.dll
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Business\bin\Debug\nexIRC.Business.pdb
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Business\obj\Debug\nexIRC.Business.dll
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Business\obj\Debug\nexIRC.Business.pdb

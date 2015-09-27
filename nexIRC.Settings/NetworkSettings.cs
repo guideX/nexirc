@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using nexIRC.IniFile;
 namespace nexIRC.IrcSettings {
     /// <summary>
     /// Network Data
@@ -33,11 +32,11 @@ namespace nexIRC.IrcSettings {
         public List<NetworkData> Get() {
             try {
                 if (!_useCache) {
-                    var n = Convert.ToInt32(Files.ReadINI(_iniFile, "Settings", "Count", "0"));
+                    var n = Convert.ToInt32(IniFileHelper.ReadINI(_iniFile, "Settings", "Count", "0"));
                     var result = new List<NetworkData>();
                     for (var i = 1; i <= n; i++) {
                         var d = new NetworkData();
-                        d.Description = Files.ReadINI(_iniFile, i.ToString(), "Description", "");
+                        d.Description = IniFileHelper.ReadINI(_iniFile, i.ToString(), "Description", "");
                         d.Id = i;
                         if (!string.IsNullOrEmpty(d.Description)) {
                             result.Add(d);
@@ -54,7 +53,7 @@ namespace nexIRC.IrcSettings {
             }
         }
         public int Count() {
-            var msg = Files.ReadINI(_iniFile, "Settings", "Count", "0");
+            var msg = IniFileHelper.ReadINI(_iniFile, "Settings", "Count", "0");
             var n = 0;
             if (int.TryParse(msg, out n)) {
                 return n;
@@ -129,11 +128,11 @@ namespace nexIRC.IrcSettings {
         public NetworkData GetDefault() {
             try {
                 var network = new NetworkData();
-                var msg = Files.ReadINI(_iniFile, "Settings", "Index", "0");
+                var msg = IniFileHelper.ReadINI(_iniFile, "Settings", "Index", "0");
                 int n = 0;
                 if (int.TryParse(msg, out n)) {
                     if (n != 0) {
-                        network.Description = Files.ReadINI(_iniFile, n.ToString(), "Description", "");
+                        network.Description = IniFileHelper.ReadINI(_iniFile, n.ToString(), "Description", "");
                         network.Id = n;
                         return network;
                     } else {
@@ -175,7 +174,7 @@ namespace nexIRC.IrcSettings {
         public NetworkData GetById(int networkId) {
             try {
                 var network = new NetworkData();
-                network.Description = Files.ReadINI(_iniFile, networkId.ToString(), "Description", "");
+                network.Description = IniFileHelper.ReadINI(_iniFile, networkId.ToString(), "Description", "");
                 return network;
             } catch (Exception ex) {
                 throw ex;
@@ -188,7 +187,7 @@ namespace nexIRC.IrcSettings {
         /// <returns></returns>
         public int Add(NetworkData network) {
             try {
-                var msg = Files.ReadINI(_iniFile, "Settings", "Count", "0");
+                var msg = IniFileHelper.ReadINI(_iniFile, "Settings", "Count", "0");
                 var n = 0;
                 if(int.TryParse(msg, out(n))) {
                     n = n + 1;

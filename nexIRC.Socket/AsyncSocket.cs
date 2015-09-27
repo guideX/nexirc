@@ -96,7 +96,7 @@ namespace nexIRC.Sockets {
                     }
                 }
                 obj_Socket.BeginReceive(obj_SocketState.Buffer, 0, obj_SocketState.BufferSize, 0, new AsyncCallback(onDataArrival), obj_SocketState);
-            } catch (SocketException sex) {
+            } catch (SocketException) {
                 if (SocketDisconnected != null) {
                     SocketDisconnected(SocketID);
                 }

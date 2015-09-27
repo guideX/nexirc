@@ -3,9 +3,10 @@
 Option Explicit On
 Option Strict On
 Imports System.IO
-Imports nexIRC.Classes.IO
+'Imports nexIRC.Classes.IO
 Imports nexIRC.Sockets
 Imports nexIRC.Modules
+Imports nexIRC.Business.Helpers
 
 Public Class frmDCCGet
     Public Declare Function htonl Lib "wsock32.dll" (ByVal hostlong As UInt32) As UInt32
@@ -69,16 +70,16 @@ Public Class frmDCCGet
             txtDownloadTo.Enabled = False
             If (File.Exists(lSettings.lINI.iBasePath & lblFilename.Text)) Then
                 If lSettings.lIRC.iSettings.sPrompts = True Then
-                    If lSettings_DCC.lDCC.dFileExistsAction = Settings2.eDCCFileExistsAction.dPrompt Then
+                    If lSettings_DCC.lDCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dPrompt Then
                         mBox = MsgBox("This file already exists, replace the original?", MsgBoxStyle.Question Or MsgBoxStyle.YesNoCancel)
-                    ElseIf lSettings_DCC.lDCC.dFileExistsAction = Settings2.eDCCFileExistsAction.dOverwrite Then
+                    ElseIf lSettings_DCC.lDCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dOverwrite Then
                         mBox = MsgBoxResult.Yes
-                    ElseIf lSettings_DCC.lDCC.dFileExistsAction = Settings2.eDCCFileExistsAction.dIgnore Then
+                    ElseIf lSettings_DCC.lDCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dIgnore Then
                         MsgBox("This file already exists!", MsgBoxStyle.Critical)
                         mBox = MsgBoxResult.No
                     End If
                 Else
-                    If lSettings_DCC.lDCC.dFileExistsAction = Settings2.eDCCFileExistsAction.dIgnore Then
+                    If lSettings_DCC.lDCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dIgnore Then
                         mBox = MsgBoxResult.No
                     Else
                         mBox = MsgBoxResult.Yes
@@ -120,7 +121,7 @@ Public Class frmDCCGet
         Try
             lConnected = True
             tmrSendCurrentSize.Interval = lPacketSizeDelay
-            If TextManipulation.Text.DoRight(txtDownloadTo.Text, 1) <> "\" Then
+            If TextHelper.DoRight(txtDownloadTo.Text, 1) <> "\" Then
                 txtDownloadTo.Text = txtDownloadTo.Text & "\"
             End If
             lLocalFileName = txtDownloadTo.Text & lRemoteFileName

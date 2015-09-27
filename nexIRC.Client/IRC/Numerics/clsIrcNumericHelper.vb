@@ -283,7 +283,7 @@ Public Class clsIrcNumericHelper
 
     Public Sub DCCSendProc(ByVal lData As String)
         Try
-            Dim lForm As New frmDCCGet, splt() As String, splt2() As String, msg As String
+            Dim lForm As New frmDccGet, splt() As String, splt2() As String, msg As String
             msg = TextHelper.ParseData(lData, ":", "!")
             splt = Split(lData, " ")
             If lSettings_DCC.lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then

@@ -1,4 +1,4 @@
-'nexIRC 3.0.31
+﻿'nexIRC 3.0.31
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
@@ -8,7 +8,7 @@ Imports nexIRC.Sockets
 Imports nexIRC.Modules
 Imports nexIRC.Business.Helpers
 
-Public Class frmDCCGet
+Public Class frmDccGet
     Public Declare Function htonl Lib "wsock32.dll" (ByVal hostlong As UInt32) As UInt32
     Private WithEvents lSocket As New AsyncSocket
     Private Delegate Sub DataArrivalDelegate(ByVal lData As String, ByVal lBytes() As Byte, ByVal lBytesRecieved As Integer)
@@ -64,7 +64,7 @@ Public Class frmDCCGet
         End Try
     End Sub
 
-    Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
+    Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRun.Click
         Try
             Dim mBox As MsgBoxResult
             txtDownloadTo.Enabled = False
@@ -102,7 +102,7 @@ Public Class frmDCCGet
                     Exit Sub
                 End If
             End If
-            cmdOK.Enabled = False
+            cmdRun.Enabled = False
             lSocket.Connect(lStrings.DecodeLongIPAddr(lRemoteIp), Convert.ToInt64(Trim(lRemotePort)))
         Catch ex As Exception
             Throw ex
@@ -144,7 +144,8 @@ Public Class frmDCCGet
                 Next i
                 lBinaryWriter.Write(lCBytes)
                 lBytesRecievedCount = lBytesRecievedCount + CUInt(lData.Length)
-                ProgressBar1.Value = Convert.ToInt32(lBytesRecievedCount)
+                ProgressBar1.Value1 = Convert.ToInt32(lBytesRecievedCount)
+                ProgressBar1.Value2 = Convert.ToInt32(lBytesRecievedCount)
                 If Convert.ToInt32(lBytesRecievedCount) = Convert.ToInt32(lRemoteFileSize) Then
                     lSocket.SendBytes(BytesToChars(lBytesRecievedCount))
                     tmrDelayEndTransfer.Enabled = True
@@ -175,7 +176,8 @@ Public Class frmDCCGet
                 Me.Close()
             Else
                 Me.Text = "nexIRC - Transfer Complete"
-                ProgressBar1.Value = 0
+                ProgressBar1.Value1 = 0
+                ProgressBar1.Value2 = 0
                 cmdRun.Visible = True
                 cmdCancel.Text = "Close"
             End If
@@ -251,12 +253,7 @@ Public Class frmDCCGet
     End Sub
 
     Private Sub tmrSendCurrentSize_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrSendCurrentSize.Tick
-        Try
-            tmrSendCurrentSize.Enabled = False
-            lSocket.SendBytes(BytesToChars(lBytesRecievedCount))
-        Catch ex As Exception
-            Throw ex
-        End Try
+
     End Sub
 
     Private Sub cmdDownloadTo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDownloadTo.Click
@@ -264,18 +261,6 @@ Public Class frmDCCGet
             FolderBrowserDialog1.RootFolder = Environment.SpecialFolder.MyDocuments
             FolderBrowserDialog1.ShowDialog()
             txtDownloadTo.Text = FolderBrowserDialog1.SelectedPath
-        Catch ex As Exception
-            Throw ex
-        End Try
-    End Sub
-
-    Private Sub tmrDelayEndTransfer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrDelayEndTransfer.Tick
-        Try
-            tmrDelayEndTransfer.Enabled = False
-            If lConnected = True Then
-                lSocket.Close()
-                EndTransfer()
-            End If
         Catch ex As Exception
             Throw ex
         End Try

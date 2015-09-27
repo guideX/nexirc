@@ -15,8 +15,8 @@ Namespace IRC.Customize
         Public lStartupNetwork As String
         Public Sub cmdDCCIgnoreAdd_Click()
             Try
-                Dim f As New frmDCCIgnoreAdd
-                f.optNickName.Checked = True
+                Dim f As New frmDccIgnoreAdd
+                f.optNickName.IsChecked = True
                 f.Show()
             Catch ex As Exception
                 Throw ex

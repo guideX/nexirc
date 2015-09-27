@@ -175,10 +175,10 @@
     <Compile Include="Forms\frmDCCChat.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmDCCGet.Designer.vb">
-      <DependentUpon>frmDCCGet.vb</DependentUpon>
+    <Compile Include="Forms\frmDccGet.Designer.vb">
+      <DependentUpon>frmDccGet.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmDCCGet.vb">
+    <Compile Include="Forms\frmDccGet.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmDCCIgnoreAdd.Designer.vb">
@@ -377,8 +377,8 @@
     <EmbeddedResource Include="Forms\frmDCCChat.resx">
       <DependentUpon>frmDCCChat.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmDCCGet.resx">
-      <DependentUpon>frmDCCGet.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\frmDccGet.resx">
+      <DependentUpon>frmDccGet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDCCIgnoreAdd.resx">
       <DependentUpon>frmDCCIgnoreAdd.vb</DependentUpon>

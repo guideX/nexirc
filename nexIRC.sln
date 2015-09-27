@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "nexIRC", "nexIRC.Client\nexIRC.vbproj", "{72D58ED0-B0F8-48DB-AF6F-62A24788732A}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "nexIRC.Client", "nexIRC.Client\nexIRC.Client.vbproj", "{72D58ED0-B0F8-48DB-AF6F-62A24788732A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nexIRC.Sockets", "nexIRC.Socket\nexIRC.Sockets.csproj", "{B9E7C877-8236-4229-9628-83B21CD2B100}"
 EndProject

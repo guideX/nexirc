@@ -2,3 +2,12 @@ C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\bin\Debug\nexIRC.UI.dll
 C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\bin\Debug\nexIRC.UI.pdb
 C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\obj\Debug\nexIRC.UI.dll
 C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\obj\Debug\nexIRC.UI.pdb
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\bin\Debug\Telerik.WinControls.dll
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\bin\Debug\Telerik.WinControls.RichTextBox.dll
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\bin\Debug\TelerikCommon.dll
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\bin\Debug\Telerik.WinControls.UI.dll
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\bin\Debug\Telerik.WinControls.xml
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\bin\Debug\Telerik.WinControls.RichTextBox.xml
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\bin\Debug\TelerikCommon.xml
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\bin\Debug\Telerik.WinControls.UI.xml
+C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.UI\obj\Debug\nexIRC.UI.csprojResolveAssemblyReference.cache

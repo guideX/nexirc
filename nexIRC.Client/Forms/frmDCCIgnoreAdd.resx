@@ -112,9 +112,53 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="Office2010BlackTheme1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="Office2007BlackTheme1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>199, 17</value>
+  </metadata>
+  <metadata name="tmrSendCurrentSize.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 54</value>
+  </metadata>
+  <metadata name="FolderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>168, 54</value>
+  </metadata>
+  <metadata name="tmrDelayEndTransfer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>328, 54</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAAAABMLAAATCwAAAAEAAAAA
+        AAD///8Al0wYAJ5UHAD59PAAk0kAAJJIAACUSwEAk0oBAJ1TDACfVw4AoWAdALF3PACzeUAA/fr3AJdO
+        AACeVwcApGEWAKNgFgChXhYArWcYAKViFwCxah0AomEcAKNjHQCtbCgAsnk6ALB3OwCyeTwAsns9ALB4
+        PQC2gEQAvIlRAKBYAACdVgAAnFUBAJxWAQCeVgIAolsDAKFbBACiWgUApmALAKZhDACoYg0Ap2MQALJr
+        EwCmZRcAsG0aALh0IQCvbyMAs3k3ALR8OwC4gT4AtX09ALqDQQC4gkAAvYdEAL2IRgC9iUoAyZ9vAOHG
+        pQDu4dEAo14AAKJbAACiXAAAol0AAKFbAAChXAAAol0BAKJdBQCmYAcApWEHAKNeBwCiXQcApF8IAKJf
+        CwCwaw8AqWQOAKxnEAC0bxEArGkRALFuFACvbBgAr20ZAK9tGgCxbxwAsnAdALx4HwCxcSAAvnwlAL9/
+        KQC9gC4AuX8yALuCOQC5gDkAu4M8AMKPTwDImFoAyppcAMyhaQDVrXkA4silAOTNrwD48OYAtnMOAK9s
+        DgC6dxQAtnQZALV3HQC6fB8AtnkgAL5/IwC6fiYAyY0zAMqONAC+hDEAvYUyAL+GNQC/hzUAwIk6AMCL
+        PgDBjD8AwYxAAMGNQQDIlEoAzJxZAM6gXwDTqWsA1qxwANWudwDnz64A+fHlAPfv4wD79/EA/Pr3ALVy
+        DAC2dBAAt3YSAMmMLQC8gioAyIsuAMmNMQDJjjMAzZM2ANObQgDWn0YA1aBKAN6qVADSolQA9ezeAPjx
+        5gDYnC8A0pk2ANuiOwDgqUUA3qhFAN+pSQDgq0oA3qlJAN6qSwDhrE0A4a1OAOKuTwDirlAA4q5RAOKv
+        UgDdq1AA5LFWAOWzVwDls1gA4bBYAOa1XADgsFoA57ZdAOKzXgDouGEA6bpkAOq8aADjtWUA5blpAOm9
+        bQDluWwA7sJxAOrAdADtw3cA58B6APDTngD016IA9d20APPeuwDy4sUA9+jNAPvz5QD8+PEA4KxMAOSz
+        VwDltl8A6rtjAOa5ZgDou2gA7cBrAOu+agDuwm4A571vAOrDewDux34A7MeBAO3MjgDuzZAA78+TAOzN
+        kgDw1KAA+vDcAPrz5QD9+vQA//78AP79+wD+/fkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAA2UAmDyQgJUdHSUdHSERC2T0JAQgwXVdNU1VULlJRT0NFAix+ldeUfW6NcXCMi4loKBWXDQAA
+        AIKPwaGgnJqZbClWjoUAAABmkaeopqObpIoqWGmAZoSDf5DErqzCn8NyTC9qTnyBe1mSx8ivqqLGdEwT
+        UEtkAGNatMm1sKyhs3UrGFtcYjtgYdS6zLe2xc12FAw3ODdeX2UA2NO7y8rQehELMzY1OTwAAAAAAL6y
+        z3kQGjI0MToAAAAAAAAAuM54LR0bHBkfAwAAAAAAv7G5d0oKFhYXEh691dbAvKWr0m1BDgUEBgcnlp6p
+        nZit0ZM/2UIhIiMiRohnhodvc2s+2YABAAAAAAAAAAAAAAAAAAAAAABcAAAFAAAAzQQAAM0EAAB8VwAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABEE8=
+</value>
+  </data>
 </root>

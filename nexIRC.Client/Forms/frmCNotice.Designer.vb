@@ -53,12 +53,16 @@ Partial Class FrmCNotice
         '
         'RadLabel2
         '
+        Me.RadLabel2.ForeColor = System.Drawing.Color.White
         Me.RadLabel2.Location = New System.Drawing.Point(12, 38)
         Me.RadLabel2.Name = "RadLabel2"
+        '
+        '
+        '
+        Me.RadLabel2.RootElement.ForeColor = System.Drawing.Color.White
         Me.RadLabel2.Size = New System.Drawing.Size(49, 18)
         Me.RadLabel2.TabIndex = 22
         Me.RadLabel2.Text = "Channel:"
-        Me.RadLabel2.ThemeName = "Office2010Black"
         '
         'cmdCancel
         '
@@ -89,21 +93,29 @@ Partial Class FrmCNotice
         '
         'RadLabel1
         '
+        Me.RadLabel1.ForeColor = System.Drawing.Color.White
         Me.RadLabel1.Location = New System.Drawing.Point(12, 12)
         Me.RadLabel1.Name = "RadLabel1"
+        '
+        '
+        '
+        Me.RadLabel1.RootElement.ForeColor = System.Drawing.Color.White
         Me.RadLabel1.Size = New System.Drawing.Size(59, 18)
         Me.RadLabel1.TabIndex = 18
         Me.RadLabel1.Text = "Nickname:"
-        Me.RadLabel1.ThemeName = "Office2010Black"
         '
         'RadLabel3
         '
+        Me.RadLabel3.ForeColor = System.Drawing.Color.White
         Me.RadLabel3.Location = New System.Drawing.Point(12, 65)
         Me.RadLabel3.Name = "RadLabel3"
+        '
+        '
+        '
+        Me.RadLabel3.RootElement.ForeColor = System.Drawing.Color.White
         Me.RadLabel3.Size = New System.Drawing.Size(53, 18)
         Me.RadLabel3.TabIndex = 23
         Me.RadLabel3.Text = "Message:"
-        Me.RadLabel3.ThemeName = "Office2010Black"
         '
         'txtMessage
         '

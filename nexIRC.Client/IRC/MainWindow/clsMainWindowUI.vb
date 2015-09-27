@@ -733,7 +733,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmdAccept_Click(ByVal _UserToolStripLabel As ToolStripLabel, ByVal _ToolStrip As ToolStrip, ByVal _DCCToolBarToolStrip As ToolStrip)
             Try
-                Dim splt() As String, lForm As New frmDCCGet
+                Dim splt() As String, lForm As New frmDccGet
                 splt = Split(_UserToolStripLabel.Tag.ToString, Environment.NewLine)
                 _ToolStrip.Visible = False
                 _DCCToolBarToolStrip.Visible = False

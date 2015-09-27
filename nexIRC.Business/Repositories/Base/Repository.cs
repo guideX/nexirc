@@ -7,6 +7,7 @@ using nexIRC.Business.Helpers;
 using System;
 using System.Reflection;
 namespace nexIRC.Business.Repositories.Base {
+    /*
     public abstract class Repository<T> : IRepository<T> {
         public virtual List<T> ReadIni(IniFileInputModel model) {
             var result = new List<T>();
@@ -25,6 +26,7 @@ namespace nexIRC.Business.Repositories.Base {
             }
         }
     }
+    */
 }
 /*
 namespace AsatClientService.Business.Repositories.Base {

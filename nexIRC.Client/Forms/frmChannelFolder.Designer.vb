@@ -62,12 +62,16 @@ Partial Class frmChannelFolder
         '
         'RadLabel1
         '
+        Me.RadLabel1.ForeColor = System.Drawing.Color.White
         Me.RadLabel1.Location = New System.Drawing.Point(12, 12)
         Me.RadLabel1.Name = "RadLabel1"
+        '
+        '
+        '
+        Me.RadLabel1.RootElement.ForeColor = System.Drawing.Color.White
         Me.RadLabel1.Size = New System.Drawing.Size(156, 18)
         Me.RadLabel1.TabIndex = 1
         Me.RadLabel1.Text = "Enter name of channel to join:"
-        Me.RadLabel1.ThemeName = "Office2010Black"
         '
         'cmdJoin
         '
@@ -107,12 +111,16 @@ Partial Class frmChannelFolder
         '
         'lblNetwork
         '
+        Me.lblNetwork.ForeColor = System.Drawing.Color.White
         Me.lblNetwork.Location = New System.Drawing.Point(12, 58)
         Me.lblNetwork.Name = "lblNetwork"
+        '
+        '
+        '
+        Me.lblNetwork.RootElement.ForeColor = System.Drawing.Color.White
         Me.lblNetwork.Size = New System.Drawing.Size(51, 18)
         Me.lblNetwork.TabIndex = 2
         Me.lblNetwork.Text = "Network:"
-        Me.lblNetwork.ThemeName = "Office2010Black"
         '
         'cboNetwork
         '
@@ -147,21 +155,29 @@ Partial Class frmChannelFolder
         '
         'chkPopupOnConnect
         '
+        Me.chkPopupOnConnect.ForeColor = System.Drawing.Color.White
         Me.chkPopupOnConnect.Location = New System.Drawing.Point(12, 251)
         Me.chkPopupOnConnect.Name = "chkPopupOnConnect"
+        '
+        '
+        '
+        Me.chkPopupOnConnect.RootElement.ForeColor = System.Drawing.Color.White
         Me.chkPopupOnConnect.Size = New System.Drawing.Size(114, 18)
         Me.chkPopupOnConnect.TabIndex = 5
         Me.chkPopupOnConnect.Text = "Popup on Connect"
-        Me.chkPopupOnConnect.ThemeName = "Office2010Black"
         '
         'chkCloseOnJoin
         '
+        Me.chkCloseOnJoin.ForeColor = System.Drawing.Color.White
         Me.chkCloseOnJoin.Location = New System.Drawing.Point(12, 275)
         Me.chkCloseOnJoin.Name = "chkCloseOnJoin"
+        '
+        '
+        '
+        Me.chkCloseOnJoin.RootElement.ForeColor = System.Drawing.Color.White
         Me.chkCloseOnJoin.Size = New System.Drawing.Size(86, 18)
         Me.chkCloseOnJoin.TabIndex = 6
         Me.chkCloseOnJoin.Text = "Close on Join"
-        Me.chkCloseOnJoin.ThemeName = "Office2010Black"
         '
         'frmChannelFolder
         '
@@ -180,6 +196,7 @@ Partial Class frmChannelFolder
         Me.Controls.Add(Me.cmdClose)
         Me.Controls.Add(Me.RadLabel1)
         Me.Controls.Add(Me.txtChannel)
+        Me.ForeColor = System.Drawing.Color.White
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmChannelFolder"
@@ -187,6 +204,7 @@ Partial Class frmChannelFolder
         '
         '
         Me.RootElement.ApplyShapeToControl = True
+        Me.RootElement.ForeColor = System.Drawing.Color.White
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Channel Folder"

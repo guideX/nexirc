@@ -49,30 +49,42 @@ Partial Class frmAddServer
         '
         'lblDescription
         '
+        Me.lblDescription.ForeColor = System.Drawing.Color.White
         Me.lblDescription.Location = New System.Drawing.Point(12, 12)
         Me.lblDescription.Name = "lblDescription"
+        '
+        '
+        '
+        Me.lblDescription.RootElement.ForeColor = System.Drawing.Color.White
         Me.lblDescription.Size = New System.Drawing.Size(66, 18)
         Me.lblDescription.TabIndex = 0
         Me.lblDescription.Text = "Description:"
-        Me.lblDescription.ThemeName = "Office2010Black"
         '
         'RadLabel2
         '
+        Me.RadLabel2.ForeColor = System.Drawing.Color.White
         Me.RadLabel2.Location = New System.Drawing.Point(12, 36)
         Me.RadLabel2.Name = "RadLabel2"
+        '
+        '
+        '
+        Me.RadLabel2.RootElement.ForeColor = System.Drawing.Color.White
         Me.RadLabel2.Size = New System.Drawing.Size(43, 18)
         Me.RadLabel2.TabIndex = 1
         Me.RadLabel2.Text = "IP/Port:"
-        Me.RadLabel2.ThemeName = "Office2010Black"
         '
         'lblNetwork
         '
+        Me.lblNetwork.ForeColor = System.Drawing.Color.White
         Me.lblNetwork.Location = New System.Drawing.Point(12, 60)
         Me.lblNetwork.Name = "lblNetwork"
+        '
+        '
+        '
+        Me.lblNetwork.RootElement.ForeColor = System.Drawing.Color.White
         Me.lblNetwork.Size = New System.Drawing.Size(51, 18)
         Me.lblNetwork.TabIndex = 2
         Me.lblNetwork.Text = "Network:"
-        Me.lblNetwork.ThemeName = "Office2010Black"
         '
         'txtDescription
         '

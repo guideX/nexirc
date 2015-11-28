@@ -1,11 +1,10 @@
-'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.nexIRC.MainWindow
-Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
-Imports Telerik.WinControls.UI
-Imports Telerik.WinControls
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
+Imports nexIRC.Client.nexIRC.Client
+Imports nexIRC.Client.nexIRC.Client.IRC.MainWindow
+Imports nexIRC.Client.nexIRC.Client.IRC.MainWindow.clsMainWindowUI
 
 Public Class mdiMain
     Private WithEvents lMainWindowUI As New clsMainWindowUI

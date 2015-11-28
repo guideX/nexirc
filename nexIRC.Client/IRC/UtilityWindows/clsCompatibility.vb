@@ -1,8 +1,7 @@
 ﻿Option Explicit On
 Option Strict On
 Imports Telerik.WinControls.UI
-Imports nexIRC.Modules
-Namespace IRC.UtilityWindows
+Namespace nexIRC.Client.IRC.Status.UtilityWindows
     Public Class clsCompatibility
         Public Sub cmdCancel_Click(_Form As Form)
             Try
@@ -13,7 +12,7 @@ Namespace IRC.UtilityWindows
         End Sub
         Public Sub cmdOK_Click(_Form As Form)
             Try
-                lSettings.SaveCompatibility()
+                Modules.lSettings.SaveCompatibility()
                 _Form.Close()
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub cmdOK_Click(_Form As Form)")
@@ -26,8 +25,8 @@ Namespace IRC.UtilityWindows
                 _RadListView.Columns.Clear()
                 _RadListView.Columns.Add("Description", "Description")
                 _RadListView.Columns.Add("Supported", "Supported")
-                For i As Integer = 1 To lSettings.lCompatibility.cCount
-                    With lSettings.lCompatibility.cCompatibility(i)
+                For i As Integer = 1 To Modules.lSettings.lCompatibility.cCount
+                    With Modules.lSettings.lCompatibility.cCompatibility(i)
                         _ListViewItem = New ListViewDataItem
                         '_ListViewItem.Text = .cDescription
                         _ListViewItem.Item(0) = .cDescription
@@ -49,13 +48,13 @@ Namespace IRC.UtilityWindows
         Public Sub lvwCompatibility_DoubleClick(_RadListView As RadListView)
             Try
                 Dim _MsgBoxResult As MsgBoxResult, i As Integer
-                lSettings.lCompatibility.cModified = True
+                Modules.lSettings.lCompatibility.cModified = True
                 Select Case _RadListView.SelectedItems.Count
                     Case 1
                         _MsgBoxResult = MsgBox("Would you like the item '" & _RadListView.SelectedItems(0).Text & "' to enabled?", MsgBoxStyle.YesNo)
-                        i = lSettings.FindCompatibilityIndex(_RadListView.SelectedItems(0).Text)
+                        i = Modules.lSettings.FindCompatibilityIndex(_RadListView.SelectedItems(0).Text)
                         If i <> 0 Then
-                            With lSettings.lCompatibility.cCompatibility(i)
+                            With Modules.lSettings.lCompatibility.cCompatibility(i)
                                 Select Case _MsgBoxResult
                                     Case MsgBoxResult.Yes
                                         .cEnabled = True
@@ -81,14 +80,14 @@ Namespace IRC.UtilityWindows
                     Case MsgBoxResult.No
                         b = False
                 End Select
-                lSettings.AddToCompatibility(msg, b)
+                Modules.lSettings.AddToCompatibility(msg, b)
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub lblAdd_LinkClicked(_SelectedCompatibilityItem As String)")
             End Try
         End Sub
         Public Sub lblRemove_LinkClicked(_SelectedCompatibilityItem As String)
             Try
-                lSettings.RemoveFromCompatibility(lSettings.FindCompatibilityIndex(_SelectedCompatibilityItem))
+                Modules.lSettings.RemoveFromCompatibility(Modules.lSettings.FindCompatibilityIndex(_SelectedCompatibilityItem))
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Private Sub lblRemove_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblRemove.LinkClicked")
             End Try

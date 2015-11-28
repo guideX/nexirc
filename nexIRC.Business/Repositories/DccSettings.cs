@@ -2,20 +2,32 @@
 using System.Net;
 using nexIRC.Business.Helpers;
 using nexIRC.Business.Enums;
-namespace nexIRC.Settings2 {
+namespace nexIRC.Business.Repositories {
+    /// <summary>
+    /// Dcc Ignore Type
+    /// </summary>
     public enum gDCCIgnoreType {
         dNicknames = 1,
         dHostnames = 2,
         dFileTypes = 3
     }
+    /// <summary>
+    /// Dcc Ignore Item
+    /// </summary>
     public struct gDCCIgnoreItem {
         public gDCCIgnoreType dType;
         public string dData;
     }
+    /// <summary>
+    /// Dcc Ignore List
+    /// </summary>
     public struct gDCCIgnoreList {
         public int dCount;
         public gDCCIgnoreItem[] dItem;
     }
+    /// <summary>
+    /// Dcc
+    /// </summary>
     public struct gDCC {
         public eDccFileExistsAction dFileExistsAction;
         public eDccPrompt dChatPrompt;
@@ -32,8 +44,15 @@ namespace nexIRC.Settings2 {
         public string dDownloadDirectory;
         public bool dPopupDownloadManager;
     }
+    /// <summary>
+    /// Dcc Settings
+    /// </summary>
     public static class DccSettings {
-        public static string ReturnOutsideIPAddress() {
+        /// <summary>
+        /// Return Outside Ip Address
+        /// </summary>
+        /// <returns></returns>
+        public static string IpAddress() {
             try {
                 WebClient client = new WebClient();
                 string baseurl = "http://checkip.dyndns.org:8245/";
@@ -53,11 +72,17 @@ namespace nexIRC.Settings2 {
                 throw ex;
             }
         }
-
-
-        public static void LoadDCCSettings(string ini, gDCC dcc, string startupPath) {
-            int i = 0;
-            int n = 0;
+        /// <summary>
+        /// Load Dcc Settings
+        /// </summary>
+        /// <param name="ini"></param>
+        /// <param name="startupPath"></param>
+        /// <returns></returns>
+        public static gDCC Read(string startupPath) {
+            var ini = startupPath + @"\data\config\dcc.ini";
+            var dcc = new gDCC();
+            var i = 0;
+            var n = 0;
             dcc.dFileExistsAction = (eDccFileExistsAction)Convert.ToInt32(IniFileHelper.ReadINI(ini, "Settings", "FileExistsAction", "1"));
             n = Convert.ToInt32(IniFileHelper.ReadINI(ini, "Settings", "ChatPrompt", "1"));
             if (n == 1) {
@@ -83,8 +108,9 @@ namespace nexIRC.Settings2 {
             dcc.dBufferSize = Convert.ToInt64(IniFileHelper.ReadINI(ini, "Settings", "BufferSize", "1024"));
             dcc.dUseIpAddress = Convert.ToBoolean(IniFileHelper.ReadINI(ini, "Settings", "UseIpAddress", "False"));
             dcc.dCustomIpAddress = IniFileHelper.ReadINI(ini, "Settings", "CustomIpAddress", "");
-            if (dcc.dCustomIpAddress.Length == 0)
-                dcc.dCustomIpAddress = DccSettings.ReturnOutsideIPAddress();
+            if (dcc.dCustomIpAddress.Length == 0) {
+                dcc.dCustomIpAddress = DccSettings.IpAddress();
+            }
             dcc.dIgnorelist.dCount = Convert.ToInt32(IniFileHelper.ReadINI(ini, "Settings", "IgnoreCount", "0"));
             dcc.dSendPort = IniFileHelper.ReadINI(ini, "Settings", "SendPort", "1024");
             dcc.dRandomizePort = Convert.ToBoolean(IniFileHelper.ReadINI(ini, "Settings", "RandomizePort", "True"));
@@ -107,7 +133,13 @@ namespace nexIRC.Settings2 {
                         break;
                 }
             }
+            return dcc;
         }
+        /// <summary>
+        /// Save Dcc Settings
+        /// </summary>
+        /// <param name="ini"></param>
+        /// <param name="dcc"></param>
         public static void SaveDCCSettings(string ini, gDCC dcc) {
             try {
                 int i = 0;

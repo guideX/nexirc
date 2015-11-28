@@ -2,15 +2,13 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.clsIrcNumerics
-Imports nexIRC.clsIrcNumerics.eStringTypes
-Imports nexIRC.Modules
-Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
 Imports Telerik.WinControls.UI
-Imports Telerik.WinControls
 Imports nexIRC.Business.Helpers
+Imports nexIRC.Client.nexIRC.Client.IRC.Numerics.clsIrcNumerics
+Imports nexIRC.Client.nexIRC.Client.IRC.MainWindow.clsMainWindowUI
+Imports nexIRC.Client.nexIRC.Client.Classes
 
-Namespace IRC.Channels
+Namespace nexIRC.Client.IRC.Channels
     Public Class clsChannel
         Public nCount As Integer
         Public Structure gChannel
@@ -47,14 +45,14 @@ Namespace IRC.Channels
         End Sub
         Public Sub EnableDelayNamesTimer(ByVal channelIndex As Integer)
             Try
-                lChannels.cChannel(channelIndex).cWindow.tmrAddNameDelay.Enabled = True
+                Modules.lChannels.lChannels.cChannel(channelIndex).cWindow.tmrAddNameDelay.Enabled = True
             Catch ex As Exception
                 Throw ex
             End Try
         End Sub
         Public Sub AddToNickListQue(ByVal channelIndex As Integer, ByVal nickName As String)
             Try
-                lChannels.cChannel(channelIndex).cWindow.MdiChildWindow.NicklistQue.Add(nickName)
+                Modules.lChannels.lChannels.cChannel(channelIndex).cWindow.MdiChildWindow.NicklistQue.Add(nickName)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -115,7 +113,7 @@ Namespace IRC.Channels
             Try
                 If (_ChannelIndex <> 0) Then
                     With lChannels.cChannel(_ChannelIndex)
-                        lStrings.Print(_Data, .cWindow.txtIncoming)
+                        Modules.lStrings.Print(_Data, .cWindow.txtIncoming)
                     End With
                 End If
             Catch ex As Exception
@@ -125,10 +123,10 @@ Namespace IRC.Channels
         Public Sub Window_Closing(ByVal form As Form, ByVal meIndex As Integer, ByVal eventArgs As System.Windows.Forms.FormClosingEventArgs)
             Try
                 With lChannels.cChannel(meIndex)
-                    lSettings.lIRC.iSettings.sWindowSizes.iChannel.wWidth = .cWindow.Width
-                    lSettings.lIRC.iSettings.sWindowSizes.iChannel.wHeight = .cWindow.Height
-                    lSettings.SaveWindowSizes()
-                    If lStatus.Closing() = False Then
+                    Modules.lSettings.lIRC.iSettings.sWindowSizes.iChannel.wWidth = .cWindow.Width
+                    Modules.lSettings.lIRC.iSettings.sWindowSizes.iChannel.wHeight = .cWindow.Height
+                    Modules.lSettings.SaveWindowSizes()
+                    If Modules.lStatus.Closing() = False Then
                         SetChannelVisible(meIndex, False)
                     End If
                     form.Visible = False
@@ -146,7 +144,7 @@ Namespace IRC.Channels
                     .cWindow.MdiChildWindow.FormType = MdiChildWindow.FormTypes.Channel
                     .cWindow.MdiChildWindow.MeIndex = _ChannelIndex
                     .cWindow.MdiChildWindow.Form_Load(MdiChildWindow.FormTypes.Channel)
-                    lStrings.Print(.cIncomingText, .cWindow.txtIncoming)
+                    Modules.lStrings.Print(.cIncomingText, .cWindow.txtIncoming)
                     .cWindow.Text = .cName
                     .cWindow.Icon = mdiMain.Icon
                     .cWindow.MdiParent = mdiMain
@@ -183,9 +181,9 @@ Namespace IRC.Channels
         Public Sub Outgoing_GotFocus(ByVal _ChannelIndex As Integer)
             Try
                 With lChannels.cChannel(_ChannelIndex)
-                    If lSettings.lIRC.iSettings.sAutoMaximize = True Then .cWindow.WindowState = FormWindowState.Maximized
-                    lChannels.cIndex = _ChannelIndex
-                    lStatus.ActiveIndex = .cStatusIndex
+                    If Modules.lSettings.lIRC.iSettings.sAutoMaximize = True Then .cWindow.WindowState = FormWindowState.Maximized
+                    Modules.lChannels.lChannels.cIndex = _ChannelIndex
+                    Modules.lStatus.ActiveIndex = .cStatusIndex
                 End With
             Catch ex As Exception
                 Throw ex
@@ -200,10 +198,10 @@ Namespace IRC.Channels
                             msg = .cWindow.txtOutgoing.Text
                             .cWindow.txtOutgoing.Text = ""
                             If TextHelper.LeftRight(msg, 0, 1) = "/" Then
-                                lStatus.ProcessUserInput(lChannels.cChannel(_ChannelIndex).cStatusIndex, msg)
+                                Modules.lStatus.ProcessUserInput(Modules.lChannels.lChannels.cChannel(_ChannelIndex).cStatusIndex, msg)
                             Else
-                                lStatus.DoStatusSocket(lChannels.cChannel(_ChannelIndex).cStatusIndex, "PRIVMSG " & lChannels.cChannel(_ChannelIndex).cName & " :" & msg)
-                                msg2 = lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, lStatus.NickName(lChannels.cChannel(_ChannelIndex).cStatusIndex), msg)
+                                Modules.lStatus.DoStatusSocket(Modules.lChannels.lChannels.cChannel(_ChannelIndex).cStatusIndex, "PRIVMSG " & lChannels.cChannel(_ChannelIndex).cName & " :" & msg)
+                                msg2 = Modules.lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, Modules.lStatus.NickName(Modules.lChannels.lChannels.cChannel(_ChannelIndex).cStatusIndex), msg)
                                 DoChannelColor(_ChannelIndex, msg2)
                             End If
                         End If
@@ -223,7 +221,7 @@ Namespace IRC.Channels
         End Function
         Public Function NetworkName(ByVal channelIndex As Integer) As String
             Try
-                Return Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(lChannels.cChannel(channelIndex).cStatusIndex)).Description
+                Return Modules.IrcSettings.IrcNetworks.GetById(Modules.lStatus.NetworkIndex(Modules.lChannels.lChannels.cChannel(channelIndex).cStatusIndex)).Description
             Catch ex As Exception
                 Throw ex
                 Return Nothing
@@ -245,7 +243,7 @@ Namespace IRC.Channels
                     msg = Replace(.cWindow.lvwNickList.SelectedItems(0).Text, "+", "")
                     msg = Replace(msg, "@", "")
                     'lStatus.PrivateMessage_Initialize(.cStatusIndex, msg)
-                    lStatus.PrivateMessage_Add(StatusIndex(_ChannelIndex), msg, "", "", True)
+                    Modules.lStatus.PrivateMessage_Add(StatusIndex(_ChannelIndex), msg, "", "", True)
                 End With
             Catch ex As Exception
                 Throw ex
@@ -257,7 +255,7 @@ Namespace IRC.Channels
                     Dim msg As String
                     msg = Replace(.cWindow.lvwNickList.Text, "+", "")
                     msg = Replace(.cWindow.lvwNickList.Text, "@", "")
-                    lStatus.PrivateMessage_Initialize(.cStatusIndex, msg)
+                    Modules.lStatus.PrivateMessage_Initialize(.cStatusIndex, msg)
                 End With
             Catch ex As Exception
                 Throw ex
@@ -266,7 +264,7 @@ Namespace IRC.Channels
         Public Sub ResetForeMostWindows()
             Try
                 For i As Integer = 1 To lChannels.cCount
-                    lChannels.cChannel(i).cWindow.MdiChildWindow.lForeMost = False
+                    Modules.lChannels.lChannels.cChannel(i).cWindow.MdiChildWindow.lForeMost = False
                 Next i
             Catch ex As Exception
                 Throw ex
@@ -300,7 +298,7 @@ Namespace IRC.Channels
                 If (_StatusIndex <> 0 Or _NickName.Trim().Length() = 0) Then
                     For _ChannelIndex As Integer = 1 To lChannels.cCount
                         For n As Integer = 0 To lChannels.cChannel(_ChannelIndex).cWindow.lvwNickList.Items.Count - 1
-                            If (lChannels.cChannel(_ChannelIndex).cWindow.lvwNickList.Items(n).Text.Trim().ToLower.Replace("@", "").Replace("+", "") = _NickName.Trim().ToLower.Replace("@", "").Replace("+", "")) Then
+                            If (Modules.lChannels.lChannels.cChannel(_ChannelIndex).cWindow.lvwNickList.Items(n).Text.Trim().ToLower.Replace("@", "").Replace("+", "") = _NickName.Trim().ToLower.Replace("@", "").Replace("+", "")) Then
                                 DoChannelColor(_ChannelIndex, _Text)
                             End If
                         Next n
@@ -314,7 +312,7 @@ Namespace IRC.Channels
             Try
                 Dim _Result As Boolean = False
                 For i As Integer = 1 To lChannels.cCount
-                    If lChannels.cChannel(i).cStatusIndex = _StatusIndex Then _Result = True
+                    If Modules.lChannels.lChannels.cChannel(i).cStatusIndex = _StatusIndex Then _Result = True
                 Next i
                 Return _Result
             Catch ex As Exception
@@ -340,8 +338,8 @@ Namespace IRC.Channels
                 _NickName = splt(2)
                 _ChannelA = splt(3)
                 _ChannelB = splt(4)
-                If (_NickName.ToLower = lStatus.NickName(_StatusIndex).ToLower()) Then
-                    If (lSettings.lIRC.iSettings.sPrompts = True) Then
+                If (_NickName.ToLower = Modules.lStatus.NickName(_StatusIndex).ToLower()) Then
+                    If (Modules.lSettings.lIRC.iSettings.sPrompts = True) Then
                         mdiMain.lblRedirectMessage.Text = "Notice: You have been redirected from '" & _ChannelA & "' to '" & _ChannelB & "'."
                         mdiMain.lblRedirectMessage.Tag = _StatusIndex.ToString()
                         mdiMain.tmrHideRedirect.Enabled = True
@@ -349,7 +347,7 @@ Namespace IRC.Channels
                     Else
                         Join(_StatusIndex, _ChannelB)
                     End If
-                    If lSettings.lIRC.iSettings.sNoIRCMessages = False Then lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sERR_LINKCHANNEL, _ChannelA, _ChannelB)
+                    If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then Modules.lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sERR_LINKCHANNEL, _ChannelA, _ChannelB)
                 End If
             Catch ex As Exception
                 Throw ex
@@ -362,7 +360,7 @@ Namespace IRC.Channels
                         For Each lListViewItem As ListViewDataItem In lChannel.cWindow.lvwNickList.Items
                             If (lListViewItem.Text = _OldNickName) Then
                                 lListViewItem.Text = _NickName
-                                lStrings.Print(lStrings.ReturnReplacedString(eStringTypes.sNICK_CHANGE, _OldNickName, _HostName, _NickName), lChannel.cWindow.txtIncoming)
+                                Modules.lStrings.Print(Modules.lStrings.ReturnReplacedString(eStringTypes.sNICK_CHANGE, _OldNickName, _HostName, _NickName), lChannel.cWindow.txtIncoming)
                             End If
                         Next lListViewItem
                     End If
@@ -386,16 +384,16 @@ Namespace IRC.Channels
                 Else
                     Exit Sub
                 End If
-                If LCase(Trim(_NickName)) = LCase(Trim(lStatus.NickName(_StatusIndex))) Then
+                If LCase(Trim(_NickName)) = LCase(Trim(Modules.lStatus.NickName(_StatusIndex))) Then
                     _ChannelIndex = Add(_Channel, _StatusIndex)
                     Form_Load(_ChannelIndex)
-                    DoChannelColor(_ChannelIndex, lStrings.ReturnReplacedString(eStringTypes.sYOUJOIN, _Channel))
-                    Modules.IrcSettings.ChannelFolders.Add(_Channel, Modules.IrcSettings.IrcNetworks.GetById(lStatus.NetworkIndex(_StatusIndex)).Description)
+                    DoChannelColor(_ChannelIndex, Modules.lStrings.ReturnReplacedString(eStringTypes.sYOUJOIN, _Channel))
+                    Modules.IrcSettings.ChannelFoldersRepo.Add(_Channel, Modules.IrcSettings.IrcNetworks.GetById(Modules.lStatus.NetworkIndex(_StatusIndex)).Description)
                 Else
-                    If lSettings.lIRC.iSettings.sShowUserAddresses = True Then
-                        _TextToDisplay = lStrings.ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName & " (" & _IpAddress & ")", _Channel)
+                    If Modules.lSettings.lIRC.iSettings.sShowUserAddresses = True Then
+                        _TextToDisplay = Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName & " (" & _IpAddress & ")", _Channel)
                     Else
-                        _TextToDisplay = lStrings.ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName, _Channel)
+                        _TextToDisplay = Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName, _Channel)
                     End If
                     _ChannelIndex = Find(_StatusIndex, _Channel)
                     With lChannels.cChannel(_ChannelIndex)
@@ -438,13 +436,13 @@ Namespace IRC.Channels
                         Dim nickListItems As List(Of ListViewDataItem)
                         For i As Integer = 1 To lChannels.cCount
                             Dim _i As Integer = i
-                            nickListItems = lChannels.cChannel(i).cWindow.lvwNickList.Items.Where(Function(nickListItem) nickListItem.Text = nickName Or nickListItem.Text = "@" & nickName Or nickListItem.Text = "+" & nickName).ToList()
+                            nickListItems = Modules.lChannels.lChannels.cChannel(i).cWindow.lvwNickList.Items.Where(Function(nickListItem) nickListItem.Text = nickName Or nickListItem.Text = "@" & nickName Or nickListItem.Text = "+" & nickName).ToList()
                             nickListItems = nickListItems.Distinct.ToList()
                             nickListItems.ForEach(Function(m) As Boolean
                                                       If (lastNickName <> nickName) Then
                                                           lastNickName = nickName
-                                                          lChannels.cChannel(_i).cWindow.lvwNickList.Items.Remove(m)
-                                                          DoChannelColor(_i, lStrings.ReturnReplacedString(eStringTypes.sUSER_QUIT, nickName, hostName, quitMessage))
+                                                          Modules.lChannels.lChannels.cChannel(_i).cWindow.lvwNickList.Items.Remove(m)
+                                                          DoChannelColor(_i, Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_QUIT, nickName, hostName, quitMessage))
                                                       End If
                                                       Return True
                                                   End Function)
@@ -478,7 +476,7 @@ Namespace IRC.Channels
                     End If
                 End If
                 _ChannelIndex = Find(_StatusIndex, _ChannelName)
-                If _NickName.Trim() = lStatus.NickName(_StatusIndex).Trim() Then
+                If _NickName.Trim() = Modules.lStatus.NickName(_StatusIndex).Trim() Then
                     With lChannels.cChannel(_ChannelIndex)
                         .cIncomingText = ""
                         .cName = ""
@@ -492,10 +490,10 @@ Namespace IRC.Channels
                     End With
                 Else
                     RemoveFromNickList(Find(_StatusIndex, _ChannelName), _NickName)
-                    If lSettings.lIRC.iSettings.sShowUserAddresses = True Then
-                        _TextToDisplay = lStrings.ReturnReplacedString(eStringTypes.sUSER_PARTED, _NickName & " (" & _HostName & ")", _ChannelName)
+                    If Modules.lSettings.lIRC.iSettings.sShowUserAddresses = True Then
+                        _TextToDisplay = Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_PARTED, _NickName & " (" & _HostName & ")", _ChannelName)
                     Else
-                        _TextToDisplay = lStrings.ReturnReplacedString(eStringTypes.sUSER_PARTED, _NickName, _ChannelName)
+                        _TextToDisplay = Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_PARTED, _NickName, _ChannelName)
                     End If
                     DoChannelColor(Find(_StatusIndex, _ChannelName), _TextToDisplay)
                 End If
@@ -539,7 +537,7 @@ Namespace IRC.Channels
 
         Public Sub Join(ByVal lStatusIndex As Integer, ByVal lChannelName As String)
             Try
-                If lStatusIndex <> 0 And Len(lChannelName) <> 0 Then lStatus.SendSocket(lStatusIndex, "JOIN " & lChannelName)
+                If lStatusIndex <> 0 And Len(lChannelName) <> 0 Then Modules.lStatus.SendSocket(lStatusIndex, "JOIN " & lChannelName)
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub JoinChannel(ByVal lStatusIndex As Integer, ByVal lChannelName As String)")
             End Try
@@ -573,7 +571,7 @@ Namespace IRC.Channels
                 _Message = Right(_Data, Len(_Data) - splt(1).Length() - 2)
                 _ChannelIndex = Find(_StatusIndex, _Channel)
                 With lChannels.cChannel(_ChannelIndex)
-                    lStrings.Print(lStrings.ReturnReplacedString(eStringTypes.sRPL_TOPIC, _Channel, _Message), .cWindow.txtIncoming)
+                    Modules.lStrings.Print(Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_TOPIC, _Channel, _Message), .cWindow.txtIncoming)
                     .cWindow.Text = _Channel & ": " & TextHelper.StripColorCodes(_Message)
                 End With
             Catch ex As Exception
@@ -582,12 +580,12 @@ Namespace IRC.Channels
         End Sub
         Private Function Add(ByVal _Name As String, ByVal _StatusIndex As Integer) As Integer
             Try
-                lChannels.cCount = lChannels.cCount + 1
-                ReDim Preserve lChannels.cChannel(lChannels.cCount)
-                With lChannels.cChannel(lChannels.cCount)
+                Modules.lChannels.lChannels.cCount = Modules.lChannels.lChannels.cCount + 1
+                ReDim Preserve lChannels.cChannel(Modules.lChannels.lChannels.cCount)
+                With lChannels.cChannel(Modules.lChannels.lChannels.cCount)
                     .cName = _Name
                     .cStatusIndex = _StatusIndex
-                    .cTreeNode = lStatus.GetObject(_StatusIndex).sTreeNode.Nodes.Add(_Name, _Name, 1, 1)
+                    .cTreeNode = Modules.lStatus.GetObject(_StatusIndex).sTreeNode.Nodes.Add(_Name, _Name, 1, 1)
                     .cTreeNodeVisible = True
                     .cWindowBarItem = mdiMain.AddWindowBar(.cName, gWindowBarImageTypes.wChannel)
                     .cWindowBarItem.Tag = Trim(.cStatusIndex.ToString)
@@ -610,7 +608,7 @@ Namespace IRC.Channels
             End Get
             Set(ByVal lValue As Integer)
                 Try
-                    lChannels.cIndex = lValue
+                    Modules.lChannels.lChannels.cIndex = lValue
                 Catch ex As Exception
                     Throw ex 'ProcessError(ex.Message, "Public Property CurrentIndex(ByVal lIndex As Integer) As Integer")
                 End Try
@@ -675,7 +673,7 @@ Namespace IRC.Channels
             End Get
             Set(ByVal lValue As Integer)
                 Try
-                    lChannels.cCount = lValue
+                    Modules.lChannels.lChannels.cCount = lValue
                 Catch ex As Exception
                     Throw ex 'ProcessError(ex.Message, "Public Property ChannelCount() As Integer")
                 End Try
@@ -692,7 +690,7 @@ Namespace IRC.Channels
             End Get
             Set(ByVal _Value As String)
                 Try
-                    lChannels.cChannel(_Index).cName = _Value
+                    Modules.lChannels.lChannels.cChannel(_Index).cName = _Value
                 Catch ex As Exception
                     Throw ex 'ProcessError(ex.Message, "Public Property ChannelName(ByVal lIndex As Integer) As String")
                 End Try
@@ -710,10 +708,10 @@ Namespace IRC.Channels
                         _ChannelIndex = Find(_StatusIndex, splt(2))
                         Select Case Trim(splt(3))
                             Case "+o"
-                                msg = lStrings.ReturnReplacedString(eStringTypes.sUSER_MODE, splt2(0), splt(3), splt(4))
+                                msg = Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_MODE, splt2(0), splt(3), splt(4))
                                 PrivMsg(_ChannelIndex, msg)
                             Case "-o"
-                                msg = lStrings.ReturnReplacedString(eStringTypes.sUSER_MODE, splt2(0), splt(3), splt(4))
+                                msg = Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_MODE, splt2(0), splt(3), splt(4))
                                 PrivMsg(_ChannelIndex, msg)
                         End Select
                     End If
@@ -749,7 +747,7 @@ Namespace IRC.Channels
         End Property
         Public Sub New()
             Try
-                ReDim lChannels.cChannel(lSettings.lArraySizes.aChannelWindows)
+                ReDim lChannels.cChannel(Modules.lSettings.lArraySizes.aChannelWindows)
             Catch ex As Exception
                 Throw ex
             End Try

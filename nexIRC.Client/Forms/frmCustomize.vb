@@ -1,20 +1,18 @@
 ﻿'nexIRC 3.0.31
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
-Option Strict On
+'Option Strict On
 Imports Telerik.WinControls.UI
-'Imports nexIRC.Classes.IO
-'Imports nexIRC.Classes.UI
-'Imports nexIRC.IRC.Customize
-Imports nexIRC.Modules
-Imports nexIRC.nexIRC.IRC.Settings.clsDCC
-Imports nexIRC.IRC.Customize
-Imports nexIRC.Settings2
 Imports nexIRC.Business.Helpers
 Imports nexIRC.Business.Enums
+Imports nexIRC.Business.Repositories
+Imports nexIRC.Client.nexIRC.IRC.Customize
+Imports nexIRC.Client.nexIRC.Client
+Imports nexIRC.Client.nexIRC.Client.IRC.Settings.Settings
 
 Public Class frmCustomize
     Public WithEvents lCustomize As New clsCustomize
+    'Private dcc As gDCC = Business.Repositories.DccSettings.Read(Application.StartupPath)
 
     Public Sub EventApply()
         Dim textBufferSize As Integer
@@ -108,19 +106,20 @@ Public Class frmCustomize
 
     Private Sub InitSettings()
         Try
+            'Dim dccSettings = Business.Repositories.DccSettings.Read()
             Dim i As Integer, _ListViewItem As ListViewDataItem
-            For i = 1 To lSettings.lCompatibility.cCount
-                If (lSettings.lCompatibility.cCompatibility(i).cEnabled = True) Then
+            For i = 1 To Modules.lSettings.lCompatibility.cCount
+                If (Modules.lSettings.lCompatibility.cCompatibility(i).cEnabled = True) Then
                     _ListViewItem = New ListViewDataItem()
-                    _ListViewItem.SubItems.Add(lSettings.lCompatibility.cCompatibility(i).cDescription)
-                    _ListViewItem.SubItems.Add(lSettings.lCompatibility.cCompatibility(i).cEnabled.ToString())
+                    _ListViewItem.SubItems.Add(Modules.lSettings.lCompatibility.cCompatibility(i).cDescription)
+                    _ListViewItem.SubItems.Add(Modules.lSettings.lCompatibility.cCompatibility(i).cEnabled.ToString())
                     lvwCompatibility.Items.Add(_ListViewItem)
                 End If
             Next i
             lvwCompatibility.SelectedIndex = 0
-            lStrings.PopulateListViewWithStrings(lvwStrings)
-            'For i = 1 To lSettings.lNetworks.nCount
-            'With lSettings.lNetworks.nNetwork(i)
+            Modules.lStrings.PopulateListViewWithStrings(lvwStrings)
+            'For i = 1 To Modules.lSettings.lNetworks.nCount
+            'With Modules.lSettings.lNetworks.nNetwork(i)
             'cboNetworkNotify.Items.Add(.nDescription)
             'End With
             'Next i
@@ -128,20 +127,20 @@ Public Class frmCustomize
             For Each network In networks
                 cboNetworkNotify.Items.Add(network.Description)
             Next network
-            For i = 1 To lSettings.lNotify.nCount
-                With lSettings.lNotify.nNotify(i)
+            For i = 1 To Modules.lSettings.lNotify.nCount
+                With Modules.lSettings.lNotify.nNotify(i)
                     lCustomize.AddToNotifyListView(.nNickName, .nMessage, .nNetwork, lvwNotify)
                 End With
             Next i
-            For i = 1 To lSettings.lIRC.iNicks.nCount
-                With lSettings.lIRC.iNicks.nNick(i)
+            For i = 1 To Modules.lSettings.lIRC.iNicks.nCount
+                With Modules.lSettings.lIRC.iNicks.nNick(i)
                     If (Not String.IsNullOrEmpty(.nNick)) Then
                         cboMyNickNames.Items.Add(.nNick)
                     End If
                 End With
             Next i
-            cboMyNickNames.Text = lSettings.lIRC.iNicks.nNick(lSettings.lIRC.iNicks.nIndex).nNick
-            With lSettings.lIRC.iModes
+            cboMyNickNames.Text = Modules.lSettings.lIRC.iNicks.nNick(Modules.lSettings.lIRC.iNicks.nIndex).nNick
+            With Modules.lSettings.lIRC.iModes
                 chkInvisible.Checked = .mInvisible
                 chkLocalOp.Checked = .mLocalOperator
                 chkOperator.Checked = .mOperator
@@ -149,7 +148,7 @@ Public Class frmCustomize
                 chkServerNotices.Checked = .mServerNotices
                 chkWallops.Checked = .mWallops
             End With
-            With lSettings_DCC.lDCC
+            With Modules.lSettings_DCC
                 Select Case .dChatPrompt
                     Case eDccPrompt.ePrompt
                         optDccChatPrompt.IsChecked = True
@@ -166,10 +165,10 @@ Public Class frmCustomize
                     Case eDccPrompt.eIgnore
                         optDccSendIgnore.IsChecked = True
                 End Select
-                txtDownloadDirectory.Text = lSettings_DCC.lDCC.dDownloadDirectory
-                chkAutoIgnoreExceptNotify.Checked = lSettings_DCC.lDCC.dAutoIgnore
-                chkAutoCloseDialogs.Checked = lSettings_DCC.lDCC.dAutoCloseDialogs
-                chkPopupDownloadManager.Checked = lSettings_DCC.lDCC.dPopupDownloadManager
+                txtDownloadDirectory.Text = Modules.lSettings_DCC.dDownloadDirectory
+                chkAutoIgnoreExceptNotify.Checked = Modules.lSettings_DCC.dAutoIgnore
+                chkAutoCloseDialogs.Checked = Modules.lSettings_DCC.dAutoCloseDialogs
+                chkPopupDownloadManager.Checked = Modules.lSettings_DCC.dPopupDownloadManager
                 Select Case .dFileExistsAction
                     Case eDccFileExistsAction.dPrompt
                         cboDCCFileExists.SelectedIndex = 0
@@ -189,7 +188,7 @@ Public Class frmCustomize
                     End Select
                 Next i
             End With
-            With lSettings.lIRC.iSettings
+            With Modules.lSettings.lIRC.iSettings
                 txtTextBufferSize.Text = .sTextBufferSize.ToString()
                 'txtURL.Text = .sURL
                 chkCloseChannelFolder.Checked = .sChannelFolderCloseOnJoin
@@ -220,43 +219,43 @@ Public Class frmCustomize
                     End If
                 Next
             End If
-            'If lSettings.lNetworks.nCount <> 0 Then
-            'For i = 1 To lSettings.lNetworks.nCount
-            'With lSettings.lNetworks.nNetwork(i)
+            'If Modules.lSettings.lNetworks.nCount <> 0 Then
+            'For i = 1 To Modules.lSettings.lNetworks.nCount
+            'With Modules.lSettings.lNetworks.nNetwork(i)
             'If (Not String.IsNullOrEmpty(.nDescription)) Then
             'cboNetworks.Items.Add(.nDescription)
             'End If
             'End With
             'Next i
-            'cboNetworks.Text = lSettings.lNetworks.nNetwork(lSettings.lNetworks.nIndex).nDescription
-            'lCustomize.lStartupNetwork = lSettings.lNetworks.nNetwork(lSettings.lNetworks.nIndex).nDescription
-            'lCustomize.RefreshServers(lvwServers, lSettings.lNetworks.nIndex)
+            'cboNetworks.Text = Modules.lSettings.lNetworks.nNetwork(Modules.lSettings.lNetworks.nIndex).nDescription
+            'lCustomize.lStartupNetwork = Modules.lSettings.lNetworks.nNetwork(Modules.lSettings.lNetworks.nIndex).nDescription
+            'lCustomize.RefreshServers(lvwServers, Modules.lSettings.lNetworks.nIndex)
             'End If
-            lSettings.lServers.sIndex = Convert.ToInt32(IniFileHelper.ReadINI(lSettings.lINI.iServers, "Settings", "Index", "0"))
-            chkMOTDInOwnWindow.Checked = lSettings.lIRC.iSettings.sMOTDInOwnWindow
-            chkNoticesInOwnWindow.Checked = lSettings.lIRC.iSettings.sNoticesInOwnWindow
-            chkShowRawWindow.Checked = lSettings.lIRC.iSettings.sShowRawWindow
-            With lSettings.lIRC
+            Modules.lSettings.lServers.sIndex = Convert.ToInt32(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServers, "Settings", "Index", "0"))
+            chkMOTDInOwnWindow.Checked = Modules.lSettings.lIRC.iSettings.sMOTDInOwnWindow
+            chkNoticesInOwnWindow.Checked = Modules.lSettings.lIRC.iSettings.sNoticesInOwnWindow
+            chkShowRawWindow.Checked = Modules.lSettings.lIRC.iSettings.sShowRawWindow
+            With Modules.lSettings.lIRC
                 txtUserEmail.Text = .iEMail
                 txtPassword.Text = .iPass
                 txtRealName.Text = .iRealName
                 txtOperName.Text = .iOperName
                 txtOperPassword.Text = .iOperPass
             End With
-            Select Case lSettings.lIRC.iSettings.sStringSettings.sUnsupported
-                Case Settings.eUnsupportedIn.uOwnWindow
+            Select Case Modules.lSettings.lIRC.iSettings.sStringSettings.sUnsupported
+                Case eUnsupportedIn.uOwnWindow
                     rdbUnsupportedOwn.IsChecked = True
-                Case Settings.eUnsupportedIn.uHide
+                Case eUnsupportedIn.uHide
                     rdbUnsupportedHide.IsChecked = True
-                Case Settings.eUnsupportedIn.uStatusWindow
+                Case eUnsupportedIn.uStatusWindow
                     rdbUnsupportedStatus.IsChecked = True
             End Select
-            Select Case lSettings.lIRC.iSettings.sStringSettings.sUnknowns
-                Case Settings.eUnknownsIn.uStatusWindow
+            Select Case Modules.lSettings.lIRC.iSettings.sStringSettings.sUnknowns
+                Case eUnknownsIn.uStatusWindow
                     rdbUnknownTextStatus.IsChecked = True
-                Case Settings.eUnknownsIn.uHide
+                Case eUnknownsIn.uHide
                     rdbUnknownTextHide.IsChecked = True
-                Case Settings.eUnknownsIn.uOwnWindow
+                Case eUnknownsIn.uOwnWindow
                     rdbUnknownTextOwn.IsChecked = True
             End Select
         Catch ex As Exception
@@ -290,7 +289,7 @@ Public Class frmCustomize
         Try
             lCustomize.Form_Load(Me, cmdCancelNow, lvwServers)
             InitSettings()
-            With lSettings.lIRC.iIdent
+            With Modules.lSettings.lIRC.iIdent
                 txtIdentdPort.Text = .iPort.ToString
                 txtIdentdSystem.Text = .iSystem
                 txtIdentdUserID.Text = .iUserID
@@ -422,14 +421,14 @@ Public Class frmCustomize
     Private Sub cmdConnectNow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnectNow.Click
         Try
             If lCustomize.cmdConnectNow_Click(chkNewStatus.Checked, Me) Then
-                With lSettings.lIRC.iIdent
+                With Modules.lSettings.lIRC.iIdent
                     .iPort = CType(txtIdentdPort.Text, Integer)
                     .iSettings.iEnabled = chkIdentdEnabled.Checked
                     .iSystem = txtIdentdSystem.Text
                     .iUserID = txtIdentdUserID.Text
                 End With
                 EventApply()
-                lSettings.SaveSettings()
+                Modules.lSettings.SaveSettings()
             End If
             Me.Close()
         Catch ex As Exception
@@ -439,7 +438,7 @@ Public Class frmCustomize
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
         Try
             If lCustomize.cmdOK_Click(chkNewStatus.Checked, Me) Then
-                With lSettings.lIRC.iIdent
+                With Modules.lSettings.lIRC.iIdent
                     .iPort = CType(txtIdentdPort.Text, Integer)
                     .iSettings.iEnabled = chkIdentdEnabled.Checked
                     .iSystem = txtIdentdSystem.Text
@@ -447,7 +446,7 @@ Public Class frmCustomize
                 End With
                 EventApply()
             End If
-            lSettings.SaveSettings()
+            Modules.lSettings.SaveSettings()
             Me.Close()
         Catch ex As Exception
             Throw ex
@@ -455,7 +454,7 @@ Public Class frmCustomize
     End Sub
     Private Sub cmdApplyNow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdApplyNow.Click
         Try
-            With lSettings.lIRC.iIdent
+            With Modules.lSettings.lIRC.iIdent
                 .iPort = CType(txtIdentdPort.Text, Integer)
                 .iSettings.iEnabled = chkIdentdEnabled.Checked
                 .iSystem = txtIdentdSystem.Text
@@ -603,7 +602,7 @@ Public Class frmCustomize
 
     Private Sub lCustomize_Save() Handles lCustomize.Save
         Try
-            lSettings.SaveSettings()
+            Modules.lSettings.SaveSettings()
         Catch ex As Exception
             Throw ex
         End Try

@@ -1,9 +1,8 @@
-﻿'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
-Option Explicit On
+﻿Option Explicit On
 Option Strict On
-Imports nexIRC.clsCommandTypes
-Imports nexIRC.Modules
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
+Imports nexIRC.Client.nexIRC.Client.IRC.SendNotice
 Public Class frmSendNotice
     Public lSendNoticeUI As New clsSendNoticeUI
     Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click

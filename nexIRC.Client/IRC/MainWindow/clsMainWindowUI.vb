@@ -2,17 +2,15 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-'Imports nexIRC.Classes.IO
-Imports nexIRC.clsCommandTypes
-Imports nexIRC.Modules
 Imports Telerik.WinControls.UI
-Imports Telerik.WinControls
 Imports nexIRC.UI
 Imports nexIRC.Business.Helpers
-Imports nexIRC.IrcSettings
 Imports nexIRC.Business.Enums
+Imports nexIRC.Client.nexIRC.Client.Classes
+Imports nexIRC.Business.Repositories
+Imports nexIRC.Client.nexIRC.Client.IRC.Status.UtilityWindows
 
-Namespace nexIRC.MainWindow
+Namespace nexIRC.Client.IRC.MainWindow
     Public Class clsMainWindowUI
         Public WithEvents lProcesses As New IrcProcess
         Private lLoadingForm As New FrmLoading
@@ -109,11 +107,11 @@ Namespace nexIRC.MainWindow
         Public Sub FormClosed(ByVal _Form As Form, ByVal _NotifyIcon As NotifyIcon, ByVal _SideBarShown As Boolean)
             Try
                 If _Form.WindowState = FormWindowState.Minimized Then _NotifyIcon.Visible = True
-                IniFileHelper.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Left", _Form.Left.ToString().Trim())
-                IniFileHelper.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Top", _Form.Top.ToString().Trim())
-                IniFileHelper.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Width", _Form.Width.ToString().Trim())
-                IniFileHelper.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Height", _Form.Height.ToString().Trim())
-                IniFileHelper.WriteINI(lSettings.lINI.iIRC, "mdiMain", "SideBarShown", _SideBarShown.ToString())
+                IniFileHelper.WriteINI(Modules.lSettings.lINI.iIRC, "mdiMain", "Left", _Form.Left.ToString().Trim())
+                IniFileHelper.WriteINI(Modules.lSettings.lINI.iIRC, "mdiMain", "Top", _Form.Top.ToString().Trim())
+                IniFileHelper.WriteINI(Modules.lSettings.lINI.iIRC, "mdiMain", "Width", _Form.Width.ToString().Trim())
+                IniFileHelper.WriteINI(Modules.lSettings.lINI.iIRC, "mdiMain", "Height", _Form.Height.ToString().Trim())
+                IniFileHelper.WriteINI(Modules.lSettings.lINI.iIRC, "mdiMain", "SideBarShown", _SideBarShown.ToString())
             Catch ex As Exception
                 Throw ex
             End Try
@@ -121,8 +119,8 @@ Namespace nexIRC.MainWindow
 
         Public Sub FormClosing(ByVal e As System.Windows.Forms.FormClosingEventArgs, ByVal _Form As Form, ByVal _WaitForQuitTimer As Timer)
             Try
-                lStatus.Closing = True
-                If lStatus.QuitAll() = False Then
+                Modules.lStatus.Closing = True
+                If Modules.lStatus.QuitAll() = False Then
                     e.Cancel = True
                     _Form.Visible = False
                     _WaitForQuitTimer.Enabled = True
@@ -160,7 +158,6 @@ Namespace nexIRC.MainWindow
 
         Public Sub Form_Load(ByVal _Form As Form, ByVal _NotifyIcon As NotifyIcon, ByVal _LeftBarButton As Button, ByVal _LeftNav As Panel, ByVal _ToolStrip As ToolStrip, ByVal _WindowsToolStrip As ToolStrip)
             Dim sideBarShown As Boolean
-            'Try
             _WindowsToolStrip.ForeColor = Color.White
             _NotifyIcon.Visible = True
             _NotifyIcon.Icon = _Form.Icon
@@ -169,25 +166,25 @@ Namespace nexIRC.MainWindow
             lLoadingForm.Focus()
             Application.DoEvents()
             SetLoadingFormProgress("Initializing Status Windows", 2)
-            lSettings.SetArraySizes()
-            lStatus = New Global.nexIRC.IRC.Status.Status(lSettings.lArraySizes.aStatusWindows)
+            Modules.lSettings.SetArraySizes()
+            Modules.lStatus = New Status.Status(Modules.lSettings.lArraySizes.aStatusWindows)
             SetLoadingFormProgress("Initializing Processes", 5)
             lProcesses.Initialize()
             SetLoadingFormProgress("Loading Settings", 7)
-            lSettings.LoadSettings()
+            Modules.lSettings.LoadSettings()
             lLoadingForm.Focus()
-            If lSettings.lServers.sIndex <> 0 Then lStatus.Create(lSettings.lIRC, lSettings.lServers)
-            _Form.Left = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Left", Convert.ToString(_Form.Left))))
-            _Form.Top = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Top", Convert.ToString(_Form.Top))))
-            _Form.Width = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Width", Convert.ToString(_Form.Width))))
-            _Form.Height = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Height", Convert.ToString(_Form.Height))))
-            If lSettings.lIRC.iIdent.iSettings.iEnabled = True Then
-                lIdent.Listen(113)
+            If Modules.lSettings.lServers.sIndex <> 0 Then Modules.lStatus.Create(Modules.IrcSettings, Modules.lSettings.lServers)
+            _Form.Left = Convert.ToInt32(Trim(IniFileHelper.ReadINI(Modules.lSettings.lINI.iIRC, "mdiMain", "Left", Convert.ToString(_Form.Left))))
+            _Form.Top = Convert.ToInt32(Trim(IniFileHelper.ReadINI(Modules.lSettings.lINI.iIRC, "mdiMain", "Top", Convert.ToString(_Form.Top))))
+            _Form.Width = Convert.ToInt32(Trim(IniFileHelper.ReadINI(Modules.lSettings.lINI.iIRC, "mdiMain", "Width", Convert.ToString(_Form.Width))))
+            _Form.Height = Convert.ToInt32(Trim(IniFileHelper.ReadINI(Modules.lSettings.lINI.iIRC, "mdiMain", "Height", Convert.ToString(_Form.Height))))
+            If Modules.lSettings.lIRC.iIdent.iSettings.iEnabled = True Then
+                Modules.lIdent.Listen(113)
             End If
             SetLoadingFormProgress("Loading Complete", 100)
             lLoadingForm.Close()
             _Form.Text = "nexIRC v" & Application.ProductVersion
-            sideBarShown = Convert.ToBoolean(IniFileHelper.ReadINI(lSettings.lINI.iIRC, "mdiMain", "SideBarShown", "False"))
+            sideBarShown = Convert.ToBoolean(IniFileHelper.ReadINI(Modules.lSettings.lINI.iIRC, "mdiMain", "SideBarShown", "False"))
             _LeftBarButton.Left = 0
             If (Not sideBarShown) Then
                 _LeftNav.Visible = False
@@ -197,9 +194,6 @@ Namespace nexIRC.MainWindow
             Form_Resize(_Form, _LeftBarButton, _LeftNav, _ToolStrip, _WindowsToolStrip)
             RaiseEvent SetBackgroundColor()
             _Form.Visible = True
-            'Catch ex As Exception
-            'Throw ex
-            'End Try
         End Sub
 
         Public Sub Form_Resize(ByVal _Form As Form, ByVal _LeftButton As Button, ByVal _LeftNav As Panel, ByVal _ToolStrip As ToolStrip, ByVal _WindowsToolStrip As ToolStrip)
@@ -218,7 +212,7 @@ Namespace nexIRC.MainWindow
         Public Sub SetWindowFocus(ByVal _Form As Form)
             Try
                 If _Form.WindowState = FormWindowState.Minimized Then _Form.WindowState = FormWindowState.Normal
-                If lSettings.lIRC.iSettings.sAutoMaximize = True And _Form.WindowState <> FormWindowState.Maximized Then _Form.WindowState = FormWindowState.Maximized
+                If Modules.lSettings.lIRC.iSettings.sAutoMaximize = True And _Form.WindowState <> FormWindowState.Maximized Then _Form.WindowState = FormWindowState.Maximized
                 _Form.BringToFront()
                 _Form.Focus()
             Catch ex As Exception
@@ -242,7 +236,7 @@ Namespace nexIRC.MainWindow
         Public Sub StartupSettingsTimer_Tick(ByVal _Timer As Timer)
             Try
                 _Timer.Enabled = False
-                If lSettings.lIRC.iSettings.sCustomizeOnStartup = True Then
+                If Modules.lSettings.lIRC.iSettings.sCustomizeOnStartup = True Then
                     frmCustomize.Show()
                     frmCustomize.Focus()
                 End If
@@ -269,26 +263,26 @@ Namespace nexIRC.MainWindow
                 If (IsNumeric(e.ClickedItem.Tag.ToString()) = True) Then
                     meIndex = CType(e.ClickedItem.Tag.ToString(), Integer)
                     If TextHelper.DoLeft(e.ClickedItem.Text, 1) = "#" Then
-                        channelIndex = lChannels.Find(meIndex, e.ClickedItem.Text.ToString)
-                        If (lChannels.Visible(channelIndex)) Then
-                            lChannels.Focus(channelIndex)
+                        channelIndex = Modules.lChannels.Find(meIndex, e.ClickedItem.Text.ToString)
+                        If (Modules.lChannels.Visible(channelIndex)) Then
+                            Modules.lChannels.Focus(channelIndex)
                         Else
-                            lChannels.Visible(channelIndex) = True
+                            Modules.lChannels.Visible(channelIndex) = True
                         End If
                     ElseIf InStr(e.ClickedItem.Text, "(") <> 0 And InStr(e.ClickedItem.Text, ")") <> 0 Then
-                        If (lStatus.Window(meIndex) IsNot Nothing) Then
-                            If (lStatus.Visible(meIndex)) Then
-                                lStatus.Focus(meIndex)
+                        If (Modules.lStatus.Window(meIndex) IsNot Nothing) Then
+                            If (Modules.lStatus.Visible(meIndex)) Then
+                                Modules.lStatus.Focus(meIndex)
                             Else
-                                lStatus.Visible(meIndex) = True
+                                Modules.lStatus.Visible(meIndex) = True
                             End If
                         End If
                     Else
-                        If (lStatus.PrivateMessage_Visible(meIndex, e.ClickedItem.Text) = True) Then
-                            lStatus.PrivateMessage_Focus(meIndex, lStatus.PrivateMessage_Find(meIndex, e.ClickedItem.Text))
-                            'lStatus.GetObject(meIndex).sPrivateMessages.pPrivateMessage(lStatus.PrivateMessage_Find(meIndex, e.ClickedItem.Text)).pWindow.txtOutgoing.Focus()
+                        If (Modules.lStatus.PrivateMessage_Visible(meIndex, e.ClickedItem.Text) = True) Then
+                            Modules.lStatus.PrivateMessage_Focus(meIndex, Modules.lStatus.PrivateMessage_Find(meIndex, e.ClickedItem.Text))
+                            'lStatus.GetObject(meIndex).sPrivateMessages.pPrivateMessage(Modules.lStatus.PrivateMessage_Find(meIndex, e.ClickedItem.Text)).pWindow.txtOutgoing.Focus()
                         Else
-                            lStatus.PrivateMessage_Visible(meIndex, e.ClickedItem.Text) = True
+                            Modules.lStatus.PrivateMessage_Visible(meIndex, e.ClickedItem.Text) = True
                         End If
                     End If
                 End If
@@ -299,7 +293,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub Connections_DoubleClick(ByVal _SelectedNode As TreeNode)
             Try
-                lStatus.DblClickConnections(_SelectedNode)
+                Modules.lStatus.DblClickConnections(_SelectedNode)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -312,14 +306,14 @@ Namespace nexIRC.MainWindow
                     Select Case CType(CType(_QueryPromptLabel.Tag.ToString, Integer), eInfoBar)
                         Case eInfoBar.iNickServ_NickTaken
                             frmNickServLogin.Show()
-                            frmNickServLogin.SetStatusIndex(lStatus.ActiveIndex)
+                            frmNickServLogin.SetStatusIndex(Modules.lStatus.ActiveIndex)
                     End Select
                 ElseIf InStr(_QueryPromptLabel.Tag.ToString, ":") <> 0 Then
                     splt = Split(_QueryPromptLabel.Tag.ToString, ":")
                     If (New QuerySettings(Application.StartupPath).Get().AutoShowWindow()) Then
                         _NickName = TextHelper.ParseData(_QueryPromptLabel.Text, "'", "(")
                         _HostName = TextHelper.ParseData(_QueryPromptLabel.Text, "(", ")")
-                        lStatus.PrivateMessage_Add(Convert.ToInt32(Trim(splt(0))), _NickName, _HostName, splt(2), True)
+                        Modules.lStatus.PrivateMessage_Add(Convert.ToInt32(Trim(splt(0))), _NickName, _HostName, splt(2), True)
                     End If
                     _QueryPromptToolStrip.Visible = False
                 End If
@@ -337,8 +331,8 @@ Namespace nexIRC.MainWindow
         End Sub
 
         Private Sub clearHistory()
-            For i = 1 To lSettings.lRecientServers.sCount
-                lSettings.lRecientServers.sItem(i) = ""
+            For i = 1 To Modules.lSettings.lRecientServers.sCount
+                Modules.lSettings.lRecientServers.sItem(i) = ""
             Next i
         End Sub
 
@@ -362,7 +356,7 @@ Namespace nexIRC.MainWindow
             Try
                 form = New frmSharedAdd()
                 form.lSharedAddUI.SharedAddType = type
-                form.lSharedAddUI.StatusIndex = lStatus.ActiveIndex
+                form.lSharedAddUI.StatusIndex = Modules.lStatus.ActiveIndex
                 form.Show()
             Catch ex As Exception
                 Throw ex
@@ -394,11 +388,11 @@ Namespace nexIRC.MainWindow
         End Sub
 
         Public Sub cmd_Help()
-            lStrings.ProcessReplaceCommand(lStatus.ActiveIndex, IrcCommandTypes.cHELP)
+            Modules.lStrings.ProcessReplaceCommand(Modules.lStatus.ActiveIndex, IrcCommandTypes.cHELP)
         End Sub
 
         Public Sub cmd_Die()
-            lStrings.ProcessReplaceCommand(lStatus.ActiveIndex, IrcCommandTypes.cDIE)
+            Modules.lStrings.ProcessReplaceCommand(Modules.lStatus.ActiveIndex, IrcCommandTypes.cDIE)
         End Sub
 
         Public Sub cmd_Invite()
@@ -423,21 +417,21 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_Connect_Click()
             Try
-                lStatus.ActiveStatusConnect()
+                Modules.lStatus.ActiveStatusConnect()
             Catch ex As Exception
                 Throw ex
             End Try
         End Sub
 
         Public Sub cmd_Disconnect_Click()
-            lStatus.CloseStatusConnection(lStatus.ActiveIndex, True)
+            Modules.lStatus.CloseStatusConnection(Modules.lStatus.ActiveIndex, True)
         End Sub
 
         Public Sub cmd_CloseStatus_Click()
             Try
                 Dim i As Integer
-                i = lStatus.ActiveIndex()
-                lStatus.CloseWindow(i)
+                i = Modules.lStatus.ActiveIndex()
+                Modules.lStatus.CloseWindow(i)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -452,11 +446,11 @@ Namespace nexIRC.MainWindow
         End Sub
 
         Public Sub cmd_Channels_ButtonClick()
-            lChannelFolder.Show(lStatus.ActiveIndex)
+            Modules.lChannelFolder.Show(Modules.lStatus.ActiveIndex)
         End Sub
 
         Public Sub cmd_Connection_ButtonClick()
-            lStatus.ToggleConnection(lStatus.ActiveIndex)
+            Modules.lStatus.ToggleConnection(Modules.lStatus.ActiveIndex)
         End Sub
 
         Public Sub cmd_Customize_Click()
@@ -464,8 +458,8 @@ Namespace nexIRC.MainWindow
         End Sub
 
         Public Sub cmd_ListChannels_Click()
-            Dim n As Integer = lStatus.ActiveIndex
-            lStrings.ProcessReplaceCommand(n, IrcCommandTypes.cLIST, lStatus.ServerDescription(n))
+            Dim n As Integer = Modules.lStatus.ActiveIndex
+            Modules.lStrings.ProcessReplaceCommand(n, IrcCommandTypes.cLIST, Modules.lStatus.ServerDescription(n))
         End Sub
 
         Public Sub cmd_LeftBar_Click(ByVal _LeftBarButton As ToolStripMenuItem, ByVal _LeftPanel As Panel, ByVal _Form As Form)
@@ -519,7 +513,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_ChannelFolder_Click()
             Try
-                lChannelFolder.Show(lStatus.ActiveIndex)
+                Modules.lChannelFolder.Show(Modules.lStatus.ActiveIndex)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -535,7 +529,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_NewStatusWindow_Click()
             Try
-                lStatus.Create(lSettings.lIRC, lSettings.lServers)
+                Modules.lStatus.Create(Modules.IrcSettings, Modules.lSettings.lServers)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -550,7 +544,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_DCCSend_Click()
             Try
-                lProcessNumeric.lIrcNumericHelper.NewDCCSend()
+                Modules.lProcessNumeric.lIrcNumericHelper.NewDCCSend()
             Catch ex As Exception
                 Throw ex
             End Try
@@ -558,7 +552,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_DCCChat_Click()
             Try
-                lProcessNumeric.lIrcNumericHelper.NewDCCChat()
+                Modules.lProcessNumeric.lIrcNumericHelper.NewDCCChat()
             Catch ex As Exception
                 Throw ex
             End Try
@@ -574,7 +568,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_DCC_ButtonClick()
             Try
-                lProcessNumeric.lIrcNumericHelper.NewDCCSend()
+                Modules.lProcessNumeric.lIrcNumericHelper.NewDCCSend()
             Catch ex As Exception
                 Throw ex
             End Try
@@ -582,7 +576,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_RecientServer1_Click(ByVal _Recent1 As String)
             Try
-                If Len(_Recent1) <> 0 And _Recent1 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent1, 6667)
+                If Len(_Recent1) <> 0 And _Recent1 <> "(Unknown)" Then Modules.lStatus.Connect_Specify(_Recent1, 6667)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -590,7 +584,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_RecientServer2_Click(ByVal _Recent2 As String)
             Try
-                If Len(_Recent2) <> 0 And _Recent2 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent2, 6667)
+                If Len(_Recent2) <> 0 And _Recent2 <> "(Unknown)" Then Modules.lStatus.Connect_Specify(_Recent2, 6667)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -598,7 +592,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_RecientServer3_Click(ByVal _Recent3 As String)
             Try
-                If Len(_Recent3) <> 0 And _Recent3 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent3, 6667)
+                If Len(_Recent3) <> 0 And _Recent3 <> "(Unknown)" Then Modules.lStatus.Connect_Specify(_Recent3, 6667)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -624,7 +618,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_ServerLinks_Click()
             Try
-                lStatus.SendSocket(lStatus.ActiveIndex, "LINKS")
+                Modules.lStatus.SendSocket(Modules.lStatus.ActiveIndex, "LINKS")
             Catch ex As Exception
                 Throw ex
             End Try
@@ -633,9 +627,9 @@ Namespace nexIRC.MainWindow
         Public Sub cmd_Whois_Click()
             Try
                 Dim msg As String, i As Integer
-                i = lStatus.ActiveIndex()
+                i = Modules.lStatus.ActiveIndex()
                 msg = InputBox("Enter whois nickname")
-                If Len(msg) <> 0 Then lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cWHOIS, msg)
+                If Len(msg) <> 0 Then Modules.lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cWHOIS, msg)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -644,9 +638,9 @@ Namespace nexIRC.MainWindow
         Public Sub cmd_Whowas_Click()
             Try
                 Dim msg As String, i As Integer
-                i = lStatus.ActiveIndex()
+                i = Modules.lStatus.ActiveIndex()
                 msg = InputBox("Enter whowas nickname")
-                If Len(msg) <> 0 Then lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cWHOWAS, msg)
+                If Len(msg) <> 0 Then Modules.lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cWHOWAS, msg)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -655,8 +649,8 @@ Namespace nexIRC.MainWindow
         Public Sub cmd_Time_Click()
             Try
                 Dim i As Integer
-                i = lStatus.ActiveIndex()
-                lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cTIME)
+                i = Modules.lStatus.ActiveIndex()
+                Modules.lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cTIME)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -665,11 +659,11 @@ Namespace nexIRC.MainWindow
         Public Sub tmrStartup_Tick(ByVal startupTimer As Timer)
             Try
                 startupTimer.Enabled = False
-                If (lSettings.lIRC.iSettings.sCustomizeOnStartup = True) Then
+                If (Modules.lSettings.lIRC.iSettings.sCustomizeOnStartup = True) Then
                     frmCustomize.Show()
                 End If
-                If (lSettings.lIRC.iSettings.sAutoConnect = True) Then
-                    lStatus.ToggleConnection(lStatus.ActiveIndex)
+                If (Modules.lSettings.lIRC.iSettings.sAutoConnect = True) Then
+                    Modules.lStatus.ToggleConnection(Modules.lStatus.ActiveIndex)
                 End If
             Catch ex As Exception
                 Throw ex
@@ -678,7 +672,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_Admin_Click()
             Try
-                lStrings.ProcessReplaceCommand(lStatus.ActiveIndex, IrcCommandTypes.cADMIN)
+                Modules.lStrings.ProcessReplaceCommand(Modules.lStatus.ActiveIndex, IrcCommandTypes.cADMIN)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -687,8 +681,8 @@ Namespace nexIRC.MainWindow
         Public Sub cmd_Stats_Click()
             Try
                 Dim i As Integer
-                i = lStatus.ActiveIndex()
-                lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cSTATS)
+                i = Modules.lStatus.ActiveIndex()
+                Modules.lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cSTATS)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -697,9 +691,9 @@ Namespace nexIRC.MainWindow
         Public Sub cmd_Away_Click()
             Try
                 Dim i As Integer, msg As String
-                i = lStatus.ActiveIndex()
+                i = Modules.lStatus.ActiveIndex()
                 msg = InputBox("Enter away message:")
-                lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cAWAY, msg)
+                Modules.lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cAWAY, msg)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -708,8 +702,8 @@ Namespace nexIRC.MainWindow
         Public Sub cmd_Back_Click()
             Try
                 Dim i As Integer
-                i = lStatus.ActiveIndex()
-                lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cBACK)
+                i = Modules.lStatus.ActiveIndex()
+                Modules.lStrings.ProcessReplaceCommand(i, IrcCommandTypes.cBACK)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -725,7 +719,7 @@ Namespace nexIRC.MainWindow
 
         Public Sub cmd_CloseConnection_Click()
             Try
-                lStatus.Quit(lStatus.ActiveIndex())
+                Modules.lStatus.Quit(Modules.lStatus.ActiveIndex())
             Catch ex As Exception
                 Throw ex
             End Try
@@ -793,7 +787,7 @@ Namespace nexIRC.MainWindow
                 _RedirectToolStrip.Visible = False
                 If (IsNumeric(_RedirectMessageLabel.Tag.ToString().Trim()) = True) Then
                     splt = _RedirectMessageLabel.Text.ToString().Split(Convert.ToChar("'"))
-                    lChannels.Join(Convert.ToInt32(_RedirectMessageLabel.Tag.ToString().Trim()), splt(3))
+                    Modules.lChannels.Join(Convert.ToInt32(_RedirectMessageLabel.Tag.ToString().Trim()), splt(3))
                 End If
             Catch ex As Exception
                 Throw ex

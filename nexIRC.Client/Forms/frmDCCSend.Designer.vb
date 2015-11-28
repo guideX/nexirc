@@ -157,7 +157,7 @@ Partial Class frmDCCSend
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.nexIRC.My.Resources.Resources.documents_white
+        Me.PictureBox1.Image = My.Resources.Resources.documents_white
         Me.PictureBox1.Location = New System.Drawing.Point(12, 39)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(35, 34)

@@ -2,16 +2,18 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict Off
-Imports nexIRC.clsIrcNumerics
-Imports nexIRC.Modules
-Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
-Imports nexIRC.Classes.Communications
-Imports Telerik.WinControls.UI
-Imports nexIRC.Settings
 Imports nexIRC.Business.Enums
 Imports nexIRC.Business.Helpers
+Imports nexIRC.Client.nexIRC.Client.Classes.Communications
+Imports nexIRC.Business.Repositories
+Imports nexIRC.Client.nexIRC.Client.IRC.Numerics.clsIrcNumerics
+Imports nexIRC.Client.nexIRC.Client.Classes
+Imports nexIRC.Client.nexIRC.Client.IRC.MainWindow.clsMainWindowUI
+Imports nexIRC.Client.nexIRC.Client.IRC.Numerics
+Imports nexIRC.Client.nexIRC.Client.IRC.Settings.Settings
+Imports nexIRC.Client.nexIRC.Client.IRC.Services
 
-Namespace IRC.Status
+Namespace nexIRC.Client.IRC.Status
     Public Class Status
 #Region "STRUCTURES"
         Public Structure gLinks
@@ -152,15 +154,15 @@ Namespace IRC.Status
 #Region "STATUS"
         Private Sub SocketError(ByVal _Error As String, ByVal _SocketIndex As Integer)
             Try
-                lStrings.Print(_Error, lStatusObjects.sStatusObject(_SocketIndex).sWindow.txtIncoming)
+                Modules.lStrings.Print(_Error, lStatusObjects.sStatusObject(_SocketIndex).sWindow.txtIncoming)
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Private Sub SocketError(_Error As String)")
             End Try
         End Sub
         Public Sub Window_Resize(ByVal id As Integer)
             Try
-                If (lStatus.Window(id) IsNot Nothing) Then
-                    With lStatus.Window(id)
+                If (Modules.lStatus.Window(id) IsNot Nothing) Then
+                    With Modules.lStatus.Window(id)
                         .txtIncoming.Width = .ClientSize.Width
                         .txtIncoming.Height = .ClientSize.Height - (.txtOutgoing.Height + .tspStatus.ClientSize.Height)
                         .txtOutgoing.Width = .ClientSize.Width
@@ -190,8 +192,8 @@ Namespace IRC.Status
         Public Sub Outgoing_GotFocus(ByVal _StatusIndex As Integer)
             Try
                 With lStatusObjects.sStatusObject(_StatusIndex)
-                    If lSettings.lIRC.iSettings.sAutoMaximize = True Then .sWindow.WindowState = FormWindowState.Maximized
-                    lStatus.ActiveIndex = _StatusIndex
+                    If Modules.lSettings.lIRC.iSettings.sAutoMaximize = True Then .sWindow.WindowState = FormWindowState.Maximized
+                    Modules.lStatus.ActiveIndex = _StatusIndex
                 End With
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub Outgoing_GotFocus(_ChannelIndex As Integer)")
@@ -208,7 +210,7 @@ Namespace IRC.Status
         Public Sub Clear(ByVal _StatusIndex As Integer)
             Try
                 With lStatusObjects.sStatusObject(_StatusIndex)
-                    lChannels.ClearAll(_StatusIndex)
+                    Modules.lChannels.ClearAll(_StatusIndex)
                     If .sMotdWindow.mTreeNodeVisible = True Then .sMotdWindow.mTreeNode = Nothing
                     If .sMotdWindow.mVisible = True Then .sMotdWindow.mWindow.Close()
                     .sMotdWindow.mTreeNodeVisible = False
@@ -228,7 +230,7 @@ Namespace IRC.Status
                     .sUnknowns.uWindow = Nothing
                     .sUnknowns.uData = ""
                     .sUnknowns.uVisible = False
-                    lChannelLists.Unload(lChannelLists.ReturnChannelListIndex(_StatusIndex))
+                    Modules.lChannelLists.Unload(Modules.lChannelLists.ReturnChannelListIndex(_StatusIndex))
                     If .sNotifyItems.nTreeNodeVisible = True Then .sNotifyItems.nTreeNode = Nothing
                     .sNotifyItems.nTreeNodeVisible = False
                     .sNotifyItems.nNotify = Nothing
@@ -263,16 +265,16 @@ Namespace IRC.Status
                 Throw ex 'ProcessError(ex.Message, "Public Sub SetSupportedModes(_StatusIndex As Integer, _Data As String)")
             End Try
         End Sub
-        Public Function Create(ByVal lIRCSettings As Settings.gIRC, ByVal lServerSettings As Settings.gServers) As Integer
+        Public Function Create(ByVal lIRCSettings As IrcSettings, ByVal lServerSettings As gServers) As Integer
             Try
                 Dim msg As String, i As Integer
                 lStatusObjects.sCount = lStatusObjects.sCount + 1
                 lStatusObjects.sIndex = lStatusObjects.sCount
                 i = lStatusObjects.sIndex
                 With lStatusObjects.sStatusObject(i)
-                    ReDim .sNotifyItems.nNotify(lSettings.lArraySizes.aNotifyItems)
-                    ReDim .sServerLinks.sLink(lSettings.lArraySizes.aServerLinks)
-                    ReDim .sPrivateMessages.pPrivateMessage(lSettings.lArraySizes.aQueries)
+                    ReDim .sNotifyItems.nNotify(Modules.lSettings.lArraySizes.aNotifyItems)
+                    ReDim .sServerLinks.sLink(Modules.lSettings.lArraySizes.aServerLinks)
+                    ReDim .sPrivateMessages.pPrivateMessage(Modules.lSettings.lArraySizes.aQueries)
                     .sServerIndex = lServerSettings.sIndex
                     .sPrimitives.sNetworkIndex = lServerSettings.sServer(lServerSettings.sIndex).sNetworkIndex
                     .sNickBot = New NickBot(i)
@@ -280,24 +282,24 @@ Namespace IRC.Status
                     .sWindow.mdiChildWindow.FormType = MdiChildWindow.FormTypes.Status
                     .sWindow.mdiChildWindow.MeIndex = i
                     .sVisible = True
-                    .sPrimitives.sEmail = lSettings.lIRC.iEMail
-                    .sPrimitives.sPass = lSettings.lIRC.iPass
-                    .sPrimitives.sRealName = lSettings.lIRC.iRealName
-                    .sPrimitives.sOperNick = lSettings.lIRC.iOperName
-                    .sPrimitives.sOperPass = lSettings.lIRC.iOperPass
+                    .sPrimitives.sEmail = Modules.lSettings.lIRC.iEMail
+                    .sPrimitives.sPass = Modules.lSettings.lIRC.iPass
+                    .sPrimitives.sRealName = Modules.lSettings.lIRC.iRealName
+                    .sPrimitives.sOperNick = Modules.lSettings.lIRC.iOperName
+                    .sPrimitives.sOperPass = Modules.lSettings.lIRC.iOperPass
                     .sWindow.Show()
                     .sWindow.Icon = mdiMain.Icon
                     .sWindow.MdiParent = mdiMain
                     .sWindow.Visible = True
                     ActiveIndex = .sWindow.mdiChildWindow.MeIndex
                     mdiMain.SetWindowFocus(.sWindow)
-                    .sWindow.Width = lSettings.lIRC.iSettings.sWindowSizes.lStatus.wWidth
-                    .sWindow.Height = lSettings.lIRC.iSettings.sWindowSizes.lStatus.wHeight
-                    If lSettings.lIRC.iSettings.sAutoConnect = True Then .sWindow.lAutoConnectDelayTimer.Enabled = True
+                    .sWindow.Width = Modules.lSettings.lIRC.iSettings.sWindowSizes.lStatus.wWidth
+                    .sWindow.Height = Modules.lSettings.lIRC.iSettings.sWindowSizes.lStatus.wHeight
+                    If Modules.lSettings.lIRC.iSettings.sAutoConnect = True Then .sWindow.lAutoConnectDelayTimer.Enabled = True
                     msg = NewInitialText(i)
-                    .sPrimitives.sRemoteIP = lSettings.lServers.sServer(lSettings.lServers.sIndex).sIP
-                    .sPrimitives.sRemotePort = lSettings.lServers.sServer(lSettings.lServers.sIndex).sPort
-                    NickName(i) = lSettings.lIRC.iNicks.nNick(lSettings.lIRC.iNicks.nIndex).nNick
+                    .sPrimitives.sRemoteIP = Modules.lSettings.lServers.sServer(Modules.lSettings.lServers.sIndex).sIP
+                    .sPrimitives.sRemotePort = Modules.lSettings.lServers.sServer(Modules.lSettings.lServers.sIndex).sPort
+                    NickName(i) = Modules.lSettings.lIRC.iNicks.nNick(Modules.lSettings.lIRC.iNicks.nIndex).nNick
                     .sWindow.Text = msg
                     .sPrimitives.sInitialText = msg
                     .sWindowBarItem = mdiMain.AddWindowBar(msg, gWindowBarImageTypes.wStatus)
@@ -329,9 +331,9 @@ Namespace IRC.Status
         Public Sub SetStatus(ByVal _Index As Integer)
             Try
                 Dim _StatusText As String
-                SetRemoteSettings(_Index, lSettings.lServers.sServer(lSettings.lServers.sIndex).sIP, lSettings.lServers.sServer(lSettings.lServers.sIndex).sPort)
-                NetworkIndex(_Index) = lSettings.lServers.sServer(lSettings.lServers.sIndex).sNetworkIndex
-                _StatusText = lStatus.NewInitialText(_Index)
+                SetRemoteSettings(_Index, Modules.lSettings.lServers.sServer(Modules.lSettings.lServers.sIndex).sIP, Modules.lSettings.lServers.sServer(Modules.lSettings.lServers.sIndex).sPort)
+                NetworkIndex(_Index) = Modules.lSettings.lServers.sServer(Modules.lSettings.lServers.sIndex).sNetworkIndex
+                _StatusText = Modules.lStatus.NewInitialText(_Index)
                 Caption(_Index) = _StatusText
                 TreeNodeText(_Index) = _StatusText
                 Description(_Index) = _StatusText
@@ -651,11 +653,11 @@ Namespace IRC.Status
                     With lStatusObjects.sStatusObject(_StatusIndex)
                         .sPrimitives.sNickName = _NickName
                         If _SendToServer = True Then DoStatusSocket(_StatusIndex, "NICK :" & _NickName)
-                        For _NickNameIndex As Integer = 1 To lSettings.lIRC.iNicks.nCount
-                            If lSettings.lIRC.iNicks.nNick(_NickNameIndex).nNick.ToLower() = _NickName Then _Exists = True
+                        For _NickNameIndex As Integer = 1 To Modules.lSettings.lIRC.iNicks.nCount
+                            If Modules.lSettings.lIRC.iNicks.nNick(_NickNameIndex).nNick.ToLower() = _NickName Then _Exists = True
                         Next _NickNameIndex
-                        If _Exists = False Then lSettings.AddNickName(_NickName)
-                        UpdateCaption(_StatusIndex, _NickName, lStatus.StatusServerName(_StatusIndex))
+                        If _Exists = False Then Modules.lSettings.AddNickName(_NickName)
+                        UpdateCaption(_StatusIndex, _NickName, Modules.lStatus.StatusServerName(_StatusIndex))
                     End With
                 Catch ex As Exception
                     Throw ex 'ProcessError(ex.Message, "Public Property NickName(_StatusIndex As Integer) As String")
@@ -822,7 +824,7 @@ Namespace IRC.Status
                         End If
                     End If
                     If _Modes.Length <> 0 Then
-                        If lSettings.lIRC.iSettings.sExtendedMessages = True Then lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sSETTING_MODES)
+                        If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sSETTING_MODES)
                         SendSocket(_StatusIndex, "MODE " & NickName(_StatusIndex) & " " & _Modes)
                     End If
                 End With
@@ -840,7 +842,7 @@ Namespace IRC.Status
                             If .sWindowBarItem.ImageIndex <> 8 Then .sWindowBarItem.ImageIndex = 8
                         End If
                         .sData = _Data & Environment.NewLine & .sData
-                        lStrings.Print(_Data, .sWindow.txtIncoming)
+                        Modules.lStrings.Print(_Data, .sWindow.txtIncoming)
                     End With
                 End If
             Catch ex As Exception
@@ -910,8 +912,8 @@ Namespace IRC.Status
         Public Sub Quit(ByVal _Index As Integer)
             Try
                 With lStatusObjects.sStatusObject(_Index)
-                    If Len(lSettings.lIRC.iSettings.sQuitMessage) <> 0 Then
-                        SendSocket(_Index, "QUIT " & lSettings.lIRC.iSettings.sQuitMessage)
+                    If Len(Modules.lSettings.lIRC.iSettings.sQuitMessage) <> 0 Then
+                        SendSocket(_Index, "QUIT " & Modules.lSettings.lIRC.iSettings.sQuitMessage)
                     Else
                         SendSocket(_Index, "QUIT")
                     End If
@@ -923,7 +925,7 @@ Namespace IRC.Status
         Public ReadOnly Property NewInitialText(ByVal _Index As Integer) As String
             Get
                 Try
-                    Return Modules.IrcSettings.IrcNetworks.GetById(lSettings.lServers.sServer(lSettings.lServers.sIndex).sNetworkIndex).Description & " (" & Trim(_Index.ToString().Trim()) & ")"
+                    Return Modules.IrcSettings.IrcNetworks.GetById(Modules.lSettings.lServers.sServer(Modules.lSettings.lServers.sIndex).sNetworkIndex).Description & " (" & Trim(_Index.ToString().Trim()) & ")"
                 Catch ex As Exception
                     Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property NewInitialText(ByVal lIndex As Integer) As String")
                     Return Nothing
@@ -954,7 +956,7 @@ Namespace IRC.Status
         End Sub
         Public Sub Focus(ByVal statusIndex As Integer)
             Try
-                lStatus.Window(statusIndex).Focus()
+                Modules.lStatus.Window(statusIndex).Focus()
             Catch ex As Exception
                 Throw ex
             End Try
@@ -1071,7 +1073,7 @@ Namespace IRC.Status
                     If LCase(lTreeNode.Text) = "channel list" Then
                         n = Find(lTreeNode.Parent.Text)
                         If n <> 0 Then
-                            lChannelLists.DoubleClick(lChannelLists.ReturnChannelListIndex(n))
+                            Modules.lChannelLists.DoubleClick(Modules.lChannelLists.ReturnChannelListIndex(n))
                         End If
                         Exit Sub
                     End If
@@ -1103,33 +1105,33 @@ Namespace IRC.Status
                         msg = msg.Replace("Status", "")
                         n = FindByDescription(msg)
                         If n <> 0 Then
-                            If (Not lStatus.Visible(e)) Then
-                                lStatus.Visible(n) = True
+                            If (Not Modules.lStatus.Visible(e)) Then
+                                Modules.lStatus.Visible(n) = True
                             Else
-                                lStatus.Focus(n)
+                                Modules.lStatus.Focus(n)
                             End If
                         End If
                         Exit Sub
                     End If
                     If Find(lTreeNode.Text) <> 0 Then Exit Sub
                     If LCase(lTreeNode.Parent.Text) = "notify" Then
-                        e = lSettings.FindNotifyIndex(lTreeNode.Text)
+                        e = Modules.lSettings.FindNotifyIndex(lTreeNode.Text)
                         n = Find(lTreeNode.Parent.Text)
                         If e <> 0 And n <> 0 Then
                             If e <> 0 Then
-                                lStatus.PrivateMessage_Initialize(n, lTreeNode.Text)
+                                Modules.lStatus.PrivateMessage_Initialize(n, lTreeNode.Text)
                                 Exit Sub
                             End If
                         ElseIf e <> 0 And n = 0 Then
                             n = FindByInitialText(lTreeNode.Parent.Parent.Text)
                             If e <> 0 And n <> 0 Then
-                                lStatus.PrivateMessage_Initialize(n, lTreeNode.Text)
+                                Modules.lStatus.PrivateMessage_Initialize(n, lTreeNode.Text)
                                 Exit Sub
                             End If
                         End If
                     End If
                     Dim s As Integer = Find(lTreeNode.Parent.Text)
-                    e = lStatus.PrivateMessage_Find(s, lTreeNode.Text)
+                    e = Modules.lStatus.PrivateMessage_Find(s, lTreeNode.Text)
                     If e <> 0 Then
                         With lStatusObjects.sStatusObject(e)
                             If (Not .sPrivateMessages.pPrivateMessage(e).pVisible) Then
@@ -1141,19 +1143,19 @@ Namespace IRC.Status
                         End With
                         Exit Sub
                     End If
-                    e = lChannels.Find(Find(lTreeNode.Parent.Text), lTreeNode.Text)
+                    e = Modules.lChannels.Find(Find(lTreeNode.Parent.Text), lTreeNode.Text)
                     If e <> 0 Then
-                        If lChannels.Name(e).Length <> 0 Then
-                            If lChannels.Visible(e) = False Then
-                                lChannels.Visible(e) = True
-                                With lChannels.GetObject(e)
+                        If Modules.lChannels.Name(e).Length <> 0 Then
+                            If Modules.lChannels.Visible(e) = False Then
+                                Modules.lChannels.Visible(e) = True
+                                With Modules.lChannels.GetObject(e)
                                     If .cTreeNode.ImageIndex <> 1 Then .cTreeNode.ImageIndex = 1
                                     If .cTreeNode.SelectedImageIndex <> 1 Then .cTreeNode.SelectedImageIndex = 1
                                     If .cWindowBarItem.ImageIndex <> 1 Then .cWindowBarItem.ImageIndex = 1
                                 End With
                             Else
-                                lChannels.Focus(e)
-                                If lSettings.lIRC.iSettings.sAutoMaximize = True Then lChannels.Window(e).WindowState = FormWindowState.Maximized
+                                Modules.lChannels.Focus(e)
+                                If Modules.lSettings.lIRC.iSettings.sAutoMaximize = True Then Modules.lChannels.Window(e).WindowState = FormWindowState.Maximized
                             End If
                         End If
                     End If
@@ -1165,7 +1167,7 @@ Namespace IRC.Status
         Public Property Visible(ByVal index As Integer) As Boolean
             Get
                 Try
-                    With lStatus.lStatusObjects.sStatusObject(index)
+                    With Modules.lStatus.lStatusObjects.sStatusObject(index)
                         Return .sVisible
                     End With
                 Catch ex As Exception
@@ -1175,7 +1177,7 @@ Namespace IRC.Status
             End Get
             Set(ByVal value As Boolean)
                 Try
-                    With lStatus.lStatusObjects.sStatusObject(index)
+                    With Modules.lStatus.lStatusObjects.sStatusObject(index)
                         If (value = True And .sVisible = False) Then
                             If (.sTreeNodeStatus.ImageIndex <> 1) Then .sTreeNodeStatus.ImageIndex = 1
                             If (.sTreeNodeStatus.SelectedImageIndex <> 1) Then .sTreeNodeStatus.SelectedImageIndex = 1
@@ -1192,8 +1194,8 @@ Namespace IRC.Status
         Public Sub ProcessWelcomeMessage(ByVal lStatusIndex As Integer, ByVal l001 As String, ByVal l002 As String, ByVal l003 As String, ByVal l004 As String)
             Try
                 AddText("-" & Environment.NewLine & l001 & Environment.NewLine & l002 & Environment.NewLine & l003 & Environment.NewLine & l004 & Environment.NewLine & "-", lStatusIndex)
-                lProcessNumeric.lIrcNumericHelper.ResetMessages()
-                lStatus.GetObject(lStatusIndex).sNickBot.Login()
+                Modules.lProcessNumeric.lIrcNumericHelper.ResetMessages()
+                Modules.lStatus.GetObject(lStatusIndex).sNickBot.Login()
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub ProcessWelcomeMessage(ByVal l001 As String, ByVal l002 As String, ByVal l003 As String, ByVal l004 As String)")
             End Try
@@ -1223,7 +1225,7 @@ Namespace IRC.Status
         End Sub
         Public Function PrivateMessage_Find(ByVal _StatusIndex As Integer, ByVal _Name As String) As Integer
             Try
-                Dim _Result As Integer = 0, _GetObject As Status.gStatus = lStatus.GetObject(_StatusIndex)
+                Dim _Result As Integer = 0, _GetObject As Status.gStatus = Modules.lStatus.GetObject(_StatusIndex)
                 If Len(_Name) <> 0 Then
                     For _PrivateMessageIndex As Integer = 1 To _GetObject.sPrivateMessages.pCount
                         With _GetObject.sPrivateMessages.pPrivateMessage(_PrivateMessageIndex)
@@ -1246,7 +1248,7 @@ Namespace IRC.Status
                 If (_NickName.Length <> 0) Then
                     _PrivateMessageIndex = PrivateMessage_Find(_StatusIndex, _NickName)
                     If (_PrivateMessageIndex = 0) Then
-                        _GetObject = lStatus.GetObject(_StatusIndex)
+                        _GetObject = Modules.lStatus.GetObject(_StatusIndex)
                         _PrivateMessageIndex = _GetObject.sPrivateMessages.pCount + 1
                         _GetObject.sPrivateMessages.pCount = _PrivateMessageIndex
                     End If
@@ -1311,7 +1313,7 @@ Namespace IRC.Status
         End Sub
         Public Sub PrivateMessage_Focus(ByVal statusIndex As Integer, ByVal privateMessageIndex As Integer)
             Try
-                With lStatus.GetObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex)
+                With Modules.lStatus.GetObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex)
                     .pWindow.txtOutgoing.Focus()
                 End With
             Catch ex As Exception
@@ -1332,9 +1334,9 @@ Namespace IRC.Status
                     End If
                 Next i
                 If (Not forceAllow) Then
-                    If (Modules.IrcSettings.QuerySettings.Get().AutoDeny = IrcSettings.QueryPermission.EveryOne) Then ' Is the user on the auto deny list?
+                    If (Modules.IrcSettings.QuerySettings.Get().AutoDeny = QueryPermission.EveryOne) Then ' Is the user on the auto deny list?
                         deny = True
-                    ElseIf (Modules.IrcSettings.QuerySettings.Get().AutoDeny = IrcSettings.QueryPermission.List) Then
+                    ElseIf (Modules.IrcSettings.QuerySettings.Get().AutoDeny = QueryPermission.List) Then
                         For i As Integer = 1 To Modules.IrcSettings.QuerySettings.Get().AutoDenyList.Count()
                             If (privateMessageIndex <> 0) Then
                                 If (Not String.IsNullOrEmpty(lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName) And Not String.IsNullOrEmpty(Modules.IrcSettings.QuerySettings.Get().AutoDenyList(i))) Then
@@ -1345,9 +1347,9 @@ Namespace IRC.Status
                             End If
                         Next i
                     End If
-                    If (Modules.IrcSettings.QuerySettings.Get().AutoAllow = IrcSettings.QueryPermission.EveryOne) Then ' Is the user on the auto allow list?
+                    If (Modules.IrcSettings.QuerySettings.Get().AutoAllow = QueryPermission.EveryOne) Then ' Is the user on the auto allow list?
                         autoAllow = True
-                    ElseIf (Modules.IrcSettings.QuerySettings.Get().AutoAllow = IrcSettings.QueryPermission.List) Then
+                    ElseIf (Modules.IrcSettings.QuerySettings.Get().AutoAllow = QueryPermission.List) Then
                         For i As Integer = 1 To Modules.IrcSettings.QuerySettings.Get().AutoAllowList.Count() - 1
                             If (privateMessageIndex <> 0) Then
                                 If ((Not String.IsNullOrEmpty(Modules.IrcSettings.QuerySettings.Get().AutoAllowList(i))) And (Not String.IsNullOrEmpty(lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName))) Then
@@ -1384,7 +1386,7 @@ Namespace IRC.Status
                             Next t
                             .pWindowBarItem = mdiMain.AddWindowBar(.pName, gWindowBarImageTypes.wNotice)
                             .pWindowBarItem.Tag = Trim(statusIndex.ToString)
-                            If ((lSettings.lIRC.iSettings.sShowWindowsAutomatically = True) Or (forceAllow)) Then
+                            If ((Modules.lSettings.lIRC.iSettings.sShowWindowsAutomatically = True) Or (forceAllow)) Then
                                 .pWindow = New frmNoticeWindow()
                                 .pWindow.FormType = MdiChildWindow.FormTypes.PrivateMessage
                                 .pWindow.lMdiWindow.Form_Load(MdiChildWindow.FormTypes.PrivateMessage)
@@ -1400,8 +1402,8 @@ Namespace IRC.Status
                                 End If
                                 .pVisible = True
                                 .pWindow.Show()
-                                If (lSettings.lIRC.iSettings.sAutoMaximize = True) Then .pWindow.WindowState = FormWindowState.Maximized
-                                If (Not String.IsNullOrEmpty(data)) Then .pWindow.DoNoticeColor(lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, name, data))
+                                If (Modules.lSettings.lIRC.iSettings.sAutoMaximize = True) Then .pWindow.WindowState = FormWindowState.Maximized
+                                If (Not String.IsNullOrEmpty(data)) Then .pWindow.DoNoticeColor(Modules.lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, name, data))
                             End If
                         Else
                             mdiMain.tspQueryPrompt.Visible = True
@@ -1437,10 +1439,10 @@ Namespace IRC.Status
                             .pWindow.lMdiWindow.Form_Load(MdiChildWindow.FormTypes.PrivateMessage)
                             .pWindow.lMdiWindow.MeIndex = statusIndex
                             .pWindow.lMdiWindow.Form_Resize(.pWindow.txtIncoming, .pWindow.txtOutgoing, .pWindow)
-                            If (lSettings.lIRC.iSettings.sAutoMaximize = True) Then .pWindow.WindowState = FormWindowState.Maximized
+                            If (Modules.lSettings.lIRC.iSettings.sAutoMaximize = True) Then .pWindow.WindowState = FormWindowState.Maximized
                         End If
                         If (.pVisible) Then
-                            If (Not String.IsNullOrEmpty(data)) Then .pWindow.DoNoticeColor(lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, name, data))
+                            If (Not String.IsNullOrEmpty(data)) Then .pWindow.DoNoticeColor(Modules.lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, name, data))
                         End If
                     End With
                 End If
@@ -1469,7 +1471,7 @@ Namespace IRC.Status
         End Sub
         Public Sub PrivateMessage_SetListBox(ByVal _StatusIndex As Integer, ByVal _ListBox As ListBox)
             Try
-                With lStatus.GetObject(_StatusIndex)
+                With Modules.lStatus.GetObject(_StatusIndex)
                     For _PrivateMessageIndex As Integer = 1 To .sPrivateMessages.pCount
                         _ListBox.Items.Add(.sPrivateMessages.pPrivateMessage(_PrivateMessageIndex).pName)
                     Next _PrivateMessageIndex
@@ -1520,7 +1522,7 @@ Namespace IRC.Status
                             End If
                             .pVisible = True
                             .pWindow.Show()
-                            If (Not String.IsNullOrEmpty(.pFirstMessage)) Then .pWindow.DoNoticeColor(lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, _Name, .pFirstMessage))
+                            If (Not String.IsNullOrEmpty(.pFirstMessage)) Then .pWindow.DoNoticeColor(Modules.lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, _Name, .pFirstMessage))
                             .pFirstMessage = ""
                             .pWindow.lMdiWindow.Form_Load(MdiChildWindow.FormTypes.PrivateMessage)
                             .pWindow.lMdiWindow.MeIndex = _StatusIndex
@@ -1572,7 +1574,7 @@ Namespace IRC.Status
         End Property
         Public Sub Motd_AddText(ByVal lIndex As Integer, ByVal lData As String)
             Try
-                If lSettings.lIRC.iSettings.sMOTDInOwnWindow = True Then
+                If Modules.lSettings.lIRC.iSettings.sMOTDInOwnWindow = True Then
                     If Len(lData) <> 0 Then
                         With lStatusObjects.sStatusObject(lIndex)
                             If .sMotdWindow.mTreeNodeVisible = False Then
@@ -1582,7 +1584,7 @@ Namespace IRC.Status
                                 End If
                             End If
                             If .sMotdWindow.mVisible = False Then
-                                If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
+                                If Modules.lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
                                     .sMotdWindow.mWindow = New frmNoticeWindow
                                     .sMotdWindow.mWindow.Show()
                                     .sMotdWindow.mWindow.SetStatusIndex(lIndex)
@@ -1625,16 +1627,16 @@ Namespace IRC.Status
             Dim result As Boolean = True
             Try
                 Dim mbox As MsgBoxResult
-                If (String.IsNullOrEmpty(lSettings.lIRC.iEMail)) Then
-                    If (lSettings.lIRC.iSettings.sPrompts = True) Then MsgBox("Your e-mail has not been set! To configure, click Customize, then click User, then click User Settings.", MsgBoxStyle.Critical)
+                If (String.IsNullOrEmpty(Modules.lSettings.lIRC.iEMail)) Then
+                    If (Modules.lSettings.lIRC.iSettings.sPrompts = True) Then MsgBox("Your e-mail has not been set! To configure, click Customize, then click User, then click User Settings.", MsgBoxStyle.Critical)
                     Return False
                 End If
-                If (String.IsNullOrEmpty(lSettings.lIRC.iNicks.nNick(lSettings.lIRC.iNicks.nIndex).nNick)) Then
-                    If lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Your nickname has not been set! To configure, click Customize, then click User.", MsgBoxStyle.Critical)
+                If (String.IsNullOrEmpty(Modules.lSettings.lIRC.iNicks.nNick(Modules.lSettings.lIRC.iNicks.nIndex).nNick)) Then
+                    If Modules.lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Your nickname has not been set! To configure, click Customize, then click User.", MsgBoxStyle.Critical)
                     Return False
                 End If
-                If (String.IsNullOrEmpty(lSettings.lIRC.iRealName)) Then
-                    If lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Your real name has not been set! To configure, click Customize, then click User, then click User Settings.", MsgBoxStyle.Critical)
+                If (String.IsNullOrEmpty(Modules.lSettings.lIRC.iRealName)) Then
+                    If Modules.lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Your real name has not been set! To configure, click Customize, then click User, then click User Settings.", MsgBoxStyle.Critical)
                     Return False
                 End If
                 With lStatusObjects.sStatusObject(_StatusIndex)
@@ -1643,7 +1645,7 @@ Namespace IRC.Status
                         Return False
                     End If
                     If (Connected(_StatusIndex)) Then
-                        If (lSettings.lIRC.iSettings.sPrompts) Then
+                        If (Modules.lSettings.lIRC.iSettings.sPrompts) Then
                             mbox = MsgBox("You are currently connected, would you like to disconnect?", MsgBoxStyle.YesNoCancel Or MsgBoxStyle.Question)
                         Else
                             mbox = MsgBoxResult.Yes
@@ -1658,7 +1660,7 @@ Namespace IRC.Status
                         End Select
                     End If
                     If (.sConnecting = True) Then
-                        If (lSettings.lIRC.iSettings.sPrompts) Then
+                        If (Modules.lSettings.lIRC.iSettings.sPrompts) Then
                             mbox = MsgBox("You are currently connecting, would you like to disconnect?", MsgBoxStyle.YesNoCancel Or MsgBoxStyle.Question)
                         Else
                             mbox = MsgBoxResult.Yes
@@ -1673,21 +1675,21 @@ Namespace IRC.Status
                         End Select
                     End If
                     If (_StatusIndex <> 0 And .sPrimitives.sRemoteIP.Length() <> 0 And .sPrimitives.sRemotePort <> 0) Then
-                        lSettings.AddToRecientServerList(lSettings.FindServerIndexByIp(.sPrimitives.sRemoteIP))
-                        lSettings.SaveRecientServers()
+                        Modules.lSettings.AddToRecientServerList(Modules.lSettings.FindServerIndexByIp(.sPrimitives.sRemoteIP))
+                        Modules.lSettings.SaveRecientServers()
                         .sConnecting = True
                         .sSocket = New StatusSocket()
                         .sSocket.NewSocket(_StatusIndex, .sWindow)
                         .sSocket.ConnectSocket(.sPrimitives.sRemoteIP, .sPrimitives.sRemotePort)
                         .sWindow.Visible = True
-                        lProcessNumeric.lIrcNumericHelper.ResetMessages()
-                        If (lSettings.lIRC.iSettings.sExtendedMessages = True) Then lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sATTEMPTING_CONNECTION, .sPrimitives.sRemoteIP, Convert.ToString(.sPrimitives.sRemotePort).Trim())
+                        Modules.lProcessNumeric.lIrcNumericHelper.ResetMessages()
+                        If (Modules.lSettings.lIRC.iSettings.sExtendedMessages = True) Then Modules.lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sATTEMPTING_CONNECTION, .sPrimitives.sRemoteIP, Convert.ToString(.sPrimitives.sRemotePort).Trim())
                         result = True
                     Else
                         result = False
-                        If (lSettings.lIRC.iSettings.sExtendedMessages = True) Then MsgBox("Unable to connect, not enough parameters!", MsgBoxStyle.Information)
+                        If (Modules.lSettings.lIRC.iSettings.sExtendedMessages = True) Then MsgBox("Unable to connect, not enough parameters!", MsgBoxStyle.Information)
                     End If
-                    If Err.Number <> 0 Then lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sCONNECTION_DENIED)
+                    If Err.Number <> 0 Then Modules.lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sCONNECTION_DENIED)
                 End With
                 Return result
             Catch ex As Exception
@@ -1704,7 +1706,7 @@ Namespace IRC.Status
                             .sMotdWindow.mTreeNodeVisible = False
                             .sMotdWindow.mTreeNode.Remove()
                         End If
-                        lChannelLists.HideTreeNode(lChannelLists.ReturnStatusIndex(lIndex))
+                        Modules.lChannelLists.HideTreeNode(Modules.lChannelLists.ReturnStatusIndex(lIndex))
                         If .sNoticesWindow.nTreeNodeVisible = True Then
                             .sNoticesWindow.nTreeNodeVisible = False
                             .sNoticesWindow.nTreeNode.Remove()
@@ -1721,7 +1723,7 @@ Namespace IRC.Status
                             .sUnknowns.uTreeNodeVisible = False
                             .sUnknowns.uTreeNode.Remove()
                         End If
-                        lChannelLists.Close(lChannelLists.ReturnChannelListIndex(lIndex))
+                        Modules.lChannelLists.Close(Modules.lChannelLists.ReturnChannelListIndex(lIndex))
                         If .sMotdWindow.mVisible = True Then .sMotdWindow.mWindow.Close()
                         If .sNoticesWindow.nVisible = True Then .sNoticesWindow.nWindow.Close()
                         For i = 1 To .sPrivateMessages.pCount
@@ -1732,7 +1734,7 @@ Namespace IRC.Status
                         If .sUnknowns.uVisible = True Then .sUnknowns.uWindow.Close()
                         .sWindowBarItem.Visible = False
                     End With
-                    lChannels.ClearAll(lIndex)
+                    Modules.lChannels.ClearAll(lIndex)
                 End If
                 Return result
             Catch ex As Exception
@@ -1765,29 +1767,29 @@ Namespace IRC.Status
                 Dim msg As String
                 With lStatusObjects.sStatusObject(_Index)
                     .sConnecting = False
-                    If lSettings.lIRC.iSettings.sExtendedMessages = True Then lStrings.ProcessReplaceString(_Index, eStringTypes.sCONNECTION_ESTABLISHED)
-                    If Len(lSettings.lIRC.iPass) <> 0 Then
-                        If lSettings.lIRC.iSettings.sExtendedMessages = True Then lStrings.ProcessReplaceString(_Index, eStringTypes.sSENDING_PASSWORD)
+                    If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_Index, eStringTypes.sCONNECTION_ESTABLISHED)
+                    If Len(Modules.lSettings.lIRC.iPass) <> 0 Then
+                        If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_Index, eStringTypes.sSENDING_PASSWORD)
                         SendSocket(_Index, "PASS " & Pass(_Index))
                     Else
-                        If lSettings.lIRC.iSettings.sExtendedMessages = True Then lStrings.ProcessReplaceString(_Index, eStringTypes.sNOT_SENDING_PASSWORD)
+                        If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_Index, eStringTypes.sNOT_SENDING_PASSWORD)
                     End If
                     If Len(NickName(_Index)) <> 0 Then
-                        lStrings.ProcessReplaceString(_Index, eStringTypes.sSENDING_NICKNAME)
+                        Modules.lStrings.ProcessReplaceString(_Index, eStringTypes.sSENDING_NICKNAME)
                         SendSocket(_Index, "NICK " & NickName(_Index))
                         If Len(Email(_Index)) <> 0 Then
                             msg = TextHelper.LeftRight(Email(_Index), 0, InStr(Email(_Index), "@"))
                             If Len(msg) <> 0 Then
-                                If lSettings.lIRC.iSettings.sExtendedMessages = True Then lStrings.ProcessReplaceString(_Index, eStringTypes.sSENDING_LOGON_INFORMATION)
+                                If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_Index, eStringTypes.sSENDING_LOGON_INFORMATION)
                                 SendSocket(_Index, "USER " & Split(RealName(_Index), " ")(0) & " 0 * :" & RealName(_Index))
                                 SetStatusIconConnected(_Index)
                             End If
                         Else
-                            If lSettings.ShowPrompts() = True Then MsgBox("Unable to proceed, no E-Mail address is set", MsgBoxStyle.Critical)
+                            If Modules.lSettings.ShowPrompts() = True Then MsgBox("Unable to proceed, no E-Mail address is set", MsgBoxStyle.Critical)
                         End If
                     Else
                         CloseStatusConnection(_Index, True)
-                        If lSettings.ShowPrompts() = True Then MsgBox("Unable to proceed, no nickname is set", MsgBoxStyle.Critical)
+                        If Modules.lSettings.ShowPrompts() = True Then MsgBox("Unable to proceed, no nickname is set", MsgBoxStyle.Critical)
                     End If
                 End With
             Catch ex As Exception
@@ -1797,7 +1799,7 @@ Namespace IRC.Status
         Public Sub CloseStatusConnection(ByVal _StatusIndex As Integer, ByVal _CloseSocket As Boolean)
             Try
                 With lStatusObjects.sStatusObject(_StatusIndex)
-                    lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sCONNECTION_CLOSED)
+                    Modules.lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sCONNECTION_CLOSED)
                     SetStatusIconDisconnected(_StatusIndex)
                     Disconnect(_StatusIndex)
                     If .sConnecting = True Or Connected(_StatusIndex) = True And _CloseSocket = True Then
@@ -1805,7 +1807,7 @@ Namespace IRC.Status
                         NewStatusSocket(_StatusIndex)
                     End If
                     .sConnecting = False
-                    If lSettings.lIRC.iSettings.sCloseWindowOnDisconnect = True Then
+                    If Modules.lSettings.lIRC.iSettings.sCloseWindowOnDisconnect = True Then
                         If lStatusObjects.sStatusObject(_StatusIndex).sVisible = True Then
                             lStatusObjects.sStatusObject(_StatusIndex).sWindow.Close()
                             lStatusObjects.sStatusObject(_StatusIndex).sVisible = False
@@ -1842,7 +1844,7 @@ Namespace IRC.Status
         Public Sub SendSocket(ByVal _StatusIndex As Integer, ByVal _Data As String)
             Try
                 With lStatusObjects.sStatusObject(_StatusIndex)
-                    If lSettings.lIRC.iSettings.sShowRawWindow = True Then Raw_AddText(_StatusIndex, _Data, False)
+                    If Modules.lSettings.lIRC.iSettings.sShowRawWindow = True Then Raw_AddText(_StatusIndex, _Data, False)
                     If Connected(_StatusIndex) = True Then
                         .sSocket.SendSocket(_Data)
                     End If
@@ -1942,7 +1944,7 @@ Namespace IRC.Status
         End Sub
         Public Sub Notices_Add(ByVal lIndex As Integer, ByVal lData As String, Optional ByVal lData2 As String = "")
             Try
-                If lSettings.lIRC.iSettings.sNoticesInOwnWindow = True Then
+                If Modules.lSettings.lIRC.iSettings.sNoticesInOwnWindow = True Then
                     If Len(lData) <> 0 Then
                         With lStatusObjects.sStatusObject(lIndex)
                             If .sNoticesWindow.nTreeNodeVisible = False Then
@@ -1953,7 +1955,7 @@ Namespace IRC.Status
                             End If
                             .sNoticesWindow.nData = lData & Environment.NewLine & "•" & Environment.NewLine & .sNoticesWindow.nData
                             If .sNoticesWindow.nVisible = False Then
-                                If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
+                                If Modules.lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
                                     .sNoticesWindow.nVisible = True
                                     .sNoticesWindow.nWindow = New frmNoticeWindow
                                     .sNoticesWindow.nWindow.Show()
@@ -1972,9 +1974,9 @@ Namespace IRC.Status
                     End If
                 Else
                     If (lData2.Length <> 0) Then
-                        lStrings.ProcessReplaceString(lIndex, eStringTypes.sNOTICE, lData, lData2)
+                        Modules.lStrings.ProcessReplaceString(lIndex, eStringTypes.sNOTICE, lData, lData2)
                     Else
-                        lStrings.ProcessReplaceString(lIndex, eStringTypes.sNOTICE, lData)
+                        Modules.lStrings.ProcessReplaceString(lIndex, eStringTypes.sNOTICE, lData)
                     End If
                 End If
             Catch ex As Exception
@@ -1984,10 +1986,10 @@ Namespace IRC.Status
         Public Sub Form_Closing(Optional ByRef _Form As Form = Nothing, Optional ByRef _MeIndex As Integer = 0, Optional ByRef e As System.Windows.Forms.FormClosingEventArgs = Nothing)
             Try
                 Dim b As Boolean
-                lSettings.lIRC.iSettings.sWindowSizes.lStatus.wWidth = _Form.Width
-                lSettings.lIRC.iSettings.sWindowSizes.lStatus.wHeight = _Form.Height
+                Modules.lSettings.lIRC.iSettings.sWindowSizes.lStatus.wWidth = _Form.Width
+                Modules.lSettings.lIRC.iSettings.sWindowSizes.lStatus.wHeight = _Form.Height
                 If _Form.WindowState = FormWindowState.Minimized Then _Form.WindowState = FormWindowState.Normal
-                lSettings.SaveWindowSizes()
+                Modules.lSettings.SaveWindowSizes()
                 Select Case LCase(e.CloseReason.ToString)
                     Case "mdiformclosing"
                         b = False
@@ -2049,7 +2051,7 @@ Namespace IRC.Status
         Public Sub Raw_AddText(ByVal lIndex As Integer, ByVal lData As String, ByVal lInData As Boolean)
             'On Error Resume Next
             If lIndex <> 0 Then
-                If lSettings.lIRC.iSettings.sShowRawWindow = False Then Exit Sub
+                If Modules.lSettings.lIRC.iSettings.sShowRawWindow = False Then Exit Sub
                 If lInData = True Then
                     With lStatusObjects.sStatusObject(lIndex).sRaw
                         If .rTreeNodeVisible = False Then
@@ -2057,7 +2059,7 @@ Namespace IRC.Status
                             .rTreeNodeVisible = True
                         End If
                         If .rVisible = False Then
-                            If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
+                            If Modules.lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
                                 .rRawWindow = New frmRaw
                                 'animate.Animate(.rRawWindow, animate.Effect.Center, 200, 1)
                                 .rRawWindow.Show()
@@ -2072,7 +2074,7 @@ Namespace IRC.Status
                                 If .rTreeNode.SelectedImageIndex <> 5 Then .rTreeNode.SelectedImageIndex = 5
                             End If
                         Else
-                            lStrings.DoText(lData, .rRawWindow.txtInData)
+                            Modules.lStrings.DoText(lData, .rRawWindow.txtInData)
                         End If
                     End With
                 Else
@@ -2082,7 +2084,7 @@ Namespace IRC.Status
                             .rTreeNode = lStatusObjects.sStatusObject(lIndex).sTreeNode.Nodes.Add("Raw", "Raw", 4, 4)
                         End If
                         If .rVisible = False Then
-                            If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
+                            If Modules.lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
                                 .rRawWindow = New frmRaw
                                 'animate.Animate(.rRawWindow, animate.Effect.Center, 200, 1)
                                 .rRawWindow.Show()
@@ -2097,7 +2099,7 @@ Namespace IRC.Status
                                 If .rTreeNode.SelectedImageIndex <> 5 Then .rTreeNode.SelectedImageIndex = 5
                             End If
                         Else
-                            lStrings.DoText(lData, .rRawWindow.txtOutData)
+                            Modules.lStrings.DoText(lData, .rRawWindow.txtOutData)
                         End If
                     End With
                 End If
@@ -2132,7 +2134,7 @@ Namespace IRC.Status
                         .sServerLinks.sTreeNodeVisible = True
                     End If
                     If .sServerLinks.sVisible = False Then
-                        If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
+                        If Modules.lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
                             i = NetworkIndex(.sWindow.mdiChildWindow.MeIndex)
                             .sServerLinks.sVisible = True
                             .sServerLinks.sWindow = New frmServerLinks
@@ -2194,9 +2196,9 @@ Namespace IRC.Status
         Public Sub AddToUnknowns(ByVal lStatusIndex As Integer, ByVal lData As String)
             'On Error Resume Next
             With lStatusObjects.sStatusObject(lStatusIndex)
-                If lSettings.lIRC.iSettings.sStringSettings.sUnknowns = Settings.eUnknownsIn.uStatusWindow Then
+                If Modules.lSettings.lIRC.iSettings.sStringSettings.sUnknowns = eUnknownsIn.uStatusWindow Then
                     AddText(lData, lStatusIndex)
-                ElseIf lSettings.lIRC.iSettings.sStringSettings.sUnknowns = Settings.eUnknownsIn.uOwnWindow Then
+                ElseIf Modules.lSettings.lIRC.iSettings.sStringSettings.sUnknowns = eUnknownsIn.uOwnWindow Then
                     If .sUnknowns.uTreeNodeVisible = False Then
                         If .sTreeNodeVisible = True Then
                             .sUnknowns.uTreeNodeVisible = True
@@ -2205,7 +2207,7 @@ Namespace IRC.Status
                         End If
                     End If
                     If .sUnknowns.uVisible = False Then
-                        If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
+                        If Modules.lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
                             .sUnknowns.uVisible = True
                             .sUnknowns.uWindow = New frmNoticeWindow
                             .sUnknowns.uWindow.Show()
@@ -2219,7 +2221,7 @@ Namespace IRC.Status
                             If .sUnknowns.uTreeNode.SelectedImageIndex <> 6 Then .sUnknowns.uTreeNode.SelectedImageIndex = 6
                         End If
                     End If
-                ElseIf lSettings.lIRC.iSettings.sStringSettings.sUnknowns = Settings.eUnknownsIn.uHide Then
+                ElseIf Modules.lSettings.lIRC.iSettings.sStringSettings.sUnknowns = eUnknownsIn.uHide Then
                     Exit Sub
                 End If
             End With
@@ -2239,9 +2241,9 @@ Namespace IRC.Status
         Public Sub AddToUnsupported(ByVal lStatusIndex As Integer, ByVal lData As String)
             Try
                 With lStatusObjects.sStatusObject(lStatusIndex)
-                    If lSettings.lIRC.iSettings.sStringSettings.sUnsupported = Settings.eUnsupportedIn.uStatusWindow Then
+                    If Modules.lSettings.lIRC.iSettings.sStringSettings.sUnsupported = eUnsupportedIn.uStatusWindow Then
                         AddText(lData, lStatusIndex)
-                    ElseIf lSettings.lIRC.iSettings.sStringSettings.sUnsupported = Settings.eUnsupportedIn.uOwnWindow Then
+                    ElseIf Modules.lSettings.lIRC.iSettings.sStringSettings.sUnsupported = eUnsupportedIn.uOwnWindow Then
                         If .sUnsupported.uTreeNodeVisible = False Then
                             If .sTreeNodeVisible = True Then
                                 .sUnsupported.uTreeNodeVisible = True
@@ -2250,7 +2252,7 @@ Namespace IRC.Status
                             End If
                         End If
                         If .sUnsupported.uVisible = False Then
-                            If lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
+                            If Modules.lSettings.lIRC.iSettings.sShowWindowsAutomatically = True Then
                                 .sUnsupported.uVisible = True
                                 .sUnsupported.uWindow = New frmNoticeWindow
                                 .sUnsupported.uWindow.Show()
@@ -2264,7 +2266,7 @@ Namespace IRC.Status
                                 If .sUnsupported.uTreeNode.SelectedImageIndex <> 6 Then .sUnsupported.uTreeNode.SelectedImageIndex = 6
                             End If
                         End If
-                    ElseIf lSettings.lIRC.iSettings.sStringSettings.sUnknowns = Settings.eUnknownsIn.uHide Then
+                    ElseIf Modules.lSettings.lIRC.iSettings.sStringSettings.sUnknowns = eUnknownsIn.uHide Then
                         Exit Sub
                     End If
                 End With
@@ -2291,11 +2293,11 @@ Namespace IRC.Status
                     splt = Split(_Data, " ")
                     Select Case splt(0).Trim().ToLower()
                         Case "nick"
-                            lStatus.NickName(ActiveIndex, True) = splt(1)
+                            Modules.lStatus.NickName(ActiveIndex, True) = splt(1)
                             For nickIndex As Integer = 1 To Modules.lSettings.lIRC.iNicks.nCount - 1
                                 If (Modules.lSettings.lIRC.iNicks.nNick(nickIndex).nNick = splt(1)) Then
                                     Modules.lSettings.lIRC.iNicks.nIndex = nickIndex
-                                    lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cNICK, Modules.lSettings.lIRC.iNicks.nNick(nickIndex).nNick)
+                                    Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cNICK, Modules.lSettings.lIRC.iNicks.nNick(nickIndex).nNick)
                                     Exit For
                                 End If
                             Next nickIndex
@@ -2304,82 +2306,82 @@ Namespace IRC.Status
                             AddText(_Data, _StatusIndex)
                             Exit Sub
                         Case "me"
-                            Dim m As IrcStrings.gCommandReturnData = lStrings.ReturnReplacedCommand(IrcCommandTypes.cACTION, lChannels.Name(lChannels.CurrentIndex), Replace(_Data, "me", ""), Modules.lSettings.lIRC.iNicks.nNick(Modules.lSettings.lIRC.iNicks.nIndex).nNick)
-                            lChannels.DoChannelColor(lChannels.CurrentIndex, m.cDoColorData)
-                            lStatus.SendSocket(_StatusIndex, m.cSocketData)
+                            Dim m As IrcStrings.gCommandReturnData = Modules.lStrings.ReturnReplacedCommand(IrcCommandTypes.cACTION, Modules.lChannels.Name(Modules.lChannels.CurrentIndex), Replace(_Data, "me", ""), Modules.lSettings.lIRC.iNicks.nNick(Modules.lSettings.lIRC.iNicks.nIndex).nNick)
+                            Modules.lChannels.DoChannelColor(Modules.lChannels.CurrentIndex, m.cDoColorData)
+                            Modules.lStatus.SendSocket(_StatusIndex, m.cSocketData)
                             Exit Sub
                         Case "whowas"
-                            lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cWHOWAS, splt(1))
+                            Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cWHOWAS, splt(1))
                             Exit Sub
                         Case "whois"
-                            lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cWHOIS, splt(1))
+                            Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cWHOIS, splt(1))
                             Exit Sub
                         Case "who"
                             msg = Replace(LCase(_Data), "/who ", "")
                             msg = Replace(LCase(_Data), "who ", "")
-                            lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cWHO, msg)
+                            Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cWHO, msg)
                             Exit Sub
                         Case "wallops"
                             msg = Replace(LCase(_Data), "/wallops ", "")
                             msg = Replace(LCase(_Data), "wallops ", "")
-                            lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cWALLOPS, msg)
+                            Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cWALLOPS, msg)
                         Case "version"
                             If UBound(splt) = 1 Then
-                                lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cVERSION, splt(1))
+                                Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cVERSION, splt(1))
                                 Exit Sub
                             Else
-                                lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cVERSION, "*")
+                                Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cVERSION, "*")
                                 Exit Sub
                             End If
                         Case "userhost"
-                            lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cUSERHOST, splt(1))
+                            Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cUSERHOST, splt(1))
                             Exit Sub
                         Case "trace"
-                            lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cTRACE, splt(1))
+                            Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cTRACE, splt(1))
                             Exit Sub
                         Case "topic"
-                            lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cTOPIC, splt(1))
+                            Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cTOPIC, splt(1))
                             Exit Sub
                         Case "time"
                             If UBound(splt) = 1 Then
-                                lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cTIME, splt(1))
+                                Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cTIME, splt(1))
                                 Exit Sub
                             Else
-                                lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cTIME, "*")
+                                Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cTIME, "*")
                                 Exit Sub
                             End If
                         Case "stats"
-                            lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cSTATS, splt(1))
+                            Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cSTATS, splt(1))
                             Exit Sub
                         Case "squit"
-                            lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cQUIT, splt(1), splt(2), splt(3), splt(4))
+                            Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cQUIT, splt(1), splt(2), splt(3), splt(4))
                             Exit Sub
                         Case "silence"
-                            lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cSTATS, splt(1))
+                            Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cSTATS, splt(1))
                             Exit Sub
                         Case "quit"
                             If UBound(splt) = 0 Then
-                                If Len(lSettings.lIRC.iSettings.sQuitMessage) <> 0 Then
-                                    lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cQUIT, lSettings.lIRC.iSettings.sQuitMessage)
+                                If Len(Modules.lSettings.lIRC.iSettings.sQuitMessage) <> 0 Then
+                                    Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cQUIT, Modules.lSettings.lIRC.iSettings.sQuitMessage)
                                 Else
-                                    lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cQUIT, "Quit")
+                                    Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cQUIT, "Quit")
                                 End If
                                 Exit Sub
                             Else
-                                lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cQUIT, splt(1))
+                                Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cQUIT, splt(1))
                                 Exit Sub
                             End If
-                            'Case "privmsg"
-                            'Exit Sub
+                        'Case "privmsg"
+                        'Exit Sub
                         Case "noticetext"
                             Notices_Add(_StatusIndex, TextHelper.DoRight(_Data, Len(_Data) - 11))
                             Exit Sub
                         Case "loadstrings"
-                            lStrings.ClearStrings()
-                            lStrings.LoadStrings()
+                            Modules.lStrings.ClearStrings()
+                            Modules.lStrings.LoadStrings()
                             Exit Sub
                         Case "loadcommands"
-                            lStrings.LoadCommands()
+                            Modules.lStrings.LoadCommands()
                             Exit Sub
                         Case "admin"
                             SendSocket(_StatusIndex, "ADMIN " & splt(1))
@@ -2392,14 +2394,14 @@ Namespace IRC.Status
                             Exit Sub
                         Case "msg", "privmsg"
                             msg = _Data.Remove(0, (splt(1).Length + 5))
-                            lStatus.SendSocket(_StatusIndex, "PRIVMSG " & splt(1) & " :" & msg)
-                            lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cPRIVMSG, splt(1), splt(2))
+                            Modules.lStatus.SendSocket(_StatusIndex, "PRIVMSG " & splt(1) & " :" & msg)
+                            Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cPRIVMSG, splt(1), splt(2))
                             Exit Sub
                         Case "processdata"
-                            lProcessNumeric.ProcessDataArrivalLine(1, Right(_Data, Len(_Data) - 11))
+                            Modules.lProcessNumeric.ProcessDataArrivalLine(1, Right(_Data, Len(_Data) - 11))
                         Case "join"
                             msg = splt(1)
-                            lChannels.Join(_StatusIndex, msg)
+                            Modules.lChannels.Join(_StatusIndex, msg)
                             Exit Sub
                         Case "raw"
                             _Data = TextHelper.DoRight(_Data, Len(_Data) - 4)

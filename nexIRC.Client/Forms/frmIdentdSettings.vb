@@ -1,12 +1,12 @@
-﻿'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
-Option Explicit On
+﻿Option Explicit On
 Option Strict On
-Imports nexIRC.Modules
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
+Imports nexIRC.Client.nexIRC.Client
 Public Class frmIdentdSettings
     Private Sub frmIdentdSettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
-            With lSettings.lIRC.iIdent
+            With Modules.lSettings.lIRC.iIdent
                 txtIdentdPort.Text = .iPort.ToString
                 txtIdentdSystem.Text = .iSystem
                 txtIdentdUserID.Text = .iUserID
@@ -27,7 +27,7 @@ Public Class frmIdentdSettings
 
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
         Try
-            With lSettings.lIRC.iIdent
+            With Modules.lSettings.lIRC.iIdent
                 .iPort = CType(txtIdentdPort.Text, Integer)
                 .iSettings.iEnabled = chkIdentdEnabled.Checked
                 .iSystem = txtIdentdSystem.Text

@@ -2,6 +2,7 @@
 Option Strict On
 
 Imports nexIRC.Business.Enums
+Imports nexIRC.Client.nexIRC.Client
 
 Public Class FrmInvite
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click

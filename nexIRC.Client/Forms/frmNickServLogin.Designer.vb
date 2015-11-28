@@ -88,7 +88,7 @@ Partial Class frmNickServLogin
         '
         Me.cmdLogin.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.cmdLogin.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdLogin.Image = Global.nexIRC.My.Resources.Resources.accept
+        Me.cmdLogin.Image = My.Resources.Resources.accept
         Me.cmdLogin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.cmdLogin.Location = New System.Drawing.Point(145, 132)
         Me.cmdLogin.Name = "cmdLogin"
@@ -101,7 +101,7 @@ Partial Class frmNickServLogin
         '
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.cmdCancel.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdCancel.Image = Global.nexIRC.My.Resources.Resources.cancel
+        Me.cmdCancel.Image = My.Resources.Resources.cancel
         Me.cmdCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.cmdCancel.Location = New System.Drawing.Point(235, 132)
         Me.cmdCancel.Name = "cmdCancel"

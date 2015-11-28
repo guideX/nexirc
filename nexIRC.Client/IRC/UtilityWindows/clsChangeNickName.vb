@@ -2,14 +2,13 @@
 Option Strict On
 Imports Telerik.WinControls.UI
 Imports Telerik.WinControls
-Imports nexIRC.Modules
-Namespace IRC.UtilityWindows
+Namespace nexIRC.Client.IRC.Status.UtilityWindows
     Public Class clsChangeNickName
         Public lServerIndex As Integer
         Public Sub Form_Load(_RadListBox As RadListControl)
             Try
-                For i As Integer = 1 To lSettings.lIRC.iNicks.nCount
-                    With lSettings.lIRC.iNicks.nNick(i)
+                For i As Integer = 1 To Modules.lSettings.lIRC.iNicks.nCount
+                    With Modules.lSettings.lIRC.iNicks.nNick(i)
                         If Len(.nNick) <> 0 Then
                             _RadListBox.Items.Add(.nNick)
                         End If
@@ -36,10 +35,10 @@ Namespace IRC.UtilityWindows
         Public Sub cmdOK_Click(_NickName As String, _Form As Form)
             Try
                 If Len(_NickName) <> 0 Then
-                    lStatus.NickName(lServerIndex, True) = _NickName
+                    Modules.lStatus.NickName(lServerIndex, True) = _NickName
                     _Form.Close()
                 Else
-                    If lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("You must select a nickname")
+                    If Modules.lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("You must select a nickname")
                 End If
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click")

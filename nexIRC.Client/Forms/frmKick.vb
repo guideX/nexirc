@@ -2,6 +2,7 @@
 Option Strict On
 
 Imports nexIRC.Business.Enums
+Imports nexIRC.Client.nexIRC.Client
 
 Public Class FrmKick
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click

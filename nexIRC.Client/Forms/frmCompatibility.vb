@@ -1,8 +1,8 @@
-﻿'nexIRC 3.0.23
-'Sunday, Oct 4th, 2014 - guideX
-Option Explicit On
+﻿Option Explicit On
 Option Strict On
-Imports nexIRC.IRC.UtilityWindows
+Imports nexIRC.Client.nexIRC.Client.IRC.Status.UtilityWindows
+'nexIRC 3.0.23
+'Sunday, Oct 4th, 2014 - guideX
 Public Class frmCompatibility
     Private WithEvents lCompatibility As New clsCompatibility
     Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click

@@ -57,7 +57,7 @@ Partial Class frmSendNotice
         '
         Me.cmdOK.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.cmdOK.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdOK.Image = Global.nexIRC.My.Resources.Resources.accept
+        Me.cmdOK.Image = My.Resources.Resources.accept
         Me.cmdOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.cmdOK.Location = New System.Drawing.Point(209, 100)
         Me.cmdOK.Name = "cmdOK"
@@ -70,7 +70,7 @@ Partial Class frmSendNotice
         '
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.cmdCancel.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdCancel.Image = Global.nexIRC.My.Resources.Resources.cancel
+        Me.cmdCancel.Image = My.Resources.Resources.cancel
         Me.cmdCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.cmdCancel.Location = New System.Drawing.Point(297, 100)
         Me.cmdCancel.Name = "cmdCancel"

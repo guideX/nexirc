@@ -1,8 +1,9 @@
 ﻿Option Explicit On
 Option Strict On
 Imports Telerik.WinControls.UI
-Imports nexIRC.Modules
-Namespace IRC.UtilityWindows
+Imports nexIRC.Business.Repositories
+
+Namespace nexIRC.Client.IRC.Status.UtilityWindows
     Public Class clsAddServer
         Public lConnectSetting As Boolean
         Public Sub cmdCancel_Click(_Form As Form)
@@ -14,7 +15,7 @@ Namespace IRC.UtilityWindows
         End Sub
         Public Sub Form_Load(_RadDropDownList As RadDropDownList)
             Try
-                lSettings.FillRadComboWithNetworks(_RadDropDownList, True)
+                Modules.lSettings.FillRadComboWithNetworks(_RadDropDownList, True)
             Catch ex As Exception
                 Throw ex
             End Try
@@ -34,12 +35,12 @@ Namespace IRC.UtilityWindows
                 End If
                 _NetworkIndex = Modules.IrcSettings.IrcNetworks.Find(_Network).Id
                 If _NetworkIndex <> 0 Then
-                    _NetworkIndex = lSettings.AddServer(_Network, _IpTextBox.Text, _NetworkIndex, Convert.ToInt64(_PortTextBox.Text.Trim))
+                    _NetworkIndex = Modules.lSettings.AddServer(_Network, _IpTextBox.Text, _NetworkIndex, Convert.ToInt64(_PortTextBox.Text.Trim))
                 End If
                 If lConnectSetting = True Then
-                    lSettings.lServers.sIndex = _NetworkIndex
-                    lStatus.SetRemoteSettings(lStatus.ActiveIndex(), _IpTextBox.Text, Convert.ToInt64(_PortTextBox.Text.Trim))
-                    lStatus.ActiveStatusConnect()
+                    Modules.lSettings.lServers.sIndex = _NetworkIndex
+                    Modules.lStatus.SetRemoteSettings(Modules.lStatus.ActiveIndex(), _IpTextBox.Text, Convert.ToInt64(_PortTextBox.Text.Trim))
+                    Modules.lStatus.ActiveStatusConnect()
                 End If
                 _Form.Close()
             Catch ex As Exception
@@ -47,22 +48,17 @@ Namespace IRC.UtilityWindows
             End Try
         End Sub
         Public Sub cmdNewNetwork_Click(_RadDropDownList As RadDropDownList)
-            Try
-                Dim _NetworkDescription As String, _NetworkIndex As Integer
-                _NetworkDescription = InputBox("Enter a description for the new netwrok", "nexIRC - Add Network", "")
-                If Len(_NetworkDescription) <> 0 Then
-                    Dim network = New IrcSettings.NetworkData()
-                    network.Description = _NetworkDescription
-                    _NetworkIndex = Modules.IrcSettings.IrcNetworks.Add(network)
-                    If _NetworkIndex <> 0 Then
-                        lSettings.FillRadComboWithNetworks(_RadDropDownList)
-                        _RadDropDownList.SelectedIndex = FindRadComboIndex(_RadDropDownList, _NetworkDescription)
-                    End If
+            Dim _NetworkDescription As String, _NetworkIndex As Integer
+            _NetworkDescription = InputBox("Enter a description for the new netwrok", "nexIRC - Add Network", "")
+            If Len(_NetworkDescription) <> 0 Then
+                Dim network = New NetworkData()
+                network.Description = _NetworkDescription
+                _NetworkIndex = Modules.IrcSettings.IrcNetworks.Add(network)
+                If _NetworkIndex <> 0 Then
+                    Modules.lSettings.FillRadComboWithNetworks(_RadDropDownList)
+                    _RadDropDownList.SelectedIndex = Modules.FindRadComboIndex(_RadDropDownList, _NetworkDescription)
                 End If
-                'If Err.Number <> 0 Then Throw ex Throw ex 'ProcessError(ex.Message, "Private Sub cmdNewNetwork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNewNetwork.Click")
-            Catch ex As Exception
-                Throw ex
-            End Try
+            End If
         End Sub
     End Class
 End Namespace

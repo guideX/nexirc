@@ -1,13 +1,17 @@
-'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.IRC.Channels
-Imports nexIRC.IRC.Status
+Imports nexIRC.Business.Repositories
+Imports nexIRC.Client.nexIRC.Client.Classes
+Imports nexIRC.Client.nexIRC.Client.IRC.Channels
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
+Imports nexIRC.Client.nexIRC.Client.IRC.Numerics
+Imports nexIRC.Client.nexIRC.Client.IRC.Settings
+Imports nexIRC.Client.nexIRC.Client.IRC.Status
 Imports Telerik.WinControls.UI
-Imports nexIRC.nexIRC.IRC.Settings
+'Imports nexIRC.Settings2
 
-Namespace Modules
+Namespace nexIRC.Client.Modules
     Public Module mdlObjects
         Public lSettings As New Settings
         Public lStrings As New IrcStrings
@@ -16,10 +20,12 @@ Namespace Modules
         Public lChannelLists As New clsChannelList
         Public lChannelFolder As New clsChannelFolder
         Public lProcessNumeric As New clsProcessNumeric
-        Public lSettings_DCC As New clsDCC
+        Public lSettings_DCC As gDCC = DccSettings.Read(Application.StartupPath)
+        'Public lSettings_DCC As DccSettings
+        'Public lSettings_DCC As New clsDCC
         Public lSettings_Services As New clsServices
         Public lIdent As New Ident
-        Public IrcSettings As New Global.nexIRC.IrcSettings.IrcSettings(Application.StartupPath & "\")
+        Public IrcSettings As New IrcSettings(Application.StartupPath & "\")
 
         Public Sub SetSelectedRadComboBoxItem(_RadComboBox As RadDropDownList, _Text As String)
             Dim i As Integer

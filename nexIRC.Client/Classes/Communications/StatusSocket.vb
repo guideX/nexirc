@@ -1,12 +1,11 @@
-'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict Off
-Imports nexIRC.clsIrcNumerics
-Imports nexIRC.Modules
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
+Imports nexIRC.Client.nexIRC.Client.IRC.Numerics.clsIrcNumerics
 Imports nexIRC.Sockets
 
-Namespace Classes.Communications
+Namespace nexIRC.Client.Classes.Communications
     Public Class StatusSocket
         Public Event DataArrival(data As String)
         Private WithEvents socket As AsyncSocket
@@ -111,7 +110,7 @@ Namespace Classes.Communications
 
         Public Sub CouldNotConnect(data As String)
             Try
-                lStrings.ProcessReplaceString(statusId, eStringTypes.sCOULD_NOT_CONNECT, lStatus.ServerDescription(statusId))
+                Modules.lStrings.ProcessReplaceString(statusId, eStringTypes.sCOULD_NOT_CONNECT, Modules.lStatus.ServerDescription(statusId))
             Catch ex As Exception
                 Throw ex
             End Try
@@ -128,7 +127,7 @@ Namespace Classes.Communications
 
         Private Sub lSocket_socketConnected(ByVal socketID As String) Handles socket.SocketConnected
             Try
-                Dim connectEvent As New IntegerDelegate(AddressOf lStatus.ConnectEvent)
+                Dim connectEvent As New IntegerDelegate(AddressOf Modules.lStatus.ConnectEvent)
                 _invoke.Invoke(connectEvent, statusId)
             Catch ex As Exception
                 Throw ex
@@ -147,7 +146,7 @@ Namespace Classes.Communications
             Try
                 Select Case _socketType
                     Case SocketType.Status
-                        Dim processDataArrival As New DataArrivalDelegate(AddressOf lProcessNumeric.lIrcNumericHelper.ProcessDataArrival)
+                        Dim processDataArrival As New DataArrivalDelegate(AddressOf Modules.lProcessNumeric.lIrcNumericHelper.ProcessDataArrival)
                         _invoke.Invoke(processDataArrival, statusId, socketData)
                     Case SocketType.Ident
                         Dim processDataArrival As New DataArrivalDelegate(AddressOf DataArrivalProc)
@@ -160,7 +159,7 @@ Namespace Classes.Communications
 
         Private Sub socket_socketDisconnected(ByVal socketId As String) Handles socket.SocketDisconnected
             Try
-                Dim disconnectEvent As New DisconnectDelegate(AddressOf lStatus.CloseStatusConnection)
+                Dim disconnectEvent As New DisconnectDelegate(AddressOf Modules.lStatus.CloseStatusConnection)
                 If Connected() = True Then _invoke.Invoke(disconnectEvent, statusId, False)
             Catch ex As Exception
                 'Throw ex

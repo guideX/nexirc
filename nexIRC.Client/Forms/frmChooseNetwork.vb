@@ -2,7 +2,7 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.IRC.UtilityWindows
+Imports nexIRC.Client.nexIRC.Client.IRC.Status.UtilityWindows
 
 Public Class frmChooseNetwork
     Public WithEvents lChooseNetwork As New clsChooseNetwork

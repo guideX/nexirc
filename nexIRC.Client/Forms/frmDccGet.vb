@@ -3,10 +3,10 @@
 Option Explicit On
 Option Strict On
 Imports System.IO
-'Imports nexIRC.Classes.IO
 Imports nexIRC.Sockets
-Imports nexIRC.Modules
 Imports nexIRC.Business.Helpers
+Imports nexIRC.Business.Repositories
+Imports nexIRC.Client.nexIRC.Client
 
 Public Class frmDccGet
     Public Declare Function htonl Lib "wsock32.dll" (ByVal hostlong As UInt32) As UInt32
@@ -25,6 +25,7 @@ Public Class frmDccGet
     Private lBytesRecievedCount As UInt32
     Private lFileOpen As Boolean
     Private lPacketSizeDelay As Integer = 1000
+    'Private dccSettings As gDCC
 
     Public Sub InitDCCGet(ByVal lUsr As String, ByVal lRemIp As String, ByVal lRemPort As String, ByVal lFileName As String, ByVal lFileSize As String)
         Try
@@ -37,7 +38,7 @@ Public Class frmDccGet
             lRemoteFileSize = Replace(lRemoteFileSize, Chr(1), "")
             lRemoteFileSize = Replace(lRemoteFileSize, " ", "")
             lblNickname.Text = lUsr
-            lblIp.Text = lStrings.DecodeLongIPAddr(lRemIp)
+            lblIp.Text = Modules.lStrings.DecodeLongIPAddr(lRemIp)
             lblPort.Text = lRemPort
             lblSize.Text = lFileSize
             lblFilename.Text = lFileName
@@ -57,7 +58,8 @@ Public Class frmDccGet
 
     Private Sub frmDCCGet_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
-            txtDownloadTo.Text = lSettings_DCC.lDCC.dDownloadDirectory
+            'dccSettings = Modules.lSettings_DCC
+            txtDownloadTo.Text = Modules.lSettings_DCC.dDownloadDirectory
             Me.Icon = mdiMain.Icon
         Catch ex As Exception
             Throw ex
@@ -68,28 +70,28 @@ Public Class frmDccGet
         Try
             Dim mBox As MsgBoxResult
             txtDownloadTo.Enabled = False
-            If (File.Exists(lSettings.lINI.iBasePath & lblFilename.Text)) Then
-                If lSettings.lIRC.iSettings.sPrompts = True Then
-                    If lSettings_DCC.lDCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dPrompt Then
+            If (File.Exists(Modules.lSettings.lINI.iBasePath & lblFilename.Text)) Then
+                If Modules.lSettings.lIRC.iSettings.sPrompts = True Then
+                    If Modules.lSettings_DCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dPrompt Then
                         mBox = MsgBox("This file already exists, replace the original?", MsgBoxStyle.Question Or MsgBoxStyle.YesNoCancel)
-                    ElseIf lSettings_DCC.lDCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dOverwrite Then
+                    ElseIf Modules.lSettings_DCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dOverwrite Then
                         mBox = MsgBoxResult.Yes
-                    ElseIf lSettings_DCC.lDCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dIgnore Then
+                    ElseIf Modules.lSettings_DCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dIgnore Then
                         MsgBox("This file already exists!", MsgBoxStyle.Critical)
                         mBox = MsgBoxResult.No
                     End If
                 Else
-                    If lSettings_DCC.lDCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dIgnore Then
+                    If Modules.lSettings_DCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dIgnore Then
                         mBox = MsgBoxResult.No
                     Else
                         mBox = MsgBoxResult.Yes
                     End If
                 End If
                 If mBox = MsgBoxResult.Yes Then
-                    Kill(lSettings.lINI.iBasePath & lblFilename.Text)
+                    Kill(Modules.lSettings.lINI.iBasePath & lblFilename.Text)
                     Application.DoEvents()
-                    If (File.Exists(lSettings.lINI.iBasePath & lblFilename.Text)) Then
-                        If lSettings.lIRC.iSettings.sPrompts = True Then
+                    If (File.Exists(Modules.lSettings.lINI.iBasePath & lblFilename.Text)) Then
+                        If Modules.lSettings.lIRC.iSettings.sPrompts = True Then
                             MsgBox("Unable to remove '" & lblFilename.Text & "'")
                             Exit Sub
                         Else
@@ -103,7 +105,7 @@ Public Class frmDccGet
                 End If
             End If
             cmdRun.Enabled = False
-            lSocket.Connect(lStrings.DecodeLongIPAddr(lRemoteIp), Convert.ToInt64(Trim(lRemotePort)))
+            lSocket.Connect(Modules.lStrings.DecodeLongIPAddr(lRemoteIp), Convert.ToInt64(Trim(lRemotePort)))
         Catch ex As Exception
             Throw ex
         End Try
@@ -171,8 +173,8 @@ Public Class frmDccGet
                 lOutPut.Dispose()
                 lFileOpen = False
             End If
-            lSettings.AddToDownloadManager(txtDownloadTo.Text & lblFilename.Text, lblNickname.Text, True)
-            If lSettings_DCC.lDCC.dAutoCloseDialogs = True Then
+            Modules.lSettings.AddToDownloadManager(txtDownloadTo.Text & lblFilename.Text, lblNickname.Text, True)
+            If Modules.lSettings_DCC.dAutoCloseDialogs = True Then
                 Me.Close()
             Else
                 Me.Text = "nexIRC - Transfer Complete"

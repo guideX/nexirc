@@ -1,7 +1,9 @@
-'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
+Imports nexIRC.Client.nexIRC.Client.IRC.DCC
+
 Public Class frmDCCChat
     Public WithEvents lDccChatUI As New clsDccChat
     Private Sub txtIncoming_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncoming.MouseDown

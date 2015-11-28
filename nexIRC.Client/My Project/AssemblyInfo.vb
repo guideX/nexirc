@@ -9,7 +9,7 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("nexIRC")> 
+<Assembly: AssemblyTitle("nexIRC.Client")>
 <Assembly: AssemblyDescription("IRC Client")> 
 <Assembly: AssemblyCompany("Team Nexgen")> 
 <Assembly: AssemblyProduct("nexIRC")> 

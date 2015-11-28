@@ -1,8 +1,10 @@
-﻿'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
-Option Explicit On
+﻿Option Explicit On
 Option Strict On
-Imports nexIRC.Modules
+Imports nexIRC.Client.nexIRC.Client
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
+Imports nexIRC.Client.nexIRC.Client.Classes
+Imports nexIRC.Client.nexIRC.Client.IRC.Services
 Imports Telerik.WinControls.RichTextBox.Model
 
 Public Class frmStatus
@@ -15,7 +17,7 @@ Public Class frmStatus
     Private Sub txtIncoming_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncoming.MouseDown
         Try
             mdiChildWindow.txtIncomingColor_MouseDown(Me)
-            lStatus.ActiveIndex = mdiChildWindow.MeIndex
+            Modules.lStatus.ActiveIndex = mdiChildWindow.MeIndex
         Catch ex As Exception
             Throw ex
         End Try
@@ -31,7 +33,7 @@ Public Class frmStatus
 #Region "txtOugtgoing Events"
     Private Sub txtOutgoing_Click(sender As Object, e As System.EventArgs) Handles txtOutgoing.Click
         mdiChildWindow.txtIncomingColor_MouseDown(Me)
-        lStatus.ActiveIndex = mdiChildWindow.MeIndex
+        Modules.lStatus.ActiveIndex = mdiChildWindow.MeIndex
     End Sub
     Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown
         Try
@@ -44,7 +46,7 @@ Public Class frmStatus
         Try
             'mdiChildWindow.txtIncomingColor_MouseUp(txtIncoming.Document.Selection.GetSelectedText(), txtIncoming, txtOutgoing)
             mdiChildWindow.txtIncomingColor_MouseDown(Me)
-            lStatus.ActiveIndex = mdiChildWindow.MeIndex
+            Modules.lStatus.ActiveIndex = mdiChildWindow.MeIndex
         Catch ex As Exception
             Throw ex
         End Try
@@ -81,7 +83,7 @@ Public Class frmStatus
     End Sub
     Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Try
-            mdiChildWindow.Form_Load(mdiChildWindow.FormTypes.Status)
+            mdiChildWindow.Form_Load(MdiChildWindow.FormTypes.Status)
             txtIncoming.Cursor = Cursors.Default
         Catch ex As Exception
             Throw ex 'ProcessError(ex.Message, "Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
@@ -134,14 +136,14 @@ Public Class frmStatus
     End Sub
     Private Sub cmdBotLogin_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotLogin.Click
         Try
-            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Login()
+            Modules.lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Login()
         Catch ex As Exception
             Throw ex
         End Try
     End Sub
     Private Sub cmdBot_ButtonClick(sender As System.Object, e As System.EventArgs) Handles cmdBot.ButtonClick
         Try
-            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.LoginForm()
+            Modules.lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.LoginForm()
         Catch ex As Exception
             Throw ex
         End Try
@@ -154,7 +156,7 @@ Public Class frmStatus
             If (Not String.IsNullOrEmpty(settings.Email)) Then
                 settings.Password = InputBox("Password:")
                 If (Not String.IsNullOrEmpty(settings.Password)) Then
-                    lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Register(settings)
+                    Modules.lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Register(settings)
                 End If
             End If
         Catch ex As Exception
@@ -165,7 +167,7 @@ Public Class frmStatus
         Dim user As String
         Try
             user = InputBox("Nickname: ")
-            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Ghost(user)
+            Modules.lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Ghost(user)
         Catch ex As Exception
             Throw ex
         End Try

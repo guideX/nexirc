@@ -1,11 +1,9 @@
 ﻿Option Explicit On
 Option Strict On
 Imports Telerik.WinControls.UI
-'Imports nexIRC.Classes.IO
-Imports nexIRC.Modules
 Imports nexIRC.Business.Helpers
 
-Namespace IRC.UtilityWindows
+Namespace nexIRC.Client.IRC.Status.UtilityWindows
     Public Class clsChooseNetwork
         Public lServerToChange As Integer
         Public lNetworkIndex As Integer
@@ -40,9 +38,9 @@ Namespace IRC.UtilityWindows
                 If lServerToChange <> 0 Then
                     msg = _Network
                     i = Modules.IrcSettings.IrcNetworks.Find(msg).Id
-                    lSettings.lServers.sServer(lServerToChange).sNetworkIndex = i
-                    IniFileHelper.WriteINI(lSettings.lINI.iServers, lServerToChange.ToString().Trim(), "NetworkIndex", i.ToString().Trim())
-                    If lSettings.lWinVisible.wCustomize = True Then
+                    Modules.lSettings.lServers.sServer(lServerToChange).sNetworkIndex = i
+                    IniFileHelper.WriteINI(Modules.lSettings.lINI.iServers, lServerToChange.ToString().Trim(), "NetworkIndex", i.ToString().Trim())
+                    If Modules.lSettings.lWinVisible.wCustomize = True Then
                         frmCustomize.cboNetworks.Text = Modules.IrcSettings.IrcNetworks.GetById(i).Description
                     End If
                 End If

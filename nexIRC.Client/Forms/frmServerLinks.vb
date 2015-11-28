@@ -1,8 +1,8 @@
-'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Modules
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
+Imports nexIRC.Client.nexIRC.Client.IRC.ServerLinks
 Public Class frmServerLinks
     Public lServerLinksUI As New clsServerLinks
     Private Sub frmServerLinks_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing

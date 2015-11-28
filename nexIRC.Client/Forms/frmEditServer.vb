@@ -1,9 +1,8 @@
-'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Modules
-Imports Telerik.WinControls.UI
+Imports nexIRC.Client.nexIRC.Client
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
 
 Public Class frmEditServer
     Private lServerIndex As Integer
@@ -12,11 +11,11 @@ Public Class frmEditServer
     Public Sub SetServerInfo(ByVal lIndex As Integer)
         Try
             lServerIndex = lIndex
-            txtDescription.Text = lSettings.lServers.sServer(lIndex).sDescription
-            txtIp.Text = lSettings.lServers.sServer(lIndex).sIP
-            txtPort.Text = Convert.ToString(lSettings.lServers.sServer(lIndex).sPort)
-            lSettings.FillComboWithNetworks(cboNetwork, True)
-            cboNetwork.Text = Modules.IrcSettings.IrcNetworks.GetById(lSettings.lServers.sServer(lIndex).sNetworkIndex).Description
+            txtDescription.Text = Modules.lSettings.lServers.sServer(lIndex).sDescription
+            txtIp.Text = Modules.lSettings.lServers.sServer(lIndex).sIP
+            txtPort.Text = Convert.ToString(Modules.lSettings.lServers.sServer(lIndex).sPort)
+            Modules.lSettings.FillComboWithNetworks(cboNetwork, True)
+            cboNetwork.Text = Modules.IrcSettings.IrcNetworks.GetById(Modules.lSettings.lServers.sServer(lIndex).sNetworkIndex).Description
             lInfoSet = True
         Catch ex As Exception
             Throw ex
@@ -26,22 +25,22 @@ Public Class frmEditServer
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
         Try
             If lInfoSet = False Then
-                If lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Unable to edit server")
+                If Modules.lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Unable to edit server")
                 Exit Sub
             End If
             If (Not String.IsNullOrEmpty(txtDescription.Text) And Not String.IsNullOrEmpty(txtPort.Text) And Not String.IsNullOrEmpty(txtIp.Text) And lServerIndex <> 0) Then
-                With lSettings.lServers.sServer(lServerIndex)
+                With Modules.lSettings.lServers.sServer(lServerIndex)
                     .sDescription = txtDescription.Text
                     .sIP = txtIp.Text
                     .sPort = Convert.ToInt64(Trim(txtPort.Text))
                     .sNetworkIndex = Modules.IrcSettings.IrcNetworks.Find(cboNetwork.Text).Id
-                    If lSettings.lWinVisible.wCustomize = True Then
+                    If Modules.lSettings.lWinVisible.wCustomize = True Then
                         frmCustomize.UpdateSelectedServer(txtDescription.Text, txtIp.Text, txtPort.Text)
                     End If
                 End With
                 Me.Close()
             Else
-                If lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Not all fields are filled out", MsgBoxStyle.Exclamation)
+                If Modules.lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Not all fields are filled out", MsgBoxStyle.Exclamation)
             End If
         Catch ex As Exception
             Throw ex

@@ -2,7 +2,6 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Modules
 Public Class frmDccIgnoreAdd
     Private Sub frmDccIgnoreAdd_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
@@ -14,7 +13,8 @@ Public Class frmDccIgnoreAdd
     End Sub
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
         Try
-            With lSettings_DCC.lDCC.dIgnorelist
+            Dim dccSettings = Business.Repositories.DccSettings.Read(Application.StartupPath)
+            With dccSettings.dIgnorelist
                 If optNickName.IsChecked = True Then
                     frmCustomize.lstDCCIgnoreItems.Items.Add(txtValue.Text)
                 ElseIf optFileType.IsChecked = True Then

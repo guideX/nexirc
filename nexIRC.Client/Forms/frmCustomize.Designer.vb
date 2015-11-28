@@ -330,7 +330,7 @@ Partial Class frmCustomize
         Me.RadPageViewPage1.Controls.Add(Me.cmdServerDelete)
         Me.RadPageViewPage1.Controls.Add(Me.lnkNetworkDelete)
         Me.RadPageViewPage1.Controls.Add(Me.cmdServerEdit)
-        Me.RadPageViewPage1.Image = Global.nexIRC.My.Resources.Resources.web
+        Me.RadPageViewPage1.Image = My.Resources.Resources.web
         Me.RadPageViewPage1.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage1.Name = "RadPageViewPage1"
         Me.RadPageViewPage1.Size = New System.Drawing.Size(518, 329)
@@ -371,7 +371,7 @@ Partial Class frmCustomize
         '
         'cmdServersMove
         '
-        Me.cmdServersMove.Image = Global.nexIRC.My.Resources.Resources.add1
+        Me.cmdServersMove.Image = My.Resources.Resources.add1
         Me.cmdServersMove.Location = New System.Drawing.Point(377, 300)
         Me.cmdServersMove.Name = "cmdServersMove"
         Me.cmdServersMove.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
@@ -387,7 +387,7 @@ Partial Class frmCustomize
         '
         'cmdServersClear
         '
-        Me.cmdServersClear.Image = Global.nexIRC.My.Resources.Resources.close
+        Me.cmdServersClear.Image = My.Resources.Resources.close
         Me.cmdServersClear.Location = New System.Drawing.Point(452, 300)
         Me.cmdServersClear.Name = "cmdServersClear"
         Me.cmdServersClear.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
@@ -403,7 +403,7 @@ Partial Class frmCustomize
         '
         'cmdServerAdd
         '
-        Me.cmdServerAdd.Image = Global.nexIRC.My.Resources.Resources.add
+        Me.cmdServerAdd.Image = My.Resources.Resources.add
         Me.cmdServerAdd.Location = New System.Drawing.Point(3, 300)
         Me.cmdServerAdd.Name = "cmdServerAdd"
         Me.cmdServerAdd.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
@@ -429,7 +429,7 @@ Partial Class frmCustomize
         '
         'cmdServerDelete
         '
-        Me.cmdServerDelete.Image = Global.nexIRC.My.Resources.Resources.delete
+        Me.cmdServerDelete.Image = My.Resources.Resources.delete
         Me.cmdServerDelete.Location = New System.Drawing.Point(76, 300)
         Me.cmdServerDelete.Name = "cmdServerDelete"
         Me.cmdServerDelete.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
@@ -455,7 +455,7 @@ Partial Class frmCustomize
         '
         'cmdServerEdit
         '
-        Me.cmdServerEdit.Image = Global.nexIRC.My.Resources.Resources.configure
+        Me.cmdServerEdit.Image = My.Resources.Resources.configure
         Me.cmdServerEdit.Location = New System.Drawing.Point(149, 300)
         Me.cmdServerEdit.Name = "cmdServerEdit"
         Me.cmdServerEdit.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
@@ -492,7 +492,7 @@ Partial Class frmCustomize
         Me.RadPageViewPage2.Controls.Add(Me.cmdClearMyNickName)
         Me.RadPageViewPage2.Controls.Add(Me.cmdRemoveMyNickName)
         Me.RadPageViewPage2.Controls.Add(Me.cmdAddMyNickName)
-        Me.RadPageViewPage2.Image = Global.nexIRC.My.Resources.Resources.tools
+        Me.RadPageViewPage2.Image = My.Resources.Resources.tools
         Me.RadPageViewPage2.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage2.Name = "RadPageViewPage2"
         Me.RadPageViewPage2.Size = New System.Drawing.Size(518, 329)
@@ -714,7 +714,7 @@ Partial Class frmCustomize
         '
         Me.RadPageViewPage3.Controls.Add(Me.RadPageView2)
         Me.RadPageViewPage3.Controls.Add(Me.RadLabel5)
-        Me.RadPageViewPage3.Image = Global.nexIRC.My.Resources.Resources.applications
+        Me.RadPageViewPage3.Image = My.Resources.Resources.applications
         Me.RadPageViewPage3.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage3.Name = "RadPageViewPage3"
         Me.RadPageViewPage3.Size = New System.Drawing.Size(518, 329)
@@ -1034,7 +1034,7 @@ Partial Class frmCustomize
         'cmdQuerySettings
         '
         Me.cmdQuerySettings.BackColor = System.Drawing.Color.Transparent
-        Me.cmdQuerySettings.Image = Global.nexIRC.My.Resources.Resources.configure
+        Me.cmdQuerySettings.Image = My.Resources.Resources.configure
         Me.cmdQuerySettings.Location = New System.Drawing.Point(3, 111)
         Me.cmdQuerySettings.Name = "cmdQuerySettings"
         Me.cmdQuerySettings.Padding = New System.Windows.Forms.Padding(2, 0, 2, 0)
@@ -1099,7 +1099,7 @@ Partial Class frmCustomize
         Me.RadPageViewPage4.Controls.Add(Me.txtNotifyNickname)
         Me.RadPageViewPage4.Controls.Add(Me.RadLabel4)
         Me.RadPageViewPage4.Controls.Add(Me.lvwNotify)
-        Me.RadPageViewPage4.Image = Global.nexIRC.My.Resources.Resources.preferences
+        Me.RadPageViewPage4.Image = My.Resources.Resources.preferences
         Me.RadPageViewPage4.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage4.Name = "RadPageViewPage4"
         Me.RadPageViewPage4.Size = New System.Drawing.Size(518, 329)
@@ -1221,7 +1221,7 @@ Partial Class frmCustomize
         Me.RadPageViewPage5.Controls.Add(Me.RadLabel8)
         Me.RadPageViewPage5.Controls.Add(Me.RadPanel1)
         Me.RadPageViewPage5.Controls.Add(Me.lvwStrings)
-        Me.RadPageViewPage5.Image = Global.nexIRC.My.Resources.Resources.film
+        Me.RadPageViewPage5.Image = My.Resources.Resources.film
         Me.RadPageViewPage5.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage5.Name = "RadPageViewPage5"
         Me.RadPageViewPage5.Size = New System.Drawing.Size(518, 329)
@@ -1420,7 +1420,7 @@ Partial Class frmCustomize
         Me.RadPageViewPage6.Controls.Add(Me.RadPanel3)
         Me.RadPageViewPage6.Controls.Add(Me.RadLabel11)
         Me.RadPageViewPage6.Controls.Add(Me.RadPanel4)
-        Me.RadPageViewPage6.Image = Global.nexIRC.My.Resources.Resources.network1
+        Me.RadPageViewPage6.Image = My.Resources.Resources.network1
         Me.RadPageViewPage6.Location = New System.Drawing.Point(12, 40)
         Me.RadPageViewPage6.Name = "RadPageViewPage6"
         Me.RadPageViewPage6.Size = New System.Drawing.Size(518, 329)
@@ -1727,7 +1727,7 @@ Partial Class frmCustomize
         '
         'cmdApplyNow
         '
-        Me.cmdApplyNow.Image = Global.nexIRC.My.Resources.Resources.accept
+        Me.cmdApplyNow.Image = My.Resources.Resources.accept
         Me.cmdApplyNow.Location = New System.Drawing.Point(363, 382)
         Me.cmdApplyNow.Name = "cmdApplyNow"
         Me.cmdApplyNow.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
@@ -1743,7 +1743,7 @@ Partial Class frmCustomize
         '
         'cmdOK
         '
-        Me.cmdOK.Image = Global.nexIRC.My.Resources.Resources.accept
+        Me.cmdOK.Image = My.Resources.Resources.accept
         Me.cmdOK.Location = New System.Drawing.Point(271, 382)
         Me.cmdOK.Name = "cmdOK"
         Me.cmdOK.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
@@ -1759,7 +1759,7 @@ Partial Class frmCustomize
         '
         'cmdConnectNow
         '
-        Me.cmdConnectNow.Image = Global.nexIRC.My.Resources.Resources.network1
+        Me.cmdConnectNow.Image = My.Resources.Resources.network1
         Me.cmdConnectNow.Location = New System.Drawing.Point(0, 382)
         Me.cmdConnectNow.Name = "cmdConnectNow"
         Me.cmdConnectNow.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
@@ -1775,7 +1775,7 @@ Partial Class frmCustomize
         '
         'cmdCancelNow
         '
-        Me.cmdCancelNow.Image = Global.nexIRC.My.Resources.Resources.cancel
+        Me.cmdCancelNow.Image = My.Resources.Resources.cancel
         Me.cmdCancelNow.Location = New System.Drawing.Point(456, 382)
         Me.cmdCancelNow.Name = "cmdCancelNow"
         Me.cmdCancelNow.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)

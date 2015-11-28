@@ -70,7 +70,7 @@ Partial Class frmStatus
         '
         'cmdClear
         '
-        Me.cmdClear.Image = Global.nexIRC.My.Resources.Resources.delete
+        Me.cmdClear.Image = My.Resources.Resources.delete
         Me.cmdClear.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdClear.Name = "cmdClear"
         Me.cmdClear.Size = New System.Drawing.Size(60, 22)
@@ -87,14 +87,14 @@ Partial Class frmStatus
         '
         'cmdConnect
         '
-        Me.cmdConnect.Image = Global.nexIRC.My.Resources.Resources.network1
+        Me.cmdConnect.Image = My.Resources.Resources.network1
         Me.cmdConnect.Name = "cmdConnect"
         Me.cmdConnect.Size = New System.Drawing.Size(195, 22)
         Me.cmdConnect.Text = "Connect"
         '
         'cmdDisconnect
         '
-        Me.cmdDisconnect.Image = Global.nexIRC.My.Resources.Resources.network1
+        Me.cmdDisconnect.Image = My.Resources.Resources.network1
         Me.cmdDisconnect.Name = "cmdDisconnect"
         Me.cmdDisconnect.Size = New System.Drawing.Size(195, 22)
         Me.cmdDisconnect.Text = "Disconnect"
@@ -132,7 +132,7 @@ Partial Class frmStatus
         '
         'ToolStripMenuItem3
         '
-        Me.ToolStripMenuItem3.Image = Global.nexIRC.My.Resources.Resources.chat
+        Me.ToolStripMenuItem3.Image = My.Resources.Resources.chat
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
         Me.ToolStripMenuItem3.Size = New System.Drawing.Size(195, 22)
         Me.ToolStripMenuItem3.Text = "Send Notice"
@@ -140,7 +140,7 @@ Partial Class frmStatus
         'cmdChannels
         '
         Me.cmdChannels.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tspListChannels})
-        Me.cmdChannels.Image = Global.nexIRC.My.Resources.Resources.applications
+        Me.cmdChannels.Image = My.Resources.Resources.applications
         Me.cmdChannels.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdChannels.Name = "cmdChannels"
         Me.cmdChannels.Size = New System.Drawing.Size(97, 22)
@@ -155,7 +155,7 @@ Partial Class frmStatus
         'cmdBot
         '
         Me.cmdBot.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdBotLogin, Me.cmdBotRegister, Me.ToolStripSeparator2, Me.cmdBotGhost})
-        Me.cmdBot.Image = Global.nexIRC.My.Resources.Resources.configure
+        Me.cmdBot.Image = My.Resources.Resources.configure
         Me.cmdBot.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdBot.Name = "cmdBot"
         Me.cmdBot.Size = New System.Drawing.Size(61, 22)

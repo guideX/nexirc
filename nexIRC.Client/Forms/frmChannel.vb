@@ -2,12 +2,10 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Modules
-Imports Telerik.WinControls.UI
 Imports Telerik.WinControls.RichTextBox.Model
 Imports Telerik.WinControls.Data
-Imports Telerik.WinControls.Enumerations
 Imports System.ComponentModel
+Imports nexIRC.Client.nexIRC.Client.Classes
 
 Public Class frmChannel
 #Region "Public Variables"

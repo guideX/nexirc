@@ -56,7 +56,7 @@ Partial Class frmAbout
         Me.RadPageView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.RadPageView1.Location = New System.Drawing.Point(0, 0)
         Me.RadPageView1.Name = "RadPageView1"
-        Me.RadPageView1.SelectedPage = Me.RadPageViewPage2
+        Me.RadPageView1.SelectedPage = Me.RadPageViewPage1
         Me.RadPageView1.Size = New System.Drawing.Size(308, 241)
         Me.RadPageView1.TabIndex = 2
         Me.RadPageView1.Text = "RadPageView1"

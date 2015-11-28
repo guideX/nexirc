@@ -7,4 +7,3 @@ C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Socket\bin\Debug\nexIRC.Sockets.dll
 C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Socket\bin\Debug\nexIRC.Sockets.pdb
 C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Socket\obj\Debug\nexIRC.Sockets.dll
 C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Socket\obj\Debug\nexIRC.Sockets.pdb
-C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Socket\obj\Debug\nexIRC.Sockets.csprojResolveAssemblyReference.cache

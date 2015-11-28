@@ -1,18 +1,19 @@
 ﻿Option Explicit On
 Option Strict On
 Imports Telerik.WinControls.UI
-Imports nexIRC.Modules
-Imports nexIRC.clsSharedAdd
-Imports nexIRC.Settings
 Imports nexIRC.Business.Helpers
 Imports nexIRC.Business.Enums
+Imports nexIRC.Client.nexIRC.Client
+Imports nexIRC.Client.nexIRC.Client.IRC.Status.UtilityWindows.clsSharedAdd
+Imports nexIRC.Client.nexIRC.Client.IRC.Settings.Settings
 
-Namespace IRC.Customize
+Namespace nexIRC.IRC.Customize
     Public Class clsCustomize
         Public Event Apply()
         Public Event Save()
         Public Event Close()
         Public lStartupNetwork As String
+
         Public Sub cmdDCCIgnoreAdd_Click()
             Try
                 Dim f As New frmDccIgnoreAdd
@@ -49,8 +50,8 @@ Namespace IRC.Customize
                 If Len(Trim(msg)) <> 0 Then
                     _ListBox.Items.Remove(_ListBox.SelectedItem)
                     ReDim lItems(100)
-                    For i = 1 To lSettings_DCC.lDCC.dIgnorelist.dCount
-                        With lSettings_DCC.lDCC.dIgnorelist.dItem(i)
+                    For i = 1 To Modules.lSettings_DCC.dIgnorelist.dCount
+                        With Modules.lSettings_DCC.dIgnorelist.dItem(i)
                             If LCase(Trim(.dData)) = LCase(Trim(msg)) Then
                                 .dData = ""
                             Else
@@ -61,13 +62,13 @@ Namespace IRC.Customize
                             End If
                         End With
                     Next i
-                    lSettings_DCC.lDCC.dIgnorelist.dCount = c
-                    IniFileHelper.WriteINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(c.ToString))
+                    Modules.lSettings_DCC.dIgnorelist.dCount = c
+                    IniFileHelper.WriteINI(Modules.lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(c.ToString))
                     For i = 1 To 100
-                        With lSettings_DCC.lDCC.dIgnorelist.dItem(i)
+                        With Modules.lSettings_DCC.dIgnorelist.dItem(i)
                             If Len(lItems(i)) <> 0 Then
                                 .dData = lItems(i)
-                                IniFileHelper.WriteINI(lSettings.lINI.iDCC, "Ignore", Trim(i.ToString), .dData)
+                                IniFileHelper.WriteINI(Modules.lSettings.lINI.iDCC, "Ignore", Trim(i.ToString), .dData)
                             Else
                                 .dData = ""
                             End If
@@ -87,9 +88,9 @@ Namespace IRC.Customize
         End Sub
         Public Sub cmdCompatibilityEnable_Click(ByVal _Name As String, ByVal _ListItem As ListViewDataItem)
             Try
-                For i As Integer = 1 To lSettings.lCompatibility.cCount
-                    If lSettings.lCompatibility.cCompatibility(i).cDescription = _Name Then
-                        lSettings.lCompatibility.cCompatibility(i).cEnabled = True
+                For i As Integer = 1 To Modules.lSettings.lCompatibility.cCount
+                    If Modules.lSettings.lCompatibility.cCompatibility(i).cDescription = _Name Then
+                        Modules.lSettings.lCompatibility.cCompatibility(i).cEnabled = True
                         _ListItem.Item(1) = "True"
                         Exit For
                     End If
@@ -100,9 +101,9 @@ Namespace IRC.Customize
         End Sub
         Public Sub cmdCompatibilityDisable_Click(ByVal _Name As String, ByVal _ListItem As ListViewDataItem)
             Try
-                For i As Integer = 1 To lSettings.lCompatibility.cCount
-                    If lSettings.lCompatibility.cCompatibility(i).cDescription = _Name Then
-                        lSettings.lCompatibility.cCompatibility(i).cEnabled = False
+                For i As Integer = 1 To Modules.lSettings.lCompatibility.cCount
+                    If Modules.lSettings.lCompatibility.cCompatibility(i).cDescription = _Name Then
+                        Modules.lSettings.lCompatibility.cCompatibility(i).cEnabled = False
                         _ListItem.Item(1) = "False"
                         Exit For
                     End If
@@ -138,7 +139,7 @@ Namespace IRC.Customize
                 If Len(msg) <> 0 Then
                     _ListBox.Items.Add(msg)
                 Else
-                    If lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Warning: No items were added!", MsgBoxStyle.Critical)
+                    If Modules.lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Warning: No items were added!", MsgBoxStyle.Critical)
                 End If
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Private Sub cmdAddIgnoreExtension_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddIgnoreExtension.Click")
@@ -161,13 +162,13 @@ Namespace IRC.Customize
         Public Sub lvwServers_DoubleClick(ByVal _CheckBox As RadCheckBox, ByVal _Form As Form)
             Try
                 If _CheckBox.Checked = True Then
-                    lStatus.Create(lSettings.lIRC, lSettings.lServers)
+                    Modules.lStatus.Create(Modules.IrcSettings, Modules.lSettings.lServers)
                     Application.DoEvents()
                 End If
-                If lStatus.ActiveIndex() <> 0 Then
+                If Modules.lStatus.ActiveIndex() <> 0 Then
                     RaiseEvent Apply()
                     RaiseEvent Save()
-                    lStatus.ActiveStatusConnect()
+                    Modules.lStatus.ActiveStatusConnect()
                 End If
                 RaiseEvent Close()
             Catch ex As Exception
@@ -178,7 +179,7 @@ Namespace IRC.Customize
             Try
                 Dim _MsgBoxResult As MsgBoxResult, msg As String
                 msg = _DropDownList.SelectedItem.ToString
-                If lSettings.lIRC.iSettings.sPrompts = True Then
+                If Modules.lSettings.lIRC.iSettings.sPrompts = True Then
                     _MsgBoxResult = MsgBox("Really, delete '" & msg & "'?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question)
                 Else
                     _MsgBoxResult = MsgBoxResult.Yes
@@ -204,7 +205,7 @@ Namespace IRC.Customize
             Try
                 Dim i As Integer
                 If (_ListView.SelectedItem IsNot Nothing) Then
-                    i = lSettings.FindServerIndexByIp(_ListView.SelectedItem.Item(1).ToString)
+                    i = Modules.lSettings.FindServerIndexByIp(_ListView.SelectedItem.Item(1).ToString)
                     If (i <> 0) Then
                         frmEditServer.Show()
                         frmEditServer.SetServerInfo(i)
@@ -218,7 +219,7 @@ Namespace IRC.Customize
             Try
                 Dim _MessageBoxResult As MsgBoxResult
                 For Each _Item As Telerik.WinControls.UI.ListViewDataItem In _ListView.SelectedItems
-                    If lSettings.lIRC.iSettings.sPrompts = True Then
+                    If Modules.lSettings.lIRC.iSettings.sPrompts = True Then
                         _MessageBoxResult = MsgBox("Are you sure you wish to remove '" & _Item.Text & "'?", MsgBoxStyle.YesNoCancel Or MsgBoxStyle.Question)
                     Else
                         _MessageBoxResult = MsgBoxResult.Yes
@@ -254,18 +255,14 @@ Namespace IRC.Customize
             End Try
         End Sub
         Public Sub lvwNotify_SelectedIndexChanged(ByVal _NotifyListView As RadListView, ByVal _NotifyNickNameTextBox As RadTextBox, ByVal _NotifyMessageTextBox As RadTextBox, ByVal _NetworkNotifyDropDownList As RadDropDownList)
-            Try
-                Dim i As Integer, n As Integer
-                For i = 0 To _NotifyListView.SelectedItems.Count - 1
-                    n = lSettings.FindNotifyIndex(_NotifyListView.SelectedItems(i).Text)
-                    _NotifyNickNameTextBox.Text = lSettings.lNotify.nNotify(n).nNickName
-                    _NotifyMessageTextBox.Text = lSettings.lNotify.nNotify(n).nMessage
-                    _NetworkNotifyDropDownList.SelectedItem = _NetworkNotifyDropDownList.Items(FindRadComboIndex(_NetworkNotifyDropDownList, lSettings.lNotify.nNotify(n).nNetwork))
-                    Exit For
-                Next i
-            Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub lvwNotify_SelectedIndexChanged(_NotifyListView As RadListView, _NotifyNickNameTextBox As RadTextBox, _NotifyMessageTextBox As RadTextBox, _NetworkNotify As RadTextBox, _NetworkNotifyDropDownList As RadDropDownList)")
-            End Try
+            Dim i As Integer, n As Integer
+            For i = 0 To _NotifyListView.SelectedItems.Count - 1
+                n = Modules.lSettings.FindNotifyIndex(_NotifyListView.SelectedItems(i).Text)
+                _NotifyNickNameTextBox.Text = Modules.lSettings.lNotify.nNotify(n).nNickName
+                _NotifyMessageTextBox.Text = Modules.lSettings.lNotify.nNotify(n).nMessage
+                _NetworkNotifyDropDownList.SelectedItem = _NetworkNotifyDropDownList.Items(Modules.FindRadComboIndex(_NetworkNotifyDropDownList, Modules.lSettings.lNotify.nNotify(n).nNetwork))
+                Exit For
+            Next i
         End Sub
         Public Sub cmdEditString_Click(ByVal _StringsListView As RadListView)
             Try
@@ -283,9 +280,9 @@ Namespace IRC.Customize
                     f.txtSyntax.Text = lItem.Item(2).ToString
                     f.cboNumeric.Text = lItem.Item(3).ToString
                     f.txtData.Text = lItem.Item(4).ToString
-                    n = lStrings.FindStringIndexByDescription(lItem.Text)
+                    n = Modules.lStrings.FindStringIndexByDescription(lItem.Text)
                     For i = 1 To 6
-                        msg = IniFileHelper.ReadINI(lSettings.lINI.iText, Trim(Convert.ToString(n)), "Find" & Trim(Str(i)), "")
+                        msg = IniFileHelper.ReadINI(Modules.lSettings.lINI.iText, Trim(Convert.ToString(n)), "Find" & Trim(Str(i)), "")
                         If Len(msg) <> 0 Then f.lstParameters.Items.Add(msg)
                     Next i
                 End If
@@ -296,7 +293,7 @@ Namespace IRC.Customize
         Public Sub cmdServersClear_Click(ByVal _Network As String, ByVal _RadListView As RadListView)
             Try
                 Dim _MsgBoxResult As MsgBoxResult
-                If lSettings.lIRC.iSettings.sPrompts = True Then
+                If Modules.lSettings.lIRC.iSettings.sPrompts = True Then
                     _MsgBoxResult = MsgBox("Are you sure you wish to clear the irc servers for the network '" & _Network & "'?", vbYesNo)
                     If _MsgBoxResult = MsgBoxResult.Yes Then _RadListView.Items.Clear()
                 Else
@@ -312,7 +309,7 @@ Namespace IRC.Customize
                 f = New frmChooseNetwork
                 With f
                     .lChooseNetwork.lNetworkIndex = Modules.IrcSettings.IrcNetworks.Find(_Network).Id
-                    .lChooseNetwork.lServerToChange = lSettings.FindServerIndexByIp(_Server)
+                    .lChooseNetwork.lServerToChange = Modules.lSettings.FindServerIndexByIp(_Server)
                     f.Show()
                 End With
             Catch ex As Exception
@@ -324,12 +321,12 @@ Namespace IRC.Customize
             Try
                 result = False
                 If (newStatus = True) Then
-                    lStatus.Create(lSettings.lIRC, lSettings.lServers)
+                    Modules.lStatus.Create(Modules.IrcSettings, Modules.lSettings.lServers)
                     Application.DoEvents()
                 End If
-                If lStatus.ActiveIndex() <> 0 Then
+                If Modules.lStatus.ActiveIndex() <> 0 Then
                     result = True
-                    lStatus.ActiveStatusConnect()
+                    Modules.lStatus.ActiveStatusConnect()
                 End If
                 form.Close()
                 Return result
@@ -343,11 +340,11 @@ Namespace IRC.Customize
             Try
                 _Result = False
                 If _NewStatus = True Then
-                    lStatus.Create(lSettings.lIRC, lSettings.lServers)
+                    Modules.lStatus.Create(Modules.IrcSettings, Modules.lSettings.lServers)
                     Application.DoEvents()
                 Else
-                    If lStatus.Connected(lStatus.ActiveIndex) = True Then
-                        If lSettings.lIRC.iSettings.sPrompts = True Then
+                    If Modules.lStatus.Connected(Modules.lStatus.ActiveIndex) = True Then
+                        If Modules.lSettings.lIRC.iSettings.sPrompts = True Then
                             mbox = MsgBox("You are currently connected on this status window, you will not be able to change the server settings if you continue, would you like to continue anyways?", MsgBoxStyle.YesNoCancel Or MsgBoxStyle.Question)
                             If (mbox = MsgBoxResult.Yes) Then
                                 _Result = True
@@ -388,7 +385,7 @@ Namespace IRC.Customize
         End Sub
         Public Sub frmCustomize_FormClosed()
             Try
-                lSettings.lWinVisible.wCustomize = False
+                Modules.lSettings.lWinVisible.wCustomize = False
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub frmCustomize_FormClosed()")
             End Try
@@ -428,7 +425,7 @@ Namespace IRC.Customize
         End Sub
         Public Sub cmdClearNotify_Click(ByVal _NotifyListView As RadListView)
             Try
-                lSettings.lNotify.nModified = True
+                Modules.lSettings.lNotify.nModified = True
                 _NotifyListView.Items.Clear()
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub cmdClearNotify_Click()")
@@ -437,12 +434,12 @@ Namespace IRC.Customize
         Public Sub cmdNotifyAdd_Click(ByVal _NotifyListView As RadListView)
             Try
                 Dim _Notify As New gNotify
-                lSettings.lNotify.nModified = True
+                Modules.lSettings.lNotify.nModified = True
                 AddToNotifyListView("Users Nickname", "Notify Message", "Network Name", _NotifyListView)
                 _Notify.nNickName = "Users Nickname"
                 _Notify.nMessage = "Notify Message"
                 _Notify.nNetwork = "My Network"
-                lSettings.AddToNotifyList(_Notify)
+                Modules.lSettings.AddToNotifyList(_Notify)
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Private Sub cmdAddNotify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddNotify.Click")
             End Try
@@ -475,7 +472,7 @@ Namespace IRC.Customize
         Public Sub Form_Load(ByVal _Form As Form, ByVal _CancelButton As RadButton, ByVal _ServersListView As RadListView)
             Try
                 _Form.CancelButton = _CancelButton
-                lSettings.lWinVisible.wCustomize = True
+                Modules.lSettings.lWinVisible.wCustomize = True
                 With _ServersListView.Columns
                     .Clear()
                     .Add(New ListViewDetailColumn("Description", "Description"))
@@ -512,8 +509,8 @@ Namespace IRC.Customize
         'Try
         'Dim i As Integer
         '_RadDropDownList.Items.Clear()
-        'For i = 1 To lSettings.lNetworks.nCount
-        'With lSettings.lNetworks.nNetwork(i)
+        'For i = 1 To Modules.lSettings.lNetworks.nCount
+        'With Modules.lSettings.lNetworks.nNetwork(i)
         'If Len(.nDescription) <> 0 Then
         '_RadDropDownList.Items.Add(.nDescription)
         'End If
@@ -529,8 +526,8 @@ Namespace IRC.Customize
                 Dim i As Integer, t As Integer = 0, _Ip As String = "", _Port As String = "", n As Integer = -1
                 _RadListView.Items.Clear()
                 If _NetworkIndex <> 0 Then
-                    For i = 1 To lSettings.lServers.sCount
-                        With lSettings.lServers.sServer(i)
+                    For i = 1 To Modules.lSettings.lServers.sCount
+                        With Modules.lSettings.lServers.sServer(i)
                             If Len(.sDescription) <> 0 Then
                                 If .sNetworkIndex = _NetworkIndex Then
                                     Dim _Values(2) As String
@@ -545,7 +542,7 @@ Namespace IRC.Customize
                         End With
                     Next i
                     For Each _DataItem As ListViewDataItem In _RadListView.Items
-                        If _DataItem.Text = lSettings.lServers.sServer(lSettings.lServers.sIndex).sDescription Then
+                        If _DataItem.Text = Modules.lSettings.lServers.sServer(Modules.lSettings.lServers.sIndex).sDescription Then
                             n = t
                             Exit For
                         End If
@@ -561,7 +558,7 @@ Namespace IRC.Customize
             Try
                 If (_NotifyListView.SelectedItem IsNot Nothing) Then
                     _NotifyListView.SelectedItem.Item(2) = _NotifyNetwork
-                    lSettings.lNotify.nModified = True
+                    Modules.lSettings.lNotify.nModified = True
                 End If
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub txtNotifyNetwork_TextChanged(_NotifyNetwork As String, _NotifyListView As RadListView)")
@@ -571,7 +568,7 @@ Namespace IRC.Customize
             Try
                 If (_NotifyListView.SelectedItem IsNot Nothing) Then
                     _NotifyListView.SelectedItem.Item(1) = _NotifyMessage
-                    lSettings.lNotify.nModified = True
+                    Modules.lSettings.lNotify.nModified = True
                 End If
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub txtNotifyMessage_TextChanged(_NotifyMessage As String, _NotifyListView As RadListView)")
@@ -580,10 +577,10 @@ Namespace IRC.Customize
         Public Sub Apply_Settings_Servers(ByVal _ServersListView As RadListView, ByVal _SelectedNetwork As String)
             Try
                 If (_ServersListView.SelectedItem IsNot Nothing) Then
-                    If (_ServersListView.SelectedItem IsNot Nothing) Then lSettings.lServers.sIndex = lSettings.FindServerIndexByIp(_ServersListView.SelectedItem.Item(1).ToString)
+                    If (_ServersListView.SelectedItem IsNot Nothing) Then Modules.lSettings.lServers.sIndex = Modules.lSettings.FindServerIndexByIp(_ServersListView.SelectedItem.Item(1).ToString)
                     Modules.IrcSettings.IrcNetworks.SetDefault(Modules.IrcSettings.IrcNetworks.Find(_SelectedNetwork))
-                    If Not (lStatus.Connected(lStatus.ActiveIndex)) Then
-                        lStatus.SetStatus(lStatus.ActiveIndex)
+                    If Not (Modules.lStatus.Connected(Modules.lStatus.ActiveIndex)) Then
+                        Modules.lStatus.SetStatus(Modules.lStatus.ActiveIndex)
                     End If
                 End If
             Catch ex As Exception
@@ -596,7 +593,7 @@ Namespace IRC.Customize
             ByVal _ShowBrowser As Boolean
         )
             Try
-                With lSettings.lIRC.iSettings
+                With Modules.lSettings.lIRC.iSettings
                     .sAutoConnect = _AutoConnect
                     .sCustomizeOnStartup = _ShowCustomize
                 End With
@@ -612,18 +609,18 @@ Namespace IRC.Customize
                                        ByVal _UnSupportedTextHide As Boolean)
             Try
                 If (_UnknownTextStatus) Then
-                    lSettings.lIRC.iSettings.sStringSettings.sUnknowns = eUnknownsIn.uStatusWindow
+                    Modules.lSettings.lIRC.iSettings.sStringSettings.sUnknowns = eUnknownsIn.uStatusWindow
                 ElseIf (_UnknownTextOwn) Then
-                    lSettings.lIRC.iSettings.sStringSettings.sUnknowns = eUnknownsIn.uOwnWindow
+                    Modules.lSettings.lIRC.iSettings.sStringSettings.sUnknowns = eUnknownsIn.uOwnWindow
                 ElseIf (_UnknownTextHide) Then
-                    lSettings.lIRC.iSettings.sStringSettings.sUnknowns = eUnknownsIn.uHide
+                    Modules.lSettings.lIRC.iSettings.sStringSettings.sUnknowns = eUnknownsIn.uHide
                 End If
                 If (_UnSupportedTextStatus) Then
-                    lSettings.lIRC.iSettings.sStringSettings.sUnsupported = eUnsupportedIn.uStatusWindow
+                    Modules.lSettings.lIRC.iSettings.sStringSettings.sUnsupported = eUnsupportedIn.uStatusWindow
                 ElseIf (_UnSupportedTextOwn) Then
-                    lSettings.lIRC.iSettings.sStringSettings.sUnsupported = eUnsupportedIn.uOwnWindow
+                    Modules.lSettings.lIRC.iSettings.sStringSettings.sUnsupported = eUnsupportedIn.uOwnWindow
                 ElseIf (_UnSupportedTextHide) Then
-                    lSettings.lIRC.iSettings.sStringSettings.sUnsupported = eUnsupportedIn.uHide
+                    Modules.lSettings.lIRC.iSettings.sStringSettings.sUnsupported = eUnsupportedIn.uHide
                 End If
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings_Text")
@@ -636,7 +633,7 @@ Namespace IRC.Customize
                                  ByVal _HideMotds As Boolean
         )
             Try
-                With lSettings.lIRC.iSettings
+                With Modules.lSettings.lIRC.iSettings
                     .sNoIRCMessages = _NoIrcMessages
                     .sExtendedMessages = _ExtendedMessages
                     .sShowUserAddresses = _ShowUserAddresses
@@ -655,7 +652,7 @@ Namespace IRC.Customize
                                  ByVal _ServerNotices As Boolean
         )
             Try
-                With lSettings.lIRC.iModes
+                With Modules.lSettings.lIRC.iModes
                     .mInvisible = _Invisible
                     .mLocalOperator = _LocalOp
                     .mOperator = _Operator
@@ -684,7 +681,7 @@ Namespace IRC.Customize
                                  ByVal _TextBufferSize As Integer,
                                  ByVal _AutoSelectAlternateNickname As Boolean)
             Try
-                With lSettings.lIRC.iSettings
+                With Modules.lSettings.lIRC.iSettings
                     .sPrompts = _Prompts
                     .sShowWindowsAutomatically = _AutoShowWindows
                     .sAutoMaximize = _AutoMaximized
@@ -716,23 +713,23 @@ Namespace IRC.Customize
                                       ByVal _DownloadDirectory As String)
             Try
                 If (_DccChatPrompt) Then
-                    lSettings_DCC.lDCC.dChatPrompt = eDccPrompt.ePrompt
+                    Modules.lSettings_DCC.dChatPrompt = eDccPrompt.ePrompt
                 ElseIf (_DccChatAcceptAll) Then
-                    lSettings_DCC.lDCC.dChatPrompt = eDccPrompt.eAcceptAll
+                    Modules.lSettings_DCC.dChatPrompt = eDccPrompt.eAcceptAll
                 ElseIf (_DccChatIgnore) Then
-                    lSettings_DCC.lDCC.dChatPrompt = eDccPrompt.eIgnore
+                    Modules.lSettings_DCC.dChatPrompt = eDccPrompt.eIgnore
                 End If
                 If (_DccSendPrompt) Then
-                    lSettings_DCC.lDCC.dSendPrompt = eDccPrompt.ePrompt
+                    Modules.lSettings_DCC.dSendPrompt = eDccPrompt.ePrompt
                 ElseIf (_DccSendAcceptAll) Then
-                    lSettings_DCC.lDCC.dSendPrompt = eDccPrompt.eAcceptAll
+                    Modules.lSettings_DCC.dSendPrompt = eDccPrompt.eAcceptAll
                 ElseIf (_DccSendIgnore) Then
-                    lSettings_DCC.lDCC.dSendPrompt = eDccPrompt.eIgnore
+                    Modules.lSettings_DCC.dSendPrompt = eDccPrompt.eIgnore
                 End If
-                lSettings_DCC.lDCC.dAutoCloseDialogs = _AutoCloseDccDialogs
-                lSettings_DCC.lDCC.dAutoIgnore = _OnlyAllowUsersInNotifyList
-                lSettings_DCC.lDCC.dDownloadDirectory = _DownloadDirectory
-                lSettings_DCC.lDCC.dPopupDownloadManager = _PopupDownloadManager
+                Modules.lSettings_DCC.dAutoCloseDialogs = _AutoCloseDccDialogs
+                Modules.lSettings_DCC.dAutoIgnore = _OnlyAllowUsersInNotifyList
+                Modules.lSettings_DCC.dDownloadDirectory = _DownloadDirectory
+                Modules.lSettings_DCC.dPopupDownloadManager = _PopupDownloadManager
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub Apply_Settings_DCC()")
             End Try
@@ -740,23 +737,23 @@ Namespace IRC.Customize
         Public Sub Apply_Settings_User(ByVal _NickNamesDropDownList As RadDropDownList, ByVal _HomePage As String, ByVal _UserEmail As String, ByVal _Password As String, ByVal _RealName As String, ByVal _OperName As String, ByVal _OperPassword As String)
             Try
                 Dim _SelectedNick As String = "", _LastSelectedNickName As String = "", splt() As String
-                If lSettings.lIRC.iNicks.nIndex <> 0 Then _LastSelectedNickName = lSettings.lIRC.iNicks.nNick(lSettings.lIRC.iNicks.nIndex).nNick
-                lSettings.lIRC.iNicks = New gNicks()
-                ReDim lSettings.lIRC.iNicks.nNick(lSettings.lArraySizes.aNickNames)
+                If Modules.lSettings.lIRC.iNicks.nIndex <> 0 Then _LastSelectedNickName = Modules.lSettings.lIRC.iNicks.nNick(Modules.lSettings.lIRC.iNicks.nIndex).nNick
+                Modules.lSettings.lIRC.iNicks = New gNicks()
+                ReDim Modules.lSettings.lIRC.iNicks.nNick(Modules.lSettings.lArraySizes.aNickNames)
                 For i As Integer = 0 To _NickNamesDropDownList.Items.Count - 1
-                    lSettings.lIRC.iNicks.nNick(i + 1).nNick = _NickNamesDropDownList.Items(i).Text
+                    Modules.lSettings.lIRC.iNicks.nNick(i + 1).nNick = _NickNamesDropDownList.Items(i).Text
                     If (i = _NickNamesDropDownList.SelectedIndex) Then
                         _SelectedNick = _NickNamesDropDownList.Items(i).Text
                     End If
                 Next i
-                lSettings.lIRC.iNicks.nCount = _NickNamesDropDownList.Items.Count
+                Modules.lSettings.lIRC.iNicks.nCount = _NickNamesDropDownList.Items.Count
                 If (_SelectedNick.Length <> 0) Then
-                    lSettings.lIRC.iNicks.nIndex = lSettings.FindNickNameIndex(_SelectedNick)
+                    Modules.lSettings.lIRC.iNicks.nIndex = Modules.lSettings.FindNickNameIndex(_SelectedNick)
                 Else
-                    lSettings.lIRC.iNicks.nIndex = lSettings.FindNickNameIndex(_LastSelectedNickName)
+                    Modules.lSettings.lIRC.iNicks.nIndex = Modules.lSettings.FindNickNameIndex(_LastSelectedNickName)
                 End If
-                lSettings.lIRC.iSettings.sURL = _HomePage
-                With lSettings.lIRC
+                Modules.lSettings.lIRC.iSettings.sURL = _HomePage
+                With Modules.lSettings.lIRC
                     .iEMail = _UserEmail
                     .iPass = _Password
                     .iOperName = _OperName
@@ -776,7 +773,7 @@ Namespace IRC.Customize
             Try
                 If (_NotifyListView.SelectedItem IsNot Nothing) Then
                     _NotifyListView.SelectedItem.Item(0) = _NotifyNickName
-                    lSettings.lNotify.nModified = True
+                    Modules.lSettings.lNotify.nModified = True
                 End If
             Catch ex As Exception
                 Throw ex 'ProcessError(ex.Message, "Public Sub txtNotifyNickname_TextChanged(_NotifyNickNameTextBox As RadTextBox, _NotifyListView As ListView)")

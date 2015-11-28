@@ -1,5 +1,4 @@
 ﻿Public Class FrmLoading
-
     Private Sub FrmLoading_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Text = "nexIRC - v" & Application.ProductVersion
         Me.Visible = True

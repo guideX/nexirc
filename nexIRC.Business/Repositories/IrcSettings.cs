@@ -1,7 +1,7 @@
 ﻿using System;
-namespace nexIRC.IrcSettings {
+namespace nexIRC.Business.Repositories {
     public class IrcSettings {
-        public ChannelFolders ChannelFolders;
+        public ChannelFolderRepository ChannelFoldersRepo;
         public NetworkSettings IrcNetworks;
         public QuerySettings QuerySettings;
         //public CompatibilitySettings CompatibilitySettings;
@@ -11,7 +11,7 @@ namespace nexIRC.IrcSettings {
         /// <param name="startupPath"></param>
         public IrcSettings(string startupPath) {
             try {
-                ChannelFolders = new ChannelFolders(startupPath);
+                ChannelFoldersRepo = new ChannelFolderRepository(startupPath);
                 IrcNetworks = new NetworkSettings(startupPath);
                 QuerySettings = new QuerySettings(startupPath);
                 //CompatibilitySettings = new CompatibilitySettings(startupPath);

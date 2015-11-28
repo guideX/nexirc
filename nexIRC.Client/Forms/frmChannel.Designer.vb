@@ -59,7 +59,7 @@ Partial Class frmChannel
         '
         'cmdClear
         '
-        Me.cmdClear.Image = Global.nexIRC.My.Resources.Resources.delete
+        Me.cmdClear.Image = My.Resources.Resources.delete
         Me.cmdClear.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdClear.Name = "cmdClear"
         Me.cmdClear.Size = New System.Drawing.Size(60, 22)

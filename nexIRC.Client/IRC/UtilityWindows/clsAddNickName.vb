@@ -3,8 +3,7 @@
 Option Explicit On
 Option Strict On
 Imports Telerik.WinControls.UI
-Imports nexIRC.Modules
-Namespace IRC.UtilityWindows
+Namespace nexIRC.Client.IRC.Status.UtilityWindows
     Public Class clsAddNickName
         Public Sub Form_Load(_RadTextBox As RadTextBox)
             Try
@@ -33,7 +32,7 @@ Namespace IRC.UtilityWindows
         Public Sub txtNickname_KeyPress(_Form As Form, _Char As Char, _NickName As String)
             Try
                 If _Char = Convert.ToChar(Microsoft.VisualBasic.ChrW(Keys.Return)) Then
-                    lSettings.AddNickName(_NickName)
+                    Modules.lSettings.AddNickName(_NickName)
                     _Form.Close()
                 End If
             Catch ex As Exception

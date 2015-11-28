@@ -1,8 +1,9 @@
-'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Modules
+Imports nexIRC.Client.nexIRC.Client
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
+Imports nexIRC.Client.nexIRC.Client.IRC.Services
 
 Public Class frmNickServLogin
     Private lStatusIndex As Integer
@@ -16,16 +17,11 @@ Public Class frmNickServLogin
     End Sub
 
     Private Sub frmNickServLogin_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Try
-            Me.Icon = mdiMain.Icon
-            txtNickname.Text = lSettings_Services.lNickServ.nLoginNickname
-            txtPassword.Text = lSettings_Services.lNickServ.nLoginPassword
-            chkLoginOnConnect.Checked = lSettings_Services.lNickServ.nLoginOnConnect
-            chkShowOnConnect.Checked = lSettings_Services.lNickServ.nShowOnConnect
-            'chkXEnable.Checked = lNickServ.nEnable
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Me.Icon = mdiMain.Icon
+        txtNickname.Text = Modules.lSettings_Services.lNickServ.nLoginNickname
+        txtPassword.Text = Modules.lSettings_Services.lNickServ.nLoginPassword
+        chkLoginOnConnect.Checked = Modules.lSettings_Services.lNickServ.nLoginOnConnect
+        chkShowOnConnect.Checked = Modules.lSettings_Services.lNickServ.nShowOnConnect
     End Sub
 
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
@@ -40,14 +36,14 @@ Public Class frmNickServLogin
         Dim settings As BotSettings
         Try
             settings = New BotSettings()
-            lSettings_Services.lNickServ.nLoginNickname = txtNickname.Text
-            lSettings_Services.lNickServ.nLoginPassword = txtPassword.Text
-            lSettings_Services.lNickServ.nShowOnConnect = Convert.ToBoolean(chkShowOnConnect.Checked)
-            lSettings_Services.lNickServ.nLoginOnConnect = Convert.ToBoolean(chkLoginOnConnect.Checked)
-            settings.Email = lSettings_Services.lNickServ.nLoginNickname
-            settings.Password = lSettings_Services.lNickServ.nLoginPassword
-            lStatus.GetObject(lStatusIndex).sNickBot.Login(settings)
-            lSettings_Services.SaveServices()
+            Modules.lSettings_Services.lNickServ.nLoginNickname = txtNickname.Text
+            Modules.lSettings_Services.lNickServ.nLoginPassword = txtPassword.Text
+            Modules.lSettings_Services.lNickServ.nShowOnConnect = Convert.ToBoolean(chkShowOnConnect.Checked)
+            Modules.lSettings_Services.lNickServ.nLoginOnConnect = Convert.ToBoolean(chkLoginOnConnect.Checked)
+            settings.Email = Modules.lSettings_Services.lNickServ.nLoginNickname
+            settings.Password = Modules.lSettings_Services.lNickServ.nLoginPassword
+            Modules.lStatus.GetObject(lStatusIndex).sNickBot.Login(settings)
+            Modules.lSettings_Services.SaveServices()
             Me.Close()
         Catch ex As Exception
             Throw ex

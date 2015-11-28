@@ -1,7 +1,9 @@
-﻿'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
-Option Explicit On
+﻿Option Explicit On
 Option Strict On
+Imports nexIRC.Client.nexIRC.Client
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
+
 Public Class frmDccChatPrompt
     Private lNickName As String
     Private lAddress As String

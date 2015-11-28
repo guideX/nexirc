@@ -1,8 +1,8 @@
-'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Modules
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
+Imports nexIRC.Client.nexIRC.Client
 
 Public Class frmRaw
     Private lStatusIndex As Integer
@@ -15,14 +15,14 @@ Public Class frmRaw
 
     Private Sub frmRaw_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         'On Error Resume Next
-        lStatus.SetRawWindowClosed(lStatusIndex)
-        lStatus.SetRawData(lStatusIndex, txtInData.Text, txtOutData.Text)
+        Modules.lStatus.SetRawWindowClosed(lStatusIndex)
+        Modules.lStatus.SetRawData(lStatusIndex, txtInData.Text, txtOutData.Text)
         'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub frmRaw_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing")
     End Sub
 
     Private Sub frmRaw_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.GotFocus
         'On Error Resume Next
-        lStatus.ActiveIndex = lStatusIndex
+        Modules.lStatus.ActiveIndex = lStatusIndex
         'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub frmRaw_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.GotFocus")
     End Sub
 
@@ -45,7 +45,7 @@ Public Class frmRaw
 
     Private Sub txtOutData_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtOutData.GotFocus
         'On Error Resume Next
-        If lSettings.lIRC.iSettings.sAutoMaximize = True Then Me.WindowState = FormWindowState.Maximized
+        If Modules.lSettings.lIRC.iSettings.sAutoMaximize = True Then Me.WindowState = FormWindowState.Maximized
         'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub txtOutData_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtOutData.GotFocus")
     End Sub
 
@@ -57,7 +57,7 @@ Public Class frmRaw
 
     Private Sub txtInData_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtInData.GotFocus
         'On Error Resume Next
-        If lSettings.lIRC.iSettings.sAutoMaximize = True Then Me.WindowState = FormWindowState.Maximized
+        If Modules.lSettings.lIRC.iSettings.sAutoMaximize = True Then Me.WindowState = FormWindowState.Maximized
         'If Err.Number <> 0 Then Throw ex 'ProcessError(ex.Message, "Private Sub txtInData_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtInData.GotFocus")
     End Sub
 

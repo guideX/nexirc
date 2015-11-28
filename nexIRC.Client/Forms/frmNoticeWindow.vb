@@ -2,8 +2,10 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Modules
 Imports nexIRC.Business.Helpers
+Imports nexIRC.Client.nexIRC.Client.IRC.Numerics
+Imports nexIRC.Client.nexIRC.Client.Classes
+Imports nexIRC.Client.nexIRC.Client
 
 Public Class frmNoticeWindow
     Private lStatusIndex As Integer
@@ -54,7 +56,7 @@ Public Class frmNoticeWindow
 
     Public Sub DoNoticeColor(ByVal lData As String)
         Try
-            lStrings.Print(lData, txtIncoming)
+            Modules.lStrings.Print(lData, txtIncoming)
         Catch ex As Exception
             Throw ex
         End Try
@@ -70,7 +72,7 @@ Public Class frmNoticeWindow
 
     Private Sub frmNoticeWindow_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.GotFocus
         Try
-            lStatus.ActiveIndex = lStatusIndex
+            Modules.lStatus.ActiveIndex = lStatusIndex
         Catch ex As Exception
             Throw ex
         End Try
@@ -89,8 +91,8 @@ Public Class frmNoticeWindow
             Button1.Visible = False
             Me.Icon = mdiMain.Icon
             Me.MdiParent = mdiMain
-            Me.Width = lSettings.lIRC.iSettings.sWindowSizes.iNotice.wWidth
-            Me.Height = lSettings.lIRC.iSettings.sWindowSizes.iNotice.wHeight
+            Me.Width = Modules.lSettings.lIRC.iSettings.sWindowSizes.iNotice.wWidth
+            Me.Height = Modules.lSettings.lIRC.iSettings.sWindowSizes.iNotice.wHeight
         Catch ex As Exception
             Throw ex
         End Try
@@ -111,16 +113,16 @@ Public Class frmNoticeWindow
                 If TextHelper.LeftRight(txtOutgoing.Text, 0, 1) = "/" Then
                     msg = txtOutgoing.Text
                     txtOutgoing.Text = ""
-                    lStatus.ProcessUserInput(lStatusIndex, msg)
+                    Modules.lStatus.ProcessUserInput(lStatusIndex, msg)
                     e.Handled = True
                 Else
                     If (Not String.IsNullOrEmpty(txtOutgoing.Text)) Then
                         If (lMdiWindow.FormType = MdiChildWindow.FormTypes.PrivateMessage) Then
                             msg = txtOutgoing.Text
-                            lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & _privateMessageNickName & " :" & msg)
+                            Modules.lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & _privateMessageNickName & " :" & msg)
                             txtOutgoing.Text = ""
                             e.Handled = True
-                            DoNoticeColor(lStrings.ReturnReplacedString(clsIrcNumerics.eStringTypes.sPRIVMSG, lStatus.NickName(lStatusIndex), msg))
+                            DoNoticeColor(Modules.lStrings.ReturnReplacedString(clsIrcNumerics.eStringTypes.sPRIVMSG, Modules.lStatus.NickName(lStatusIndex), msg))
                         End If
                     End If
                 End If

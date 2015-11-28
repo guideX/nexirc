@@ -58,7 +58,7 @@ Partial Class frmChannelList
         'cmdRefresh
         '
         Me.cmdRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmdRefresh.Image = Global.nexIRC.My.Resources.Resources.network
+        Me.cmdRefresh.Image = My.Resources.Resources.network
         Me.cmdRefresh.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdRefresh.Name = "cmdRefresh"
         Me.cmdRefresh.Size = New System.Drawing.Size(23, 22)
@@ -72,7 +72,7 @@ Partial Class frmChannelList
         'cmdAddToChannelFolder
         '
         Me.cmdAddToChannelFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmdAddToChannelFolder.Image = Global.nexIRC.My.Resources.Resources.add
+        Me.cmdAddToChannelFolder.Image = My.Resources.Resources.add
         Me.cmdAddToChannelFolder.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdAddToChannelFolder.Name = "cmdAddToChannelFolder"
         Me.cmdAddToChannelFolder.Size = New System.Drawing.Size(23, 22)
@@ -81,7 +81,7 @@ Partial Class frmChannelList
         'cmdAddToAutoJoin
         '
         Me.cmdAddToAutoJoin.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmdAddToAutoJoin.Image = Global.nexIRC.My.Resources.Resources.add
+        Me.cmdAddToAutoJoin.Image = My.Resources.Resources.add
         Me.cmdAddToAutoJoin.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdAddToAutoJoin.Name = "cmdAddToAutoJoin"
         Me.cmdAddToAutoJoin.Size = New System.Drawing.Size(23, 22)
@@ -95,7 +95,7 @@ Partial Class frmChannelList
         'cmdClose
         '
         Me.cmdClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmdClose.Image = Global.nexIRC.My.Resources.Resources.close
+        Me.cmdClose.Image = My.Resources.Resources.close
         Me.cmdClose.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.Size = New System.Drawing.Size(23, 22)

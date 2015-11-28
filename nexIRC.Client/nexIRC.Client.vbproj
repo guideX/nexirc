@@ -8,9 +8,9 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{72D58ED0-B0F8-48DB-AF6F-62A24788732A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>nexIRC.My.MyApplication</StartupObject>
-    <RootNamespace>nexIRC</RootNamespace>
-    <AssemblyName>nexIRC</AssemblyName>
+    <StartupObject>nexIRC.Client.My.MyApplication</StartupObject>
+    <RootNamespace>nexIRC.Client</RootNamespace>
+    <AssemblyName>nexIRC.Client</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -23,7 +23,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>nexIRC.xml</DocumentationFile>
+    <DocumentationFile>nexIRC.Client.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
@@ -33,7 +33,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>nexIRC.xml</DocumentationFile>
+    <DocumentationFile>nexIRC.Client.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -305,11 +305,9 @@
     <Compile Include="IRC\Numerics\clsIrcNumerics.vb" />
     <Compile Include="IRC\Numerics\clsProcessNumeric.vb" />
     <Compile Include="IRC\Numerics\IrcStrings.vb" />
-    <Compile Include="IRC\Numerics\Modules.vb" />
     <Compile Include="IRC\SendNotice\clsSendNotice.vb" />
     <Compile Include="IRC\ServerLinks\clsServerLinks.vb" />
     <Compile Include="IRC\Services\Bots.vb" />
-    <Compile Include="IRC\Settings\clsDCC.vb" />
     <Compile Include="IRC\Settings\clsServices.vb" />
     <Compile Include="IRC\Settings\Settings.vb" />
     <Compile Include="IRC\Status\Status.vb" />

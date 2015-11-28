@@ -1,8 +1,9 @@
-﻿'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
-Option Explicit On
+﻿Option Explicit On
 Option Strict On
-Imports nexIRC.Modules
+Imports nexIRC.Client.nexIRC.Client
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
+Imports nexIRC.Client.nexIRC.Client.IRC.Channels
 
 Public Class frmChannelFolder
     Private WithEvents channelFolderWindow As New clsChannelFolderUI
@@ -197,7 +198,7 @@ Public Class frmChannelFolder
 
     Private Sub channelFolderWindow_RemoveChannelListBoxItem(channel As String) Handles channelFolderWindow.RemoveChannelListBoxItem
         'Try
-        Modules.IrcSettings.ChannelFolders.Delete(Modules.IrcSettings.ChannelFolders.Find(channel, cboNetwork.Text))
+        Modules.IrcSettings.ChannelFoldersRepo.Delete(Modules.IrcSettings.ChannelFoldersRepo.Find(channel, cboNetwork.Text))
         'Catch ex As Exception
         'Throw ex
         'End Try

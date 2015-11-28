@@ -3,14 +3,14 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Modules
 Imports nexIRC.Business.Helpers
+Imports nexIRC.Client.nexIRC.Client
 
 Public Class frmDownloadManager
     Private Sub frmDownloadManager_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
             Me.Icon = mdiMain.Icon
-            lSettings.SetListViewToDownloadManager(lvwDownloadManager)
+            Modules.lSettings.SetListViewToDownloadManager(lvwDownloadManager)
         Catch ex As Exception
             Throw ex
         End Try

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using nexIRC.Business.Helpers;
-namespace nexIRC.IrcSettings {
+namespace nexIRC.Business.Repositories {
     /// <summary>
     /// Network Data
     /// </summary>

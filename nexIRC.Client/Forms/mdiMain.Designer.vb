@@ -185,7 +185,7 @@ Partial Class mdiMain
         'cmd_Connection
         '
         Me.cmd_Connection.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_RecientServers, Me.cmd_NewStatusWindow, Me.cmd_Sep398269823, Me.mnu_Commands, Me.cmd_Sep39879803269, Me.cmd_Connect, Me.cmd_Disconnect, Me.cmd_CloseConnection, Me.cmd_SelectAServer, Me.cmd_ChangeConnection, Me.cmd_Sep3298079802, Me.cmd_CloseStatus, Me.cmd_Sep398792, Me.cmd_Exit})
-        Me.cmd_Connection.Image = Global.nexIRC.My.Resources.Resources.network1
+        Me.cmd_Connection.Image = My.Resources.Resources.network1
         Me.cmd_Connection.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_Connection.Name = "cmd_Connection"
         Me.cmd_Connection.Size = New System.Drawing.Size(110, 22)
@@ -194,7 +194,7 @@ Partial Class mdiMain
         'cmd_RecientServers
         '
         Me.cmd_RecientServers.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_RecientServer1, Me.cmd_RecientServer2, Me.cmd_RecientServer3, Me.cmd_Sep2387682, Me.cmd_ClearHistory})
-        Me.cmd_RecientServers.Image = Global.nexIRC.My.Resources.Resources.configure
+        Me.cmd_RecientServers.Image = My.Resources.Resources.configure
         Me.cmd_RecientServers.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_RecientServers.Name = "cmd_RecientServers"
         Me.cmd_RecientServers.Size = New System.Drawing.Size(222, 22)
@@ -231,7 +231,7 @@ Partial Class mdiMain
         '
         'cmd_NewStatusWindow
         '
-        Me.cmd_NewStatusWindow.Image = Global.nexIRC.My.Resources.Resources.add1
+        Me.cmd_NewStatusWindow.Image = My.Resources.Resources.add1
         Me.cmd_NewStatusWindow.Name = "cmd_NewStatusWindow"
         Me.cmd_NewStatusWindow.Size = New System.Drawing.Size(222, 22)
         Me.cmd_NewStatusWindow.Text = "New Status Window"
@@ -244,7 +244,7 @@ Partial Class mdiMain
         'mnu_Commands
         '
         Me.mnu_Commands.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_AwayMenu, Me.cmd_ServerLinks, Me.cmd_Whois, Me.cmd_Whowas, Me.cmd_Time, Me.cmd_Stats, Me.cmd_Admin})
-        Me.mnu_Commands.Image = Global.nexIRC.My.Resources.Resources.tools
+        Me.mnu_Commands.Image = My.Resources.Resources.tools
         Me.mnu_Commands.Name = "mnu_Commands"
         Me.mnu_Commands.Size = New System.Drawing.Size(222, 22)
         Me.mnu_Commands.Text = "Commands"
@@ -311,7 +311,7 @@ Partial Class mdiMain
         '
         'cmd_Connect
         '
-        Me.cmd_Connect.Image = Global.nexIRC.My.Resources.Resources.network
+        Me.cmd_Connect.Image = My.Resources.Resources.network
         Me.cmd_Connect.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_Connect.Name = "cmd_Connect"
         Me.cmd_Connect.Size = New System.Drawing.Size(222, 22)
@@ -319,7 +319,7 @@ Partial Class mdiMain
         '
         'cmd_Disconnect
         '
-        Me.cmd_Disconnect.Image = Global.nexIRC.My.Resources.Resources.close
+        Me.cmd_Disconnect.Image = My.Resources.Resources.close
         Me.cmd_Disconnect.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_Disconnect.Name = "cmd_Disconnect"
         Me.cmd_Disconnect.Size = New System.Drawing.Size(222, 22)
@@ -351,7 +351,7 @@ Partial Class mdiMain
         '
         'cmd_CloseStatus
         '
-        Me.cmd_CloseStatus.Image = Global.nexIRC.My.Resources.Resources.close
+        Me.cmd_CloseStatus.Image = My.Resources.Resources.close
         Me.cmd_CloseStatus.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_CloseStatus.Name = "cmd_CloseStatus"
         Me.cmd_CloseStatus.Size = New System.Drawing.Size(222, 22)
@@ -364,7 +364,7 @@ Partial Class mdiMain
         '
         'cmd_Exit
         '
-        Me.cmd_Exit.Image = Global.nexIRC.My.Resources.Resources.delete
+        Me.cmd_Exit.Image = My.Resources.Resources.delete
         Me.cmd_Exit.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_Exit.Name = "cmd_Exit"
         Me.cmd_Exit.Size = New System.Drawing.Size(222, 22)
@@ -372,7 +372,7 @@ Partial Class mdiMain
         '
         'cmd_Customize
         '
-        Me.cmd_Customize.Image = Global.nexIRC.My.Resources.Resources.applications
+        Me.cmd_Customize.Image = My.Resources.Resources.applications
         Me.cmd_Customize.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_Customize.Name = "cmd_Customize"
         Me.cmd_Customize.Size = New System.Drawing.Size(93, 22)
@@ -381,7 +381,7 @@ Partial Class mdiMain
         'cmd_DCC
         '
         Me.cmd_DCC.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_DCCSend, Me.cmd_DCCChat, Me.cmd_Sep908372, Me.cmd_DownloadManager})
-        Me.cmd_DCC.Image = Global.nexIRC.My.Resources.Resources.tools
+        Me.cmd_DCC.Image = My.Resources.Resources.tools
         Me.cmd_DCC.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_DCC.Name = "cmd_DCC"
         Me.cmd_DCC.Size = New System.Drawing.Size(65, 22)
@@ -419,7 +419,7 @@ Partial Class mdiMain
         'cmd_Channels
         '
         Me.cmd_Channels.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_ChannelFolder, Me.cmd_ListChannels})
-        Me.cmd_Channels.Image = Global.nexIRC.My.Resources.Resources.web
+        Me.cmd_Channels.Image = My.Resources.Resources.web
         Me.cmd_Channels.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_Channels.Name = "cmd_Channels"
         Me.cmd_Channels.Size = New System.Drawing.Size(97, 22)
@@ -446,7 +446,7 @@ Partial Class mdiMain
         'cmd_View
         '
         Me.cmd_View.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmd_LeftBar, Me.cmd_WindowBar})
-        Me.cmd_View.Image = Global.nexIRC.My.Resources.Resources.tools
+        Me.cmd_View.Image = My.Resources.Resources.tools
         Me.cmd_View.ImageTransparentColor = System.Drawing.Color.White
         Me.cmd_View.Name = "cmd_View"
         Me.cmd_View.Size = New System.Drawing.Size(72, 22)

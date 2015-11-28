@@ -3,13 +3,13 @@
 Option Explicit On
 Option Strict On
 Imports System.Net
-Imports nexIRC.Modules
+Imports nexIRC.Client.nexIRC.Client
 
 Public Class frmNetworkSettings
     Private Sub frmNetworkSettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'On Error Resume Next
         Me.Icon = mdiMain.Icon
-        With lSettings_DCC.lDCC
+        With Modules.lSettings_DCC
             If .dUseIpAddress = True Then
                 optIpAddressCustom.Checked = True
             Else
@@ -25,7 +25,7 @@ Public Class frmNetworkSettings
 
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
         'On Error Resume Next
-        With lSettings_DCC.lDCC
+        With Modules.lSettings_DCC
             .dRandomizePort = chkRandomize.Checked
             .dSendPort = txtSendPort.Text
             If optIpAddressAuto.Checked = True Then

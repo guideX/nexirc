@@ -1,8 +1,8 @@
-﻿'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
-Option Explicit On
+﻿Option Explicit On
 Option Strict On
-Imports nexIRC.IRC.UtilityWindows
+Imports nexIRC.Client.nexIRC.Client.IRC.Status.UtilityWindows
+'nexIRC 3.0.31
+'Sunday, Oct 4th, 2014 - guideX
 
 Public Class frmAddServer
     Public WithEvents addServer As New clsAddServer

@@ -2,9 +2,9 @@
 'Sunday, Oct 4th, 2014 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Modules
 Imports nexIRC.Sockets
 Imports nexIRC.Business.Helpers
+Imports nexIRC.Client.nexIRC.Client
 
 Public Class frmDCCSend
     Private WithEvents lListen As AsyncServer
@@ -30,7 +30,7 @@ Public Class frmDCCSend
     Private lFile As gFile
     Public Sub InitFile()
         With lFile
-            .fBufferSize = lSettings_DCC.lDCC.dBufferSize
+            .fBufferSize = Modules.lSettings_DCC.dBufferSize
             .fFileNumber = FreeFile()
             FileOpen(.fFileNumber, txtFilename.Text, OpenMode.Binary, OpenAccess.Read)
             lFileOpen = True
@@ -68,20 +68,20 @@ Public Class frmDCCSend
         lStatusIndex = lIndex
     End Sub
     Private Sub frmDCCSend_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        IniFileHelper.WriteINI(lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", cboNickname.Text)
+        IniFileHelper.WriteINI(Modules.lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", cboNickname.Text)
         If lFileOpen = True Then FileClose(lFile.fFileNumber)
     End Sub
     Private Sub frmDCCSend_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim i As Integer
-        cboNickname.Text = IniFileHelper.ReadINI(lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", "")
+        cboNickname.Text = IniFileHelper.ReadINI(Modules.lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", "")
         Me.Icon = mdiMain.Icon
-        For i = 1 To lSettings.lNotify.nCount
-            cboNickname.Items.Add(lSettings.lNotify.nNotify(i).nNickName)
+        For i = 1 To Modules.lSettings.lNotify.nCount
+            cboNickname.Items.Add(Modules.lSettings.lNotify.nNotify(i).nNickName)
         Next i
         For i = 128 To 9999
             cboPort.Items.Add(Trim(i.ToString))
         Next i
-        cboPort.Text = Trim(lProcessNumeric.lIrcNumericHelper.ReturnDCCPort().ToString)
+        cboPort.Text = Trim(Modules.lProcessNumeric.lIrcNumericHelper.ReturnDCCPort().ToString)
     End Sub
     Private Sub InitSendListenSocket(ByVal lPort As Integer)
         lListen = New AsyncServer(Convert.ToInt32(lPort))
@@ -89,7 +89,7 @@ Public Class frmDCCSend
     End Sub
     Private Sub cmdSend_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSend.Click
         Dim msg As String, msg2 As String, lSetLabel As New StringDelegate(AddressOf SetLabel), msg3 As String
-        If lStatus.Connected(lStatusIndex) = True Then
+        If Modules.lStatus.Connected(lStatusIndex) = True Then
             If System.IO.File.Exists(txtFilename.Text) = True Then
                 If (Not String.IsNullOrEmpty(cboNickname.Text)) Then
                     cmdSend.Enabled = False
@@ -99,15 +99,15 @@ Public Class frmDCCSend
                     Me.Invoke(lSetLabel, "Requesting Connection")
                     lSocket = New AsyncSocket
                     InitSendListenSocket(Convert.ToInt32(Trim(cboPort.Text)))
-                    If lSettings_DCC.lDCC.dUseIpAddress = True Then
-                        msg = lSettings_DCC.lDCC.dCustomIpAddress
+                    If Modules.lSettings_DCC.dUseIpAddress = True Then
+                        msg = Modules.lSettings_DCC.dCustomIpAddress
                     Else
-                        msg = lProcessNumeric.lIrcNumericHelper.ReturnMyIp()
+                        msg = Modules.lProcessNumeric.lIrcNumericHelper.ReturnMyIp()
                     End If
                     msg3 = Replace(System.IO.Path.GetFileName(txtFilename.Text), " ", "_")
                     msg2 = "PRIVMSG " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " " & TextHelper.EncodeIPAddr(msg) & " " & Trim(cboPort.Text) & " " & (FileLen(txtFilename.Text)) & ""
-                    lStatus.DoStatusSocket(lStatusIndex, "NOTICE " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " (" & msg & ")")
-                    lStatus.DoStatusSocket(lStatusIndex, msg2)
+                    Modules.lStatus.DoStatusSocket(lStatusIndex, "NOTICE " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " (" & msg & ")")
+                    Modules.lStatus.DoStatusSocket(lStatusIndex, msg2)
                 End If
             End If
         End If
@@ -135,7 +135,7 @@ Public Class frmDCCSend
     Private Sub tmrCloseSocketDelay_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCloseSocketDelay.Tick
         tmrCloseSocketDelay.Enabled = False
         lSocket.Close()
-        If lSettings_DCC.lDCC.dAutoCloseDialogs = True Then Me.Close()
+        If Modules.lSettings_DCC.dAutoCloseDialogs = True Then Me.Close()
     End Sub
     Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click
         Me.Close()

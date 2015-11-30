@@ -61,7 +61,6 @@ Partial Class frmAbout
         Me.RadPageView1.TabIndex = 2
         Me.RadPageView1.Text = "RadPageView1"
         Me.RadPageView1.ThemeName = "Office2010Black"
-        Me.RadPageView1.Visible = False
         CType(Me.RadPageView1.GetChildAt(0), Telerik.WinControls.UI.RadPageViewStripElement).ItemFitMode = Telerik.WinControls.UI.StripViewItemFitMode.Fill
         '
         'RadPageViewPage1

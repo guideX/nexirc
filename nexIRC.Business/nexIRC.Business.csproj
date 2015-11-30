@@ -49,23 +49,43 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Debug\Telerik.WinControls.RichTextBox.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.WinControls.UI, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Debug\Telerik.WinControls.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="TelerikCommon, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Debug\TelerikCommon.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\eDccFileExistsAction.cs" />
-    <Compile Include="Enums\eDccPrompt.cs" />
+    <Compile Include="Controllers\ChannelFolderController.cs" />
+    <Compile Include="Controllers\IrcNetworkController.cs" />
+    <Compile Include="Enums\DCCIgnoreType.cs" />
+    <Compile Include="Enums\DccFileExistsAction.cs" />
+    <Compile Include="Enums\DccPrompt.cs" />
     <Compile Include="Enums\IrcCommandTypes.cs" />
+    <Compile Include="Enums\UnsupportedIn.cs" />
+    <Compile Include="Helpers\General.cs" />
     <Compile Include="Helpers\IniFileHelper.cs" />
     <Compile Include="Helpers\TextHelper.cs" />
     <Compile Include="Interfaces\Base\IRepository.cs" />
-    <Compile Include="Models\ChannelFolderModel.cs" />
+    <Compile Include="Models\ChannelFolder\ChannelFolderModel.cs" />
+    <Compile Include="Models\Command\Command.cs" />
+    <Compile Include="Models\Dcc\DccIgnoreItemModel.cs" />
+    <Compile Include="Models\Dcc\DccIgnoreItemsModel.cs" />
     <Compile Include="Models\IniFileInputModel.cs" />
+    <Compile Include="Models\LinksModel.cs" />
+    <Compile Include="Models\Link\LinkModel.cs" />
+    <Compile Include="Models\Network\NetworkDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Base\Repository.cs" />
     <Compile Include="Repositories\ChannelFolderRepository.cs" />
     <Compile Include="Repositories\DccSettings.cs" />
     <Compile Include="Repositories\IrcSettings.cs" />
-    <Compile Include="Repositories\NetworkSettings.cs" />
+    <Compile Include="Repositories\NetworkRepository.cs" />
     <Compile Include="Repositories\QuerySettings.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\ChannelFolderViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

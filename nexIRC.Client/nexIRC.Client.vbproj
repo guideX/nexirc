@@ -151,6 +151,12 @@
     <Compile Include="Forms\frmCNotice.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmCustomize.Designer.vb">
+      <DependentUpon>frmCustomize.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCustomize.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmDccChatPrompt.Designer.vb">
       <DependentUpon>frmDccChatPrompt.vb</DependentUpon>
     </Compile>
@@ -161,12 +167,6 @@
       <DependentUpon>frmCompatibility.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmCompatibility.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmCustomize.Designer.vb">
-      <DependentUpon>frmCustomize.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmCustomize.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmDCCChat.Designer.vb">
@@ -363,14 +363,14 @@
     <EmbeddedResource Include="Forms\frmCNotice.resx">
       <DependentUpon>frmCNotice.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCustomize.resx">
+      <DependentUpon>frmCustomize.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDccChatPrompt.resx">
       <DependentUpon>frmDccChatPrompt.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmCompatibility.resx">
       <DependentUpon>frmCompatibility.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmCustomize.resx">
-      <DependentUpon>frmCustomize.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDCCChat.resx">
       <DependentUpon>frmDCCChat.vb</DependentUpon>

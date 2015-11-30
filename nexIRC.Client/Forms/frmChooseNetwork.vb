@@ -1,6 +1,4 @@
-﻿'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
-Option Explicit On
+﻿Option Explicit On
 Option Strict On
 Imports nexIRC.Client.nexIRC.Client.IRC.Status.UtilityWindows
 
@@ -8,26 +6,14 @@ Public Class frmChooseNetwork
     Public WithEvents lChooseNetwork As New clsChooseNetwork
 
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
-        Try
-            lChooseNetwork.cmdCancel_Click(Me)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        lChooseNetwork.cmdCancel_Click(Me)
     End Sub
 
     Private Sub frmChooseNetwork_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        Try
-            lChooseNetwork.Form_Load(cboNetworks, Me)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        lChooseNetwork.Form_Load(cboNetworks, Me)
     End Sub
 
     Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click
-        Try
-            lChooseNetwork.cmdOK_Click(Me, cboNetworks.Text)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        lChooseNetwork.cmdOK_Click(Me, cboNetworks.Text)
     End Sub
 End Class

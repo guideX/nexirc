@@ -9,11 +9,11 @@ Public Class frmNickServLogin
     Private lStatusIndex As Integer
 
     Public Sub SetStatusIndex(ByVal lIndex As Integer)
-        Try
+        'Try
             lStatusIndex = lIndex
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub frmNickServLogin_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -25,16 +25,16 @@ Public Class frmNickServLogin
     End Sub
 
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
-        Try
+        'Try
             Me.Close()
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdLogin_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogin.Click
         Dim settings As BotSettings
-        Try
+        'Try
             settings = New BotSettings()
             Modules.lSettings_Services.lNickServ.nLoginNickname = txtNickname.Text
             Modules.lSettings_Services.lNickServ.nLoginPassword = txtPassword.Text
@@ -45,28 +45,28 @@ Public Class frmNickServLogin
             Modules.lStatus.GetObject(lStatusIndex).sNickBot.Login(settings)
             Modules.lSettings_Services.SaveServices()
             Me.Close()
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub txtPassword_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtPassword.KeyPress
-        Try
+        'Try
             If (e.KeyChar = Convert.ToChar(13)) Then
                 cmdLogin_Click(sender, e)
             End If
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub txtNickname_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtNickname.KeyPress
-        Try
+        'Try
             If (e.KeyChar = Convert.ToChar(13)) Then
                 cmdLogin_Click(sender, e)
             End If
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 End Class

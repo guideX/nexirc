@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using nexIRC.Business.Helpers;
+using nexIRC.Business.Models.Network;
+
 namespace nexIRC.Business.Repositories {
     /// <summary>
-    /// Network Data
+    /// Network Repository
     /// </summary>
-    public class NetworkData {
-        public string Description { get; set; }
-        public int Id { get; set; }
-    }
-    public class NetworkSettings {
+    public class NetworkRepository {
         private string _iniFile;
-        private List<NetworkData> _cache;
+        private List<NetworkDataModel> _cache;
         private bool _useCache;
         /// <summary>
         /// Entry Point
         /// </summary>
         /// <param name="startupPath"></param>
-        public NetworkSettings(string startupPath) {
+        public NetworkRepository(string startupPath) {
             try {
                 _iniFile = startupPath + @"data\config\networks.ini";
             } catch (Exception ex) {
@@ -30,15 +27,15 @@ namespace nexIRC.Business.Repositories {
         /// Get
         /// </summary>
         /// <returns></returns>
-        public List<NetworkData> Get() {
+        public List<NetworkDataModel> Get() {
             try {
                 if (!_useCache) {
                     var n = Convert.ToInt32(IniFileHelper.ReadINI(_iniFile, "Settings", "Count", "0"));
-                    var result = new List<NetworkData>();
+                    var result = new List<NetworkDataModel>();
                     for (var i = 1; i <= n; i++) {
-                        var d = new NetworkData();
+                        var d = new NetworkDataModel();
                         d.Description = IniFileHelper.ReadINI(_iniFile, i.ToString(), "Description", "");
-                        d.Id = i;
+                        d.ID = i;
                         if (!string.IsNullOrEmpty(d.Description)) {
                             result.Add(d);
                         }
@@ -53,6 +50,10 @@ namespace nexIRC.Business.Repositories {
                 throw ex;
             }
         }
+        /// <summary>
+        /// Count
+        /// </summary>
+        /// <returns></returns>
         public int Count() {
             var msg = IniFileHelper.ReadINI(_iniFile, "Settings", "Count", "0");
             var n = 0;
@@ -67,7 +68,7 @@ namespace nexIRC.Business.Repositories {
         /// </summary>
         /// <param name="networks"></param>
         /// <returns></returns>
-        public bool Save(List<NetworkData> networks) {
+        public bool Save(List<NetworkDataModel> networks) {
             try {
                 var n = 0;
                 foreach (var network in networks) {
@@ -87,7 +88,7 @@ namespace nexIRC.Business.Repositories {
         /// </summary>
         /// <param name="network"></param>
         /// <returns></returns>
-        public bool Delete(NetworkData network) {
+        public bool Delete(NetworkDataModel network) {
             try {
                 var networks = Get();
                 var itemToRemove = networks.Where(n => n.Description == network.Description).FirstOrDefault();
@@ -126,21 +127,21 @@ namespace nexIRC.Business.Repositories {
         /// Get Default
         /// </summary>
         /// <returns></returns>
-        public NetworkData GetDefault() {
+        public NetworkDataModel GetDefault() {
             try {
-                var network = new NetworkData();
+                var network = new NetworkDataModel();
                 var msg = IniFileHelper.ReadINI(_iniFile, "Settings", "Index", "0");
                 int n = 0;
                 if (int.TryParse(msg, out n)) {
                     if (n != 0) {
                         network.Description = IniFileHelper.ReadINI(_iniFile, n.ToString(), "Description", "");
-                        network.Id = n;
+                        network.ID = n;
                         return network;
                     } else {
-                        return new NetworkData();
+                        return new NetworkDataModel();
                     }
                 } else {
-                    return new NetworkData();
+                    return new NetworkDataModel();
                 }
             } catch (Exception ex) {
                 throw ex;
@@ -151,7 +152,7 @@ namespace nexIRC.Business.Repositories {
         /// </summary>
         /// <param name="network"></param>
         /// <returns></returns>
-        public bool SetDefault(NetworkData network) {
+        public bool SetDefault(NetworkDataModel network) {
             try {
                 var networks = Get();
                 var t = 0;
@@ -172,9 +173,9 @@ namespace nexIRC.Business.Repositories {
         /// </summary>
         /// <param name="networkId"></param>
         /// <returns></returns>
-        public NetworkData GetById(int networkId) {
+        public NetworkDataModel GetById(int networkId) {
             try {
-                var network = new NetworkData();
+                var network = new NetworkDataModel();
                 network.Description = IniFileHelper.ReadINI(_iniFile, networkId.ToString(), "Description", "");
                 return network;
             } catch (Exception ex) {
@@ -186,7 +187,7 @@ namespace nexIRC.Business.Repositories {
         /// </summary>
         /// <param name="network"></param>
         /// <returns></returns>
-        public int Add(NetworkData network) {
+        public int Add(NetworkDataModel network) {
             try {
                 var msg = IniFileHelper.ReadINI(_iniFile, "Settings", "Count", "0");
                 var n = 0;
@@ -206,9 +207,9 @@ namespace nexIRC.Business.Repositories {
         /// </summary>
         /// <param name="networkDescription"></param>
         /// <returns></returns>
-        public NetworkData Find(string networkDescription) {
+        public NetworkDataModel Find(string networkDescription) {
             try {
-                var result = new NetworkData();
+                var result = new NetworkDataModel();
                 foreach (var network in Get()) {
                     if (!string.IsNullOrEmpty(networkDescription)) {
                         if (!string.IsNullOrEmpty(network.Description)) {

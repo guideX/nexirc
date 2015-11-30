@@ -1,5 +1,4 @@
-﻿//nexIRC 3.0.31
-using System;
+﻿using System;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
@@ -16,68 +15,40 @@ namespace nexIRC.Sockets {
         private string _socketId;
         private Socket _tempSocket;
         public AsyncSocket(Socket tmp_Socket, string tmp_SocketID) {
-            try {
-                _socketId = tmp_SocketID;
-                _tempSocket = tmp_Socket;
-                var obj_Socket = tmp_Socket;
-                var obj_SocketState = new StateObject();
-                obj_SocketState.WorkSocket = obj_Socket;
-                obj_Socket.BeginReceive(obj_SocketState.Buffer, 0, obj_SocketState.BufferSize, 0, new AsyncCallback(onDataArrival), obj_SocketState);
-            } catch (Exception ex) {
-                throw ex;
-            }
+            _socketId = tmp_SocketID;
+            _tempSocket = tmp_Socket;
+            var obj_Socket = tmp_Socket;
+            var obj_SocketState = new StateObject();
+            obj_SocketState.WorkSocket = obj_Socket;
+            obj_Socket.BeginReceive(obj_SocketState.Buffer, 0, obj_SocketState.BufferSize, 0, new AsyncCallback(onDataArrival), obj_SocketState);
         }
         public bool Connected {
             get {
-                try {
-                    return (_tempSocket.Connected);
-                } catch (Exception ex) {
-                    throw ex;
-                }
+                return (_tempSocket.Connected);
             }
         }
         public AsyncSocket() {
-            try {
-                _tempSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            } catch (Exception ex) {
-                throw ex;
-            }
+            _tempSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
         public void SendBytes(byte[] Buffer) {
-            try {
-                var obj_StateObject = new StateObject();
-                obj_StateObject.WorkSocket = _tempSocket;
-                _tempSocket.BeginSend(Buffer, 0, Buffer.Length, 0, new AsyncCallback(onSendComplete), obj_StateObject);
-            } catch (Exception ex) {
-                throw ex;
-            }
+            var obj_StateObject = new StateObject();
+            obj_StateObject.WorkSocket = _tempSocket;
+            _tempSocket.BeginSend(Buffer, 0, Buffer.Length, 0, new AsyncCallback(onSendComplete), obj_StateObject);
         }
         public void Send(string tmp_Data) {
-            try {
-                var obj_StateObject = new StateObject();
-                obj_StateObject.WorkSocket = _tempSocket;
-                var Buffer = Encoding.UTF8.GetBytes(tmp_Data);
-                _tempSocket.BeginSend(Buffer, 0, Buffer.Length, 0, new AsyncCallback(onSendComplete), obj_StateObject);
-            } catch (Exception ex) {
-                throw ex;
-            }
+            var obj_StateObject = new StateObject();
+            obj_StateObject.WorkSocket = _tempSocket;
+            var Buffer = Encoding.UTF8.GetBytes(tmp_Data);
+            _tempSocket.BeginSend(Buffer, 0, Buffer.Length, 0, new AsyncCallback(onSendComplete), obj_StateObject);
         }
         public void Close() {
-            try {
-                _tempSocket.Shutdown(SocketShutdown.Both);
-                _tempSocket.Close();
-            } catch (Exception ex) {
-                throw ex;
-            }
+            _tempSocket.Shutdown(SocketShutdown.Both);
+            _tempSocket.Close();
         }
         public void Connect(string hostIP, long hostPort) {
-            try {
-                var hostEndPoint = new IPEndPoint(Dns.Resolve(hostIP).AddressList[0], Convert.ToInt32(hostPort));
-                var obj_Socket = _tempSocket;
-                obj_Socket.BeginConnect(hostEndPoint, new AsyncCallback(onConnectionComplete), obj_Socket);
-            } catch (Exception ex) {
-                throw ex;
-            }
+            var hostEndPoint = new IPEndPoint(Dns.Resolve(hostIP).AddressList[0], Convert.ToInt32(hostPort));
+            var obj_Socket = _tempSocket;
+            obj_Socket.BeginConnect(hostEndPoint, new AsyncCallback(onConnectionComplete), obj_Socket);
         }
         private void onDataArrival(IAsyncResult ar) {
             try {
@@ -96,7 +67,6 @@ namespace nexIRC.Sockets {
                 if (SocketDisconnected != null) {
                     SocketDisconnected(SocketID);
                 }
-                //throw sex;
             } catch (Exception ex) {
                 if (SocketDisconnected != null) {
                     SocketDisconnected(SocketID);
@@ -107,26 +77,14 @@ namespace nexIRC.Sockets {
             }
         }
         public string ReturnLocalIp() {
-            try {
-                return new WebClient().DownloadString("http://www.whatismyip.com/automation/n09230945.asp");
-            } catch (Exception ex) {
-                throw ex;
-            }
+            return new WebClient().DownloadString("http://www.whatismyip.com/automation/n09230945.asp");
         }
         public long ReturnLocalPort() {
-            try {
-                return Convert.ToInt64(((IPEndPoint)_tempSocket.LocalEndPoint).Port);
-            } catch (Exception ex) {
-                throw ex;
-            }
+            return Convert.ToInt64(((IPEndPoint)_tempSocket.LocalEndPoint).Port);
         }
         private void onSendComplete(IAsyncResult ar) {
-            try {
-                var obj_SocketState = (StateObject)ar.AsyncState;
-                var obj_Socket = obj_SocketState.WorkSocket;
-            } catch (Exception ex) {
-                throw ex;
-            }
+            var obj_SocketState = (StateObject)ar.AsyncState;
+            var obj_Socket = obj_SocketState.WorkSocket;
         }
         private void onConnectionComplete(IAsyncResult ar) {
             try {
@@ -150,11 +108,7 @@ namespace nexIRC.Sockets {
         }
         public string SocketID {
             get {
-                try {
-                    return _socketId;
-                } catch (Exception ex) {
-                    throw ex;
-                }
+                return _socketId;
             }
         }
     }

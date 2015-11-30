@@ -1,8 +1,4 @@
-﻿//nexIRC 3.0.31
-//Sunday, Oct 4th, 2014 - guideX
-using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Text;
 namespace nexIRC.Business.Helpers {
     public static class IniFileHelper {
@@ -21,15 +17,11 @@ namespace nexIRC.Business.Helpers {
         [DllImport("kernel32.dll")]
         private static extern bool WritePrivateProfileString(string lpAppName, string lpKeyName, string lpString, string lpFileName);
         public static string ReadINI(string file, string section, string key, string _default = "") {
-            try {
-                var msg = new StringBuilder(500);
-                if (GetPrivateProfileString(section, key, "", msg, msg.Capacity, file) == 0) {
-                    return _default;
-                } else {
-                    return msg.ToString().Trim();
-                }
-            } catch (Exception ex) {
-                throw ex;
+            var msg = new StringBuilder(500);
+            if (GetPrivateProfileString(section, key, "", msg, msg.Capacity, file) == 0) {
+                return _default;
+            } else {
+                return msg.ToString().Trim();
             }
         }
         /// <summary>
@@ -40,11 +32,7 @@ namespace nexIRC.Business.Helpers {
         /// <param name="key"></param>
         /// <param name="value"></param>
         public static void WriteINI(string file, string section, string key, string value) {
-            try {
-                WritePrivateProfileString(section, key, value, file);
-            } catch (Exception ex) {
-                throw ex;
-            }
+            WritePrivateProfileString(section, key, value, file);
         }
     }
 }

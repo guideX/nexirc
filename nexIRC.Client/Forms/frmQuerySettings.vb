@@ -54,70 +54,70 @@ Public Class frmQuerySettings
     End Sub
 
     Private Sub cmdAddToAutoAllowList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddToAutoAllowList.Click
-        Try
+        'Try
             Dim msg As String
             msg = InputBox("Add to Auto Allow List")
             If Len(msg) <> 0 Then lstAutoAllowList.Items.Add(msg)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdRemoveFromAutoAllowList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveFromAutoAllowList.Click
-        Try
+        'Try
             lstAutoAllowList.Items.RemoveAt(lstAutoAllowList.SelectedIndex)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdAddToAutoDenyList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddToAutoDenyList.Click
-        Try
+        'Try
             Dim msg As String
             msg = InputBox("Add to Auto Deny List")
             If Len(msg) <> 0 Then lstAutoDenyList.Items.Add(msg)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdRemoveFromAutoDenyList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveFromAutoDenyList.Click
-        Try
+        'Try
             lstAutoDenyList.Items.RemoveAt(lstAutoDenyList.SelectedIndex)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdClearLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClearLog.Click
-        Try
+        'Try
             lstQueryLog.Items.Clear()
             txtQueryLog.Text = ""
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdAddToSpamPhrases_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAddToSpamPhrases.Click
-        Try
+        'Try
             Dim msg As String
             msg = InputBox("Add to Phrases")
             If Len(msg) <> 0 Then lstSpamPhrases.Items.Add(msg)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdRemoveFromSpamPhrases_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemoveFromSpamPhrases.Click
-        Try
+        'Try
             lstSpamPhrases.Items.RemoveAt(lstSpamPhrases.SelectedIndex)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
-        Try
+        'Try
             Dim querySettings = Modules.IrcSettings.QuerySettings.Get()
             With querySettings
                 .AutoAllowList = New List(Of String)
@@ -160,46 +160,46 @@ Public Class frmQuerySettings
                 End If
             End With
             Me.Close()
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
-        Try
+        'Try
             Me.Close()
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub lstConnections_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstConnections.SelectedIndexChanged
-        Try
+        'Try
             Dim i As Integer
             txtQueryLog.Text = ""
             lstQueryLog.Items.Clear()
             i = Modules.lStatus.FindByInitialText(lstConnections.Text)
             If i <> 0 Then Modules.lStatus.PrivateMessage_SetListBox(i, lstQueryLog)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub lstQueryLog_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstQueryLog.SelectedIndexChanged
-        Try
+        'Try
             Dim i As Integer, n As Integer
             i = Modules.lStatus.FindByInitialText(lstConnections.Text)
             n = Modules.lStatus.PrivateMessage_Find(i, lstQueryLog.Text)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExitToolStripMenuItem.Click
-        Try
+        'Try
             Me.Close()
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 End Class

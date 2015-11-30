@@ -1,6 +1,4 @@
-﻿'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
-Option Explicit On
+﻿Option Explicit On
 Option Strict On
 Imports nexIRC.Business.Helpers
 Imports nexIRC.Client.nexIRC.Client.IRC.Settings.Settings
@@ -58,105 +56,77 @@ Namespace nexIRC.Client.IRC.Settings
         Public lNickServ As gNickServ
 
         Public Sub AddService(ByVal lName As String, ByVal lType As eServiceType)
-            Try
-                lServices.sCount = lServices.sCount + 1
-                If Len(lName) <> 0 And lType <> eServiceType.sNone Then
-                    With lServices.sService(lServices.sCount)
-                        .sName = lName
-                        .sType = lType
-                    End With
-                End If
-            Catch ex As Exception
-                Throw ex
-            End Try
+            lServices.sCount = lServices.sCount + 1
+            If Len(lName) <> 0 And lType <> eServiceType.sNone Then
+                With lServices.sService(lServices.sCount)
+                    .sName = lName
+                    .sType = lType
+                End With
+            End If
         End Sub
 
         Public Sub LoadServices()
-            Try
-                Dim i As Integer, n As Integer, t As Integer, e As Integer
-                lServices.sCount = Convert.ToInt32(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "Settings", "Count", "0"))
-                ReDim lServices.sService(Modules.lSettings.lArraySizes.aServices)
-                If lServices.sCount <> 0 Then
-                    For i = 1 To lServices.sCount
-                        With lServices.sService(i)
-                            ReDim .sServerCommands.sServiceCommand(Modules.lSettings.lArraySizes.aServiceCommands)
-                            ReDim .sServerCommands.sServiceCommand(i).sServiceParam(Modules.lSettings.lArraySizes.aServiceParams)
-                            .sName = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "Name", "")
-                            e = Convert.ToInt32(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "Type", "0"))
-                            Select Case e
-                                Case 0
-                                    .sType = eServiceType.sNone
-                                Case 1
-                                    .sType = eServiceType.sChanServ
-                                Case 2
-                                    .sType = eServiceType.sNickServ
-                                Case 3
-                                    .sType = eServiceType.sX
-                                Case Else
-                                    .sTypeCustom = e
-                            End Select
-                            .sNetwork = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "Network", "")
-                            .sServerCommands.sServiceCommandCount = Convert.ToInt32(Trim(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "CommandCount", "0")))
-                            If .sServerCommands.sServiceCommandCount <> 0 Then
-                                For n = 1 To .sServerCommands.sServiceCommandCount
-                                    .sServerCommands.sServiceCommand(n).sCommand = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Convert.ToString(i)), "Command" & Trim(Convert.ToString(n)), "")
-                                    .sServerCommands.sServiceCommand(n).sServiceParamCount = Convert.ToInt32(Trim(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Convert.ToString(i)), "Command" & Trim(Convert.ToString(n)) & "ParamCount", "0")))
-                                    If .sServerCommands.sServiceCommand(n).sServiceParamCount <> 0 Then
-                                        For t = 1 To .sServerCommands.sServiceCommand(n).sServiceParamCount
-                                            .sServerCommands.sServiceCommand(n).sServiceParam(t).sParam = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Convert.ToString(i)), "Command" & Trim(Convert.ToString(n)) & "Param" & Trim(Convert.ToString(t)), "")
-                                        Next t
-                                    End If
-                                Next n
-                            End If
-                        End With
-                    Next i
-                End If
-                'With lX
-                '.xLoginNickName = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "X", "LoginNickName", "")
-                '.xLoginPassword = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "X", "LoginPassword", "")
-                '.xCreateAnAccountURL = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "X", "CreateAnAccountURL", "http://cservice.undernet.org/live/newuser.php")
-                '.xEnable = Convert.ToBoolean(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "X", "Enable", "True"))
-                '.xLoginOnConnect = Convert.ToBoolean(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "X", "LoginOnConnect", "False"))
-                '.xShowOnConnect = Convert.ToBoolean(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "X", "ShowOnConnect", "True"))
-                '.xLongName = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "X", "LongName", "x@channels.undernet.org")
-                'End With
-                With lNickServ
-                    '.nEnable = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iServices, "NickServ", "Enable", "False"))
-                    .nLoginNickname = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "NickServ", "LoginNickname", "")
-                    .nLoginPassword = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "NickServ", "LoginPassword", "")
-                    .nLoginOnConnect = Convert.ToBoolean(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "NickServ", "LoginOnConnect", "False"))
-                    .nShowOnConnect = Convert.ToBoolean(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "NickServ", "ShowOnConnect", "True"))
-                End With
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Dim i As Integer, n As Integer, t As Integer, e As Integer
+            lServices.sCount = Convert.ToInt32(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "Settings", "Count", "0"))
+            ReDim lServices.sService(Modules.lSettings.lArraySizes.aServices)
+            If lServices.sCount <> 0 Then
+                For i = 1 To lServices.sCount
+                    With lServices.sService(i)
+                        ReDim .sServerCommands.sServiceCommand(Modules.lSettings.lArraySizes.aServiceCommands)
+                        ReDim .sServerCommands.sServiceCommand(i).sServiceParam(Modules.lSettings.lArraySizes.aServiceParams)
+                        .sName = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "Name", "")
+                        e = Convert.ToInt32(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "Type", "0"))
+                        Select Case e
+                            Case 0
+                                .sType = eServiceType.sNone
+                            Case 1
+                                .sType = eServiceType.sChanServ
+                            Case 2
+                                .sType = eServiceType.sNickServ
+                            Case 3
+                                .sType = eServiceType.sX
+                            Case Else
+                                .sTypeCustom = e
+                        End Select
+                        .sNetwork = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "Network", "")
+                        .sServerCommands.sServiceCommandCount = Convert.ToInt32(Trim(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "CommandCount", "0")))
+                        If .sServerCommands.sServiceCommandCount <> 0 Then
+                            For n = 1 To .sServerCommands.sServiceCommandCount
+                                .sServerCommands.sServiceCommand(n).sCommand = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Convert.ToString(i)), "Command" & Trim(Convert.ToString(n)), "")
+                                .sServerCommands.sServiceCommand(n).sServiceParamCount = Convert.ToInt32(Trim(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Convert.ToString(i)), "Command" & Trim(Convert.ToString(n)) & "ParamCount", "0")))
+                                If .sServerCommands.sServiceCommand(n).sServiceParamCount <> 0 Then
+                                    For t = 1 To .sServerCommands.sServiceCommand(n).sServiceParamCount
+                                        .sServerCommands.sServiceCommand(n).sServiceParam(t).sParam = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, Trim(Convert.ToString(i)), "Command" & Trim(Convert.ToString(n)) & "Param" & Trim(Convert.ToString(t)), "")
+                                    Next t
+                                End If
+                            Next n
+                        End If
+                    End With
+                Next i
+            End If
+            With lNickServ
+                .nLoginNickname = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "NickServ", "LoginNickname", "")
+                .nLoginPassword = IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "NickServ", "LoginPassword", "")
+                .nLoginOnConnect = Convert.ToBoolean(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "NickServ", "LoginOnConnect", "False"))
+                .nShowOnConnect = Convert.ToBoolean(IniFileHelper.ReadINI(Modules.lSettings.lINI.iServices, "NickServ", "ShowOnConnect", "True"))
+            End With
         End Sub
 
         Public Sub SaveServices()
-            Try
-                Dim i As Integer
-                IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "Settings", "Count", Trim(lServices.sCount.ToString))
-                If lServices.sCount <> 0 Then
-                    For i = 1 To lServices.sCount
-                        With lServices.sService(i)
-                            IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "Name", .sName)
-                            IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "Type", Convert.ToString(.sType))
-                        End With
-                    Next i
-                End If
-                'IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "X", "LoginNickName", lX.xLoginNickName)
-                'IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "X", "LoginPassword", lX.xLoginPassword)
-                'IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "X", "Enable", Convert.ToString(lX.xEnable))
-                'IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "X", "LoginOnConnect", Convert.ToString(lX.xLoginOnConnect))
-                'IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "X", "ShowOnConnect", Convert.ToString(lX.xShowOnConnect))
-                'IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "X", "LongName", lX.xLongName)
-                IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "NickServ", "LoginNickname", lNickServ.nLoginNickname)
-                IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "NickServ", "LoginPassword", lNickServ.nLoginPassword)
-                IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "NickServ", "LoginOnConnect", Convert.ToString(lNickServ.nLoginOnConnect))
-                IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "NickServ", "ShowOnConnect", Convert.ToString(lNickServ.nShowOnConnect))
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Dim i As Integer
+            IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "Settings", "Count", Trim(lServices.sCount.ToString))
+            If lServices.sCount <> 0 Then
+                For i = 1 To lServices.sCount
+                    With lServices.sService(i)
+                        IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "Name", .sName)
+                        IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "Type", Convert.ToString(.sType))
+                    End With
+                Next i
+            End If
+            IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "NickServ", "LoginNickname", lNickServ.nLoginNickname)
+            IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "NickServ", "LoginPassword", lNickServ.nLoginPassword)
+            IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "NickServ", "LoginOnConnect", Convert.ToString(lNickServ.nLoginOnConnect))
+            IniFileHelper.WriteINI(Modules.lSettings.lINI.iServices, "NickServ", "ShowOnConnect", Convert.ToString(lNickServ.nShowOnConnect))
         End Sub
     End Class
 End Namespace

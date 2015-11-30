@@ -1,19 +1,12 @@
-﻿'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
-Option Explicit On
-'Option Strict On
+﻿Option Explicit On
+Option Strict On
 Imports System.IO
 Imports Telerik.WinControls.UI
 Imports nexIRC.Business.Helpers
+Imports nexIRC.Business.Enums
 
 Namespace nexIRC.Client.IRC.Settings
     Public Class Settings
-        Enum eUnsupportedIn
-            uStatusWindow = 1
-            uOwnWindow = 2
-            uHide = 3
-        End Enum
-
         Enum eUnknownsIn
             uStatusWindow = 1
             uOwnWindow = 2
@@ -149,7 +142,7 @@ Namespace nexIRC.Client.IRC.Settings
 
         Structure gStringSettings
             Public sUnknowns As eUnknownsIn
-            Public sUnsupported As eUnsupportedIn
+            Public sUnsupported As UnsupportedIn
         End Structure
 
         Structure gDownload
@@ -256,244 +249,185 @@ Namespace nexIRC.Client.IRC.Settings
 
         Public Function FindCompatibilityIndex(ByVal lDescription As String) As Integer
             Dim result As Integer
-            Try
-                For i As Integer = 1 To lCompatibility.cCount
-                    With lCompatibility.cCompatibility(i)
-                        If LCase(Trim(.cDescription)) = LCase(Trim(lDescription)) Then
-                            result = i
-                            Exit For
-                        End If
-                    End With
-                Next i
-                Return result
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
+            For i As Integer = 1 To lCompatibility.cCount
+                With lCompatibility.cCompatibility(i)
+                    If LCase(Trim(.cDescription)) = LCase(Trim(lDescription)) Then
+                        result = i
+                        Exit For
+                    End If
+                End With
+            Next i
+            Return result
         End Function
 
         Public Sub SaveCompatibility()
-            Try
-                Dim i As Integer
-                If lCompatibility.cModified = True Then
-                    IniFileHelper.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.cCount.ToString))
-                    For i = 1 To lCompatibility.cCount
-                        With lCompatibility.cCompatibility(i)
-                            IniFileHelper.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", .cDescription)
-                            IniFileHelper.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", Trim(.cEnabled.ToString))
-                        End With
-                    Next i
-                End If
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Dim i As Integer
+            If lCompatibility.cModified = True Then
+                IniFileHelper.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.cCount.ToString))
+                For i = 1 To lCompatibility.cCount
+                    With lCompatibility.cCompatibility(i)
+                        IniFileHelper.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", .cDescription)
+                        IniFileHelper.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", Trim(.cEnabled.ToString))
+                    End With
+                Next i
+            End If
         End Sub
 
         Public Sub LoadCompatibility()
-            Try
-                Dim i As Integer
-                lCompatibility.cCount = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iCompatibility, "Settings", "Count", "0")))
-                ReDim lCompatibility.cCompatibility(1000)
-                For i = 1 To lCompatibility.cCount
-                    With lCompatibility.cCompatibility(i)
-                        .cDescription = IniFileHelper.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Description", "")
-                        .cEnabled = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", "False"))
-                    End With
-                Next i
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Dim i As Integer
+            lCompatibility.cCount = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iCompatibility, "Settings", "Count", "0")))
+            ReDim lCompatibility.cCompatibility(1000)
+            For i = 1 To lCompatibility.cCount
+                With lCompatibility.cCompatibility(i)
+                    .cDescription = IniFileHelper.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Description", "")
+                    .cEnabled = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", "False"))
+                End With
+            Next i
         End Sub
 
         Public Sub AddToCompatibility(ByVal lDescription As String, ByVal lEnabled As Boolean)
-            Try
-                If Len(lDescription) <> 0 Then
-                    lCompatibility.cModified = True
-                    lCompatibility.cCount = lCompatibility.cCount + 1
-                    With lCompatibility.cCompatibility(lCompatibility.cCount)
-                        .cDescription = lDescription
-                        .cEnabled = lEnabled
-                    End With
-                End If
-            Catch ex As Exception
-                Throw ex
-            End Try
+            If Len(lDescription) <> 0 Then
+                lCompatibility.cModified = True
+                lCompatibility.cCount = lCompatibility.cCount + 1
+                With lCompatibility.cCompatibility(lCompatibility.cCount)
+                    .cDescription = lDescription
+                    .cEnabled = lEnabled
+                End With
+            End If
         End Sub
 
         Public Sub RemoveFromCompatibility(ByVal lIndex As Integer)
-            Try
-                lCompatibility.cModified = True
-                With lCompatibility.cCompatibility(lIndex)
-                    .cEnabled = False
-                    .cDescription = ""
-                End With
-                SortCompatibility()
-            Catch ex As Exception
-                Throw ex
-            End Try
+            lCompatibility.cModified = True
+            With lCompatibility.cCompatibility(lIndex)
+                .cEnabled = False
+                .cDescription = ""
+            End With
+            SortCompatibility()
         End Sub
 
         Public Sub SortCompatibility()
-            Try
-                Dim lEnabled(lArraySizes.aCompatibility) As Boolean, lDescription(lArraySizes.aCompatibility) As String, i As Integer, c As Integer
-                For i = 1 To lCompatibility.cCount
-                    With lCompatibility.cCompatibility(i)
-                        lEnabled(i) = .cEnabled
-                        lDescription(i) = .cDescription
-                        .cEnabled = False
-                        .cDescription = ""
+            Dim lEnabled(lArraySizes.aCompatibility) As Boolean, lDescription(lArraySizes.aCompatibility) As String, i As Integer, c As Integer
+            For i = 1 To lCompatibility.cCount
+                With lCompatibility.cCompatibility(i)
+                    lEnabled(i) = .cEnabled
+                    lDescription(i) = .cDescription
+                    .cEnabled = False
+                    .cDescription = ""
+                End With
+            Next i
+            For i = 1 To lArraySizes.aCompatibility
+                If Len(lDescription(i)) <> 0 Then
+                    c = c + 1
+                    With lCompatibility.cCompatibility(c)
+                        .cDescription = lDescription(i)
+                        .cEnabled = lEnabled(i)
                     End With
-                Next i
-                For i = 1 To lArraySizes.aCompatibility
-                    If Len(lDescription(i)) <> 0 Then
-                        c = c + 1
-                        With lCompatibility.cCompatibility(c)
-                            .cDescription = lDescription(i)
-                            .cEnabled = lEnabled(i)
-                        End With
-                    End If
-                Next i
-                lCompatibility.cCount = c
-            Catch ex As Exception
-                Throw ex
-            End Try
+                End If
+            Next i
+            lCompatibility.cCount = c
         End Sub
 
         Public Sub AddToRecientServerList(ByVal lServerIndex As Integer)
-            Try
-                Dim msg As String
-                If lServerIndex <> 0 Then
-                    msg = lServers.sServer(lServerIndex).sIP
-                    If msg = lRecientServers.sItem(1) Or msg = lRecientServers.sItem(2) Or msg = lRecientServers.sItem(3) Then Exit Sub
-                    lRecientServers.sItem(3) = lRecientServers.sItem(2)
-                    lRecientServers.sItem(2) = lRecientServers.sItem(1)
-                    lRecientServers.sItem(1) = msg
-                    RefreshRecientServersMenu()
-                    SaveRecientServers()
-                End If
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Dim msg As String
+            If lServerIndex <> 0 Then
+                msg = lServers.sServer(lServerIndex).sIP
+                If msg = lRecientServers.sItem(1) Or msg = lRecientServers.sItem(2) Or msg = lRecientServers.sItem(3) Then Exit Sub
+                lRecientServers.sItem(3) = lRecientServers.sItem(2)
+                lRecientServers.sItem(2) = lRecientServers.sItem(1)
+                lRecientServers.sItem(1) = msg
+                RefreshRecientServersMenu()
+                SaveRecientServers()
+            End If
         End Sub
 
         Public Sub LoadRecientServers()
-            Try
-                Dim i As Integer
-                lRecientServers.sCount = lArraySizes.aRecientServers
-                ReDim lRecientServers.sItem(lRecientServers.sCount)
-                For i = 1 To lRecientServers.sCount
-                    lRecientServers.sItem(i) = IniFileHelper.ReadINI(lINI.iRecientServers, "Items", Trim(i.ToString), "")
-                Next i
-                RefreshRecientServersMenu()
-            Catch ex As Exception
-                Throw ex
-            End Try
+            'Try
+            Dim i As Integer
+            lRecientServers.sCount = lArraySizes.aRecientServers
+            ReDim lRecientServers.sItem(lRecientServers.sCount)
+            For i = 1 To lRecientServers.sCount
+                lRecientServers.sItem(i) = IniFileHelper.ReadINI(lINI.iRecientServers, "Items", Trim(i.ToString), "")
+            Next i
+            RefreshRecientServersMenu()
         End Sub
 
         Public Sub RefreshRecientServersMenu()
-            Try
-                mdiMain.cmd_RecientServer1.Text = lRecientServers.sItem(1)
-                mdiMain.cmd_RecientServer2.Text = lRecientServers.sItem(2)
-                mdiMain.cmd_RecientServer3.Text = lRecientServers.sItem(3)
-                If Len(mdiMain.cmd_RecientServer1.Text) = 0 Then
-                    mdiMain.cmd_RecientServer1.Text = "(Empty)"
-                    mdiMain.cmd_RecientServer1.Enabled = False
-                Else
-                    mdiMain.cmd_RecientServer1.Enabled = True
-                End If
-                If Len(mdiMain.cmd_RecientServer2.Text) = 0 Then
-                    mdiMain.cmd_RecientServer2.Text = "(Empty)"
-                    mdiMain.cmd_RecientServer2.Enabled = False
-                Else
-                    mdiMain.cmd_RecientServer2.Enabled = True
-                End If
-                If Len(mdiMain.cmd_RecientServer3.Text) = 0 Then
-                    mdiMain.cmd_RecientServer3.Text = "(Empty)"
-                    mdiMain.cmd_RecientServer3.Enabled = False
-                Else
-                    mdiMain.cmd_RecientServer3.Enabled = True
-                End If
-            Catch ex As Exception
-                Throw ex
-            End Try
+            mdiMain.cmd_RecientServer1.Text = lRecientServers.sItem(1)
+            mdiMain.cmd_RecientServer2.Text = lRecientServers.sItem(2)
+            mdiMain.cmd_RecientServer3.Text = lRecientServers.sItem(3)
+            If Len(mdiMain.cmd_RecientServer1.Text) = 0 Then
+                mdiMain.cmd_RecientServer1.Text = "(Empty)"
+                mdiMain.cmd_RecientServer1.Enabled = False
+            Else
+                mdiMain.cmd_RecientServer1.Enabled = True
+            End If
+            If Len(mdiMain.cmd_RecientServer2.Text) = 0 Then
+                mdiMain.cmd_RecientServer2.Text = "(Empty)"
+                mdiMain.cmd_RecientServer2.Enabled = False
+            Else
+                mdiMain.cmd_RecientServer2.Enabled = True
+            End If
+            If Len(mdiMain.cmd_RecientServer3.Text) = 0 Then
+                mdiMain.cmd_RecientServer3.Text = "(Empty)"
+                mdiMain.cmd_RecientServer3.Enabled = False
+            Else
+                mdiMain.cmd_RecientServer3.Enabled = True
+            End If
         End Sub
 
         Public Sub SaveRecientServers()
-            Try
-                Dim i As Integer
-                For i = 1 To lRecientServers.sCount
-                    IniFileHelper.WriteINI(lINI.iRecientServers, "Items", Trim(i.ToString), lRecientServers.sItem(i))
-                Next i
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Dim i As Integer
+            For i = 1 To lRecientServers.sCount
+                IniFileHelper.WriteINI(lINI.iRecientServers, "Items", Trim(i.ToString), lRecientServers.sItem(i))
+            Next i
         End Sub
 
         Public Sub WriteTextFile(ByVal lFileName As String, ByVal lData As String)
-            Try
-                Dim w As StreamWriter
-                w = New StreamWriter(lFileName)
-                w.Write(lData)
-                w.Close()
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Dim w As StreamWriter
+            w = New StreamWriter(lFileName)
+            w.Write(lData)
+            w.Close()
         End Sub
 
         Public Function ReadTextFile(ByVal lFileName As String) As String
-            Try
-                Dim r As StreamReader, msg As String, msg2 As String
-                r = New StreamReader(lFileName)
-                msg = r.ReadLine
-                msg2 = ""
-                Do While Not msg Is Nothing
-                    If Len(msg2) <> 0 Then
-                        msg2 = msg2 & Environment.NewLine & msg
-                    Else
-                        msg2 = msg
-                    End If
-                Loop
-                ReadTextFile = msg2
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
+            Dim r As StreamReader, msg As String, msg2 As String
+            r = New StreamReader(lFileName)
+            msg = r.ReadLine
+            msg2 = ""
+            Do While Not msg Is Nothing
+                If Len(msg2) <> 0 Then
+                    msg2 = msg2 & Environment.NewLine & msg
+                Else
+                    msg2 = msg
+                End If
+            Loop
+            ReadTextFile = msg2
         End Function
 
-
         Public Sub PopulateNotifyByListView(ByVal lListView As RadListView)
-            Try
-                Dim i As Integer, n As Integer
-                For i = 0 To (lListView.Items.Count - 1)
-                    n = n + 1
-                    With lListView.Items(i)
-                        lNotify.nNotify(n).nNickName = .Text
-                        lNotify.nNotify(n).nNetwork = .Item(2).ToString
-                        lNotify.nNotify(n).nMessage = .Item(1).ToString
-                    End With
-                Next i
-                lNotify.nCount = n
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Dim i As Integer, n As Integer
+            For i = 0 To (lListView.Items.Count - 1)
+                n = n + 1
+                With lListView.Items(i)
+                    lNotify.nNotify(n).nNickName = .Text
+                    lNotify.nNotify(n).nNetwork = .Item(2).ToString
+                    lNotify.nNotify(n).nMessage = .Item(1).ToString
+                End With
+            Next i
+            lNotify.nCount = n
         End Sub
 
         Public Function FindNotifyIndex(ByVal lNickName As String) As Integer
-            Try
-                Dim i As Integer
-                FindNotifyIndex = 0
-                If Len(lNickName) <> 0 Then
-                    For i = 1 To lNotify.nCount
-                        If LCase(Trim(lNickName)) = LCase(Trim(lNotify.nNotify(i).nNickName)) Then
-                            FindNotifyIndex = i
-                            Exit For
-                        End If
-                    Next i
-                End If
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
+            Dim i As Integer
+            FindNotifyIndex = 0
+            If Len(lNickName) <> 0 Then
+                For i = 1 To lNotify.nCount
+                    If LCase(Trim(lNickName)) = LCase(Trim(lNotify.nNotify(i).nNickName)) Then
+                        FindNotifyIndex = i
+                        Exit For
+                    End If
+                Next i
+            End If
         End Function
 
         Public Function ReturnAwayStatus() As Boolean
@@ -520,16 +454,12 @@ Namespace nexIRC.Client.IRC.Settings
         End Sub
 
         Public Sub AddToNotifyList(ByVal _Item As gNotify)
-            Try
-                lNotify.nCount = lNotify.nCount + 1
-                With lNotify.nNotify(lNotify.nCount)
-                    .nNickName = _Item.nNickName
-                    .nNetwork = _Item.nNetwork
-                    .nMessage = _Item.nMessage
-                End With
-            Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub AddToNotifyList(_Item As gNotify)")
-            End Try
+            lNotify.nCount = lNotify.nCount + 1
+            With lNotify.nNotify(lNotify.nCount)
+                .nNickName = _Item.nNickName
+                .nNetwork = _Item.nNetwork
+                .nMessage = _Item.nMessage
+            End With
         End Sub
 
         Public Sub SaveNotifyList()
@@ -632,6 +562,7 @@ Namespace nexIRC.Client.IRC.Settings
                 .iCompatibility = lINI.iBasePath & "data\config\compatibility.ini"
             End With
         End Sub
+
         Private Sub LoadNickNames()
             Dim i As Integer
             With lIRC.iNicks
@@ -709,11 +640,11 @@ Namespace nexIRC.Client.IRC.Settings
                 i = Convert.ToInt32(Trim(IniFileHelper.ReadINI(lINI.iStringSettings, "Settings", "Unsupported", "2")))
                 Select Case i
                     Case 1
-                        .sUnsupported = eUnsupportedIn.uStatusWindow
+                        .sUnsupported = UnsupportedIn.StatusWindow
                     Case 2
-                        .sUnsupported = eUnsupportedIn.uOwnWindow
+                        .sUnsupported = UnsupportedIn.OwnWindow
                     Case 3
-                        .sUnsupported = eUnsupportedIn.uHide
+                        .sUnsupported = UnsupportedIn.Hide
                 End Select
                 '.sServerInNotices = Convert.ToBoolean(Trim(IniFileHelper.ReadINI(lINI.iStringSettings, "Settings", "ServerInNotices", "True")))
             End With
@@ -839,22 +770,17 @@ Namespace nexIRC.Client.IRC.Settings
 
         Public Function FindDownloadManagerIndexByFileName(ByVal fileName As String) As Integer
             Dim i As Integer, result As Integer
-            Try
-                If (Not String.IsNullOrEmpty(fileName)) Then
-                    For i = 1 To lDownloadManager.dCount
-                        With lDownloadManager.dDownload(i)
-                            If LCase(fileName) = LCase(.dFileName) Then
-                                result = i
-                                Exit For
-                            End If
-                        End With
-                    Next i
-                End If
-                Return result
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
+            If (Not String.IsNullOrEmpty(fileName)) Then
+                For i = 1 To lDownloadManager.dCount
+                    With lDownloadManager.dDownload(i)
+                        If LCase(fileName) = LCase(.dFileName) Then
+                            result = i
+                            Exit For
+                        End If
+                    End With
+                Next i
+            End If
+            Return result
         End Function
 
         Public Sub AddToDownloadManager(ByVal lFile As String, ByVal lNickname As String, Optional ByVal lShowDownloadManager As Boolean = False)
@@ -921,44 +847,35 @@ Namespace nexIRC.Client.IRC.Settings
 
         Public Function ReturnNickIndex(ByVal nickName As String) As Integer
             Dim i As Integer, result As Integer
-            Try
-                If (Not String.IsNullOrEmpty(nickName)) Then
-                    For i = 1 To lIRC.iNicks.nCount
-                        With lIRC.iNicks.nNick(i)
-                            If (nickName.ToLower() = .nNick.ToLower) Then
-                                result = i
-                                Exit For
-                            End If
-                        End With
-                    Next i
-                End If
-                Return result
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
+            If (Not String.IsNullOrEmpty(nickName)) Then
+                For i = 1 To lIRC.iNicks.nCount
+                    With lIRC.iNicks.nNick(i)
+                        If (nickName.ToLower() = .nNick.ToLower) Then
+                            result = i
+                            Exit For
+                        End If
+                    End With
+                Next i
+            End If
+            Return result
         End Function
 
         Private Sub SaveNickNames()
             Dim nickNames As List(Of String), i As Integer, nickName As String, n As Integer
-            Try
-                nickNames = New List(Of String)
-                For i = 1 To lIRC.iNicks.nCount
-                    If (Not String.IsNullOrEmpty(lIRC.iNicks.nNick(i).nNick)) Then
-                        nickNames.Add(lIRC.iNicks.nNick(i).nNick)
-                    End If
-                Next i
-                nickNames = nickNames.Distinct().ToList()
-                n = 0
-                For Each nickName In nickNames
-                    n = n + 1
-                    IniFileHelper.WriteINI(lINI.iNicks, n.ToString(), "Nick", nickName)
-                Next nickName
-                If (lIRC.iNicks.nIndex <> 0) Then IniFileHelper.WriteINI(lINI.iNicks, "Settings", "Index", lIRC.iNicks.nIndex.ToString())
-                If (lIRC.iNicks.nIndex <> 0) Then IniFileHelper.WriteINI(lINI.iNicks, "Settings", "Count", n.ToString())
-            Catch ex As Exception
-                Throw ex
-            End Try
+            nickNames = New List(Of String)
+            For i = 1 To lIRC.iNicks.nCount
+                If (Not String.IsNullOrEmpty(lIRC.iNicks.nNick(i).nNick)) Then
+                    nickNames.Add(lIRC.iNicks.nNick(i).nNick)
+                End If
+            Next i
+            nickNames = nickNames.Distinct().ToList()
+            n = 0
+            For Each nickName In nickNames
+                n = n + 1
+                IniFileHelper.WriteINI(lINI.iNicks, n.ToString(), "Nick", nickName)
+            Next nickName
+            If (lIRC.iNicks.nIndex <> 0) Then IniFileHelper.WriteINI(lINI.iNicks, "Settings", "Index", lIRC.iNicks.nIndex.ToString())
+            If (lIRC.iNicks.nIndex <> 0) Then IniFileHelper.WriteINI(lINI.iNicks, "Settings", "Count", n.ToString())
         End Sub
 
         Public Sub SaveSettings()
@@ -1033,21 +950,6 @@ Namespace nexIRC.Client.IRC.Settings
             AddServer = lServers.sCount
         End Function
 
-        'Public Function AddNetwork(ByVal lDescription As String) As Integer
-        'If Len(lDescription) <> 0 Then
-        'lNetworks.nCount = lNetworks.nCount + 1
-        'With lNetworks.nNetwork(lNetworks.nCount)
-        '.nDescription = lDescription
-        'End With
-        'If lWinVisible.wCustomize = True Then
-        'frmCustomize.lCustomize.RefreshNetworks(frmCustomize.cboNetworks)
-        'frmCustomize.cboNetworks.Text = lDescription
-        'End If
-        'End If
-        ''SaveNetworks()
-        'AddNetwork = lNetworks.nCount
-        'End Function
-
         Public Sub SaveServers()
             Dim i As Integer
             IniFileHelper.WriteINI(lINI.iServers, "Settings", "Count", lServers.sCount.ToString().Trim)
@@ -1064,192 +966,129 @@ Namespace nexIRC.Client.IRC.Settings
 
         Public Function FindServerIndexByIp(ByVal lIp As String) As Integer
             Dim i As Integer, result As Integer
-            Try
-                If (Not String.IsNullOrEmpty(lIp)) Then
-                    For i = 1 To lServers.sCount
-                        With lServers.sServer(i)
-                            If (.sIP.ToLower() = lIp.ToLower()) Then
-                                result = i
-                                Exit For
-                            End If
-                        End With
-                    Next i
-                End If
-                Return result
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
+            'Try
+            If (Not String.IsNullOrEmpty(lIp)) Then
+                For i = 1 To lServers.sCount
+                    With lServers.sServer(i)
+                        If (.sIP.ToLower() = lIp.ToLower()) Then
+                            result = i
+                            Exit For
+                        End If
+                    End With
+                Next i
+            End If
+            Return result
         End Function
 
         Public Function FindServerIndex(ByVal lDescription As String) As Integer
             Dim i As Integer, result As Integer
-            Try
-                If (Not String.IsNullOrEmpty(lDescription)) Then
-                    For i = 1 To lServers.sCount
-                        With lServers.sServer(i)
-                            If .sDescription.ToLower() = lDescription.ToLower() Then
-                                result = i
-                                Exit For
-                            End If
-                        End With
-                    Next i
-                End If
-                Return result
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
-        End Function
-
-        'Public Function FindNetworkIndex(ByVal description As String) As Integer
-        'Dim i As Integer, result As Integer
-        'Try
-        'If (description = Nothing) Then description = ""
-        'For i = 1 To lNetworks.nCount
-        'If (description.Trim().ToLower() = lNetworks.nNetwork(i).nDescription.Trim().ToLower()) Then
-        'result = i
-        'Exit For
-        'End If
-        'Next i
-        'Return result
-        ''Catch ex As Exception
-        ''Throw ex
-        ''Return Nothing
-        ''End Try
-        'End Function
-
-        Public Sub FillComboWithServers(ByVal lCombo As ComboBox, Optional ByVal lNetworkIndex As Integer = 0, Optional ByVal lClearCombo As Boolean = False)
-            Try
-                Dim i As Integer
-                If lClearCombo = True Then lCombo.Items.Clear()
+            If (Not String.IsNullOrEmpty(lDescription)) Then
                 For i = 1 To lServers.sCount
                     With lServers.sServer(i)
-                        If (.sDescription IsNot Nothing) Then
-                            If (.sDescription.Length <> 0) Then
-                                If lNetworkIndex <> 0 Then
-                                    If lNetworkIndex = .sNetworkIndex Then
-                                        lCombo.Items.Add(.sDescription)
-                                    End If
-                                Else
-                                    lCombo.Items.Add(.sDescription)
-                                End If
-                            End If
+                        If .sDescription.ToLower() = lDescription.ToLower() Then
+                            result = i
+                            Exit For
                         End If
                     End With
                 Next i
-            Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub FillComboWithServers(Optional ByVal lServerIndex As Integer = 0)")
-            End Try
+            End If
+            Return result
+        End Function
+
+        Public Sub FillComboWithServers(ByVal lCombo As ComboBox, Optional ByVal lNetworkIndex As Integer = 0, Optional ByVal lClearCombo As Boolean = False)
+            Dim i As Integer
+            If lClearCombo = True Then lCombo.Items.Clear()
+            For i = 1 To lServers.sCount
+                With lServers.sServer(i)
+                    If (.sDescription IsNot Nothing) Then
+                        If (.sDescription.Length <> 0) Then
+                            If lNetworkIndex <> 0 Then
+                                If lNetworkIndex = .sNetworkIndex Then
+                                    lCombo.Items.Add(.sDescription)
+                                End If
+                            Else
+                                lCombo.Items.Add(.sDescription)
+                            End If
+                        End If
+                    End If
+                End With
+            Next i
         End Sub
 
         Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)
-            Try
-                If _Clear = True Then _RadDropDownList.Items.Clear()
-                For Each network In Modules.IrcSettings.IrcNetworks.Get()
-                    If (Not String.IsNullOrEmpty(network.Description)) Then
-                        _RadDropDownList.Items.Add(network.Description)
-                    End If
-                Next network
-            Catch ex As Exception
-                Throw ex
-            End Try
+            If _Clear = True Then _RadDropDownList.Items.Clear()
+            For Each network In Modules.IrcSettings.IrcNetworks.Get()
+                If (Not String.IsNullOrEmpty(network.Description)) Then
+                    _RadDropDownList.Items.Add(network.Description)
+                End If
+            Next network
         End Sub
 
         Public Sub FillComboWithNetworks(ByVal lCombo As ComboBox, Optional ByVal lClearCombo As Boolean = False)
-            Try
-                'Dim i As Integer
-                If lClearCombo = True Then lCombo.Items.Clear()
-                For Each network In Modules.IrcSettings.IrcNetworks.Get()
-                    If (Not String.IsNullOrEmpty(network.Description)) Then
-                        lCombo.Items.Add(network.Description)
-                    End If
-                Next network
-            Catch ex As Exception
-                Throw ex
-            End Try
+            If lClearCombo = True Then lCombo.Items.Clear()
+            For Each network In Modules.IrcSettings.IrcNetworks.Get()
+                If (Not String.IsNullOrEmpty(network.Description)) Then
+                    lCombo.Items.Add(network.Description)
+                End If
+            Next network
         End Sub
 
         Public Function FindNickNameIndex(ByVal lNickName As String) As Integer
-            Dim result As Integer
-            Try
-                Dim i As Integer
-                If Len(lNickName) <> 0 Then
-                    For i = 1 To lIRC.iNicks.nCount
-                        With lIRC.iNicks.nNick(i)
-                            If LCase(lNickName) = LCase(.nNick) Then
-                                result = i
-                                Exit For
-                            End If
-                        End With
-                    Next i
-                End If
-                Return result
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
+            Dim result As Integer, i As Integer
+            If Len(lNickName) <> 0 Then
+                For i = 1 To lIRC.iNicks.nCount
+                    With lIRC.iNicks.nNick(i)
+                        If LCase(lNickName) = LCase(.nNick) Then
+                            result = i
+                            Exit For
+                        End If
+                    End With
+                Next i
+            End If
+            Return result
         End Function
 
         Public Function AddNickName(ByVal lNickName As String) As Integer
             Dim result As Integer
-            Try
-                If Len(lNickName) <> 0 Then
-                    If FindNickNameIndex(lNickName) <> 0 Then Return 0
-                    lIRC.iNicks.nCount = lIRC.iNicks.nCount + 1
-                    With lIRC.iNicks.nNick(lIRC.iNicks.nCount)
-                        .nNick = lNickName
-                        result = lIRC.iNicks.nCount
-                    End With
-                    SaveNickNames()
-                    If lWinVisible.wCustomize = True Then frmCustomize.cboMyNickNames.Items.Add(lNickName)
-                End If
-                Return result
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
+            If Len(lNickName) <> 0 Then
+                If FindNickNameIndex(lNickName) <> 0 Then Return 0
+                lIRC.iNicks.nCount = lIRC.iNicks.nCount + 1
+                With lIRC.iNicks.nNick(lIRC.iNicks.nCount)
+                    .nNick = lNickName
+                    result = lIRC.iNicks.nCount
+                End With
+                SaveNickNames()
+                If lWinVisible.wCustomize = True Then frmCustomize.cboMyNickNames.Items.Add(lNickName)
+            End If
+            Return result
         End Function
 
         Public Function ShowPrompts() As Boolean
-            Try
-                With lIRC.iSettings
-                    Return .sPrompts
-                End With
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
+            With lIRC.iSettings
+                Return .sPrompts
+            End With
         End Function
 
         Public Sub LoadModes()
-            Try
-                With lIRC.iModes
-                    .mInvisible = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "Invisible", "True"))
-                    .mLocalOperator = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "LocalOperator", "False"))
-                    .mOperator = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "Operator", "False"))
-                    .mRestricted = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "Restricted", "False"))
-                    .mServerNotices = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "ServerNotices", "True"))
-                End With
-            Catch ex As Exception
-                Throw ex
-            End Try
+            With lIRC.iModes
+                .mInvisible = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "Invisible", "True"))
+                .mLocalOperator = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "LocalOperator", "False"))
+                .mOperator = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "Operator", "False"))
+                .mRestricted = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "Restricted", "False"))
+                .mServerNotices = Convert.ToBoolean(IniFileHelper.ReadINI(lINI.iIRC, "Settings", "ServerNotices", "True"))
+            End With
         End Sub
 
         Public Sub RemoveServer(ByVal lIndex As Integer)
-            Try
-                If lIndex <> 0 Then
-                    lServers.sModified = True
-                    With lServers.sServer(lIndex)
-                        .sDescription = ""
-                        .sIP = ""
-                        .sNetworkIndex = 0
-                        .sPort = 0
-                    End With
-                End If
-            Catch ex As Exception
-                Throw ex
-            End Try
+            If lIndex <> 0 Then
+                lServers.sModified = True
+                With lServers.sServer(lIndex)
+                    .sDescription = ""
+                    .sIP = ""
+                    .sNetworkIndex = 0
+                    .sPort = 0
+                End With
+            End If
         End Sub
     End Class
 End Namespace

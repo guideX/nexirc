@@ -7,6 +7,7 @@ Imports nexIRC.Sockets
 Imports nexIRC.Business.Helpers
 Imports nexIRC.Business.Repositories
 Imports nexIRC.Client.nexIRC.Client
+Imports nexIRC.Business.Enums
 
 Public Class frmDccGet
     Public Declare Function htonl Lib "wsock32.dll" (ByVal hostlong As UInt32) As UInt32
@@ -28,7 +29,7 @@ Public Class frmDccGet
     'Private dccSettings As gDCC
 
     Public Sub InitDCCGet(ByVal lUsr As String, ByVal lRemIp As String, ByVal lRemPort As String, ByVal lFileName As String, ByVal lFileSize As String)
-        Try
+        'Try
             lUser = lUsr
             lRemoteIp = lRemIp
             lRemotePort = lRemPort
@@ -43,45 +44,45 @@ Public Class frmDccGet
             lblSize.Text = lFileSize
             lblFilename.Text = lFileName
             ProgressBar1.Maximum = CType(lRemoteFileSize, Integer)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub frmDCCGet_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        Try
+        'Try
             tmrSendCurrentSize.Enabled = False
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub frmDCCGet_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Try
+        'Try
             'dccSettings = Modules.lSettings_DCC
             txtDownloadTo.Text = Modules.lSettings_DCC.dDownloadDirectory
             Me.Icon = mdiMain.Icon
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRun.Click
-        Try
+        'Try
             Dim mBox As MsgBoxResult
             txtDownloadTo.Enabled = False
             If (File.Exists(Modules.lSettings.lINI.iBasePath & lblFilename.Text)) Then
                 If Modules.lSettings.lIRC.iSettings.sPrompts = True Then
-                    If Modules.lSettings_DCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dPrompt Then
+                    If Modules.lSettings_DCC.FileExistsAction = DccFileExistsAction.Prompt Then
                         mBox = MsgBox("This file already exists, replace the original?", MsgBoxStyle.Question Or MsgBoxStyle.YesNoCancel)
-                    ElseIf Modules.lSettings_DCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dOverwrite Then
+                    ElseIf Modules.lSettings_DCC.FileExistsAction = Business.Enums.DccFileExistsAction.Overwrite Then
                         mBox = MsgBoxResult.Yes
-                    ElseIf Modules.lSettings_DCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dIgnore Then
+                    ElseIf Modules.lSettings_DCC.FileExistsAction = Business.Enums.DccFileExistsAction.Ignore Then
                         MsgBox("This file already exists!", MsgBoxStyle.Critical)
                         mBox = MsgBoxResult.No
                     End If
                 Else
-                    If Modules.lSettings_DCC.dFileExistsAction = Business.Enums.eDccFileExistsAction.dIgnore Then
+                    If Modules.lSettings_DCC.FileExistsAction = Business.Enums.DccFileExistsAction.Ignore Then
                         mBox = MsgBoxResult.No
                     Else
                         mBox = MsgBoxResult.Yes
@@ -106,21 +107,21 @@ Public Class frmDccGet
             End If
             cmdRun.Enabled = False
             lSocket.Connect(Modules.lStrings.DecodeLongIPAddr(lRemoteIp), Convert.ToInt64(Trim(lRemotePort)))
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
-        Try
+        'Try
             Me.Close()
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub SocketConnectedProc()
-        Try
+        'Try
             lConnected = True
             tmrSendCurrentSize.Interval = lPacketSizeDelay
             If TextHelper.DoRight(txtDownloadTo.Text, 1) <> "\" Then
@@ -130,13 +131,13 @@ Public Class frmDccGet
             lOutPut = New FileStream(lLocalFileName, FileMode.Create, FileAccess.Write, FileShare.None)
             lBinaryWriter = New BinaryWriter(lOutPut)
             lFileOpen = True
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub SocketDataArrivalProc(ByVal lData As String, ByVal lBytes() As Byte, ByVal lBytesRecieved As Integer)
-        Try
+        'Try
             Dim i As Integer, n As Integer, lCBytes() As Byte
             If lConnected = True Then
                 ReDim lCBytes(lBytesRecieved)
@@ -157,13 +158,13 @@ Public Class frmDccGet
             Else
                 MsgBox("The following data could not be added: " & lData)
             End If
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub EndTransfer()
-        Try
+        'Try
             tmrDelayEndTransfer.Enabled = False
             tmrSendCurrentSize.Enabled = False
             lConnected = False
@@ -183,13 +184,13 @@ Public Class frmDccGet
                 cmdRun.Visible = True
                 cmdCancel.Text = "Close"
             End If
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Function BytesToChars(ByVal lBytes As Long) As Byte()
-        Try
+        'Try
             Dim lLongValue As Long, lLongByte As Long, lSendBackByte() As Byte
             lLongValue = htonl(CUInt(lBytes))
             ReDim lSendBackByte(3)
@@ -205,53 +206,53 @@ Public Class frmDccGet
             lLongByte = lLongByte And &HFF&
             lSendBackByte(3) = CByte(lLongByte)
             BytesToChars = lSendBackByte
-        Catch ex As Exception
-            Throw ex
-            Return Nothing
-        End Try
+        'Catch ex As Exception
+        'Throw ex
+        'Return Nothing
+        'End Try
     End Function
 
     Private Sub SocketDisconnectedProc()
-        Try
+        'Try
             If lConnected = True Then EndTransfer()
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub lSocket_socketConnected(ByVal SocketID As String) Handles lSocket.SocketConnected
-        Try
+        'Try
             Dim lSocketConnectedProc As New EmptyDelegate(AddressOf SocketConnectedProc)
             Me.Invoke(lSocketConnectedProc)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Public Sub SetProgressBar(ByVal lProgressBar As ProgressBar, ByVal lPercent As Integer)
-        Try
+        'Try
             lProgressBar.Value = lPercent
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lSocket.SocketDataArrival
-        Try
+        'Try
             Dim lSocketDataArrivalProc As New DataArrivalDelegate(AddressOf SocketDataArrivalProc)
             Me.Invoke(lSocketDataArrivalProc, SocketData, lBytes, lBytesRead)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub lSocket_socketDisconnected(ByVal SocketID As String) Handles lSocket.SocketDisconnected
-        Try
+        'Try
             Dim lSocketDisconnectProc As New EmptyDelegate(AddressOf SocketDisconnectedProc)
             If lConnected = True Then Me.Invoke(lSocketDisconnectProc)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub tmrSendCurrentSize_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrSendCurrentSize.Tick
@@ -259,12 +260,12 @@ Public Class frmDccGet
     End Sub
 
     Private Sub cmdDownloadTo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDownloadTo.Click
-        Try
+        'Try
             FolderBrowserDialog1.RootFolder = Environment.SpecialFolder.MyDocuments
             FolderBrowserDialog1.ShowDialog()
             txtDownloadTo.Text = FolderBrowserDialog1.SelectedPath
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 End Class

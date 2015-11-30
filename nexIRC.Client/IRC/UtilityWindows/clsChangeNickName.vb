@@ -1,55 +1,45 @@
 ﻿Option Explicit On
 Option Strict On
 Imports Telerik.WinControls.UI
-Imports Telerik.WinControls
+
 Namespace nexIRC.Client.IRC.Status.UtilityWindows
     Public Class clsChangeNickName
-        Public lServerIndex As Integer
+        Public ServerIndex As Integer
+
         Public Sub Form_Load(_RadListBox As RadListControl)
-            Try
-                For i As Integer = 1 To Modules.lSettings.lIRC.iNicks.nCount
-                    With Modules.lSettings.lIRC.iNicks.nNick(i)
-                        If Len(.nNick) <> 0 Then
-                            _RadListBox.Items.Add(.nNick)
-                        End If
-                    End With
-                Next i
-            Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub Form_Load()")
-            End Try
+            For i As Integer = 1 To Modules.lSettings.lIRC.iNicks.nCount
+                With Modules.lSettings.lIRC.iNicks.nNick(i)
+                    If Len(.nNick) <> 0 Then
+                        _RadListBox.Items.Add(.nNick)
+                    End If
+                End With
+            Next i
         End Sub
+
         Public Sub lstNickNames_DoubleClick(_NickName As String, _Form As Form)
-            Try
-                cmdOK_Click(_NickName, _Form)
-            Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub lstNickNames_DoubleClick(sender As Object, e As System.EventArgs) Handles lstNickNames.DoubleClick")
-            End Try
+            cmdOK_Click(_NickName, _Form)
         End Sub
+
+        Public Sub cmdAdd_Click(nickName As String, nickNamesListBox As RadListControl)
+            nickNamesListBox.Items.Add(nickName)
+            Modules.lSettings.AddNickName(nickName)
+        End Sub
+
         Public Sub lstNickNames_SelectedIndexChanged(_NickName As String, _NickNameTextBox As RadTextBox)
-            Try
-                _NickNameTextBox.Text = _NickName
-            Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub lstNickNames_SelectedIndexChanged(_NickName As String, _NickNameTextBox As RadTextBox)")
-            End Try
+            _NickNameTextBox.Text = _NickName
         End Sub
+
         Public Sub cmdOK_Click(_NickName As String, _Form As Form)
-            Try
-                If Len(_NickName) <> 0 Then
-                    Modules.lStatus.NickName(lServerIndex, True) = _NickName
-                    _Form.Close()
-                Else
-                    If Modules.lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("You must select a nickname")
-                End If
-            Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click")
-            End Try
-        End Sub
-        Public Sub cmdCancel_Click(_Form As Form)
-            Try
+            If Len(_NickName) <> 0 Then
+                Modules.lStatus.NickName(ServerIndex, True) = _NickName
                 _Form.Close()
-            Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click")
-            End Try
+            Else
+                If Modules.lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("You must select a nickname")
+            End If
+        End Sub
+
+        Public Sub cmdCancel_Click(_Form As Form)
+            _Form.Close()
         End Sub
     End Class
 End Namespace

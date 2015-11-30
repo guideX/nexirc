@@ -41,7 +41,7 @@ Namespace nexIRC.Client.IRC.Numerics
             sINTERNAL_ERROR = -28
             '  WHEN AN INTERNAL ERROR HAPPENS
             sATTEMPTING_CONNECTION = -27
-            '  WHEN A USER TryS TO CONNECT
+            '  WHEN A USER 'TryS TO CONNECT
             '  EXTENDED MESSAGES ONLY
             sNOT_SENDING_PASSWORD = -26
             '  WHEN A PASSWORD IS NOT SENT
@@ -144,7 +144,7 @@ Namespace nexIRC.Client.IRC.Numerics
             '  UNREAL:                   :%s 004 %s %s %s %s %s
             'sRPL_BOUNCE = 5 '(DEPRECIATED)
             '  Sent by the server to a user to suggest an alternative server, sometimes used when the connection is refused because the server is already full. Also known as RPL_SLINE (AUSTHEX), and RPL_REDIR Also see #010.
-            '  RFC2812:                  :Try server <server_name>, port <port_number>
+            '  RFC2812:                  :'Try server <server_name>, port <port_number>
             sRPL_ISUPPORT = 5 '(CONFLICTING)
             'IRCNET, BAHAMUT, IRCU:      :irc.example.org 005 nick PREFIX=(ov)@+ CHANTYPES=#& :are supported by this server
             '  PREFIX: A list of channel modes a person can get and the respective prefix a channel or nickname will get in case the person has it. The order of the modes goes from most powerful to least powerful. Those prefixes are shown in the output of the WHOIS, WHO and NAMES command.
@@ -316,7 +316,7 @@ Namespace nexIRC.Client.IRC.Numerics
             '  EXAMPLE:                  Link <version>[.<debug_level>] <destination> <next_server> [V<protocol_version> <link_uptime_in_seconds> <backstream_sendq> <upstream_sendq>]
             sRPL_TRACECONNECTING = 201
             '  The RPL_TRACE* are all returned by the server in response to the TRACE message. How many are returned is dependent on the TRACE message and whether it was sent by an operator or not. There is no predefined order for which occurs first. Replies RPL_TRACEUNKNOWN, RPL_TRACECONNECTING and RPL_TRACEHANDSHAKE are all used for connections which have not been fully established and are either unknown, still attempting to connect or in the process of completing the 'server handshake'.
-            '  RFC1459:                  Try. <class> <server>
+            '  RFC1459:                  'Try. <class> <server>
             sRPL_TRACEHANDSHAKE = 202
             '  RFC1459:                  H.S. <class> <server>
             sRPL_TRACEUNKNOWN = 203
@@ -411,7 +411,7 @@ Namespace nexIRC.Client.IRC.Numerics
             'sRPL_SERVICE = 233 '(DEPRECIATED)
             '  RFC1459
             sRPL_SERVLIST = 234
-            '  A service enTry in the service list
+            '  A service en'Try in the service list
             '  RFC2812:                  <name> <server> <mask> <type> <hopcount> <info>
             sRPL_SERVLISTEND = 235
             '  Termination of an RPL_SERVLIST list
@@ -494,7 +494,7 @@ Namespace nexIRC.Client.IRC.Numerics
             '  Reply to ADMIN command (Location, second line)
             '  RFC1459:                  :<admin_location>
             sRPL_ADMINEMAIL = 259
-            '  When replying to an ADMIN message, a server is expected to use replies RPL_ADMINME through to RPL_ADMINEMAIL and provide a text message with each. For RPL_ADMINLOC1 a description of what city, state and counTry the server is in is expected, followed by details of the institution (RPL_ADMINLOC2) and finally the administrative contact for the server (an email address here is REQUIRED) in RPL_ADMINEMAIL.
+            '  When replying to an ADMIN message, a server is expected to use replies RPL_ADMINME through to RPL_ADMINEMAIL and provide a text message with each. For RPL_ADMINLOC1 a description of what city, state and coun'Try the server is in is expected, followed by details of the institution (RPL_ADMINLOC2) and finally the administrative contact for the server (an email address here is REQUIRED) in RPL_ADMINEMAIL.
             '  RFC2812:                  :<admin info>
             sRPL_TRACELOG = 261
             '  RFC1459:                  File <logfile> <debug_level>
@@ -1092,7 +1092,7 @@ Namespace nexIRC.Client.IRC.Numerics
             '  Returned by the server to indicate that a MODE message was sent with a nickname parameter and that the mode flag sent was not recognised
             '  RFC1459:                  :<reason>
             sERR_USERSDONTMATCH = 502
-            '  Error sent to any user Trying to view or change the user mode for a user other than themselves
+            '  Error sent to any user 'Trying to view or change the user mode for a user other than themselves
             '  RFC1459:                  :<reason>
             'sERR_GHOSTEDCLIENT = 503
             '  HYBRID
@@ -1353,7 +1353,7 @@ Namespace nexIRC.Client.IRC.Numerics
             '  Termination of an RPL_XINFO list
             '  ITHILDIN
             'sERR_CANNOTDOCOMMAND = 972
-            '  Works similarly to all of KineIRCd's CANNOT* numerics. This one indicates that a command could not be performed for an arbitrary reason. For example, a halfop Trying to kick an op.
+            '  Works similarly to all of KineIRCd's CANNOT* numerics. This one indicates that a command could not be performed for an arbitrary reason. For example, a halfop 'Trying to kick an op.
             '  UNREAL
             'sERR_CANNOTCHANGEUMODE = 973
             '  Reply to MODE when a user cannot change a user mode

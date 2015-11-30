@@ -15,55 +15,34 @@ Namespace nexIRC.Client.Classes
         Private Delegate Sub DataArrivalDelegate(ByVal id As Integer, ByVal data As String)
 
         Public Sub Listen(Optional ByVal port As Long = 0)
-            Try
-                _listenSocket = New AsyncServer(Convert.ToInt32(port))
-                _listenSocket.Start()
-            Catch ex As Exception
-                Throw ex
-            End Try
+            _listenSocket = New AsyncServer(Convert.ToInt32(port))
+            _listenSocket.Start()
         End Sub
 
         Private Sub _listenSocket_ConnectionAccept(ByVal tempSocket As AsyncSocket) Handles _listenSocket.ConnectionAccept
-            Try
-                _clientSocket.PassSocket(Modules.lStatus.GetObject(Modules.lStatus.ActiveIndex).sWindow) = tempSocket
-                '_clientSocket = tempSocket
-            Catch ex As Exception
-                Throw ex
-            End Try
+            _clientSocket.PassSocket(Modules.lStatus.GetObject(Modules.lStatus.ActiveIndex).sWindow) = tempSocket
         End Sub
 
         Public Sub ProcessSocketDataArrival(socketId As Integer)
             Dim msg As String, msg2 As String, form As frmStatus
-            Try
-                form = Modules.lStatus.GetObject(Modules.lStatus.ActiveIndex).sWindow
-                msg = Trim(Modules.lStatus.StatusSocketLocalPort(socketId).ToString()) & ", " & Trim(Modules.lStatus.ReturnRemotePort(Modules.lStatus.ActiveIndex).ToString()) & " : USERID : " & Modules.lSettings.lIRC.iIdent.iUserID
-                msg2 = Trim(Modules.lStatus.StatusSocketLocalPort(Modules.lStatus.ActiveIndex).ToString()) & ", " & Trim(Modules.lStatus.ReturnRemotePort(Modules.lStatus.ActiveIndex).ToString()) & " : SYSTEM : " & Modules.lSettings.lIRC.iIdent.iSystem
-                _clientSocket.SendSocket(msg & Environment.NewLine)
-                _clientSocket.SendSocket(msg2 & Environment.NewLine)
-                _clientSocket.CloseSocket()
-            Catch ex As Exception
-                Throw ex
-            End Try
+            form = Modules.lStatus.GetObject(Modules.lStatus.ActiveIndex).sWindow
+            msg = Trim(Modules.lStatus.StatusSocketLocalPort(socketId).ToString()) & ", " & Trim(Modules.lStatus.ReturnRemotePort(Modules.lStatus.ActiveIndex).ToString()) & " : USERID : " & Modules.lSettings.lIRC.iIdent.iUserID
+            msg2 = Trim(Modules.lStatus.StatusSocketLocalPort(Modules.lStatus.ActiveIndex).ToString()) & ", " & Trim(Modules.lStatus.ReturnRemotePort(Modules.lStatus.ActiveIndex).ToString()) & " : SYSTEM : " & Modules.lSettings.lIRC.iIdent.iSystem
+            _clientSocket.SendSocket(msg & Environment.NewLine)
+            _clientSocket.SendSocket(msg2 & Environment.NewLine)
+            _clientSocket.CloseSocket()
         End Sub
 
         Public Sub New()
-            Try
-                _clientSocket = New StatusSocket()
-                _clientSocket.SetSocketType = StatusSocket.SocketType.Ident
-            Catch ex As Exception
-                Throw ex
-            End Try
+            _clientSocket = New StatusSocket()
+            _clientSocket.SetSocketType = StatusSocket.SocketType.Ident
         End Sub
 
         Private Sub _clientSocket_DataArrival(data As String) Handles _clientSocket.DataArrival
             Dim statusId As Integer
-            Try
-                statusId = Modules.lStatus.ActiveIndex()
-                Dim processSocketDataArrivalProc As New IntegerDelegate(AddressOf ProcessSocketDataArrival)
-                Modules.lStatus.GetObject(statusId).sWindow.Invoke(processSocketDataArrivalProc, statusId)
-            Catch ex As Exception
-                Throw ex
-            End Try
+            statusId = Modules.lStatus.ActiveIndex()
+            Dim processSocketDataArrivalProc As New IntegerDelegate(AddressOf ProcessSocketDataArrival)
+            Modules.lStatus.GetObject(statusId).sWindow.Invoke(processSocketDataArrivalProc, statusId)
         End Sub
     End Class
 End Namespace

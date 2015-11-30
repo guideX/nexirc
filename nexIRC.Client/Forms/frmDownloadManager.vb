@@ -8,16 +8,16 @@ Imports nexIRC.Client.nexIRC.Client
 
 Public Class frmDownloadManager
     Private Sub frmDownloadManager_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Try
+        'Try
             Me.Icon = mdiMain.Icon
             Modules.lSettings.SetListViewToDownloadManager(lvwDownloadManager)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub frmDownloadManager_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
-        Try
+        'Try
             lvwDownloadManager.Width = Me.Width - (lvwDownloadManager.Left + 28)
             lvwDownloadManager.Height = Me.Height - (lvwDownloadManager.Top + (cmdRun.Height * 2) + (lvwDownloadManager.Top * 2))
             cmdClose.Top = Me.Height - (cmdClose.Height + (lvwDownloadManager.Top * 2)) - 20
@@ -28,29 +28,29 @@ Public Class frmDownloadManager
             cmdClear.Top = cmdRun.Top
             cmdOpenLocation.Top = cmdClear.Top
             cmdOpenLocation.Left = lvwDownloadManager.Left
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click
-        Try
+        'Try
             Me.Close()
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClear.Click
-        Try
+        'Try
             lvwDownloadManager.Items.Clear()
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdRun_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRun.Click
-        Try
+        'Try
             Dim msg As String = lvwDownloadManager.SelectedItems(0).Text, v As Boolean, p As Boolean
             Select Case TextHelper.DoRight(msg, 4)
                 Case ".txt"
@@ -83,20 +83,20 @@ Public Class frmDownloadManager
                 'mdiMain.BrowseURL(ReturnDownloadManagerFullPath(msg))
                 'End If
             End If
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub lvwDownloadManager_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lvwDownloadManager.DoubleClick
-        Try
+        'Try
             Dim msg As String = lvwDownloadManager.SelectedItems(0).Text
             Select Case TextHelper.DoRight(LCase(Trim(msg)), 4)
                 Case ".txt"
             End Select
             MsgBox(msg)
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 End Class

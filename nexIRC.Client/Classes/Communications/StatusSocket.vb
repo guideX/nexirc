@@ -1,7 +1,5 @@
 Option Explicit On
 Option Strict Off
-'nexIRC 3.0.31
-'Sunday, Oct 4th, 2014 - guideX
 Imports nexIRC.Client.nexIRC.Client.IRC.Numerics.clsIrcNumerics
 Imports nexIRC.Sockets
 
@@ -24,146 +22,83 @@ Namespace nexIRC.Client.Classes.Communications
 
         Public WriteOnly Property SetSocketType() As SocketType
             Set(value As SocketType)
-                Try
-                    _socketType = value
-                Catch ex As Exception
-                    Throw ex
-                End Try
+                _socketType = value
             End Set
         End Property
 
         Public WriteOnly Property PassSocket(invokeForm As Form) As AsyncSocket
             Set(value As AsyncSocket)
-                Try
-                    _invoke = invokeForm
-                    socket = value
-                Catch ex As Exception
-                    Throw ex
-                End Try
+                _invoke = invokeForm
+                socket = value
             End Set
         End Property
 
         Public Function Connected() As Boolean
-            Try
-                Return socket.Connected
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
+            Return socket.Connected
         End Function
 
         Public Function ReturnLocalIp() As String
-            Try
-                ReturnLocalIp = socket.ReturnLocalIp()
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
+            ReturnLocalIp = socket.ReturnLocalIp()
         End Function
 
         Public Function ReturnLocalPort() As Long
-            Try
-                If (Connected() = True) Then
-                    Return socket.ReturnLocalPort
-                End If
-                Return 0
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
+            If (Connected() = True) Then
+                Return socket.ReturnLocalPort
+            End If
+            Return 0
         End Function
 
         Public Sub NewSocket(ByVal id As Integer, ByVal form As Form)
-            Try
-                socket = New AsyncSocket
-                statusId = id
-                _invoke = New Form
-                _invoke = form
-            Catch ex As Exception
-                Throw ex
-            End Try
+            socket = New AsyncSocket
+            statusId = id
+            _invoke = New Form
+            _invoke = form
         End Sub
 
         Public Sub SendSocket(ByVal data As String)
-            Try
-                If (Connected() = True) Then socket.Send(data & Environment.NewLine)
-            Catch ex As Exception
-                Throw ex
-            End Try
+            If (Connected() = True) Then socket.Send(data & Environment.NewLine)
         End Sub
 
         Public Sub CloseSocket()
-            Try
-                If Connected() = True Then socket.Close()
-            Catch ex As Exception
-                Throw ex
-            End Try
+            If Connected() = True Then socket.Close()
         End Sub
 
         Public Sub ConnectSocket(ByVal ip As String, ByVal port As Long)
-            Try
-                If Connected() = False Then socket.Connect(ip, port)
-            Catch ex As Exception
-                Throw ex
-            End Try
+            If Connected() = False Then socket.Connect(ip, port)
         End Sub
 
         Public Sub CouldNotConnect(data As String)
-            Try
-                Modules.lStrings.ProcessReplaceString(statusId, eStringTypes.sCOULD_NOT_CONNECT, Modules.lStatus.ServerDescription(statusId))
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Modules.lStrings.ProcessReplaceString(statusId, eStringTypes.sCOULD_NOT_CONNECT, Modules.lStatus.ServerDescription(statusId))
         End Sub
 
         Private Sub socket_CouldNotConnect(SocketID As String) Handles socket.CouldNotConnect
-            Try
-                Dim couldNotConnectEvent As New StringDelegate(AddressOf CouldNotConnect)
-                _invoke.Invoke(couldNotConnectEvent, SocketID)
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Dim couldNotConnectEvent As New StringDelegate(AddressOf CouldNotConnect)
+            _invoke.Invoke(couldNotConnectEvent, SocketID)
         End Sub
 
         Private Sub lSocket_socketConnected(ByVal socketID As String) Handles socket.SocketConnected
-            Try
-                Dim connectEvent As New IntegerDelegate(AddressOf Modules.lStatus.ConnectEvent)
-                _invoke.Invoke(connectEvent, statusId)
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Dim connectEvent As New IntegerDelegate(AddressOf Modules.lStatus.ConnectEvent)
+            _invoke.Invoke(connectEvent, statusId)
         End Sub
 
         Public Sub DataArrivalProc(id As Integer, data As String)
-            Try
-                RaiseEvent DataArrival(data)
-            Catch ex As Exception
-                Throw ex
-            End Try
+            RaiseEvent DataArrival(data)
         End Sub
 
         Private Sub lSocket_socketDataArrival(ByVal socketID As String, ByVal socketData As String, ByVal bytes() As Byte, ByVal lByteRead As Integer) Handles socket.SocketDataArrival
-            Try
-                Select Case _socketType
-                    Case SocketType.Status
-                        Dim processDataArrival As New DataArrivalDelegate(AddressOf Modules.lProcessNumeric.lIrcNumericHelper.ProcessDataArrival)
-                        _invoke.Invoke(processDataArrival, statusId, socketData)
-                    Case SocketType.Ident
-                        Dim processDataArrival As New DataArrivalDelegate(AddressOf DataArrivalProc)
-                        _invoke.Invoke(processDataArrival, statusId, socketData)
-                End Select
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Select Case _socketType
+                Case SocketType.Status
+                    Dim processDataArrival As New DataArrivalDelegate(AddressOf Modules.lProcessNumeric.lIrcNumericHelper.ProcessDataArrival)
+                    _invoke.Invoke(processDataArrival, statusId, socketData)
+                Case SocketType.Ident
+                    Dim processDataArrival As New DataArrivalDelegate(AddressOf DataArrivalProc)
+                    _invoke.Invoke(processDataArrival, statusId, socketData)
+            End Select
         End Sub
 
         Private Sub socket_socketDisconnected(ByVal socketId As String) Handles socket.SocketDisconnected
-            Try
-                Dim disconnectEvent As New DisconnectDelegate(AddressOf Modules.lStatus.CloseStatusConnection)
-                If Connected() = True Then _invoke.Invoke(disconnectEvent, statusId, False)
-            Catch ex As Exception
-                'Throw ex
-            End Try
+            Dim disconnectEvent As New DisconnectDelegate(AddressOf Modules.lStatus.CloseStatusConnection)
+            If Connected() = True Then _invoke.Invoke(disconnectEvent, statusId, False)
         End Sub
     End Class
 End Namespace

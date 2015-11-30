@@ -9,7 +9,7 @@ Public Class frmEditServer
     Private lInfoSet As Boolean
 
     Public Sub SetServerInfo(ByVal lIndex As Integer)
-        Try
+        'Try
             lServerIndex = lIndex
             txtDescription.Text = Modules.lSettings.lServers.sServer(lIndex).sDescription
             txtIp.Text = Modules.lSettings.lServers.sServer(lIndex).sIP
@@ -17,13 +17,13 @@ Public Class frmEditServer
             Modules.lSettings.FillComboWithNetworks(cboNetwork, True)
             cboNetwork.Text = Modules.IrcSettings.IrcNetworks.GetById(Modules.lSettings.lServers.sServer(lIndex).sNetworkIndex).Description
             lInfoSet = True
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
-        Try
+        'Try
             If lInfoSet = False Then
                 If Modules.lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Unable to edit server")
                 Exit Sub
@@ -42,24 +42,24 @@ Public Class frmEditServer
             Else
                 If Modules.lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Not all fields are filled out", MsgBoxStyle.Exclamation)
             End If
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
-        Try
+        'Try
             Me.Close()
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub frmEditServer_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Try
+        'Try
             Me.Icon = mdiMain.Icon
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 End Class

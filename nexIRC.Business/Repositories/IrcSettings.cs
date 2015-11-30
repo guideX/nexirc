@@ -1,23 +1,22 @@
-﻿using System;
-namespace nexIRC.Business.Repositories {
+﻿namespace nexIRC.Business.Repositories {
+    /// <summary>
+    /// Irc Settings
+    /// </summary>
     public class IrcSettings {
-        public ChannelFolderRepository ChannelFoldersRepo;
-        public NetworkSettings IrcNetworks;
+        /// <summary>
+        /// Channel Folders Repository
+        /// </summary>
+        public ChannelFolderRepository ChannelFoldersRepository;
+        public NetworkRepository IrcNetworks;
         public QuerySettings QuerySettings;
-        //public CompatibilitySettings CompatibilitySettings;
         /// <summary>
         /// Entry Point
         /// </summary>
         /// <param name="startupPath"></param>
         public IrcSettings(string startupPath) {
-            try {
-                ChannelFoldersRepo = new ChannelFolderRepository(startupPath);
-                IrcNetworks = new NetworkSettings(startupPath);
-                QuerySettings = new QuerySettings(startupPath);
-                //CompatibilitySettings = new CompatibilitySettings(startupPath);
-            } catch (Exception ex) {
-                throw ex;
-            }
+            ChannelFoldersRepository = new ChannelFolderRepository(startupPath);
+            IrcNetworks = new NetworkRepository(startupPath);
+            QuerySettings = new QuerySettings(startupPath);
         }
     }
 }

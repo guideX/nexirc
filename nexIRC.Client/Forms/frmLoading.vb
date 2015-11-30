@@ -6,11 +6,11 @@
         Me.Height = 116
     End Sub
     Public Sub SetProgress(ByVal lData As String, ByVal lValue As Integer)
-        Try
+        'Try
             lblStatus.Text = lData
             prgLoading.Step = lValue
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 End Class

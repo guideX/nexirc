@@ -11,36 +11,36 @@ Public Class frmDccChatPrompt
     Private lStatusIndex As Integer
 
     Public Sub SetStatusIndex(ByVal lIndex As Integer)
-        Try
+        'Try
             lStatusIndex = lIndex
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
-        Try
+        'Try
             Dim lDCCChat As New frmDCCChat
             lDCCChat.cboUsers.Text = lNickName
             lDCCChat.lDccChatUI.SetStatusIndex(lStatusIndex)
             lDCCChat.lDccChatUI.SetInfo(lAddress, Trim(lPort.ToString))
             lDCCChat.Show()
             Me.Close()
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
-        Try
+        'Try
             Me.Close()
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Public Sub SetInfo(ByVal lNick As String, ByVal lAddr As String, ByVal lPrt As String)
-        Try
+        'Try
             If (Not String.IsNullOrEmpty(lNick) And Not String.IsNullOrEmpty(lAddr) And Not String.IsNullOrEmpty(lPrt)) Then
                 lNickName = lNick
                 lAddress = lAddr
@@ -48,9 +48,9 @@ Public Class frmDccChatPrompt
                 lblNickName.Text = lNick
                 lblAddress.Text = Modules.lStrings.DecodeLongIPAddr(lAddr)
             End If
-        Catch ex As Exception
-            Throw ex
-        End Try
+        'Catch ex As Exception
+            'Throw ex
+        'End Try
     End Sub
 
     Private Sub FrmCNotice_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load

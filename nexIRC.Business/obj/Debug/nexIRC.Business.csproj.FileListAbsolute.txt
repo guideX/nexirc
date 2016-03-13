@@ -11,3 +11,16 @@ C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Business\bin\Debug\Telerik.WinControls.
 C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Business\obj\Debug\nexIRC.Business.csprojResolveAssemblyReference.cache
 C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Business\obj\Debug\nexIRC.Business.dll
 C:\dev\team-nexgen\nexirc\nexirc3\nexIRC.Business\obj\Debug\nexIRC.Business.pdb
+C:\dev\team-nexgen\nexirc\_nexirc3\nexIRC.Business\bin\Debug\nexIRC.Business.dll
+C:\dev\team-nexgen\nexirc\_nexirc3\nexIRC.Business\bin\Debug\nexIRC.Business.pdb
+C:\dev\team-nexgen\nexirc\_nexirc3\nexIRC.Business\bin\Debug\Telerik.WinControls.dll
+C:\dev\team-nexgen\nexirc\_nexirc3\nexIRC.Business\bin\Debug\Telerik.WinControls.RichTextBox.dll
+C:\dev\team-nexgen\nexirc\_nexirc3\nexIRC.Business\bin\Debug\Telerik.WinControls.UI.dll
+C:\dev\team-nexgen\nexirc\_nexirc3\nexIRC.Business\bin\Debug\TelerikCommon.dll
+C:\dev\team-nexgen\nexirc\_nexirc3\nexIRC.Business\bin\Debug\Telerik.WinControls.xml
+C:\dev\team-nexgen\nexirc\_nexirc3\nexIRC.Business\bin\Debug\Telerik.WinControls.RichTextBox.xml
+C:\dev\team-nexgen\nexirc\_nexirc3\nexIRC.Business\bin\Debug\Telerik.WinControls.UI.xml
+C:\dev\team-nexgen\nexirc\_nexirc3\nexIRC.Business\bin\Debug\TelerikCommon.xml
+C:\dev\team-nexgen\nexirc\_nexirc3\nexIRC.Business\obj\Debug\nexIRC.Business.csprojResolveAssemblyReference.cache
+C:\dev\team-nexgen\nexirc\_nexirc3\nexIRC.Business\obj\Debug\nexIRC.Business.dll
+C:\dev\team-nexgen\nexirc\_nexirc3\nexIRC.Business\obj\Debug\nexIRC.Business.pdb

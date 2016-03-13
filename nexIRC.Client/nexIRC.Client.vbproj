@@ -302,7 +302,6 @@
     <Compile Include="IRC\DCC\clsDccChat.vb" />
     <Compile Include="IRC\MainWindow\clsMainWindowUI.vb" />
     <Compile Include="IRC\Numerics\clsIrcNumericHelper.vb" />
-    <Compile Include="IRC\Numerics\clsIrcNumerics.vb" />
     <Compile Include="IRC\Numerics\clsProcessNumeric.vb" />
     <Compile Include="IRC\Numerics\IrcStrings.vb" />
     <Compile Include="IRC\SendNotice\clsSendNotice.vb" />

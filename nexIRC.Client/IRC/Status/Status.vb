@@ -726,7 +726,7 @@ Namespace nexIRC.Client.IRC.Status
                     End If
                 End If
                 If _Modes.Length <> 0 Then
-                    If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sSETTING_MODES)
+                    If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_StatusIndex, StringTypes.sSETTING_MODES)
                     SendSocket(_StatusIndex, "MODE " & NickName(_StatusIndex) & " " & _Modes)
                 End If
             End With
@@ -1294,7 +1294,7 @@ Namespace nexIRC.Client.IRC.Status
                             .pVisible = True
                             .pWindow.Show()
                             If (Modules.lSettings.lIRC.iSettings.sAutoMaximize = True) Then .pWindow.WindowState = FormWindowState.Maximized
-                            If (Not String.IsNullOrEmpty(data)) Then .pWindow.DoNoticeColor(Modules.lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, name, data))
+                            If (Not String.IsNullOrEmpty(data)) Then .pWindow.DoNoticeColor(Modules.lStrings.ReturnReplacedString(StringTypes.sPRIVMSG, name, data))
                         End If
                     Else
                         mdiMain.tspQueryPrompt.Visible = True
@@ -1333,7 +1333,7 @@ Namespace nexIRC.Client.IRC.Status
                         If (Modules.lSettings.lIRC.iSettings.sAutoMaximize = True) Then .pWindow.WindowState = FormWindowState.Maximized
                     End If
                     If (.pVisible) Then
-                        If (Not String.IsNullOrEmpty(data)) Then .pWindow.DoNoticeColor(Modules.lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, name, data))
+                        If (Not String.IsNullOrEmpty(data)) Then .pWindow.DoNoticeColor(Modules.lStrings.ReturnReplacedString(StringTypes.sPRIVMSG, name, data))
                     End If
                 End With
             End If
@@ -1413,7 +1413,7 @@ Namespace nexIRC.Client.IRC.Status
                         End If
                         .pVisible = True
                         .pWindow.Show()
-                        If (Not String.IsNullOrEmpty(.pFirstMessage)) Then .pWindow.DoNoticeColor(Modules.lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, _Name, .pFirstMessage))
+                        If (Not String.IsNullOrEmpty(.pFirstMessage)) Then .pWindow.DoNoticeColor(Modules.lStrings.ReturnReplacedString(StringTypes.sPRIVMSG, _Name, .pFirstMessage))
                         .pFirstMessage = ""
                         .pWindow.lMdiWindow.Form_Load(MdiChildWindow.FormTypes.PrivateMessage)
                         .pWindow.lMdiWindow.MeIndex = _StatusIndex
@@ -1561,13 +1561,13 @@ Namespace nexIRC.Client.IRC.Status
                     .sSocket.ConnectSocket(.sPrimitives.sRemoteIP, .sPrimitives.sRemotePort)
                     .sWindow.Visible = True
                     Modules.lProcessNumeric.lIrcNumericHelper.ResetMessages()
-                    If (Modules.lSettings.lIRC.iSettings.sExtendedMessages = True) Then Modules.lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sATTEMPTING_CONNECTION, .sPrimitives.sRemoteIP, Convert.ToString(.sPrimitives.sRemotePort).Trim())
+                    If (Modules.lSettings.lIRC.iSettings.sExtendedMessages = True) Then Modules.lStrings.ProcessReplaceString(_StatusIndex, StringTypes.sATTEMPTING_CONNECTION, .sPrimitives.sRemoteIP, Convert.ToString(.sPrimitives.sRemotePort).Trim())
                     result = True
                 Else
                     result = False
                     If (Modules.lSettings.lIRC.iSettings.sExtendedMessages = True) Then MsgBox("Unable to connect, not enough parameters!", MsgBoxStyle.Information)
                 End If
-                If Err.Number <> 0 Then Modules.lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sCONNECTION_DENIED)
+                If Err.Number <> 0 Then Modules.lStrings.ProcessReplaceString(_StatusIndex, StringTypes.sCONNECTION_DENIED)
             End With
             Return result
         End Function
@@ -1637,20 +1637,20 @@ Namespace nexIRC.Client.IRC.Status
             Dim msg As String
             With lStatusObjects.sStatusObject(_Index)
                 .sConnecting = False
-                If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_Index, eStringTypes.sCONNECTION_ESTABLISHED)
+                If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_Index, StringTypes.sCONNECTION_ESTABLISHED)
                 If Len(Modules.lSettings.lIRC.iPass) <> 0 Then
-                    If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_Index, eStringTypes.sSENDING_PASSWORD)
+                    If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_Index, StringTypes.sSENDING_PASSWORD)
                     SendSocket(_Index, "PASS " & Pass(_Index))
                 Else
-                    If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_Index, eStringTypes.sNOT_SENDING_PASSWORD)
+                    If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_Index, StringTypes.sNOT_SENDING_PASSWORD)
                 End If
                 If Len(NickName(_Index)) <> 0 Then
-                    Modules.lStrings.ProcessReplaceString(_Index, eStringTypes.sSENDING_NICKNAME)
+                    Modules.lStrings.ProcessReplaceString(_Index, StringTypes.sSENDING_NICKNAME)
                     SendSocket(_Index, "NICK " & NickName(_Index))
                     If Len(Email(_Index)) <> 0 Then
                         msg = TextHelper.LeftRight(Email(_Index), 0, InStr(Email(_Index), "@"))
                         If Len(msg) <> 0 Then
-                            If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_Index, eStringTypes.sSENDING_LOGON_INFORMATION)
+                            If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(_Index, StringTypes.sSENDING_LOGON_INFORMATION)
                             SendSocket(_Index, "USER " & Split(RealName(_Index), " ")(0) & " 0 * :" & RealName(_Index))
                             SetStatusIconConnected(_Index)
                         End If
@@ -1669,7 +1669,7 @@ Namespace nexIRC.Client.IRC.Status
         Public Sub CloseStatusConnection(ByVal _StatusIndex As Integer, ByVal _CloseSocket As Boolean)
             'Try
             With lStatusObjects.sStatusObject(_StatusIndex)
-                Modules.lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sCONNECTION_CLOSED)
+                Modules.lStrings.ProcessReplaceString(_StatusIndex, StringTypes.sCONNECTION_CLOSED)
                 SetStatusIconDisconnected(_StatusIndex)
                 Disconnect(_StatusIndex)
                 If .sConnecting = True Or Connected(_StatusIndex) = True And _CloseSocket = True Then
@@ -1834,9 +1834,9 @@ Namespace nexIRC.Client.IRC.Status
                 End If
             Else
                 If (lData2.Length <> 0) Then
-                    Modules.lStrings.ProcessReplaceString(lIndex, eStringTypes.sNOTICE, lData, lData2)
+                    Modules.lStrings.ProcessReplaceString(lIndex, StringTypes.sNOTICE, lData, lData2)
                 Else
-                    Modules.lStrings.ProcessReplaceString(lIndex, eStringTypes.sNOTICE, lData)
+                    Modules.lStrings.ProcessReplaceString(lIndex, StringTypes.sNOTICE, lData)
                 End If
             End If
             'Catch ex As Exception
@@ -2154,9 +2154,9 @@ Namespace nexIRC.Client.IRC.Status
                         AddText(_Data, _StatusIndex)
                         Exit Sub
                     Case "me"
-                        Dim m As IrcStrings.gCommandReturnData = Modules.lStrings.ReturnReplacedCommand(IrcCommandTypes.cACTION, Modules.lChannels.Name(Modules.lChannels.CurrentIndex), Replace(_Data, "me", ""), Modules.lSettings.lIRC.iNicks.nNick(Modules.lSettings.lIRC.iNicks.nIndex).nNick)
-                        Modules.lChannels.DoChannelColor(Modules.lChannels.CurrentIndex, m.cDoColorData)
-                        Modules.lStatus.SendSocket(_StatusIndex, m.cSocketData)
+                        Dim m As CommandReturnDataModel = Modules.lStrings.ReturnReplacedCommand(IrcCommandTypes.cACTION, Modules.lChannels.Name(Modules.lChannels.CurrentIndex), Replace(_Data, "me", ""), Modules.lSettings.lIRC.iNicks.nNick(Modules.lSettings.lIRC.iNicks.nIndex).nNick)
+                        Modules.lChannels.DoChannelColor(Modules.lChannels.CurrentIndex, m.DoColorData)
+                        Modules.lStatus.SendSocket(_StatusIndex, m.SocketData)
                         Exit Sub
                     Case "whowas"
                         Modules.lStrings.ProcessReplaceCommand(_StatusIndex, IrcCommandTypes.cWHOWAS, splt(1))

@@ -9,7 +9,7 @@ Namespace nexIRC.Client.IRC.Numerics
         Private Delegate Sub StatusDataDelegate(ByVal lStatusIndex As Integer, ByVal lData As String)
         Private Delegate Sub JoinPartDelegate(ByVal lStatusIndex As Integer, ByVal lData As String)
         Private Delegate Sub QuitDelegate(ByVal lStatusIndex As Integer, ByVal lData As String)
-        Private Delegate Sub ProcessReplaceStringDelegate1(ByVal lStatusIndex As Integer, ByVal lType As eStringTypes, ByVal r1 As String)
+        Private Delegate Sub ProcessReplaceStringDelegate1(ByVal lStatusIndex As Integer, ByVal lType As StringTypes, ByVal r1 As String)
         Public WithEvents lIrcNumericHelper As New clsIrcNumericHelper
 
         Public Sub ProcessDataArrivalLine(ByVal lStatusIndex As Integer, ByVal lData As String)
@@ -24,8 +24,8 @@ Namespace nexIRC.Client.IRC.Numerics
             End If
             Modules.lStatus.Raw_AddText(lStatusIndex, lData, True)
             If Left(LCase(lData), 7) = "version" Then
-                If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sVERSION_REQUEST)
-                msg = Modules.lStrings.ReturnReplacedString(eStringTypes.sVERSION_REPLY)
+                If Modules.lSettings.lIRC.iSettings.sExtendedMessages = True Then Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sVERSION_REQUEST)
+                msg = Modules.lStrings.ReturnReplacedString(StringTypes.sVERSION_REPLY)
                 Modules.lStatus.SendSocket(lStatusIndex, msg)
                 Exit Sub
             End If
@@ -63,13 +63,13 @@ Namespace nexIRC.Client.IRC.Numerics
                     Dim noticeNickName As String = splt(2)
                     lData = lData.Remove(0, noticeSource.Length + splt(1).Length + noticeNickName.Length + 5).Trim()
                     If (lData.ToLower().Contains("you are now identified for")) Then
-                        Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sNICKSERV_LOGIN, noticeNickName)
+                        Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sNICKSERV_LOGIN, noticeNickName)
                         mdiMain.tspQueryPrompt.Visible = False
                     ElseIf lData.ToLower().Contains("nickname is registered") Then
                         mdiMain.ShowQueryBar("This nickname is registered, proceed with NickServ login?", eInfoBar.iNickServ_NickTaken)
                         mdiMain.lblQueryPrompt.Tag = 5
                     Else
-                        Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sINCOMING_NOTICE, noticeSource, lData)
+                        Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sINCOMING_NOTICE, noticeSource, lData)
                     End If
                     Exit Sub
                 End If
@@ -116,7 +116,7 @@ Namespace nexIRC.Client.IRC.Numerics
                                 If Modules.lSettings.lIRC.iSettings.sPopupChannelFolders = True Then
                                     Modules.lChannelFolder.Show(lStatusIndex)
                                 End If
-                                lIrcNumericHelper.l001 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_WELCOME, Modules.IrcSettings.IrcNetworks.GetById(Modules.lStatus.NetworkIndex(lStatusIndex)).Description, splt2(2))
+                                lIrcNumericHelper.l001 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_WELCOME, Modules.IrcSettings.IrcNetworks.GetById(Modules.lStatus.NetworkIndex(lStatusIndex)).Description, splt2(2))
                                 Exit Sub
                             Case 2
                                 msg2 = Replace(TextHelper.ParseData(splt2(2), "host is ", ","), "ost is ", "")
@@ -124,7 +124,7 @@ Namespace nexIRC.Client.IRC.Numerics
                                 msg3 = TextHelper.ParseData(splt2(2), "version ", Right(splt2(2), 2)) & Right(splt2(2), 3)
                                 msg3 = Replace(msg3, "ersion", "")
                                 msg3 = Replace(msg3, "version", "")
-                                lIrcNumericHelper.l002 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_YOURHOST, msg2, msg3)
+                                lIrcNumericHelper.l002 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_YOURHOST, msg2, msg3)
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     If Len(lIrcNumericHelper.l001) <> 0 And Len(lIrcNumericHelper.l002) <> 0 And Len(lIrcNumericHelper.l003) <> 0 And Len(lIrcNumericHelper.l004) <> 0 Then Modules.lStatus.ProcessWelcomeMessage(lStatusIndex, lIrcNumericHelper.l001, lIrcNumericHelper.l002, lIrcNumericHelper.l003, lIrcNumericHelper.l004)
                                 End If
@@ -132,14 +132,14 @@ Namespace nexIRC.Client.IRC.Numerics
                             Case 3
                                 msg2 = TextHelper.ParseData(splt2(2), "created", Convert.ToString(Right(splt2(2), 1)))
                                 msg2 = Replace(splt2(2), "reated", "")
-                                lIrcNumericHelper.l003 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_CREATED, msg2)
+                                lIrcNumericHelper.l003 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_CREATED, msg2)
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     If Len(lIrcNumericHelper.l001) <> 0 And Len(lIrcNumericHelper.l002) <> 0 And Len(lIrcNumericHelper.l003) <> 0 And Len(lIrcNumericHelper.l004) <> 0 Then Modules.lStatus.ProcessWelcomeMessage(lStatusIndex, lIrcNumericHelper.l001, lIrcNumericHelper.l002, lIrcNumericHelper.l003, lIrcNumericHelper.l004)
                                 End If
                                 Exit Sub
                             Case 4
                                 splt3 = Split(splt2(2), " ")
-                                lIrcNumericHelper.l004 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_MYINFO, splt3(0), splt3(1), splt3(2), splt3(3))
+                                lIrcNumericHelper.l004 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_MYINFO, splt3(0), splt3(1), splt3(2), splt3(3))
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     If Len(lIrcNumericHelper.l001) <> 0 And Len(lIrcNumericHelper.l002) <> 0 And Len(lIrcNumericHelper.l003) <> 0 And Len(lIrcNumericHelper.l004) <> 0 Then Modules.lStatus.ProcessWelcomeMessage(lStatusIndex, lIrcNumericHelper.l001, lIrcNumericHelper.l002, lIrcNumericHelper.l003, lIrcNumericHelper.l004)
                                 End If
@@ -147,273 +147,273 @@ Namespace nexIRC.Client.IRC.Numerics
                                 Exit Sub
                             Case 5
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ISUPPORT, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ISUPPORT, splt2(2))
                                 End If
                                 'lIrcNumericHelper.ProcessISUPPORT(lData)
                                 Exit Sub
                             Case 6
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_MAP, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_MAP, splt2(2))
                                 End If
                                 Exit Sub
                             Case 7
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_MAPEND, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_MAPEND, splt2(2))
                                 End If
                                 Exit Sub
                             Case 8
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_SNOMASK, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_SNOMASK, splt2(2))
                                 End If
                                 Exit Sub
                             Case 9
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_STATMEMTOT, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_STATMEMTOT, splt2(2))
                                 End If
                                 Exit Sub
                             Case 10
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_BOUNCE_2, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_BOUNCE_2, splt2(2))
                                 End If
                                 Exit Sub
                             Case 20
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_PLEASEWAIT, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_PLEASEWAIT, splt2(2))
                                 End If
                                 Exit Sub
                             Case 200
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRACELINK, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRACELINK, splt2(2))
                                 End If
                                 Exit Sub
                             Case 201
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRACECONNECTING, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRACECONNECTING, splt2(2))
                                 End If
                                 Exit Sub
                             Case 202
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRACEHANDSHAKE, splt3(1), splt3(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRACEHANDSHAKE, splt3(1), splt3(2))
                                 End If
                                 Exit Sub
                             Case 203
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRACEUNKNOWN, splt3(1), splt3(4))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRACEUNKNOWN, splt3(1), splt3(4))
                                 End If
                                 Exit Sub
                             Case 204
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRACEOPERATOR, splt3(1), splt3(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRACEOPERATOR, splt3(1), splt3(2))
                                 End If
                                 Exit Sub
                             Case 205
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRACEUSER, splt3(1), splt3(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRACEUSER, splt3(1), splt3(2))
                                 End If
                                 Exit Sub
                             Case 206
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRACESERVER, splt3(1), splt3(4), splt3(5), splt3(6))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRACESERVER, splt3(1), splt3(4), splt3(5), splt3(6))
                                 End If
                                 Exit Sub
                             Case 207
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRACESERVICE, splt3(1), splt3(2), splt3(3), splt3(4))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRACESERVICE, splt3(1), splt3(2), splt3(3), splt3(4))
                                 End If
                                 Exit Sub
                             Case 208
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRACENEWTYPE, splt3(0), splt3(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRACENEWTYPE, splt3(0), splt3(2))
                                 End If
                                 Exit Sub
                             Case 209
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRACECLASS, splt3(1), splt3(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRACECLASS, splt3(1), splt3(2))
                                 End If
                                 Exit Sub
                             Case 210
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRACERECONNECT, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRACERECONNECT, splt2(2))
                                 End If
                                 Exit Sub
                             Case 211
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_STATSLINKINFO, splt3(0), splt3(1), splt3(2), splt3(3), splt3(4), splt3(5), splt3(6))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_STATSLINKINFO, splt3(0), splt3(1), splt3(2), splt3(3), splt3(4), splt3(5), splt3(6))
                                 End If
                                 Exit Sub
                             Case 212
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_STATSCOMMANDS, splt3(0), splt3(1), splt3(2), splt3(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_STATSCOMMANDS, splt3(0), splt3(1), splt3(2), splt3(3))
                                 End If
                                 Exit Sub
                             Case 213
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_STATSCLINE, splt3(1), splt3(3), splt3(4), splt3(5))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_STATSCLINE, splt3(1), splt3(3), splt3(4), splt3(5))
                                 End If
                                 Exit Sub
                             Case 214
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_STATSNLINE, splt3(1), splt3(3), splt3(4), splt3(5))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_STATSNLINE, splt3(1), splt3(3), splt3(4), splt3(5))
                                 End If
                                 Exit Sub
                             Case 215
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_STATSILINE, splt3(1), splt3(3), splt3(4), splt3(5))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_STATSILINE, splt3(1), splt3(3), splt3(4), splt3(5))
                                 End If
                                 Exit Sub
                             Case 216
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_STATSKLINE, splt3(1), splt3(3), splt3(4), splt3(5))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_STATSKLINE, splt3(1), splt3(3), splt3(4), splt3(5))
                                 End If
                                 Exit Sub
                             Case 218
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_STATSYLINE, splt3(1), splt3(2), splt3(3), splt3(4))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_STATSYLINE, splt3(1), splt3(2), splt3(3), splt3(4))
                                 End If
                                 Exit Sub
                             Case 219
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFSTATS, splt3(0), Replace(splt3(1), ":", ""))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ENDOFSTATS, splt3(0), Replace(splt3(1), ":", ""))
                                 End If
                                 Exit Sub
                             Case 221
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_UMODEIS, splt3(0), splt3(1))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_UMODEIS, splt3(0), splt3(1))
                                 End If
                                 Exit Sub
                             Case 234
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_SERVLIST, splt3(0), splt3(1), splt3(2), splt3(3), splt3(4), splt3(5))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_SERVLIST, splt3(0), splt3(1), splt3(2), splt3(3), splt3(4), splt3(5))
                                 End If
                                 Exit Sub
                             Case 235
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_SERVLISTEND, splt3(0), splt3(1), splt3(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_SERVLISTEND, splt3(0), splt3(1), splt3(2))
                                 End If
                                 Exit Sub
                             Case 241
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_STATSLLINE, splt3(1), splt3(3), splt3(4))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_STATSLLINE, splt3(1), splt3(3), splt3(4))
                                 End If
                                 Exit Sub
                             Case 242
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_STATSUPTIME, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_STATSUPTIME, splt2(2))
                                 End If
                                 Exit Sub
                             Case 243
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_STATSOLINE, splt3(1), splt3(3), splt3(4))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_STATSOLINE, splt3(1), splt3(3), splt3(4))
                                 End If
                                 Exit Sub
                             Case 244
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_STATSHLINE, splt3(1), splt3(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_STATSHLINE, splt3(1), splt3(3))
                                 End If
                                 Exit Sub
                             Case 250
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     If UBound(splt2) > 2 Then
-                                        Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_STATSCONN, splt2(3))
+                                        Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_STATSCONN, splt2(3))
                                     End If
                                 End If
                                 Exit Sub
                             Case 251
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    lIrcNumericHelper.l251 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_LUSERCLIENT, splt2(2))
+                                    lIrcNumericHelper.l251 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_LUSERCLIENT, splt2(2))
                                     If Modules.lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
                                 End If
                                 Exit Sub
                             Case 252
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    lIrcNumericHelper.l252 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_LUSEROP, splt2(2))
+                                    lIrcNumericHelper.l252 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_LUSEROP, splt2(2))
                                     If Modules.lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
                                 End If
                                 Exit Sub
                             Case 253
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    lIrcNumericHelper.l253 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_LUSERUNKNOWN, splt2(2))
+                                    lIrcNumericHelper.l253 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_LUSERUNKNOWN, splt2(2))
                                     If Modules.lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
                                 End If
                                 Exit Sub
                             Case 254
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    lIrcNumericHelper.l254 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_LUSERCHANNELS, splt2(2))
+                                    lIrcNumericHelper.l254 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_LUSERCHANNELS, splt2(2))
                                     If Modules.lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
                                 End If
                                 Exit Sub
                             Case 255
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    lIrcNumericHelper.l255 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_LUSERME, splt2(2))
+                                    lIrcNumericHelper.l255 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_LUSERME, splt2(2))
                                     If Modules.lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
                                 End If
                                 Exit Sub
                             Case 256
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ADMINME, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ADMINME, splt2(2))
                                 End If
                                 Exit Sub
                             Case 257
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ADMINLOC1, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ADMINLOC1, splt2(2))
                                 End If
                                 Exit Sub
                             Case 258
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ADMINLOC2, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ADMINLOC2, splt2(2))
                                 End If
                                 Exit Sub
                             Case 259
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ADMINEMAIL, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ADMINEMAIL, splt2(2))
                                 End If
                                 Exit Sub
                             Case 261
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRACELOG, Replace(splt2(2), ":", ""))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRACELOG, Replace(splt2(2), ":", ""))
                                 End If
                                 Exit Sub
                             Case 262
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRACEEND, Replace(splt2(2), ":", ""))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRACEEND, Replace(splt2(2), ":", ""))
                                 End If
                                 Exit Sub
                             Case 263
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TRYAGAIN, splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TRYAGAIN, splt2(3))
                                 End If
                                 Exit Sub
                             Case 265
-                                lIrcNumericHelper.l265 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_LOCALUSERS, splt2(2) & ": " & splt2(3))
+                                lIrcNumericHelper.l265 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_LOCALUSERS, splt2(2) & ": " & splt2(3))
                                 If Modules.lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 266
                                 Modules.lStatus.TimerWaitForLUsersEnabled(lStatusIndex) = False
-                                lIrcNumericHelper.l266 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_GLOBALUSERS, splt2(2) & ": " & splt2(3))
+                                lIrcNumericHelper.l266 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_GLOBALUSERS, splt2(2) & ": " & splt2(3))
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                         lIrcNumericHelper.ProcessLUsersCommand(lStatusIndex)
@@ -422,61 +422,61 @@ Namespace nexIRC.Client.IRC.Numerics
                                 Exit Sub
                             Case 292
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_HELP, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_HELP, splt2(2))
                                 End If
                                 Exit Sub
                             Case 300
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_NONE, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_NONE, splt2(2))
                                 End If
                                 Exit Sub
                             Case 301
                                 splt3 = Split(splt2(2), ":")
-                                Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_AWAY, splt3(0), splt3(1))
+                                Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_AWAY, splt3(0), splt3(1))
                                 Exit Sub
                             Case 302
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(Replace(splt2(2), ":", ""), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_USERHOST, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_USERHOST, splt2(2))
                                     Exit Sub
                                 End If
                             Case 303
                                 splt3 = Split(splt2(2), " ")
-                                Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sNOTIFY_LIST_BEGIN)
+                                Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sNOTIFY_LIST_BEGIN)
                                 For i = 0 To UBound(splt3)
                                     If Len(splt3(i)) <> 0 Then
                                         msg2 = splt3(i)
                                         n = Modules.lSettings.FindNotifyIndex(Trim(msg2))
                                         If Len(Modules.lSettings.lNotify.nNotify(n).nNetwork) = 0 Then
-                                            Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ISON, msg2, Modules.lSettings.lNotify.nNotify(n).nMessage)
+                                            Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ISON, msg2, Modules.lSettings.lNotify.nNotify(n).nMessage)
                                             Modules.lStatus.AddToNotifyList(lStatusIndex, msg2)
                                         Else
                                             'If Modules.lSettings.lNotify.nNotify(n).nNetwork = Modules.lSettings.lNetworks.nNetwork(Modules.lStatus.NetworkIndex(lStatusIndex)).nDescription Or Len(LCase(Trim(Modules.lSettings.lNotify.nNotify(n).nNetwork))) <> 0 Then
                                             If Modules.lSettings.lNotify.nNotify(n).nNetwork = Modules.IrcSettings.IrcNetworks.GetById(Modules.lStatus.NetworkIndex(lStatusIndex)).Description Or Len(LCase(Trim(Modules.lSettings.lNotify.nNotify(n).nNetwork))) <> 0 Then
-                                                Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ISON, msg2, Modules.lSettings.lNotify.nNotify(n).nMessage)
+                                                Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ISON, msg2, Modules.lSettings.lNotify.nNotify(n).nMessage)
                                                 Modules.lStatus.AddToNotifyList(lStatusIndex, msg2)
                                             End If
                                         End If
                                     End If
                                 Next i
-                                If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sNOTIFY_LIST_END)
+                                If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sNOTIFY_LIST_END)
                                 Exit Sub
                             Case 305
                                 Modules.lSettings.SetAwayStatus(False)
-                                If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_UNAWAY, Replace(splt2(2), ":", ""))
+                                If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_UNAWAY, Replace(splt2(2), ":", ""))
                                 Exit Sub
                             Case 306
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     Modules.lSettings.SetAwayStatus(True)
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_NOWAWAY, Replace(splt2(2), ":", ""))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_NOWAWAY, Replace(splt2(2), ":", ""))
                                     Exit Sub
                                 End If
                             Case 311
                                 splt3 = Split(Replace(splt2(2), "* :", ""), " ")
                                 If Len(Replace(splt3(4), ":", "")) <> 0 Then
-                                    lIrcNumericHelper.l311 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_WHOISUSER, splt3(0), Replace(splt3(1), "n=", ""), splt3(2), Replace(splt3(4), ":", ""))
+                                    lIrcNumericHelper.l311 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_WHOISUSER, splt3(0), Replace(splt3(1), "n=", ""), splt3(2), Replace(splt3(4), ":", ""))
                                 Else
-                                    lIrcNumericHelper.l311 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_WHOISUSER, splt3(0), Replace(splt3(1), "n=", ""), splt3(2), "unknown")
+                                    lIrcNumericHelper.l311 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_WHOISUSER, splt3(0), Replace(splt3(1), "n=", ""), splt3(2), "unknown")
                                 End If
                                 lIrcNumericHelper.lWhoisUser = splt3(0)
                                 If Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
@@ -484,32 +484,32 @@ Namespace nexIRC.Client.IRC.Numerics
                             Case 312
                                 splt3 = Split(splt2(2), ":")
                                 If UBound(splt3) <> 0 Then
-                                    lIrcNumericHelper.l312 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_WHOISSERVER, Trim(Replace(splt3(1), ":", "")))
+                                    lIrcNumericHelper.l312 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_WHOISSERVER, Trim(Replace(splt3(1), ":", "")))
                                     If Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 End If
                                 Exit Sub
                             Case 313
                                 splt3 = Split(splt2(2), ":")
-                                lIrcNumericHelper.l313 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_WHOISOPERATOR, splt3(0), splt3(1))
+                                lIrcNumericHelper.l313 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_WHOISOPERATOR, splt3(0), splt3(1))
                                 If Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 314
                                 splt3 = Split(splt2(2), " ")
-                                If UBound(splt3) = 4 Then Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_WHOWASUSER, splt3(0), splt3(1), splt3(2), Trim(Replace(splt3(4), ":", "")))
+                                If UBound(splt3) = 4 Then Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_WHOWASUSER, splt3(0), splt3(1), splt3(2), Trim(Replace(splt3(4), ":", "")))
                                 If Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 315
                                 splt3 = Split(splt2(2), ":")
-                                Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFWHO, splt3(0))
+                                Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ENDOFWHO, splt3(0))
                                 If Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 316
-                                lIrcNumericHelper.l316 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_WHOISCHANOP, splt2(2))
+                                lIrcNumericHelper.l316 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_WHOISCHANOP, splt2(2))
                                 If Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 317
                                 splt3 = Split(splt2(2), " ")
-                                lIrcNumericHelper.l317 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_WHOISIDLE, Replace(splt3(1), ":", ""))
+                                lIrcNumericHelper.l317 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_WHOISIDLE, Replace(splt3(1), ":", ""))
                                 If Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 318
@@ -519,32 +519,32 @@ Namespace nexIRC.Client.IRC.Numerics
                             Case 319
                                 splt3 = Split(splt2(2), ":")
                                 If UBound(splt3) <> 0 Then
-                                    lIrcNumericHelper.l319 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_WHOISCHANNELS, splt3(1))
+                                    lIrcNumericHelper.l319 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_WHOISCHANNELS, splt3(1))
                                 End If
                                 If Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 321
                                 Modules.lChannelLists.NewChannelList(lStatusIndex)
-                                If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_LISTSTART)
-                                'lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sCHANNEL_LIST_WAIT)
+                                If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_LISTSTART)
+                                'lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sCHANNEL_LIST_WAIT)
                                 Exit Sub
                             Case 322
                                 Modules.lChannelLists.Add(Modules.lChannelLists.ReturnChannelListIndex(lStatusIndex), lData)
                                 Application.DoEvents()
                                 Exit Sub
                             Case 323
-                                If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_LISTEND)
+                                If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_LISTEND)
                                 Modules.lChannelLists.StatusDescription(Modules.lChannelLists.ReturnChannelListIndex(lStatusIndex)) = Modules.lStatus.GetObject(lStatusIndex).sDescription
                                 Modules.lChannelLists.Display(Modules.lChannelLists.ReturnChannelListIndex(lStatusIndex))
                                 Exit Sub
                             Case 324
                                 splt3 = Split(splt2(2), " ")
-                                If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_CHANNELMODEIS, splt3(0), splt3(1), splt3(2))
+                                If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_CHANNELMODEIS, splt3(0), splt3(1), splt3(2))
                                 Exit Sub
                             Case 328
                                 splt3 = Split(splt2(2), " ")
                                 msg2 = splt2(3) & ":" & splt2(4)
-                                msg = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_CHANNEL_URL, splt3(0), msg2)
+                                msg = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_CHANNEL_URL, splt3(0), msg2)
                                 i = Modules.lChannels.Find(lStatusIndex, splt3(0))
                                 Modules.lChannels.URL(i) = msg2
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
@@ -560,14 +560,14 @@ Namespace nexIRC.Client.IRC.Numerics
 
                                 Exit Sub
                             Case 331
-                                Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_NOTOPIC, splt2(2))
+                                Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_NOTOPIC, splt2(2))
                                 Exit Sub
                             Case 332
                                 Modules.lChannels.Topic(lStatusIndex, lData)
                                 Exit Sub
                             Case 333
                                 splt(3) = Trim(Replace(splt(3), ":", ""))
-                                msg = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_TOPICWHOTIME, splt(3), Trim(splt(4)), lIrcNumericHelper.ReturnTimeStamp(splt(5)))
+                                msg = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_TOPICWHOTIME, splt(3), Trim(splt(4)), lIrcNumericHelper.ReturnTimeStamp(splt(5)))
                                 i = Modules.lChannels.Find(lStatusIndex, splt(3))
                                 If i <> 0 Then
                                     Modules.lChannels.DoChannelColor(Modules.lChannels.Find(lStatusIndex, splt2(2)), msg)
@@ -576,48 +576,48 @@ Namespace nexIRC.Client.IRC.Numerics
                                 End If
                                 Exit Sub
                             Case 338
-                                Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_WHOISACTUALLY, splt2(2))
+                                Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_WHOISACTUALLY, splt2(2))
                                 Exit Sub
                             Case 341
                                 splt3 = Split(splt2(2))
-                                Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_INVITING, splt3(0), splt3(1))
+                                Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_INVITING, splt3(0), splt3(1))
                                 Exit Sub
                             Case 342
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_SUMMONING, splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_SUMMONING, splt2(3))
                                 End If
                                 Exit Sub
                             Case 346
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_INVITELIST, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_INVITELIST, splt2(2))
                                 End If
                                 Exit Sub
                             Case 347
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFINVITELIST, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ENDOFINVITELIST, splt2(2))
                                 End If
                                 Exit Sub
                             Case 348
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_EXCEPTLIST, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_EXCEPTLIST, splt2(2))
                                 End If
                                 Exit Sub
                             Case 349
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFEXCEPTLIST, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ENDOFEXCEPTLIST, splt2(2))
                                 End If
                                 Exit Sub
                             Case 351
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     msg = splt2(3)
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_VERSION, splt3(0), splt3(1), msg)
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_VERSION, splt3(0), splt3(1), msg)
                                 End If
                                 Exit Sub
                             Case 352
                                 splt3 = Split(splt2(2), " ")
                                 splt4 = Split(splt2(3), " ")
-                                Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_WHOREPLY, splt3(0), splt3(1), splt3(2), splt3(3), splt3(4), splt3(5), splt4(0), Right(splt2(3), Len(splt2(3)) - Len(splt4(0))))
+                                Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_WHOREPLY, splt3(0), splt3(1), splt3(2), splt3(3), splt3(4), splt3(5), splt4(0), Right(splt2(3), Len(splt2(3)) - Len(splt4(0))))
                                 Exit Sub
                             Case 353
                                 n = Modules.lChannels.Find(lStatusIndex, Trim(splt(4)))
@@ -633,19 +633,19 @@ Namespace nexIRC.Client.IRC.Numerics
                                 If UBound(splt2) <> 2 Then
                                     splt4 = Split(splt2(3), " ")
                                     If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                        Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_LINKS, splt3(0), splt3(1), splt4(0), splt4(1))
+                                        Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_LINKS, splt3(0), splt3(1), splt4(0), splt4(1))
                                     End If
                                     Modules.lStatus.AddToServerLinks(lStatusIndex, splt3(0), "6667")
                                 End If
                                 Exit Sub
                             Case 365
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFLINKS)
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ENDOFLINKS)
                                 End If
                                 Exit Sub
                             Case 366
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFNAMES, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ENDOFNAMES, splt2(2))
                                     For ii As Integer = 1 To Modules.lChannels.Count
                                         If (Modules.lChannels.Window(ii) IsNot Nothing) Then
                                             Modules.lChannels.EnableDelayNamesTimer(ii)
@@ -656,220 +656,220 @@ Namespace nexIRC.Client.IRC.Numerics
                             Case 367
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_BANLIST, splt3(0), splt3(1))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_BANLIST, splt3(0), splt3(1))
                                 End If
                                 Exit Sub
                             Case 368
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFBANLIST, Trim(splt2(2)))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ENDOFBANLIST, Trim(splt2(2)))
                                 End If
                                 Exit Sub
                             Case 369
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFWHOWAS, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ENDOFWHOWAS, splt2(2))
                                 End If
                                 Exit Sub
                             Case 371
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     If Len(splt2(2)) <> 0 Then
-                                        Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_INFO, splt2(2))
+                                        Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_INFO, splt2(2))
                                         Exit Sub
                                     End If
                                 End If
                             Case 372
                                 If Modules.lSettings.lIRC.iSettings.sMOTDInOwnWindow = True Then
-                                    Modules.lStatus.Motd_AddText(lStatusIndex, Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_MOTD, splt2(2)))
+                                    Modules.lStatus.Motd_AddText(lStatusIndex, Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_MOTD, splt2(2)))
                                 Else
                                     If Modules.lSettings.lIRC.iSettings.sHideMOTD = False Then
-                                        Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_MOTD, splt2(2))
+                                        Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_MOTD, splt2(2))
                                     End If
                                 End If
                                 Exit Sub
                             Case 374
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFINFO)
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ENDOFINFO)
                                 End If
                                 Exit Sub
                             Case 375
                                 If Modules.lSettings.lIRC.iSettings.sMOTDInOwnWindow = True Then
-                                    Modules.lStatus.Motd_AddText(lStatusIndex, Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_MOTDSTART, Modules.IrcSettings.IrcNetworks.GetById(Modules.lStatus.NetworkIndex(lStatusIndex)).Description))
+                                    Modules.lStatus.Motd_AddText(lStatusIndex, Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_MOTDSTART, Modules.IrcSettings.IrcNetworks.GetById(Modules.lStatus.NetworkIndex(lStatusIndex)).Description))
                                 Else
                                     If Modules.lSettings.lIRC.iSettings.sHideMOTD = False Then
-                                        Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_MOTDSTART, Modules.IrcSettings.IrcNetworks.GetById(Modules.lStatus.NetworkIndex(lStatusIndex)).Description)
+                                        Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_MOTDSTART, Modules.IrcSettings.IrcNetworks.GetById(Modules.lStatus.NetworkIndex(lStatusIndex)).Description)
                                     End If
                                 End If
                                 Exit Sub
                             Case 376
                                 If Modules.lSettings.lIRC.iSettings.sMOTDInOwnWindow = True Then
-                                    Modules.lStatus.Motd_AddText(lStatusIndex, Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_ENDOFMOTD))
+                                    Modules.lStatus.Motd_AddText(lStatusIndex, Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_ENDOFMOTD))
                                     Exit Sub
                                 Else
                                     If Modules.lSettings.lIRC.iSettings.sHideMOTD = False Then
-                                        Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFMOTD)
+                                        Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ENDOFMOTD)
                                     End If
                                 End If
                                 Exit Sub
                             Case 378
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    lIrcNumericHelper.l378 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_WHOISHOST, splt2(2))
+                                    lIrcNumericHelper.l378 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_WHOISHOST, splt2(2))
                                 End If
                                 Exit Sub
                             Case 379
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    lIrcNumericHelper.l379 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_WHOISMODES, splt2(2))
+                                    lIrcNumericHelper.l379 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_WHOISMODES, splt2(2))
                                 End If
                                 Exit Sub
                             Case 381
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_YOUREOPER, Replace(splt2(2), ":", ""))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_YOUREOPER, Replace(splt2(2), ":", ""))
                                 End If
                                 Exit Sub
                             Case 382
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_REHASHING, Replace(splt2(2), ":", ""))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_REHASHING, Replace(splt2(2), ":", ""))
                                 End If
                                 Exit Sub
                             Case 383
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_YOURESERVICE, Replace(splt2(2), ":", ""))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_YOURESERVICE, Replace(splt2(2), ":", ""))
                                 End If
                                 Exit Sub
                             Case 391
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_TIME, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_TIME, splt2(2))
                                 End If
                                 Exit Sub
                             Case 392
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_USERSSTART)
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_USERSSTART)
                                 End If
                                 Exit Sub
                             Case 393
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_USERS, splt3(0), splt3(1), splt3(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_USERS, splt3(0), splt3(1), splt3(2))
                                 End If
                                 Exit Sub
                             Case 394
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFUSERS)
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ENDOFUSERS)
                                 End If
                                 Exit Sub
                             Case 395
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_NOUSERS)
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_NOUSERS)
                                 End If
                                 Exit Sub
                             Case 396
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_HOSTHIDDEN, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_HOSTHIDDEN, splt2(2))
                                 End If
                                 Exit Sub
                             Case 400
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_UNKNOWNERROR, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_UNKNOWNERROR, splt2(2))
                                 End If
                                 Exit Sub
                             Case 401
                                 Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False
-                                Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOSUCHNICK, splt2(2))
+                                Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOSUCHNICK, splt2(2))
                                 Exit Sub
                             Case 402
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOSUCHSERVER, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOSUCHSERVER, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 403
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOSUCHCHANNEL, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOSUCHCHANNEL, splt2(2))
                                 End If
                                 Exit Sub
                             Case 404
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_CANNOTSENDTOCHAN, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_CANNOTSENDTOCHAN, splt2(2))
                                 End If
                                 Exit Sub
                             Case 405
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_TOOMANYCHANNELS, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_TOOMANYCHANNELS, splt2(2))
                                 End If
                                 Exit Sub
                             Case 406
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_WASNOSUCHNICK, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_WASNOSUCHNICK, splt2(2))
                                 End If
                                 Exit Sub
                             Case 407
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_TOOMANYTARGETS, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_TOOMANYTARGETS, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 408
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOSUCHSERVICE, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOSUCHSERVICE, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 409
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOORIGIN, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOORIGIN, splt2(2))
                                 End If
                                 Exit Sub
                             Case 411
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NORECIPIENT, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NORECIPIENT, splt2(2))
                                 End If
                                 Exit Sub
                             Case 412
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOTEXTTOSEND, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOTEXTTOSEND, splt2(2))
                                 End If
                                 Exit Sub
                             Case 413
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOTOPLEVEL, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOTOPLEVEL, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 414
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_WILDTOPLEVEL, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_WILDTOPLEVEL, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 415
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_BADMASK, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_BADMASK, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 421
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_UNKNOWNCOMMAND, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_UNKNOWNCOMMAND, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 422
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOMOTD, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOMOTD, splt2(2))
                                 End If
                                 Exit Sub
                             Case 423
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOADMININFO, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOADMININFO, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 424
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NONICKNAMEGIVEN, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NONICKNAMEGIVEN, splt2(2))
                                 End If
                                 Exit Sub
                             Case 431
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NONICKNAMEGIVEN)
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NONICKNAMEGIVEN)
                                 End If
                             Case 432
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_ERRONEUSNICKNAME, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_ERRONEUSNICKNAME, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 433
-                                Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NICKNAMEINUSE, Modules.lStatus.NickName(lStatusIndex))
+                                Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NICKNAMEINUSE, Modules.lStatus.NickName(lStatusIndex))
                                 If (Modules.lSettings.lIRC.iSettings.sAutoSelectAlternateNickname) Then
                                     Dim nn = New Random(DateTime.Now.Millisecond).Next(1, Modules.lSettings.lIRC.iNicks.nCount + 1)
                                     Dim newNick = Modules.lSettings.lIRC.iNicks.nNick(nn)
@@ -904,202 +904,202 @@ Namespace nexIRC.Client.IRC.Numerics
                                 Exit Sub
                             Case 436
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NICKCOLLISION, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NICKCOLLISION, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 437
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), "/")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_UNAVAILRESOURCE, splt3(0), splt3(1), splt3(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_UNAVAILRESOURCE, splt3(0), splt3(1), splt3(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 439
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_TARGETTOOFAST, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_TARGETTOOFAST, splt2(2))
                                 End If
                                 Exit Sub
                             Case 441
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_USERNOTINCHANNEL, splt3(0), splt3(1), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_USERNOTINCHANNEL, splt3(0), splt3(1), splt2(3))
                                 End If
                                 Exit Sub
                             Case 442
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOTONCHANNEL, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOTONCHANNEL, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 443
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_USERONCHANNEL, splt3(0), splt3(1), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_USERONCHANNEL, splt3(0), splt3(1), splt2(3))
                                 End If
                                 Exit Sub
                             Case 445
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_SUMMONDISABLED, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_SUMMONDISABLED, splt2(2))
                                 End If
                                 Exit Sub
                             Case 446
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_USERSDISABLED, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_USERSDISABLED, splt2(2))
                                 End If
                                 Exit Sub
                             Case 451
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOTREGISTERED, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOTREGISTERED, splt2(2))
                                 End If
                                 Exit Sub
                             Case 461
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NEEDMOREPARAMS, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NEEDMOREPARAMS, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 462
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_ALREADYREGISTERED, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_ALREADYREGISTERED, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 463
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOPERMFORHOST, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOPERMFORHOST, splt2(2))
                                 End If
                                 Exit Sub
                             Case 464
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_PASSWDMISMATCH, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_PASSWDMISMATCH, splt2(2))
                                 End If
                                 Exit Sub
                             Case 465
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_YOUREBANNEDCREEP, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_YOUREBANNEDCREEP, splt2(2))
                                 End If
                                 Exit Sub
                             Case 467
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_KEYSET, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_KEYSET, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 468
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_INVALIDUSERNAME, Modules.lSettings.lIRC.iRealName, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_INVALIDUSERNAME, Modules.lSettings.lIRC.iRealName, splt2(2))
                                 End If
                             Case 470
                                 Modules.lChannels.Redirect(lStatusIndex, lData)
                             Case 471
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_CHANNELISFULL, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_CHANNELISFULL, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 472
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_UNKNOWNMODE, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_UNKNOWNMODE, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 473
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_INVITEONLYCHAN, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_INVITEONLYCHAN, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 474
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_BANNEDFROMCHAN, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_BANNEDFROMCHAN, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 475
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_BADCHANNELKEY, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_BADCHANNELKEY, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 477
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     msg = Right(lData, Len(lData) - (Len(splt2(1)) + Len(splt2(2)) + 2))
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOCHANMODES, msg)
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOCHANMODES, msg)
                                 End If
                                 Exit Sub
                             Case 478
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt3 = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_BANLISTFULL, splt3(1), splt3(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_BANLISTFULL, splt3(1), splt3(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 479
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
                                     splt = Split(splt2(2), " ")
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_BADCHANNAME, splt2(3), splt2(4))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_BADCHANNAME, splt2(3), splt2(4))
                                 End If
                                 Exit Sub
                             Case 481
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOPRIVILEGES, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOPRIVILEGES, splt2(2))
                                 End If
                                 Exit Sub
                             Case 482
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_CHANOPRIVSNEEDED, splt2(2), splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_CHANOPRIVSNEEDED, splt2(2), splt2(3))
                                 End If
                                 Exit Sub
                             Case 483
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_CANTKILLSERVER, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_CANTKILLSERVER, splt2(2))
                                 End If
                                 Exit Sub
                             Case 484
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_RESTRICTED, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_RESTRICTED, splt2(2))
                                 End If
                                 Exit Sub
                             Case 485
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_UNIQOPRIVSNEEDED, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_UNIQOPRIVSNEEDED, splt2(2))
                                 End If
                                 Exit Sub
                             Case 491
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NOOPERHOST, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NOOPERHOST, splt2(2))
                                 End If
                                 Exit Sub
                             Case 501
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_UMODEUNKNOWNFLAG, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_UMODEUNKNOWNFLAG, splt2(2))
                                 End If
                                 Exit Sub
                             Case 502
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_USERSDONTMATCH, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_USERSDONTMATCH, splt2(2))
                                 End If
                                 Exit Sub
                             Case 605
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_NOWOFF, splt2(1))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_NOWOFF, splt2(1))
                                 End If
                                 Exit Sub
                             Case 606
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_WATCHLIST, splt2(2))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_WATCHLIST, splt2(2))
                                 End If
                                 Exit Sub
                             Case 607
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ENDOFWATCHLIST)
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_ENDOFWATCHLIST)
                                 End If
                                 Exit Sub
                             Case 610
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_MAPMORE, splt2(3))
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sRPL_MAPMORE, splt2(3))
                                 End If
                                 Exit Sub
                             Case 615
-                                lIrcNumericHelper.l615 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_WHOISMODES2, splt2(3))
+                                lIrcNumericHelper.l615 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_WHOISMODES2, splt2(3))
                                 If Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 616
-                                lIrcNumericHelper.l616 = Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_WHOISHOST2, splt2(3))
+                                lIrcNumericHelper.l616 = Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_WHOISHOST2, splt2(3))
                                 If Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = False Then Modules.lStatus.TimerWaitForWhoisEnabled(lStatusIndex) = True
                                 Exit Sub
                             Case 999
                                 If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then
-                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sERR_NUMERIC_ERR)
+                                    Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sERR_NUMERIC_ERR)
                                 End If
                         End Select
                     End If
@@ -1153,7 +1153,7 @@ Namespace nexIRC.Client.IRC.Numerics
                     If Left(lData, 1) = ":" Then lData = Right(lData, Len(lData) - 1)
                     msg3 = Right(lData, Len(lData) - (Len(splt(0)) + Len(splt(1)) + Len(splt(2)) + 3))
                     msg2 = TextHelper.ParseData(splt(0), ":", "!")
-                    msg2 = Modules.lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, msg2, msg3)
+                    msg2 = Modules.lStrings.ReturnReplacedString(StringTypes.sPRIVMSG, msg2, msg3)
                     i = Modules.lChannels.Find(lStatusIndex, splt(2))
                     If i <> 0 Then
                         Modules.lChannels.PrivMsg(i, msg2)
@@ -1172,7 +1172,7 @@ Namespace nexIRC.Client.IRC.Numerics
                     msg2 = Right(lData, Len(lData) - (Len(splt(0)) + Len(splt(1)) + Len(splt(2)) + 3))
                     msg2 = Replace(msg2, "***", "")
                     msg2 = Replace(msg2, ":", "")
-                    msg3 = Modules.lStrings.ReturnReplacedString(eStringTypes.sNOTICE, Replace(splt(0), ":", ""), msg2)
+                    msg3 = Modules.lStrings.ReturnReplacedString(StringTypes.sNOTICE, Replace(splt(0), ":", ""), msg2)
                     'If lIRC.iSettings.sStringSettings.sServerInNotices = False Then
                     'msg3 = msg3 & "»"
                     'msg3 = ParseData(msg3, ":", "»")
@@ -1191,7 +1191,7 @@ Namespace nexIRC.Client.IRC.Numerics
             Modules.lStatus.AddToUnknowns(lStatusIndex, lData)
         End Sub
 
-        Public Sub ProcessReplaceStringHelper(ByVal lStatusIndex As Integer, ByVal lType As eStringTypes, ByVal r1 As String)
+        Public Sub ProcessReplaceStringHelper(ByVal lStatusIndex As Integer, ByVal lType As StringTypes, ByVal r1 As String)
             Dim ProcessReplaceString As New ProcessReplaceStringDelegate1(AddressOf Modules.lStrings.ProcessReplaceString)
             Modules.lStatus.GetObject(lStatusIndex).sWindow.Invoke(ProcessReplaceString, lStatusIndex, lType, r1)
         End Sub

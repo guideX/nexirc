@@ -68,7 +68,7 @@ Namespace nexIRC.Client.Classes.Communications
         End Sub
 
         Public Sub CouldNotConnect(data As String)
-            Modules.lStrings.ProcessReplaceString(statusId, eStringTypes.sCOULD_NOT_CONNECT, Modules.lStatus.ServerDescription(statusId))
+            Modules.lStrings.ProcessReplaceString(statusId, StringTypes.sCOULD_NOT_CONNECT, Modules.lStatus.ServerDescription(statusId))
         End Sub
 
         Private Sub socket_CouldNotConnect(SocketID As String) Handles socket.CouldNotConnect

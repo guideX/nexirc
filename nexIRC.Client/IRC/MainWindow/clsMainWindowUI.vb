@@ -273,7 +273,7 @@ Namespace nexIRC.Client.IRC.MainWindow
             clearHistory()
         End Sub
 
-        Private Sub InitializeSharedAddWindow(ByVal type As clsSharedAdd.eSharedAddType)
+        Private Sub InitializeSharedAddWindow(ByVal type As SharedAddType)
             Dim form As frmSharedAdd
             form = New frmSharedAdd()
             form.lSharedAddUI.SharedAddType = type
@@ -282,19 +282,19 @@ Namespace nexIRC.Client.IRC.MainWindow
         End Sub
 
         Public Sub cmd_Info()
-            InitializeSharedAddWindow(clsSharedAdd.eSharedAddType.sInfo)
+            InitializeSharedAddWindow(SharedAddType.Info)
         End Sub
 
         Public Sub cmd_Error()
-            InitializeSharedAddWindow(clsSharedAdd.eSharedAddType.sCommandError)
+            InitializeSharedAddWindow(SharedAddType.CommandError)
         End Sub
 
         Public Sub cmd_Kick()
-            InitializeSharedAddWindow(clsSharedAdd.eSharedAddType.sKick)
+            InitializeSharedAddWindow(SharedAddType.Kick)
         End Sub
 
         Public Sub cmd_Kill()
-            InitializeSharedAddWindow(clsSharedAdd.eSharedAddType.sKill)
+            InitializeSharedAddWindow(SharedAddType.Kill)
         End Sub
 
         Public Sub cmd_Help()

@@ -3,7 +3,6 @@ Option Strict On
 Imports System.Net
 Imports nexIRC.Business.Enums
 Imports nexIRC.Business.Helpers
-Imports nexIRC.Client.nexIRC.Client.IRC.Numerics.clsIrcNumerics
 Imports nexIRC.Client.nexIRC.Client.Modules
 
 Namespace nexIRC.Client.IRC.Numerics
@@ -90,8 +89,8 @@ Namespace nexIRC.Client.IRC.Numerics
 
         Public Sub ProcessWhoisCommand(ByVal _StatusIndex As Integer)
             Dim msg As String = "", _Start As String, _End As String
-            _Start = Modules.lStrings.ReturnReplacedString(eStringTypes.sWHOIS_START).Trim & Environment.NewLine
-            _End = Modules.lStrings.ReturnReplacedString(eStringTypes.sWHOIS_END).Trim
+            _Start = Modules.lStrings.ReturnReplacedString(StringTypes.sWHOIS_START).Trim & Environment.NewLine
+            _End = Modules.lStrings.ReturnReplacedString(StringTypes.sWHOIS_END).Trim
             If Len(l311) <> 0 Then msg = msg & l311 & Environment.NewLine
             If Len(l312) <> 0 Then msg = msg & l312 & Environment.NewLine
             If Len(l313) <> 0 Then msg = msg & l313 & Environment.NewLine
@@ -115,23 +114,23 @@ Namespace nexIRC.Client.IRC.Numerics
         End Sub
         Public Sub ProcessLUsersCommand(ByVal lStatusIndex As Integer)
             Dim msg As String, msg2 As String, msg3 As String
-            msg2 = Modules.lStrings.ReturnReplacedString(eStringTypes.sLUSERS_BEGIN)
-            msg3 = Modules.lStrings.ReturnReplacedString(eStringTypes.sLUSERS_END)
+            msg2 = Modules.lStrings.ReturnReplacedString(StringTypes.sLUSERS_BEGIN)
+            msg3 = Modules.lStrings.ReturnReplacedString(StringTypes.sLUSERS_END)
             msg = "-" & Environment.NewLine & msg2 & Chr(13)
-            If Len(Trim(l251)) <> 0 Then msg = msg & l251 & Chr(13)
-            If Len(Trim(l252)) <> 0 Then msg = msg & l252 & Chr(13)
-            If Len(Trim(l254)) <> 0 Then msg = msg & l254 & Chr(13)
-            If Len(Trim(l250)) <> 0 Then msg = msg & l250 & Chr(13)
-            If Len(Trim(l253)) <> 0 Then msg = msg & l253 & Chr(13)
-            If Len(Trim(l255)) <> 0 Then msg = msg & l255 & Chr(13)
-            If Len(Trim(l265)) <> 0 Then msg = msg & l265 & Chr(13)
-            If Len(Trim(l266)) <> 0 Then msg = msg & l266 & Chr(13)
+            If l251.Trim.Length <> 0 Then msg = msg & l251 & Chr(13)
+            If l252.Trim.Length <> 0 Then msg = msg & l252 & Chr(13)
+            If l254.Trim.Length <> 0 Then msg = msg & l254 & Chr(13)
+            If l250.Trim.Length <> 0 Then msg = msg & l250 & Chr(13)
+            If l253.Trim.Length <> 0 Then msg = msg & l253 & Chr(13)
+            If l255.Trim.Length <> 0 Then msg = msg & l255 & Chr(13)
+            If l265.Trim.Length <> 0 Then msg = msg & l265 & Chr(13)
+            If l266.Trim.Length <> 0 Then msg = msg & l266 & Chr(13)
             msg = msg & msg3 & Chr(13) & "-"
             Modules.lStatus.AddText(msg, lStatusIndex)
             ResetMessages()
         End Sub
         Public Sub DoWhois(ByVal lStatusIndex As Integer, ByVal lNick As String)
-            Modules.lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sWHOIS_WAIT)
+            Modules.lStrings.ProcessReplaceString(lStatusIndex, StringTypes.sWHOIS_WAIT)
             Modules.lStatus.SendSocket(lStatusIndex, "WHOIS :" & lNick)
         End Sub
         Public Function ReturnTimeStamp(ByVal lData As String) As String
@@ -146,7 +145,7 @@ Namespace nexIRC.Client.IRC.Numerics
             _OldNick = TextHelper.ParseData(_Data, ":", "!")
             _NewNick = TextHelper.ParseData(_Data, "=", " NICK :")
             '_HostName = Right(_Data, Len(_Data) - (Len(splt(1)) + 2))
-            'ProcessReplaceString(_StatusIndex, eStringTypes.sNICK_CHANGE, _OldNick, _NewNick, _HostName)
+            'ProcessReplaceString(_StatusIndex, StringTypes.sNICK_CHANGE, _OldNick, _NewNick, _HostName)
             If _OldNick = Modules.lStatus.NickName(_StatusIndex) Then
                 Modules.lStatus.NickName(_StatusIndex, False) = _NewNick
             End If
@@ -155,7 +154,7 @@ Namespace nexIRC.Client.IRC.Numerics
         Public Sub ActionProc(ByVal lStatusIndex As Integer, ByVal lData As String)
             Dim msg As String, splt() As String
             splt = Split(lData, " ")
-            msg = Modules.lStrings.ReturnReplacedString(eStringTypes.sCHANNEL_ACTION, TextHelper.ParseData(lData, ":", "!"), Right(lData, Len(lData) - Len(splt(0) & " " & splt(1) & " " & splt(2) & " " & splt(3))))
+            msg = Modules.lStrings.ReturnReplacedString(StringTypes.sCHANNEL_ACTION, TextHelper.ParseData(lData, ":", "!"), Right(lData, Len(lData) - Len(splt(0) & " " & splt(1) & " " & splt(2) & " " & splt(3))))
             mdlObjects.lChannels.DoChannelColor(mdlObjects.lChannels.Find(lStatusIndex, splt(2)), msg)
         End Sub
 
@@ -215,7 +214,7 @@ Namespace nexIRC.Client.IRC.Numerics
             msg = TextHelper.ParseData(lData, ":", "!")
             splt = Split(lData, " ")
             If Modules.lSettings_DCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then
-                Modules.lProcessNumeric.ProcessReplaceStringHelper(Modules.lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Auto Ignore is enabled, and user is unknown '" & msg & "'.")
+                Modules.lProcessNumeric.ProcessReplaceStringHelper(Modules.lStatus.ActiveIndex, StringTypes.sDCC_DENIED, "Auto Ignore is enabled, and user is unknown '" & msg & "'.")
                 Exit Sub
             End If
             If IsNickNameInDCCIgnoreList(msg) = False Then
@@ -229,14 +228,14 @@ Namespace nexIRC.Client.IRC.Numerics
                         'animate.Animate(lForm, animate.Effect.Center, 200, 1)
                         lForm.Show()
                     ElseIf Modules.lSettings_DCC.SendPrompt = DccPrompt.Ignore Then
-                        Modules.lProcessNumeric.ProcessReplaceStringHelper(Modules.lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring all DCC connections")
+                        Modules.lProcessNumeric.ProcessReplaceStringHelper(Modules.lStatus.ActiveIndex, StringTypes.sDCC_DENIED, "Ignoring all DCC connections")
                     End If
                 Else
                     splt2 = Split(msg, ".")
-                    Modules.lProcessNumeric.ProcessReplaceStringHelper(Modules.lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring file type of '" & splt2(1) & "'.")
+                    Modules.lProcessNumeric.ProcessReplaceStringHelper(Modules.lStatus.ActiveIndex, StringTypes.sDCC_DENIED, "Ignoring file type of '" & splt2(1) & "'.")
                 End If
             Else
-                Modules.lProcessNumeric.ProcessReplaceStringHelper(Modules.lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "User is in ignore list '" & msg & "'.")
+                Modules.lProcessNumeric.ProcessReplaceStringHelper(Modules.lStatus.ActiveIndex, StringTypes.sDCC_DENIED, "User is in ignore list '" & msg & "'.")
             End If
         End Sub
 

@@ -152,7 +152,7 @@ Namespace nexIRC.IRC.Customize
 
         Public Sub lnkNetworkAdd_LinkClicked()
             Dim f As New frmSharedAdd
-            f.lSharedAddUI.SharedAddType = eSharedAddType.sAddNetwork
+            f.lSharedAddUI.SharedAddType = Business.Enums.SharedAddType.AddNetwork
         End Sub
 
         Public Sub cmdServerEdit_Click(ByVal _ListView As RadListView)
@@ -307,7 +307,7 @@ Namespace nexIRC.IRC.Customize
         Public Sub cmdAddNickName_Click()
             Dim _AddNickName As New frmSharedAdd
             _AddNickName = New frmSharedAdd
-            _AddNickName.lSharedAddUI.SharedAddType = eSharedAddType.sAddNickName
+            _AddNickName.lSharedAddUI.SharedAddType = Business.Enums.SharedAddType.AddNickName
             _AddNickName.Show()
         End Sub
 
@@ -356,7 +356,7 @@ Namespace nexIRC.IRC.Customize
         Public Sub lnkNetworkAdd_Click()
             Dim lSharedAdd As New frmSharedAdd
             lSharedAdd.Show()
-            lSharedAdd.lSharedAddUI.SharedAddType = eSharedAddType.sAddNetwork
+            lSharedAdd.lSharedAddUI.SharedAddType = Business.Enums.SharedAddType.AddNetwork
         End Sub
 
         Public Sub Form_Load(ByVal _Form As Form, ByVal _CancelButton As RadButton, ByVal _ServersListView As RadListView)

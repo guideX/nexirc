@@ -168,7 +168,7 @@ Namespace nexIRC.Client.IRC.Channels
                             Modules.lStatus.ProcessUserInput(Modules.lChannels.lChannels.cChannel(_ChannelIndex).cStatusIndex, msg)
                         Else
                             Modules.lStatus.DoStatusSocket(Modules.lChannels.lChannels.cChannel(_ChannelIndex).cStatusIndex, "PRIVMSG " & lChannels.cChannel(_ChannelIndex).cName & " :" & msg)
-                            msg2 = Modules.lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, Modules.lStatus.NickName(Modules.lChannels.lChannels.cChannel(_ChannelIndex).cStatusIndex), msg)
+                            msg2 = Modules.lStrings.ReturnReplacedString(StringTypes.sPRIVMSG, Modules.lStatus.NickName(Modules.lChannels.lChannels.cChannel(_ChannelIndex).cStatusIndex), msg)
                             DoChannelColor(_ChannelIndex, msg2)
                         End If
                     End If
@@ -276,7 +276,7 @@ Namespace nexIRC.Client.IRC.Channels
                 Else
                     Join(_StatusIndex, _ChannelB)
                 End If
-                If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then Modules.lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sERR_LINKCHANNEL, _ChannelA, _ChannelB)
+                If Modules.lSettings.lIRC.iSettings.sNoIRCMessages = False Then Modules.lStrings.ProcessReplaceString(_StatusIndex, StringTypes.sERR_LINKCHANNEL, _ChannelA, _ChannelB)
             End If
         End Sub
 
@@ -286,7 +286,7 @@ Namespace nexIRC.Client.IRC.Channels
                     For Each lListViewItem As ListViewDataItem In lChannel.cWindow.lvwNickList.Items
                         If (lListViewItem.Text = _OldNickName) Then
                             lListViewItem.Text = _NickName
-                            Modules.lStrings.Print(Modules.lStrings.ReturnReplacedString(eStringTypes.sNICK_CHANGE, _OldNickName, _HostName, _NickName), lChannel.cWindow.txtIncoming)
+                            Modules.lStrings.Print(Modules.lStrings.ReturnReplacedString(StringTypes.sNICK_CHANGE, _OldNickName, _HostName, _NickName), lChannel.cWindow.txtIncoming)
                         End If
                     Next lListViewItem
                 End If
@@ -309,13 +309,13 @@ Namespace nexIRC.Client.IRC.Channels
             If LCase(Trim(_NickName)) = LCase(Trim(Modules.lStatus.NickName(_StatusIndex))) Then
                 _ChannelIndex = Add(_Channel, _StatusIndex)
                 Form_Load(_ChannelIndex)
-                DoChannelColor(_ChannelIndex, Modules.lStrings.ReturnReplacedString(eStringTypes.sYOUJOIN, _Channel))
+                DoChannelColor(_ChannelIndex, Modules.lStrings.ReturnReplacedString(StringTypes.sYOUJOIN, _Channel))
                 Modules.IrcSettings.ChannelFoldersRepository.Add(_Channel, Modules.IrcSettings.IrcNetworks.GetById(Modules.lStatus.NetworkIndex(_StatusIndex)).Description)
             Else
                 If Modules.lSettings.lIRC.iSettings.sShowUserAddresses = True Then
-                    _TextToDisplay = Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName & " (" & _IpAddress & ")", _Channel)
+                    _TextToDisplay = Modules.lStrings.ReturnReplacedString(StringTypes.sUSER_JOINED, _NickName & " (" & _IpAddress & ")", _Channel)
                 Else
-                    _TextToDisplay = Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName, _Channel)
+                    _TextToDisplay = Modules.lStrings.ReturnReplacedString(StringTypes.sUSER_JOINED, _NickName, _Channel)
                 End If
                 _ChannelIndex = Find(_StatusIndex, _Channel)
                 With lChannels.cChannel(_ChannelIndex)
@@ -358,7 +358,7 @@ Namespace nexIRC.Client.IRC.Channels
                                                   If (lastNickName <> nickName) Then
                                                       lastNickName = nickName
                                                       Modules.lChannels.lChannels.cChannel(_i).cWindow.lvwNickList.Items.Remove(m)
-                                                      DoChannelColor(_i, Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_QUIT, nickName, hostName, quitMessage))
+                                                      DoChannelColor(_i, Modules.lStrings.ReturnReplacedString(StringTypes.sUSER_QUIT, nickName, hostName, quitMessage))
                                                   End If
                                                   Return True
                                               End Function)
@@ -404,9 +404,9 @@ Namespace nexIRC.Client.IRC.Channels
             Else
                 RemoveFromNickList(Find(_StatusIndex, _ChannelName), _NickName)
                 If Modules.lSettings.lIRC.iSettings.sShowUserAddresses = True Then
-                    _TextToDisplay = Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_PARTED, _NickName & " (" & _HostName & ")", _ChannelName)
+                    _TextToDisplay = Modules.lStrings.ReturnReplacedString(StringTypes.sUSER_PARTED, _NickName & " (" & _HostName & ")", _ChannelName)
                 Else
-                    _TextToDisplay = Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_PARTED, _NickName, _ChannelName)
+                    _TextToDisplay = Modules.lStrings.ReturnReplacedString(StringTypes.sUSER_PARTED, _NickName, _ChannelName)
                 End If
                 DoChannelColor(Find(_StatusIndex, _ChannelName), _TextToDisplay)
             End If
@@ -467,7 +467,7 @@ Namespace nexIRC.Client.IRC.Channels
             _Message = Right(_Data, Len(_Data) - splt(1).Length() - 2)
             _ChannelIndex = Find(_StatusIndex, _Channel)
             With lChannels.cChannel(_ChannelIndex)
-                Modules.lStrings.Print(Modules.lStrings.ReturnReplacedString(eStringTypes.sRPL_TOPIC, _Channel, _Message), .cWindow.txtIncoming)
+                Modules.lStrings.Print(Modules.lStrings.ReturnReplacedString(StringTypes.sRPL_TOPIC, _Channel, _Message), .cWindow.txtIncoming)
                 .cWindow.Text = _Channel & ": " & TextHelper.StripColorCodes(_Message)
             End With
         End Sub
@@ -558,10 +558,10 @@ Namespace nexIRC.Client.IRC.Channels
                     _ChannelIndex = Find(_StatusIndex, splt(2))
                     Select Case Trim(splt(3))
                         Case "+o"
-                            msg = Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_MODE, splt2(0), splt(3), splt(4))
+                            msg = Modules.lStrings.ReturnReplacedString(StringTypes.sUSER_MODE, splt2(0), splt(3), splt(4))
                             PrivMsg(_ChannelIndex, msg)
                         Case "-o"
-                            msg = Modules.lStrings.ReturnReplacedString(eStringTypes.sUSER_MODE, splt2(0), splt(3), splt(4))
+                            msg = Modules.lStrings.ReturnReplacedString(StringTypes.sUSER_MODE, splt2(0), splt(3), splt(4))
                             PrivMsg(_ChannelIndex, msg)
                     End Select
                 End If

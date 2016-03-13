@@ -122,8 +122,8 @@ Public Class frmNoticeWindow
                             Modules.lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & _privateMessageNickName & " :" & msg)
                             txtOutgoing.Text = ""
                             e.Handled = True
-                            DoNoticeColor(Modules.lStrings.ReturnReplacedString(clsIrcNumerics.eStringTypes.sPRIVMSG, Modules.lStatus.NickName(lStatusIndex), msg))
-                        End If
+                        DoNoticeColor(Modules.lStrings.ReturnReplacedString(StringTypes.sPRIVMSG, Modules.lStatus.NickName(lStatusIndex), msg))
+                    End If
                     End If
                 End If
             End If

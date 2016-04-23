@@ -1,15 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "nexIRC.Client", "nexIRC.Client\nexIRC.Client.vbproj", "{72D58ED0-B0F8-48DB-AF6F-62A24788732A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nexIRC.Sockets", "nexIRC.Socket\nexIRC.Sockets.csproj", "{B9E7C877-8236-4229-9628-83B21CD2B100}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nexIRC.UI", "nexIRC.UI\nexIRC.UI.csproj", "{52554E28-BF47-43F3-9B58-D1FDCD69AD01}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nexIRC.Business", "nexIRC.Business\nexIRC.Business.csproj", "{93FD68D0-62C4-4C75-ABE4-4B5F946813DB}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "nexIRC", "nexIRC.vbproj", "{72D58ED0-B0F8-48DB-AF6F-62A24788732A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,36 +23,6 @@ Global
 		{72D58ED0-B0F8-48DB-AF6F-62A24788732A}.Release|Mixed Platforms.Build.0 = Release|x86
 		{72D58ED0-B0F8-48DB-AF6F-62A24788732A}.Release|x86.ActiveCfg = Release|x86
 		{72D58ED0-B0F8-48DB-AF6F-62A24788732A}.Release|x86.Build.0 = Release|x86
-		{B9E7C877-8236-4229-9628-83B21CD2B100}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9E7C877-8236-4229-9628-83B21CD2B100}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9E7C877-8236-4229-9628-83B21CD2B100}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{B9E7C877-8236-4229-9628-83B21CD2B100}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{B9E7C877-8236-4229-9628-83B21CD2B100}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B9E7C877-8236-4229-9628-83B21CD2B100}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9E7C877-8236-4229-9628-83B21CD2B100}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9E7C877-8236-4229-9628-83B21CD2B100}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{B9E7C877-8236-4229-9628-83B21CD2B100}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{B9E7C877-8236-4229-9628-83B21CD2B100}.Release|x86.ActiveCfg = Release|Any CPU
-		{52554E28-BF47-43F3-9B58-D1FDCD69AD01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{52554E28-BF47-43F3-9B58-D1FDCD69AD01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{52554E28-BF47-43F3-9B58-D1FDCD69AD01}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{52554E28-BF47-43F3-9B58-D1FDCD69AD01}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{52554E28-BF47-43F3-9B58-D1FDCD69AD01}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{52554E28-BF47-43F3-9B58-D1FDCD69AD01}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{52554E28-BF47-43F3-9B58-D1FDCD69AD01}.Release|Any CPU.Build.0 = Release|Any CPU
-		{52554E28-BF47-43F3-9B58-D1FDCD69AD01}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{52554E28-BF47-43F3-9B58-D1FDCD69AD01}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{52554E28-BF47-43F3-9B58-D1FDCD69AD01}.Release|x86.ActiveCfg = Release|Any CPU
-		{93FD68D0-62C4-4C75-ABE4-4B5F946813DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93FD68D0-62C4-4C75-ABE4-4B5F946813DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93FD68D0-62C4-4C75-ABE4-4B5F946813DB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{93FD68D0-62C4-4C75-ABE4-4B5F946813DB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{93FD68D0-62C4-4C75-ABE4-4B5F946813DB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{93FD68D0-62C4-4C75-ABE4-4B5F946813DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93FD68D0-62C4-4C75-ABE4-4B5F946813DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93FD68D0-62C4-4C75-ABE4-4B5F946813DB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{93FD68D0-62C4-4C75-ABE4-4B5F946813DB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{93FD68D0-62C4-4C75-ABE4-4B5F946813DB}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

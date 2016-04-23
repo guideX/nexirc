@@ -1,0 +1,701 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Telerik.WinControls.UI.Design</name>
+    </assembly>
+    <members>
+        <member name="P:Telerik.WinControls.UI.Design.BackstageViewPageDesigner.SelectionRules">
+            <summary>
+            Prevent the control from being sized or moved.
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.Design.ConvertDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.Design.ConvertDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.Design.ConvertDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.Keyboard.ChordsMappings.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.Keyboard.ChordsMappings.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.Keyboard.ChordsMappings.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.CommandTabsCollectionEditor">
+            <summary>
+            This class represents the collection editor
+            of the RibbonTab's items collection used in the 
+            Visual Studio designer.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.Design.RadItemDesigner">
+            <exclude/>
+            <summary>
+            Summary description for RadItemDesigner.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.Design.DtDebugDraw">
+            <exclude/>
+            <summary>
+            Summary description for DebugDraw.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.Design.DesignerActionPanel">
+            <exclude/>
+        </member>
+        <member name="M:Telerik.WinControls.Design.DesignerActionPanel.GetPreferredSize(System.Drawing.Size)">
+            <commentsfrom cref="M:Telerik.WinControls.Layouts.IRadLayoutElement.GetPreferredSize(System.Drawing.Size)" filter=""/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.DesignerActionVerbItem">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.DesignerActionVerbList">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.DesignerUtils">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.DragAssistanceManager">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.EditorServiceContext">
+            <exclude/>
+        </member>
+        <member name="F:Telerik.WinControls.Design.ElementHierarchyEditor.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.Design.ElementHierarchyEditor.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.Design.ElementHierarchyEditor.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.Design.MiniLockedBorderGlyph">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.SelectionGlyphBase">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.NewItemGlyph">
+            <exclude/>
+        </member>
+        <member name="M:Telerik.WinControls.Design.NewItemGlyph.#ctor(Telerik.WinControls.RadElement,System.Windows.Forms.Design.Behavior.Behavior,System.Windows.Forms.Design.Behavior.BehaviorService,System.ComponentModel.Design.ComponentDesigner,System.Boolean)">
+            <summary>
+            Initializes a new instance of the NewItemGlyph class.
+            </summary>
+            <param name="item">The RadElement which will be associated with the NewItemGlyph.</param>
+            <param name="bahavior">The Behavior which will be associated with the NewItemGlyph.</param>
+            <param name="behaviorSvc">The Behavior service which will manage this Glyph's behavior.</param>
+            <param name="designer"></param>
+            <param name="moreItems"></param>
+        </member>
+        <member name="T:Telerik.WinControls.Design.NewItemGlyphBehavior">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.DesignedItemState">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.RadItemGlyph">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.RadItemSelectionBehavior">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.SelectionBorderGlyphType">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.TransparentBehavior">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.IEventHandlerService">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.ImageIndexEditor">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.ImageKeyEditor">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.IMenuStatusHandler">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.IMouseHandler">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.IOverlayService">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.ISplitWindowService">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.ISupportInSituService">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.LoadThemeDialog">
+            <exclude/>
+            <exclude/>
+        </member>
+        <member name="F:Telerik.WinControls.Design.LoadThemeDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.Design.LoadThemeDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.Design.LoadThemeDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.Design.NoneExcludedImageIndexConverter">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.PanelDesigner">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.RadControlDesigner">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.RadControlDesignerActionList">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.RadDesignerActionMethodItem">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.UI.RadFormDesigner">
+            <summary>
+            A class that represents the designer of RadForm.
+            This class is used by the Visual Studio Design Time support
+            to allow customized design-time functnionality for the RadForm component.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.RadRibbonFormDesigner">
+            <summary>
+            A class that provides design-time support for RadRibbonForm
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.RadRibbonFormDesigner.InitializeRadRibbonBar(System.ComponentModel.IComponent)">
+            <summary>
+            Initializes a RadRibbonBar control if no such control
+            is found in the form and adds it to the Controls collection.
+            </summary>
+            <param name="component">The component designed by this designer.</param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.RadRibbonFormDesigner.IsRadRibbonBarInForm">
+            <summary>
+            Checks whether there is a RadRibbonBar control in the Form.
+            </summary>
+            <returns>True if a RadRibbonBar control is found, otherwise false.</returns>
+        </member>
+        <member name="T:Telerik.WinControls.UI.Design.Design.RadGroupBoxControlDesigner">
+            <summary>
+            Required for TPF theming mechanism.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.Design.RadImageKeyConverter">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.RadItemCodeDomSerializer">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.RadItemsFinder">
+            <summary>
+            Finds types of RadItems using ITypeDiscoveryService instance.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.Menu.RadMenuDesigner">
+            <exclude/>
+        </member>
+        <member name="P:Telerik.WinControls.UI.Design.RadRibbonBarBackstageViewDesigner.SelectionRules">
+            <summary>
+            Prevent the control from being sized or moved.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.RadRibbonBarGroupDesigner">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.UI.RadRotatorDesigner">
+            <summary>
+            Provides <see cref="T:Telerik.WinControls.UI.RadRotator"/>'s design-time support
+            </summary>
+            <seealso cref="T:Telerik.WinControls.UI.RadRotator"/>
+        </member>
+        <member name="P:Telerik.WinControls.UI.RadRotatorDesigner.Rotator">
+            <summary>
+            Gets the associated <see cref="T:Telerik.WinControls.UI.RadRotator"/> control.
+            </summary>
+        </member>
+        <member name="P:Telerik.WinControls.UI.RadRotatorDesigner.IsEnabled">
+            <summary>
+            Gets value indicating whether this <see cref="T:Telerik.WinControls.UI.RadRotatorDesigner"/> is enabled.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.RadRotatorDefaultGlyph">
+            <summary>
+            <see cref="T:Telerik.WinControls.UI.RadRotatorDesigner"/>'s Glyph for Default <see cref="T:Telerik.WinControls.RadItem"/>
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.RadRotatorGlyph">
+            <summary>
+            Abstract class for RadRotatorGlyph
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.RadRotatorGlyph.Click">
+            <summary>
+            Invoke the click action of the RadRotatorGlyph
+            </summary>
+            <returns>true on success.</returns>
+        </member>
+        <member name="P:Telerik.WinControls.UI.RadRotatorGlyph.Location">
+            <summary>
+            Gets or Sets the <see cref="T:Telerik.WinControls.UI.RadRotatorGlyph"/>'s location
+            </summary>
+        </member>
+        <member name="P:Telerik.WinControls.UI.RadRotatorGlyph.Size">
+            <summary>
+            Gets or Sets the <see cref="T:Telerik.WinControls.UI.RadRotatorGlyph"/>'s size.
+            </summary>
+        </member>
+        <member name="P:Telerik.WinControls.UI.RadRotatorGlyph.Bounds">
+            <summary>
+            Gets the Bounds of the Glyph based on its own Location and Size and the target RadControl's location
+            </summary>
+        </member>
+        <member name="P:Telerik.WinControls.UI.RadRotatorGlyph.ShouldPaint">
+            <summary>
+            Gets value indicating whether the current glyph should be painted or not.
+            </summary>
+        </member>
+        <member name="P:Telerik.WinControls.UI.RadRotatorGlyph.Enabled">
+            <summary>
+            Gets or Sets value indicating whether the current glyph is enabled / disabled
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.RadRotatorPrevGlyph">
+            <summary>
+            <see cref="T:Telerik.WinControls.UI.RadRotatorDesigner"/>'s Glyph for Previous <see cref="T:Telerik.WinControls.RadItem"/>
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.RadRotatorNextGlyph">
+            <summary>
+            <see cref="T:Telerik.WinControls.UI.RadRotatorDesigner"/>'s Glyph for Next <see cref="T:Telerik.WinControls.RadItem"/>
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.RadRotatorBehavior">
+            <summary>
+            <see cref="T:Telerik.WinControls.UI.RadRotatorDesigner"/>'s behavior for <see cref="T:Telerik.WinControls.UI.RadRotatorGlyph"/>
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.RadSchedulerNavigatorDesigner">
+            <summary>
+            Provides design-time support for the RadSchedulerNavigator control
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.UI.MappingInfoDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.MappingInfoDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.MappingInfoDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.RadSchedulerNavigatorActionList">
+            <summary>
+            Provides the items accessible from the Smart Tag of the RadSchedulerNavigator control
+            while in design time.
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.UI.ResourceMappingInfoDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.ResourceMappingInfoDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.ResourceMappingInfoDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.RadScrollablePanelDesigner">
+            <summary>
+            This class ensures design-time support for the <see cref="T:Telerik.WinControls.UI.RadScrollablePanel"/> control.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.Design.RadTabItemDesigner">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.RadTabStripDesigner">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.RadThemeManagerDesigner">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.RadThemeManagerDesigner.DesignerView">
+            <summary>
+            This class is the user interface we present for our designer.  All painting and
+            hit teseting logic is located within this class.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.Design.StatusCommandUI">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.ThemeNameEditor">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.TicksWatcher">
+            <summary>
+            Summary description for TicksWatcher.
+            </summary>
+        </member>
+        <member name="P:Telerik.WinControls.Design.TicksWatcher.Elapsed">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.ToolboxSnapDragDropEventArgs">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.Design.RadToolStripDesigner">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.UI.Design.SelectionManager">
+            <exclude/>
+        </member>
+        <member name="T:Telerik.WinControls.UI.ToolStrip.ToolStripNewItemGlyphPainter">
+            <summary>
+            Paints the plus and arrow squares for the NewItemGlyph inheritors in RadToolStrip during Design-time.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.Design.RadCalendarEditor">
+            <summary>
+            The editor for the RadTreeView items.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.CarouselPathPointGlyph.GetHitTest(System.Drawing.Point)">
+            <summary>
+            Provides hit test logic.
+            </summary>
+            
+            <returns>
+            A <see cref="T:System.Windows.Forms.Cursor"></see> if the <see cref="T:System.Windows.Forms.Design.Behavior.Glyph"></see> is associated with p; otherwise, null.
+            </returns>
+            
+            <param name="p">A point to hit-test.</param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.CarouselPathPointGlyph.Paint(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Provides paint logic.
+            </summary>
+            
+            <param name="pe">A <see cref="T:System.Windows.Forms.PaintEventArgs"></see> that contains the event data. </param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.CarouselPathPointGlyph.DisposeResources">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.CarouselPathPreviewSettings.OnPropertyChanged(System.String)">
+            <summary>
+            Raises the PropertyChanged event
+            </summary>
+            <param name="propertyName">The name of the property</param>
+        </member>
+        <member name="E:Telerik.WinControls.UI.Design.CarouselPathPreviewSettings.PropertyChanged">
+            <summary>
+            Occurs when a property value changes.
+            </summary>
+            
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.AdvancedLayoutDesignerForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="F:Telerik.WinControls.UI.Design.AdvancedLayoutDesignerForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.AdvancedLayoutDesignerForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.Design.RadGridViewPropertyBuilder">
+            <summary>
+            This class represents the Property Builder form 
+            intended to facilitate managing settings of RadGridView at design-time
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.UI.Design.RadGridViewPropertyBuilder.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.RadGridViewPropertyBuilder.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.RadGridViewPropertyBuilder.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.UI.Design.AdvancedSettings.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.AdvancedSettings.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.AdvancedSettings.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.UI.Design.GeneralColumnSettings.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.GeneralColumnSettings.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.GeneralColumnSettings.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.GeneralViewSettings.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="F:Telerik.WinControls.UI.Design.GeneralViewSettings.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.GeneralViewSettings.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.UI.Design.GeneralGridSettings.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.GeneralGridSettings.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.GeneralGridSettings.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.UI.Design.SaveLayout.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.SaveLayout.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.SaveLayout.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.RadPageViewPageDesigner">
+            <summary>
+            This class represents the designer class used for a <see cref="T:Telerik.WinControls.UI.RadPageViewPage"/> in a
+            <see cref="T:Telerik.WinControls.UI.RadPageView"/> control.
+            </summary>
+        </member>
+        <member name="P:Telerik.WinControls.RadPageViewPageDesigner.SelectionRules">
+            <summary>
+            Prevent the control from being sized or moved.
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.UI.Design.ExpertModePanel.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.ExpertModePanel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.ExpertModePanel.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.UI.Design.NodePropertiesPanel.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.NodePropertiesPanel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.NodePropertiesPanel.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.UI.Design.RadTreeViewEditor">
+            <summary>
+            The editor for the RadTreeView items.
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.UI.Design.RadTreeViewPropertiesPanel.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.RadTreeViewPropertiesPanel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.RadTreeViewPropertiesPanel.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.UI.Design.TreeViewEditorForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.TreeViewEditorForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.UI.Design.TreeViewEditorForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Telerik.WinControls.PageCollectionEditorDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Telerik.WinControls.PageCollectionEditorDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Telerik.WinControls.PageCollectionEditorDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Telerik.WinControls.Design.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Telerik.WinControls.Design.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Telerik.WinControls.Design.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

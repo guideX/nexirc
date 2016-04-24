@@ -43,13 +43,13 @@ Namespace nexIRC.MainWindow
         Public Event SetDimensions(left As Integer, top As Integer, width As Integer, height As Integer)
         Public Event EnableStartupSettingsTimer(tickInterval As Integer)
         Public Event FormTitle(title As String)
-        Public Sub ShowQueryBar(ByVal _Text As String, ByVal _Function As eInfoBar, _QueryPromptLabel As ToolStripLabel, _ToolStrip As ToolStrip)
+        Public Sub ShowQueryBar(ByVal _Text As String, ByVal _Function As eInfoBar, _QueryPromptLabel As ToolStripLabel, _ToolStrip As Windows.Forms.ToolStrip)
             Try
                 If Len(_Text) <> 0 Then
                     RaiseEvent QueryBarPromptLabelVisible(_Text, Trim(CType(_Function, Integer).ToString))
                 End If
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub ShowQueryBar(ByVal lText As String)")
+                Throw ex
             End Try
         End Sub
         Public Sub SetFlashesLeft(ByVal _Value As Integer, _FlashDCCToolBarTimer As Timer)
@@ -331,9 +331,11 @@ Namespace nexIRC.MainWindow
                 Throw ex 'ProcessError(ex.Message, "Public Sub Connections_DoubleClick(_SelectedNode As TreeNode)")
             End Try
         End Sub
-        Public Sub cmdAcceptQuery_Click(_QueryPromptLabel As ToolStripItem, _QueryPromptToolStrip As ToolStrip)
-            Try
-                Dim splt() As String, _NickName As String, _HostName As String
+
+        Public Sub cmdAcceptQuery_Click(_QueryPromptLabel As ToolStripItem, _QueryPromptToolStrip As Windows.Forms.ToolStrip)
+            'Try
+            Dim splt() As String, _NickName As String, _HostName As String
+            If (_QueryPromptLabel.Tag IsNot Nothing) Then
                 If Len(_QueryPromptLabel.Tag.ToString) = 1 Then
                     Select Case CType(CType(_QueryPromptLabel.Tag.ToString, Integer), eInfoBar)
                         Case eInfoBar.iNickServ_NickTaken
@@ -349,11 +351,13 @@ Namespace nexIRC.MainWindow
                     End If
                     _QueryPromptToolStrip.Visible = False
                 End If
-            Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub cmdAcceptQuery_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAcceptQuery.Click")
-            End Try
+            End If
+            'Catch ex As Exception
+            'Throw ex 'ProcessError(ex.Message, "Private Sub cmdAcceptQuery_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAcceptQuery.Click")
+            'End Try
         End Sub
-        Public Sub cmdDeclineQuery_Click(_QueryPromptToolStrip As ToolStrip)
+
+        Public Sub cmdDeclineQuery_Click(_QueryPromptToolStrip As Windows.Forms.ToolStrip)
             Try
                 _QueryPromptToolStrip.Visible = False
             Catch ex As Exception

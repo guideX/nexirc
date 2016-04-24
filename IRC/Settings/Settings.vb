@@ -1012,7 +1012,7 @@ Public Class Settings
                 .sURL = Files.ReadINI(lINI.iIRC, "Settings", "URL", "http://www.bing.com")
                 .sShowWindowsAutomatically = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", "False"))
                 .sAutoMaximize = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoMaximize", "False"))
-                .sQuitMessage = Files.ReadINI(lINI.iIRC, "Settings", "QuitMessage", "nexIRC - http://www.team-nexgen.org/")
+                .sQuitMessage = Files.ReadINI(lINI.iIRC, "Settings", "QuitMessage", "nexIRC - http://www.team-nexgen.com/")
                 .sAutoConnect = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoConnect", "False"))
                 .sVideoBackground = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "VideoBackground", "True"))
                 .sAutoNavigateChannelUrls = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoNavigateChannelUrls", "True"))
@@ -1027,7 +1027,7 @@ Public Class Settings
                 .sTextBufferSize = Convert.ToInt32(Files.ReadINI(lINI.iIRC, "Settings", "TextBufferSize", "150"))
             End With
             With lIRC
-                .iEMail = Files.ReadINI(lINI.iIRC, "Settings", "EMail", "user@team-nexgen.org")
+                .iEMail = Files.ReadINI(lINI.iIRC, "Settings", "EMail", "user@team-nexgen.com")
                 .iPass = Files.ReadINI(lINI.iIRC, "Settings", "Password", "")
                 .iRealName = Files.ReadINI(lINI.iIRC, "Settings", "RealName", "nexIRC User")
                 .iOperName = Files.ReadINI(lINI.iIRC, "Settings", "OperName", "")

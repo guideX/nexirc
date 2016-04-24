@@ -108,7 +108,7 @@ Partial Class frmAbout
         Me.LinkLabel3.Size = New System.Drawing.Size(151, 13)
         Me.LinkLabel3.TabIndex = 18
         Me.LinkLabel3.TabStop = True
-        Me.LinkLabel3.Text = "http://www.team-nexgen.org"
+        Me.LinkLabel3.Text = "http://www.team-nexgen.com"
         '
         'LinkLabel2
         '

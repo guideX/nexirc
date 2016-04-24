@@ -68,7 +68,6 @@ Public Class clsProcessNumeric
                         mdiMain.tspQueryPrompt.Visible = False
                     ElseIf lData.ToLower().Contains("nickname is registered") Then
                         mdiMain.ShowQueryBar("This nickname is registered, proceed with NickServ login?", eInfoBar.iNickServ_NickTaken)
-                        mdiMain.lblQueryPrompt.Tag = 5
                     Else
                         lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sINCOMING_NOTICE, noticeSource, lData)
                     End If

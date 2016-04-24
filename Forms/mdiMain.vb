@@ -215,10 +215,11 @@ Public Class mdiMain
     Private Sub tmrHideRedirect_Tick(sender As System.Object, e As System.EventArgs) Handles tmrHideRedirect.Tick
         lMainWindowUI.tmrHideRedirect_Tick(tspRedirect, tmrHideRedirect)
     End Sub
+
     Private Sub lMainWindowUI_QueryBarPromptLabelVisible(text As String, tag As String) Handles lMainWindowUI.QueryBarPromptLabelVisible
-        tspQueryPrompt.Text = text
+
+        lblQueryPrompt.Text = text
         tspQueryPrompt.Tag = tag
-        tspQueryPrompt.Text = "The nickname is in use."
         tspQueryPrompt.Visible = True
     End Sub
 

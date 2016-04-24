@@ -1,5 +1,3 @@
-'nexIRC 3.0.26
-'06-13-2013 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.nexIRC.MainWindow
@@ -217,10 +215,9 @@ Public Class mdiMain
     End Sub
 
     Private Sub lMainWindowUI_QueryBarPromptLabelVisible(text As String, tag As String) Handles lMainWindowUI.QueryBarPromptLabelVisible
-
-        lblQueryPrompt.Text = text
         tspQueryPrompt.Tag = tag
         tspQueryPrompt.Visible = True
+        lblQueryPrompt.Text = text
     End Sub
 
     Private Sub lMainWindowUI_SetBackgroundColor() Handles lMainWindowUI.SetBackgroundColor
@@ -243,6 +240,10 @@ Public Class mdiMain
         Try
             tmrFirstFocus.Enabled = False
             Modules.lStatus.Window(0).Focus()
+            If Modules.lSettings.lIRC.iSettings.sCustomizeOnStartup = True Then
+                frmCustomize.Show()
+                frmCustomize.Focus()
+            End If
         Catch ex As Exception
             Throw ex
         End Try

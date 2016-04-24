@@ -1,5 +1,5 @@
-﻿'nexIRC 3.0.26
-'06-13-2013 - guideX
+﻿'nexIRC 3.0.30
+'04-23-2016 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
@@ -83,6 +83,7 @@ Public Class frmStatus
     Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Try
             mdiChildWindow.Form_Load(mdiChildWindow.FormTypes.Status)
+            txtIncoming.Cursor = Cursors.Default
         Catch ex As Exception
             Throw ex 'ProcessError(ex.Message, "Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
         End Try

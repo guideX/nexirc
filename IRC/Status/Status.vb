@@ -2,13 +2,11 @@
 '04-23-2016 - guideX
 Option Explicit On
 Option Strict Off
-Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.clsIrcNumerics
 Imports nexIRC.Modules
 Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
 Imports nexIRC.Classes.Communications
-Imports Telerik.WinControls.UI
 Imports nexIRC.Settings
 
 Namespace IRC.Status

@@ -12,7 +12,7 @@ Public Class frmDCCChatPrompt
         Try
             lStatusIndex = lIndex
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -26,7 +26,7 @@ Public Class frmDCCChatPrompt
                 lblAddress.Text = Modules.lStrings.DecodeLongIPAddr(lAddr)
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -34,7 +34,7 @@ Public Class frmDCCChatPrompt
         Try
             Me.Icon = mdiMain.Icon
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -47,7 +47,7 @@ Public Class frmDCCChatPrompt
             lDCCChat.Show()
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -55,7 +55,7 @@ Public Class frmDCCChatPrompt
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 End Class

@@ -3,12 +3,8 @@ Imports nexIRC.Classes.UI
 Namespace IRC.UtilityWindows
     Public Class clsAbout
         Public Sub Form_Load(_Form As Form, _PictureBox As PictureBox, _RadPageView As RadPageView)
-            Try
-                animate.Animate(_PictureBox, animate.Effect.Center, 200, 1)
-                animate.Animate(_RadPageView, animate.Effect.Center, 200, 1)
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Animate.Animate(_PictureBox, Animate.Effect.Center, 200, 1)
+            Animate.Animate(_RadPageView, animate.Effect.Center, 200, 1)
         End Sub
     End Class
 End Namespace

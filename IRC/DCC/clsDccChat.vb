@@ -6,6 +6,7 @@ Option Strict On
 Imports nexIRC.Modules
 Imports nexIRC.Classes.Communications
 Imports Telerik.WinControls.UI
+Imports System.Windows.Forms
 
 Public Class clsDccChat
     Private WithEvents lListen As AsyncServer
@@ -32,31 +33,31 @@ Public Class clsDccChat
         Try
             lStatusIndex = lIndex
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
+            Throw 'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
         End Try
     End Sub
 
     Public Sub AddText(_Text As String)
         Try
             If Len(_Text) <> 0 Then
-                If lStrings.DoRight(_Text, 1) <> Environment.Newline Then
-                    lIncomingTextBox.Text = _Text & Environment.Newline & lIncomingTextBox.Text
+                If lStrings.DoRight(_Text, 1) <> Environment.NewLine Then
+                    lIncomingTextBox.Text = _Text & Environment.NewLine & lIncomingTextBox.Text
                 Else
                     lIncomingTextBox.Text = _Text & lIncomingTextBox.Text
                 End If
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
     Private Sub SendData(ByVal lTempSocket As AsyncSocket, ByVal lData As String)
         Try
             If Len(lData) <> 0 Then
-                lTempSocket.Send(lData & Environment.Newline)
+                lTempSocket.Send(lData & Environment.NewLine)
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -65,7 +66,7 @@ Public Class clsDccChat
             lListen = New AsyncServer(Convert.ToInt32(_Port))
             lListen.Start()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -73,7 +74,7 @@ Public Class clsDccChat
         Try
             lSocket.Connect(_Ip, _Port)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -83,7 +84,7 @@ Public Class clsDccChat
             lRemotePort = _Port
             lAutoConnect = True
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -113,7 +114,7 @@ Public Class clsDccChat
                 _Form.Invoke(lConnect, lRemoteIp, lPort)
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -123,17 +124,17 @@ Public Class clsDccChat
             lInvokeForm.Invoke(lAddText, "Connection Accepted")
             lSocket = tmp_Socket
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
-    Private Sub lSocket_socketConnected(ByVal SocketID As String) Handles lSocket.socketConnected
+    Private Sub lSocket_socketConnected(ByVal SocketID As String) Handles lSocket.SocketConnected
         Try
             Dim lAddText As New StringDelegate(AddressOf AddText)
             lInvokeForm.Invoke(lAddText, "Socket Connected")
             lClientConnected = True
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -143,21 +144,21 @@ Public Class clsDccChat
             If Len(lData) <> 0 Then
                 lData = Replace(lData, Chr(10), "")
                 lData = Replace(lData, Chr(13), "")
-                lData = Replace(lData, Environment.Newline, "")
+                lData = Replace(lData, Environment.NewLine, "")
                 msg = "<" & lUsersDropDownList.Text & "> " & Trim(lData)
                 lInvokeForm.Invoke(lAddText, msg)
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
-    Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lSocket.socketDataArrival
+    Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lSocket.SocketDataArrival
         Try
             Dim lInData As New StringDelegate(AddressOf ProcessInData)
             lInvokeForm.Invoke(lInData, SocketData)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -170,16 +171,16 @@ Public Class clsDccChat
                 AddText("Socket Disconnected")
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
-    Private Sub lSocket_socketDisconnected(ByVal SocketID As String) Handles lSocket.socketDisconnected
+    Private Sub lSocket_socketDisconnected(ByVal SocketID As String) Handles lSocket.SocketDisconnected
         Try
             Dim lSocketDisconnectProc As New EmptyDelegate(AddressOf SocketDisconnectedProc)
             lInvokeForm.Invoke(lSocketDisconnectProc)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -187,7 +188,7 @@ Public Class clsDccChat
         Try
             lUsersDropDownList.Enabled = False
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -204,7 +205,7 @@ Public Class clsDccChat
                     Else
                         msg = lProcessNumeric.lIrcNumericHelper.ReturnMyIp()
                     End If
-                    msg = msg.Replace(Chr(10), "").Replace(Chr(13), "").Replace(Environment.Newline, "").Trim
+                    msg = msg.Replace(Chr(10), "").Replace(Chr(13), "").Replace(Environment.NewLine, "").Trim
                     lStatus.DoStatusSocket(lStatusIndex, "NOTICE " & lUsersDropDownList.Text & " :DCC CHAT (" & msg & ")")
                     lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & lUsersDropDownList.Text & " :DCC CHAT chat " & lStrings.EncodeIPAddr(msg) & " " & Trim(p.ToString) & "")
                     lInvokeForm.Invoke(lAddText, "Attempting Connection")
@@ -214,7 +215,7 @@ Public Class clsDccChat
                 End If
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -231,7 +232,7 @@ Public Class clsDccChat
             lDisconnectButton.Enabled = False
             lConnectButton.Enabled = False
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -239,7 +240,7 @@ Public Class clsDccChat
         Try
             lInvokeForm.Focus()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -247,7 +248,7 @@ Public Class clsDccChat
         Try
             lIncomingTextBox.ScrollToCaret()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -255,7 +256,7 @@ Public Class clsDccChat
         Try
             If lSettings.lIRC.iSettings.sAutoMaximize = True Then lInvokeForm.WindowState = FormWindowState.Maximized
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -267,13 +268,13 @@ Public Class clsDccChat
                 msg = lOutgoingTextBox.Text
                 If Len(msg) <> 0 Then
                     lOutgoingTextBox.Text = ""
-                    lSocket.Send(msg & Environment.Newline)
+                    lSocket.Send(msg & Environment.NewLine)
                     AddText("<" & lStatus.NickName(lStatusIndex) & "> " & msg)
                 End If
                 Exit Sub
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -281,7 +282,7 @@ Public Class clsDccChat
         Try
             If e.KeyChar = Chr(13) Then e.Handled = True
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -294,7 +295,7 @@ Public Class clsDccChat
                 lClientConnected = False
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -302,7 +303,7 @@ Public Class clsDccChat
         Try
             lInvokeForm.Focus()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 End Class

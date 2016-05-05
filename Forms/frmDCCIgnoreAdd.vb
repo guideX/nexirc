@@ -9,7 +9,7 @@ Public Class frmDCCIgnoreAdd
             Icon = mdiMain.Icon
             txtValue.Focus()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click
@@ -23,14 +23,14 @@ Public Class frmDCCIgnoreAdd
             End With
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 End Class

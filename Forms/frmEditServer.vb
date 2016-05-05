@@ -19,7 +19,7 @@ Public Class frmEditServer
             cboNetwork.Text = lSettings.lNetworks.nNetwork(lSettings.lServers.sServer(lIndex).sNetworkIndex).nDescription
             lInfoSet = True
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -44,7 +44,7 @@ Public Class frmEditServer
                 If lSettings.lIRC.iSettings.sPrompts = True Then MsgBox("Not all fields are filled out", MsgBoxStyle.Exclamation)
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -52,7 +52,7 @@ Public Class frmEditServer
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -60,7 +60,7 @@ Public Class frmEditServer
         Try
             Me.Icon = mdiMain.Icon
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 End Class

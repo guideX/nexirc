@@ -101,61 +101,52 @@ Namespace nexIRC.IRC.Settings
         End Sub
 
         Public Function ReturnOutsideIPAddress() As String
-            Try
-                Dim client As New WebClient, baseurl As String = "http://checkip.dyndns.org:8245/", data As System.IO.Stream, reader As System.IO.StreamReader, s As String
-                client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR1.0.3705;)")
-                data = client.OpenRead(baseurl)
-                reader = New System.IO.StreamReader(data)
-                s = reader.ReadToEnd
-                data.Close()
-                reader.Close()
-                s = s.Replace("<html><head><title>Current IP Check</title></head><body>", "").Replace("</body></html>", "").ToString()
-                s = s.Replace("Current IP Address: ", "")
-                Return s
-            Catch ex As Exception
-                Throw ex
-                Return Nothing
-            End Try
+            Dim client As New WebClient, baseurl As String = "http://checkip.dyndns.org:8245/", data As System.IO.Stream, reader As System.IO.StreamReader, s As String
+            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR1.0.3705;)")
+            data = client.OpenRead(baseurl)
+            reader = New System.IO.StreamReader(data)
+            s = reader.ReadToEnd
+            data.Close()
+            reader.Close()
+            s = s.Replace("<html><head><title>Current IP Check</title></head><body>", "").Replace("</body></html>", "").ToString()
+            s = s.Replace("Current IP Address: ", "")
+            Return s
         End Function
 
         Public Sub SaveDCCSettings()
-            Try
-                Dim i As Integer
-                With lDCC
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "PopupDownloadManager", .dPopupDownloadManager.ToString())
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "DownloadDirectory", .dDownloadDirectory)
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "FileExistsAction", Trim(CType(.dFileExistsAction, Integer).ToString))
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
-                    For i = 1 To lDCC.dIgnorelist.dCount
-                        Files.WriteINI(lSettings.lINI.iDCC, Trim(i.ToString), "Data", .dIgnorelist.dItem(i).dData)
-                        Files.WriteINI(lSettings.lINI.iDCC, Trim(i.ToString), "Type", Trim(CType(.dIgnorelist.dItem(i).dType, Integer).ToString))
-                    Next i
-                    If .dChatPrompt = eDCCPrompt.ePrompt Then
-                        Files.WriteINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "1")
-                    ElseIf .dChatPrompt = eDCCPrompt.eAcceptAll Then
-                        Files.WriteINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "2")
-                    ElseIf .dChatPrompt = eDCCPrompt.eIgnore Then
-                        Files.WriteINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "3")
-                    End If
-                    If .dSendPrompt = eDCCPrompt.ePrompt Then
-                        Files.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "1")
-                    ElseIf .dSendPrompt = eDCCPrompt.eAcceptAll Then
-                        Files.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "2")
-                    ElseIf .dSendPrompt = eDCCPrompt.eIgnore Then
-                        Files.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "3")
-                    End If
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "UseIpAddress", Trim(.dUseIpAddress.ToString))
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "CustomIpAddress", Trim(.dCustomIpAddress))
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPort", Trim(.dSendPort.ToString))
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "RandomizePort", (Trim(.dRandomizePort.ToString)))
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "BufferSize", (Trim(.dBufferSize.ToString)))
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "AutoIgnore", Trim(.dAutoIgnore.ToString))
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "AutoCloseDialogs", Trim(.dAutoCloseDialogs.ToString))
-                End With
-            Catch ex As Exception
-                Throw ex
-            End Try
+            Dim i As Integer
+            With lDCC
+                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "PopupDownloadManager", .dPopupDownloadManager.ToString())
+                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "DownloadDirectory", .dDownloadDirectory)
+                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "FileExistsAction", Trim(CType(.dFileExistsAction, Integer).ToString))
+                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
+                For i = 1 To lDCC.dIgnorelist.dCount
+                    Files.WriteINI(lSettings.lINI.iDCC, Trim(i.ToString), "Data", .dIgnorelist.dItem(i).dData)
+                    Files.WriteINI(lSettings.lINI.iDCC, Trim(i.ToString), "Type", Trim(CType(.dIgnorelist.dItem(i).dType, Integer).ToString))
+                Next i
+                If .dChatPrompt = eDCCPrompt.ePrompt Then
+                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "1")
+                ElseIf .dChatPrompt = eDCCPrompt.eAcceptAll Then
+                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "2")
+                ElseIf .dChatPrompt = eDCCPrompt.eIgnore Then
+                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "3")
+                End If
+                If .dSendPrompt = eDCCPrompt.ePrompt Then
+                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "1")
+                ElseIf .dSendPrompt = eDCCPrompt.eAcceptAll Then
+                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "2")
+                ElseIf .dSendPrompt = eDCCPrompt.eIgnore Then
+                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "3")
+                End If
+                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "UseIpAddress", Trim(.dUseIpAddress.ToString))
+                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "CustomIpAddress", Trim(.dCustomIpAddress))
+                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
+                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPort", Trim(.dSendPort.ToString))
+                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "RandomizePort", (Trim(.dRandomizePort.ToString)))
+                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "BufferSize", (Trim(.dBufferSize.ToString)))
+                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "AutoIgnore", Trim(.dAutoIgnore.ToString))
+                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "AutoCloseDialogs", Trim(.dAutoCloseDialogs.ToString))
+            End With
         End Sub
     End Class
 End Namespace

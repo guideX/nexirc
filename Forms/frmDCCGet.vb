@@ -42,7 +42,7 @@ Public Class frmDCCGet
             lblFilename.Text = lFileName
             ProgressBar1.Maximum = CType(lRemoteFileSize, Integer)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -50,7 +50,7 @@ Public Class frmDCCGet
         Try
             tmrSendCurrentSize.Enabled = False
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -59,7 +59,7 @@ Public Class frmDCCGet
             txtDownloadTo.Text = lSettings_DCC.lDCC.dDownloadDirectory
             Me.Icon = mdiMain.Icon
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -104,7 +104,7 @@ Public Class frmDCCGet
             cmdOK.Enabled = False
             lSocket.Connect(lStrings.DecodeLongIPAddr(lRemoteIp), Convert.ToInt64(Trim(lRemotePort)))
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -112,7 +112,7 @@ Public Class frmDCCGet
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -128,7 +128,7 @@ Public Class frmDCCGet
             lBinaryWriter = New BinaryWriter(lOutPut)
             lFileOpen = True
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -154,7 +154,7 @@ Public Class frmDCCGet
                 MsgBox("The following data could not be added: " & lData)
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -179,7 +179,7 @@ Public Class frmDCCGet
                 cmdCancel.Text = "Close"
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -201,7 +201,7 @@ Public Class frmDCCGet
             lSendBackByte(3) = CByte(lLongByte)
             BytesToChars = lSendBackByte
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -210,7 +210,7 @@ Public Class frmDCCGet
         Try
             If lConnected = True Then EndTransfer()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -219,7 +219,7 @@ Public Class frmDCCGet
             Dim lSocketConnectedProc As New EmptyDelegate(AddressOf SocketConnectedProc)
             Me.Invoke(lSocketConnectedProc)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -227,7 +227,7 @@ Public Class frmDCCGet
         Try
             lProgressBar.Value = lPercent
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -236,7 +236,7 @@ Public Class frmDCCGet
             Dim lSocketDataArrivalProc As New DataArrivalDelegate(AddressOf SocketDataArrivalProc)
             Me.Invoke(lSocketDataArrivalProc, SocketData, lBytes, lBytesRead)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -245,7 +245,7 @@ Public Class frmDCCGet
             Dim lSocketDisconnectProc As New EmptyDelegate(AddressOf SocketDisconnectedProc)
             If lConnected = True Then Me.Invoke(lSocketDisconnectProc)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -254,7 +254,7 @@ Public Class frmDCCGet
             tmrSendCurrentSize.Enabled = False
             lSocket.SendBytes(BytesToChars(lBytesRecievedCount))
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -264,7 +264,7 @@ Public Class frmDCCGet
             FolderBrowserDialog1.ShowDialog()
             txtDownloadTo.Text = FolderBrowserDialog1.SelectedPath
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -276,7 +276,7 @@ Public Class frmDCCGet
                 EndTransfer()
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 End Class

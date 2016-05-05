@@ -11,14 +11,14 @@ Public Class clsServerLinks
             lNetworkIndex = lIndex
             _ComboBox.Text = lSettings.lNetworks.nNetwork(lIndex).nDescription
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub SetNetworkIndex(ByVal lIndex As Integer)")
+            Throw 'ProcessError(ex.Message, "Public Sub SetNetworkIndex(ByVal lIndex As Integer)")
         End Try
     End Sub
     Public Sub SetStatusIndex(ByVal lIndex As Integer)
         Try
             lStatusIndex = lIndex
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
+            Throw 'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
         End Try
     End Sub
     Public Sub AddToLinks(ByVal lServerIP As String, ByVal lPort As String, _ListView As ListView)
@@ -29,7 +29,7 @@ Public Class clsServerLinks
             lItem.SubItems.Add(lPort)
             lItem.Checked = True
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub AddToLinks(ByVal lServerIP As String, ByVal lPort As String)")
+            Throw 'ProcessError(ex.Message, "Public Sub AddToLinks(ByVal lServerIP As String, ByVal lPort As String)")
         End Try
     End Sub
     Public Sub frmServerLinks_FormClosing(_ListView As ListView)
@@ -43,7 +43,7 @@ Public Class clsServerLinks
                 End With
             Next i
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub frmServerLinks_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing")
+            Throw 'ProcessError(ex.Message, "Private Sub frmServerLinks_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing")
         End Try
     End Sub
     Public Sub Form_Load(_Form As Form, _ComboBox As ComboBox, _ListView As ListView)
@@ -62,7 +62,7 @@ Public Class clsServerLinks
                 .Add("Port", 140)
             End With
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub frmServerLinks_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+            Throw 'ProcessError(ex.Message, "Private Sub frmServerLinks_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
         End Try
     End Sub
     Public Sub cmdOK_Click(_Form As Form, _ListView As ListView, _ComboBox As ComboBox)
@@ -85,14 +85,14 @@ Public Class clsServerLinks
             End If
             _Form.Close()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click")
+            Throw 'ProcessError(ex.Message, "Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click")
         End Try
     End Sub
     Public Sub cmdCancel_Click(_Form As Form)
         Try
             _Form.Close()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
+            Throw 'ProcessError(ex.Message, "Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click")
         End Try
     End Sub
 End Class

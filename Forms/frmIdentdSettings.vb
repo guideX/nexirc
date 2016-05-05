@@ -13,7 +13,7 @@ Public Class frmIdentdSettings
                 chkIdentdEnabled.Checked = .iSettings.iEnabled
             End With
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -21,7 +21,7 @@ Public Class frmIdentdSettings
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -35,7 +35,7 @@ Public Class frmIdentdSettings
             End With
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 End Class

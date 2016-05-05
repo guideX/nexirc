@@ -17,7 +17,7 @@ Public Class Ident
             _listenSocket = New AsyncServer(Convert.ToInt32(port))
             _listenSocket.Start()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -26,7 +26,7 @@ Public Class Ident
             _clientSocket.PassSocket(lStatus.GetObject(lStatus.ActiveIndex).sWindow) = tempSocket
             '_clientSocket = tempSocket
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -40,7 +40,7 @@ Public Class Ident
             _clientSocket.SendSocket(msg2 & Environment.Newline)
             _clientSocket.CloseSocket()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -49,7 +49,7 @@ Public Class Ident
             _clientSocket = New StatusSocket()
             _clientSocket.SetSocketType = StatusSocket.SocketType.Ident
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -60,7 +60,7 @@ Public Class Ident
             Dim processSocketDataArrivalProc As New IntegerDelegate(AddressOf ProcessSocketDataArrival)
             lStatus.GetObject(statusId).sWindow.Invoke(processSocketDataArrivalProc, statusId)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 End Class

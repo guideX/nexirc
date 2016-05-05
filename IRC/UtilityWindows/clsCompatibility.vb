@@ -8,7 +8,7 @@ Namespace IRC.UtilityWindows
             Try
                 _Form.Close()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cmdCancel_Click(_Form As Form)")
+                Throw 'ProcessError(ex.Message, "Public Sub cmdCancel_Click(_Form As Form)")
             End Try
         End Sub
         Public Sub cmdOK_Click(_Form As Form)
@@ -16,7 +16,7 @@ Namespace IRC.UtilityWindows
                 lSettings.SaveCompatibility()
                 _Form.Close()
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub cmdOK_Click(_Form As Form)")
+                Throw 'ProcessError(ex.Message, "Public Sub cmdOK_Click(_Form As Form)")
             End Try
         End Sub
         Private Sub SetListViewToCompatibility(ByVal _RadListView As RadListView)
@@ -36,14 +36,14 @@ Namespace IRC.UtilityWindows
                     End With
                 Next i
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub SetListViewToCompatibility(ByVal lListView As RadListView)")
+                Throw 'ProcessError(ex.Message, "Public Sub SetListViewToCompatibility(ByVal lListView As RadListView)")
             End Try
         End Sub
         Public Sub Form_Load(_RadListView As RadListView)
             Try
                 SetListViewToCompatibility(_RadListView)
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub frmCompatibility_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+                Throw 'ProcessError(ex.Message, "Private Sub frmCompatibility_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
             End Try
         End Sub
         Public Sub lvwCompatibility_DoubleClick(_RadListView As RadListView)
@@ -67,7 +67,7 @@ Namespace IRC.UtilityWindows
                 End Select
                 SetListViewToCompatibility(_RadListView)
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub lvwCompatibility_DoubleClick(_RadListView As RadListView)")
+                Throw 'ProcessError(ex.Message, "Public Sub lvwCompatibility_DoubleClick(_RadListView As RadListView)")
             End Try
         End Sub
         Public Sub lblAdd_LinkClicked(_SelectedCompatibilityItem As String)
@@ -83,14 +83,14 @@ Namespace IRC.UtilityWindows
                 End Select
                 lSettings.AddToCompatibility(msg, b)
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub lblAdd_LinkClicked(_SelectedCompatibilityItem As String)")
+                Throw 'ProcessError(ex.Message, "Public Sub lblAdd_LinkClicked(_SelectedCompatibilityItem As String)")
             End Try
         End Sub
         Public Sub lblRemove_LinkClicked(_SelectedCompatibilityItem As String)
             Try
                 lSettings.RemoveFromCompatibility(lSettings.FindCompatibilityIndex(_SelectedCompatibilityItem))
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Private Sub lblRemove_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblRemove.LinkClicked")
+                Throw 'ProcessError(ex.Message, "Private Sub lblRemove_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblRemove.LinkClicked")
             End Try
         End Sub
     End Class

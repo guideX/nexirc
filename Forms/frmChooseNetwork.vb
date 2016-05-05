@@ -11,7 +11,7 @@ Public Class frmChooseNetwork
         Try
             lChooseNetwork.cmdCancel_Click(Me)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -19,7 +19,7 @@ Public Class frmChooseNetwork
         Try
             lChooseNetwork.Form_Load(cboNetworks, Me)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -27,7 +27,7 @@ Public Class frmChooseNetwork
         Try
             lChooseNetwork.cmdOK_Click(Me, cboNetworks.Text)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 End Class

@@ -11,7 +11,7 @@ Public Class frmAddServer
         Try
             addServer.cmdCancel_Click(Me)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -19,7 +19,7 @@ Public Class frmAddServer
         Try
             addServer.cmdOK_Click(txtIP, txtPort, cboNetwork.Text, Me)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -27,7 +27,7 @@ Public Class frmAddServer
         Try
             addServer.Form_Load(cboNetwork)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -35,7 +35,7 @@ Public Class frmAddServer
         Try
             addServer.cmdNewNetwork_Click(cboNetwork)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 End Class

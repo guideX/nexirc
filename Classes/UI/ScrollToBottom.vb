@@ -15,7 +15,7 @@ Namespace Classes.UI
             Try
                 SendMessage(richTextBox.Handle, WM_VSCROLL, CType(7, IntPtr), IntPtr.Zero)
             Catch ex As Exception
-                Throw ex
+                Throw
             End Try
         End Sub
 
@@ -23,7 +23,7 @@ Namespace Classes.UI
             Try
                 SendMessage(richTextBox.Handle, WM_VSCROLL, CType(7, IntPtr), IntPtr.Zero)
             Catch ex As Exception
-                Throw ex
+                Throw
             End Try
         End Sub
     End Class

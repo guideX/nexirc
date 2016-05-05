@@ -68,7 +68,7 @@ Namespace nexIRC.IRC.Settings
                     End With
                 End If
             Catch ex As Exception
-                Throw ex
+                Throw
             End Try
         End Sub
 
@@ -129,7 +129,7 @@ Namespace nexIRC.IRC.Settings
                     .nShowOnConnect = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iServices, "NickServ", "ShowOnConnect", "True"))
                 End With
             Catch ex As Exception
-                Throw ex
+                Throw
             End Try
         End Sub
 
@@ -156,7 +156,7 @@ Namespace nexIRC.IRC.Settings
                 Files.WriteINI(lSettings.lINI.iServices, "NickServ", "LoginOnConnect", Convert.ToString(lNickServ.nLoginOnConnect))
                 Files.WriteINI(lSettings.lINI.iServices, "NickServ", "ShowOnConnect", Convert.ToString(lNickServ.nShowOnConnect))
             Catch ex As Exception
-                Throw ex
+                Throw
             End Try
         End Sub
     End Class

@@ -25,7 +25,7 @@ Public Class clsChannelFolderUI
         Try
             lStatusIndex = _StatusIndex
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
+            Throw 'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
         End Try
     End Sub
     Public Sub lstChannels_DoubleClick(_Channel As String, _AutoClose As Boolean)
@@ -33,7 +33,7 @@ Public Class clsChannelFolderUI
             lChannels.Join(lStatusIndex, _Channel)
             If _AutoClose = True Then RaiseEvent FormClosed()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lstChannels_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstChannels.DoubleClick")
+            Throw 'ProcessError(ex.Message, "Private Sub lstChannels_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstChannels.DoubleClick")
         End Try
     End Sub
     Public Sub cmdAdd_Click(_Channel As String, _Network As String)
@@ -47,7 +47,7 @@ Public Class clsChannelFolderUI
                 End If
             End If
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub cmdAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAdd.Click")
+            Throw 'ProcessError(ex.Message, "Private Sub cmdAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAdd.Click")
         End Try
     End Sub
     Public Sub Init()
@@ -58,12 +58,12 @@ Public Class clsChannelFolderUI
                 End With
             Next i
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Public Sub Form_Load()
         'Try
-        Dim i As Integer, msg As String
+        Dim msg As String
         RaiseEvent ClearNetworkComboBox()
         Init()
         msg = lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(lStatus.ActiveIndex())).nDescription
@@ -71,21 +71,21 @@ Public Class clsChannelFolderUI
         RaiseEvent SetPopupChannelFoldersCheckBoxValue(lSettings.lIRC.iSettings.sPopupChannelFolders)
         RaiseEvent SetAutoCloseCheckBoxValue(lSettings.lIRC.iSettings.sChannelFolderCloseOnJoin)
         'Catch ex As Exception
-        'Throw ex 'ProcessError(ex.Message, "Private Sub frmChannelFolder_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
+        'Throw 'ProcessError(ex.Message, "Private Sub frmChannelFolder_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
         'End Try
     End Sub
     Public Sub lstChannels_SelectedIndexChanged()
         Try
             RaiseEvent SetChannelTextBoxTextToListBoxText()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lstChannels_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstChannels.SelectedIndexChanged")
+            Throw 'ProcessError(ex.Message, "Private Sub lstChannels_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstChannels.SelectedIndexChanged")
         End Try
     End Sub
     Public Sub cmdRemove_Click(_Channel As String)
         Try
             RaiseEvent RemoveChannelListBoxItem(_Channel)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub cmdRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemove.Click")
+            Throw 'ProcessError(ex.Message, "Private Sub cmdRemove_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRemove.Click")
         End Try
     End Sub
     Private Function ReturnListOfChannels(network As String) As List(Of String)
@@ -105,7 +105,7 @@ Public Class clsChannelFolderUI
         channels = channels.OrderBy(Function(c) c).ToList()
         Return channels
         'Catch ex As Exception
-        'Throw ex 'ProcessError(ex.Message, "Private Function ReturnListOfChannels(network As String) As String")
+        'Throw 'ProcessError(ex.Message, "Private Function ReturnListOfChannels(network As String) As String")
         'Return Nothing
         'End Try
     End Function
@@ -118,7 +118,7 @@ Public Class clsChannelFolderUI
             RaiseEvent AddChannelToListBox(channel)
         Next channel
         'Catch ex As Exception
-        'Throw ex 'ProcessError(ex.Message, "Private Sub cboNetwork_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboNetwork.SelectedIndexChanged")
+        'Throw 'ProcessError(ex.Message, "Private Sub cboNetwork_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboNetwork.SelectedIndexChanged")
         'End Try
     End Sub
     Public Sub Form_FormClosed(_PopupOnConnect As Boolean, _AutoClose As Boolean, _Left As Integer, _Top As Integer)
@@ -126,7 +126,7 @@ Public Class clsChannelFolderUI
             lSettings.lIRC.iSettings.sPopupChannelFolders = _PopupOnConnect
             lSettings.lIRC.iSettings.sChannelFolderCloseOnJoin = _AutoClose
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Public Sub cmdClose_Click()
@@ -134,7 +134,7 @@ Public Class clsChannelFolderUI
             lSettings.SaveChannelFolders()
             RaiseEvent AnimateClose()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Public Sub cmdJoin_Click(_Channel As String, _AutoClose As Boolean)
@@ -144,7 +144,7 @@ Public Class clsChannelFolderUI
                 lChannels.Join(lStatusIndex, _Channel)
             End If
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub cmdJoin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdJoin.Click")
+            Throw 'ProcessError(ex.Message, "Private Sub cmdJoin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdJoin.Click")
         End Try
     End Sub
     Public Event AnimateClose()
@@ -153,28 +153,28 @@ Public Class clsChannelFolderUI
             lStrings.ProcessReplaceCommand(lStatusIndex, eCommandTypes.cLIST, lStatus.Description(lStatus.ActiveIndex))
             RaiseEvent AnimateClose()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "lnkJumpToChannelList_LinkClicked")
+            Throw 'ProcessError(ex.Message, "lnkJumpToChannelList_LinkClicked")
         End Try
     End Sub
     Public Sub txtChannel_Enter(_MouseButtons As Windows.Forms.MouseButtons, _Sender As Object)
         Try
             If _MouseButtons = Windows.Forms.MouseButtons.None Then lLastFocused = CType(_Sender, Control)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub txtChannel_Enter(sender As Object, e As System.EventArgs) Handles txtChannel.Enter")
+            Throw 'ProcessError(ex.Message, "Private Sub txtChannel_Enter(sender As Object, e As System.EventArgs) Handles txtChannel.Enter")
         End Try
     End Sub
     Public Sub txtChannel_Leave()
         Try
             lLastFocused = Nothing
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub txtChannel_Leave(sender As Object, e As System.EventArgs) Handles txtChannel.Leave")
+            Throw 'ProcessError(ex.Message, "Private Sub txtChannel_Leave(sender As Object, e As System.EventArgs) Handles txtChannel.Leave")
         End Try
     End Sub
     Private Sub txtChannel_GotFocus(_ChannelTextBox As RadTextBox)
         Try
             RaiseEvent ChannelTextBoxSelectAll()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub txtChannel_GotFocus(sender As Object, e As System.EventArgs) Handles txtChannel.GotFocus")
+            Throw 'ProcessError(ex.Message, "Private Sub txtChannel_GotFocus(sender As Object, e As System.EventArgs) Handles txtChannel.GotFocus")
         End Try
     End Sub
     Public Sub txtChannel_MouseUp(sender As Object)
@@ -184,7 +184,7 @@ Public Class clsChannelFolderUI
             End With
             lLastFocused = CType(sender, Control)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub txtChannel_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtChannel.MouseUp")
+            Throw 'ProcessError(ex.Message, "Private Sub txtChannel_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtChannel.MouseUp")
         End Try
     End Sub
 End Class
@@ -196,7 +196,7 @@ Public Class clsChannelFolder
             ShowWindow()
             SetStatusIndex(_StatusIndex)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub Show(_StatusIndex As Integer)")
+            Throw 'ProcessError(ex.Message, "Public Sub Show(_StatusIndex As Integer)")
         End Try
     End Sub
     Private Sub ShowWindow()
@@ -205,7 +205,7 @@ Public Class clsChannelFolder
             lWindow.Show()
             lVisible = True
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Public Sub RefreshChannelFolderChannelList()
@@ -214,28 +214,28 @@ Public Class clsChannelFolder
                 lWindow.Init()
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Private Sub SetStatusIndex(_StatusIndex As Integer)
         Try
             lWindow.SetStatusIndex(_StatusIndex)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub SetStatusIndex(_StatusIndex As Integer)")
+            Throw 'ProcessError(ex.Message, "Public Sub SetStatusIndex(_StatusIndex As Integer)")
         End Try
     End Sub
     Private Sub lWindow_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles lWindow.FormClosed
         Try
             lVisible = False
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lWindow_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles lWindow.FormClosed")
+            Throw 'ProcessError(ex.Message, "Private Sub lWindow_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles lWindow.FormClosed")
         End Try
     End Sub
     Public Function Window() As Form
         Try
             Return lWindow
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Function Window() As Form")
+            Throw 'ProcessError(ex.Message, "Public Function Window() As Form")
             Return Nothing
         End Try
     End Function

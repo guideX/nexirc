@@ -10,7 +10,7 @@ Public Class frmDownloadManager
             Me.Icon = mdiMain.Icon
             lSettings.SetListViewToDownloadManager(lvwDownloadManager)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -27,7 +27,7 @@ Public Class frmDownloadManager
             cmdOpenLocation.Top = cmdClear.Top
             cmdOpenLocation.Left = lvwDownloadManager.Left
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -35,7 +35,7 @@ Public Class frmDownloadManager
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -43,7 +43,7 @@ Public Class frmDownloadManager
         Try
             lvwDownloadManager.Items.Clear()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -88,7 +88,7 @@ Public Class frmDownloadManager
                 End If
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -100,7 +100,7 @@ Public Class frmDownloadManager
             End Select
             MsgBox(msg)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 End Class

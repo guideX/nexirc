@@ -17,14 +17,14 @@ Public Class frmStatus
             mdiChildWindow.txtIncomingColor_MouseDown(Me)
             lStatus.ActiveIndex = mdiChildWindow.MeIndex
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Private Sub txtIncoming_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncoming.MouseUp
         Try
             mdiChildWindow.txtIncomingColor_MouseUp(txtIncoming.Document.Selection.GetSelectedText(), txtIncoming, txtOutgoing)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 #End Region
@@ -38,7 +38,7 @@ Public Class frmStatus
         Try
             mdiChildWindow.txtOutgoing_KeyDown(e, txtOutgoing.Text)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Private Sub txtOutgoing_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
@@ -47,7 +47,7 @@ Public Class frmStatus
             mdiChildWindow.txtIncomingColor_MouseDown(Me)
             lStatus.ActiveIndex = mdiChildWindow.MeIndex
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 #End Region
@@ -56,28 +56,28 @@ Public Class frmStatus
         Try
             mdiChildWindow.Form_Resize(txtIncoming, txtOutgoing, Me)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub frmStatus_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize")
+            Throw 'ProcessError(ex.Message, "Private Sub frmStatus_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize")
         End Try
     End Sub
     Private Sub frmStatus_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         Try
             mdiChildWindow.Form_FormClosing(Me, e)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs)")
+            Throw 'ProcessError(ex.Message, "Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs)")
         End Try
     End Sub
     Private Sub frmStatus_MdiChildActivate(sender As Object, e As System.EventArgs) Handles Me.MdiChildActivate
         Try
             mdiChildWindow.Form_GotFocus(Me)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub frmStatus_MdiChildActivate(sender As Object, e As System.EventArgs) Handles Me.MdiChildActivate")
+            Throw 'ProcessError(ex.Message, "Private Sub frmStatus_MdiChildActivate(sender As Object, e As System.EventArgs) Handles Me.MdiChildActivate")
         End Try
     End Sub
     Private Sub frmStatus_GotFocus(sender As Object, e As System.EventArgs) Handles Me.GotFocus
         Try
             mdiChildWindow.Form_GotFocus(Me)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub frmStatus_GotFocus(sender As Object, e As System.EventArgs) Handles Me.GotFocus")
+            Throw 'ProcessError(ex.Message, "Private Sub frmStatus_GotFocus(sender As Object, e As System.EventArgs) Handles Me.GotFocus")
         End Try
     End Sub
     Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
@@ -85,7 +85,7 @@ Public Class frmStatus
             mdiChildWindow.Form_Load(mdiChildWindow.FormTypes.Status)
             txtIncoming.Cursor = Cursors.Default
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
+            Throw 'ProcessError(ex.Message, "Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
         End Try
     End Sub
 #End Region
@@ -95,56 +95,56 @@ Public Class frmStatus
         Try
             mdiChildWindow.cmdDisconnect_Click()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub cmdDisconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDisconnect.Click")
+            Throw 'ProcessError(ex.Message, "Private Sub cmdDisconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDisconnect.Click")
         End Try
     End Sub
     Private Sub cmdConnection_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnection.ButtonClick
         Try
             mdiChildWindow.cmdToggleConnection_Click()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub cmdConnection_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnection.ButtonClick")
+            Throw 'ProcessError(ex.Message, "Private Sub cmdConnection_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnection.ButtonClick")
         End Try
     End Sub
     Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click
         Try
             mdiChildWindow.cmdConnect_Click()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click")
+            Throw 'ProcessError(ex.Message, "Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click")
         End Try
     End Sub
     Private Sub cmd_SendNewNotice_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem3.Click
         Try
             mdiChildWindow.cmdSendNewNotice_Click()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub ToolStripMenuItem3_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem3.Click")
+            Throw 'ProcessError(ex.Message, "Private Sub ToolStripMenuItem3_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem3.Click")
         End Try
     End Sub
     Private Sub cmd_ChangeNickName_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem1.Click
         Try
             mdiChildWindow.cmdChangeNickName_Click()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub ToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem1.Click")
+            Throw 'ProcessError(ex.Message, "Private Sub ToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem1.Click")
         End Try
     End Sub
     Private Sub tspListChannels_Click(sender As System.Object, e As System.EventArgs) Handles tspListChannels.Click
         Try
             mdiChildWindow.cmdListChannels_Click()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub tspListChannels_Click(sender As System.Object, e As System.EventArgs) Handles tspListChannels.Click")
+            Throw 'ProcessError(ex.Message, "Private Sub tspListChannels_Click(sender As System.Object, e As System.EventArgs) Handles tspListChannels.Click")
         End Try
     End Sub
     Private Sub cmdBotLogin_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotLogin.Click
         Try
             lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Login()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Private Sub cmdBot_ButtonClick(sender As System.Object, e As System.EventArgs) Handles cmdBot.ButtonClick
         Try
             lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.LoginForm()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Private Sub cmdBotRegister_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotRegister.Click
@@ -159,7 +159,7 @@ Public Class frmStatus
                 End If
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Private Sub cmdBotGhost_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotGhost.Click
@@ -168,14 +168,14 @@ Public Class frmStatus
             user = InputBox("Nickname: ")
             lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Ghost(user)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Private Sub cmdClear_Click(sender As System.Object, e As System.EventArgs) Handles cmdClear.Click
         Try
             txtIncoming.Document = New RadDocument()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 #End Region
@@ -185,7 +185,7 @@ Public Class frmStatus
             mdiChildWindow.tmrConnectDelay_Tick()
             lAutoConnectDelayTimer.Enabled = False
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lAutoConnectDelayTimer_Tick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lAutoConnectDelayTimer.Tick")
+            Throw 'ProcessError(ex.Message, "Private Sub lAutoConnectDelayTimer_Tick(ByVal sender As Object, ByVal e As System.EventArgs) Handles lAutoConnectDelayTimer.Tick")
         End Try
     End Sub
     Private Sub tmrQuickFocus_Tick(sender As Object, e As System.EventArgs) Handles tmrQuickFocus.Tick
@@ -193,7 +193,7 @@ Public Class frmStatus
             tmrQuickFocus.Enabled = False
             txtOutgoing.Focus()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 #End Region
@@ -203,28 +203,28 @@ Public Class frmStatus
             Me.Focus()
             Me.BringToFront()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_BringToFront() Handles mdiChildWindow.BringToFront")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_BringToFront() Handles mdiChildWindow.BringToFront")
         End Try
     End Sub
     Private Sub lMdiChildWindow_ClearIncomingTextBoxSelection() Handles mdiChildWindow.ClearIncomingTextBoxSelection
         Try
             txtIncoming.Document.Selection.Clear()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_ClearIncomingTextBoxSelection() Handles mdiChildWindow.ClearIncomingTextBoxSelection")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_ClearIncomingTextBoxSelection() Handles mdiChildWindow.ClearIncomingTextBoxSelection")
         End Try
     End Sub
     Private Sub lMdiChildWindow_CloseForm() Handles mdiChildWindow.CloseForm
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_CloseForm() Handles mdiChildWindow.CloseForm")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_CloseForm() Handles mdiChildWindow.CloseForm")
         End Try
     End Sub
     Private Sub lMdiChildWindow_EmptyOutgoingTextBox() Handles mdiChildWindow.EmptyOutgoingTextBox
         Try
             txtOutgoing.Text = ""
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_EmptyOutgoingTextBox() Handles mdiChildWindow.EmptyOutgoingTextBox")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_EmptyOutgoingTextBox() Handles mdiChildWindow.EmptyOutgoingTextBox")
         End Try
     End Sub
     Private Sub lMdiChildWindow_FormDimensions(width As Integer, height As Integer) Handles mdiChildWindow.FormDimensions
@@ -232,21 +232,21 @@ Public Class frmStatus
             Me.Width = width
             Me.Height = height
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormDimensions(width As Integer, height As Integer) Handles mdiChildWindow.FormDimensions")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormDimensions(width As Integer, height As Integer) Handles mdiChildWindow.FormDimensions")
         End Try
     End Sub
     Private Sub lMdiChildWindow_FormFocus() Handles mdiChildWindow.FormFocus
         Try
             Me.Focus()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormFocus() Handles mdiChildWindow.FormFocus")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormFocus() Handles mdiChildWindow.FormFocus")
         End Try
     End Sub
     Private Sub lMdiChildWindow_FormIcon(icon As System.Drawing.Icon) Handles mdiChildWindow.FormIcon
         Try
             Me.Icon = icon
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormIcon(icon As System.Drawing.Icon) Handles mdiChildWindow.FormIcon")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_FormIcon(icon As System.Drawing.Icon) Handles mdiChildWindow.FormIcon")
         End Try
     End Sub
     Private Sub lMdiChildWindow_IncomingTextBoxDimensions(width As Integer, height As Integer) Handles mdiChildWindow.IncomingTextBoxDimensions
@@ -254,14 +254,14 @@ Public Class frmStatus
             txtIncoming.Width = width
             txtIncoming.Height = height
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_IncomingTextBoxDimensions(width As Integer, height As Integer) Handles mdiChildWindow.IncomingTextBoxDimensions")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_IncomingTextBoxDimensions(width As Integer, height As Integer) Handles mdiChildWindow.IncomingTextBoxDimensions")
         End Try
     End Sub
     Private Sub lMdiChildWindow_OutgoingSetFocus() Handles mdiChildWindow.OutgoingSetFocus
         Try
             txtOutgoing.Focus()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_OutgoingSetFocus() Handles mdiChildWindow.OutgoingSetFocus")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_OutgoingSetFocus() Handles mdiChildWindow.OutgoingSetFocus")
         End Try
     End Sub
     Private Sub lMdiChildWindow_OutgoingTextBoxDimensions(width As Integer, top As Integer) Handles mdiChildWindow.OutgoingTextBoxDimensions
@@ -269,7 +269,7 @@ Public Class frmStatus
             txtOutgoing.Width = width
             txtOutgoing.Top = top
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_OutgoingTextBoxDimensions(width As Integer, top As Integer) Handles mdiChildWindow.OutgoingTextBoxDimensions")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_OutgoingTextBoxDimensions(width As Integer, top As Integer) Handles mdiChildWindow.OutgoingTextBoxDimensions")
         End Try
     End Sub
     Private Sub lMdiChildWindow_ScrollToCaret() Handles mdiChildWindow.ScrollToCaret
@@ -282,7 +282,7 @@ Public Class frmStatus
                 End If
             End If
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_ScrollToCaret() Handles mdiChildWindow.ScrollToCaret")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_ScrollToCaret() Handles mdiChildWindow.ScrollToCaret")
         End Try
     End Sub
     Private Sub lMdiChildWindow_SetIncomingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles mdiChildWindow.SetIncomingColors
@@ -292,7 +292,7 @@ Public Class frmStatus
             txtIncoming.RichTextBoxElement.BorderWidth = 0
             txtIncoming.RichTextBoxElement.BackColor = backgroundColor
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetIncomingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles mdiChildWindow.SetIncomingColors")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetIncomingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles mdiChildWindow.SetIncomingColors")
         End Try
     End Sub
     Private Sub mdiChildWindow_SetNickBotNickName(nickName As String) Handles mdiChildWindow.SetNickBotNickName
@@ -300,7 +300,7 @@ Public Class frmStatus
             cmdBot.Visible = True
             cmdBot.Text = nickName
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles mdiChildWindow.SetOutgoingColors
@@ -314,21 +314,21 @@ Public Class frmStatus
             txtOutgoing.TextBoxElement.Border.Visibility = Telerik.WinControls.ElementVisibility.Collapsed
             txtOutgoing.TextBoxElement.BorderThickness = New System.Windows.Forms.Padding(0)
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles mdiChildWindow.SetOutgoingColors")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles mdiChildWindow.SetOutgoingColors")
         End Try
     End Sub
     Private Sub lMdiChildWindow_SetParent(parentForm As System.Windows.Forms.Form) Handles mdiChildWindow.SetParent
         Try
             Me.MdiParent = parentForm
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetParent(parentForm As System.Windows.Forms.Form) Handles mdiChildWindow.SetParent")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetParent(parentForm As System.Windows.Forms.Form) Handles mdiChildWindow.SetParent")
         End Try
     End Sub
     Private Sub lMdiChildWindow_SetWindowState(windowState As System.Windows.Forms.FormWindowState) Handles mdiChildWindow.SetWindowState
         Try
             Me.WindowState = windowState
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetWindowState(windowState As System.Windows.Forms.FormWindowState) Handles mdiChildWindow.SetWindowState")
+            Throw 'ProcessError(ex.Message, "Private Sub lMdiChildWindow_SetWindowState(windowState As System.Windows.Forms.FormWindowState) Handles mdiChildWindow.SetWindowState")
         End Try
     End Sub
 #End Region

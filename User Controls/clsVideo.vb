@@ -149,7 +149,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -170,7 +170,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -179,7 +179,7 @@ Public Class clsVideo
         Try
             Return Me.Play(True, True, False)
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -203,7 +203,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -221,7 +221,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -235,7 +235,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -249,7 +249,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -259,7 +259,7 @@ Public Class clsVideo
             Try
                 Return pRepeat
             Catch ex As Exception
-                Throw ex
+                Throw
                 Return Nothing
             End Try
         End Get
@@ -269,7 +269,7 @@ Public Class clsVideo
                     pRepeat = Value
                 End If
             Catch ex As Exception
-                Throw ex
+                Throw
             End Try
         End Set
     End Property
@@ -386,7 +386,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -401,7 +401,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -410,7 +410,7 @@ Public Class clsVideo
         Try
             Return MoveToPosition(Frame, "frames")
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -419,7 +419,7 @@ Public Class clsVideo
         Try
             Return MoveToPosition(Milliseconds, "milliseconds")
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -440,7 +440,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -449,7 +449,7 @@ Public Class clsVideo
         Try
             Return Clip([Start], [End], Me.CurrentFrame, "frames")
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -458,7 +458,7 @@ Public Class clsVideo
         Try
             Return Clip([Start], [End], Me.CurrentTime, "milliseconds")
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -482,7 +482,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -506,7 +506,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -519,7 +519,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -543,7 +543,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -557,7 +557,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -570,7 +570,7 @@ Public Class clsVideo
             End If
             Return False
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -589,7 +589,7 @@ Public Class clsVideo
             End If
             Return -1
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -608,7 +608,7 @@ Public Class clsVideo
             End If
             Return -1
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -617,7 +617,7 @@ Public Class clsVideo
         Try
             Return pLastError
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -635,7 +635,7 @@ Public Class clsVideo
                 Return ""
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -658,7 +658,7 @@ Public Class clsVideo
             pClipFormat = ""
             pPaused = False
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -666,7 +666,7 @@ Public Class clsVideo
         Try
             SizeMediaWindow()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -675,7 +675,7 @@ Public Class clsVideo
             Me.Close()
             MyBase.Dispose(disposing)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -697,7 +697,7 @@ Public Class clsVideo
             End Select
             MyBase.WndProc(m)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 End Class

@@ -34,7 +34,7 @@ Public Class clsIrcNumericHelper
             l615 = ""
             l616 = ""
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Public Function ReturnDCCPort() As Long
@@ -57,7 +57,7 @@ Public Class clsIrcNumericHelper
             End If
             ReturnDCCPort = p
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -74,7 +74,7 @@ Public Class clsIrcNumericHelper
             End If
             Return result
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -85,7 +85,7 @@ Public Class clsIrcNumericHelper
             f.lDccChatUI.SetStatusIndex(lStatus.ActiveIndex)
             f.Show()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Public Sub NewDCCSend()
@@ -95,7 +95,7 @@ Public Class clsIrcNumericHelper
             f.SetStatusIndex(lStatus.ActiveIndex)
             f.Show()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Public Function ReturnMyIp() As String
@@ -103,7 +103,7 @@ Public Class clsIrcNumericHelper
             Dim h As System.Net.IPHostEntry = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName)
             ReturnMyIp = (CType(h.AddressList.GetValue(0), IPAddress).ToString)
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -111,19 +111,19 @@ Public Class clsIrcNumericHelper
     Public Sub ProcessWhoisCommand(ByVal _StatusIndex As Integer)
         Try
             Dim msg As String = "", _Start As String, _End As String
-            _Start = lStrings.ReturnReplacedString(eStringTypes.sWHOIS_START).Trim & Environment.Newline
+            _Start = lStrings.ReturnReplacedString(eStringTypes.sWHOIS_START).Trim & Environment.NewLine
             _End = lStrings.ReturnReplacedString(eStringTypes.sWHOIS_END).Trim
-            If Len(l311) <> 0 Then msg = msg & l311 & Environment.Newline
-            If Len(l312) <> 0 Then msg = msg & l312 & Environment.Newline
-            If Len(l313) <> 0 Then msg = msg & l313 & Environment.Newline
-            If Len(l316) <> 0 Then msg = msg & l316 & Environment.Newline
-            If Len(l317) <> 0 Then msg = msg & l317 & Environment.Newline
-            If Len(l319) <> 0 Then msg = msg & l319 & Environment.Newline
-            If Len(l378) <> 0 Then msg = msg & l378 & Environment.Newline
-            If Len(l379) <> 0 Then msg = msg & l379 & Environment.Newline
-            If Len(l401) <> 0 Then msg = msg & l401 & Environment.Newline
-            If Len(l615) <> 0 Then msg = msg & l615 & Environment.Newline
-            If Len(l616) <> 0 Then msg = msg & l616 & Environment.Newline
+            If Len(l311) <> 0 Then msg = msg & l311 & Environment.NewLine
+            If Len(l312) <> 0 Then msg = msg & l312 & Environment.NewLine
+            If Len(l313) <> 0 Then msg = msg & l313 & Environment.NewLine
+            If Len(l316) <> 0 Then msg = msg & l316 & Environment.NewLine
+            If Len(l317) <> 0 Then msg = msg & l317 & Environment.NewLine
+            If Len(l319) <> 0 Then msg = msg & l319 & Environment.NewLine
+            If Len(l378) <> 0 Then msg = msg & l378 & Environment.NewLine
+            If Len(l379) <> 0 Then msg = msg & l379 & Environment.NewLine
+            If Len(l401) <> 0 Then msg = msg & l401 & Environment.NewLine
+            If Len(l615) <> 0 Then msg = msg & l615 & Environment.NewLine
+            If Len(l616) <> 0 Then msg = msg & l616 & Environment.NewLine
             If Len(msg) <> 0 Then
                 msg = _Start & msg & _End
                 If (lChannels.HaveChannels(_StatusIndex) = True) Then
@@ -134,7 +134,7 @@ Public Class clsIrcNumericHelper
             End If
             ResetMessages()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Public Sub ProcessLUsersCommand(ByVal lStatusIndex As Integer)
@@ -142,7 +142,7 @@ Public Class clsIrcNumericHelper
             Dim msg As String, msg2 As String, msg3 As String
             msg2 = lStrings.ReturnReplacedString(eStringTypes.sLUSERS_BEGIN)
             msg3 = lStrings.ReturnReplacedString(eStringTypes.sLUSERS_END)
-            msg = "-" & Environment.Newline & msg2 & Chr(13)
+            msg = "-" & Environment.NewLine & msg2 & Chr(13)
             If Len(Trim(l251)) <> 0 Then msg = msg & l251 & Chr(13)
             If Len(Trim(l252)) <> 0 Then msg = msg & l252 & Chr(13)
             If Len(Trim(l254)) <> 0 Then msg = msg & l254 & Chr(13)
@@ -155,7 +155,7 @@ Public Class clsIrcNumericHelper
             lStatus.AddText(msg, lStatusIndex)
             ResetMessages()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Public Sub DoWhois(ByVal lStatusIndex As Integer, ByVal lNick As String)
@@ -163,7 +163,7 @@ Public Class clsIrcNumericHelper
             lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sWHOIS_WAIT)
             lStatus.SendSocket(lStatusIndex, "WHOIS :" & lNick)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
     Public Function ReturnTimeStamp(ByVal lData As String) As String
@@ -173,7 +173,7 @@ Public Class clsIrcNumericHelper
             d.AddSeconds(CDbl(Trim(lData)))
             Return d.ToString
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -189,7 +189,7 @@ Public Class clsIrcNumericHelper
                 lStatus.NickName(_StatusIndex, False) = _NewNick
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -197,7 +197,7 @@ Public Class clsIrcNumericHelper
         Try
             'TODO
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -208,7 +208,7 @@ Public Class clsIrcNumericHelper
             msg = lStrings.ReturnReplacedString(eStringTypes.sCHANNEL_ACTION, lStrings.ParseData(lData, ":", "!"), Right(lData, Len(lData) - Len(splt(0) & " " & splt(1) & " " & splt(2) & " " & splt(3))))
             lChannels.DoChannelColor(lChannels.Find(lStatusIndex, splt(2)), msg)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -233,7 +233,7 @@ Public Class clsIrcNumericHelper
                 End If
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -255,7 +255,7 @@ Public Class clsIrcNumericHelper
             End With
             Return result
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -272,7 +272,7 @@ Public Class clsIrcNumericHelper
             Next i
             Return result
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -291,7 +291,7 @@ Public Class clsIrcNumericHelper
                     If lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.ePrompt Then
                         mdiMain.tspDCCToolBar.Items(0).Text = "Accept the file '" & Trim(splt(5)) & "' from the user '" & msg & "'?"
                         mdiMain.tspDCCToolBar.Visible = True
-                        mdiMain.lblUser.Tag = msg & Environment.Newline & Trim(splt(6)) & Environment.Newline & Trim(splt(7)) & Environment.Newline & Trim(splt(5)) & Environment.Newline & Trim(splt(8))
+                        mdiMain.lblUser.Tag = msg & Environment.NewLine & Trim(splt(6)) & Environment.NewLine & Trim(splt(7)) & Environment.NewLine & Trim(splt(5)) & Environment.NewLine & Trim(splt(8))
                     ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll Then
                         lForm.InitDCCGet(Trim(msg), Trim(splt(6)), Trim(splt(7)), Trim(splt(5)), Trim(splt(8)))
                         'animate.Animate(lForm, animate.Effect.Center, 200, 1)
@@ -307,7 +307,7 @@ Public Class clsIrcNumericHelper
                 lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "User is in ignore list '" & msg & "'.")
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -327,7 +327,7 @@ Public Class clsIrcNumericHelper
             End If
             Return result
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -355,7 +355,7 @@ Public Class clsIrcNumericHelper
                 End If
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 

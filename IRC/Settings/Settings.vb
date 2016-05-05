@@ -340,7 +340,7 @@ Public Class Settings
             Next i
             Return result
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -358,7 +358,7 @@ Public Class Settings
                 Next i
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -374,7 +374,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -389,7 +389,7 @@ Public Class Settings
                 End With
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -402,7 +402,7 @@ Public Class Settings
             End With
             SortCompatibility()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -428,7 +428,7 @@ Public Class Settings
             Next i
             lCompatibility.cCount = c
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -444,7 +444,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -455,7 +455,7 @@ Public Class Settings
                 .pName = lName
             End With
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -469,7 +469,7 @@ Public Class Settings
                 Next i
             End With
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -483,7 +483,7 @@ Public Class Settings
                 Next i
             End With
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub SaveMediaFiles()")
+            Throw 'ProcessError(ex.Message, "Public Sub SaveMediaFiles()")
         End Try
     End Sub
 
@@ -501,7 +501,7 @@ Public Class Settings
             End If
             Return msg
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -519,7 +519,7 @@ Public Class Settings
                 SaveRecientServers()
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -533,7 +533,7 @@ Public Class Settings
             Next i
             RefreshRecientServersMenu()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -561,7 +561,7 @@ Public Class Settings
                 mdiMain.cmd_RecientServer3.Enabled = True
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -572,7 +572,7 @@ Public Class Settings
                 Files.WriteINI(lINI.iRecientServers, "Items", Trim(i.ToString), lRecientServers.sItem(i))
             Next i
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -583,7 +583,7 @@ Public Class Settings
             w.Write(lData)
             w.Close()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -602,7 +602,7 @@ Public Class Settings
             Loop
             ReadTextFile = msg2
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -635,7 +635,7 @@ Public Class Settings
                 Next
             End With
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -664,7 +664,7 @@ Public Class Settings
                 Next i
             End With
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -681,7 +681,7 @@ Public Class Settings
             Next i
             lNotify.nCount = n
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -698,7 +698,7 @@ Public Class Settings
                 Next i
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -735,7 +735,7 @@ Public Class Settings
                 .nMessage = _Item.nMessage
             End With
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub AddToNotifyList(_Item As gNotify)")
+            Throw 'ProcessError(ex.Message, "Public Sub AddToNotifyList(_Item As gNotify)")
         End Try
     End Sub
 
@@ -1074,7 +1074,7 @@ Public Class Settings
             End If
             Return result
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -1156,7 +1156,7 @@ Public Class Settings
             End If
             Return result
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -1179,7 +1179,7 @@ Public Class Settings
             If (lIRC.iNicks.nIndex <> 0) Then Files.WriteINI(lINI.iNicks, "Settings", "Index", lIRC.iNicks.nIndex.ToString())
             If (lIRC.iNicks.nIndex <> 0) Then Files.WriteINI(lINI.iNicks, "Settings", "Count", n.ToString())
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -1313,7 +1313,7 @@ Public Class Settings
             End If
             Return result
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -1333,7 +1333,7 @@ Public Class Settings
             End If
             Return result
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -1350,7 +1350,7 @@ Public Class Settings
         Next i
         Return result
         'Catch ex As Exception
-        'Throw ex
+        'Throw
         'Return Nothing
         'End Try
     End Function
@@ -1375,7 +1375,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub FillComboWithServers(Optional ByVal lServerIndex As Integer = 0)")
+            Throw 'ProcessError(ex.Message, "Public Sub FillComboWithServers(Optional ByVal lServerIndex As Integer = 0)")
         End Try
     End Sub
 
@@ -1393,7 +1393,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)")
+            Throw 'ProcessError(ex.Message, "Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)")
         End Try
     End Sub
 
@@ -1411,7 +1411,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub FillComboWithNetworks(ByVal lCombo As ComboBox, Optional ByVal lClearCombo As Boolean = False)")
+            Throw 'ProcessError(ex.Message, "Public Sub FillComboWithNetworks(ByVal lCombo As ComboBox, Optional ByVal lClearCombo As Boolean = False)")
         End Try
     End Sub
 
@@ -1431,7 +1431,7 @@ Public Class Settings
             End If
             Return result
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -1451,7 +1451,7 @@ Public Class Settings
             End If
             Return result
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -1461,7 +1461,7 @@ Public Class Settings
             lNetworks.nNetwork(lIndex).nDescription = ""
             CleanUpNetworks()
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub RemoveNetwork(ByVal lIndex As Integer)")
+            Throw 'ProcessError(ex.Message, "Public Sub RemoveNetwork(ByVal lIndex As Integer)")
         End Try
     End Sub
 
@@ -1485,7 +1485,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            Throw ex 'ProcessError(ex.Message, "Public Sub CleanUpNetworks()")
+            Throw 'ProcessError(ex.Message, "Public Sub CleanUpNetworks()")
         End Try
     End Sub
 
@@ -1495,7 +1495,7 @@ Public Class Settings
                 Return .sPrompts
             End With
         Catch ex As Exception
-            Throw ex
+            Throw
             Return Nothing
         End Try
     End Function
@@ -1510,7 +1510,7 @@ Public Class Settings
                 .mServerNotices = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ServerNotices", "True"))
             End With
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -1530,7 +1530,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -1546,7 +1546,7 @@ Public Class Settings
                 End With
             Next i
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -1569,7 +1569,7 @@ Public Class Settings
             SaveChannelFolders()
         End If
         'Catch ex As Exception
-        'Throw ex
+        'Throw
         'End Try
     End Sub
 
@@ -1581,7 +1581,7 @@ Public Class Settings
             lChannelFolders.cChannelFolder(i).cOrder = lChannelFolders.cChannelFolder(i).cOrder + 1
         Next i
         'Catch ex As Exception
-        'Throw ex
+        'Throw
         'End Try
     End Sub
 
@@ -1592,7 +1592,7 @@ Public Class Settings
             End With
             SaveChannelFolders()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -1607,7 +1607,7 @@ Public Class Settings
             Next i
             Return result
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Function
 
@@ -1623,7 +1623,7 @@ Public Class Settings
                 End With
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 End Class

@@ -232,7 +232,7 @@ Public Class mdiMain
                 End Try
             Next ctl
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -245,7 +245,7 @@ Public Class mdiMain
                 frmCustomize.Focus()
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 

@@ -22,7 +22,7 @@ Public Class frmChannel
         Try
             txtIncoming.Document = New RadDocument()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -30,7 +30,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.txtOutgoing_KeyDown(e, txtOutgoing.Text)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -38,7 +38,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.txtIncomingColor_MouseDown()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -46,7 +46,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.txtIncomingColor_MouseUp(txtIncoming.Document.Selection.GetSelectedText(), txtIncoming, txtOutgoing)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -54,7 +54,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.txtIncomingColor_TextChanged(txtIncoming.VerticalScroll.Maximum)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -63,7 +63,7 @@ Public Class frmChannel
             MdiChildWindow.tmrGetNames_Tick(lvwNickList.Items.Count)
             tmrGetNames.Enabled = False
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -71,7 +71,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.lvwNickList_DoubleClick()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -79,7 +79,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.cmdPart_Click()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -87,7 +87,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.cmdHide_Click()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -95,7 +95,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.cmdNotice_Click()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -103,7 +103,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.cmdAddToChannelFolder_Click()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -111,7 +111,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.cmdNames_Click()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -119,7 +119,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.Form_FormClosing(Me, e)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -135,7 +135,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.Form_Resize(Me.ClientSize.Width, Me.ClientSize.Height, txtOutgoing.Height, txtIncoming.Top)
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 #End Region
@@ -152,7 +152,7 @@ Public Class frmChannel
         Try
             Me.BringToFront()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -160,7 +160,7 @@ Public Class frmChannel
         Try
             txtIncoming.Document.Selection.Clear()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -168,7 +168,7 @@ Public Class frmChannel
         Try
             lvwNickList.Items.Clear()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -176,7 +176,7 @@ Public Class frmChannel
         Try
             Me.Close()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -184,7 +184,7 @@ Public Class frmChannel
         Try
             tmrGetNames.Enabled = False
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -192,7 +192,7 @@ Public Class frmChannel
         Try
             tmrAddNameDelay.Enabled = False
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -200,7 +200,7 @@ Public Class frmChannel
         Try
             txtOutgoing.Text = ""
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -209,7 +209,7 @@ Public Class frmChannel
             Me.Width = width
             Me.Height = height
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -217,7 +217,7 @@ Public Class frmChannel
         Try
             Me.Focus()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -225,7 +225,7 @@ Public Class frmChannel
         Try
             Me.Icon = icon
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -234,7 +234,7 @@ Public Class frmChannel
             txtIncoming.Width = width
             txtIncoming.Height = height
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -250,7 +250,7 @@ Public Class frmChannel
         Try
             txtOutgoing.Focus()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -259,7 +259,7 @@ Public Class frmChannel
             txtOutgoing.Width = width
             txtOutgoing.Top = top
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -273,7 +273,7 @@ Public Class frmChannel
                 End If
             End If
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -284,7 +284,7 @@ Public Class frmChannel
             txtIncoming.RichTextBoxElement.BorderWidth = 0
             txtIncoming.RichTextBoxElement.BackColor = backgroundColor
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -295,7 +295,7 @@ Public Class frmChannel
             lvwNickList.ListViewElement.BorderColor = Color.Black
             lvwNickList.ListViewElement.BorderWidth = 0
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -304,7 +304,7 @@ Public Class frmChannel
             lvwNickList.EnableSorting = True
             lvwNickList.EnableColumnSort = True
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -318,7 +318,7 @@ Public Class frmChannel
             txtOutgoing.TextBoxElement.Border.ForeColor = Color.Black
             txtOutgoing.TextBoxElement.Border.Visibility = Telerik.WinControls.ElementVisibility.Hidden
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -326,7 +326,7 @@ Public Class frmChannel
         Try
             Me.MdiParent = parentForm
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -334,7 +334,7 @@ Public Class frmChannel
         Try
             Me.WindowState = windowState
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -342,7 +342,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.lvwNickList_DoubleClick()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 
@@ -350,7 +350,7 @@ Public Class frmChannel
         Try
             MdiChildWindow.tmrAddNameDelay_Tick()
         Catch ex As Exception
-            Throw ex
+            Throw
         End Try
     End Sub
 #End Region

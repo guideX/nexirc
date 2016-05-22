@@ -6,6 +6,8 @@ Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
 Imports nexIRC.clsSharedAdd
 Imports nexIRC.Settings
+Imports nexIRC.Enum
+
 Namespace IRC.Customize
     Public Class clsCustomize
         Public Event Apply()
@@ -86,9 +88,9 @@ Namespace IRC.Customize
         End Sub
         Public Sub cmdCompatibilityEnable_Click(_Name As String, _ListItem As ListViewDataItem)
             Try
-                For i As Integer = 1 To lSettings.lCompatibility.cCount
-                    If lSettings.lCompatibility.cCompatibility(i).cDescription = _Name Then
-                        lSettings.lCompatibility.cCompatibility(i).cEnabled = True
+                For i As Integer = 1 To lSettings.lCompatibility.Count
+                    If lSettings.lCompatibility(i).Description = _Name Then
+                        lSettings.lCompatibility(i).Enabled = True
                         _ListItem.Item(1) = "True"
                         Exit For
                     End If
@@ -99,9 +101,9 @@ Namespace IRC.Customize
         End Sub
         Public Sub cmdCompatibilityDisable_Click(_Name As String, _ListItem As ListViewDataItem)
             Try
-                For i As Integer = 1 To lSettings.lCompatibility.cCount
-                    If lSettings.lCompatibility.cCompatibility(i).cDescription = _Name Then
-                        lSettings.lCompatibility.cCompatibility(i).cEnabled = False
+                For i As Integer = 1 To lSettings.lCompatibility.Count
+                    If lSettings.lCompatibility(i).Description = _Name Then
+                        lSettings.lCompatibility(i).Enabled = False
                         _ListItem.Item(1) = "False"
                         Exit For
                     End If
@@ -610,18 +612,18 @@ Namespace IRC.Customize
                                        _UnSupportedTextHide As Boolean)
             Try
                 If (_UnknownTextStatus) Then
-                    lSettings.lIRC.iSettings.sStringSettings.sUnknowns = eUnknownsIn.uStatusWindow
+                    lSettings.lIRC.iSettings.sStringSettings.sUnknowns = UnknownsIn.StatusWindow
                 ElseIf (_UnknownTextOwn) Then
-                    lSettings.lIRC.iSettings.sStringSettings.sUnknowns = eUnknownsIn.uOwnWindow
+                    lSettings.lIRC.iSettings.sStringSettings.sUnknowns = UnknownsIn.OwnWindow
                 ElseIf (_UnknownTextHide) Then
-                    lSettings.lIRC.iSettings.sStringSettings.sUnknowns = eUnknownsIn.uHide
+                    lSettings.lIRC.iSettings.sStringSettings.sUnknowns = UnknownsIn.Hide
                 End If
                 If (_UnSupportedTextStatus) Then
-                    lSettings.lIRC.iSettings.sStringSettings.sUnsupported = eUnsupportedIn.uStatusWindow
+                    lSettings.lIRC.iSettings.sStringSettings.sUnsupported = UnsupportedIn.StatusWindow
                 ElseIf (_UnSupportedTextOwn) Then
-                    lSettings.lIRC.iSettings.sStringSettings.sUnsupported = eUnsupportedIn.uOwnWindow
+                    lSettings.lIRC.iSettings.sStringSettings.sUnsupported = UnsupportedIn.OwnWindow
                 ElseIf (_UnSupportedTextHide) Then
-                    lSettings.lIRC.iSettings.sStringSettings.sUnsupported = eUnsupportedIn.uHide
+                    lSettings.lIRC.iSettings.sStringSettings.sUnsupported = UnsupportedIn.Hide
                 End If
             Catch ex As Exception
                 Throw 'ProcessError(ex.Message, "Public Sub Apply_Settings_Text")

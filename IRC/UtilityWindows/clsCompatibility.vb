@@ -26,12 +26,12 @@ Namespace IRC.UtilityWindows
                 _RadListView.Columns.Clear()
                 _RadListView.Columns.Add("Description", "Description")
                 _RadListView.Columns.Add("Supported", "Supported")
-                For i As Integer = 1 To lSettings.lCompatibility.cCount
-                    With lSettings.lCompatibility.cCompatibility(i)
+                For i As Integer = 1 To lSettings.lCompatibility.Count
+                    With lSettings.lCompatibility(i)
                         _ListViewItem = New ListViewDataItem
                         '_ListViewItem.Text = .cDescription
-                        _ListViewItem.Item(0) = .cDescription
-                        _ListViewItem.Item(1) = .cEnabled.ToString
+                        _ListViewItem.Item(0) = .Description
+                        _ListViewItem.Item(1) = .Enabled.ToString
                         _RadListView.Items.Add(_ListViewItem)
                     End With
                 Next i
@@ -49,18 +49,18 @@ Namespace IRC.UtilityWindows
         Public Sub lvwCompatibility_DoubleClick(_RadListView As RadListView)
             Try
                 Dim _MsgBoxResult As MsgBoxResult, i As Integer
-                lSettings.lCompatibility.cModified = True
+                'lSettings.lCompatibility.Modified = True
                 Select Case _RadListView.SelectedItems.Count
                     Case 1
                         _MsgBoxResult = MsgBox("Would you like the item '" & _RadListView.SelectedItems(0).Text & "' to enabled?", MsgBoxStyle.YesNo)
                         i = lSettings.FindCompatibilityIndex(_RadListView.SelectedItems(0).Text)
                         If i <> 0 Then
-                            With lSettings.lCompatibility.cCompatibility(i)
+                            With lSettings.lCompatibility(i)
                                 Select Case _MsgBoxResult
                                     Case MsgBoxResult.Yes
-                                        .cEnabled = True
+                                        .Enabled = True
                                     Case MsgBoxResult.No
-                                        .cEnabled = False
+                                        .Enabled = False
                                 End Select
                             End With
                         End If

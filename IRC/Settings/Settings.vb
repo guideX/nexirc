@@ -2,70 +2,15 @@
 '04-23-2016 - guideX
 Option Explicit On
 Option Strict On
-Imports System.Net
 Imports System.IO
 Imports Telerik.WinControls.UI
 Imports nexIRC.Classes.IO
-Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
+Imports nexIRC.Enum
+Imports nexIRC.Models.Compatibility
+Imports nexIRC.Models.Media
 
 Public Class Settings
-    Enum eUnsupportedIn
-        uStatusWindow = 1
-        uOwnWindow = 2
-        uHide = 3
-    End Enum
-
-    Enum eUnknownsIn
-        uStatusWindow = 1
-        uOwnWindow = 2
-        uHide = 3
-    End Enum
-
-    Enum eQueryAutoAllow
-        qList = 1
-        qEveryOne = 2
-        qNoOne = 3
-    End Enum
-
-    Enum eQueryAutoDeny
-        qList = 1
-        qEveryOne = 2
-        qNoOne = 3
-    End Enum
-
-    Enum ePlaylistType
-        pOther = 0
-        pVideo = 1
-        pAudio = 2
-    End Enum
-
-    Structure gCompatibilityItem
-        Public cDescription As String
-        Public cEnabled As Boolean
-    End Structure
-
-    Structure gCompatibility
-        Public cModified As Boolean
-        Public cCompatibility() As gCompatibilityItem
-        Public cCount As Integer
-    End Structure
-
-    Structure gMediaFiles
-        Public mFile() As String
-        Public mCount As Integer
-    End Structure
-
-    Structure gPlaylist
-        Public pName As String
-        Public pType As ePlaylistType
-    End Structure
-
-    Structure gPlaylists
-        Public pPlaylist() As gPlaylist
-        Public pCount As Integer
-    End Structure
-
     Structure gArraySizes
         Public aCompatibility As Integer
         Public aProcess As Integer
@@ -96,8 +41,8 @@ Public Class Settings
     End Structure
 
     Structure gQuery
-        Public qAutoAllow As eQueryAutoAllow
-        Public qAutoDeny As eQueryAutoDeny
+        Public qAutoAllow As QueryOption
+        Public qAutoDeny As QueryOption
         Public qStandByMessage As String
         Public qDeclineMessage As String
         Public qEnableSpamFilter As Boolean
@@ -215,8 +160,8 @@ Public Class Settings
     End Structure
 
     Structure gStringSettings
-        Public sUnknowns As eUnknownsIn
-        Public sUnsupported As eUnsupportedIn
+        Public sUnknowns As UnknownsIn
+        Public sUnsupported As UnsupportedIn
         'Public sServerInNotices As Boolean
     End Structure
 
@@ -322,17 +267,17 @@ Public Class Settings
     Public lNotify As gNotifyList
     Public lQuerySettings As gQuery
     Public lRecientServers As gRecientServers
-    Public lPlaylists As gPlaylists
-    Public lMediaFiles As gMediaFiles
-    Public lCompatibility As gCompatibility
+    Public lPlaylists As List(Of PlaylistModel) = New List(Of PlaylistModel)
+    Public lMediaFiles As List(Of MediaFileModel) = New List(Of MediaFileModel)
+    Public lCompatibility As New List(Of CompatibilityModel)
     Public lBlack As Boolean = False
 
     Public Function FindCompatibilityIndex(ByVal lDescription As String) As Integer
         Dim result As Integer
         Try
-            For i As Integer = 1 To lCompatibility.cCount
-                With lCompatibility.cCompatibility(i)
-                    If LCase(Trim(.cDescription)) = LCase(Trim(lDescription)) Then
+            For i As Integer = 1 To lCompatibility.Count
+                With lCompatibility(i)
+                    If LCase(Trim(.Description)) = LCase(Trim(lDescription)) Then
                         result = i
                         Exit For
                     End If
@@ -346,59 +291,45 @@ Public Class Settings
     End Function
 
     Public Sub SaveCompatibility()
-        Try
-            Dim i As Integer
-            If lCompatibility.cModified = True Then
-                Files.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.cCount.ToString))
-                For i = 1 To lCompatibility.cCount
-                    With lCompatibility.cCompatibility(i)
-                        Files.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", .cDescription)
-                        Files.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", Trim(.cEnabled.ToString))
-                    End With
-                Next i
-            End If
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim i As Integer
+        'If lCompatibility.Modified = True Then
+        Files.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.Count.ToString))
+        For i = 1 To lCompatibility.Capacity
+            With lCompatibility(i)
+                Files.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", .Description)
+                Files.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", Trim(.Enabled.ToString))
+            End With
+        Next i
+        'End If
     End Sub
 
     Public Sub LoadCompatibility()
-        Try
-            Dim i As Integer
-            lCompatibility.cCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iCompatibility, "Settings", "Count", "0")))
-            ReDim lCompatibility.cCompatibility(1000)
-            For i = 1 To lCompatibility.cCount
-                With lCompatibility.cCompatibility(i)
-                    .cDescription = Files.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Description", "")
-                    .cEnabled = Convert.ToBoolean(Files.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", "False"))
-                End With
-            Next i
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim i As Integer, c As Integer
+        c = Convert.ToInt32(Trim(Files.ReadINI(lINI.iCompatibility, "Settings", "Count", "0")))
+        For i = 1 To c
+            Dim newItem = New CompatibilityModel()
+            newItem.Description = Files.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Description", "")
+            newItem.Enabled = Convert.ToBoolean(Files.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", "False"))
+            lCompatibility.Add(newItem)
+        Next i
     End Sub
 
-    Public Sub AddToCompatibility(ByVal lDescription As String, ByVal lEnabled As Boolean)
-        Try
-            If Len(lDescription) <> 0 Then
-                lCompatibility.cModified = True
-                lCompatibility.cCount = lCompatibility.cCount + 1
-                With lCompatibility.cCompatibility(lCompatibility.cCount)
-                    .cDescription = lDescription
-                    .cEnabled = lEnabled
-                End With
-            End If
-        Catch ex As Exception
-            Throw
-        End Try
+    Public Sub AddToCompatibility(ByVal description As String, ByVal enabled As Boolean)
+        If (Not String.IsNullOrEmpty(description)) Then
+            'lCompatibility.Modified = True
+            Dim c = New CompatibilityModel
+            c.Description = description
+            c.Enabled = enabled
+            lCompatibility.Add(c)
+        End If
     End Sub
 
     Public Sub RemoveFromCompatibility(ByVal lIndex As Integer)
         Try
-            lCompatibility.cModified = True
-            With lCompatibility.cCompatibility(lIndex)
-                .cEnabled = False
-                .cDescription = ""
+            'lCompatibility.Modified = True
+            With lCompatibility(lIndex)
+                .Enabled = False
+                .Description = ""
             End With
             SortCompatibility()
         Catch ex As Exception
@@ -407,65 +338,55 @@ Public Class Settings
     End Sub
 
     Public Sub SortCompatibility()
-        Try
-            Dim lEnabled(lArraySizes.aCompatibility) As Boolean, lDescription(lArraySizes.aCompatibility) As String, i As Integer, c As Integer
-            For i = 1 To lCompatibility.cCount
-                With lCompatibility.cCompatibility(i)
-                    lEnabled(i) = .cEnabled
-                    lDescription(i) = .cDescription
-                    .cEnabled = False
-                    .cDescription = ""
+        Dim lEnabled(lArraySizes.aCompatibility) As Boolean, lDescription(lArraySizes.aCompatibility) As String, i As Integer, c As Integer
+        For i = 1 To lCompatibility.Count
+            With lCompatibility(i)
+                lEnabled(i) = .Enabled
+                lDescription(i) = .Description
+                .Enabled = False
+                .Description = ""
+            End With
+        Next i
+        For i = 1 To lArraySizes.aCompatibility
+            If Len(lDescription(i)) <> 0 Then
+                c = c + 1
+                With lCompatibility(c)
+                    .Description = lDescription(i)
+                    .Enabled = lEnabled(i)
                 End With
-            Next i
-            For i = 1 To lArraySizes.aCompatibility
-                If Len(lDescription(i)) <> 0 Then
-                    c = c + 1
-                    With lCompatibility.cCompatibility(c)
-                        .cDescription = lDescription(i)
-                        .cEnabled = lEnabled(i)
-                    End With
-                End If
-            Next i
-            lCompatibility.cCount = c
-        Catch ex As Exception
-            Throw
-        End Try
+            End If
+        Next i
     End Sub
 
     Public Sub LoadPlaylists()
-        Try
-            Dim i As Integer
-            ReDim lPlaylists.pPlaylist(lArraySizes.aPlaylists)
-            lPlaylists.pCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, "Settings", "Count", "0")))
-            For i = 1 To lPlaylists.pCount
-                With lPlaylists.pPlaylist(i)
-                    .pName = Files.ReadINI(lINI.iPlaylists, "Settings", Trim(i.ToString), "Name")
-                    .pType = CType(Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, Trim(i.ToString), "Type", "0"))), ePlaylistType)
-                End With
-            Next i
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim i As Integer
+        'ReDim lPlaylists.pPlaylist(lArraySizes.aPlaylists)
+        Dim c = Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, "Settings", "Count", "0")))
+        For i = 1 To c
+            Dim p = New PlaylistModel
+            p.Name = Files.ReadINI(lINI.iPlaylists, "Settings", Trim(i.ToString), "Name")
+            p.Type = CType(Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, Trim(i.ToString), "Type", "0"))), PlaylistType)
+            'With lPlaylists.pPlaylist(i)
+            '.Name = Files.ReadINI(lINI.iPlaylists, "Settings", Trim(i.ToString), "Name")
+            '.Type = CType(Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, Trim(i.ToString), "Type", "0"))), PlaylistType)
+            'End With
+        Next i
     End Sub
 
-    Public Sub NewPlaylist(ByVal lName As String)
-        Try
-            lPlaylists.pCount = lPlaylists.pCount + 1
-            With lPlaylists.pPlaylist(lPlaylists.pCount)
-                .pName = lName
-            End With
-        Catch ex As Exception
-            Throw
-        End Try
+    Public Sub NewPlaylist(ByVal name As String)
+        Dim p = New PlaylistModel
+        p.Name = name
+        lPlaylists.Add(p)
     End Sub
 
     Public Sub LoadMediaFiles()
         Try
             Dim i As Integer
             With lMediaFiles
-                .mCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iMedia, "Settings", "Count", "0")))
-                For i = 1 To .mCount
-                    .mFile(i) = Files.ReadINI(lINI.iMedia, Trim(i.ToString), "File", "")
+                Dim n = Convert.ToInt32(Trim(Files.ReadINI(lINI.iMedia, "Settings", "Count", "0")))
+                For i = 1 To n
+                    Dim f = New MediaFileModel
+                    f.File = Files.ReadINI(lINI.iMedia, Trim(i.ToString), "File", "")
                 Next i
             End With
         Catch ex As Exception
@@ -477,9 +398,9 @@ Public Class Settings
         Try
             Dim i As Integer
             With lMediaFiles
-                Files.WriteINI(lINI.iMedia, "Settings", "Count", Trim(lMediaFiles.mCount.ToString))
-                For i = 1 To lMediaFiles.mCount
-                    Files.WriteINI(lINI.iMedia, Trim(i.ToString), "File", .mFile(i))
+                Files.WriteINI(lINI.iMedia, "Settings", "Count", Trim(lMediaFiles.Count.ToString))
+                For i = 1 To lMediaFiles.Count
+                    Files.WriteINI(lINI.iMedia, Trim(i.ToString), "File", lMediaFiles(i).File)
                 Next i
             End With
         Catch ex As Exception
@@ -595,7 +516,7 @@ Public Class Settings
             msg2 = ""
             Do While Not msg Is Nothing
                 If Len(msg2) <> 0 Then
-                    msg2 = msg2 & Environment.Newline & msg
+                    msg2 = msg2 & Environment.NewLine & msg
                 Else
                     msg2 = msg
                 End If
@@ -611,8 +532,8 @@ Public Class Settings
         Try
             Dim i As Integer
             With lQuerySettings
-                .qAutoAllow = CType(Files.ReadINI(lINI.iQuery, "Settings", "AutoAllow", "1"), eQueryAutoAllow)
-                .qAutoDeny = CType(Files.ReadINI(lINI.iQuery, "Settings", "AutoDeny", "1"), eQueryAutoDeny)
+                .qAutoAllow = CType(Files.ReadINI(lINI.iQuery, "Settings", "AutoAllow", "1"), QueryOption)
+                .qAutoDeny = CType(Files.ReadINI(lINI.iQuery, "Settings", "AutoDeny", "1"), QueryOption)
                 .qStandByMessage = Files.ReadINI(lINI.iQuery, "Settings", "StandByMessage", "")
                 .qDeclineMessage = Files.ReadINI(lINI.iQuery, "Settings", "DeclineMessage", "")
                 .qEnableSpamFilter = Convert.ToBoolean(Files.ReadINI(lINI.iQuery, "Settings", "EnableSpamFilter ", "True"))
@@ -885,7 +806,7 @@ Public Class Settings
         Dim lIndex As Integer
         ReDim lServers.sServer(lArraySizes.aServers)
         msg2 = My.Computer.FileSystem.ReadAllText(lINI.iServers)
-        splt = Split(msg2, Environment.Newline)
+        splt = Split(msg2, Environment.NewLine)
         For Each msg In splt
             If LCase(msg) = "[settings]" Then
             Else
@@ -921,21 +842,21 @@ Public Class Settings
             i = Convert.ToInt32(Trim(Files.ReadINI(lINI.iStringSettings, "Settings", "Unknowns", "2")))
             Select Case i
                 Case 1
-                    .sUnknowns = eUnknownsIn.uStatusWindow
+                    .sUnknowns = UnknownsIn.StatusWindow
                 Case 2
-                    .sUnknowns = eUnknownsIn.uOwnWindow
+                    .sUnknowns = UnknownsIn.OwnWindow
                 Case 3
-                    .sUnknowns = eUnknownsIn.uHide
+                    .sUnknowns = UnknownsIn.Hide
             End Select
             i = 0
             i = Convert.ToInt32(Trim(Files.ReadINI(lINI.iStringSettings, "Settings", "Unsupported", "2")))
             Select Case i
                 Case 1
-                    .sUnsupported = eUnsupportedIn.uStatusWindow
+                    .sUnsupported = UnsupportedIn.StatusWindow
                 Case 2
-                    .sUnsupported = eUnsupportedIn.uOwnWindow
+                    .sUnsupported = UnsupportedIn.OwnWindow
                 Case 3
-                    .sUnsupported = eUnsupportedIn.uHide
+                    .sUnsupported = UnsupportedIn.Hide
             End Select
             '.sServerInNotices = Convert.ToBoolean(Trim(files.ReadINI(lINI.iStringSettings, "Settings", "ServerInNotices", "True")))
         End With

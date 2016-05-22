@@ -405,8 +405,8 @@ Public Class IrcStrings
         Dim result As Boolean, c As Integer = FindStringIndex(lType), i As Integer
         Try
             With lStrings.sFixedString(c)
-                For i = 1 To lSettings.lCompatibility.cCount
-                    If InStr(LCase(Trim(lSettings.lCompatibility.cCompatibility(i).cDescription)), LCase(Trim(.sSupport))) <> 0 And lSettings.lCompatibility.cCompatibility(i).cEnabled = True Then
+                For i = 1 To lSettings.lCompatibility.Count
+                    If InStr(LCase(Trim(lSettings.lCompatibility(i).Description)), LCase(Trim(.sSupport))) <> 0 And lSettings.lCompatibility(i).Enabled = True Then
                         result = True
                         Exit For
                     End If

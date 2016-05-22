@@ -1,7 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "nexIRC", "nexIRC.vbproj", "{72D58ED0-B0F8-48DB-AF6F-62A24788732A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nexIRC.Models", "..\nexIRC.Models\nexIRC.Models.csproj", "{ECF0574D-660F-4B78-9B0D-985429D262E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nexIRC.Enum", "nexIRC.Enum\nexIRC.Enum.csproj", "{F08FEDAC-F91B-443A-8E96-3F3D1CC0F60F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +29,30 @@ Global
 		{72D58ED0-B0F8-48DB-AF6F-62A24788732A}.Release|Mixed Platforms.Build.0 = Release|x86
 		{72D58ED0-B0F8-48DB-AF6F-62A24788732A}.Release|x86.ActiveCfg = Release|x86
 		{72D58ED0-B0F8-48DB-AF6F-62A24788732A}.Release|x86.Build.0 = Release|x86
+		{ECF0574D-660F-4B78-9B0D-985429D262E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECF0574D-660F-4B78-9B0D-985429D262E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECF0574D-660F-4B78-9B0D-985429D262E6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{ECF0574D-660F-4B78-9B0D-985429D262E6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{ECF0574D-660F-4B78-9B0D-985429D262E6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ECF0574D-660F-4B78-9B0D-985429D262E6}.Debug|x86.Build.0 = Debug|Any CPU
+		{ECF0574D-660F-4B78-9B0D-985429D262E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECF0574D-660F-4B78-9B0D-985429D262E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECF0574D-660F-4B78-9B0D-985429D262E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{ECF0574D-660F-4B78-9B0D-985429D262E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{ECF0574D-660F-4B78-9B0D-985429D262E6}.Release|x86.ActiveCfg = Release|Any CPU
+		{ECF0574D-660F-4B78-9B0D-985429D262E6}.Release|x86.Build.0 = Release|Any CPU
+		{F08FEDAC-F91B-443A-8E96-3F3D1CC0F60F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F08FEDAC-F91B-443A-8E96-3F3D1CC0F60F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F08FEDAC-F91B-443A-8E96-3F3D1CC0F60F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F08FEDAC-F91B-443A-8E96-3F3D1CC0F60F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F08FEDAC-F91B-443A-8E96-3F3D1CC0F60F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F08FEDAC-F91B-443A-8E96-3F3D1CC0F60F}.Debug|x86.Build.0 = Debug|Any CPU
+		{F08FEDAC-F91B-443A-8E96-3F3D1CC0F60F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F08FEDAC-F91B-443A-8E96-3F3D1CC0F60F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F08FEDAC-F91B-443A-8E96-3F3D1CC0F60F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F08FEDAC-F91B-443A-8E96-3F3D1CC0F60F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F08FEDAC-F91B-443A-8E96-3F3D1CC0F60F}.Release|x86.ActiveCfg = Release|Any CPU
+		{F08FEDAC-F91B-443A-8E96-3F3D1CC0F60F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

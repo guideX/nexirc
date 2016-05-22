@@ -1,7 +1,8 @@
-'nexIRC 3.0.30
-'04-23-2016 - guideX
 Option Explicit On
 Option Strict On
+'nexIRC 3.0.30
+'04-23-2016 - guideX
+Imports nexIRC.Enum
 Imports nexIRC.Modules
 Public Class frmQuerySettings
     Private Sub frmQuerySettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -16,19 +17,19 @@ Public Class frmQuerySettings
                 chkSpamFilter.Checked = .qEnableSpamFilter
                 chkAutoShowWindow.Checked = .qAutoShowWindow
                 Select Case .qAutoAllow
-                    Case Settings.eQueryAutoAllow.qList
+                    Case QueryOption.List
                         optAutoAllow1.Checked = True
-                    Case Settings.eQueryAutoAllow.qEveryOne
+                    Case QueryOption.Everyone
                         optAutoAllow2.Checked = True
-                    Case Settings.eQueryAutoAllow.qNoOne
+                    Case QueryOption.NoOne
                         optAutoAllow3.Checked = True
                 End Select
                 Select Case .qAutoDeny
-                    Case Settings.eQueryAutoDeny.qList
+                    Case QueryOption.List
                         optAutoDeny1.Checked = True
-                    Case Settings.eQueryAutoDeny.qEveryOne
+                    Case QueryOption.Everyone
                         optAutoDeny2.Checked = True
-                    Case Settings.eQueryAutoDeny.qNoOne
+                    Case QueryOption.NoOne
                         optAutoDeny3.Checked = True
                 End Select
                 For i = 1 To .qAutoAllowCount
@@ -142,18 +143,18 @@ Public Class frmQuerySettings
                 .qPromptUser = chkPromptUser.Checked
                 .qEnableSpamFilter = chkSpamFilter.Checked
                 If optAutoAllow1.Checked = True Then
-                    .qAutoAllow = Settings.eQueryAutoAllow.qList
+                    .qAutoAllow = QueryOption.List
                 ElseIf optAutoAllow2.Checked = True Then
-                    .qAutoAllow = Settings.eQueryAutoAllow.qEveryOne
+                    .qAutoAllow = QueryOption.Everyone
                 ElseIf optAutoAllow3.Checked = True Then
-                    .qAutoAllow = Settings.eQueryAutoAllow.qNoOne
+                    .qAutoAllow = QueryOption.NoOne
                 End If
                 If optAutoDeny1.Checked = True Then
-                    .qAutoDeny = Settings.eQueryAutoDeny.qList
+                    .qAutoDeny = QueryOption.List
                 ElseIf optAutoDeny2.Checked = True Then
-                    .qAutoDeny = Settings.eQueryAutoDeny.qEveryOne
+                    .qAutoDeny = QueryOption.Everyone
                 ElseIf optAutoDeny3.Checked = True Then
-                    .qAutoDeny = Settings.eQueryAutoDeny.qNoOne
+                    .qAutoDeny = QueryOption.NoOne
                 End If
             End With
             Me.Close()

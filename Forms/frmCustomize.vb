@@ -8,6 +8,8 @@ Imports nexIRC.Classes.UI
 Imports nexIRC.IRC.Customize
 Imports nexIRC.Modules
 Imports nexIRC.nexIRC.IRC.Settings.clsDCC
+Imports nexIRC.Enum
+
 Public Class frmCustomize
     Public WithEvents lCustomize As New clsCustomize
 
@@ -103,11 +105,11 @@ Public Class frmCustomize
     Private Sub InitSettings()
         Try
             Dim i As Integer, _ListViewItem As ListViewDataItem
-            For i = 1 To lSettings.lCompatibility.cCount
-                If (lSettings.lCompatibility.cCompatibility(i).cEnabled = True) Then
+            For i = 1 To lSettings.lCompatibility.Count
+                If (lSettings.lCompatibility(i).Enabled = True) Then
                     _ListViewItem = New ListViewDataItem()
-                    _ListViewItem.SubItems.Add(lSettings.lCompatibility.cCompatibility(i).cDescription)
-                    _ListViewItem.SubItems.Add(lSettings.lCompatibility.cCompatibility(i).cEnabled.ToString())
+                    _ListViewItem.SubItems.Add(lSettings.lCompatibility(i).Description)
+                    _ListViewItem.SubItems.Add(lSettings.lCompatibility(i).Enabled.ToString())
                     lvwCompatibility.Items.Add(_ListViewItem)
                 End If
             Next i
@@ -224,19 +226,19 @@ Public Class frmCustomize
                 txtOperPassword.Text = .iOperPass
             End With
             Select Case lSettings.lIRC.iSettings.sStringSettings.sUnsupported
-                Case Settings.eUnsupportedIn.uOwnWindow
+                Case UnsupportedIn.OwnWindow
                     rdbUnsupportedOwn.IsChecked = True
-                Case Settings.eUnsupportedIn.uHide
+                Case UnsupportedIn.Hide
                     rdbUnsupportedHide.IsChecked = True
-                Case Settings.eUnsupportedIn.uStatusWindow
+                Case UnsupportedIn.StatusWindow
                     rdbUnsupportedStatus.IsChecked = True
             End Select
             Select Case lSettings.lIRC.iSettings.sStringSettings.sUnknowns
-                Case Settings.eUnknownsIn.uStatusWindow
+                Case [Enum].UnknownsIn.StatusWindow
                     rdbUnknownTextStatus.IsChecked = True
-                Case Settings.eUnknownsIn.uHide
+                Case [Enum].UnknownsIn.Hide
                     rdbUnknownTextHide.IsChecked = True
-                Case Settings.eUnknownsIn.uOwnWindow
+                Case [Enum].UnknownsIn.OwnWindow
                     rdbUnknownTextOwn.IsChecked = True
             End Select
         Catch ex As Exception

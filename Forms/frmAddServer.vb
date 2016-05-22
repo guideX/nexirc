@@ -7,7 +7,7 @@ Imports nexIRC.IRC.UtilityWindows
 Public Class frmAddServer
     Public WithEvents addServer As New clsAddServer
 
-    Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
+    Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs)
         Try
             addServer.cmdCancel_Click(Me)
         Catch ex As Exception
@@ -15,7 +15,7 @@ Public Class frmAddServer
         End Try
     End Sub
 
-    Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs) Handles cmdOK.Click
+    Private Sub cmdOK_Click(sender As System.Object, e As System.EventArgs)
         Try
             addServer.cmdOK_Click(txtIP, txtPort, cboNetwork.Text, Me)
         Catch ex As Exception
@@ -31,7 +31,7 @@ Public Class frmAddServer
         End Try
     End Sub
 
-    Private Sub cmdNewNetwork_Click(sender As System.Object, e As System.EventArgs) Handles cmdNewNetwork.Click
+    Private Sub cmdNewNetwork_Click(sender As System.Object, e As System.EventArgs)
         Try
             addServer.cmdNewNetwork_Click(cboNetwork)
         Catch ex As Exception

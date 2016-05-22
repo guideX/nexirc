@@ -8,6 +8,7 @@ Imports nexIRC.Modules
 Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
 Imports nexIRC.Classes.Communications
 Imports nexIRC.Settings
+Imports nexIRC.Enum
 
 Namespace IRC.Status
     Public Class Status
@@ -1330,9 +1331,9 @@ Namespace IRC.Status
                     End If
                 Next i
                 If (Not forceAllow) Then
-                    If (lSettings.lQuerySettings.qAutoDeny = Settings.eQueryAutoDeny.qEveryOne) Then ' Is the user on the auto deny list?
+                    If (lSettings.lQuerySettings.qAutoDeny = QueryOption.Everyone) Then ' Is the user on the auto deny list?
                         deny = True
-                    ElseIf (lSettings.lQuerySettings.qAutoDeny = Settings.eQueryAutoDeny.qList) Then
+                    ElseIf (lSettings.lQuerySettings.qAutoDeny = QueryOption.List) Then
                         For i As Integer = 1 To lSettings.lQuerySettings.qAutoDenyList.Count() - 1
                             If (privateMessageIndex <> 0) Then
                                 If (Not String.IsNullOrEmpty(lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName) And Not String.IsNullOrEmpty(lSettings.lQuerySettings.qAutoDenyList(i))) Then
@@ -1343,9 +1344,9 @@ Namespace IRC.Status
                             End If
                         Next i
                     End If
-                    If (lSettings.lQuerySettings.qAutoAllow = Settings.eQueryAutoAllow.qEveryOne) Then ' Is the user on the auto allow list?
+                    If (lSettings.lQuerySettings.qAutoAllow = QueryOption.Everyone) Then ' Is the user on the auto allow list?
                         autoAllow = True
-                    ElseIf (lSettings.lQuerySettings.qAutoAllow = eQueryAutoAllow.qList) Then
+                    ElseIf (lSettings.lQuerySettings.qAutoAllow = QueryOption.List) Then
                         For i As Integer = 1 To lSettings.lQuerySettings.qAutoAllowList.Count() - 1
                             If (privateMessageIndex <> 0) Then
                                 If ((Not String.IsNullOrEmpty(lSettings.lQuerySettings.qAutoAllowList(i))) And (Not String.IsNullOrEmpty(lStatusObjects.sStatusObject(statusIndex).sPrivateMessages.pPrivateMessage(privateMessageIndex).pName))) Then
@@ -2192,9 +2193,9 @@ Namespace IRC.Status
         Public Sub AddToUnknowns(ByVal lStatusIndex As Integer, ByVal lData As String)
             'On Error Resume Next
             With lStatusObjects.sStatusObject(lStatusIndex)
-                If lSettings.lIRC.iSettings.sStringSettings.sUnknowns = Settings.eUnknownsIn.uStatusWindow Then
+                If lSettings.lIRC.iSettings.sStringSettings.sUnknowns = [Enum].UnknownsIn.StatusWindow Then
                     AddText(lData, lStatusIndex)
-                ElseIf lSettings.lIRC.iSettings.sStringSettings.sUnknowns = Settings.eUnknownsIn.uOwnWindow Then
+                ElseIf lSettings.lIRC.iSettings.sStringSettings.sUnknowns = [Enum].UnknownsIn.OwnWindow Then
                     If .sUnknowns.uTreeNodeVisible = False Then
                         If .sTreeNodeVisible = True Then
                             .sUnknowns.uTreeNodeVisible = True
@@ -2217,7 +2218,7 @@ Namespace IRC.Status
                             If .sUnknowns.uTreeNode.SelectedImageIndex <> 6 Then .sUnknowns.uTreeNode.SelectedImageIndex = 6
                         End If
                     End If
-                ElseIf lSettings.lIRC.iSettings.sStringSettings.sUnknowns = Settings.eUnknownsIn.uHide Then
+                ElseIf lSettings.lIRC.iSettings.sStringSettings.sUnknowns = UnknownsIn.Hide Then
                     Exit Sub
                 End If
             End With
@@ -2237,9 +2238,9 @@ Namespace IRC.Status
         Public Sub AddToUnsupported(lStatusIndex As Integer, lData As String)
             Try
                 With lStatusObjects.sStatusObject(lStatusIndex)
-                    If lSettings.lIRC.iSettings.sStringSettings.sUnsupported = Settings.eUnsupportedIn.uStatusWindow Then
+                    If lSettings.lIRC.iSettings.sStringSettings.sUnsupported = UnsupportedIn.StatusWindow Then
                         AddText(lData, lStatusIndex)
-                    ElseIf lSettings.lIRC.iSettings.sStringSettings.sUnsupported = Settings.eUnsupportedIn.uOwnWindow Then
+                    ElseIf lSettings.lIRC.iSettings.sStringSettings.sUnsupported = UnsupportedIn.OwnWindow Then
                         If .sUnsupported.uTreeNodeVisible = False Then
                             If .sTreeNodeVisible = True Then
                                 .sUnsupported.uTreeNodeVisible = True
@@ -2262,7 +2263,7 @@ Namespace IRC.Status
                                 If .sUnsupported.uTreeNode.SelectedImageIndex <> 6 Then .sUnsupported.uTreeNode.SelectedImageIndex = 6
                             End If
                         End If
-                    ElseIf lSettings.lIRC.iSettings.sStringSettings.sUnknowns = Settings.eUnknownsIn.uHide Then
+                    ElseIf lSettings.lIRC.iSettings.sStringSettings.sUnknowns = UnknownsIn.Hide Then
                         Exit Sub
                     End If
                 End With

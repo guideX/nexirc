@@ -30,10 +30,10 @@ Partial Class frmAddServer
         Me.txtPort = New Telerik.WinControls.UI.RadTextBox()
         Me.txtIP = New Telerik.WinControls.UI.RadTextBox()
         Me.cboNetwork = New Telerik.WinControls.UI.RadDropDownList()
+        Me.Office2010BlackTheme1 = New Telerik.WinControls.Themes.Office2010BlackTheme()
         Me.cmdNewNetwork = New Telerik.WinControls.UI.RadButton()
         Me.cmdOK = New Telerik.WinControls.UI.RadButton()
         Me.cmdCancel = New Telerik.WinControls.UI.RadButton()
-        Me.Office2010BlackTheme1 = New Telerik.WinControls.Themes.Office2010BlackTheme()
         CType(Me.lblDescription, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadLabel2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.lblNetwork, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -113,39 +113,59 @@ Partial Class frmAddServer
         '
         'cmdNewNetwork
         '
+        Me.cmdNewNetwork.Image = Global.nexIRC.My.Resources.Resources.add
         Me.cmdNewNetwork.Location = New System.Drawing.Point(90, 88)
         Me.cmdNewNetwork.Name = "cmdNewNetwork"
-        Me.cmdNewNetwork.Size = New System.Drawing.Size(206, 24)
-        Me.cmdNewNetwork.TabIndex = 7
-        Me.cmdNewNetwork.Text = "New Network"
+        Me.cmdNewNetwork.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
+        '
+        '
+        '
+        Me.cmdNewNetwork.RootElement.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
+        Me.cmdNewNetwork.Size = New System.Drawing.Size(206, 29)
+        Me.cmdNewNetwork.TabIndex = 33
+        Me.cmdNewNetwork.Text = "&New Network"
         Me.cmdNewNetwork.ThemeName = "Office2010Black"
         '
         'cmdOK
         '
-        Me.cmdOK.Location = New System.Drawing.Point(90, 134)
+        Me.cmdOK.Image = Global.nexIRC.My.Resources.Resources.accept
+        Me.cmdOK.Location = New System.Drawing.Point(90, 123)
         Me.cmdOK.Name = "cmdOK"
-        Me.cmdOK.Size = New System.Drawing.Size(100, 24)
-        Me.cmdOK.TabIndex = 8
-        Me.cmdOK.Text = "OK"
+        Me.cmdOK.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
+        '
+        '
+        '
+        Me.cmdOK.RootElement.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
+        Me.cmdOK.Size = New System.Drawing.Size(100, 29)
+        Me.cmdOK.TabIndex = 33
+        Me.cmdOK.Text = "&OK"
+        Me.cmdOK.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.cmdOK.ThemeName = "Office2010Black"
         '
         'cmdCancel
         '
-        Me.cmdCancel.Location = New System.Drawing.Point(196, 134)
+        Me.cmdCancel.Image = Global.nexIRC.My.Resources.Resources.cancel
+        Me.cmdCancel.Location = New System.Drawing.Point(196, 123)
         Me.cmdCancel.Name = "cmdCancel"
-        Me.cmdCancel.Size = New System.Drawing.Size(100, 24)
-        Me.cmdCancel.TabIndex = 9
-        Me.cmdCancel.Text = "Cancel"
+        Me.cmdCancel.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
+        '
+        '
+        '
+        Me.cmdCancel.RootElement.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
+        Me.cmdCancel.Size = New System.Drawing.Size(100, 29)
+        Me.cmdCancel.TabIndex = 34
+        Me.cmdCancel.Text = "Ca&ncel"
+        Me.cmdCancel.TextAlignment = System.Drawing.ContentAlignment.MiddleRight
         Me.cmdCancel.ThemeName = "Office2010Black"
         '
         'frmAddServer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(308, 170)
-        Me.Controls.Add(Me.cmdCancel)
+        Me.ClientSize = New System.Drawing.Size(305, 164)
         Me.Controls.Add(Me.cmdOK)
         Me.Controls.Add(Me.cmdNewNetwork)
+        Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.cboNetwork)
         Me.Controls.Add(Me.txtIP)
         Me.Controls.Add(Me.txtPort)
@@ -184,9 +204,9 @@ Partial Class frmAddServer
     Friend WithEvents txtPort As Telerik.WinControls.UI.RadTextBox
     Friend WithEvents txtIP As Telerik.WinControls.UI.RadTextBox
     Friend WithEvents cboNetwork As Telerik.WinControls.UI.RadDropDownList
+    Friend WithEvents Office2010BlackTheme1 As Telerik.WinControls.Themes.Office2010BlackTheme
     Friend WithEvents cmdNewNetwork As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdOK As Telerik.WinControls.UI.RadButton
     Friend WithEvents cmdCancel As Telerik.WinControls.UI.RadButton
-    Friend WithEvents Office2010BlackTheme1 As Telerik.WinControls.Themes.Office2010BlackTheme
 End Class
 

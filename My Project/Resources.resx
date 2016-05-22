@@ -133,6 +133,9 @@
   <data name="tools" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tools.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="nirc6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nirc1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="web" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\web.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -145,6 +148,15 @@
   <data name="Software" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Software.ico;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="top-button-disconnect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\top-button-disconnect.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="nirc4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nirc1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="nirc8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nirc3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="top-button-network" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\top-button-network.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -154,14 +166,17 @@
   <data name="network1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\network1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="top-button-disconnect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\top-button-disconnect.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="nirc5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nirc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="nirc2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nirc1.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="chat" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chat.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WP_20160521_08_30_25_Pro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WP_20160521_08_30_25_Pro.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -172,11 +187,8 @@
   <data name="acid1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\acid1.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="accept" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\accept.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="top-button-closestatus" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\top-button-closestatus.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="nirc3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nirc.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="nirc" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nirc.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,8 +196,20 @@
   <data name="delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="top-button-recientservers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\top-button-recientservers.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\close.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="nexircnew" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nexircnew.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="accept" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\accept.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="nirc7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nirc2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="add1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -193,8 +217,8 @@
   <data name="preferences" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\preferences.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="top-button-recientservers" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\top-button-recientservers.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="top-button-closestatus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\top-button-closestatus.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="top-button-exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\top-button-exit.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -205,7 +229,7 @@
   <data name="film" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\film.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="nexircnew" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\nexircnew.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="nirc9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nirc4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

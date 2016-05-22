@@ -45,6 +45,7 @@ Partial Class frmChangeNickName
         Me.lstNickNames.Size = New System.Drawing.Size(235, 167)
         Me.lstNickNames.TabIndex = 0
         Me.lstNickNames.Text = "RadListControl1"
+        Me.lstNickNames.ThemeName = "Office2010Black"
         '
         'txtNickName
         '
@@ -53,6 +54,7 @@ Partial Class frmChangeNickName
         Me.txtNickName.Size = New System.Drawing.Size(181, 20)
         Me.txtNickName.TabIndex = 1
         Me.txtNickName.TabStop = False
+        Me.txtNickName.ThemeName = "Office2010Black"
         '
         'cmdOK
         '
@@ -61,6 +63,7 @@ Partial Class frmChangeNickName
         Me.cmdOK.Size = New System.Drawing.Size(83, 24)
         Me.cmdOK.TabIndex = 2
         Me.cmdOK.Text = "OK"
+        Me.cmdOK.ThemeName = "Office2010Black"
         '
         'cmdCancel
         '
@@ -69,6 +72,7 @@ Partial Class frmChangeNickName
         Me.cmdCancel.Size = New System.Drawing.Size(83, 24)
         Me.cmdCancel.TabIndex = 3
         Me.cmdCancel.Text = "Cancel"
+        Me.cmdCancel.ThemeName = "Office2010Black"
         '
         'cmdAdd
         '
@@ -77,6 +81,7 @@ Partial Class frmChangeNickName
         Me.cmdAdd.Size = New System.Drawing.Size(48, 20)
         Me.cmdAdd.TabIndex = 3
         Me.cmdAdd.Text = "Add"
+        Me.cmdAdd.ThemeName = "Office2010Black"
         '
         'frmChangeNickName
         '
@@ -96,6 +101,7 @@ Partial Class frmChangeNickName
         '
         Me.RootElement.ApplyShapeToControl = True
         Me.Text = "nexIRC - Change Nickname"
+        Me.ThemeName = "Office2010Black"
         CType(Me.lstNickNames, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNickName, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdOK, System.ComponentModel.ISupportInitialize).EndInit()

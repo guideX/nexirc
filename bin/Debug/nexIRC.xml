@@ -127,6 +127,41 @@ nexIRC
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="P:nexIRC.My.Resources.Resources.nirc3">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:nexIRC.My.Resources.Resources.nirc4">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:nexIRC.My.Resources.Resources.nirc5">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:nexIRC.My.Resources.Resources.nirc6">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:nexIRC.My.Resources.Resources.nirc7">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:nexIRC.My.Resources.Resources.nirc8">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:nexIRC.My.Resources.Resources.nirc9">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:nexIRC.My.Resources.Resources.preferences">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
@@ -168,6 +203,11 @@ nexIRC
 </summary>
 </member>
 <member name="P:nexIRC.My.Resources.Resources.web">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:nexIRC.My.Resources.Resources.WP_20160521_08_30_25_Pro">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>

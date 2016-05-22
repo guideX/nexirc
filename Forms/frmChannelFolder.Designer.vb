@@ -53,9 +53,10 @@ Partial Class frmChannelFolder
         '
         Me.txtChannel.Location = New System.Drawing.Point(12, 32)
         Me.txtChannel.Name = "txtChannel"
-        Me.txtChannel.Size = New System.Drawing.Size(197, 20)
+        Me.txtChannel.Size = New System.Drawing.Size(284, 20)
         Me.txtChannel.TabIndex = 0
         Me.txtChannel.TabStop = False
+        Me.txtChannel.ThemeName = "Office2010Black"
         '
         'RadLabel1
         '
@@ -64,30 +65,34 @@ Partial Class frmChannelFolder
         Me.RadLabel1.Size = New System.Drawing.Size(156, 18)
         Me.RadLabel1.TabIndex = 1
         Me.RadLabel1.Text = "Enter name of channel to join:"
+        Me.RadLabel1.ThemeName = "Office2010Black"
         '
         'cmdJoin
         '
-        Me.cmdJoin.Location = New System.Drawing.Point(220, 78)
+        Me.cmdJoin.Location = New System.Drawing.Point(220, 108)
         Me.cmdJoin.Name = "cmdJoin"
         Me.cmdJoin.Size = New System.Drawing.Size(76, 24)
         Me.cmdJoin.TabIndex = 1
         Me.cmdJoin.Text = "Join"
+        Me.cmdJoin.ThemeName = "Office2010Black"
         '
         'cmdAdd
         '
-        Me.cmdAdd.Location = New System.Drawing.Point(220, 108)
+        Me.cmdAdd.Location = New System.Drawing.Point(220, 138)
         Me.cmdAdd.Name = "cmdAdd"
         Me.cmdAdd.Size = New System.Drawing.Size(76, 24)
         Me.cmdAdd.TabIndex = 0
         Me.cmdAdd.Text = "Add"
+        Me.cmdAdd.ThemeName = "Office2010Black"
         '
         'cmdRemove
         '
-        Me.cmdRemove.Location = New System.Drawing.Point(220, 138)
+        Me.cmdRemove.Location = New System.Drawing.Point(220, 168)
         Me.cmdRemove.Name = "cmdRemove"
         Me.cmdRemove.Size = New System.Drawing.Size(76, 24)
         Me.cmdRemove.TabIndex = 0
         Me.cmdRemove.Text = "Remove"
+        Me.cmdRemove.ThemeName = "Office2010Black"
         '
         'cmdClose
         '
@@ -96,6 +101,7 @@ Partial Class frmChannelFolder
         Me.cmdClose.Size = New System.Drawing.Size(76, 24)
         Me.cmdClose.TabIndex = 0
         Me.cmdClose.Text = "Close"
+        Me.cmdClose.ThemeName = "Office2010Black"
         '
         'lblNetwork
         '
@@ -104,6 +110,7 @@ Partial Class frmChannelFolder
         Me.lblNetwork.Size = New System.Drawing.Size(51, 18)
         Me.lblNetwork.TabIndex = 2
         Me.lblNetwork.Text = "Network:"
+        Me.lblNetwork.ThemeName = "Office2010Black"
         '
         'cboNetwork
         '
@@ -111,8 +118,9 @@ Partial Class frmChannelFolder
         Me.cboNetwork.Location = New System.Drawing.Point(12, 78)
         Me.cboNetwork.Name = "cboNetwork"
         Me.cboNetwork.ShowImageInEditorArea = True
-        Me.cboNetwork.Size = New System.Drawing.Size(197, 20)
+        Me.cboNetwork.Size = New System.Drawing.Size(284, 20)
         Me.cboNetwork.TabIndex = 0
+        Me.cboNetwork.ThemeName = "Office2010Black"
         '
         'lstChannels
         '
@@ -123,6 +131,7 @@ Partial Class frmChannelFolder
         Me.lstChannels.Size = New System.Drawing.Size(197, 137)
         Me.lstChannels.TabIndex = 3
         Me.lstChannels.Text = "Channel Folder"
+        Me.lstChannels.ThemeName = "Office2010Black"
         '
         'lnkJumpToChannelList
         '
@@ -141,6 +150,7 @@ Partial Class frmChannelFolder
         Me.chkPopupOnConnect.Size = New System.Drawing.Size(114, 18)
         Me.chkPopupOnConnect.TabIndex = 5
         Me.chkPopupOnConnect.Text = "Popup on Connect"
+        Me.chkPopupOnConnect.ThemeName = "Office2010Black"
         '
         'chkCloseOnJoin
         '
@@ -149,6 +159,7 @@ Partial Class frmChannelFolder
         Me.chkCloseOnJoin.Size = New System.Drawing.Size(86, 18)
         Me.chkCloseOnJoin.TabIndex = 6
         Me.chkCloseOnJoin.Text = "Close on Join"
+        Me.chkCloseOnJoin.ThemeName = "Office2010Black"
         '
         'frmChannelFolder
         '
@@ -177,6 +188,7 @@ Partial Class frmChannelFolder
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Channel Folder"
+        Me.ThemeName = "Office2010Black"
         CType(Me.txtChannel, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadLabel1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdJoin, System.ComponentModel.ISupportInitialize).EndInit()

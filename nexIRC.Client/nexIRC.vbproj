@@ -1,0 +1,839 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{72D58ED0-B0F8-48DB-AF6F-62A24788732A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>nexIRC.My.MyApplication</StartupObject>
+    <RootNamespace>nexIRC</RootNamespace>
+    <AssemblyName>nexIRC</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>nexIRC.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>nexIRC.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="RadControlSpy, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\RadControlSpy.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Telerik.WinControls, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.GridView, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.RadChart, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.RadChart.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.RadDock, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.RadDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.RadMarkupEditor, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.RadMarkupEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.RichTextBox, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.RichTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Scheduler, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Scheduler.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Aqua, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.Aqua.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Breeze, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.Breeze.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Desert, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.Desert.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.HighContrastBlack, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.HighContrastBlack.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Miscellaneous, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.Miscellaneous.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2007Black, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.Office2007Black.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2007Silver, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.Office2007Silver.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2010Black, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.Office2010Black.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2010Blue, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.Office2010Blue.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2010Silver, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.Office2010Silver.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Telerik, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.Telerik.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.TelerikMetro, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.TelerikMetro.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Vista, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.Vista.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Windows7, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.Themes.Windows7.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI.Design, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Telerik.WinControls.UI.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="TelerikCommon, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\TelerikCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="TelerikData, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\TelerikData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Classes\Communications\AsyncSocket.vb" />
+    <Compile Include="Classes\Communications\StatusSocket.vb" />
+    <Compile Include="Classes\Ident.vb" />
+    <Compile Include="Classes\IrcProcess.vb" />
+    <Compile Include="Classes\MdiChildWindow.vb" />
+    <Compile Include="Classes\UI\Animate.vb" />
+    <Compile Include="Classes\UI\ListViewSorter.vb" />
+    <Compile Include="Classes\UI\ScrollToBottom.vb" />
+    <Compile Include="Forms\frmAbout.Designer.vb">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAbout.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddServer.Designer.vb">
+      <DependentUpon>frmAddServer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddServer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChangeNickname.Designer.vb">
+      <DependentUpon>frmChangeNickname.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChangeNickname.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChannel.Designer.vb">
+      <DependentUpon>frmChannel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChannel.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChannelFolder.Designer.vb">
+      <DependentUpon>frmChannelFolder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChannelFolder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChannelList.Designer.vb">
+      <DependentUpon>frmChannelList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChannelList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChooseNetwork.Designer.vb">
+      <DependentUpon>frmChooseNetwork.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChooseNetwork.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCompatibility.Designer.vb">
+      <DependentUpon>frmCompatibility.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCompatibility.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCustomize.Designer.vb">
+      <DependentUpon>frmCustomize.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCustomize.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDCCChat.Designer.vb">
+      <DependentUpon>frmDCCChat.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDCCChat.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDCCChatPrompt.Designer.vb">
+      <DependentUpon>frmDCCChatPrompt.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDCCChatPrompt.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDCCGet.Designer.vb">
+      <DependentUpon>frmDCCGet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDCCGet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDCCIgnoreAdd.Designer.vb">
+      <DependentUpon>frmDCCIgnoreAdd.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDCCIgnoreAdd.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDCCSend.Designer.vb">
+      <DependentUpon>frmDCCSend.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDCCSend.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDownloadManager.Designer.vb">
+      <DependentUpon>frmDownloadManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDownloadManager.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEditServer.Designer.vb">
+      <DependentUpon>frmEditServer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmEditServer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEditString.Designer.vb">
+      <DependentUpon>frmEditString.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmEditString.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmIdentdSettings.Designer.vb">
+      <DependentUpon>frmIdentdSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmIdentdSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLoading.Designer.vb">
+      <DependentUpon>frmLoading.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLoading.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmNetworkSettings.Designer.vb">
+      <DependentUpon>frmNetworkSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmNetworkSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmNickServLogin.Designer.vb">
+      <DependentUpon>frmNickServLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmNickServLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmNoticeWindow.Designer.vb">
+      <DependentUpon>frmNoticeWindow.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmNoticeWindow.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmQuerySettings.Designer.vb">
+      <DependentUpon>frmQuerySettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmQuerySettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmRaw.Designer.vb">
+      <DependentUpon>frmRaw.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmRaw.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSendNotice.Designer.vb">
+      <DependentUpon>frmSendNotice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSendNotice.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmServerLinks.Designer.vb">
+      <DependentUpon>frmServerLinks.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmServerLinks.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSharedAdd.Designer.vb">
+      <DependentUpon>frmSharedAdd.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSharedAdd.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmStatus.Designer.vb">
+      <DependentUpon>frmStatus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmStatus.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmVideoPlayer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\mdiMain.Designer.vb">
+      <DependentUpon>mdiMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\mdiMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IRC\Channels\clsChannelFolder.vb" />
+    <Compile Include="IRC\Channels\clsChannelList.vb" />
+    <Compile Include="IRC\Channels\clsChannels.vb" />
+    <Compile Include="IRC\Customize\clsCustomize.vb" />
+    <Compile Include="IRC\DCC\clsDccChat.vb" />
+    <Compile Include="IRC\MainWindow\clsMainWindowUI.vb" />
+    <Compile Include="IRC\Numerics\clsCommandTypes.vb" />
+    <Compile Include="IRC\Numerics\clsIrcNumericHelper.vb" />
+    <Compile Include="IRC\Numerics\clsIrcNumerics.vb" />
+    <Compile Include="IRC\Numerics\clsProcessNumeric.vb" />
+    <Compile Include="IRC\Numerics\IrcStrings.vb" />
+    <Compile Include="IRC\SendNotice\clsSendNotice.vb" />
+    <Compile Include="IRC\ServerLinks\clsServerLinks.vb" />
+    <Compile Include="IRC\Services\Bots.vb" />
+    <Compile Include="IRC\Settings\clsDCC.vb" />
+    <Compile Include="IRC\Settings\clsServices.vb" />
+    <Compile Include="IRC\Settings\Settings.vb" />
+    <Compile Include="IRC\Status\Status.vb" />
+    <Compile Include="IRC\UtilityWindows\clsAbout.vb" />
+    <Compile Include="IRC\UtilityWindows\clsAddNickName.vb" />
+    <Compile Include="IRC\UtilityWindows\clsAddServer.vb" />
+    <Compile Include="IRC\UtilityWindows\clsChangeNickName.vb" />
+    <Compile Include="IRC\UtilityWindows\clsChooseNetwork.vb" />
+    <Compile Include="IRC\UtilityWindows\clsCompatibility.vb" />
+    <Compile Include="IRC\UtilityWindows\clsSharedAdd.vb" />
+    <Compile Include="Modules\mdlObjects.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="User Controls\clsVideo.vb">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Classes\MdiChildWindow.resx">
+      <DependentUpon>MdiChildWindow.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAbout.resx">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddServer.resx">
+      <DependentUpon>frmAddServer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChangeNickname.resx">
+      <DependentUpon>frmChangeNickname.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChannel.resx">
+      <DependentUpon>frmChannel.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChannelFolder.resx">
+      <DependentUpon>frmChannelFolder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChannelList.resx">
+      <DependentUpon>frmChannelList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChooseNetwork.resx">
+      <DependentUpon>frmChooseNetwork.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCompatibility.resx">
+      <DependentUpon>frmCompatibility.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCustomize.resx">
+      <DependentUpon>frmCustomize.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDCCChat.resx">
+      <DependentUpon>frmDCCChat.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDCCChatPrompt.resx">
+      <DependentUpon>frmDCCChatPrompt.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDCCGet.resx">
+      <DependentUpon>frmDCCGet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDCCIgnoreAdd.resx">
+      <DependentUpon>frmDCCIgnoreAdd.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDCCSend.resx">
+      <DependentUpon>frmDCCSend.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDownloadManager.resx">
+      <DependentUpon>frmDownloadManager.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEditServer.resx">
+      <DependentUpon>frmEditServer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEditString.resx">
+      <DependentUpon>frmEditString.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmIdentdSettings.resx">
+      <DependentUpon>frmIdentdSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLoading.resx">
+      <DependentUpon>frmLoading.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmNetworkSettings.resx">
+      <DependentUpon>frmNetworkSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmNickServLogin.resx">
+      <DependentUpon>frmNickServLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmNoticeWindow.resx">
+      <DependentUpon>frmNoticeWindow.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmQuerySettings.resx">
+      <DependentUpon>frmQuerySettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmRaw.resx">
+      <DependentUpon>frmRaw.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSendNotice.resx">
+      <DependentUpon>frmSendNotice.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmServerLinks.resx">
+      <DependentUpon>frmServerLinks.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSharedAdd.resx">
+      <DependentUpon>frmSharedAdd.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmStatus.resx">
+      <DependentUpon>frmStatus.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmVideoPlayer.resx">
+      <DependentUpon>frmVideoPlayer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\mdiMain.resx">
+      <DependentUpon>mdiMain.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Controls\clsVideo.resx">
+      <DependentUpon>clsVideo.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="bkup\gfx\Buttons\nircbtn.psd" />
+    <None Include="bkup\gfx\Buttons\Untitled-3.psd" />
+    <None Include="bkup\gfx\psd\bar2.psd" />
+    <None Include="bkup\gfx\psd\bar22.psd" />
+    <None Include="bkup\gfx\psd\color.psd" />
+    <None Include="bkup\gfx\psd\cooltoolbar.psd" />
+    <None Include="bkup\gfx\psd\error.psd" />
+    <None Include="bkup\gfx\psd\gray_toolbar.psd" />
+    <None Include="bkup\gfx\psd\imgXPBUTTON.psd" />
+    <None Include="bkup\gfx\psd\media player.psd" />
+    <None Include="bkup\gfx\psd\nav%28nexirc%29.psd" />
+    <None Include="bkup\gfx\psd\nav%28nirc_scrn%29.psd" />
+    <None Include="bkup\gfx\psd\nexiretoolbar.psd" />
+    <None Include="bkup\gfx\psd\nirc%28%40%29.psd" />
+    <None Include="bkup\gfx\psd\nirc%28button_processes%29.psd" />
+    <None Include="bkup\gfx\psd\nirc%28concept_messagebox_wind%29.psd" />
+    <None Include="bkup\gfx\psd\nirc%28concept_xp_toolbar%29.psd" />
+    <None Include="bkup\gfx\psd\nirc%28options_bar%29.psd" />
+    <None Include="bkup\gfx\psd\nirc%28options_full%29.psd" />
+    <None Include="bkup\gfx\psd\nirc%28scrnshot%29.psd" />
+    <None Include="bkup\gfx\psd\nirc%28symbol%29.psd" />
+    <None Include="bkup\gfx\psd\nirc%28toolbar%29.psd" />
+    <None Include="bkup\gfx\psd\nirc%28untitled-1%29.psd" />
+    <None Include="bkup\gfx\psd\nirc%28xpbutton%29.psd" />
+    <None Include="bkup\gfx\psd\nirc.psd" />
+    <None Include="bkup\gfx\Splash\newsplash.psd" />
+    <None Include="bkup\gfx\Splash\nirc2.psd" />
+    <None Include="bkup\gfx\Splash\nirclogo.psd" />
+    <None Include="bkup\gfx\unsorted\nirc3alpha13.psd" />
+    <None Include="My Project\app.manifest" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Team Nexgen Website.url" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bkup\gfx\Buttons\btn%28connect_default%29.gif" />
+    <Content Include="bkup\gfx\Buttons\btn%28connect_down%29.gif" />
+    <Content Include="bkup\gfx\Buttons\btn%28connect_over%29.gif" />
+    <Content Include="bkup\gfx\Buttons\btn%28disconnect_default%29.gif" />
+    <Content Include="bkup\gfx\Buttons\btn%28disconnect_down%29.gif" />
+    <Content Include="bkup\gfx\Buttons\btn%28disconnect_over%29.gif" />
+    <Content Include="bkup\gfx\Buttons\btn%28music_default%29.gif" />
+    <Content Include="bkup\gfx\Buttons\btn%28music_down%29.gif" />
+    <Content Include="bkup\gfx\Buttons\btn%28music_over%29.gif" />
+    <Content Include="bkup\gfx\Buttons\btn%28optins_over%29.gif" />
+    <Content Include="bkup\gfx\Buttons\btn%28options_default%29.gif" />
+    <Content Include="bkup\gfx\Buttons\btn%28options_down%29.gif" />
+    <Content Include="bkup\gfx\Buttons\chanfolder.gif" />
+    <Content Include="bkup\gfx\Buttons\chanfolder2.gif" />
+    <Content Include="bkup\gfx\Buttons\chanfolder3.gif" />
+    <Content Include="bkup\gfx\Buttons\script1.gif" />
+    <Content Include="bkup\gfx\Buttons\script2.gif" />
+    <Content Include="bkup\gfx\Buttons\script3.gif" />
+    <Content Include="bkup\gfx\Buttons\up.gif" />
+    <Content Include="bkup\gfx\Buttons\up2.gif" />
+    <Content Include="bkup\gfx\Buttons\up3.gif" />
+    <Content Include="bkup\gfx\GIF\about.gif" />
+    <Content Include="bkup\gfx\GIF\bar2.gif" />
+    <Content Include="bkup\gfx\GIF\bottomtotoptext.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28add1%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28add2%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28add3%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28cancel1%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28cancel2%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28cancel3%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28connect1%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28connect2%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28connect3%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28default1%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28default2%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28default3%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28del1%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28del2%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28del3%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28edit1%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28edit2%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28edit3%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28ok1%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28ok2%29.gif" />
+    <Content Include="bkup\gfx\GIF\btn%28ok3%29.gif" />
+    <Content Include="bkup\gfx\GIF\b_ar2.gif" />
+    <Content Include="bkup\gfx\GIF\channel_settings.gif" />
+    <Content Include="bkup\gfx\GIF\colors.gif" />
+    <Content Include="bkup\gfx\GIF\help.gif" />
+    <Content Include="bkup\gfx\GIF\ignore.gif" />
+    <Content Include="bkup\gfx\GIF\lyo%28ident_info%29.gif" />
+    <Content Include="bkup\gfx\GIF\lyo%28irc_options%29.gif" />
+    <Content Include="bkup\gfx\GIF\lyo%28server_info%29.gif" />
+    <Content Include="bkup\gfx\GIF\lyo%28user_info%29.gif" />
+    <Content Include="bkup\gfx\GIF\mp3.gif" />
+    <Content Include="bkup\gfx\GIF\nav%28nexirc%29.gif" />
+    <Content Include="bkup\gfx\GIF\nav%28nexirc_newfont%29.gif" />
+    <Content Include="bkup\gfx\GIF\nav%28nexirc_splash%29.gif" />
+    <Content Include="bkup\gfx\GIF\nav%28nirc_bg%29.gif" />
+    <Content Include="bkup\gfx\GIF\nav%28nirc_toolbar%29.gif" />
+    <Content Include="bkup\gfx\GIF\nav%28nirc_wind%29.gif" />
+    <Content Include="bkup\gfx\GIF\nexirc.jpg" />
+    <Content Include="bkup\gfx\GIF\nexiretoolbar.gif" />
+    <Content Include="bkup\gfx\GIF\nirc%28chanback1%29.gif" />
+    <Content Include="bkup\gfx\GIF\nirc%28chanback2%29.gif" />
+    <Content Include="bkup\gfx\GIF\nirc%28chanback3%29.gif" />
+    <Content Include="bkup\gfx\GIF\nirc%28chanback4%29.gif" />
+    <Content Include="bkup\gfx\GIF\nirc%28chanback5%29.gif" />
+    <Content Include="bkup\gfx\GIF\nirc%28chanback6%29.gif" />
+    <Content Include="bkup\gfx\GIF\nirc%28chanback7%29.gif" />
+    <Content Include="bkup\gfx\GIF\nirc%28setup_lyo2%29.gif" />
+    <Content Include="bkup\gfx\GIF\nirc%28setup_lyo3%29.gif" />
+    <Content Include="bkup\gfx\GIF\nirc%28setup_lyo4%29.gif" />
+    <Content Include="bkup\gfx\GIF\nirc%28toolbar%29.gif" />
+    <Content Include="bkup\gfx\GIF\nirc%28toolbar2%29.gif" />
+    <Content Include="bkup\gfx\GIF\nirc-colorednicklist.gif" />
+    <Content Include="bkup\gfx\GIF\nirc-inprogress-221.gif" />
+    <Content Include="bkup\gfx\GIF\nirc-options221.gif" />
+    <Content Include="bkup\gfx\GIF\nirc-setupwizard.gif" />
+    <Content Include="bkup\gfx\GIF\nirc-splash221.gif" />
+    <Content Include="bkup\gfx\GIF\nirc.gif" />
+    <Content Include="bkup\gfx\GIF\nirc106e%28scrn%29.gif" />
+    <Content Include="bkup\gfx\GIF\nirc2.gif" />
+    <Content Include="bkup\gfx\GIF\nircbg.gif" />
+    <Content Include="bkup\gfx\GIF\nircbtn1.gif" />
+    <Content Include="bkup\gfx\GIF\nircbtn2.gif" />
+    <Content Include="bkup\gfx\GIF\nirclogo.gif" />
+    <Content Include="bkup\gfx\GIF\nirclogosm.gif" />
+    <Content Include="bkup\gfx\GIF\nircside.gif" />
+    <Content Include="bkup\gfx\GIF\nircsplash.gif" />
+    <Content Include="bkup\gfx\GIF\nirctop.gif" />
+    <Content Include="bkup\gfx\GIF\nircxp-toolbar.gif" />
+    <Content Include="bkup\gfx\GIF\nirc_contacts.gif" />
+    <Content Include="bkup\gfx\GIF\nirc_mobile.gif" />
+    <Content Include="bkup\gfx\GIF\options.gif" />
+    <Content Include="bkup\gfx\GIF\phone.jpg" />
+    <Content Include="bkup\gfx\GIF\Picture 001.jpg" />
+    <Content Include="bkup\gfx\GIF\spot-software2.gif" />
+    <Content Include="bkup\gfx\GIF\text.gif" />
+    <Content Include="bkup\gfx\GIF\Untitled-1.gif" />
+    <Content Include="bkup\gfx\GIF\Untitled-2.gif" />
+    <Content Include="bkup\gfx\GIF\web_loading.gif" />
+    <Content Include="bkup\gfx\GIF\_nirctop.gif" />
+    <Content Include="bkup\gfx\help\1.gif" />
+    <Content Include="bkup\gfx\nirc 2.20\scr%28nirc220black%29.gif" />
+    <Content Include="bkup\gfx\nirc 2.20\scr%28nirc220blue%29.gif" />
+    <Content Include="bkup\gfx\nirc 2.20\scr%28nirc220chanfolder%29.gif" />
+    <Content Include="bkup\gfx\nirc 2.20\scr%28nirc220crimson%29.gif" />
+    <Content Include="bkup\gfx\nirc 2.20\scr%28nirc220customize_network%29.gif" />
+    <Content Include="bkup\gfx\nirc 2.20\scr%28nirc220customize_themes.gif" />
+    <Content Include="bkup\gfx\nirc 2.20\scr%28nirc220cyan%29.gif" />
+    <Content Include="bkup\gfx\nirc 2.20\scr%28nirc220gray%29.gif" />
+    <Content Include="bkup\gfx\nirc 2.20\scr%28nirc220green%29.gif" />
+    <Content Include="bkup\gfx\nirc 2.20\scr%28nirc220pink%29.gif" />
+    <Content Include="bkup\gfx\nirc222\channel_proporties.gif" />
+    <Content Include="bkup\gfx\nirc222\customize_server.gif" />
+    <Content Include="bkup\gfx\nirc222\customize_themes.gif" />
+    <Content Include="bkup\gfx\nirc222\help.gif" />
+    <Content Include="bkup\gfx\nirc222\joinchannel.gif" />
+    <Content Include="bkup\gfx\nirc222\main.gif" />
+    <Content Include="bkup\gfx\nirc222\main2.gif" />
+    <Content Include="bkup\gfx\nirc222\main3.gif" />
+    <Content Include="bkup\gfx\nirc222\menu_editor.gif" />
+    <Content Include="bkup\gfx\nirc222\quickconnect.gif" />
+    <Content Include="bkup\gfx\nirc222\script_browser.gif" />
+    <Content Include="bkup\gfx\nirc222\setup_wizard.gif" />
+    <Content Include="bkup\gfx\nirc222\tip.gif" />
+    <Content Include="bkup\gfx\nircscreens\nirc219-crimson.gif" />
+    <Content Include="bkup\gfx\nircscreens\nirc219-file.gif" />
+    <Content Include="bkup\gfx\nircscreens\nirc219-green.gif" />
+    <Content Include="bkup\gfx\nircscreens\nirc219-is.gif" />
+    <Content Include="bkup\gfx\nircscreens\nirc219-main_blue.gif" />
+    <Content Include="bkup\gfx\nircscreens\nirc219-main_pink.gif" />
+    <Content Include="bkup\gfx\nircscreens\nirc219-network.gif" />
+    <Content Include="bkup\gfx\nircscreens\nirc219-splash.gif" />
+    <Content Include="bkup\gfx\nircscreens\nirc219-themes.gif" />
+    <Content Include="bkup\gfx\Splash\newsplash gray.bmp" />
+    <Content Include="bkup\gfx\Splash\newsplash.bmp" />
+    <Content Include="bkup\gfx\Splash\setup.bmp" />
+    <Content Include="bkup\gfx\Splash\splash.bmp" />
+    <Content Include="bkup\gfx\unsorted\BitmapId_103.bmp" />
+    <Content Include="bkup\gfx\unsorted\bluepunk.gif" />
+    <Content Include="bkup\gfx\unsorted\gray2.gif" />
+    <Content Include="bkup\gfx\unsorted\lightbrown.gif" />
+    <Content Include="bkup\gfx\unsorted\lightbrown_about.gif" />
+    <Content Include="bkup\gfx\unsorted\media player.bmp" />
+    <Content Include="bkup\gfx\unsorted\mixer.gif" />
+    <Content Include="bkup\gfx\unsorted\nav%28nexirc%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nav%28nexirc_newfont%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nav%28nexirc_splash%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nav%28nirc_bg%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nav%28nirc_wind%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nexirc-hebrew.gif" />
+    <Content Include="bkup\gfx\unsorted\nexirc.jpg" />
+    <Content Include="bkup\gfx\unsorted\nexiretoolbar.gif" />
+    <Content Include="bkup\gfx\unsorted\nirc%28chanback1%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nirc%28chanback2%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nirc%28chanback3%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nirc%28chanback4%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nirc%28chanback5%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nirc%28chanback6%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nirc%28chanback7%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nirc%28setup_lyo2%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nirc%28setup_lyo3%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nirc%28setup_lyo4%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nirc.gif" />
+    <Content Include="bkup\gfx\unsorted\nirc106e%28scrn%29.gif" />
+    <Content Include="bkup\gfx\unsorted\nirc20b5.gif" />
+    <Content Include="bkup\gfx\unsorted\nircbg.gif" />
+    <Content Include="bkup\gfx\unsorted\nirctop.gif" />
+    <Content Include="bkup\gfx\unsorted\process.bmp" />
+    <Content Include="bkup\gfx\unsorted\processes.bmp" />
+    <Content Include="bkup\gfx\unsorted\script1.gif" />
+    <Content Include="bkup\gfx\unsorted\Untitled-2 copy.bmp" />
+    <Content Include="bkup\gfx\unsorted\video.bmp" />
+    <Content Include="bkup\gfx\unsorted\writecd.bmp" />
+    <Content Include="nexgen.ico" />
+    <Content Include="Resources\accept.png" />
+    <Content Include="Resources\acid1.gif" />
+    <Content Include="Resources\acid2.gif" />
+    <Content Include="Resources\add.png" />
+    <Content Include="Resources\add1.png" />
+    <Content Include="Resources\applications.png" />
+    <Content Include="Resources\background.jpg" />
+    <Content Include="Resources\cancel.png" />
+    <Content Include="Resources\chat.png" />
+    <Content Include="Resources\close.png" />
+    <Content Include="Resources\configure.png" />
+    <Content Include="Resources\connect.gif" />
+    <Content Include="Resources\connect.png" />
+    <Content Include="Resources\delete.png" />
+    <Content Include="Resources\documents_white.ico" />
+    <Content Include="Resources\film.png" />
+    <Content Include="Resources\Image1.gif" />
+    <Content Include="Resources\network.png" />
+    <Content Include="Resources\network1.png" />
+    <None Include="Resources\WP_20160521_08_30_25_Pro.jpg" />
+    <None Include="Resources\nexircnew.jpg" />
+    <Content Include="Resources\nirc.bmp" />
+    <Content Include="Resources\nirc.gif" />
+    <None Include="Resources\nirc.jpg" />
+    <None Include="Resources\nirc.png" />
+    <Content Include="Resources\nirc1.bmp" />
+    <None Include="Resources\nirc1.jpg" />
+    <None Include="Resources\nirc1.png" />
+    <None Include="Resources\nirc2.png" />
+    <None Include="Resources\nirc3.png" />
+    <None Include="Resources\nirc4.png" />
+    <Content Include="Resources\preferences.png" />
+    <Content Include="Resources\Software.ico" />
+    <Content Include="Resources\spot-software2[1].gif" />
+    <Content Include="Resources\status.ico" />
+    <Content Include="Resources\tools.png" />
+    <Content Include="Resources\top-button-closestatus.gif" />
+    <Content Include="Resources\top-button-disconnect.gif" />
+    <Content Include="Resources\top-button-exit.gif" />
+    <Content Include="Resources\top-button-network.gif" />
+    <Content Include="Resources\top-button-recientservers.gif" />
+    <Content Include="Resources\web.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\nexIRC.Business\nexIRC.Business.csproj">
+      <Project>{ac5cd421-32db-41f2-b1ad-da03477dbc30}</Project>
+      <Name>nexIRC.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\nexIRC.Models\nexIRC.Models.csproj">
+      <Project>{ecf0574d-660f-4b78-9b0d-985429d262e6}</Project>
+      <Name>nexIRC.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\nexIRC.Enum\nexIRC.Enum.csproj">
+      <Project>{f08fedac-f91b-443a-8e96-3f3d1cc0f60f}</Project>
+      <Name>nexIRC.Enum</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

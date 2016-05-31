@@ -1,5 +1,5 @@
-'nexIRC 3.0.30
-'04-23-2016 - guideX
+'nexIRC 3.0.31
+'05-30-2016 - guideX
 Option Explicit On
 Option Strict On
 
@@ -281,7 +281,7 @@ Public Class clsVideo
                 pLastError = mciSendString("where " & pAlias & " source", SizeStr, Len(SizeStr), IntPtr.Zero)
                 If pLastError = MCIERR.MCIERR_NO_ERROR Then
                     Dim Items() As String = Split(SizeStr.Trim(), " ")
-                    Return New Size(Convert.ToInt32(Items(2)), Convert.ToInt32(Items(3)))
+                    Return New Size(Items(2).ToInt, Items(3).ToInt)
                 End If
             End If
             Return New Size
@@ -307,7 +307,7 @@ Public Class clsVideo
                 If pLastError = MCIERR.MCIERR_NO_ERROR Then
                     Dim PosStr As String = Space(128)
                     pLastError = mciSendString("status " & pAlias & " position", PosStr, Len(PosStr), IntPtr.Zero)
-                    Return Convert.ToInt64(PosStr.Trim())
+                    Return PosStr.ToLong
                 End If
             End If
             Return -1
@@ -321,7 +321,7 @@ Public Class clsVideo
                 If pLastError = MCIERR.MCIERR_NO_ERROR Then
                     Dim PosStr As String = Space(128)
                     pLastError = mciSendString("status " & pAlias & " position", PosStr, Len(PosStr), IntPtr.Zero)
-                    Return Convert.ToInt64(PosStr.Trim())
+                    Return PosStr.ToLong
                 End If
             End If
             Return -1
@@ -429,7 +429,7 @@ Public Class clsVideo
             If pOpenSuccess = True Then
                 pLastError = mciSendString("set " & pAlias & " time format " & TimeFormat, vbNullString, 0, IntPtr.Zero)
                 If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                    pLastError = mciSendString("seek " & pAlias & " to " & Convert.ToString(Index), vbNullString, 0, IntPtr.Zero)
+                    pLastError = mciSendString("seek " & pAlias & " to " & Index.ToString, vbNullString, 0, IntPtr.Zero)
                     If pLastError = MCIERR.MCIERR_NO_ERROR Then
                         If pPlaying = True Then
                             Me.Play(False, True, True)
@@ -496,11 +496,11 @@ Public Class clsVideo
                     If OptimalSize.Height * wRatio > Me.Height Then
                         wRatio = (100 / OptimalSize.Height * Me.Height) / 100
                     End If
-                    Dim wWidth As Integer = Convert.ToInt32(OptimalSize.Width * wRatio)
-                    Dim wHeight As Integer = Convert.ToInt32(OptimalSize.Height * wRatio)
-                    Dim wLeft As Integer = Convert.ToInt32((Me.Width - wWidth) / 2)
-                    Dim wTop As Integer = Convert.ToInt32((Me.Height - wHeight) / 2)
-                    pLastError = mciSendString("put " & pAlias & " window at " & Convert.ToString(wLeft) & " " & Convert.ToString(wTop) & " " & Convert.ToString(wWidth) & " " & Convert.ToString(wHeight), vbNullString, 0, IntPtr.Zero)
+                    Dim wWidth As Integer = (OptimalSize.Width * wRatio).ToInt
+                    Dim wHeight As Integer = (OptimalSize.Height * wRatio).ToInt
+                    Dim wLeft As Integer = ((Me.Width - wWidth) / 2).ToInt
+                    Dim wTop As Integer = ((Me.Height - wHeight) / 2).ToInt
+                    pLastError = mciSendString("put " & pAlias & " window at " & wLeft.ToString & " " & wTop.ToString & " " & wWidth.ToString & " " & wHeight.ToString, vbNullString, 0, IntPtr.Zero)
                     Return (pLastError = MCIERR.MCIERR_NO_ERROR)
                 End If
             End If
@@ -514,7 +514,7 @@ Public Class clsVideo
     Private Function DoSpeed() As Boolean
         Try
             If pOpenSuccess = True Then
-                pLastError = mciSendString("set " & pAlias & " speed " & Convert.ToString(pSpeed), vbNullString, 0, IntPtr.Zero)
+                pLastError = mciSendString("set " & pAlias & " speed " & pSpeed.ToString, vbNullString, 0, IntPtr.Zero)
                 Return (pLastError = MCIERR.MCIERR_NO_ERROR)
             End If
             Return False
@@ -551,8 +551,8 @@ Public Class clsVideo
     Private Function DoBalance() As Boolean
         Try
             If pOpenSuccess = True Then
-                pLastError = mciSendString("setaudio " & pAlias & " left volume to " & Convert.ToString(1000 - pBalance), vbNullString, 0, IntPtr.Zero)
-                pLastError = mciSendString("setaudio " & pAlias & " right volume to " & Convert.ToString(pBalance), vbNullString, 0, IntPtr.Zero)
+                pLastError = mciSendString("setaudio " & pAlias & " left volume to " & (1000 - pBalance).ToString, vbNullString, 0, IntPtr.Zero)
+                pLastError = mciSendString("setaudio " & pAlias & " right volume to " & pBalance.ToString, vbNullString, 0, IntPtr.Zero)
                 Return (pLastError = MCIERR.MCIERR_NO_ERROR)
             End If
             Return False
@@ -565,7 +565,7 @@ Public Class clsVideo
     Private Function DoVolume() As Boolean
         Try
             If pOpenSuccess = True Then
-                pLastError = mciSendString("setaudio " & pAlias & " volume to " & Convert.ToString(pVolume), vbNullString, 0, IntPtr.Zero)
+                pLastError = mciSendString("setaudio " & pAlias & " volume to " & pVolume.ToString, vbNullString, 0, IntPtr.Zero)
                 Return (pLastError = MCIERR.MCIERR_NO_ERROR)
             End If
             Return False
@@ -583,7 +583,7 @@ Public Class clsVideo
                     Dim FrameStr As String = Space(128)
                     pLastError = mciSendString("status " & pAlias & " length", FrameStr, Len(FrameStr), IntPtr.Zero)
                     If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                        Return Convert.ToInt64(FrameStr.Trim())
+                        Return FrameStr.ToLong
                     End If
                 End If
             End If
@@ -602,7 +602,7 @@ Public Class clsVideo
                     Dim TimeStr As String = Space(128)
                     pLastError = mciSendString("status " & pAlias & " length", TimeStr, Len(TimeStr), IntPtr.Zero)
                     If pLastError = MCIERR.MCIERR_NO_ERROR Then
-                        Return Convert.ToInt64(TimeStr.Trim())
+                        Return TimeStr.ToLong
                     End If
                 End If
             End If

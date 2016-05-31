@@ -1,13 +1,12 @@
-﻿'nexIRC 3.0.30
-'04-23-2016 - guideX
+﻿'nexIRC 3.0.31
+'05-30-2016 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Classes.IO
 Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
 Imports Telerik.WinControls.UI
-Imports Telerik.WinControls
+Imports nexIRC.Business.Helpers
 Imports System.Windows.Forms
 
 Namespace nexIRC.MainWindow
@@ -46,170 +45,124 @@ Namespace nexIRC.MainWindow
         Public Event EnableStartupSettingsTimer(tickInterval As Integer)
         Public Event FormTitle(title As String)
         Public Sub ShowQueryBar(ByVal _Text As String, ByVal _Function As eInfoBar, _QueryPromptLabel As ToolStripLabel, _ToolStrip As Windows.Forms.ToolStrip)
-            Try
-                If Len(_Text) <> 0 Then
-                    RaiseEvent QueryBarPromptLabelVisible(_Text, Trim(CType(_Function, Integer).ToString))
-                End If
-            Catch ex As Exception
-                Throw
-            End Try
+            If Len(_Text) <> 0 Then
+                RaiseEvent QueryBarPromptLabelVisible(_Text, Trim(CType(_Function, Integer).ToString))
+            End If
         End Sub
         Public Sub SetFlashesLeft(ByVal _Value As Integer, _FlashDCCToolBarTimer As Timer)
-            Try
-                lFlashesLeft = _Value
-                _FlashDCCToolBarTimer.Enabled = True
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub SetFlashesLeft(ByVal lValue As Integer)")
-            End Try
+            lFlashesLeft = _Value
+            _FlashDCCToolBarTimer.Enabled = True
         End Sub
         Public Function AddWindowBar(ByVal _Text As String, ByVal _ImageType As gWindowBarImageTypes, _ImageList As ImageList, _ToolStrip As ToolStrip) As ToolStripItem
-            Try
-                Dim lImage As Image, i As Integer
-                Select Case _ImageType
-                    Case gWindowBarImageTypes.wStatus
-                        i = 0
-                    Case gWindowBarImageTypes.wChannel
-                        i = 1
-                    Case gWindowBarImageTypes.wServer
-                        i = 2
-                    Case gWindowBarImageTypes.wNotice
-                        i = 3
-                End Select
-                lImage = _ImageList.Images(i)
-                Return _ToolStrip.Items.Add(_Text, lImage)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Function AddWindowBar(ByVal lText As String, ByVal lImageType As gWindowBarImageTypes, ByVal lSender As Object, ByVal lEventArgs As System.EventArgs) As ToolStripItem")
-                Return Nothing
-            End Try
+            Dim lImage As Image, i As Integer
+            Select Case _ImageType
+                Case gWindowBarImageTypes.wStatus
+                    i = 0
+                Case gWindowBarImageTypes.wChannel
+                    i = 1
+                Case gWindowBarImageTypes.wServer
+                    i = 2
+                Case gWindowBarImageTypes.wNotice
+                    i = 3
+            End Select
+            lImage = _ImageList.Images(i)
+            Return _ToolStrip.Items.Add(_Text, lImage)
         End Function
         Public Sub RemoveWindowBar(ByVal _Text As String, _ToolStrip As ToolStrip)
-            Try
-                Dim i As Integer
-                For i = 0 To _ToolStrip.Items.Count - 1
-                    If LCase(Trim(_ToolStrip.Items(i).Text)) = LCase(Trim(_Text)) Then
-                        _ToolStrip.Items.Remove(_ToolStrip.Items(i))
-                        Exit For
-                    End If
-                Next i
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub RemoveWindowBar(ByVal lText As String)")
-            End Try
+            Dim i As Integer
+            For i = 0 To _ToolStrip.Items.Count - 1
+                If LCase(Trim(_ToolStrip.Items(i).Text)) = LCase(Trim(_Text)) Then
+                    _ToolStrip.Items.Remove(_ToolStrip.Items(i))
+                    Exit For
+                End If
+            Next i
         End Sub
         Public Sub ClearWindowBar(_ToolStrip As ToolStrip)
-            Try
-                _ToolStrip.Items.Clear()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub ClearWindowBar()")
-            End Try
+            _ToolStrip.Items.Clear()
         End Sub
         Public Sub PlayVideo(ByVal file As String)
-            Try
-                If (file.Length <> 0 And System.IO.File.Exists(file) = True) Then
-                    If lVideo.vVisible = False Then
-                        lVideo.vVisible = True
-                        lVideo.vWindow = Nothing
-                        lVideo.vWindow = New frmVideoPlayer
-                        lVideo.vWindow.Show()
-                        lVideo.vWindow.OpenAndPlay(file)
-                    Else
-                        lVideo.vWindow.OpenAndPlay(file)
-                    End If
+            If (file.Length <> 0 And System.IO.File.Exists(file) = True) Then
+                If lVideo.vVisible = False Then
+                    lVideo.vVisible = True
+                    lVideo.vWindow = Nothing
+                    lVideo.vWindow = New frmVideoPlayer
+                    lVideo.vWindow.Show()
+                    lVideo.vWindow.OpenAndPlay(file)
+                Else
+                    lVideo.vWindow.OpenAndPlay(file)
                 End If
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub PlayVideo(ByVal lFile As String)")
-            End Try
+            End If
         End Sub
         Public Sub FormClosed(_Form As Form, _NotifyIcon As NotifyIcon, _SideBarShown As Boolean)
-            Try
-                If _Form.WindowState = FormWindowState.Minimized Then _NotifyIcon.Visible = True
-                Files.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Left", _Form.Left.ToString().Trim())
-                Files.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Top", _Form.Top.ToString().Trim())
-                Files.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Width", _Form.Width.ToString().Trim())
-                Files.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Height", _Form.Height.ToString().Trim())
-                Files.WriteINI(lSettings.lINI.iIRC, "mdiMain", "SideBarShown", _SideBarShown.ToString())
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub mdiMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed")
-            End Try
+            If _Form.WindowState = FormWindowState.Minimized Then _NotifyIcon.Visible = True
+            NativeMethods.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Left", _Form.Left.ToString().Trim())
+            NativeMethods.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Top", _Form.Top.ToString().Trim())
+            NativeMethods.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Width", _Form.Width.ToString().Trim())
+            NativeMethods.WriteINI(lSettings.lINI.iIRC, "mdiMain", "Height", _Form.Height.ToString().Trim())
+            NativeMethods.WriteINI(lSettings.lINI.iIRC, "mdiMain", "SideBarShown", _SideBarShown.ToString())
         End Sub
         Public Sub FormClosing(e As System.Windows.Forms.FormClosingEventArgs, _Form As Form, _WaitForQuitTimer As Timer)
-            Try
-                lStatus.Closing = True
-                If lStatus.QuitAll() = False Then
-                    e.Cancel = True
-                    _Form.Visible = False
-                    _WaitForQuitTimer.Enabled = True
-                End If
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub mdiMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing")
-            End Try
+            lStatus.Closing = True
+            If lStatus.QuitAll() = False Then
+                e.Cancel = True
+                _Form.Visible = False
+                _WaitForQuitTimer.Enabled = True
+            End If
         End Sub
         Public Sub SetLoadingFormProgress(ByVal _Data As String, ByVal _Value As Integer)
-            Try
-                lLoadingForm.SetProgress(_Data, _Value)
-                lLoadingForm.Refresh()
-                Application.DoEvents()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub SetLoadingFormProgress(ByVal _Data As String, ByVal _Value As Integer)")
-            End Try
+            lLoadingForm.SetProgress(_Data, _Value)
+            lLoadingForm.Refresh()
+            Application.DoEvents()
         End Sub
         Public Function OpenDialogFileNames(_DialogOpen As OpenFileDialog, ByVal _InitDir As String, ByVal _Title As String, ByVal _Filter As String) As String()
-            Try
-                With _DialogOpen
-                    .Filter = _Filter
-                    .InitialDirectory = _InitDir
-                    .Title = _Title
-                    .ShowDialog()
-                    .Multiselect = True
-                    Return .FileNames
-                End With
-            Catch ex As Exception
-                Throw
-                Return Nothing
-            End Try
+            With _DialogOpen
+                .Filter = _Filter
+                .InitialDirectory = _InitDir
+                .Title = _Title
+                .ShowDialog()
+                .Multiselect = True
+                Return .FileNames
+            End With
         End Function
         Public Sub Form_Load(_Form As Form, _NotifyIcon As NotifyIcon, _TimerStartupSettings As Timer, _LeftBarButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
             Dim sideBarShown As Boolean
-            Try
-                _WindowsToolStrip.ForeColor = Color.White
-                _NotifyIcon.Visible = True
-                _NotifyIcon.Icon = _Form.Icon
-                lLoadingForm = New frmLoading
-                lLoadingForm.Show()
-                lLoadingForm.Focus()
-                Application.DoEvents()
-                SetLoadingFormProgress("Initializing Status Windows", 2)
-                lSettings.SetArraySizes()
-                lStatus = New Global.nexIRC.IRC.Status.Status(lSettings.lArraySizes.aStatusWindows)
-                SetLoadingFormProgress("Initializing Processes", 5)
-                lProcesses.Initialize()
-                SetLoadingFormProgress("Loading Settings", 7)
-                lSettings.LoadSettings()
-                lLoadingForm.Focus()
-                If lSettings.lServers.sIndex <> 0 Then lStatus.Create(lSettings.lIRC, lSettings.lServers)
-                _Form.Left = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Left", Convert.ToString(_Form.Left))))
-                _Form.Top = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Top", Convert.ToString(_Form.Top))))
-                _Form.Width = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Width", Convert.ToString(_Form.Width))))
-                _Form.Height = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "Height", Convert.ToString(_Form.Height))))
-                If lSettings.lIRC.iIdent.iSettings.iEnabled = True Then
-                    lIdent.Listen(113)
-                End If
-                SetLoadingFormProgress("Loading Complete", 100)
-                lLoadingForm.Close()
-                _TimerStartupSettings.Interval = 500
-                _TimerStartupSettings.Enabled = True
-                _Form.Text = "nexIRC v" & Application.ProductVersion
-                sideBarShown = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iIRC, "mdiMain", "SideBarShown", "False"))
-                _LeftBarButton.Left = 0
-                If (Not sideBarShown) Then
-                    _LeftNav.Visible = False
-                Else
-                    _LeftNav.Visible = True
-                End If
-                Form_Resize(_Form, _LeftBarButton, _LeftNav, _ToolStrip, _WindowsToolStrip)
-                RaiseEvent SetBackgroundColor()
-            Catch ex As Exception
-                Throw
-            End Try
+            _WindowsToolStrip.ForeColor = Color.White
+            _NotifyIcon.Visible = True
+            _NotifyIcon.Icon = _Form.Icon
+            lLoadingForm = New frmLoading
+            lLoadingForm.Show()
+            lLoadingForm.Focus()
+            Application.DoEvents()
+            SetLoadingFormProgress("Initializing Status Windows", 2)
+            lSettings.SetArraySizes()
+            lStatus = New Global.nexIRC.IRC.Status.Status(lSettings.lArraySizes.aStatusWindows)
+            SetLoadingFormProgress("Initializing Processes", 5)
+            lProcesses.Initialize()
+            SetLoadingFormProgress("Loading Settings", 7)
+            lSettings.LoadSettings()
+            lLoadingForm.Focus()
+            If lSettings.lServers.Index <> 0 Then lStatus.Create(lSettings.lIRC, lSettings.lServers)
+            _Form.Left = NativeMethods.ReadINIInt(lSettings.lINI.iIRC, "mdiMain", "Left", _Form.Left)
+            _Form.Top = NativeMethods.ReadINIInt(lSettings.lINI.iIRC, "mdiMain", "Top", _Form.Top)
+            _Form.Width = NativeMethods.ReadINIInt(lSettings.lINI.iIRC, "mdiMain", "Width", _Form.Width)
+            _Form.Height = NativeMethods.ReadINIInt(lSettings.lINI.iIRC, "mdiMain", "Height", _Form.Height)
+            If lSettings.lIRC.iIdent.iSettings.iEnabled = True Then
+                lIdent.Listen(113)
+            End If
+            SetLoadingFormProgress("Loading Complete", 100)
+            lLoadingForm.Close()
+            _TimerStartupSettings.Interval = 500
+            _TimerStartupSettings.Enabled = True
+            _Form.Text = "nexIRC v" & Application.ProductVersion
+            sideBarShown = NativeMethods.ReadINIBool(lSettings.lINI.iIRC, "mdiMain", "SideBarShown", False)
+            _LeftBarButton.Left = 0
+            If (Not sideBarShown) Then
+                _LeftNav.Visible = False
+            Else
+                _LeftNav.Visible = True
+            End If
+            Form_Resize(_Form, _LeftBarButton, _LeftNav, _ToolStrip, _WindowsToolStrip)
+            RaiseEvent SetBackgroundColor()
         End Sub
         Public Sub Form_Resize(_Form As Form, _LeftButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
             Try
@@ -346,7 +299,7 @@ Namespace nexIRC.MainWindow
                     End Select
                 ElseIf InStr(_QueryPromptLabel.Tag.ToString, ":") <> 0 Then
                     splt = Split(_QueryPromptLabel.Tag.ToString, ":")
-                    If lSettings.lQuerySettings.qAutoShowWindow = True Then
+                    If lSettings.lQuerySettings.AutoShowWindow = True Then
                         _NickName = lStrings.ParseData(_QueryPromptLabel.Text, "'", "(")
                         _HostName = lStrings.ParseData(_QueryPromptLabel.Text, "(", ")")
                         lStatus.PrivateMessage_Add(Convert.ToInt32(Trim(splt(0))), _NickName, _HostName, splt(2), True)
@@ -678,17 +631,16 @@ Namespace nexIRC.MainWindow
             End Try
         End Sub
         Public Sub cmdAccept_Click(_UserToolStripLabel As ToolStripLabel, _ToolStrip As ToolStrip, _DCCToolBarToolStrip As ToolStrip)
-            Try
-                Dim splt() As String, lForm As New frmDCCGet
-                splt = Split(_UserToolStripLabel.Tag.ToString, Environment.NewLine)
+            Dim n = 0
+            Dim splt() As String, lForm As New frmDCCGet
+            splt = Split(_UserToolStripLabel.Tag.ToString, Environment.NewLine)
+            If (Integer.TryParse(splt(2), n)) Then
                 _ToolStrip.Visible = False
                 _DCCToolBarToolStrip.Visible = False
                 _ToolStrip.Visible = True
-                lForm.InitDCCGet(splt(0), splt(1), splt(2), splt(3), splt(4))
+                lForm.InitDCCGet(splt(0), splt(1), n, splt(3), splt(4))
                 lForm.Show()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmdAccept_Click()")
-            End Try
+            End If
         End Sub
         Public Sub cmdDeny_Click(_DCCToolBarToolStrip As ToolStrip)
             Try

@@ -34,11 +34,11 @@ Namespace IRC.UtilityWindows
                 End If
                 _NetworkIndex = lSettings.FindNetworkIndex(_Network)
                 If _NetworkIndex <> 0 Then
-                    _NetworkIndex = lSettings.AddServer(_Network, _IpTextBox.Text, _NetworkIndex, Convert.ToInt64(_PortTextBox.Text.Trim))
+                    _NetworkIndex = lSettings.AddServer(_Network, _IpTextBox.Text, _NetworkIndex, _PortTextBox.Text.ToLong)
                 End If
                 If lConnectSetting = True Then
-                    lSettings.lServers.sIndex = _NetworkIndex
-                    lStatus.SetRemoteSettings(lStatus.ActiveIndex(), _IpTextBox.Text, Convert.ToInt64(_PortTextBox.Text.Trim))
+                    lSettings.lServers.Index = _NetworkIndex
+                    lStatus.SetRemoteSettings(lStatus.ActiveIndex(), _IpTextBox.Text, _PortTextBox.Text.ToLong)
                     lStatus.ActiveStatusConnect()
                 End If
                 _Form.Close()

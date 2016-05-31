@@ -1,8 +1,9 @@
-﻿'nexIRC 3.0.30
-'04-23-2016 - guideX
+﻿'nexIRC 3.0.31
+'05-30-2016 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.clsIrcNumerics
+Imports nexIRC.Enum
 Imports nexIRC.Modules
 Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
 Imports Telerik.WinControls.UI
@@ -121,9 +122,9 @@ Namespace IRC.Channels
             With lChannels.cChannel(_ChannelIndex)
                 .cWindow = New frmChannel
                 .cWindow.Show()
-                .cWindow.MdiChildWindow.FormType = MdiChildWindow.FormTypes.Channel
+                .cWindow.MdiChildWindow.FormType = FormTypes.Channel
                 .cWindow.MdiChildWindow.MeIndex = _ChannelIndex
-                .cWindow.MdiChildWindow.Form_Load(MdiChildWindow.FormTypes.Channel)
+                .cWindow.MdiChildWindow.Form_Load(FormTypes.Channel)
                 lStrings.Print(.cIncomingText, .cWindow.txtIncoming)
                 .cWindow.Text = .cName
                 .cWindow.Icon = mdiMain.Icon

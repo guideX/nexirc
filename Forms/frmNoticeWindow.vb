@@ -1,7 +1,8 @@
-'nexIRC 3.0.30
-'04-23-2016 - guideX
 Option Explicit On
 Option Strict On
+'nexIRC 3.0.31
+'05-30-2016 - guideX
+Imports nexIRC.Enum
 Imports nexIRC.Modules
 Public Class frmNoticeWindow
     Private lStatusIndex As Integer
@@ -25,7 +26,7 @@ Public Class frmNoticeWindow
         End Set
     End Property
 
-    Public Property FormType() As MdiChildWindow.FormTypes
+    Public Property FormType() As FormTypes
         Get
             Try
                 Return lMdiWindow.FormType
@@ -33,7 +34,7 @@ Public Class frmNoticeWindow
                 Throw
             End Try
         End Get
-        Set(value As MdiChildWindow.FormTypes)
+        Set(value As FormTypes)
             Try
                 lMdiWindow.FormType = value
             Catch ex As Exception
@@ -113,7 +114,7 @@ Public Class frmNoticeWindow
                     e.Handled = True
                 Else
                     If (Not String.IsNullOrEmpty(txtOutgoing.Text)) Then
-                        If (lMdiWindow.FormType = MdiChildWindow.FormTypes.PrivateMessage) Then
+                        If (lMdiWindow.FormType = FormTypes.PrivateMessage) Then
                             msg = txtOutgoing.Text
                             lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & _privateMessageNickName & " :" & msg)
                             txtOutgoing.Text = ""

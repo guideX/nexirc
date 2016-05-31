@@ -1,5 +1,5 @@
-﻿'nexIRC 3.0.30
-'04-23-2016 - guideX
+﻿'nexIRC 3.0.31
+'05-30-2016 - guideX
 Option Explicit On
 Option Strict On
 Public Class frmSharedAdd

@@ -1,14 +1,19 @@
-﻿'nexIRC 3.0.30
-'04-23-2016 - guideX
+﻿'nexIRC 3.0.31
+'05-30-2016 - guideX
 Option Explicit On
 Option Strict On
 Imports System.IO
 Imports Telerik.WinControls.UI
-Imports nexIRC.Classes.IO
 Imports nexIRC.Modules
 Imports nexIRC.Enum
 Imports nexIRC.Models.Compatibility
 Imports nexIRC.Models.Media
+Imports nexIRC.Business.Helpers
+Imports nexIRC.Models.ChannelFolder
+Imports nexIRC.Models.Query
+Imports nexIRC.Models
+Imports nexIRC.Models.Network
+Imports nexIRC.Models.Server
 
 Public Class Settings
     Structure gArraySizes
@@ -38,67 +43,6 @@ Public Class Settings
         Public aPlaylists As Integer
         Public aMediaFiles As Integer
         Public aSub As Integer
-    End Structure
-
-    Structure gQuery
-        Public qAutoAllow As QueryOption
-        Public qAutoDeny As QueryOption
-        Public qStandByMessage As String
-        Public qDeclineMessage As String
-        Public qEnableSpamFilter As Boolean
-        Public qPromptUser As Boolean
-        Public qAutoAllowList() As String
-        Public qAutoDenyList() As String
-        Public qSpamPhrases() As String
-        Public qSpamPhraseCount As Integer
-        Public qAutoAllowCount As Integer
-        Public qAutoDenyCount As Integer
-        Public qAutoShowWindow As Boolean
-    End Structure
-
-    Structure gChannelFolder
-        Public cChannel As String
-        Public cNetwork As String
-        Public cOrder As Integer
-    End Structure
-
-    Structure gChannelFolders
-        Public cChannelFolder() As gChannelFolder
-        Public cCount As Integer
-    End Structure
-
-    Structure gModes
-        Public mInvisible As Boolean
-        Public mWallops As Boolean
-        Public mRestricted As Boolean
-        Public mOperator As Boolean
-        Public mLocalOperator As Boolean
-        Public mServerNotices As Boolean
-    End Structure
-
-    Structure gNetwork
-        Public nDescription As String
-    End Structure
-
-    Structure gNetworks
-        Public nCount As Integer
-        Public nIndex As Integer
-        Public nSelected As Object
-        Public nNetwork() As gNetwork
-    End Structure
-
-    Structure gServer
-        Public sIP As String
-        Public sPort As Long
-        Public sDescription As String
-        Public sNetworkIndex As Integer
-    End Structure
-
-    Structure gServers
-        Public sModified As Boolean
-        Public sCount As Integer
-        Public sIndex As Integer
-        Public sServer() As gServer
     End Structure
 
     Structure gINI
@@ -232,7 +176,7 @@ Public Class Settings
         Public iRealName As String
         Public iOperName As String
         Public iOperPass As String
-        Public iModes As gModes
+        Public iModes As ModeModel
     End Structure
 
     Structure gWinVisible
@@ -243,13 +187,6 @@ Public Class Settings
         Public wEditServer As Boolean
     End Structure
 
-    Enum eServiceType
-        sNone = 0
-        sChanServ = 1
-        sNickServ = 2
-        sMemoServ = 3
-        sX = 4
-    End Enum
     Structure gRecientServers
         Public sCount As Integer
         Public sItem() As String
@@ -261,11 +198,11 @@ Public Class Settings
     Public lINI As gINI
     Public lWinVisible As gWinVisible
     Public lIRC As gIRC
-    Public lServers As gServers
-    Public lNetworks As gNetworks
-    Public lChannelFolders As gChannelFolders
+    Public lServers As ServersModel = New ServersModel
+    Public lNetworks As NetworksModel = New NetworksModel
+    Public lChannelFolders As List(Of ChannelFolderModel) = New List(Of ChannelFolderModel)
     Public lNotify As gNotifyList
-    Public lQuerySettings As gQuery
+    Public lQuerySettings As QueryModel
     Public lRecientServers As gRecientServers
     Public lPlaylists As List(Of PlaylistModel) = New List(Of PlaylistModel)
     Public lMediaFiles As List(Of MediaFileModel) = New List(Of MediaFileModel)
@@ -292,24 +229,22 @@ Public Class Settings
 
     Public Sub SaveCompatibility()
         Dim i As Integer
-        'If lCompatibility.Modified = True Then
-        Files.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.Count.ToString))
+        NativeMethods.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.Count.ToString))
         For i = 1 To lCompatibility.Capacity
             With lCompatibility(i)
-                Files.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", .Description)
-                Files.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", Trim(.Enabled.ToString))
+                NativeMethods.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", .Description)
+                NativeMethods.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", Trim(.Enabled.ToString))
             End With
         Next i
-        'End If
     End Sub
 
     Public Sub LoadCompatibility()
         Dim i As Integer, c As Integer
-        c = Convert.ToInt32(Trim(Files.ReadINI(lINI.iCompatibility, "Settings", "Count", "0")))
+        c = NativeMethods.ReadINIInt(lINI.iCompatibility, "Settings", "Count", 0)
         For i = 1 To c
             Dim newItem = New CompatibilityModel()
-            newItem.Description = Files.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Description", "")
-            newItem.Enabled = Convert.ToBoolean(Files.ReadINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", "False"))
+            newItem.Description = NativeMethods.ReadINI(lINI.iCompatibility, i.ToString, "Description", "")
+            newItem.Enabled = NativeMethods.ReadINIBool(lINI.iCompatibility, i.ToString, "Enabled", False)
             lCompatibility.Add(newItem)
         Next i
     End Sub
@@ -360,16 +295,11 @@ Public Class Settings
 
     Public Sub LoadPlaylists()
         Dim i As Integer
-        'ReDim lPlaylists.pPlaylist(lArraySizes.aPlaylists)
-        Dim c = Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, "Settings", "Count", "0")))
+        Dim c = NativeMethods.ReadINIInt(lINI.iPlaylists, "Settings", "Count", 0)
         For i = 1 To c
             Dim p = New PlaylistModel
-            p.Name = Files.ReadINI(lINI.iPlaylists, "Settings", Trim(i.ToString), "Name")
-            p.Type = CType(Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, Trim(i.ToString), "Type", "0"))), PlaylistType)
-            'With lPlaylists.pPlaylist(i)
-            '.Name = Files.ReadINI(lINI.iPlaylists, "Settings", Trim(i.ToString), "Name")
-            '.Type = CType(Convert.ToInt32(Trim(Files.ReadINI(lINI.iPlaylists, Trim(i.ToString), "Type", "0"))), PlaylistType)
-            'End With
+            p.Name = NativeMethods.ReadINI(lINI.iPlaylists, "Settings", Trim(i.ToString), "Name")
+            p.Type = CType(NativeMethods.ReadINIInt(lINI.iPlaylists, Trim(i.ToString), "Type", 0), PlaylistType)
         Next i
     End Sub
 
@@ -383,10 +313,10 @@ Public Class Settings
         Try
             Dim i As Integer
             With lMediaFiles
-                Dim n = Convert.ToInt32(Trim(Files.ReadINI(lINI.iMedia, "Settings", "Count", "0")))
+                Dim n = NativeMethods.ReadINIInt(lINI.iMedia, "Settings", "Count", 0)
                 For i = 1 To n
                     Dim f = New MediaFileModel
-                    f.File = Files.ReadINI(lINI.iMedia, Trim(i.ToString), "File", "")
+                    f.File = NativeMethods.ReadINI(lINI.iMedia, i.ToString, "File", "")
                 Next i
             End With
         Catch ex As Exception
@@ -398,9 +328,9 @@ Public Class Settings
         Try
             Dim i As Integer
             With lMediaFiles
-                Files.WriteINI(lINI.iMedia, "Settings", "Count", Trim(lMediaFiles.Count.ToString))
+                NativeMethods.WriteINI(lINI.iMedia, "Settings", "Count", Trim(lMediaFiles.Count.ToString))
                 For i = 1 To lMediaFiles.Count
-                    Files.WriteINI(lINI.iMedia, Trim(i.ToString), "File", lMediaFiles(i).File)
+                    NativeMethods.WriteINI(lINI.iMedia, Trim(i.ToString), "File", lMediaFiles(i).File)
                 Next i
             End With
         Catch ex As Exception
@@ -431,7 +361,7 @@ Public Class Settings
         Try
             Dim msg As String
             If lServerIndex <> 0 Then
-                msg = lServers.sServer(lServerIndex).sIP
+                msg = lServers.Servers(lServerIndex).Ip
                 If msg = lRecientServers.sItem(1) Or msg = lRecientServers.sItem(2) Or msg = lRecientServers.sItem(3) Then Exit Sub
                 lRecientServers.sItem(3) = lRecientServers.sItem(2)
                 lRecientServers.sItem(2) = lRecientServers.sItem(1)
@@ -450,7 +380,7 @@ Public Class Settings
             lRecientServers.sCount = lArraySizes.aRecientServers
             ReDim lRecientServers.sItem(lRecientServers.sCount)
             For i = 1 To lRecientServers.sCount
-                lRecientServers.sItem(i) = Files.ReadINI(lINI.iRecientServers, "Items", Trim(i.ToString), "")
+                lRecientServers.sItem(i) = NativeMethods.ReadINI(lINI.iRecientServers, "Items", Trim(i.ToString), "")
             Next i
             RefreshRecientServersMenu()
         Catch ex As Exception
@@ -490,7 +420,7 @@ Public Class Settings
         Try
             Dim i As Integer
             For i = 1 To lRecientServers.sCount
-                Files.WriteINI(lINI.iRecientServers, "Items", Trim(i.ToString), lRecientServers.sItem(i))
+                NativeMethods.WriteINI(lINI.iRecientServers, "Items", Trim(i.ToString), lRecientServers.sItem(i))
             Next i
         Catch ex As Exception
             Throw
@@ -529,64 +459,49 @@ Public Class Settings
     End Function
 
     Public Sub LoadQuerySettings()
-        Try
-            Dim i As Integer
-            With lQuerySettings
-                .qAutoAllow = CType(Files.ReadINI(lINI.iQuery, "Settings", "AutoAllow", "1"), QueryOption)
-                .qAutoDeny = CType(Files.ReadINI(lINI.iQuery, "Settings", "AutoDeny", "1"), QueryOption)
-                .qStandByMessage = Files.ReadINI(lINI.iQuery, "Settings", "StandByMessage", "")
-                .qDeclineMessage = Files.ReadINI(lINI.iQuery, "Settings", "DeclineMessage", "")
-                .qEnableSpamFilter = Convert.ToBoolean(Files.ReadINI(lINI.iQuery, "Settings", "EnableSpamFilter ", "True"))
-                .qPromptUser = Convert.ToBoolean(Files.ReadINI(lINI.iQuery, "Settings", "PromptUser", "False"))
-                .qAutoAllowCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iQuery, "Settings", "AutoAllowCount", "0")))
-                .qAutoDenyCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iQuery, "Settings", "AutoDenyCount", "0")))
-                .qSpamPhraseCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iQuery, "Settings", "SpamPhraseCount", "0")))
-                .qAutoShowWindow = Convert.ToBoolean(Trim(Files.ReadINI(lINI.iQuery, "Settings", "AutoShowWindow", "True")))
-                ReDim .qAutoAllowList(lArraySizes.aAutoAllowList)
-                ReDim .qAutoDenyList(lArraySizes.aAutoDenyList)
-                ReDim .qSpamPhrases(lArraySizes.aSpamFilterCount)
-                For i = 1 To .qAutoAllowCount
-                    .qAutoAllowList(i) = Files.ReadINI(lINI.iQuery, "AutoAllowList", Trim(i.ToString), "")
-                Next i
-                For i = 1 To .qAutoDenyCount
-                    .qAutoDenyList(i) = Files.ReadINI(lINI.iQuery, "AutoDenyList", Trim(i.ToString), "")
-                Next i
-                For i = 1 To .qSpamPhraseCount
-                    .qSpamPhrases(i) = Files.ReadINI(lINI.iQuery, "SpamPhrases", Trim(i.ToString), "")
-                Next
-            End With
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim i As Integer
+        lQuerySettings = New QueryModel
+        lQuerySettings.AutoAllow = CType(NativeMethods.ReadINI(lINI.iQuery, "Settings", "AutoAllow", "1"), QueryOption)
+        lQuerySettings.AutoDeny = CType(NativeMethods.ReadINI(lINI.iQuery, "Settings", "AutoDeny", "1"), QueryOption)
+        lQuerySettings.StandByMessage = NativeMethods.ReadINI(lINI.iQuery, "Settings", "StandByMessage", "")
+        lQuerySettings.DeclineMessage = NativeMethods.ReadINI(lINI.iQuery, "Settings", "DeclineMessage", "")
+        lQuerySettings.EnableSpamFilter = NativeMethods.ReadINIBool(lINI.iQuery, "Settings", "EnableSpamFilter ", True)
+        lQuerySettings.PromptUser = NativeMethods.ReadINIBool(lINI.iQuery, "Settings", "PromptUser", False)
+        lQuerySettings.AutoShowWindow = NativeMethods.ReadINIBool(lINI.iQuery, "Settings", "AutoShowWindow", True)
+        For i = 1 To NativeMethods.ReadINIInt(lINI.iQuery, "Settings", "AutoAllowCount", 0)
+            lQuerySettings.AutoAllowList.Add(NativeMethods.ReadINI(lINI.iQuery, "AutoAllowList", i.ToString, ""))
+        Next i
+        For i = 0 To lQuerySettings.AutoDenyList.Count - 1
+            lQuerySettings.AutoDenyList(i) = NativeMethods.ReadINI(lINI.iQuery, "AutoDenyList", i.ToString, "")
+        Next i
+        For i = 0 To lQuerySettings.SpamPhrases.Count - 1
+            lQuerySettings.SpamPhrases(i) = NativeMethods.ReadINI(lINI.iQuery, "SpamPhrases", Trim(i.ToString), "")
+        Next i
     End Sub
 
     Public Sub SaveQuerySettings()
-        Try
-            Dim i As Integer
-            With lQuerySettings
-                Files.WriteINI(lINI.iQuery, "Settings", "AutoAllow", Trim(CType(.qAutoAllow, Integer).ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "AutoDeny", Trim(CType(.qAutoDeny, Integer).ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "StandByMessage", .qStandByMessage)
-                Files.WriteINI(lINI.iQuery, "Settings", "DeclineMessage", .qDeclineMessage)
-                Files.WriteINI(lINI.iQuery, "Settings", "EnableSpamFilter", Trim(.qEnableSpamFilter.ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "PromptUser", Trim(.qPromptUser.ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "AutoAllowCount", Trim(.qAutoAllowCount.ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "AutoDenyCount", Trim(.qAutoDenyCount.ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "SpamPhraseCount", Trim(.qSpamPhraseCount.ToString))
-                Files.WriteINI(lINI.iQuery, "Settings", "AutoShowWindow", Trim(.qAutoShowWindow.ToString))
-                For i = 1 To .qAutoAllowCount
-                    Files.WriteINI(lINI.iQuery, "AutoAllowList", Trim(i.ToString), .qAutoAllowList(i))
-                Next i
-                For i = 1 To .qAutoDenyCount
-                    Files.WriteINI(lINI.iQuery, "AutoDenyList", Trim(i.ToString), .qAutoDenyList(i))
-                Next i
-                For i = 1 To .qSpamPhraseCount
-                    Files.WriteINI(lINI.iQuery, "SpamPhrases", Trim(i.ToString), .qSpamPhrases(i))
-                Next i
-            End With
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim i As Integer
+        With lQuerySettings
+            NativeMethods.WriteINI(lINI.iQuery, "Settings", "AutoAllow", Convert.ToInt32(.AutoAllow).ToString)
+            NativeMethods.WriteINI(lINI.iQuery, "Settings", "AutoDeny", Convert.ToInt32(.AutoDeny).ToString)
+            NativeMethods.WriteINI(lINI.iQuery, "Settings", "StandByMessage", .StandByMessage)
+            NativeMethods.WriteINI(lINI.iQuery, "Settings", "DeclineMessage", .DeclineMessage)
+            NativeMethods.WriteINI(lINI.iQuery, "Settings", "EnableSpamFilter", Trim(.EnableSpamFilter.ToString))
+            NativeMethods.WriteINI(lINI.iQuery, "Settings", "PromptUser", Trim(.PromptUser.ToString))
+            NativeMethods.WriteINI(lINI.iQuery, "Settings", "AutoAllowCount", .AutoAllowList.Count.ToString)
+            NativeMethods.WriteINI(lINI.iQuery, "Settings", "AutoDenyCount", .AutoDenyList.Count.ToString)
+            NativeMethods.WriteINI(lINI.iQuery, "Settings", "SpamPhraseCount", Trim(.SpamPhrases.Count.ToString))
+            NativeMethods.WriteINI(lINI.iQuery, "Settings", "AutoShowWindow", Trim(.AutoShowWindow.ToString))
+            For i = 1 To .AutoAllowList.Count
+                NativeMethods.WriteINI(lINI.iQuery, "AutoAllowList", Trim(i.ToString), .AutoAllowList(i))
+            Next i
+            For i = 1 To .AutoDenyList.Count
+                NativeMethods.WriteINI(lINI.iQuery, "AutoDenyList", Trim(i.ToString), .AutoDenyList(i))
+            Next i
+            For i = 1 To .SpamPhrases.Count
+                NativeMethods.WriteINI(lINI.iQuery, "SpamPhrases", Trim(i.ToString), .SpamPhrases(i))
+            Next i
+        End With
     End Sub
 
     Public Sub PopulateNotifyByListView(ByVal lListView As RadListView)
@@ -635,13 +550,13 @@ Public Class Settings
     Public Sub LoadNotifyList()
         Dim i As Integer
         ReDim lNotify.nNotify(lArraySizes.aNotifyItems)
-        lNotify.nCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iNotify, "Settings", "Count", "0")))
+        lNotify.nCount = Convert.ToInt32(Trim(NativeMethods.ReadINI(lINI.iNotify, "Settings", "Count", "0")))
         If lNotify.nCount <> 0 Then
             For i = 1 To lNotify.nCount
                 With lNotify.nNotify(i)
-                    .nNickName = Files.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "NickName", "")
-                    .nMessage = Files.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "Message", "")
-                    .nNetwork = Files.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "Network", "")
+                    .nNickName = NativeMethods.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "NickName", "")
+                    .nMessage = NativeMethods.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "Message", "")
+                    .nNetwork = NativeMethods.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "Network", "")
                 End With
             Next i
         End If
@@ -663,12 +578,12 @@ Public Class Settings
     Public Sub SaveNotifyList()
         Dim i As Integer
         If lNotify.nModified = True Then
-            Files.WriteINI(lINI.iNotify, "Settings", "Count", Trim(lNotify.nCount.ToString))
+            NativeMethods.WriteINI(lINI.iNotify, "Settings", "Count", Trim(lNotify.nCount.ToString))
             For i = 1 To lNotify.nCount
                 With lNotify.nNotify(i)
-                    Files.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "NickName", .nNickName)
-                    Files.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "Message", .nMessage)
-                    Files.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "Network", .nNetwork)
+                    NativeMethods.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "NickName", .nNickName)
+                    NativeMethods.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "Message", .nMessage)
+                    NativeMethods.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "Network", .nNetwork)
                 End With
             Next i
             lNotify.nModified = False
@@ -729,8 +644,8 @@ Public Class Settings
             .aStatusWindows = 300
             .aStrings = 300
         End With
-        ReDim lNetworks.nNetwork(lArraySizes.aNetworks)
-        ReDim lServers.sServer(lArraySizes.aServers)
+        'ReDim lNetworks.Networks(lArraySizes.aNetworks)
+        'ReDim lServers.Server(lArraySizes.aServers)
         ReDim lIRC.iNicks.nNick(lArraySizes.aNickNames)
     End Sub
 
@@ -763,13 +678,13 @@ Public Class Settings
     Private Sub LoadNickNames()
         Dim i As Integer
         With lIRC.iNicks
-            .nCount = Convert.ToInt32(Files.ReadINI(lINI.iNicks, "Settings", "Count", "0"))
-            If .nCount <> 0 Then .nIndex = Convert.ToInt32(Files.ReadINI(lINI.iNicks, "Settings", "Index", "0"))
+            .nCount = Convert.ToInt32(NativeMethods.ReadINI(lINI.iNicks, "Settings", "Count", "0"))
+            If .nCount <> 0 Then .nIndex = Convert.ToInt32(NativeMethods.ReadINI(lINI.iNicks, "Settings", "Index", "0"))
         End With
         If lIRC.iNicks.nCount <> 0 Then
             For i = 1 To lIRC.iNicks.nCount
                 With lIRC.iNicks.nNick(i)
-                    .nNick = Files.ReadINI(lINI.iNicks, Trim(Str(i)), "Nick", "")
+                    .nNick = NativeMethods.ReadINI(lINI.iNicks, Trim(Str(i)), "Nick", "")
                 End With
             Next i
         End If
@@ -777,69 +692,53 @@ Public Class Settings
 
     Private Sub LoadIdent()
         With lIRC.iIdent
-            .iSettings.iEnabled = Convert.ToBoolean(Files.ReadINI(lINI.iIdent, "Settings", "Enabled", Convert.ToString(True)))
+            .iSettings.iEnabled = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIdent, "Settings", "Enabled", Convert.ToString(True)))
             If .iSettings.iEnabled = True Then
-                .iUserID = Files.ReadINI(lINI.iIdent, "Settings", "UserID", "")
-                .iPort = Convert.ToInt64(Files.ReadINI(lINI.iIdent, "Settings", "Port", "0"))
-                .iSystem = Files.ReadINI(lINI.iIdent, "Settings", "System", "")
+                .iUserID = NativeMethods.ReadINI(lINI.iIdent, "Settings", "UserID", "")
+                .iPort = Convert.ToInt64(NativeMethods.ReadINI(lINI.iIdent, "Settings", "Port", "0"))
+                .iSystem = NativeMethods.ReadINI(lINI.iIdent, "Settings", "System", "")
             End If
         End With
     End Sub
 
     Public Sub LoadNetworks()
-        Dim i As Integer
-        With lNetworks
-            .nCount = Convert.ToInt32(Files.ReadINI(lINI.iNetworks, "Settings", "Count", "0"))
-            If .nCount <> 0 Then .nIndex = Convert.ToInt32(Files.ReadINI(lINI.iNetworks, "Settings", "Index", ""))
-        End With
-        If lNetworks.nCount <> 0 Then
-            For i = 1 To lNetworks.nCount
-                With lNetworks.nNetwork(i)
-                    .nDescription = Files.ReadINI(lINI.iNetworks, Trim(Convert.ToString(i)), "Description", "")
-                End With
+        Dim c = 0, index = 0
+        c = NativeMethods.ReadINIInt(lINI.iNetworks, "Settings", "Count", 0)
+        If c <> 0 Then index = NativeMethods.ReadINIInt(lINI.iNetworks, "Settings", "Index", 0)
+        If c <> 0 Then
+            lNetworks = New NetworksModel()
+            lNetworks.Index = index
+            For i As Integer = 1 To c
+                Dim n = New NetworkModel
+                n.Name = NativeMethods.ReadINI(lINI.iNetworks, i.ToString, "Description", "")
+                n.ID = i
+                If (Not String.IsNullOrEmpty(n.Name)) Then
+                    lNetworks.Networks.Add(n)
+                End If
             Next i
         End If
     End Sub
 
     Private Sub LoadServers()
-        Dim msg As String, msg2 As String, splt() As String, splt2() As String
-        Dim lIndex As Integer
-        ReDim lServers.sServer(lArraySizes.aServers)
-        msg2 = My.Computer.FileSystem.ReadAllText(lINI.iServers)
-        splt = Split(msg2, Environment.NewLine)
-        For Each msg In splt
-            If LCase(msg) = "[settings]" Then
-            Else
-                If Left(msg, 1) = "[" And Right(msg, 1) = "]" Then
-                    lIndex = Convert.ToInt32(Trim(lStrings.ParseData(msg, "[", "]")))
-                    lServers.sCount = lIndex
-                Else
-                    splt2 = Split(msg, "=")
-                    Select Case LCase(splt2(0))
-                        Case "count"
-                            lServers.sCount = Convert.ToInt32(Trim(splt2(1)))
-                        Case "index"
-                            lServers.sIndex = Convert.ToInt32(Trim(splt2(1)))
-                        Case "description"
-                            lServers.sServer(lIndex).sDescription = splt2(1).ToString
-                        Case "ip"
-                            lServers.sServer(lIndex).sIP = splt2(1).ToString
-                        Case "networkindex"
-                            lServers.sServer(lIndex).sNetworkIndex = Convert.ToInt32(Trim(splt2(1)))
-                        Case "port"
-                            lServers.sServer(lIndex).sPort = Convert.ToInt32(Trim(splt2(1).ToString))
-                    End Select
-                End If
+        lServers.Servers = New List(Of ServerModel)
+        lServers.Index = NativeMethods.ReadINIInt(lINI.iServers, "Settings", "Index", 0)
+        For i As Integer = 1 To NativeMethods.ReadINIInt(lINI.iServers, "Settings", "Count", 0)
+            Dim server = New ServerModel
+            server.Description = NativeMethods.ReadINI(lINI.iServers, i.ToString, "Description", "")
+            server.Ip = NativeMethods.ReadINI(lINI.iServers, i.ToString, "Ip", "")
+            server.NetworkIndex = NativeMethods.ReadINIInt(lINI.iServers, i.ToString, "NetworkIndex", 0)
+            server.Port = NativeMethods.ReadINIInt(lINI.iServers, i.ToString, "Port", 0)
+            If (Not String.IsNullOrEmpty(server.Description) And Not String.IsNullOrEmpty(server.Ip)) Then
+                lServers.Servers.Add(server)
             End If
-        Next msg
-        If Err.Number <> 0 Then MsgBox(Err.Description)
+        Next i
     End Sub
 
     Public Sub LoadStringSettings()
         Dim i As Integer
         With lIRC.iSettings.sStringSettings
             i = 0
-            i = Convert.ToInt32(Trim(Files.ReadINI(lINI.iStringSettings, "Settings", "Unknowns", "2")))
+            i = Convert.ToInt32(Trim(NativeMethods.ReadINI(lINI.iStringSettings, "Settings", "Unknowns", "2")))
             Select Case i
                 Case 1
                     .sUnknowns = UnknownsIn.StatusWindow
@@ -849,7 +748,7 @@ Public Class Settings
                     .sUnknowns = UnknownsIn.Hide
             End Select
             i = 0
-            i = Convert.ToInt32(Trim(Files.ReadINI(lINI.iStringSettings, "Settings", "Unsupported", "2")))
+            i = Convert.ToInt32(Trim(NativeMethods.ReadINI(lINI.iStringSettings, "Settings", "Unsupported", "2")))
             Select Case i
                 Case 1
                     .sUnsupported = UnsupportedIn.StatusWindow
@@ -858,7 +757,7 @@ Public Class Settings
                 Case 3
                     .sUnsupported = UnsupportedIn.Hide
             End Select
-            '.sServerInNotices = Convert.ToBoolean(Trim(files.ReadINI(lINI.iStringSettings, "Settings", "ServerInNotices", "True")))
+            '.sServerInNotices = Convert.ToBoolean(Trim(NativeMethods.ReadINI(lINI.iStringSettings, "Settings", "ServerInNotices", "True")))
         End With
     End Sub
 
@@ -866,11 +765,11 @@ Public Class Settings
         Dim i As Integer
         ReDim lDownloadManager.dDownload(lArraySizes.aDownloadManager)
         With lDownloadManager
-            .dCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iDownloadManager, "Settings", "Count", "0")))
+            .dCount = Convert.ToInt32(Trim(NativeMethods.ReadINI(lINI.iDownloadManager, "Settings", "Count", "0")))
             For i = 1 To .dCount
-                .dDownload(i).dFileName = Files.ReadINI(lINI.iDownloadManager, Trim(i.ToString), "FileName", "")
-                .dDownload(i).dFilePath = Files.ReadINI(lINI.iDownloadManager, Trim(i.ToString), "FilePath", "")
-                .dDownload(i).dNickName = Files.ReadINI(lINI.iDownloadManager, Trim(i.ToString), "NickName", "")
+                .dDownload(i).dFileName = NativeMethods.ReadINI(lINI.iDownloadManager, Trim(i.ToString), "FileName", "")
+                .dDownload(i).dFilePath = NativeMethods.ReadINI(lINI.iDownloadManager, Trim(i.ToString), "FilePath", "")
+                .dDownload(i).dNickName = NativeMethods.ReadINI(lINI.iDownloadManager, Trim(i.ToString), "NickName", "")
             Next i
         End With
     End Sub
@@ -918,41 +817,41 @@ Public Class Settings
             LoadDownloadManager()
             mdiMain.SetLoadingFormProgress("Loading IRC Settings", 70)
             With lIRC.iSettings
-                .sChannelFolderCloseOnJoin = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ChannelFolderCloseOnJoin", "True"))
-                .sShowUserAddresses = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ShowUserAddresses", "True"))
-                .sHideMOTD = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "HideMOTD", "True"))
-                .sPrompts = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Prompts", "True"))
-                .sShowRawWindow = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ShowRawWindow", "False"))
-                .sExtendedMessages = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ExtendedMessages", "True"))
-                .sNoIRCMessages = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "NoIRCMessages", "False"))
-                .sCustomizeOnStartup = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", "False"))
-                .sPopupChannelFolders = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "PopupChannelFolders", "True"))
-                .sMOTDInOwnWindow = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "MOTDInOwnWindow", "True"))
-                .sChangeNickNameWindow = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", "True"))
-                .sNoticesInOwnWindow = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", "True"))
-                .sURL = Files.ReadINI(lINI.iIRC, "Settings", "URL", "http://www.bing.com")
-                .sShowWindowsAutomatically = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", "False"))
-                .sAutoMaximize = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoMaximize", "False"))
-                .sQuitMessage = Files.ReadINI(lINI.iIRC, "Settings", "QuitMessage", "nexIRC - http://www.team-nexgen.com/")
-                .sAutoConnect = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoConnect", "False"))
-                .sVideoBackground = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "VideoBackground", "True"))
-                .sAutoNavigateChannelUrls = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoNavigateChannelUrls", "True"))
-                .sCloseWindowOnDisconnect = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "CloseWindowOnDisconnect", "False"))
-                .sAutoAddToChannelFolder = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "AutoAddToChannelFolder", "True"))
-                .sWindowSizes.iChannel.wWidth = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialChannelWidth", "600")))
-                .sWindowSizes.iChannel.wHeight = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialChannelHeight", "200")))
-                .sWindowSizes.lStatus.wWidth = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialStatusWidth", "600")))
-                .sWindowSizes.lStatus.wHeight = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialStatusHeight", "200")))
-                .sWindowSizes.iNotice.wWidth = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialNoticeWidth", "600")))
-                .sWindowSizes.iNotice.wHeight = Convert.ToInt32(Trim(Files.ReadINI(lINI.iIRC, "Settings", "InitialNoticeHeight", "200")))
-                .sTextBufferSize = Convert.ToInt32(Files.ReadINI(lINI.iIRC, "Settings", "TextBufferSize", "150"))
+                .sChannelFolderCloseOnJoin = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "ChannelFolderCloseOnJoin", "True"))
+                .sShowUserAddresses = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "ShowUserAddresses", "True"))
+                .sHideMOTD = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "HideMOTD", "True"))
+                .sPrompts = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "Prompts", "True"))
+                .sShowRawWindow = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "ShowRawWindow", "False"))
+                .sExtendedMessages = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "ExtendedMessages", "True"))
+                .sNoIRCMessages = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "NoIRCMessages", "False"))
+                .sCustomizeOnStartup = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", "False"))
+                .sPopupChannelFolders = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "PopupChannelFolders", "True"))
+                .sMOTDInOwnWindow = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "MOTDInOwnWindow", "True"))
+                .sChangeNickNameWindow = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", "True"))
+                .sNoticesInOwnWindow = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", "True"))
+                .sURL = NativeMethods.ReadINI(lINI.iIRC, "Settings", "URL", "http: //www.bing.com")
+                .sShowWindowsAutomatically = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", "False"))
+                .sAutoMaximize = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "AutoMaximize", "False"))
+                .sQuitMessage = NativeMethods.ReadINI(lINI.iIRC, "Settings", "QuitMessage", "nexIRC - http://www.team-nexgen.com/")
+                .sAutoConnect = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "AutoConnect", "False"))
+                .sVideoBackground = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "VideoBackground", "True"))
+                .sAutoNavigateChannelUrls = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "AutoNavigateChannelUrls", "True"))
+                .sCloseWindowOnDisconnect = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "CloseWindowOnDisconnect", "False"))
+                .sAutoAddToChannelFolder = Convert.ToBoolean(NativeMethods.ReadINI(lINI.iIRC, "Settings", "AutoAddToChannelFolder", "True"))
+                .sWindowSizes.iChannel.wWidth = Convert.ToInt32(Trim(NativeMethods.ReadINI(lINI.iIRC, "Settings", "InitialChannelWidth", "600")))
+                .sWindowSizes.iChannel.wHeight = Convert.ToInt32(Trim(NativeMethods.ReadINI(lINI.iIRC, "Settings", "InitialChannelHeight", "200")))
+                .sWindowSizes.lStatus.wWidth = Convert.ToInt32(Trim(NativeMethods.ReadINI(lINI.iIRC, "Settings", "InitialStatusWidth", "600")))
+                .sWindowSizes.lStatus.wHeight = Convert.ToInt32(Trim(NativeMethods.ReadINI(lINI.iIRC, "Settings", "InitialStatusHeight", "200")))
+                .sWindowSizes.iNotice.wWidth = NativeMethods.ReadINIInt(lINI.iIRC, "Settings", "InitialNoticeWidth", 600)
+                .sWindowSizes.iNotice.wHeight = NativeMethods.ReadINIInt(lINI.iIRC, "Settings", "InitialNoticeHeight", 200)
+                .sTextBufferSize = NativeMethods.ReadINIInt(lINI.iIRC, "Settings", "TextBufferSize", 150)
             End With
             With lIRC
-                .iEMail = Files.ReadINI(lINI.iIRC, "Settings", "EMail", "user@team-nexgen.com")
-                .iPass = Files.ReadINI(lINI.iIRC, "Settings", "Password", "")
-                .iRealName = Files.ReadINI(lINI.iIRC, "Settings", "RealName", "nexIRC User")
-                .iOperName = Files.ReadINI(lINI.iIRC, "Settings", "OperName", "")
-                .iOperPass = Files.ReadINI(lINI.iIRC, "Settings", "OperPass", "")
+                .iEMail = NativeMethods.ReadINI(lINI.iIRC, "Settings", "EMail", "user@team-nexgen.com")
+                .iPass = NativeMethods.ReadINI(lINI.iIRC, "Settings", "Password", "")
+                .iRealName = NativeMethods.ReadINI(lINI.iIRC, "Settings", "RealName", "nexIRC User")
+                .iOperName = NativeMethods.ReadINI(lINI.iIRC, "Settings", "OperName", "")
+                .iOperPass = NativeMethods.ReadINI(lINI.iIRC, "Settings", "OperPass", "")
             End With
         End If
         mdiMain.SetLoadingFormProgress("Loading Strings", 80)
@@ -963,12 +862,12 @@ Public Class Settings
 
     Public Sub SaveWindowSizes()
         With lIRC.iSettings
-            Files.WriteINI(lINI.iIRC, "Settings", "InitialChannelWidth", .sWindowSizes.iChannel.wWidth.ToString.Trim)
-            Files.WriteINI(lINI.iIRC, "Settings", "InitialChannelHeight", .sWindowSizes.iChannel.wHeight.ToString.Trim)
-            Files.WriteINI(lINI.iIRC, "Settings", "InitialStatusWidth", .sWindowSizes.lStatus.wWidth.ToString.Trim)
-            Files.WriteINI(lINI.iIRC, "Settings", "InitialStatusHeight", .sWindowSizes.lStatus.wHeight.ToString.Trim)
-            Files.WriteINI(lINI.iIRC, "Settings", "InitialNoticeWidth", .sWindowSizes.iNotice.wWidth.ToString.Trim)
-            Files.WriteINI(lINI.iIRC, "Settings", "InitialNoticeHeight", .sWindowSizes.iNotice.wHeight.ToString.Trim)
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "InitialChannelWidth", .sWindowSizes.iChannel.wWidth.ToString.Trim)
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "InitialChannelHeight", .sWindowSizes.iChannel.wHeight.ToString.Trim)
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "InitialStatusWidth", .sWindowSizes.lStatus.wWidth.ToString.Trim)
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "InitialStatusHeight", .sWindowSizes.lStatus.wHeight.ToString.Trim)
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "InitialNoticeWidth", .sWindowSizes.iNotice.wWidth.ToString.Trim)
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "InitialNoticeHeight", .sWindowSizes.iNotice.wHeight.ToString.Trim)
         End With
     End Sub
 
@@ -1024,9 +923,9 @@ Public Class Settings
                 .dFileName = ""
                 .dFilePath = ""
                 .dNickName = ""
-                Files.WriteINI(lINI.iDownloadManager, Trim(lIndex.ToString), "FileName", "")
-                Files.WriteINI(lINI.iDownloadManager, Trim(lIndex.ToString), "FilePath", "")
-                Files.WriteINI(lINI.iDownloadManager, Trim(lIndex.ToString), "NickName", "")
+                NativeMethods.WriteINI(lINI.iDownloadManager, Trim(lIndex.ToString), "FileName", "")
+                NativeMethods.WriteINI(lINI.iDownloadManager, Trim(lIndex.ToString), "FilePath", "")
+                NativeMethods.WriteINI(lINI.iDownloadManager, Trim(lIndex.ToString), "NickName", "")
             End With
         End If
     End Sub
@@ -1044,21 +943,21 @@ Public Class Settings
             End With
         Next i
         If n <> 0 Then
-            Files.WriteINI(lINI.iDownloadManager, "Settings", "Count", Trim(lDownloadManager.dCount.ToString))
+            NativeMethods.WriteINI(lINI.iDownloadManager, "Settings", "Count", Trim(lDownloadManager.dCount.ToString))
             For i = 1 To n
-                Files.WriteINI(lINI.iDownloadManager, Trim(i.ToString), "FileName", lFileName(i))
-                Files.WriteINI(lINI.iDownloadManager, Trim(i.ToString), "FilePath", lFilePath(i))
-                Files.WriteINI(lINI.iDownloadManager, Trim(i.ToString), "NickName", lNickName(i))
+                NativeMethods.WriteINI(lINI.iDownloadManager, Trim(i.ToString), "FileName", lFileName(i))
+                NativeMethods.WriteINI(lINI.iDownloadManager, Trim(i.ToString), "FilePath", lFilePath(i))
+                NativeMethods.WriteINI(lINI.iDownloadManager, Trim(i.ToString), "NickName", lNickName(i))
             Next i
         End If
     End Sub
 
     Private Sub SaveIdentdSettings()
         With lIRC.iIdent
-            Files.WriteINI(lINI.iIdent, "Settings", "UserID", .iUserID)
-            Files.WriteINI(lINI.iIdent, "Settings", "System", .iSystem)
-            Files.WriteINI(lINI.iIdent, "Settings", "Port", Trim(Convert.ToString(.iPort)))
-            Files.WriteINI(lINI.iIdent, "Settings", "Enabled", Trim(.iSettings.iEnabled.ToString))
+            NativeMethods.WriteINI(lINI.iIdent, "Settings", "UserID", .iUserID)
+            NativeMethods.WriteINI(lINI.iIdent, "Settings", "System", .iSystem)
+            NativeMethods.WriteINI(lINI.iIdent, "Settings", "Port", .iPort.ToString)
+            NativeMethods.WriteINI(lINI.iIdent, "Settings", "Enabled", Trim(.iSettings.iEnabled.ToString))
         End With
     End Sub
 
@@ -1095,10 +994,10 @@ Public Class Settings
             n = 0
             For Each nickName In nickNames
                 n = n + 1
-                Files.WriteINI(lINI.iNicks, n.ToString(), "Nick", nickName)
+                NativeMethods.WriteINI(lINI.iNicks, n.ToString(), "Nick", nickName)
             Next nickName
-            If (lIRC.iNicks.nIndex <> 0) Then Files.WriteINI(lINI.iNicks, "Settings", "Index", lIRC.iNicks.nIndex.ToString())
-            If (lIRC.iNicks.nIndex <> 0) Then Files.WriteINI(lINI.iNicks, "Settings", "Count", n.ToString())
+            If (lIRC.iNicks.nIndex <> 0) Then NativeMethods.WriteINI(lINI.iNicks, "Settings", "Index", lIRC.iNicks.nIndex.ToString())
+            If (lIRC.iNicks.nIndex <> 0) Then NativeMethods.WriteINI(lINI.iNicks, "Settings", "Count", n.ToString())
         Catch ex As Exception
             Throw
         End Try
@@ -1106,47 +1005,47 @@ Public Class Settings
 
     Public Sub SaveSettings()
         With lIRC.iSettings
-            Files.WriteINI(lINI.iIRC, "Settings", "TextBufferSize", .sTextBufferSize.ToString().Trim())
-            Files.WriteINI(lINI.iIRC, "Settings", "AutoNavigateChannelUrls", Trim(.sAutoNavigateChannelUrls.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ChannelFolderCloseOnJoin", Trim(.sChannelFolderCloseOnJoin.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "VideoBackground", Trim(.sVideoBackground.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "QuitMessage", .sQuitMessage)
-            Files.WriteINI(lINI.iIRC, "Settings", "Prompts", Trim(.sPrompts.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ShowUserAddresses", Trim(.sShowUserAddresses.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "URL", .sURL)
-            Files.WriteINI(lINI.iIRC, "Settings", "MOTDInOwnWindow", Trim(.sMOTDInOwnWindow.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "PopupChannelFolders", Trim(.sPopupChannelFolders.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", Trim(.sCustomizeOnStartup.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "NoIRCMessages", Trim(.sNoIRCMessages.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ExtendedMessages", Trim(.sExtendedMessages.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", Trim(.sChangeNickNameWindow.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", Trim(.sNoticesInOwnWindow.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "HideMOTD", Trim(.sHideMOTD.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ShowRawWindow", Trim(.sShowRawWindow.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", Trim(.sShowWindowsAutomatically.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "AutoMaximize", Trim(.sAutoMaximize.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "AutoConnect", Trim(.sAutoConnect.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "CloseWindowOnDisconnect", Trim(.sCloseWindowOnDisconnect.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "TextBufferSize", .sTextBufferSize.ToString().Trim())
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "AutoNavigateChannelUrls", Trim(.sAutoNavigateChannelUrls.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "ChannelFolderCloseOnJoin", Trim(.sChannelFolderCloseOnJoin.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "VideoBackground", Trim(.sVideoBackground.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "QuitMessage", .sQuitMessage)
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "Prompts", Trim(.sPrompts.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "ShowUserAddresses", Trim(.sShowUserAddresses.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "URL", .sURL)
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "MOTDInOwnWindow", Trim(.sMOTDInOwnWindow.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "PopupChannelFolders", Trim(.sPopupChannelFolders.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "ShowCustomizeOnStartup", Trim(.sCustomizeOnStartup.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "NoIRCMessages", Trim(.sNoIRCMessages.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "ExtendedMessages", Trim(.sExtendedMessages.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "ChangeNickNameWindow", Trim(.sChangeNickNameWindow.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "NoticesInOwnWindow", Trim(.sNoticesInOwnWindow.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "HideMOTD", Trim(.sHideMOTD.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "ShowRawWindow", Trim(.sShowRawWindow.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "ShowWindowsAutomatically", Trim(.sShowWindowsAutomatically.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "AutoMaximize", Trim(.sAutoMaximize.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "AutoConnect", Trim(.sAutoConnect.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "CloseWindowOnDisconnect", Trim(.sCloseWindowOnDisconnect.ToString))
             SaveWindowSizes()
         End With
         With lIRC.iSettings.sStringSettings
-            Files.WriteINI(lINI.iStringSettings, "Settings", "Unknowns", Trim(Str(.sUnknowns)))
-            Files.WriteINI(lINI.iStringSettings, "Settings", "Unsupported", Trim(Str(.sUnsupported)))
+            NativeMethods.WriteINI(lINI.iStringSettings, "Settings", "Unknowns", Trim(Str(.sUnknowns)))
+            NativeMethods.WriteINI(lINI.iStringSettings, "Settings", "Unsupported", Trim(Str(.sUnsupported)))
         End With
         With lIRC.iModes
-            Files.WriteINI(lINI.iIRC, "Settings", "Invisible", Trim(.mInvisible.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "LocalOperator", Trim(.mLocalOperator.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "Operator", Trim(.mOperator.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "Restricted", Trim(.mRestricted.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "ServerNotices", Trim(.mServerNotices.ToString))
-            Files.WriteINI(lINI.iIRC, "Settings", "Wallops", Trim(.mWallops.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "Invisible", Trim(.Invisible.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "LocalOperator", Trim(.LocalOperator.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "Operator", Trim(.Operator.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "Restricted", Trim(.Restricted.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "ServerNotices", Trim(.ServerNotices.ToString))
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "Wallops", Trim(.Wallops.ToString))
         End With
         With lIRC
-            Files.WriteINI(lINI.iIRC, "Settings", "OperName", .iOperName)
-            Files.WriteINI(lINI.iIRC, "Settings", "OperPass", .iOperPass)
-            Files.WriteINI(lINI.iIRC, "Settings", "EMail", .iEMail)
-            Files.WriteINI(lINI.iIRC, "Settings", "Password", .iPass)
-            Files.WriteINI(lINI.iIRC, "Settings", "RealName", .iRealName)
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "OperName", .iOperName)
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "OperPass", .iOperPass)
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "EMail", .iEMail)
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "Password", .iPass)
+            NativeMethods.WriteINI(lINI.iIRC, "Settings", "RealName", .iRealName)
         End With
         SaveCompatibility()
         SaveRecientServers()
@@ -1161,59 +1060,66 @@ Public Class Settings
         SaveQuerySettings()
     End Sub
 
-    Public Function AddServer(ByVal lDescription As String, ByVal lIp As String, ByVal lNetworkIndex As Integer, ByVal lPort As Long) As Integer
-        If Len(lDescription) <> 0 And Len(lIp) <> 0 Then
-            lServers.sModified = True
-            lServers.sCount = lServers.sCount + 1
-            With lServers.sServer(lServers.sCount)
-                .sDescription = lDescription
-                .sIP = lIp
-                .sNetworkIndex = lNetworkIndex
-                .sPort = lPort
-            End With
+    Public Function AddServer(ByVal description As String, ByVal ip As String, ByVal networkIndex As Integer, ByVal port As Long) As Integer
+        If (Not String.IsNullOrEmpty(description) And Not String.IsNullOrEmpty(ip) And networkIndex <> 0 And port <> 0) Then
+            Dim server = New ServerModel
+            server.Description = description
+            server.Ip = ip
+            server.NetworkIndex = networkIndex
+            server.Port = port
             SaveServers()
-            If lWinVisible.wCustomize = True Then frmCustomize.lCustomize.RefreshServers(frmCustomize.ServersListView, lNetworkIndex)
         End If
-        AddServer = lServers.sCount
+        Return lServers.Servers.Count
     End Function
 
-    Public Function AddNetwork(ByVal lDescription As String) As Integer
-        If Len(lDescription) <> 0 Then
-            lNetworks.nCount = lNetworks.nCount + 1
-            With lNetworks.nNetwork(lNetworks.nCount)
-                .nDescription = lDescription
-            End With
-            If lWinVisible.wCustomize = True Then
+    Public Function AddNetwork(ByVal name As String) As Integer
+        If (Not String.IsNullOrEmpty(name)) Then
+            Dim n = New NetworkModel
+            n.Name = name
+            If (lWinVisible.wCustomize) Then
                 frmCustomize.lCustomize.RefreshNetworks(frmCustomize.cboNetworks)
-                frmCustomize.cboNetworks.Text = lDescription
+                frmCustomize.cboNetworks.Text = name
+                lNetworks.Networks.Add(n)
+                SaveNetworks()
             End If
         End If
-        SaveNetworks()
-        AddNetwork = lNetworks.nCount
+        Return lNetworks.Networks.Count
+        'If Len(lDescription) <> 0 Then
+        'Dim c = lNetworks.Networks.Count + 1
+        'With lNetworks.nNetwork(lNetworks.Networks.Count)
+        '.Name = lDescription
+        'End With
+        'If lWinVisible.wCustomize = True Then
+        'frmCustomize.lCustomize.RefreshNetworks(frmCustomize.cboNetworks)
+        'frmCustomize.cboNetworks.Text = lDescription
+        'End If
+        'End If
+        'SaveNetworks()
+        'AddNetwork = lNetworks.nCount
     End Function
 
     Public Sub SaveServers()
         Dim i As Integer
-        Files.WriteINI(lINI.iServers, "Settings", "Count", lServers.sCount.ToString().Trim)
-        Files.WriteINI(lINI.iServers, "Settings", "Index", lServers.sIndex.ToString().Trim)
-        For i = 1 To lServers.sCount
-            With lServers.sServer(i)
-                Files.WriteINI(lINI.iServers, Trim(Convert.ToString(i)), "Ip", .sIP)
-                Files.WriteINI(lINI.iServers, Trim(Convert.ToString(i)), "Port", Trim(Convert.ToString(.sPort)))
-                Files.WriteINI(lINI.iServers, Trim(Convert.ToString(i)), "Description", .sDescription)
-                Files.WriteINI(lINI.iServers, Trim(Convert.ToString(i)), "NetworkIndex", Trim(.sNetworkIndex.ToString))
+        NativeMethods.WriteINI(lINI.iServers, "Settings", "Count", lServers.Servers.Count.ToString())
+        NativeMethods.WriteINI(lINI.iServers, "Settings", "Index", lServers.Index.ToString())
+        For i = 1 To lServers.Servers.Count
+            With lServers.Servers(i)
+                NativeMethods.WriteINI(lINI.iServers, i.ToString, "Ip", .Ip)
+                NativeMethods.WriteINI(lINI.iServers, i.ToString, "Port", Trim(Convert.ToString(.Port)))
+                NativeMethods.WriteINI(lINI.iServers, i.ToString, "Description", .Description)
+                NativeMethods.WriteINI(lINI.iServers, i.ToString, "NetworkIndex", Trim(.NetworkIndex.ToString))
             End With
         Next i
     End Sub
 
     Private Sub SaveNetworks()
         Dim i As Integer
-        If lNetworks.nCount <> 0 Then
-            Files.WriteINI(lINI.iNetworks, "Settings", "Count", Trim(lNetworks.nCount.ToString))
-            Files.WriteINI(lINI.iNetworks, "Settings", "Index", Trim(lNetworks.nIndex.ToString))
-            For i = 1 To lNetworks.nCount
-                With lNetworks.nNetwork(i)
-                    Files.WriteINI(lINI.iNetworks, Trim(Convert.ToString(i)), "Description", .nDescription)
+        If lNetworks.Networks.Count <> 0 Then
+            NativeMethods.WriteINI(lINI.iNetworks, "Settings", "Count", Trim(lNetworks.Networks.Count.ToString))
+            NativeMethods.WriteINI(lINI.iNetworks, "Settings", "Index", Trim(lNetworks.Index.ToString))
+            For i = 0 To lNetworks.Networks.Count - 1
+                With lNetworks.Networks(i)
+                    NativeMethods.WriteINI(lINI.iNetworks, i.ToString, "Name", .Name)
                 End With
             Next i
         End If
@@ -1223,9 +1129,9 @@ Public Class Settings
         Dim i As Integer, result As Integer
         Try
             If (Not String.IsNullOrEmpty(lIp)) Then
-                For i = 1 To lServers.sCount
-                    With lServers.sServer(i)
-                        If (.sIP.ToLower() = lIp.ToLower()) Then
+                For i = 1 To lServers.Servers.Count
+                    With lServers.Servers(i)
+                        If (.Ip.ToLower() = lIp.ToLower()) Then
                             result = i
                             Exit For
                         End If
@@ -1243,9 +1149,9 @@ Public Class Settings
         Dim i As Integer, result As Integer
         Try
             If (Not String.IsNullOrEmpty(lDescription)) Then
-                For i = 1 To lServers.sCount
-                    With lServers.sServer(i)
-                        If .sDescription.ToLower() = lDescription.ToLower() Then
+                For i = 1 To lServers.Servers.Count
+                    With lServers.Servers(i)
+                        If .Description.ToLower() = lDescription.ToLower() Then
                             result = i
                             Exit For
                         End If
@@ -1259,37 +1165,30 @@ Public Class Settings
         End Try
     End Function
 
-    Public Function FindNetworkIndex(ByVal description As String) As Integer
-        Dim i As Integer, result As Integer
-        'Try
-        If (description = Nothing) Then description = ""
-        For i = 1 To lNetworks.nCount
-            If (description.Trim().ToLower() = lNetworks.nNetwork(i).nDescription.Trim().ToLower()) Then
-                result = i
-                Exit For
+    Public Function FindNetworkIndex(ByVal name As String) As Integer
+        Dim n = 0
+        For i = 0 To lNetworks.Networks.Count - 1
+            If (lNetworks.Networks(i).Name = name) Then
+                Return i + 1 ' THIS IS WEIRD!!!!
             End If
         Next i
-        Return result
-        'Catch ex As Exception
-        'Throw
-        'Return Nothing
-        'End Try
+        Return 0
     End Function
 
     Public Sub FillComboWithServers(ByVal lCombo As ComboBox, Optional ByVal lNetworkIndex As Integer = 0, Optional ByVal lClearCombo As Boolean = False)
         Try
             Dim i As Integer
             If lClearCombo = True Then lCombo.Items.Clear()
-            For i = 1 To lServers.sCount
-                With lServers.sServer(i)
-                    If (.sDescription IsNot Nothing) Then
-                        If (.sDescription.Length <> 0) Then
+            For i = 1 To lServers.Servers.Count
+                With lServers.Servers(i)
+                    If (.Description IsNot Nothing) Then
+                        If (.Description.Length <> 0) Then
                             If lNetworkIndex <> 0 Then
-                                If lNetworkIndex = .sNetworkIndex Then
-                                    lCombo.Items.Add(.sDescription)
+                                If lNetworkIndex = .NetworkIndex Then
+                                    lCombo.Items.Add(.Description)
                                 End If
                             Else
-                                lCombo.Items.Add(.sDescription)
+                                lCombo.Items.Add(.Description)
                             End If
                         End If
                     End If
@@ -1301,250 +1200,165 @@ Public Class Settings
     End Sub
 
     Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)
-        Try
-            Dim i As Integer
-            If _Clear = True Then _RadDropDownList.Items.Clear()
-            For i = 1 To lNetworks.nCount
-                With lNetworks.nNetwork(i)
-                    If (.nDescription IsNot Nothing) Then
-                        If (.nDescription.Length <> 0) Then
-                            _RadDropDownList.Items.Add(.nDescription)
-                        End If
-                    End If
-                End With
-            Next i
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Public Sub FillRadComboWithNetworks(ByVal _RadDropDownList As RadDropDownList, Optional ByVal _Clear As Boolean = False)")
-        End Try
+        Dim i As Integer
+        If _Clear = True Then _RadDropDownList.Items.Clear()
+        For i = 0 To lNetworks.Networks.Count - 1
+            If (lNetworks.Networks(i).Name IsNot Nothing) Then
+                If (lNetworks.Networks(i).Name.Length <> 0) Then
+                    Dim rldi = New RadListDataItem
+                    rldi.Text = lNetworks.Networks(i).Name
+                    rldi.Tag = lNetworks.Networks(i).ID
+                    _RadDropDownList.Items.Add(rldi)
+                End If
+            End If
+        Next i
+        _RadDropDownList.Text = lSettings.lNetworks.Networks(lSettings.lNetworks.Index).Name
     End Sub
 
     Public Sub FillComboWithNetworks(ByVal lCombo As ComboBox, Optional ByVal lClearCombo As Boolean = False)
-        Try
-            Dim i As Integer
-            If lClearCombo = True Then lCombo.Items.Clear()
-            For i = 1 To lNetworks.nCount
-                With lNetworks.nNetwork(i)
-                    If (.nDescription IsNot Nothing) Then
-                        If (.nDescription.Length <> 0) Then
-                            lCombo.Items.Add(.nDescription)
-                        End If
-                    End If
-                End With
-            Next i
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Public Sub FillComboWithNetworks(ByVal lCombo As ComboBox, Optional ByVal lClearCombo As Boolean = False)")
-        End Try
+        Dim i As Integer
+        If lClearCombo = True Then lCombo.Items.Clear()
+        For i = 0 To lNetworks.Networks.Count - 1
+            If (Not String.IsNullOrEmpty(lNetworks.Networks(i).Name)) Then
+                lCombo.Items.Add(lNetworks.Networks(i).Name)
+            End If
+        Next i
     End Sub
 
     Public Function FindNickNameIndex(ByVal lNickName As String) As Integer
         Dim result As Integer
-        Try
-            Dim i As Integer
-            If Len(lNickName) <> 0 Then
-                For i = 1 To lIRC.iNicks.nCount
-                    With lIRC.iNicks.nNick(i)
-                        If LCase(lNickName) = LCase(.nNick) Then
-                            result = i
-                            Exit For
-                        End If
-                    End With
-                Next i
-            End If
-            Return result
-        Catch ex As Exception
-            Throw
-            Return Nothing
-        End Try
+        Dim i As Integer
+        If Len(lNickName) <> 0 Then
+            For i = 1 To lIRC.iNicks.nCount
+                With lIRC.iNicks.nNick(i)
+                    If LCase(lNickName) = LCase(.nNick) Then
+                        result = i
+                        Exit For
+                    End If
+                End With
+            Next i
+        End If
+        Return result
     End Function
 
     Public Function AddNickName(ByVal lNickName As String) As Integer
         Dim result As Integer
-        Try
-            If Len(lNickName) <> 0 Then
-                If FindNickNameIndex(lNickName) <> 0 Then Return 0
-                lIRC.iNicks.nCount = lIRC.iNicks.nCount + 1
-                With lIRC.iNicks.nNick(lIRC.iNicks.nCount)
-                    .nNick = lNickName
-                    result = lIRC.iNicks.nCount
-                End With
-                SaveNickNames()
-                If lWinVisible.wCustomize = True Then frmCustomize.cboMyNickNames.Items.Add(lNickName)
-            End If
-            Return result
-        Catch ex As Exception
-            Throw
-            Return Nothing
-        End Try
+        If Len(lNickName) <> 0 Then
+            If FindNickNameIndex(lNickName) <> 0 Then Return 0
+            lIRC.iNicks.nCount = lIRC.iNicks.nCount + 1
+            With lIRC.iNicks.nNick(lIRC.iNicks.nCount)
+                .nNick = lNickName
+                result = lIRC.iNicks.nCount
+            End With
+            SaveNickNames()
+            If lWinVisible.wCustomize = True Then frmCustomize.cboMyNickNames.Items.Add(lNickName)
+        End If
+        Return result
     End Function
 
     Public Sub RemoveNetwork(ByVal lIndex As Integer)
-        Try
-            lNetworks.nNetwork(lIndex).nDescription = ""
-            CleanUpNetworks()
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Public Sub RemoveNetwork(ByVal lIndex As Integer)")
-        End Try
+        lNetworks.Networks(lIndex).Name = ""
+        CleanUpNetworks()
     End Sub
 
     Public Sub CleanUpNetworks()
-        Try
-            Dim msg() As String, c As Integer, i As Integer
-            ReDim msg(lArraySizes.aNetworks)
-            For i = 1 To lArraySizes.aNetworks
-                With lNetworks.nNetwork(i)
-                    If Len(.nDescription) <> 0 Then
-                        c = c + 1
-                        msg(c) = .nDescription
+        Dim g = New List(Of NetworkModel), newIndex = 0, oldIndex As Integer
+        For Each network As NetworkModel In lNetworks.Networks ' Loop through networks
+            If (network IsNot Nothing) Then ' Check Network is not nothing
+                If (Not String.IsNullOrEmpty(network.Name)) Then ' Check that Network name is not nothing
+                    If (lNetworks.Index = oldIndex) Then ' Check the Active Index is the Original Index
+                        lNetworks.Index = newIndex ' Set Active Index to newIndex, the new Index
                     End If
-                    .nDescription = ""
-                End With
-            Next i
-            lNetworks.nCount = c
-            For i = 1 To c
-                With lNetworks.nNetwork(i)
-                    .nDescription = msg(i)
-                End With
-            Next i
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Public Sub CleanUpNetworks()")
-        End Try
+                    g.Add(network) ' Add Network to Good Collection
+                    newIndex = newIndex + 1 ' Increment Index
+                End If
+            End If
+            oldIndex = oldIndex + 1 ' Increment Old Index
+        Next network
+        lNetworks.Networks = g ' Set Networks List to g
     End Sub
 
     Public Function ShowPrompts() As Boolean
-        Try
-            With lIRC.iSettings
-                Return .sPrompts
-            End With
-        Catch ex As Exception
-            Throw
-            Return Nothing
-        End Try
+        With lIRC.iSettings
+            Return .sPrompts
+        End With
     End Function
 
     Public Sub LoadModes()
-        Try
-            With lIRC.iModes
-                .mInvisible = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Invisible", "True"))
-                .mLocalOperator = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "LocalOperator", "False"))
-                .mOperator = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Operator", "False"))
-                .mRestricted = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "Restricted", "False"))
-                .mServerNotices = Convert.ToBoolean(Files.ReadINI(lINI.iIRC, "Settings", "ServerNotices", "True"))
-            End With
-        Catch ex As Exception
-            Throw
-        End Try
+        lIRC.iModes = New ModeModel
+        lIRC.iModes.Invisible = NativeMethods.ReadINIBool(lINI.iIRC, "Settings", "Invisible", True)
+        lIRC.iModes.LocalOperator = NativeMethods.ReadINIBool(lINI.iIRC, "Settings", "LocalOperator", False)
+        lIRC.iModes.Operator = NativeMethods.ReadINIBool(lINI.iIRC, "Settings", "Operator", False)
+        lIRC.iModes.Restricted = NativeMethods.ReadINIBool(lINI.iIRC, "Settings", "Restricted", False)
+        lIRC.iModes.ServerNotices = NativeMethods.ReadINIBool(lINI.iIRC, "Settings", "ServerNotices", True)
     End Sub
 
     Public Sub LoadChannelFolders()
-        Try
-            Dim i As Integer, msg As String
-            ReDim lChannelFolders.cChannelFolder(lArraySizes.aChannelFolder)
-            lChannelFolders.cCount = Convert.ToInt32(Trim(Files.ReadINI(lINI.iChannelFolders, "Settings", "Count", "0")))
-            For i = 1 To lChannelFolders.cCount
-                With lChannelFolders.cChannelFolder(i)
-                    .cChannel = Files.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Channel", "")
-                    .cNetwork = Files.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Network", "")
-                    msg = Files.ReadINI(lINI.iChannelFolders, Trim(Str(i)), "Order", "0")
-                    If (IsNumeric(msg)) Then
-                        .cOrder = Convert.ToInt32(msg)
-                    End If
-                End With
+        lChannelFolders = New List(Of ChannelFolderModel)
+        Dim count = NativeMethods.ReadINIInt(lINI.iChannelFolders, "Settings", "Count", 0), n As Integer
+        If (count <> 0) Then
+            For i As Integer = 1 To count
+                Dim c = New ChannelFolderModel
+                c.Channel = NativeMethods.ReadINI(lINI.iChannelFolders, i.ToString, "Channel", "")
+                c.Network = NativeMethods.ReadINI(lINI.iChannelFolders, i.ToString, "Network", "")
+                If (Integer.TryParse(NativeMethods.ReadINI(lINI.iChannelFolders, i.ToString, "Order", "0"), n)) Then
+                    c.Order = n
+                End If
+                If (Not String.IsNullOrEmpty(c.Channel)) Then
+                    lChannelFolders.Add(c)
+                End If
             Next i
-        Catch ex As Exception
-            Throw
-        End Try
+        End If
     End Sub
 
     Public Sub SaveChannelFolders()
-        Try
-            Dim i As Integer
-            Files.WriteINI(lINI.iChannelFolders, "Settings", "Count", Trim(Str(lChannelFolders.cCount)))
-            For i = 1 To lChannelFolders.cCount
-                With lChannelFolders.cChannelFolder(i)
-                    Files.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Channel", .cChannel)
-                    Files.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Network", .cNetwork)
-                    Files.WriteINI(lINI.iChannelFolders, Trim(Str(i)), "Order", .cOrder.ToString())
-                End With
-            Next i
-        Catch ex As Exception
-            Throw
-        End Try
+        NativeMethods.WriteINI(lINI.iChannelFolders, "Settings", "Count", lChannelFolders.Count.ToString())
+        Dim i = 0
+        For Each c In lChannelFolders
+            i = i + 1
+            NativeMethods.WriteINI(lINI.iChannelFolders, i.ToString, "Channel", c.Channel)
+            NativeMethods.WriteINI(lINI.iChannelFolders, i.ToString, "Network", c.Network)
+            NativeMethods.WriteINI(lINI.iChannelFolders, i.ToString, "Order", c.Order.ToString)
+        Next c
     End Sub
 
     Public Sub AddToChannelFolders(ByVal channel As String, ByVal networkIndex As Integer)
-        Dim i As Integer
-        'Try
-        For i = 1 To lChannelFolders.cCount
-            If (channel.Trim().ToLower() = lChannelFolders.cChannelFolder(i).cChannel.Trim().ToLower() And lNetworks.nNetwork(networkIndex).nDescription.Trim().ToLower() = lChannelFolders.cChannelFolder(i).cNetwork.Trim().ToLower()) Then
-                Exit Sub
-            End If
-        Next i
         If (Not String.IsNullOrEmpty(channel)) Then
-            MoveAllChannelFoldersDown()
-            lChannelFolders.cCount = lChannelFolders.cCount + 1
-            With lChannelFolders.cChannelFolder(lChannelFolders.cCount)
-                .cChannel = channel
-                .cNetwork = lNetworks.nNetwork(networkIndex).nDescription
-                .cOrder = 0
-            End With
+            Dim c = New ChannelFolderModel
+            c.Channel = channel
+            c.Network = lNetworks.Networks(networkIndex).Name
             SaveChannelFolders()
         End If
-        'Catch ex As Exception
-        'Throw
-        'End Try
-    End Sub
-
-    Private Sub MoveAllChannelFoldersDown()
-        Dim i As Integer
-        'Try
-        For i = 1 To lChannelFolders.cCount - 1
-
-            lChannelFolders.cChannelFolder(i).cOrder = lChannelFolders.cChannelFolder(i).cOrder + 1
-        Next i
-        'Catch ex As Exception
-        'Throw
-        'End Try
     End Sub
 
     Public Sub RemoveChannelFolder(ByVal lIndex As Integer)
-        Try
-            With lChannelFolders.cChannelFolder(lIndex)
-                .cChannel = ""
-            End With
-            SaveChannelFolders()
-        Catch ex As Exception
-            Throw
-        End Try
+        With lChannelFolders(lIndex)
+            .Channel = ""
+            .Order = 0
+            .Network = ""
+        End With
+        SaveChannelFolders()
     End Sub
 
     Public Function FindChannelFolderIndexes(ByVal channel As String, network As String) As List(Of Integer)
         Dim result As List(Of Integer)
-        Try
-            result = New List(Of Integer)()
-            For i As Integer = 1 To (lChannelFolders.cChannelFolder.Count - 1)
-                If ((channel.ToLower().Trim() = lChannelFolders.cChannelFolder(i).cChannel) And (network = lChannelFolders.cChannelFolder(i).cNetwork)) Then
-                    result.Add(i)
-                End If
-            Next i
-            Return result
-        Catch ex As Exception
-            Throw
-        End Try
+        result = New List(Of Integer)()
+        For i As Integer = 1 To (lChannelFolders.Count - 1)
+            If ((channel.ToLower().Trim() = lChannelFolders(i).Channel.ToLower().Trim()) And (network.ToLower().Trim() = lChannelFolders(i).Network.ToLower().Trim())) Then
+                result.Add(i)
+            End If
+        Next i
+        Return result
     End Function
 
     Public Sub RemoveServer(ByVal lIndex As Integer)
-        Try
-            If lIndex <> 0 Then
-                lServers.sModified = True
-                With lServers.sServer(lIndex)
-                    .sDescription = ""
-                    .sIP = ""
-                    .sNetworkIndex = 0
-                    .sPort = 0
-                End With
-            End If
-        Catch ex As Exception
-            Throw
-        End Try
+        If lIndex <> 0 Then
+            With lServers.Servers(lIndex)
+                .Description = ""
+                .Ip = ""
+                .NetworkIndex = 0
+                .Port = 0
+            End With
+        End If
     End Sub
 End Class

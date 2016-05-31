@@ -1,5 +1,5 @@
-﻿'nexIRC 3.0.30
-'04-23-2016 - guideX
+﻿'nexIRC 3.0.31
+'05-30-2016 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
@@ -9,7 +9,7 @@ Public Class clsServerLinks
     Public Sub SetNetworkIndex(ByVal lIndex As Integer, _ComboBox As ComboBox)
         Try
             lNetworkIndex = lIndex
-            _ComboBox.Text = lSettings.lNetworks.nNetwork(lIndex).nDescription
+            _ComboBox.Text = lSettings.lNetworks.Networks(lIndex).Name
         Catch ex As Exception
             Throw 'ProcessError(ex.Message, "Public Sub SetNetworkIndex(ByVal lIndex As Integer)")
         End Try
@@ -50,10 +50,10 @@ Public Class clsServerLinks
         Try
             Dim i As Integer
             _Form.Icon = mdiMain.Icon
-            For i = 1 To lSettings.lNetworks.nCount
-                With lSettings.lNetworks.nNetwork(i)
-                    If Len(lSettings.lNetworks.nNetwork(i).nDescription) <> 0 Then
-                        _ComboBox.Items.Add(.nDescription)
+            For i = 0 To lSettings.lNetworks.Networks.Count - 1
+                With lSettings.lNetworks.Networks(i)
+                    If Len(lSettings.lNetworks.Networks(i).Name) <> 0 Then
+                        _ComboBox.Items.Add(.Name)
                     End If
                 End With
             Next i

@@ -1,10 +1,11 @@
-'nexIRC 3.0.30
-'04-23-2016 - guideX
+'nexIRC 3.0.31
+'05-30-2016 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Classes.IO
 Imports nexIRC.Modules
 Imports nexIRC.Classes.Communications
+Imports nexIRC.Business.Helpers
+
 Public Class frmDCCSend
     Private WithEvents lListen As AsyncServer
     Private WithEvents lSocket As AsyncSocket
@@ -40,7 +41,7 @@ Public Class frmDCCSend
     Public Sub SendFileChunk(ByVal lData As String)
         Dim msg As String, lSetProgress As New DoubleLongDelegate(AddressOf SetProgress)
         With lFile
-            lResponceData = lResponceData & Environment.Newline & lData
+            lResponceData = lResponceData & Environment.NewLine & lData
             Clipboard.Clear()
             Clipboard.SetText(lResponceData)
             If .fFileLength - Loc(.fFileNumber) <= .fBufferSize Then .fBufferSize = (.fFileLength - Loc(.fFileNumber))
@@ -67,12 +68,12 @@ Public Class frmDCCSend
         lStatusIndex = lIndex
     End Sub
     Private Sub frmDCCSend_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        Files.WriteINI(lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", cboNickname.Text)
+        NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", cboNickname.Text)
         If lFileOpen = True Then FileClose(lFile.fFileNumber)
     End Sub
     Private Sub frmDCCSend_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim i As Integer
-        cboNickname.Text = Files.ReadINI(lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", "")
+        cboNickname.Text = NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", "")
         Me.Icon = mdiMain.Icon
         For i = 1 To lSettings.lNotify.nCount
             cboNickname.Items.Add(lSettings.lNotify.nNotify(i).nNickName)
@@ -119,7 +120,7 @@ Public Class frmDCCSend
         lSocket = tmp_Socket
         Me.Invoke(l)
     End Sub
-    Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lSocket.socketDataArrival
+    Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lSocket.SocketDataArrival
         Dim l As New StringDelegate(AddressOf SendFileChunk)
         Me.Invoke(l, SocketData)
     End Sub

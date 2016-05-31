@@ -1,102 +1,65 @@
 ﻿Option Explicit On
 Option Strict On
-Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
-Imports nexIRC.Classes.IO
-Imports Telerik.WinControls.UI
 Imports nexIRC.clsCommandTypes
+Imports nexIRC.Business.Helpers
+
 Public Class clsChannelListUI
     Public Event SaveColumnWidths()
     Public lSortOrder As SortOrder
     Private lCurrentChannel As String
     Private lMeIndex As Integer
     Public Sub cmdAddToChannelFolder_Click(channel As String)
-        Try
-            lSettings.AddToChannelFolders(channel, lSettings.lNetworks.nIndex)
-        Catch ex As Exception
-            Throw
-        End Try
+        lSettings.AddToChannelFolders(channel, lSettings.lNetworks.Index)
     End Sub
     Public Sub cmdRefresh_Click(form As Form)
-        Try
-            Dim n As Integer = lStatus.ActiveIndex
-            lStrings.ProcessReplaceCommand(n, eCommandTypes.cLIST, lStatus.ServerDescription(n))
-            form.Close()
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim n As Integer = lStatus.ActiveIndex
+        lStrings.ProcessReplaceCommand(n, eCommandTypes.cLIST, lStatus.ServerDescription(n))
+        form.Close()
     End Sub
     Public WriteOnly Property MeIndex() As Integer
         Set(_MeIndex As Integer)
-            Try
-                lMeIndex = _MeIndex
-                lChannelLists.SetOpen(lMeIndex)
-            Catch ex As Exception
-                Throw
-            End Try
+            lMeIndex = _MeIndex
+            lChannelLists.SetOpen(lMeIndex)
         End Set
     End Property
     Public Sub FormClosed(_ChannelsListView As ListView, _FormLeft As Integer, _FormTop As Integer, _FormWidth As Integer, _FormHeight As Integer)
-        Try
-            Files.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Left", _FormLeft.ToString)
-            Files.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Top", _FormTop.ToString)
-            Files.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Width", _FormWidth.ToString)
-            Files.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Height", _FormHeight.ToString)
-            lChannelLists.SetClosed(lMeIndex)
-            RaiseEvent SaveColumnWidths()
-        Catch ex As Exception
-            Throw
-        End Try
+        NativeMethods.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Left", _FormLeft.ToString)
+        NativeMethods.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Top", _FormTop.ToString)
+        NativeMethods.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Width", _FormWidth.ToString)
+        NativeMethods.WriteINI(lSettings.lINI.iIRC, "ChannelList", "Height", _FormHeight.ToString)
+        lChannelLists.SetClosed(lMeIndex)
+        RaiseEvent SaveColumnWidths()
     End Sub
     Public Sub ResetList(_ListView As ListView)
-        Try
-            _ListView.Items.Clear()
-            _ListView.View = View.Details
-            _ListView.HeaderStyle = ColumnHeaderStyle.Clickable
-            _ListView.Columns.Add("Channel", Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "1", "150"))), HorizontalAlignment.Left)
-            _ListView.Columns.Add("Topic", Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "2", "350"))), HorizontalAlignment.Left)
-            _ListView.Columns.Add("Users", Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "3", "100"))), HorizontalAlignment.Left)
-        Catch ex As Exception
-            Throw
-        End Try
+        _ListView.Items.Clear()
+        _ListView.View = View.Details
+        _ListView.HeaderStyle = ColumnHeaderStyle.Clickable
+        _ListView.Columns.Add("Channel", NativeMethods.ReadINIInt(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "1", 150), HorizontalAlignment.Left)
+        _ListView.Columns.Add("Topic", NativeMethods.ReadINIInt(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "2", 350), HorizontalAlignment.Left)
+        _ListView.Columns.Add("Users", NativeMethods.ReadINIInt(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", "3", 100), HorizontalAlignment.Left)
     End Sub
     Public Sub Load(_Form As Form, _ListView As ListView)
-        Try
-            _Form.Left = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "ChannelList", "Left", "300")))
-            _Form.Top = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "ChannelList", "Top", "300")))
-            _Form.Width = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "ChannelList", "Width", "300")))
-            _Form.Height = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iIRC, "ChannelList", "Height", "300")))
-            _Form.MdiParent() = mdiMain
-            _Form.Icon = mdiMain.Icon
-            ResetList(_ListView)
-        Catch ex As Exception
-            Throw
-        End Try
+        _Form.Left = NativeMethods.ReadINIInt(lSettings.lINI.iIRC, "ChannelList", "Left", 300)
+        _Form.Top = NativeMethods.ReadINIInt(lSettings.lINI.iIRC, "ChannelList", "Top", 300)
+        _Form.Width = NativeMethods.ReadINIInt(lSettings.lINI.iIRC, "ChannelList", "Width", 300)
+        _Form.Height = NativeMethods.ReadINIInt(lSettings.lINI.iIRC, "ChannelList", "Height", 300)
+        _Form.MdiParent() = mdiMain
+        _Form.Icon = mdiMain.Icon
+        ResetList(_ListView)
     End Sub
     Public Sub Resize(_ListView As ListView, _Form As Form, _ToolStripHeight As Integer)
-        Try
-            _ListView.Width = _Form.ClientSize.Width
-            _ListView.Height = _Form.ClientSize.Height - _ToolStripHeight
-        Catch ex As Exception
-            Throw
-        End Try
+        _ListView.Width = _Form.ClientSize.Width
+        _ListView.Height = _Form.ClientSize.Height - _ToolStripHeight
     End Sub
     Public Sub DoubleClick(_ListView As ListView)
-        Try
-            Dim i As Integer
-            For i = 0 To _ListView.SelectedItems.Count
-                lChannels.Join(lChannelLists.ReturnStatusIndex(lMeIndex), lCurrentChannel)
-            Next i
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim i As Integer
+        For i = 0 To _ListView.SelectedItems.Count
+            lChannels.Join(lChannelLists.ReturnStatusIndex(lMeIndex), lCurrentChannel)
+        Next i
     End Sub
     Public Sub ItemSelectionChanged(_ListView As ListView, _ItemIndex As Integer)
-        Try
-            lCurrentChannel = _ListView.Items(_ItemIndex).Text
-        Catch ex As Exception
-            Throw
-        End Try
+        lCurrentChannel = _ListView.Items(_ItemIndex).Text
     End Sub
 End Class
 Public Class clsChannelList
@@ -215,7 +178,7 @@ Public Class clsChannelList
     Public Sub Display(_ChannelListIndex As Integer)
         Try
             With lChannelLists.cChannelList(_ChannelListIndex)
-                '.cWindow.Text = "Channel List [" & lStatusObjects.sStatusObject(lStatusIndex).sDescription & "]"
+                '.cWindow.Text = "Channel List [" & lStatusObjects.sStatusObject(lStatusIndex).Description & "]"
                 .cWindow = New frmChannelList()
                 .cWindow.Text = "Channel List [" & lStatus.Window(.cStatusIndex).Text & "]"
                 .cWindow.lvwChannels.Items.Clear()

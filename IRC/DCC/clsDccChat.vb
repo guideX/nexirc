@@ -1,5 +1,5 @@
-﻿'nexIRC 3.0.30
-'04-23-2016 - guideX
+﻿'nexIRC 3.0.31
+'05-30-2016 - guideX
 Option Explicit On
 Option Strict On
 
@@ -20,7 +20,7 @@ Public Class clsDccChat
     Private Delegate Sub EmptyDelegate()
     Private Delegate Sub StringDelegate(ByVal lData As String)
     Private Delegate Sub StringDelegateWithTextBox(_Data As String, _TextBox As TextBox)
-    Private Delegate Sub ConnectDelegate(ByVal l_RemoteIp As String, ByVal l_RemotePort As Long)
+    Private Delegate Sub ConnectDelegate(ByVal l_RemoteIp As String, ByVal l_RemotePort As Integer)
     Private lInvokeForm As Form
     Private lIncomingTextBox As TextBox
     Private lOutgoingTextBox As TextBox
@@ -70,7 +70,7 @@ Public Class clsDccChat
         End Try
     End Sub
 
-    Public Sub ConnectToDCCChat(ByVal _Ip As String, ByVal _Port As Long)
+    Public Sub ConnectToDCCChat(ByVal _Ip As String, ByVal _Port As Integer)
         Try
             lSocket.Connect(_Ip, _Port)
         Catch ex As Exception

@@ -1,5 +1,5 @@
-'nexIRC 3.0.30
-'04-23-2016 - guideX
+'nexIRC 3.0.31
+'05-30-2016 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
@@ -12,11 +12,11 @@ Public Class frmEditServer
     Public Sub SetServerInfo(ByVal lIndex As Integer)
         Try
             lServerIndex = lIndex
-            txtDescription.Text = lSettings.lServers.sServer(lIndex).sDescription
-            txtIp.Text = lSettings.lServers.sServer(lIndex).sIP
-            txtPort.Text = Convert.ToString(lSettings.lServers.sServer(lIndex).sPort)
+            txtDescription.Text = lSettings.lServers.Servers(lIndex).Description
+            txtIp.Text = lSettings.lServers.Servers(lIndex).Ip
+            txtPort.Text = Convert.ToString(lSettings.lServers.Servers(lIndex).Port)
             lSettings.FillComboWithNetworks(cboNetwork, True)
-            cboNetwork.Text = lSettings.lNetworks.nNetwork(lSettings.lServers.sServer(lIndex).sNetworkIndex).nDescription
+            cboNetwork.Text = lSettings.lNetworks.Networks(lSettings.lServers.Servers(lIndex).NetworkIndex).Name
             lInfoSet = True
         Catch ex As Exception
             Throw
@@ -30,11 +30,11 @@ Public Class frmEditServer
                 Exit Sub
             End If
             If (Not String.IsNullOrEmpty(txtDescription.Text) And Not String.IsNullOrEmpty(txtPort.Text) And Not String.IsNullOrEmpty(txtIp.Text) And lServerIndex <> 0) Then
-                With lSettings.lServers.sServer(lServerIndex)
-                    .sDescription = txtDescription.Text
-                    .sIP = txtIp.Text
-                    .sPort = Convert.ToInt64(Trim(txtPort.Text))
-                    .sNetworkIndex = lSettings.FindNetworkIndex(cboNetwork.Text)
+                With lSettings.lServers.Servers(lServerIndex)
+                    .Description = txtDescription.Text
+                    .Ip = txtIp.Text
+                    .Port = Convert.ToInt64(Trim(txtPort.Text))
+                    .NetworkIndex = lSettings.FindNetworkIndex(cboNetwork.Tag.ToString)
                     If lSettings.lWinVisible.wCustomize = True Then
                         frmCustomize.UpdateSelectedServer(txtDescription.Text, txtIp.Text, txtPort.Text)
                     End If

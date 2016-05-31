@@ -1,4 +1,5 @@
-'nexIRC 3.0.30
+'nexIRC 3.0.31
+'05-30-2016 - guideX
 Option Explicit On
 Option Strict On
 Imports System.Text
@@ -94,7 +95,7 @@ Namespace Classes.Communications
             _tempSocket.Close()
         End Sub
 
-        Public Sub Connect(ByVal hostIP As String, ByVal hostPort As Long)
+        Public Sub Connect(ByVal hostIP As String, ByVal hostPort As Int32)
             Dim hostEndPoint As New IPEndPoint(Dns.Resolve(hostIP).AddressList(0), Convert.ToInt32(hostPort))
             Dim obj_Socket As Socket = _tempSocket
             obj_Socket.BeginConnect(hostEndPoint, New AsyncCallback(AddressOf onConnectionComplete), obj_Socket)
@@ -115,7 +116,7 @@ Namespace Classes.Communications
                 If (ex.Message.Contains("Cannot access a disposed object")) Then
                     RaiseEvent SocketDisconnected(SocketID)
                 Else
-                    MessageBox.Show(ex.Message)
+                    'MessageBox.Show(ex.Message)
                     'Throw
                     'Something keeps going wrong in here
                 End If

@@ -1,10 +1,11 @@
-﻿'nexIRC 3.0.30
-'04-23-2016 - guideX
+﻿'nexIRC 3.0.31
+'05-30-2016 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Classes.IO
 Imports nexIRC.Modules
 Imports System.Net
+Imports nexIRC.Business.Helpers
+
 Namespace nexIRC.IRC.Settings
     Public Class clsDCC
         Public Enum eDCCFileExistsAction
@@ -52,8 +53,8 @@ Namespace nexIRC.IRC.Settings
             Dim i As Integer, n As Integer
             With lDCC
                 ReDim .dIgnorelist.dItem(lSettings.lArraySizes.aDCCIgnore)
-                .dFileExistsAction = CType(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "FileExistsAction", "1"), eDCCFileExistsAction)
-                n = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "1")))
+                .dFileExistsAction = CType(NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "FileExistsAction", "1"), eDCCFileExistsAction)
+                n = Convert.ToInt32(Trim(NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "1")))
                 If n = 1 Then
                     .dChatPrompt = eDCCPrompt.ePrompt
                 ElseIf n = 2 Then
@@ -61,7 +62,7 @@ Namespace nexIRC.IRC.Settings
                 ElseIf n = 3 Then
                     .dChatPrompt = eDCCPrompt.eIgnore
                 End If
-                n = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "1")))
+                n = Convert.ToInt32(Trim(NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "1")))
                 If n = 1 Then
                     .dSendPrompt = eDCCPrompt.ePrompt
                 ElseIf n = 2 Then
@@ -69,25 +70,25 @@ Namespace nexIRC.IRC.Settings
                 ElseIf n = 3 Then
                     .dSendPrompt = eDCCPrompt.eIgnore
                 End If
-                .dPopupDownloadManager = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "PopupDownloadManager", "False"))
-                .dDownloadDirectory = Files.ReadINI(lSettings.lINI.iDCC, "Settings", "DownloadDirectory", "")
+                .dPopupDownloadManager = Convert.ToBoolean(NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "PopupDownloadManager", "False"))
+                .dDownloadDirectory = NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "DownloadDirectory", "")
                 If String.IsNullOrEmpty(.dDownloadDirectory) = True Then .dDownloadDirectory = Application.StartupPath & "\"
                 .dDownloadDirectory = Replace(.dDownloadDirectory, "\\", "")
-                .dBufferSize = Convert.ToInt64(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "BufferSize", "1024")))
-                .dUseIpAddress = Convert.ToBoolean(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "UseIpAddress", "False")))
-                .dCustomIpAddress = Files.ReadINI(lSettings.lINI.iDCC, "Settings", "CustomIpAddress", "")
+                .dBufferSize = Convert.ToInt64(Trim(NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "BufferSize", "1024")))
+                .dUseIpAddress = Convert.ToBoolean(Trim(NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "UseIpAddress", "False")))
+                .dCustomIpAddress = NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "CustomIpAddress", "")
                 If Len(.dCustomIpAddress) = 0 Then .dCustomIpAddress = ReturnOutsideIPAddress()
-                .dIgnorelist.dCount = Convert.ToInt32(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", "0")))
-                .dSendPort = Files.ReadINI(lSettings.lINI.iDCC, "Settings", "SendPort", "1024")
-                .dRandomizePort = Convert.ToBoolean(Trim(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "RandomizePort", "True")))
-                .dIgnorelist.dCount = Convert.ToInt32(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString)))
-                .dAutoIgnore = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "AutoIgnore", "True"))
-                .dAutoCloseDialogs = Convert.ToBoolean(Files.ReadINI(lSettings.lINI.iDCC, "Settings", "AutoCloseDialogs", "False"))
+                .dIgnorelist.dCount = Convert.ToInt32(Trim(NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", "0")))
+                .dSendPort = NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "SendPort", "1024")
+                .dRandomizePort = Convert.ToBoolean(Trim(NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "RandomizePort", "True")))
+                .dIgnorelist.dCount = Convert.ToInt32(NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString)))
+                .dAutoIgnore = Convert.ToBoolean(NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "AutoIgnore", "True"))
+                .dAutoCloseDialogs = Convert.ToBoolean(NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "AutoCloseDialogs", "False"))
             End With
             For i = 1 To lDCC.dIgnorelist.dCount
                 With lDCC.dIgnorelist.dItem(i)
-                    .dData = Files.ReadINI(lSettings.lINI.iDCC, Trim(i.ToString), "Data", "")
-                    .dType = CType(Files.ReadINI(lSettings.lINI.iDCC, Trim(i.ToString), "Type", "0"), gDCCIgnoreType)
+                    .dData = NativeMethods.ReadINI(lSettings.lINI.iDCC, Trim(i.ToString), "Data", "")
+                    .dType = CType(NativeMethods.ReadINI(lSettings.lINI.iDCC, Trim(i.ToString), "Type", "0"), gDCCIgnoreType)
                     Select Case .dType
                         Case gDCCIgnoreType.dNicknames
                             .dType = gDCCIgnoreType.dNicknames
@@ -116,36 +117,36 @@ Namespace nexIRC.IRC.Settings
         Public Sub SaveDCCSettings()
             Dim i As Integer
             With lDCC
-                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "PopupDownloadManager", .dPopupDownloadManager.ToString())
-                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "DownloadDirectory", .dDownloadDirectory)
-                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "FileExistsAction", Trim(CType(.dFileExistsAction, Integer).ToString))
-                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
+                NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "PopupDownloadManager", .dPopupDownloadManager.ToString())
+                NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "DownloadDirectory", .dDownloadDirectory)
+                NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "FileExistsAction", Trim(CType(.dFileExistsAction, Integer).ToString))
+                NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
                 For i = 1 To lDCC.dIgnorelist.dCount
-                    Files.WriteINI(lSettings.lINI.iDCC, Trim(i.ToString), "Data", .dIgnorelist.dItem(i).dData)
-                    Files.WriteINI(lSettings.lINI.iDCC, Trim(i.ToString), "Type", Trim(CType(.dIgnorelist.dItem(i).dType, Integer).ToString))
+                    NativeMethods.WriteINI(lSettings.lINI.iDCC, Trim(i.ToString), "Data", .dIgnorelist.dItem(i).dData)
+                    NativeMethods.WriteINI(lSettings.lINI.iDCC, Trim(i.ToString), "Type", Trim(CType(.dIgnorelist.dItem(i).dType, Integer).ToString))
                 Next i
                 If .dChatPrompt = eDCCPrompt.ePrompt Then
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "1")
+                    NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "1")
                 ElseIf .dChatPrompt = eDCCPrompt.eAcceptAll Then
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "2")
+                    NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "2")
                 ElseIf .dChatPrompt = eDCCPrompt.eIgnore Then
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "3")
+                    NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "3")
                 End If
                 If .dSendPrompt = eDCCPrompt.ePrompt Then
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "1")
+                    NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "1")
                 ElseIf .dSendPrompt = eDCCPrompt.eAcceptAll Then
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "2")
+                    NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "2")
                 ElseIf .dSendPrompt = eDCCPrompt.eIgnore Then
-                    Files.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "3")
+                    NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPrompt", "3")
                 End If
-                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "UseIpAddress", Trim(.dUseIpAddress.ToString))
-                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "CustomIpAddress", Trim(.dCustomIpAddress))
-                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
-                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPort", Trim(.dSendPort.ToString))
-                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "RandomizePort", (Trim(.dRandomizePort.ToString)))
-                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "BufferSize", (Trim(.dBufferSize.ToString)))
-                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "AutoIgnore", Trim(.dAutoIgnore.ToString))
-                Files.WriteINI(lSettings.lINI.iDCC, "Settings", "AutoCloseDialogs", Trim(.dAutoCloseDialogs.ToString))
+                NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "UseIpAddress", Trim(.dUseIpAddress.ToString))
+                NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "CustomIpAddress", Trim(.dCustomIpAddress))
+                NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "IgnoreCount", Trim(.dIgnorelist.dCount.ToString))
+                NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "SendPort", Trim(.dSendPort.ToString))
+                NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "RandomizePort", (Trim(.dRandomizePort.ToString)))
+                NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "BufferSize", (Trim(.dBufferSize.ToString)))
+                NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "AutoIgnore", Trim(.dAutoIgnore.ToString))
+                NativeMethods.WriteINI(lSettings.lINI.iDCC, "Settings", "AutoCloseDialogs", Trim(.dAutoCloseDialogs.ToString))
             End With
         End Sub
     End Class

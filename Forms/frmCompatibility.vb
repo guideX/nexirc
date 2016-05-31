@@ -1,5 +1,5 @@
 ﻿'nexIRC 3.0.23
-'04-23-2016 - guideX
+'05-30-2016 - guideX
 Option Explicit On
 Option Strict On
 Imports nexIRC.IRC.UtilityWindows

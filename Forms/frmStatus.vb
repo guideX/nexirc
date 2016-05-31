@@ -1,7 +1,8 @@
-﻿'nexIRC 3.0.30
-'04-23-2016 - guideX
-Option Explicit On
+﻿Option Explicit On
 Option Strict On
+'nexIRC 3.0.31
+'05-30-2016 - guideX
+Imports nexIRC.Enum
 Imports nexIRC.Modules
 Imports Telerik.WinControls.RichTextBox.Model
 
@@ -82,7 +83,7 @@ Public Class frmStatus
     End Sub
     Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Try
-            mdiChildWindow.Form_Load(mdiChildWindow.FormTypes.Status)
+            mdiChildWindow.Form_Load(FormTypes.Status)
             txtIncoming.Cursor = Cursors.Default
         Catch ex As Exception
             Throw 'ProcessError(ex.Message, "Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")

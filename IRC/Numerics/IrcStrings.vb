@@ -1,15 +1,14 @@
-﻿'04-23-2016 - guideX
+﻿'05-30-2016 - guideX
 Option Explicit On
 'Option Strict On
 Imports Telerik.WinControls.UI
-Imports nexIRC.Classes.IO
-Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.clsIrcNumerics
 Imports nexIRC.Modules
 Imports Telerik.WinControls.RichTextBox
 Imports Telerik.WinControls.RichTextBox.Model
 Imports Telerik.WinControls.RichTextBox.Layout
+Imports nexIRC.Business.Helpers
 
 Public Class IrcStrings
     Structure gCommandReturnData
@@ -144,8 +143,8 @@ Public Class IrcStrings
             Dim i As Integer
             If Len(lStringParameterName) <> 0 Then
                 For i = 1 To 100
-                    If Trim(LCase(Files.ReadINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), ""))) = lStringParameterName Then
-                        Files.WriteINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), "")
+                    If Trim(LCase(NativeMethods.ReadINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), ""))) = lStringParameterName Then
+                        NativeMethods.WriteINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), "")
                         Exit For
                     End If
                 Next i
@@ -160,12 +159,12 @@ Public Class IrcStrings
             Dim i As Integer, n As Integer
             If Len(lStringParameterName) <> 0 Then
                 For i = 1 To 100
-                    If Len(Files.ReadINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), "")) = 0 Then
+                    If Len(NativeMethods.ReadINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(i.ToString), "")) = 0 Then
                         n = i
                         Exit For
                     End If
                 Next i
-                Files.WriteINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(n.ToString), lStringParameterName)
+                NativeMethods.WriteINI(lSettings.lINI.iText, Trim(lTextStringIndex.ToString), "Find" & Trim(n.ToString), lStringParameterName)
                 lStrings.sFixedString(lTextStringIndex).sFind(n) = lStringParameterName
             End If
         Catch ex As Exception
@@ -282,7 +281,7 @@ Public Class IrcStrings
         Try
             If Len(lData) <> 0 And lIndex <> 0 Then
                 lStrings.sFixedString(lIndex).sData = lData
-                Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Data", lData)
+                NativeMethods.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Data", lData)
             End If
         Catch ex As Exception
             Throw
@@ -293,7 +292,7 @@ Public Class IrcStrings
         Try
             If lIndex <> 0 And Len(lData) <> 0 Then
                 lStrings.sFixedString(lIndex).sDescription = lData
-                Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Description", lData)
+                NativeMethods.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Description", lData)
             End If
         Catch ex As Exception
             Throw
@@ -304,7 +303,7 @@ Public Class IrcStrings
         Try
             If lIndex <> 0 And Len(lData) <> 0 Then
                 lStrings.sFixedString(lIndex).sSyntax = lData
-                Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Syntax", lData)
+                NativeMethods.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Syntax", lData)
             End If
         Catch ex As Exception
             Throw
@@ -315,7 +314,7 @@ Public Class IrcStrings
         Try
             If lIndex <> 0 And Len(lData) <> 0 Then
                 lStrings.sFixedString(lIndex).sSupport = lData
-                Files.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Support", lData)
+                NativeMethods.WriteINI(lSettings.lINI.iText, Trim(Convert.ToString(lIndex)), "Support", lData)
             End If
         Catch ex As Exception
             Throw
@@ -450,13 +449,13 @@ Public Class IrcStrings
             Dim i As Integer
             For i = 1 To 200
                 If Len(lStrings.sFixedString(i).sData) <> 0 Then
-                    Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Type", Trim(Str(lStrings.sFixedString(i).sType)))
-                    Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Data", Trim(lStrings.sFixedString(i).sData))
-                    If Len(lStrings.sFixedString(i).sFind(1)) <> 0 Then Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find1", lStrings.sFixedString(i).sFind(1))
-                    If Len(lStrings.sFixedString(i).sFind(2)) <> 0 Then Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find2", lStrings.sFixedString(i).sFind(2))
-                    If Len(lStrings.sFixedString(i).sFind(3)) <> 0 Then Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find3", lStrings.sFixedString(i).sFind(3))
-                    If Len(lStrings.sFixedString(i).sFind(4)) <> 0 Then Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find4", lStrings.sFixedString(i).sFind(4))
-                    If Len(lStrings.sFixedString(i).sFind(5)) <> 0 Then Files.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find5", lStrings.sFixedString(i).sFind(5))
+                    NativeMethods.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Type", Trim(Str(lStrings.sFixedString(i).sType)))
+                    NativeMethods.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Data", Trim(lStrings.sFixedString(i).sData))
+                    If Len(lStrings.sFixedString(i).sFind(1)) <> 0 Then NativeMethods.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find1", lStrings.sFixedString(i).sFind(1))
+                    If Len(lStrings.sFixedString(i).sFind(2)) <> 0 Then NativeMethods.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find2", lStrings.sFixedString(i).sFind(2))
+                    If Len(lStrings.sFixedString(i).sFind(3)) <> 0 Then NativeMethods.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find3", lStrings.sFixedString(i).sFind(3))
+                    If Len(lStrings.sFixedString(i).sFind(4)) <> 0 Then NativeMethods.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find4", lStrings.sFixedString(i).sFind(4))
+                    If Len(lStrings.sFixedString(i).sFind(5)) <> 0 Then NativeMethods.WriteINI(lSettings.ReturnTextINI, Trim(Str(i)), "Find5", lStrings.sFixedString(i).sFind(5))
                 End If
             Next i
         Catch ex As Exception
@@ -517,17 +516,17 @@ Public Class IrcStrings
         Try
             Dim i As Integer
             ReDim lCommands.cCommad(100)
-            lCommands.cCount = Convert.ToInt32(Files.ReadINI(lSettings.ReturnCommandsINI, "Settings", "Count", "0"))
+            lCommands.cCount = Convert.ToInt32(NativeMethods.ReadINI(lSettings.ReturnCommandsINI, "Settings", "Count", "0"))
             For i = 1 To lCommands.cCount
                 With lCommands.cCommad(i)
-                    .cData = Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Command", "")
+                    .cData = NativeMethods.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Command", "")
                     If Len(.cData) <> 0 Then
-                        .cCommandType = CType(Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Type", ""), eCommandTypes)
-                        .cDisplay = Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Display", "")
-                        .cParam1 = Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param1", "")
-                        If Len(.cParam1) <> 0 Then .cParam2 = Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param2", "")
-                        If Len(.cParam2) <> 0 Then .cParam3 = Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param3", "")
-                        If Len(.cParam3) <> 0 Then .cParam4 = Files.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param4", "")
+                        .cCommandType = CType(NativeMethods.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Type", ""), eCommandTypes)
+                        .cDisplay = NativeMethods.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Display", "")
+                        .cParam1 = NativeMethods.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param1", "")
+                        If Len(.cParam1) <> 0 Then .cParam2 = NativeMethods.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param2", "")
+                        If Len(.cParam2) <> 0 Then .cParam3 = NativeMethods.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param3", "")
+                        If Len(.cParam3) <> 0 Then .cParam4 = NativeMethods.ReadINI(lSettings.ReturnCommandsINI, Trim(Str(i)), "Param4", "")
                     End If
                 End With
             Next i

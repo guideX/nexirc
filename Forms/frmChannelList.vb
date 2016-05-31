@@ -1,8 +1,8 @@
-'nexIRC 3.0.30
-'04-23-2016 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Classes.IO
+'nexIRC 3.0.31
+'05-30-2016 - guideX
+Imports nexIRC.Business.Helpers
 Imports nexIRC.Modules
 
 Public Class frmChannelList
@@ -90,7 +90,7 @@ Public Class frmChannelList
     Private Sub lChannelListUI_SaveColumnWidths() Handles lChannelListUI.SaveColumnWidths
         Try
             For i As Integer = 1 To 3
-                Files.WriteINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", i.ToString, lvwChannels.Columns(i - 1).Width.ToString)
+                NativeMethods.WriteINI(lSettings.lINI.iIRC, "lvwChannels_ColumnWidth", i.ToString, lvwChannels.Columns(i - 1).Width.ToString)
             Next i
         Catch ex As Exception
             Throw

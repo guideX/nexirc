@@ -116,7 +116,7 @@ Public Class clsProcessNumeric
                                 If lSettings.lIRC.iSettings.sPopupChannelFolders = True Then
                                     lChannelFolder.Show(lStatusIndex)
                                 End If
-                                lIrcNumericHelper.l001 = lStrings.ReturnReplacedString(eStringTypes.sRPL_WELCOME, lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(lStatusIndex)).nDescription, splt2(2))
+                                lIrcNumericHelper.l001 = lStrings.ReturnReplacedString(eStringTypes.sRPL_WELCOME, lSettings.lNetworks.Networks(lStatus.NetworkIndex(lStatusIndex)).Name, splt2(2))
                                 Exit Sub
                             Case 2
                                 msg2 = Replace(lStrings.ParseData(splt2(2), "host is ", ","), "ost is ", "")
@@ -451,7 +451,7 @@ Public Class clsProcessNumeric
                                             lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ISON, msg2, lSettings.lNotify.nNotify(n).nMessage)
                                             lStatus.AddToNotifyList(lStatusIndex, msg2)
                                         Else
-                                            If lSettings.lNotify.nNotify(n).nNetwork = lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(lStatusIndex)).nDescription Or Len(LCase(Trim(lSettings.lNotify.nNotify(n).nNetwork))) <> 0 Then
+                                            If lSettings.lNotify.nNotify(n).nNetwork = lSettings.lNetworks.Networks(lStatus.NetworkIndex(lStatusIndex)).Name Or Len(LCase(Trim(lSettings.lNotify.nNotify(n).nNetwork))) <> 0 Then
                                                 lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_ISON, msg2, lSettings.lNotify.nNotify(n).nMessage)
                                                 lStatus.AddToNotifyList(lStatusIndex, msg2)
                                             End If
@@ -691,10 +691,10 @@ Public Class clsProcessNumeric
                                 Exit Sub
                             Case 375
                                 If lSettings.lIRC.iSettings.sMOTDInOwnWindow = True Then
-                                    lStatus.Motd_AddText(lStatusIndex, lStrings.ReturnReplacedString(eStringTypes.sRPL_MOTDSTART, lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(lStatusIndex)).nDescription))
+                                    lStatus.Motd_AddText(lStatusIndex, lStrings.ReturnReplacedString(eStringTypes.sRPL_MOTDSTART, lSettings.lNetworks.Networks(lStatus.NetworkIndex(lStatusIndex)).Name))
                                 Else
                                     If lSettings.lIRC.iSettings.sHideMOTD = False Then
-                                        lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_MOTDSTART, lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(lStatusIndex)).nDescription)
+                                        lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sRPL_MOTDSTART, lSettings.lNetworks.Networks(lStatus.NetworkIndex(lStatusIndex)).Name)
                                     End If
                                 End If
                                 Exit Sub

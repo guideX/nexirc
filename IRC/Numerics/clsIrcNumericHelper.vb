@@ -67,7 +67,7 @@ Public Class clsIrcNumericHelper
             Dim n As Integer, b As Boolean
             If (excludeIndex <> 0) Then
                 Do Until b = True
-                    n = Convert.ToInt32(lStrings.GetRnd(1, lSettings.lNetworks.nCount))
+                    n = Convert.ToInt32(lStrings.GetRnd(1, lSettings.lNetworks.Networks.Count))
                     If (n <> excludeIndex) Then b = True
                 Loop
                 result = n
@@ -278,37 +278,35 @@ Public Class clsIrcNumericHelper
     End Function
 
     Public Sub DCCSendProc(ByVal lData As String)
-        Try
-            Dim lForm As New frmDCCGet, splt() As String, splt2() As String, msg As String
-            msg = lStrings.ParseData(lData, ":", "!")
-            splt = Split(lData, " ")
-            If lSettings_DCC.lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then
-                lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Auto Ignore is enabled, and user is unknown '" & msg & "'.")
-                Exit Sub
-            End If
-            If IsNickNameInDCCIgnoreList(msg) = False Then
-                If ReturnIsFileTypeIgnored(Trim(splt(5))) = False Then
-                    If lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.ePrompt Then
-                        mdiMain.tspDCCToolBar.Items(0).Text = "Accept the file '" & Trim(splt(5)) & "' from the user '" & msg & "'?"
-                        mdiMain.tspDCCToolBar.Visible = True
-                        mdiMain.lblUser.Tag = msg & Environment.NewLine & Trim(splt(6)) & Environment.NewLine & Trim(splt(7)) & Environment.NewLine & Trim(splt(5)) & Environment.NewLine & Trim(splt(8))
-                    ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll Then
-                        lForm.InitDCCGet(Trim(msg), Trim(splt(6)), Trim(splt(7)), Trim(splt(5)), Trim(splt(8)))
-                        'animate.Animate(lForm, animate.Effect.Center, 200, 1)
+        Dim lForm As New frmDCCGet, splt() As String, splt2() As String, msg As String
+        msg = lStrings.ParseData(lData, ":", "!")
+        splt = Split(lData, " ")
+        If lSettings_DCC.lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then
+            lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Auto Ignore is enabled, and user is unknown '" & msg & "'.")
+            Exit Sub
+        End If
+        If IsNickNameInDCCIgnoreList(msg) = False Then
+            If ReturnIsFileTypeIgnored(Trim(splt(5))) = False Then
+                If lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.ePrompt Then
+                    mdiMain.tspDCCToolBar.Items(0).Text = "Accept the file '" & Trim(splt(5)) & "' from the user '" & msg & "'?"
+                    mdiMain.tspDCCToolBar.Visible = True
+                    mdiMain.lblUser.Tag = msg & Environment.NewLine & Trim(splt(6)) & Environment.NewLine & Trim(splt(7)) & Environment.NewLine & Trim(splt(5)) & Environment.NewLine & Trim(splt(8))
+                ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eAcceptAll Then
+                    Dim n = 0
+                    If Integer.TryParse(Trim(splt(7)), n) Then
+                        lForm.InitDCCGet(Trim(msg), Trim(splt(6)), n, Trim(splt(5)), Trim(splt(8)))
                         lForm.Show()
-                    ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eIgnore Then
-                        lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring all DCC connections")
                     End If
-                Else
-                    splt2 = Split(msg, ".")
-                    lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring file type of '" & splt2(1) & "'.")
+                ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eIgnore Then
+                    lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring all DCC connections")
                 End If
             Else
-                lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "User is in ignore list '" & msg & "'.")
+                splt2 = Split(msg, ".")
+                lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring file type of '" & splt2(1) & "'.")
             End If
-        Catch ex As Exception
-            Throw
-        End Try
+        Else
+            lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "User is in ignore list '" & msg & "'.")
+        End If
     End Sub
 
     Public Function IsNickNameInDCCIgnoreList(ByVal lNickName As String) As Boolean
@@ -340,7 +338,7 @@ Public Class clsIrcNumericHelper
                 For i = 1 To lSettings.lNotify.nCount
                     With lSettings.lNotify.nNotify(i)
                         If Len(.nNickName) <> 0 Then
-                            If LCase(Trim(.nNetwork)) = LCase(Trim(lSettings.lNetworks.nNetwork(lStatus.NetworkIndex(lStatusIndex)).nDescription)) Or .nNetwork = "" Then
+                            If LCase(Trim(.nNetwork)) = LCase(Trim(lSettings.lNetworks.Networks(lStatus.NetworkIndex(lStatusIndex)).Name)) Or .nNetwork = "" Then
                                 If Len(msg) <> 0 Then
                                     msg = msg & " " & .nNickName
                                 Else

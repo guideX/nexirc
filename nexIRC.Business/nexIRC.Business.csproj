@@ -66,6 +66,7 @@
     <Compile Include="Extensions\WinformsExtensions.cs" />
     <Compile Include="Helpers\IrcProcessHelper.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />
+    <Compile Include="Helpers\NetworkUtilHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sockets\AsyncServer.cs" />
     <Compile Include="Sockets\AsyncSocket.cs" />

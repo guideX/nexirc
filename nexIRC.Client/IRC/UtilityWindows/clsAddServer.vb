@@ -46,21 +46,16 @@ Namespace IRC.UtilityWindows
                 Throw
             End Try
         End Sub
-        Public Sub cmdNewNetwork_Click(_RadDropDownList As RadDropDownList)
-            Try
-                Dim _NetworkDescription As String, _NetworkIndex As Integer
-                _NetworkDescription = InputBox("Enter a description for the new netwrok", "nexIRC - Add Network", "")
-                If Len(_NetworkDescription) <> 0 Then
-                    _NetworkIndex = lSettings.AddNetwork(_NetworkDescription)
-                    If _NetworkIndex <> 0 Then
-                        lSettings.FillRadComboWithNetworks(_RadDropDownList)
-                        _RadDropDownList.SelectedIndex = FindRadComboIndex(_RadDropDownList, _NetworkDescription)
-                    End If
+        Public Sub cmdNewNetwork_Click(rddl As RadDropDownList)
+            Dim description As String, n As Integer
+            description = InputBox("Enter a description for the new netwrok", "nexIRC - Add Network", "")
+            If Len(description) <> 0 Then
+                n = lSettings.AddNetwork(description)
+                If (n <> 0) Then
+                    lSettings.FillRadComboWithNetworks(rddl)
+                    rddl.SelectedIndex = rddl.FindRadComboIndex(description)
                 End If
-                'If Err.Number <> 0 Then Throw Throw 'ProcessError(ex.Message, "Private Sub cmdNewNetwork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNewNetwork.Click")
-            Catch ex As Exception
-                Throw
-            End Try
+            End If
         End Sub
     End Class
 End Namespace

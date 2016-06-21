@@ -181,10 +181,12 @@ Namespace IRC.Customize
             Dim i As Integer, n As Integer
             For i = 0 To _NotifyListView.SelectedItems.Count - 1
                 n = lSettings.FindNotifyIndex(_NotifyListView.SelectedItems(i).Text)
-                _NotifyNickNameTextBox.Text = lSettings.lNotify.nNotify(n).nNickName
-                _NotifyMessageTextBox.Text = lSettings.lNotify.nNotify(n).nMessage
-                _NetworkNotifyDropDownList.SelectedItem = _NetworkNotifyDropDownList.Items(FindRadComboIndex(_NetworkNotifyDropDownList, lSettings.lNotify.nNotify(n).nNetwork))
-                Exit For
+                If (n <> 0) Then
+                    _NotifyNickNameTextBox.Text = lSettings.lNotify.nNotify(n).nNickName
+                    _NotifyMessageTextBox.Text = lSettings.lNotify.nNotify(n).nMessage
+                    _NetworkNotifyDropDownList.SelectedItem = _NetworkNotifyDropDownList.Items(_NetworkNotifyDropDownList.FindRadComboIndex(lSettings.lNotify.nNotify(n).nNetwork))
+                    Exit For
+                End If
             Next i
         End Sub
         Public Sub cmdEditString_Click(_StringsListView As RadListView)

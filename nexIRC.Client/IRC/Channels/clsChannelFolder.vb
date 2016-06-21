@@ -3,7 +3,6 @@
 Option Explicit On
 Option Strict On
 Imports Telerik.WinControls.UI
-Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
 Imports nexIRC.Models.ChannelFolder
 Imports nexIRC.Enum

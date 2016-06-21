@@ -30,7 +30,7 @@ Public Class frmEditString
             fs.Data = txtData.Text
             fs.Support = txtSupport.Text
             If lSettings.lWinVisible.wCustomize = True Then
-                Dim i = FindRadListViewIndex(frmCustomize.lvwStrings, txtDescription.Text)
+                Dim i = frmCustomize.lvwStrings.FindRadListViewIndex(txtDescription.Text)
                 If i <> -1 Then
                     With frmCustomize.lvwStrings.Items(i)
                         .Text = txtDescription.Text

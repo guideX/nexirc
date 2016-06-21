@@ -30,38 +30,36 @@ Public Class IrcStrings
         End If
     End Sub
 
-    'FIGURE OUT HOW TO FIX THIS SHIT!
-    Public Function DecodeLongIPAddr(ByVal LongIPAddr As String) As String
-        Dim msg!, msg2!
-        Dim msg3, msg4, msg5, i As Integer, msg6 As String
-        msg! = Int(LongIPAddr / 65536)
-        msg2! = LongIPAddr - msg! * 65536
-        msg3 = Int(msg! / 256)
-        msg4 = msg! - msg3 * 256
-        msg5 = Int(msg2! / 256)
-        i = msg2! - msg5 * 256
-        msg6 = Trim(Str(msg3)) & "."
-        msg6 = msg6 & Trim(Str(msg4)) & "."
-        msg6 = msg6 & Trim(Str(msg5)) & "."
-        msg6 = msg6 & Trim(Str(i))
-        DecodeLongIPAddr = msg6
+    Public Function DecodeLongIPAddr(ByVal ipAddr As String) As String
+        Dim n As Integer, n2 As Integer
+        Dim n3 As Integer, n4 As Integer, n5 As Integer, i As Integer, n6 As String
+        n = Convert.ToInt32(ipAddr / 65536)
+        n2 = ipAddr - n * 65536
+        n3 = Convert.ToInt32(n / 256)
+        n4 = n - n3 * 256
+        n5 = Convert.ToInt32(n2 / 256)
+        i = n2 - n5 * 256
+        n6 = n3.ToString() & "."
+        n6 = n6 & n4.ToString() & "."
+        n6 = n6 & n5.ToString() & "."
+        n6 = n6 & i.ToString()
+        Return n6
     End Function
 
-    'FIGURE OUT HOW TO FIX THIS SHIT!
-    Public Function EncodeIPAddr(ByVal lData As String) As String
-        Dim msg, msg2, msg3 As String, msg4, msg5, i As Integer, msg6 As String
+    Public Function EncodeIPAddr(ByVal data As String) As String
+        Dim msg As String, msg2 As String, msg3 As String, msg4 As Integer, msg5 As String, i As Integer, msg6 As String
         msg4 = 1
         msg = ""
         Do
-            msg2 = InStr(msg4, lData & ".", ".")
-            msg3 = Hex(Val(Mid$(lData & ".", msg4, msg2 - msg4)))
+            msg2 = InStr(msg4, data & ".", ".")
+            msg3 = Hex(Val(Mid$(data & ".", msg4, msg2 - msg4)))
             msg = msg & IIf(Len(msg3) = 1, "0" & msg3, msg3)
             msg4 = msg2 + 1
-        Loop Until msg4 >= Len(lData & ".")
+        Loop Until msg4 >= Len(data & ".")
         msg5 = Val("&H" & Mid(msg, 1, 2)) * 256.0! + Val("&H" & Mid(msg, 3, 2))
         i = Val("&H" & Mid(msg, 5, 2)) * 256.0! + Val("&H" & Mid(msg, 7, 2))
         msg6 = Str(msg5 * 65536 + i)
-        EncodeIPAddr = Trim$(msg6)
+        Return Trim$(msg6)
     End Function
 
     Public Function GetRnd(ByVal _start As Integer, ByVal _end As Integer) As Long

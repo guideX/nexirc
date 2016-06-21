@@ -270,5 +270,36 @@ namespace nexIRC.Business.Controllers {
                 return null;
             }
         }
+        /// <summary>
+        /// Get Rnd
+        /// </summary>
+        /// <param name="_start"></param>
+        /// <param name="_end"></param>
+        /// <returns></returns>
+        //public long GetRnd(int s, int e) {
+        //var l = 0;
+        //VBMath.Randomize();
+        //l = s + Convert.ToInt32(VBMath.Rnd() * (_end - _start));
+        //return l;
+        //}
+
+        //public string DoRight(string lData, int lLength) {
+        //return Right(lData, lLength).ToString;
+        //}
+
+        //public string DoLeft(string lData, int lLength) {
+        //return Strings.Left(lData, lLength).ToString;
+        //}
+
+        public string LeftRight(string lString, int lLeft, int lDistance) {
+            string functionReturnValue = null;
+            if (lString.Length != 0) {
+                functionReturnValue = lString.Substring(lLeft, lDistance);
+            } else {
+                functionReturnValue = "";
+            }
+            return functionReturnValue;
+        }
+
     }
 }

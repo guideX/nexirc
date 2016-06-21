@@ -195,18 +195,14 @@ Public Class frmChannelFolder
     End Sub
 
     Private Sub channelFolderWindow_RemoveChannelListBoxItem(channel As String) Handles channelFolderWindow.RemoveChannelListBoxItem
-        'Try
         Dim channelFolderIndexes As List(Of Integer)
         If (Not String.IsNullOrEmpty(channel)) Then
             channelFolderIndexes = Modules.lSettings.FindChannelFolderIndexes(channel, cboNetwork.Text)
-            lstChannels.Items.RemoveAt(Modules.ReturnRadListBoxIndex(lstChannels, lstChannels.SelectedItem().ToString))
+            lstChannels.Items.RemoveAt(lstChannels.ReturnRadListBoxIndex(lstChannels.SelectedItem().ToString))
             For Each index As Integer In channelFolderIndexes
                 lSettings.RemoveChannelFolder(index)
             Next index
         End If
-        'Catch ex As Exception
-        'Throw
-        'End Try
     End Sub
 
     Private Sub channelFolderWindow_SetAutoCloseCheckBoxValue(_Value As Boolean) Handles channelFolderWindow.SetAutoCloseCheckBoxValue
@@ -228,11 +224,7 @@ Public Class frmChannelFolder
     End Sub
 
     Private Sub channelFolderWindow_SetDefaultNetwork(network As String) Handles channelFolderWindow.SetDefaultNetwork
-        'Try
-        Modules.SetSelectedRadComboBoxItem(cboNetwork, network)
-        'Catch ex As Exception
-        'Throw
-        'End Try
+        cboNetwork.SetSelectedRadComboBoxItem(network)
     End Sub
 
     Private Sub channelFolderWindow_SetPopupChannelFoldersCheckBoxValue(_Value As Boolean) Handles channelFolderWindow.SetPopupChannelFoldersCheckBoxValue

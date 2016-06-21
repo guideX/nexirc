@@ -10,6 +10,153 @@ using nexIRC.Models.String;
 /// </summary>
 public static class TelerikExtensions {
     /// <summary>
+    /// Set Selected Rad ComboBox Item
+    /// </summary>
+    /// <param name="rddl"></param>
+    /// <param name="text"></param>
+    public static void SetSelectedRadComboBoxItem(this RadDropDownList rddl, string text) {
+        int i = 0;
+        if (!string.IsNullOrEmpty(text)) {
+            for (i = 1; i <= rddl.Items.Count - 1; i++) {
+                if (text.ToLower().Trim() == rddl.Items[i].ToString().ToLower().Trim()) {
+                    rddl.SelectedIndex = i;
+                    break;
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// Find Rad List View Index
+    /// </summary>
+    /// <param name="lListView"></param>
+    /// <param name="lText"></param>
+    /// <returns></returns>
+    public static int FindRadListViewIndex(this RadListView lv, string text) {
+        int result = 0;
+        if (!string.IsNullOrEmpty(text)) {
+            for (var i = 0; i <= lv.Items.Count - 1; i++) {
+                if (lv.Items[i].Text.ToLower().Trim() == text.ToLower().Trim()) {
+                    result = i;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+    /// <summary>
+    /// Return Rad List Box Index
+    /// </summary>
+    /// <param name="lb"></param>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public static int ReturnRadListBoxIndex(this RadListControl lb, string data) {
+        int result = 0;
+        for (var i = 0; i <= lb.Items.Count; i++) {
+            if (data.ToLower().ToLower().Trim() == lb.Items[i].ToString().ToLower().Trim()) {
+                result = i;
+                break;
+            }
+        }
+        return result;
+    }
+    /// <summary>
+    /// Does Item Exist in RadDropDown
+    /// </summary>
+    /// <param name="rddl"></param>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    public static bool DoesItemExistInRadDropDown(this RadDropDownList rddl, string text) {
+        foreach (RadListDataItem item in rddl.Items) {
+            if (item.Text.Trim().ToLower() == text.Trim().ToLower()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /// <summary>
+    /// Find Rad Combo Index
+    /// </summary>
+    /// <param name="rddl"></param>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    public static int FindRadComboIndex(this RadDropDownList rddl, string text) {
+        int result = 0;
+        if (!string.IsNullOrEmpty(text)) {
+            if (rddl.DoesItemExistInRadDropDown(text)) {
+                for (var i = 0; i <= rddl.Items.Count; i++) {
+                    if (rddl.Items[i].ToString().Trim().ToLower() == text.Trim().ToLower()) {
+                        result = i;
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    /*
+
+
+
+    public int ReturnListBoxIndex(ListBox lListBox, string lData) {
+        int i = 0;
+        int result = 0;
+        try {
+            for (i = 0; i <= lListBox.Items.Count; i++) {
+                if (Strings.LCase(Strings.Trim(lData)) == Strings.LCase(Strings.Trim(lListBox.Items(i).ToString))) {
+                    result = i;
+                    break; // TODO: might not be correct. Was : Exit For
+                }
+            }
+            return result;
+        } catch (Exception ex) {
+            throw;
+            return null;
+        }
+    }
+
+    public int FindListViewIndex(ListView lListView, string lText) {
+        int result = 0;
+        int i = 0;
+        try {
+            if (Strings.Len(lText) != 0) {
+                for (i = 0; i <= lListView.Items.Count - 1; i++) {
+                    var _with3 = lListView.Items(i);
+                    if (Strings.LCase(Strings.Trim(_with3.Text)) == Strings.LCase(Strings.Trim(lText))) {
+                        result = i;
+                        break; // TODO: might not be correct. Was : Exit For
+                    }
+                }
+            }
+            return result;
+        } catch (Exception ex) {
+            throw;
+            return null;
+        }
+    }
+
+
+
+
+    public int FindComboIndex(ComboBox comboBox, string text) {
+        int i = 0;
+        int result = 0;
+        try {
+            if ((!string.IsNullOrEmpty(text))) {
+                var _with6 = comboBox;
+                for (i = 0; i <= comboBox.Items.Count; i++) {
+                    if ((_with6.Items(i).ToString().Trim().ToLower() == text.Trim().ToLower())) {
+                        result = i;
+                        break; // TODO: might not be correct. Was : Exit For
+                    }
+                }
+            }
+            return result;
+        } catch (Exception ex) {
+            throw;
+            return null;
+        }
+    }*/
+    /// <summary>
     /// Populate With Irc Strings
     /// </summary>
     /// <param name="rlv"></param>

@@ -2,12 +2,12 @@
 '05-30-2016 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Classes.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
 Imports Telerik.WinControls.UI
 Imports nexIRC.Business.Helpers
 Imports System.Windows.Forms
+Imports nexIRC.Enum
 
 Namespace nexIRC.MainWindow
     Public Class clsMainWindowUI
@@ -165,130 +165,101 @@ Namespace nexIRC.MainWindow
             RaiseEvent SetBackgroundColor()
         End Sub
         Public Sub Form_Resize(_Form As Form, _LeftButton As Button, _LeftNav As Panel, _ToolStrip As ToolStrip, _WindowsToolStrip As ToolStrip)
-            Try
-                'clsLockWindowUpdate.LockWindowUpdate(_Form.Handle)
-                _LeftButton.Top = Convert.ToInt32(_Form.ClientSize.Height / 2)
+            'clsLockWindowUpdate.LockWindowUpdate(_Form.Handle)
+            _LeftButton.Top = Convert.ToInt32(_Form.ClientSize.Height / 2)
+            If _LeftNav.Visible = True Then
+                _LeftButton.Left = _LeftNav.ClientSize.Width
+            Else
+                _LeftButton.Left = 0
+            End If
+            If lVideo.vVisible = True Then
+                If lVideo.vWindow.Left <> 0 Then lVideo.vWindow.Left = 0
+                If lVideo.vWindow.Top <> 0 Then lVideo.vWindow.Top = 0
                 If _LeftNav.Visible = True Then
-                    _LeftButton.Left = _LeftNav.ClientSize.Width
+                    lVideo.vWindow.Width = _Form.ClientSize.Width - (_LeftNav.ClientSize.Width + 4)
                 Else
-                    _LeftButton.Left = 0
+                    lVideo.vWindow.Width = _Form.ClientSize.Width - (4)
                 End If
-                If lVideo.vVisible = True Then
-                    If lVideo.vWindow.Left <> 0 Then lVideo.vWindow.Left = 0
-                    If lVideo.vWindow.Top <> 0 Then lVideo.vWindow.Top = 0
-                    If _LeftNav.Visible = True Then
-                        lVideo.vWindow.Width = _Form.ClientSize.Width - (_LeftNav.ClientSize.Width + 4)
+                If _WindowsToolStrip.Visible = True Then
+                    If _ToolStrip.Visible = True Then
+                        lVideo.vWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + _ToolStrip.ClientSize.Height + 4)
                     Else
-                        lVideo.vWindow.Width = _Form.ClientSize.Width - (4)
+                        lVideo.vWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + 4)
                     End If
-                    If _WindowsToolStrip.Visible = True Then
-                        If _ToolStrip.Visible = True Then
-                            lVideo.vWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + _ToolStrip.ClientSize.Height + 4)
-                        Else
-                            lVideo.vWindow.Height = _Form.ClientSize.Height - (_WindowsToolStrip.ClientSize.Height + 4)
-                        End If
+                Else
+                    If _ToolStrip.Visible = True Then
+                        lVideo.vWindow.Height = _Form.ClientSize.Height - (_ToolStrip.ClientSize.Height + 4)
                     Else
-                        If _ToolStrip.Visible = True Then
-                            lVideo.vWindow.Height = _Form.ClientSize.Height - (_ToolStrip.ClientSize.Height + 4)
-                        Else
-                            lVideo.vWindow.Height = _Form.ClientSize.Height - (4)
-                        End If
+                        lVideo.vWindow.Height = _Form.ClientSize.Height - (4)
                     End If
                 End If
-                'ResizeBrowser(_Form, _LeftNav, _ToolStrip, _WindowsToolStrip)
-                '_Form.Refresh()
-                'clsLockWindowUpdate.LockWindowUpdate(System.IntPtr.Zero)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub Form_Resize(_Form As Form)")
-            End Try
+            End If
+            'ResizeBrowser(_Form, _LeftNav, _ToolStrip, _WindowsToolStrip)
+            '_Form.Refresh()
+            'clsLockWindowUpdate.LockWindowUpdate(System.IntPtr.Zero)
         End Sub
         Public Sub SetWindowFocus(ByVal _Form As Form)
-            Try
-                If _Form.WindowState = FormWindowState.Minimized Then _Form.WindowState = FormWindowState.Normal
-                If lSettings.lIRC.iSettings.sAutoMaximize = True And _Form.WindowState <> FormWindowState.Maximized Then _Form.WindowState = FormWindowState.Maximized
-                _Form.BringToFront()
-                _Form.Focus()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub SetWindowFocus(ByVal _Form As Form)")
-            End Try
+            If _Form.WindowState = FormWindowState.Minimized Then _Form.WindowState = FormWindowState.Normal
+            If lSettings.lIRC.iSettings.sAutoMaximize = True And _Form.WindowState <> FormWindowState.Maximized Then _Form.WindowState = FormWindowState.Maximized
+            _Form.BringToFront()
+            _Form.Focus()
         End Sub
         Public Sub HideChildren(_Form As Form, ByVal _Except As Form, _ActiveForm As Form)
-            Try
-                Dim i As Integer
-                If _ActiveForm.Name = _Except.Name Then Exit Sub
-                For i = 0 To (_Form.MdiChildren.Length) - 1
-                    If _Form.MdiChildren(i).Visible = True Then _Form.MdiChildren(i).Visible = False
-                Next i
-                _Except.Visible = True
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub HideChildren(_Form As Form, ByVal _Except As Form, _ActiveForm As Form)")
-            End Try
+            Dim i As Integer
+            If _ActiveForm.Name = _Except.Name Then Exit Sub
+            For i = 0 To (_Form.MdiChildren.Length) - 1
+                If _Form.MdiChildren(i).Visible = True Then _Form.MdiChildren(i).Visible = False
+            Next i
+            _Except.Visible = True
         End Sub
         Public Sub StartupSettingsTimer_Tick(_Timer As Timer)
-            Try
-                _Timer.Enabled = False
-                If lSettings.lIRC.iSettings.sCustomizeOnStartup = True Then
-                    frmCustomize.Show()
-                    frmCustomize.Focus()
-                End If
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub tmrStartupSettings_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrStartupSettings.Tick")
-            End Try
+            _Timer.Enabled = False
+            If lSettings.lIRC.iSettings.sCustomizeOnStartup = True Then
+                frmCustomize.Show()
+                frmCustomize.Focus()
+            End If
         End Sub
         Public Sub FlashDCCToolBarTimer_Tick(_Timer As Timer)
-            Try
-                If lFlashesLeft = 0 Then
-                    _Timer.Enabled = False
-                    Exit Sub
-                End If
-                lFlashesLeft = lFlashesLeft - 1
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub FlashDCCToolBarTimer_Tick(_Timer As Timer)")
-            End Try
+            If lFlashesLeft = 0 Then
+                _Timer.Enabled = False
+                Exit Sub
+            End If
+            lFlashesLeft = lFlashesLeft - 1
         End Sub
         Public Sub WindowsToolStrip_ItemClicked(ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs)
             Dim channelIndex As Integer = 0, meIndex As Integer
-            Try
-                If (IsNumeric(e.ClickedItem.Tag.ToString()) = True) Then
-                    meIndex = CType(e.ClickedItem.Tag.ToString(), Integer)
-                    If lStrings.DoLeft(e.ClickedItem.Text, 1) = "#" Then
-                        channelIndex = lChannels.Find(meIndex, e.ClickedItem.Text.ToString)
-                        If (lChannels.Visible(channelIndex)) Then
-                            lChannels.Focus(channelIndex)
-                        Else
-                            lChannels.Visible(channelIndex) = True
-                        End If
-                    ElseIf InStr(e.ClickedItem.Text, "(") <> 0 And InStr(e.ClickedItem.Text, ")") <> 0 Then
-                        If (lStatus.Window(meIndex) IsNot Nothing) Then
-                            If (lStatus.Visible(meIndex)) Then
-                                lStatus.Focus(meIndex)
-                            Else
-                                lStatus.Visible(meIndex) = True
-                            End If
-                        End If
+            If (IsNumeric(e.ClickedItem.Tag.ToString()) = True) Then
+                meIndex = CType(e.ClickedItem.Tag.ToString(), Integer)
+                If lStrings.DoLeft(e.ClickedItem.Text, 1) = "#" Then
+                    channelIndex = lChannels.Find(meIndex, e.ClickedItem.Text.ToString)
+                    If (lChannels.Visible(channelIndex)) Then
+                        lChannels.Focus(channelIndex)
                     Else
-                        If (lStatus.PrivateMessage_Visible(meIndex, e.ClickedItem.Text) = True) Then
-                            lStatus.PrivateMessage_Focus(meIndex, lStatus.PrivateMessage_Find(meIndex, e.ClickedItem.Text))
-                            'lStatus.GetObject(meIndex).sPrivateMessages.pPrivateMessage(lStatus.PrivateMessage_Find(meIndex, e.ClickedItem.Text)).pWindow.txtOutgoing.Focus()
+                        lChannels.Visible(channelIndex) = True
+                    End If
+                ElseIf InStr(e.ClickedItem.Text, "(") <> 0 And InStr(e.ClickedItem.Text, ")") <> 0 Then
+                    If (lStatus.Window(meIndex) IsNot Nothing) Then
+                        If (lStatus.Visible(meIndex)) Then
+                            lStatus.Focus(meIndex)
                         Else
-                            lStatus.PrivateMessage_Visible(meIndex, e.ClickedItem.Text) = True
+                            lStatus.Visible(meIndex) = True
                         End If
                     End If
+                Else
+                    If (lStatus.PrivateMessage_Visible(meIndex, e.ClickedItem.Text) = True) Then
+                        lStatus.PrivateMessage_Focus(meIndex, lStatus.PrivateMessage_Find(meIndex, e.ClickedItem.Text))
+                        'lStatus.GetObject(meIndex).sPrivateMessages.pPrivateMessage(lStatus.PrivateMessage_Find(meIndex, e.ClickedItem.Text)).pWindow.txtOutgoing.Focus()
+                    Else
+                        lStatus.PrivateMessage_Visible(meIndex, e.ClickedItem.Text) = True
+                    End If
                 End If
-            Catch ex As Exception
-                Throw
-            End Try
+            End If
         End Sub
         Public Sub Connections_DoubleClick(_SelectedNode As TreeNode)
-            Try
-                lStatus.DblClickConnections(_SelectedNode)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub Connections_DoubleClick(_SelectedNode As TreeNode)")
-            End Try
+            lStatus.DblClickConnections(_SelectedNode)
         End Sub
 
         Public Sub cmdAcceptQuery_Click(_QueryPromptLabel As ToolStripItem, _QueryPromptToolStrip As Windows.Forms.ToolStrip)
-            'Try
             Dim splt() As String, _NickName As String, _HostName As String
             If (_QueryPromptLabel.Tag IsNot Nothing) Then
                 If Len(_QueryPromptLabel.Tag.ToString) = 1 Then
@@ -307,328 +278,175 @@ Namespace nexIRC.MainWindow
                     _QueryPromptToolStrip.Visible = False
                 End If
             End If
-            'Catch ex As Exception
-            'Throw 'ProcessError(ex.Message, "Private Sub cmdAcceptQuery_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAcceptQuery.Click")
-            'End Try
         End Sub
 
         Public Sub cmdDeclineQuery_Click(_QueryPromptToolStrip As Windows.Forms.ToolStrip)
-            Try
-                _QueryPromptToolStrip.Visible = False
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub cmdDeclineQuery_Click(_QueryPromptToolStrip As ToolStrip)")
-            End Try
+            _QueryPromptToolStrip.Visible = False
         End Sub
         Public Sub cmd_ClearHistory_Click(_Recent1 As ToolStripMenuItem, _Recent2 As ToolStripMenuItem, _Recent3 As ToolStripMenuItem)
-            Try
-                Dim i As Integer
-                _Recent1.Text = "(Empty)"
-                _Recent2.Text = "(Empty)"
-                _Recent3.Text = "(Empty)"
-                _Recent1.Enabled = False
-                _Recent2.Enabled = False
-                _Recent3.Enabled = False
-                For i = 1 To lSettings.lRecientServers.sCount
-                    lSettings.lRecientServers.sItem(i) = ""
-                Next i
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_ClearHistory_Click(_Recent1 As Button, _Recent2 As Button, _Recent3 As Button)")
-            End Try
+            Dim i As Integer
+            _Recent1.Text = "(Empty)"
+            _Recent2.Text = "(Empty)"
+            _Recent3.Text = "(Empty)"
+            _Recent1.Enabled = False
+            _Recent2.Enabled = False
+            _Recent3.Enabled = False
+            For i = 1 To lSettings.lRecientServers.sCount
+                lSettings.lRecientServers.sItem(i) = ""
+            Next i
         End Sub
         Public Sub cmd_Connect_Click()
-            Try
-                lStatus.ActiveStatusConnect()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_Connect_Click()")
-            End Try
+            lStatus.ActiveStatusConnect()
         End Sub
         Public Sub cmd_Disconnect_Click()
-            'On Error Resume Next
             lStatus.CloseStatusConnection(lStatus.ActiveIndex, True)
-            'If Err.Number <> 0 Then Throw 'ProcessError(ex.Message, "Private Sub cmd_Connect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Connect.Click")
         End Sub
         Public Sub cmd_CloseStatus_Click()
-            Try
-                Dim i As Integer
-                i = lStatus.ActiveIndex()
-                lStatus.CloseWindow(i)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_CloseStatus_Click()")
-            End Try
+            Dim i As Integer
+            i = lStatus.ActiveIndex()
+            lStatus.CloseWindow(i)
         End Sub
         Public Sub cmd_Exit_Click()
-            Try
-                End
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub cmd_Exit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Exit.Click")
-            End Try
+            End
         End Sub
         Public Sub cmd_Channels_ButtonClick()
-            'Try
             lChannelFolder.Show(lStatus.ActiveIndex)
-            'Catch ex As Exception
-            'Throw
-            'End Try
         End Sub
         Public Sub cmd_Connection_ButtonClick()
-            Try
-                lStatus.ToggleConnection(lStatus.ActiveIndex)
-            Catch ex As Exception
-                Throw
-            End Try
+            lStatus.ToggleConnection(lStatus.ActiveIndex)
         End Sub
         Public Sub cmd_Customize_Click()
-            Try
-                frmCustomize.Show()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub cmd_Customize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_Customize.Click")
-            End Try
+            frmCustomize.Show()
         End Sub
         Public Sub cmd_ListChannels_Click()
-            Try
-                Dim n As Integer = lStatus.ActiveIndex
-                lStrings.ProcessReplaceCommand(n, eCommandTypes.cLIST, lStatus.ServerDescription(n))
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub cmd_ListChannels_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ListChannels.Click")
-            End Try
+            Dim n As Integer = lStatus.ActiveIndex
+            lStrings.ProcessReplaceCommand(n, CommandTypes.cLIST, lStatus.ServerDescription(n))
         End Sub
         Public Sub cmd_LeftBar_Click(_LeftBarButton As ToolStripMenuItem, _LeftPanel As Panel, _Form As Form)
-            Try
-                If _LeftBarButton.Checked = True Then
-                    _LeftBarButton.Checked = False
-                    _LeftPanel.Visible = False
-                    _Form.Width = _Form.Width + 1
-                Else
-                    _LeftBarButton.Checked = True
-                    _LeftPanel.Visible = True
-                    _Form.Width = _Form.Width + 1
-                End If
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_LeftBar_Click(_LeftBarButton As Button, _LeftPanel As Panel)")
-            End Try
+            If _LeftBarButton.Checked = True Then
+                _LeftBarButton.Checked = False
+                _LeftPanel.Visible = False
+                _Form.Width = _Form.Width + 1
+            Else
+                _LeftBarButton.Checked = True
+                _LeftPanel.Visible = True
+                _Form.Width = _Form.Width + 1
+            End If
         End Sub
         Public Sub cmd_WindowBar_Click(_WindowBarButton As ToolStripMenuItem, _WindowsToolStrip As ToolStrip, _Form As Form)
-            Try
-                If _WindowBarButton.Checked = True Then
-                    _WindowBarButton.Checked = False
-                    _WindowsToolStrip.Visible = False
-                Else
-                    _WindowBarButton.Checked = True
-                    _WindowsToolStrip.Visible = True
-                End If
-                _Form.Width = _Form.Width + 1
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub cmd_WindowBar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_WindowBar.Click")
-            End Try
+            If _WindowBarButton.Checked = True Then
+                _WindowBarButton.Checked = False
+                _WindowsToolStrip.Visible = False
+            Else
+                _WindowBarButton.Checked = True
+                _WindowsToolStrip.Visible = True
+            End If
+            _Form.Width = _Form.Width + 1
         End Sub
         Public Sub cmd_Cascade_Click(_Form As Form)
-            Try
-                _Form.LayoutMdi(MdiLayout.Cascade)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_Cascade_Click(_Form As Form)")
-            End Try
+            _Form.LayoutMdi(MdiLayout.Cascade)
         End Sub
         Public Sub cmd_TileHorizontal_Click(_Form As Form)
-            Try
-                _Form.LayoutMdi(MdiLayout.TileHorizontal)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_TileHorizontal_Click(_Form As Form)")
-            End Try
+            _Form.LayoutMdi(MdiLayout.TileHorizontal)
         End Sub
         Public Sub cmd_TileVertical_Click(_Form As Form)
-            Try
-                _Form.LayoutMdi(MdiLayout.TileVertical)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub cmd_TileVertical_Click(_Form As Form)")
-            End Try
+            _Form.LayoutMdi(MdiLayout.TileVertical)
         End Sub
         Public Sub cmd_ArrangeIcons_Click(_Form As Form)
-            Try
-                _Form.LayoutMdi(MdiLayout.ArrangeIcons)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_ArrangeIcons_Click(_Form As Form)")
-            End Try
+            _Form.LayoutMdi(MdiLayout.ArrangeIcons)
         End Sub
         Public Sub cmd_ChannelFolder_Click()
-            Try
-                lChannelFolder.Show(lStatus.ActiveIndex)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub cmd_ChannelFolder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ChannelFolder.Click")
-            End Try
+            lChannelFolder.Show(lStatus.ActiveIndex)
         End Sub
         Public Sub cmd_Window_ButtonClick(_Form As Form)
-            Try
-                _Form.LayoutMdi(MdiLayout.Cascade)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_Window_ButtonClick(_Form As Form)")
-            End Try
+            _Form.LayoutMdi(MdiLayout.Cascade)
         End Sub
         Public Sub cmd_NewStatusWindow_Click()
-            Try
-                lStatus.Create(lSettings.lIRC, lSettings.lServers)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_NewStatusWindow_Click()")
-            End Try
+            lStatus.Create(lSettings.lIRC, lSettings.lServers)
         End Sub
         Public Sub cmd_View_ButtonClick()
-            Try
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub cmd_View_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_View.ButtonClick")
-            End Try
         End Sub
         Public Sub cmd_DCCSend_Click()
-            Try
-                lProcessNumeric.lIrcNumericHelper.NewDCCSend()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_DCCSend_Click()")
-            End Try
+            lProcessNumeric.lIrcNumericHelper.NewDCCSend()
         End Sub
         Public Sub cmd_DCCChat_Click()
-            Try
-                lProcessNumeric.lIrcNumericHelper.NewDCCChat()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_DCCChat_Click()")
-            End Try
+            lProcessNumeric.lIrcNumericHelper.NewDCCChat()
         End Sub
         Public Sub cmd_DownloadManager_Click()
-            Try
-                frmDownloadManager.Show()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_DownloadManager_Click()")
-            End Try
+            frmDownloadManager.Show()
         End Sub
         Public Sub cmd_DCC_ButtonClick()
-            Try
-                lProcessNumeric.lIrcNumericHelper.NewDCCSend()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_DCC_ButtonClick()")
-            End Try
+            lProcessNumeric.lIrcNumericHelper.NewDCCSend()
         End Sub
         Public Sub cmd_RecientServer1_Click(_Recent1 As String)
-            Try
-                If Len(_Recent1) <> 0 And _Recent1 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent1, 6667)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_RecientServer1_Click(_Recent1 As String)")
-            End Try
+            If Len(_Recent1) <> 0 And _Recent1 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent1, 6667)
         End Sub
         Public Sub cmd_RecientServer2_Click(_Recent2 As String)
-            Try
-                If Len(_Recent2) <> 0 And _Recent2 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent2, 6667)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_RecientServer2_Click(_Recent2 As String)")
-            End Try
+            If Len(_Recent2) <> 0 And _Recent2 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent2, 6667)
         End Sub
         Public Sub cmd_RecientServer3_Click(_Recent3 As String)
-            Try
-                If Len(_Recent3) <> 0 And _Recent3 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent3, 6667)
-            Catch ex As Exception
-                Throw
-            End Try
+            If Len(_Recent3) <> 0 And _Recent3 <> "(Unknown)" Then lStatus.Connect_Specify(_Recent3, 6667)
         End Sub
         Public Sub cmdLeftBar_Click(_ActiveForm As Form, _cmd_LeftBarButton As ToolStripMenuItem, _LeftPanel As Panel, _Form As Form)
-            Try
-                If _cmd_LeftBarButton.Checked = True Then
-                    Animate.Animate(_LeftPanel, Animate.Effect.Slide, 200, 1)
-                    mdiMain.cmdLeftBar.Left = 168
-                    _cmd_LeftBarButton.Checked = False
-                Else
-                    _cmd_LeftBarButton.Checked = True
-                    mdiMain.cmdLeftBar.Left = 0
-                    Animate.Animate(_LeftPanel, Animate.Effect.Slide, 200, 1)
-                End If
-                _Form.Width = _Form.Width + 1
-                _ActiveForm.Focus()
-            Catch ex As Exception
-                Throw
-            End Try
+            If _cmd_LeftBarButton.Checked = True Then
+                NativeMethods.Animate(_LeftPanel, [Enum].AnimateWindowFlags.AW_SLIDE, 200, 1)
+                mdiMain.cmdLeftBar.Left = 168
+                _cmd_LeftBarButton.Checked = False
+            Else
+                _cmd_LeftBarButton.Checked = True
+                mdiMain.cmdLeftBar.Left = 0
+                NativeMethods.Animate(_LeftPanel, [Enum].AnimateWindowFlags.AW_SLIDE, 200, 1)
+            End If
+            _Form.Width = _Form.Width + 1
+            _ActiveForm.Focus()
         End Sub
         Public Sub cmd_ServerLinks_Click()
-            Try
-                lStatus.SendSocket(lStatus.ActiveIndex, "LINKS")
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub cmd_ServerLinks_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmd_ServerLinks.Click")
-            End Try
+            lStatus.SendSocket(lStatus.ActiveIndex, "LINKS")
         End Sub
         Public Sub cmd_Whois_Click()
-            Try
-                Dim msg As String, i As Integer
-                i = lStatus.ActiveIndex()
-                msg = InputBox("Enter whois nickname")
-                If Len(msg) <> 0 Then lStrings.ProcessReplaceCommand(i, eCommandTypes.cWHOIS, msg)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_Whois_Click()")
-            End Try
+            Dim msg As String, i As Integer
+            i = lStatus.ActiveIndex()
+            msg = InputBox("Enter whois nickname")
+            If Len(msg) <> 0 Then lStrings.ProcessReplaceCommand(i, CommandTypes.cWHOIS, msg)
         End Sub
         Public Sub cmd_Whowas_Click()
-            Try
-                Dim msg As String, i As Integer
-                i = lStatus.ActiveIndex()
-                msg = InputBox("Enter whowas nickname")
-                If Len(msg) <> 0 Then lStrings.ProcessReplaceCommand(i, eCommandTypes.cWHOWAS, msg)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_Whowas_Click()")
-            End Try
+            Dim msg As String, i As Integer
+            i = lStatus.ActiveIndex()
+            msg = InputBox("Enter whowas nickname")
+            If Len(msg) <> 0 Then lStrings.ProcessReplaceCommand(i, CommandTypes.cWHOWAS, msg)
         End Sub
         Public Sub cmd_Time_Click()
-            Try
-                Dim i As Integer
-                i = lStatus.ActiveIndex()
-                lStrings.ProcessReplaceCommand(i, eCommandTypes.cTIME)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_Time_Click()")
-            End Try
+            Dim i As Integer
+            i = lStatus.ActiveIndex()
+            lStrings.ProcessReplaceCommand(i, CommandTypes.cTIME)
         End Sub
         Public Sub cmd_Stats_Click()
-            Try
-                Dim i As Integer
-                i = lStatus.ActiveIndex()
-                lStrings.ProcessReplaceCommand(i, eCommandTypes.cSTATS)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_Stats_Click()")
-            End Try
+            Dim i As Integer
+            i = lStatus.ActiveIndex()
+            lStrings.ProcessReplaceCommand(i, CommandTypes.cSTATS)
         End Sub
         Public Sub cmd_Away_Click()
-            Try
-                Dim i As Integer, msg As String
-                i = lStatus.ActiveIndex()
-                msg = InputBox("Enter away message:")
-                lStrings.ProcessReplaceCommand(i, eCommandTypes.cAWAY, msg)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_Away_Click()")
-            End Try
+            Dim i As Integer, msg As String
+            i = lStatus.ActiveIndex()
+            msg = InputBox("Enter away message:")
+            lStrings.ProcessReplaceCommand(i, CommandTypes.cAWAY, msg)
         End Sub
         Public Sub cmd_Back_Click()
-            Try
-                Dim i As Integer
-                i = lStatus.ActiveIndex()
-                lStrings.ProcessReplaceCommand(i, eCommandTypes.cBACK)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_Back_Click()")
-            End Try
+            Dim i As Integer
+            i = lStatus.ActiveIndex()
+            lStrings.ProcessReplaceCommand(i, CommandTypes.cBACK)
         End Sub
         Public Sub cmd_PlayVideo_Click(_OpenFileDialog As OpenFileDialog)
-            Try
-                Dim msg() As String, i As Integer
-                msg = OpenDialogFileNames(_OpenFileDialog, Application.StartupPath, "Play Video", "Video Files |*.avi,*.mov,*.wmv,*.mpg,*.mpeg")
-                i = msg.Length - 1
-                If i <> -1 Then PlayVideo(msg(i))
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_PlayVideo_Click()")
-            End Try
+            Dim msg() As String, i As Integer
+            msg = OpenDialogFileNames(_OpenFileDialog, Application.StartupPath, "Play Video", "Video Files |*.avi,*.mov,*.wmv,*.mpg,*.mpeg")
+            i = msg.Length - 1
+            If i <> -1 Then PlayVideo(msg(i))
         End Sub
         Public Sub mnuExit_Click(_Form As Form)
-            Try
-                _Form.Close()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub mnuExit_Click(_Form As Form)")
-            End Try
+            _Form.Close()
         End Sub
         Public Sub cmd_CloseConnection_Click()
-            Try
-                lStatus.Quit(lStatus.ActiveIndex())
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmd_CloseConnection_Click()")
-            End Try
+            lStatus.Quit(lStatus.ActiveIndex())
         End Sub
         Public Sub cmdAccept_Click(_UserToolStripLabel As ToolStripLabel, _ToolStrip As ToolStrip, _DCCToolBarToolStrip As ToolStrip)
             Dim n = 0
@@ -643,69 +461,36 @@ Namespace nexIRC.MainWindow
             End If
         End Sub
         Public Sub cmdDeny_Click(_DCCToolBarToolStrip As ToolStrip)
-            Try
-                _DCCToolBarToolStrip.Visible = False
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmdDeny_Click(_DCCToolBarToolStrip As ToolStrip)")
-            End Try
-            'If Err.Number <> 0 Then Throw 'ProcessError(ex.Message, "Private Sub cmdDeny_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeny.Click")
+            _DCCToolBarToolStrip.Visible = False
         End Sub
         Public Sub nicSystray_MouseDoubleClick(_Form As Form)
-            Try
-                _Form.Show()
-                _Form.WindowState = FormWindowState.Normal
-                _Form.Focus()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub nicSystray_MouseDoubleClick(_Form As Form)")
-            End Try
+            _Form.Show()
+            _Form.WindowState = FormWindowState.Normal
+            _Form.Focus()
         End Sub
         Public Sub cmd_SelectAServer_Click()
-            Try
-                frmCustomize.Show()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub cmd_SelectAServer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmd_SelectAServer.Click")
-            End Try
+            frmCustomize.Show()
         End Sub
         Public Sub cmd_ShowAbout_Click()
-            Try
-                frmAbout.Show()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub cmd_ShowAbout_Click(sender As System.Object, e As System.EventArgs) Handles cmd_ShowAbout.Click")
-            End Try
+            frmAbout.Show()
         End Sub
         Public Sub cmdRedirectDeny_Click(_RedirectToolStrip As ToolStrip)
-            Try
-                _RedirectToolStrip.Visible = False
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmdRedirectDeny_Click(_RedirectToolStrip As ToolStrip)")
-            End Try
+            _RedirectToolStrip.Visible = False
         End Sub
         Public Sub cmdRedirectAccept_Click(_RedirectToolStrip As ToolStrip, _RedirectMessageLabel As ToolStripLabel)
-            Try
-                Dim splt() As String
-                _RedirectToolStrip.Visible = False
-                If (IsNumeric(_RedirectMessageLabel.Tag.ToString().Trim()) = True) Then
-                    splt = _RedirectMessageLabel.Text.ToString().Split(Convert.ToChar("'"))
-                    lChannels.Join(Convert.ToInt32(_RedirectMessageLabel.Tag.ToString().Trim()), splt(3))
-                End If
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub cmdRedirectAccept_Click(sender As System.Object, e As System.EventArgs) Handles cmdRedirectAccept.Click")
-            End Try
+            Dim splt() As String
+            _RedirectToolStrip.Visible = False
+            If (IsNumeric(_RedirectMessageLabel.Tag.ToString().Trim()) = True) Then
+                splt = _RedirectMessageLabel.Text.ToString().Split(Convert.ToChar("'"))
+                lChannels.Join(Convert.ToInt32(_RedirectMessageLabel.Tag.ToString().Trim()), splt(3))
+            End If
         End Sub
         Public Sub tmrWaitForQuit_Tick()
-            Try
-                End
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub tmrWaitForQuit_Tick(sender As System.Object, e As System.EventArgs) Handles tmrWaitForQuit.Tick")
-            End Try
+            End
         End Sub
         Public Sub tmrHideRedirect_Tick(_RedirectToolStrip As ToolStrip, _HideRedirectTimer As Timer)
-            Try
-                _RedirectToolStrip.Visible = False
-                _HideRedirectTimer.Enabled = False
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub tmrHideRedirect_Tick(sender As System.Object, e As System.EventArgs) Handles tmrHideRedirect.Tick")
-            End Try
+            _RedirectToolStrip.Visible = False
+            _HideRedirectTimer.Enabled = False
         End Sub
     End Class
 End Namespace

@@ -1,4 +1,7 @@
-﻿public static class MemberExtensions {
+﻿/// <summary>
+/// Member Extensions
+/// </summary>
+public static class MemberExtensions {
     /// <summary>
     /// To Int
     /// </summary>

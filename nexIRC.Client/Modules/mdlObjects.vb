@@ -6,9 +6,13 @@ Imports nexIRC.IRC.Channels
 Imports nexIRC.IRC.Status
 Imports Telerik.WinControls.UI
 Imports nexIRC.nexIRC.IRC.Settings
+Imports nexIRC.Business.Controllers
 
 Namespace Modules
     Public Module mdlObjects
+        Public lCommandController As CommandController
+        Public lCompatibilityController As CompatibilityController
+        Public lStringsController As FixedStringController
         Public lSettings As New Settings
         Public lStrings As New IrcStrings
         Public lStatus As Status

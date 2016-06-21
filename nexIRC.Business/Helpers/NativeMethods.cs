@@ -1,10 +1,60 @@
-﻿using System.Runtime.InteropServices;
+﻿using nexIRC.Enum;
+using System;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
+using Telerik.WinControls.RichTextBox;
 namespace nexIRC.Business.Helpers {
     /// <summary>
     /// Ini File
     /// </summary>
     public static class NativeMethods {
+        [DllImport("user32")]
+        static extern bool AnimateWindow(IntPtr hwnd, int time, AnimateWindowFlags flags);
+        public static void Animate(Control ctl, AnimateWindowFlags effect, int time, int angle) {
+            if (ctl.Visible) {
+                angle += 180;
+            } else {
+                if (ctl.TopLevelControl == ctl) {
+                    effect = AnimateWindowFlags.AW_ACTIVATE;
+                } else {
+                    throw new ArgumentException();
+                }
+            }
+            var obj = AnimateWindow(ctl.Handle, time, effect);
+            if (!obj) {
+                throw new Exception("Animation failed");
+            }
+            ctl.Visible = !ctl.Visible;
+        }
+        /// <summary>
+        /// WM_VSCROLL
+        /// </summary>
+        private const int WM_VSCROLL = 227;
+        /// <summary>
+        /// Send Message
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="Msg"></param>
+        /// <param name="wParam"></param>
+        /// <param name="lParam"></param>
+        /// <returns></returns>
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
+        /// <summary>
+        /// Scroll to Bottom
+        /// </summary>
+        /// <param name="rtb"></param>
+        public static void ScrollToBottom(RichTextBox rtb) {
+            SendMessage(rtb.Handle, WM_VSCROLL, (IntPtr)7, IntPtr.Zero);
+        }
+        /// <summary>
+        /// Scroll to Bottom
+        /// </summary>
+        /// <param name="rtb"></param>
+        public static void ScrollToBottom(RadRichTextBox rtb) {
+            SendMessage(rtb.Handle, WM_VSCROLL, (IntPtr)7, IntPtr.Zero);
+        }
         /// <summary>
         /// Reading of INI Files
         /// </summary>
@@ -53,6 +103,20 @@ namespace nexIRC.Business.Helpers {
                 return 0f;
             }
             //return float.Parse(ReadINI(file, section, key, def.ToString()), CultureInfo.InvariantCulture.NumberFormat);
+        }
+        public static IrcNumeric? ReadINIIrcNumeric(string file, string section, string key, IrcNumeric _default = IrcNumeric.sCUSTOM) {
+            IrcNumeric n; 
+            int nn;
+            if (int.TryParse(ReadINI(file, section, key, _default.ToString()), out nn)) {
+                try {
+                    n = (IrcNumeric)nn;
+                    return n;
+                } catch {
+                    return null;
+                }
+            } else {
+                return IrcNumeric.sCUSTOM;
+            }
         }
         /// <summary>
         /// Read Ini Int

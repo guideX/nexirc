@@ -2,7 +2,6 @@
 '05-30-2016 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
 Imports Telerik.WinControls.UI
 Imports Telerik.WinControls.RichTextBox
@@ -69,7 +68,7 @@ Public Class MdiChildWindow
         Select Case _formType
             Case FormTypes.Channel
                 RaiseEvent ClearNickList()
-                lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cNAMES, lChannels.Name(_meIndex))
+                lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), CommandTypes.cNAMES, lChannels.Name(_meIndex))
         End Select
     End Sub
 
@@ -304,7 +303,7 @@ Public Class MdiChildWindow
         Select Case _formType
             Case FormTypes.Channel
                 If nickListItemsCount = 0 Then
-                    lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cNAMES, lChannels.Name(MeIndex))
+                    lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), CommandTypes.cNAMES, lChannels.Name(MeIndex))
                 End If
         End Select
         RaiseEvent DisableGetNamesTimer()
@@ -358,7 +357,7 @@ Public Class MdiChildWindow
     End Sub
 
     Public Sub cmdListChannels_Click()
-        lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cLIST)
+        lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), CommandTypes.cLIST)
     End Sub
 
     Public Sub cmdPart_Click()
@@ -366,7 +365,7 @@ Public Class MdiChildWindow
             Case FormTypes.Channel
                 RaiseEvent CloseForm()
                 lChannels.RemoveTree(_meIndex)
-                lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cPART, lChannels.Name(_meIndex))
+                lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), CommandTypes.cPART, lChannels.Name(_meIndex))
         End Select
     End Sub
 
@@ -384,7 +383,7 @@ Public Class MdiChildWindow
         Select Case _formType
             Case FormTypes.Channel
                 message = InputBox("Enter notice message:")
-                If (Not String.IsNullOrEmpty(message)) Then lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), eCommandTypes.cNOTICE, lChannels.Name(MeIndex), message)
+                If (Not String.IsNullOrEmpty(message)) Then lStrings.ProcessReplaceCommand(ReturnMeStatusIndex(), CommandTypes.cNOTICE, lChannels.Name(MeIndex), message)
         End Select
     End Sub
 End Class

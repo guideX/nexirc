@@ -3,6 +3,7 @@ Option Strict On
 'nexIRC 3.0.31
 '05-30-2016 - guideX
 Imports nexIRC.Business.Helpers
+Imports nexIRC.Business.UI.ListView
 Imports nexIRC.Modules
 
 Public Class frmChannelList

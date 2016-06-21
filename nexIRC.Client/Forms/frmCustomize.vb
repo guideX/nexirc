@@ -15,7 +15,9 @@ Public Class frmCustomize
         If (IsNumeric(txtTextBufferSize.Text)) Then
             textBufferSize = Convert.ToInt32(txtTextBufferSize.Text)
         End If
-        lCustomize.Apply_Settings_Servers(lvwServers, cboNetworks.Text)
+        If (cboNetworks.Text IsNot Nothing) Then
+            lCustomize.Apply_Settings_Servers(lvwServers, cboNetworks.Text)
+        End If
         lCustomize.Apply_Settings_User(cboMyNickNames,
                 "",
                 txtUserEmail.Text,
@@ -99,7 +101,7 @@ Public Class frmCustomize
             End If
         Next i
         lvwCompatibility.SelectedIndex = 0
-        lStrings.PopulateListViewWithStrings(lvwStrings)
+        lvwStrings.PopulateWithIrcStrings(lStringsController.FixedStrings)
         lSettings.FillRadComboWithNetworks(cboNetworkNotify, True)
         For i = 1 To lSettings.lNotify.nCount
             With lSettings.lNotify.nNotify(i)

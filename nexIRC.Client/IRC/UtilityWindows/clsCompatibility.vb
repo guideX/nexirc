@@ -2,6 +2,8 @@
 Option Strict On
 Imports Telerik.WinControls.UI
 Imports nexIRC.Modules
+Imports nexIRC.Business.Controllers
+
 Namespace IRC.UtilityWindows
     Public Class clsCompatibility
         Public Sub cmdCancel_Click(_Form As Form)
@@ -12,12 +14,10 @@ Namespace IRC.UtilityWindows
             End Try
         End Sub
         Public Sub cmdOK_Click(_Form As Form)
-            Try
-                lSettings.SaveCompatibility()
-                _Form.Close()
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub cmdOK_Click(_Form As Form)")
-            End Try
+            Dim c = New CompatibilityController(lSettings.lINI.iCompatibility)
+            c.Compatibilities = lSettings.lCompatibility
+            c.Save()
+            _Form.Close()
         End Sub
         Private Sub SetListViewToCompatibility(ByVal _RadListView As RadListView)
             Dim _ListViewItem As ListViewDataItem

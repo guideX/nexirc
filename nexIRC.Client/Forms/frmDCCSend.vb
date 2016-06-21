@@ -3,9 +3,8 @@
 Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
-Imports nexIRC.Classes.Communications
 Imports nexIRC.Business.Helpers
-
+Imports nexIRC.Business.Sockets
 Public Class frmDCCSend
     Private WithEvents lListen As AsyncServer
     Private WithEvents lSocket As AsyncSocket
@@ -104,7 +103,7 @@ Public Class frmDCCSend
                     Else
                         msg = lProcessNumeric.lIrcNumericHelper.ReturnMyIp()
                     End If
-                    msg3 = Replace(lStrings.GetFileTitle(txtFilename.Text), " ", "_")
+                    msg3 = Replace(txtFilename.Text.FileTitle, " ", "_")
                     msg2 = "PRIVMSG " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " " & lStrings.EncodeIPAddr(msg) & " " & Trim(cboPort.Text) & " " & (FileLen(txtFilename.Text)) & ""
                     lStatus.DoStatusSocket(lStatusIndex, "NOTICE " & Trim(cboNickname.Text) & " :DCC SEND " & msg3 & " (" & msg & ")")
                     lStatus.DoStatusSocket(lStatusIndex, msg2)

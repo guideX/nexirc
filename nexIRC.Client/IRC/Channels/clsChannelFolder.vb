@@ -6,6 +6,7 @@ Imports Telerik.WinControls.UI
 Imports nexIRC.clsCommandTypes
 Imports nexIRC.Modules
 Imports nexIRC.Models.ChannelFolder
+Imports nexIRC.Enum
 
 Public Class clsChannelFolderUI
     Private lStatusIndex As Integer
@@ -100,7 +101,7 @@ Public Class clsChannelFolderUI
     End Sub
     Public Event AnimateClose()
     Public Sub lnkJumpToChannelList_LinkClicked()
-        lStrings.ProcessReplaceCommand(lStatusIndex, eCommandTypes.cLIST, lStatus.Description(lStatus.ActiveIndex))
+        lStrings.ProcessReplaceCommand(lStatusIndex, CommandTypes.cLIST, lStatus.Description(lStatus.ActiveIndex))
         RaiseEvent AnimateClose()
     End Sub
     Public Sub txtChannel_Enter(_MouseButtons As Windows.Forms.MouseButtons, _Sender As Object)

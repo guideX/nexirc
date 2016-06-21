@@ -1,9 +1,8 @@
 ﻿Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
-Imports nexIRC.clsCommandTypes
 Imports nexIRC.Business.Helpers
-
+Imports nexIRC.Enum
 Public Class clsChannelListUI
     Public Event SaveColumnWidths()
     Public lSortOrder As SortOrder
@@ -14,7 +13,7 @@ Public Class clsChannelListUI
     End Sub
     Public Sub cmdRefresh_Click(form As Form)
         Dim n As Integer = lStatus.ActiveIndex
-        lStrings.ProcessReplaceCommand(n, eCommandTypes.cLIST, lStatus.ServerDescription(n))
+        lStrings.ProcessReplaceCommand(n, CommandTypes.cLIST, lStatus.ServerDescription(n))
         form.Close()
     End Sub
     Public WriteOnly Property MeIndex() As Integer
@@ -280,7 +279,7 @@ Public Class clsChannelList
                 splt2 = Split(splt(1), " ")
                 i = Len(splt2(0)) + Len(splt2(1)) + Len(splt2(2)) + Len(splt2(3)) + Len(splt2(4)) + 7
                 msg = Right(_Data, Len(_Data) - i)
-                msg = lStrings.StripColorCodes(msg)
+                msg = msg.StripColorCodes
                 If msg = Nothing Then msg = ""
                 If DoesChannelExist(_ChannelListIndex, splt2(3)) = False Then
                     With lChannelLists.cChannelList(_ChannelListIndex)

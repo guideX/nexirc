@@ -84,26 +84,9 @@ Namespace IRC.Channels
                 End If
             End With
         End Sub
-        Public Sub DoChannelColor(_ChannelIndex As Integer, ByVal _Data As String)
-            If (_ChannelIndex <> 0) Then
-                'Dim splt() As String
-                'With lChannels.cChannel(_ChannelIndex)
-                'splt = Split(.cIncomingText, Chr(10))
-                '.cIncomingText = ""
-                'For Each _Line As String In splt
-                'If (_Line.Length <> 0) Then
-                'If (.cIncomingText.Length = 0) Then
-                '.cIncomingText = _Line.Trim()
-                'Else
-                '.cIncomingText = (.cIncomingText & Chr(10) & _Line).Trim()
-                'End If
-                'End If
-                'Next _Line
-                '.cIncomingText = .cIncomingText & Chr(10) & _Data.Trim()
-                'End With
-                With lChannels.cChannel(_ChannelIndex)
-                    lStrings.Print(_Data, .cWindow.txtIncoming)
-                End With
+        Public Sub DoChannelColor(channelIndex As Integer, ByVal data As String)
+            If (channelIndex <> 0) Then
+                lChannels.cChannel(channelIndex).cWindow.txtIncoming.Print(data)
             End If
         End Sub
         Public Sub Window_Closing(form As Form, meIndex As Integer, eventArgs As System.Windows.Forms.FormClosingEventArgs)
@@ -118,20 +101,18 @@ Namespace IRC.Channels
                 eventArgs.Cancel = True
             End With
         End Sub
-        Public Sub Form_Load(_ChannelIndex As Integer)
-            With lChannels.cChannel(_ChannelIndex)
-                .cWindow = New frmChannel
-                .cWindow.Show()
-                .cWindow.MdiChildWindow.FormType = FormTypes.Channel
-                .cWindow.MdiChildWindow.MeIndex = _ChannelIndex
-                .cWindow.MdiChildWindow.Form_Load(FormTypes.Channel)
-                lStrings.Print(.cIncomingText, .cWindow.txtIncoming)
-                .cWindow.Text = .cName
-                .cWindow.Icon = mdiMain.Icon
-                .cWindow.MdiParent = mdiMain
-                .cWindow.lvwNickList.Columns.Add("Nickname")
-                .cWindow.txtOutgoing.Focus()
-            End With
+        Public Sub Form_Load(channelIndex As Integer)
+            lChannels.cChannel(channelIndex).cWindow = New frmChannel
+            lChannels.cChannel(channelIndex).cWindow.Show()
+            lChannels.cChannel(channelIndex).cWindow.MdiChildWindow.FormType = FormTypes.Channel
+            lChannels.cChannel(channelIndex).cWindow.MdiChildWindow.MeIndex = channelIndex
+            lChannels.cChannel(channelIndex).cWindow.MdiChildWindow.Form_Load(FormTypes.Channel)
+            lChannels.cChannel(channelIndex).cWindow.txtIncoming.Print(lChannels.cChannel(channelIndex).cIncomingText)
+            lChannels.cChannel(channelIndex).cWindow.Text = lChannels.cChannel(channelIndex).cName
+            lChannels.cChannel(channelIndex).cWindow.Icon = mdiMain.Icon
+            lChannels.cChannel(channelIndex).cWindow.MdiParent = mdiMain
+            lChannels.cChannel(channelIndex).cWindow.lvwNickList.Columns.Add("Nickname")
+            lChannels.cChannel(channelIndex).cWindow.txtOutgoing.Focus()
         End Sub
         Public Sub Window_Resize(_ChannelIndex As Integer)
             Dim m As Integer
@@ -168,7 +149,7 @@ Namespace IRC.Channels
                             lStatus.ProcessUserInput(lChannels.cChannel(_ChannelIndex).cStatusIndex, msg)
                         Else
                             lStatus.DoStatusSocket(lChannels.cChannel(_ChannelIndex).cStatusIndex, "PRIVMSG " & lChannels.cChannel(_ChannelIndex).cName & " :" & msg)
-                            msg2 = lStrings.ReturnReplacedString(eStringTypes.sPRIVMSG, lStatus.NickName(lChannels.cChannel(_ChannelIndex).cStatusIndex), msg)
+                            msg2 = lStringsController.ReadReplacedString(IrcNumeric.sPRIVMSG, lStatus.NickName(lChannels.cChannel(_ChannelIndex).cStatusIndex), msg)
                             DoChannelColor(_ChannelIndex, msg2)
                         End If
                     End If
@@ -264,7 +245,7 @@ Namespace IRC.Channels
                 Else
                     Join(_StatusIndex, _ChannelB)
                 End If
-                If lSettings.lIRC.iSettings.sNoIRCMessages = False Then lStrings.ProcessReplaceString(_StatusIndex, eStringTypes.sERR_LINKCHANNEL, _ChannelA, _ChannelB)
+                If lSettings.lIRC.iSettings.sNoIRCMessages = False Then lStrings.ProcessReplaceString(_StatusIndex, IrcNumeric.sERR_LINKCHANNEL, _ChannelA, _ChannelB)
             End If
         End Sub
         Public Sub SomeoneChangedNickName(_OldNickName As String, _HostName As String, _NickName As String, _StatusIndex As Integer)
@@ -273,7 +254,7 @@ Namespace IRC.Channels
                     For Each lListViewItem As ListViewDataItem In lChannel.cWindow.lvwNickList.Items
                         If (lListViewItem.Text = _OldNickName) Then
                             lListViewItem.Text = _NickName
-                            lStrings.Print(lStrings.ReturnReplacedString(eStringTypes.sNICK_CHANGE, _OldNickName, _HostName, _NickName), lChannel.cWindow.txtIncoming)
+                            lChannel.cWindow.txtIncoming.Print(lStringsController.ReadReplacedString(IrcNumeric.sNICK_CHANGE, _OldNickName, _HostName, _NickName))
                         End If
                     Next lListViewItem
                 End If
@@ -295,14 +276,14 @@ Namespace IRC.Channels
             If LCase(Trim(_NickName)) = LCase(Trim(lStatus.NickName(_StatusIndex))) Then
                 _ChannelIndex = Add(_Channel, _StatusIndex)
                 Form_Load(_ChannelIndex)
-                DoChannelColor(_ChannelIndex, lStrings.ReturnReplacedString(eStringTypes.sYOUJOIN, _Channel))
+                DoChannelColor(_ChannelIndex, lStringsController.ReadReplacedString(IrcNumeric.sYOUJOIN, _Channel))
                 lSettings.AddToChannelFolders(_Channel, lStatus.NetworkIndex(_StatusIndex))
                 lChannelFolder.RefreshChannelFolderChannelList()
             Else
                 If lSettings.lIRC.iSettings.sShowUserAddresses = True Then
-                    _TextToDisplay = lStrings.ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName & " (" & _IpAddress & ")", _Channel)
+                    _TextToDisplay = lStringsController.ReadReplacedString(IrcNumeric.sUSER_JOINED, _NickName & " (" & _IpAddress & ")", _Channel)
                 Else
-                    _TextToDisplay = lStrings.ReturnReplacedString(eStringTypes.sUSER_JOINED, _NickName, _Channel)
+                    _TextToDisplay = lStringsController.ReadReplacedString(IrcNumeric.sUSER_JOINED, _NickName, _Channel)
                 End If
                 _ChannelIndex = Find(_StatusIndex, _Channel)
                 With lChannels.cChannel(_ChannelIndex)
@@ -344,7 +325,7 @@ Namespace IRC.Channels
                                                       If (lastNickName <> nickName) Then
                                                           lastNickName = nickName
                                                           lChannels.cChannel(ii).cWindow.lvwNickList.Items.Remove(m)
-                                                          DoChannelColor(ii, lStrings.ReturnReplacedString(eStringTypes.sUSER_QUIT, nickName, hostName, quitMessage))
+                                                          DoChannelColor(ii, lStringsController.ReadReplacedString(IrcNumeric.sUSER_QUIT, nickName, hostName, quitMessage))
                                                       End If
                                                       Return True
                                                   End Function)
@@ -394,9 +375,9 @@ Namespace IRC.Channels
             Else
                 RemoveFromNickList(Find(_StatusIndex, _ChannelName), _NickName)
                 If lSettings.lIRC.iSettings.sShowUserAddresses = True Then
-                    _TextToDisplay = lStrings.ReturnReplacedString(eStringTypes.sUSER_PARTED, _NickName & " (" & _HostName & ")", _ChannelName)
+                    _TextToDisplay = lStringsController.ReadReplacedString(IrcNumeric.sUSER_PARTED, _NickName & " (" & _HostName & ")", _ChannelName)
                 Else
-                    _TextToDisplay = lStrings.ReturnReplacedString(eStringTypes.sUSER_PARTED, _NickName, _ChannelName)
+                    _TextToDisplay = lStringsController.ReadReplacedString(IrcNumeric.sUSER_PARTED, _NickName, _ChannelName)
                 End If
                 DoChannelColor(Find(_StatusIndex, _ChannelName), _TextToDisplay)
             End If
@@ -452,8 +433,8 @@ Namespace IRC.Channels
             _Message = Right(_Data, Len(_Data) - splt(1).Length() - 2)
             _ChannelIndex = Find(_StatusIndex, _Channel)
             With lChannels.cChannel(_ChannelIndex)
-                lStrings.Print(lStrings.ReturnReplacedString(eStringTypes.sRPL_TOPIC, _Channel, _Message), .cWindow.txtIncoming)
-                .cWindow.Text = _Channel & ": " & lStrings.StripColorCodes(_Message)
+                .cWindow.txtIncoming.Print(lStringsController.ReadReplacedString(IrcNumeric.sRPL_TOPIC, _Channel, _Message))
+                .cWindow.Text = _Channel & ": " & _Message.StripColorCodes
             End With
         End Sub
         Private Function Add(_Name As String, _StatusIndex As Integer) As Integer
@@ -535,10 +516,10 @@ Namespace IRC.Channels
                     _ChannelIndex = Find(_StatusIndex, splt(2))
                     Select Case Trim(splt(3))
                         Case "+o"
-                            msg = lStrings.ReturnReplacedString(eStringTypes.sUSER_MODE, splt2(0), splt(3), splt(4))
+                            msg = lStringsController.ReadReplacedString(IrcNumeric.sUSER_MODE, splt2(0), splt(3), splt(4))
                             PrivMsg(_ChannelIndex, msg)
                         Case "-o"
-                            msg = lStrings.ReturnReplacedString(eStringTypes.sUSER_MODE, splt2(0), splt(3), splt(4))
+                            msg = lStringsController.ReadReplacedString(IrcNumeric.sUSER_MODE, splt2(0), splt(3), splt(4))
                             PrivMsg(_ChannelIndex, msg)
                     End Select
                 End If

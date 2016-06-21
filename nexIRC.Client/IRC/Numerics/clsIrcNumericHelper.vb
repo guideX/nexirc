@@ -1,10 +1,7 @@
 ﻿Option Explicit On
 Option Strict On
-Imports System
 Imports System.Net
-Imports nexIRC.IRC.Channels.clsChannel
-Imports nexIRC.Classes.UI
-Imports nexIRC.clsIrcNumerics
+Imports nexIRC.Enum
 Imports nexIRC.Modules
 Public Class clsIrcNumericHelper
     Public l001 As String, l002 As String, l003 As String, l004 As String, l311 As String, l312 As String, l313 As String, l316 As String, l317 As String, l319 As String, l378 As String, l379 As String, l401 As String, l250 As String, l251 As String, l252 As String, l253 As String, l254 As String, l255 As String, l265 As String, l266 As String, l616 As String, l615 As String, lWhoisUser As String
@@ -111,8 +108,8 @@ Public Class clsIrcNumericHelper
     Public Sub ProcessWhoisCommand(ByVal _StatusIndex As Integer)
         Try
             Dim msg As String = "", _Start As String, _End As String
-            _Start = lStrings.ReturnReplacedString(eStringTypes.sWHOIS_START).Trim & Environment.NewLine
-            _End = lStrings.ReturnReplacedString(eStringTypes.sWHOIS_END).Trim
+            _Start = lStringsController.ReadReplacedString(IrcNumeric.sWHOIS_START).Trim & Environment.NewLine
+            _End = lStringsController.ReadReplacedString(IrcNumeric.sWHOIS_END).Trim
             If Len(l311) <> 0 Then msg = msg & l311 & Environment.NewLine
             If Len(l312) <> 0 Then msg = msg & l312 & Environment.NewLine
             If Len(l313) <> 0 Then msg = msg & l313 & Environment.NewLine
@@ -140,8 +137,8 @@ Public Class clsIrcNumericHelper
     Public Sub ProcessLUsersCommand(ByVal lStatusIndex As Integer)
         Try
             Dim msg As String, msg2 As String, msg3 As String
-            msg2 = lStrings.ReturnReplacedString(eStringTypes.sLUSERS_BEGIN)
-            msg3 = lStrings.ReturnReplacedString(eStringTypes.sLUSERS_END)
+            msg2 = lStringsController.ReadReplacedString(IrcNumeric.sLUSERS_BEGIN)
+            msg3 = lStringsController.ReadReplacedString(IrcNumeric.sLUSERS_END)
             msg = "-" & Environment.NewLine & msg2 & Chr(13)
             If Len(Trim(l251)) <> 0 Then msg = msg & l251 & Chr(13)
             If Len(Trim(l252)) <> 0 Then msg = msg & l252 & Chr(13)
@@ -160,7 +157,7 @@ Public Class clsIrcNumericHelper
     End Sub
     Public Sub DoWhois(ByVal lStatusIndex As Integer, ByVal lNick As String)
         Try
-            lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sWHOIS_WAIT)
+            lStrings.ProcessReplaceString(lStatusIndex, IrcNumeric.sWHOIS_WAIT)
             lStatus.SendSocket(lStatusIndex, "WHOIS :" & lNick)
         Catch ex As Exception
             Throw
@@ -184,7 +181,7 @@ Public Class clsIrcNumericHelper
             _OldNick = lStrings.ParseData(_Data, ":", "!")
             _NewNick = lStrings.ParseData(_Data, "=", " NICK :")
             '_HostName = Right(_Data, Len(_Data) - (Len(splt(1)) + 2))
-            'ProcessReplaceString(_StatusIndex, eStringTypes.sNICK_CHANGE, _OldNick, _NewNick, _HostName)
+            'ProcessReplaceString(_StatusIndex, IrcNumeric.sNICK_CHANGE, _OldNick, _NewNick, _HostName)
             If _OldNick = lStatus.NickName(_StatusIndex) Then
                 lStatus.NickName(_StatusIndex, False) = _NewNick
             End If
@@ -205,7 +202,7 @@ Public Class clsIrcNumericHelper
         Try
             Dim msg As String, splt() As String
             splt = Split(lData, " ")
-            msg = lStrings.ReturnReplacedString(eStringTypes.sCHANNEL_ACTION, lStrings.ParseData(lData, ":", "!"), Right(lData, Len(lData) - Len(splt(0) & " " & splt(1) & " " & splt(2) & " " & splt(3))))
+            msg = lStringsController.ReadReplacedString(IrcNumeric.sCHANNEL_ACTION, lStrings.ParseData(lData, ":", "!"), Right(lData, Len(lData) - Len(splt(0) & " " & splt(1) & " " & splt(2) & " " & splt(3))))
             lChannels.DoChannelColor(lChannels.Find(lStatusIndex, splt(2)), msg)
         Catch ex As Exception
             Throw
@@ -282,7 +279,7 @@ Public Class clsIrcNumericHelper
         msg = lStrings.ParseData(lData, ":", "!")
         splt = Split(lData, " ")
         If lSettings_DCC.lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then
-            lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Auto Ignore is enabled, and user is unknown '" & msg & "'.")
+            lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, IrcNumeric.sDCC_DENIED, "Auto Ignore is enabled, and user is unknown '" & msg & "'.")
             Exit Sub
         End If
         If IsNickNameInDCCIgnoreList(msg) = False Then
@@ -298,14 +295,14 @@ Public Class clsIrcNumericHelper
                         lForm.Show()
                     End If
                 ElseIf lSettings_DCC.lDCC.dSendPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.eIgnore Then
-                    lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring all DCC connections")
+                    lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, IrcNumeric.sDCC_DENIED, "Ignoring all DCC connections")
                 End If
             Else
                 splt2 = Split(msg, ".")
-                lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "Ignoring file type of '" & splt2(1) & "'.")
+                lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, IrcNumeric.sDCC_DENIED, "Ignoring file type of '" & splt2(1) & "'.")
             End If
         Else
-            lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, eStringTypes.sDCC_DENIED, "User is in ignore list '" & msg & "'.")
+            lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, IrcNumeric.sDCC_DENIED, "User is in ignore list '" & msg & "'.")
         End If
     End Sub
 
@@ -360,8 +357,8 @@ Public Class clsIrcNumericHelper
     Public Sub ProcessDataArrival(ByVal lStatusIndex As Integer, ByVal lData As String)
         Try
             Dim splt() As String, i As Integer
-            If InStr(lData, Environment.Newline) <> 0 Then
-                splt = Split(lData, Environment.Newline)
+            If InStr(lData, Environment.NewLine) <> 0 Then
+                splt = Split(lData, Environment.NewLine)
                 For i = 0 To UBound(splt)
                     lProcessNumeric.ProcessDataArrivalLine(lStatusIndex, splt(i))
                 Next i
@@ -369,7 +366,7 @@ Public Class clsIrcNumericHelper
                 lProcessNumeric.ProcessDataArrivalLine(lStatusIndex, lData)
             End If
         Catch ex As Exception
-            lStrings.ProcessReplaceString(lStatusIndex, eStringTypes.sSOCKET_ERROR, ex.Message)
+            lStrings.ProcessReplaceString(lStatusIndex, IrcNumeric.sSOCKET_ERROR, ex.Message)
         End Try
     End Sub
 

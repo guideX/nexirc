@@ -4,6 +4,7 @@ Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
 Imports nexIRC.Classes.Communications
+Imports nexIRC.Business.Sockets
 Public Class Ident
     Private WithEvents _listenSocket As AsyncServer
     Private WithEvents _clientSocket As StatusSocket

@@ -188,25 +188,26 @@ Namespace IRC.Customize
             Next i
         End Sub
         Public Sub cmdEditString_Click(_StringsListView As RadListView)
-            Dim lItem As ListViewDataItem, f As frmEditString, i As Integer, msg As String, n As Integer
-            lItem = New ListViewDataItem
+            Dim item As ListViewDataItem, f As frmEditString, i As Integer
+            item = New ListViewDataItem
             If _StringsListView.SelectedItems.Count <> 0 Then
                 For i = 0 To _StringsListView.SelectedItems.Count
-                    lItem = _StringsListView.SelectedItems(i)
+                    item = _StringsListView.SelectedItems(i)
                     Exit For
                 Next i
                 f = New frmEditString
                 f.Show()
-                f.txtDescription.Text = lItem.Text
-                f.txtSupport.Text = lItem.Item(1).ToString '  .SubItems(1).Text
-                f.txtSyntax.Text = lItem.Item(2).ToString
-                f.cboNumeric.Text = lItem.Item(3).ToString
-                f.txtData.Text = lItem.Item(4).ToString
-                n = lStrings.FindStringIndexByDescription(lItem.Text)
-                For i = 1 To 6
-                    msg = NativeMethods.ReadINI(lSettings.lINI.iText, Trim(Convert.ToString(n)), "Find" & Trim(Str(i)), "")
-                    If Len(msg) <> 0 Then f.lstParameters.Items.Add(msg)
-                Next i
+                f.txtDescription.Text = item.Text
+                f.txtSupport.Text = item.Item(1).ToString
+                f.txtSyntax.Text = item.Item(2).ToString
+                f.cboNumeric.Text = item.Item(3).ToString
+                f.txtData.Text = item.Item(4).ToString
+                Dim obj = lStringsController.FindStringIndexByDescription(item.Text)
+                For Each o In obj.Find
+                    If (Not String.IsNullOrEmpty(o)) Then
+                        f.lstParameters.Items.Add(o)
+                    End If
+                Next o
             End If
         End Sub
         Public Sub cmdServersClear_Click(_Network As String, _RadListView As RadListView)

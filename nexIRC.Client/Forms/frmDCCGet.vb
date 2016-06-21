@@ -3,7 +3,7 @@
 Option Explicit On
 Option Strict On
 Imports System.IO
-Imports nexIRC.Classes.Communications
+Imports nexIRC.Business.Sockets
 Imports nexIRC.Modules
 
 Public Class frmDCCGet

@@ -11,9 +11,10 @@ Imports nexIRC.Models.Media
 Imports nexIRC.Business.Helpers
 Imports nexIRC.Models.ChannelFolder
 Imports nexIRC.Models.Query
-Imports nexIRC.Models
 Imports nexIRC.Models.Network
 Imports nexIRC.Models.Server
+Imports nexIRC.Models.Mode
+Imports nexIRC.Business.Controllers
 
 Public Class Settings
     Structure gArraySizes
@@ -227,27 +228,25 @@ Public Class Settings
         End Try
     End Function
 
-    Public Sub SaveCompatibility()
-        Dim i As Integer
-        NativeMethods.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.Count.ToString))
-        For i = 1 To lCompatibility.Capacity
-            With lCompatibility(i)
-                NativeMethods.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", .Description)
-                NativeMethods.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", Trim(.Enabled.ToString))
-            End With
-        Next i
-    End Sub
+    'Public Sub SaveCompatibility()
+    'Dim i As Integer
+    'NativeMethods.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.Count.ToString))
+    'For i = 0 To lCompatibility.Count - 1
+    'NativeMethods.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", lCompatibility(i).Description)
+    'NativeMethods.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", lCompatibility(i).Enabled.ToString)
+    'Next i
+    'End Sub
 
-    Public Sub LoadCompatibility()
-        Dim i As Integer, c As Integer
-        c = NativeMethods.ReadINIInt(lINI.iCompatibility, "Settings", "Count", 0)
-        For i = 1 To c
-            Dim newItem = New CompatibilityModel()
-            newItem.Description = NativeMethods.ReadINI(lINI.iCompatibility, i.ToString, "Description", "")
-            newItem.Enabled = NativeMethods.ReadINIBool(lINI.iCompatibility, i.ToString, "Enabled", False)
-            lCompatibility.Add(newItem)
-        Next i
-    End Sub
+    'Public Sub LoadCompatibility()
+    'Dim i As Integer, c As Integer
+    'c = NativeMethods.ReadINIInt(lINI.iCompatibility, "Settings", "Count", 0)
+    'For i = 1 To c
+    'Dim newItem = New CompatibilityModel()
+    'newItem.Description = NativeMethods.ReadINI(lINI.iCompatibility, i.ToString, "Description", "")
+    'newItem.Enabled = NativeMethods.ReadINIBool(lINI.iCompatibility, i.ToString, "Enabled", False)
+    'lCompatibility.Add(newItem)
+    'Next i
+    'End Sub
 
     Public Sub AddToCompatibility(ByVal description As String, ByVal enabled As Boolean)
         If (Not String.IsNullOrEmpty(description)) Then
@@ -702,21 +701,9 @@ Public Class Settings
     End Sub
 
     Public Sub LoadNetworks()
-        Dim c = 0, index = 0
-        c = NativeMethods.ReadINIInt(lINI.iNetworks, "Settings", "Count", 0)
-        If c <> 0 Then index = NativeMethods.ReadINIInt(lINI.iNetworks, "Settings", "Index", 0)
-        If c <> 0 Then
-            lNetworks = New NetworksModel()
-            lNetworks.Index = index
-            For i As Integer = 1 To c
-                Dim n = New NetworkModel
-                n.Name = NativeMethods.ReadINI(lINI.iNetworks, i.ToString, "Description", "")
-                n.ID = i
-                If (Not String.IsNullOrEmpty(n.Name)) Then
-                    lNetworks.Networks.Add(n)
-                End If
-            Next i
-        End If
+        Dim lNetworkController = New NetworkController(lINI.iNetworks)
+        lNetworks.Networks = lNetworkController.Networks
+        lNetworks.Index = lNetworkController.Index
     End Sub
 
     Private Sub LoadServers()
@@ -808,9 +795,10 @@ Public Class Settings
             mdiMain.SetLoadingFormProgress("Loading Notify List", 52)
             LoadNotifyList()
             mdiMain.SetLoadingFormProgress("Loading Bot Commands", 55)
-            lStrings.LoadCommands()
+            lCommandController = New CommandController(lSettings.lINI.iCommands)
             mdiMain.SetLoadingFormProgress("Loading Compatibility", 60)
-            LoadCompatibility()
+            lCompatibilityController = New CompatibilityController(lSettings.lINI.iCompatibility)
+            lCompatibility = lCompatibilityController.Compatibilities
             mdiMain.SetLoadingFormProgress("Loading DCC Settings", 65)
             lSettings_DCC.LoadDCCSettings()
             mdiMain.SetLoadingFormProgress("Loading Download Manager", 68)
@@ -855,7 +843,7 @@ Public Class Settings
             End With
         End If
         mdiMain.SetLoadingFormProgress("Loading Strings", 80)
-        lStrings.LoadStrings()
+        lStringsController = New FixedStringController(lSettings.lINI.iText)
         mdiMain.SetLoadingFormProgress("Loading Query Settings", 95)
         LoadQuerySettings()
     End Sub
@@ -901,7 +889,7 @@ Public Class Settings
 
     Public Sub AddToDownloadManager(ByVal lFile As String, ByVal lNickname As String, Optional ByVal lShowDownloadManager As Boolean = False)
         Dim msg As String, msg2 As String
-        msg = lStrings.GetFileTitle(lFile)
+        msg = lFile.FileTitle
         msg2 = Left(lFile, Len(lFile) - Len(msg))
         If Len(msg) <> 0 And Len(msg2) <> 0 And Len(lNickname) <> 0 Then
             If FindDownloadManagerIndexByFileName(msg) = 0 Then
@@ -1047,7 +1035,9 @@ Public Class Settings
             NativeMethods.WriteINI(lINI.iIRC, "Settings", "Password", .iPass)
             NativeMethods.WriteINI(lINI.iIRC, "Settings", "RealName", .iRealName)
         End With
-        SaveCompatibility()
+        Dim c = New CompatibilityController(lINI.iCompatibility)
+        c.Compatibilities = lSettings.lCompatibility
+        c.Save()
         SaveRecientServers()
         lSettings_Services.SaveServices()
         SaveIdentdSettings()
@@ -1102,7 +1092,7 @@ Public Class Settings
         Dim i As Integer
         NativeMethods.WriteINI(lINI.iServers, "Settings", "Count", lServers.Servers.Count.ToString())
         NativeMethods.WriteINI(lINI.iServers, "Settings", "Index", lServers.Index.ToString())
-        For i = 1 To lServers.Servers.Count
+        For i = 0 To lServers.Servers.Count - 1
             With lServers.Servers(i)
                 NativeMethods.WriteINI(lINI.iServers, i.ToString, "Ip", .Ip)
                 NativeMethods.WriteINI(lINI.iServers, i.ToString, "Port", Trim(Convert.ToString(.Port)))

@@ -1,4 +1,4 @@
-﻿namespace nexIRC.Models {
+﻿namespace nexIRC.Models.Mode {
     /// <summary>
     /// Mode Model
     /// </summary>

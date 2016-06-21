@@ -4,6 +4,7 @@ Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
 Imports nexIRC.clsCommandTypes
+Imports nexIRC.Enum
 
 Public Class clsSendNoticeUI
     Private lStatusIndex As Integer
@@ -19,7 +20,7 @@ Public Class clsSendNoticeUI
     Public Sub cmdOK_Click(_MessageTextBox As TextBox, _NickNameTextBox As TextBox)
         Try
             If Len(_MessageTextBox.Text) <> 0 Then
-                lStrings.ProcessReplaceCommand(lStatus.ActiveIndex, eCommandTypes.cNOTICE, _NickNameTextBox.Text, _MessageTextBox.Text)
+                lStrings.ProcessReplaceCommand(lStatus.ActiveIndex, CommandTypes.cNOTICE, _NickNameTextBox.Text, _MessageTextBox.Text)
                 _MessageTextBox.Text = ""
             End If
         Catch ex As Exception

@@ -41,16 +41,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChannelFolder\ChannelFolderModel.cs" />
+    <Compile Include="Command\CommandModel.cs" />
+    <Compile Include="Command\CommandReturnDataModel.cs" />
     <Compile Include="Compatibility\CompatibilityModel.cs" />
     <Compile Include="Media\MediaFileModel.cs" />
     <Compile Include="Media\PlaylistModel.cs" />
-    <Compile Include="ModeModel.cs" />
+    <Compile Include="Mode\ModeModel.cs" />
     <Compile Include="Network\NetworkModel.cs" />
     <Compile Include="Network\NetworksModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\QueryModel.cs" />
     <Compile Include="Server\ServerModel.cs" />
     <Compile Include="Server\ServersModel.cs" />
+    <Compile Include="Sockets\AsyncServerModel.cs" />
+    <Compile Include="Sockets\AsyncSocketModel.cs" />
+    <Compile Include="Status\StatusModel.cs" />
+    <Compile Include="String\FixedStringModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\nexIRC.Enum\nexIRC.Enum.csproj">

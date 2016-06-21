@@ -33,16 +33,55 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Telerik.WinControls">
+      <HintPath>..\nexIRC.Client\bin\Debug\Telerik.WinControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.RichTextBox">
+      <HintPath>..\nexIRC.Client\bin\Debug\Telerik.WinControls.RichTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI">
+      <HintPath>..\nexIRC.Client\bin\Debug\Telerik.WinControls.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="TelerikCommon">
+      <HintPath>..\nexIRC.Client\bin\Debug\TelerikCommon.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CommandController.cs" />
+    <Compile Include="Controllers\CompatibilityController.cs" />
+    <Compile Include="Controllers\FixedStringController.cs" />
+    <Compile Include="Controllers\NetworkController.cs" />
+    <Compile Include="Extensions\DrawingExtensions.cs" />
+    <Compile Include="Extensions\IoExtensions.cs" />
+    <Compile Include="Extensions\IrcExtensions.cs" />
     <Compile Include="Extensions\MemberExtensions.cs" />
+    <Compile Include="Extensions\TelerikExtensions.cs" />
+    <Compile Include="Extensions\WinformsExtensions.cs" />
+    <Compile Include="Helpers\IrcProcessHelper.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sockets\AsyncServer.cs" />
+    <Compile Include="Sockets\AsyncSocket.cs" />
+    <Compile Include="Sockets\StatusSocket.cs" />
+    <Compile Include="Sockets\StateObject.cs" />
+    <Compile Include="UI\ListView\ListViewSorter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\nexIRC.Enum\nexIRC.Enum.csproj">
+      <Project>{f08fedac-f91b-443a-8e96-3f3d1cc0f60f}</Project>
+      <Name>nexIRC.Enum</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\nexIRC.Models\nexIRC.Models.csproj">
+      <Project>{ecf0574d-660f-4b78-9b0d-985429d262e6}</Project>
+      <Name>nexIRC.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

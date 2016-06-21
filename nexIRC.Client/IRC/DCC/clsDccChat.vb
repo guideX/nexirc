@@ -2,11 +2,10 @@
 '05-30-2016 - guideX
 Option Explicit On
 Option Strict On
-
 Imports nexIRC.Modules
-Imports nexIRC.Classes.Communications
 Imports Telerik.WinControls.UI
 Imports System.Windows.Forms
+Imports nexIRC.Business.Sockets
 
 Public Class clsDccChat
     Private WithEvents lListen As AsyncServer
@@ -30,127 +29,87 @@ Public Class clsDccChat
     Private lToolStrip As ToolStrip
 
     Public Sub SetStatusIndex(ByVal lIndex As Integer)
-        Try
-            lStatusIndex = lIndex
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Public Sub SetStatusIndex(ByVal lIndex As Integer)")
-        End Try
+        lStatusIndex = lIndex
     End Sub
 
     Public Sub AddText(_Text As String)
-        Try
-            If Len(_Text) <> 0 Then
-                If lStrings.DoRight(_Text, 1) <> Environment.NewLine Then
-                    lIncomingTextBox.Text = _Text & Environment.NewLine & lIncomingTextBox.Text
-                Else
-                    lIncomingTextBox.Text = _Text & lIncomingTextBox.Text
-                End If
+        If Len(_Text) <> 0 Then
+            If lStrings.DoRight(_Text, 1) <> Environment.NewLine Then
+                lIncomingTextBox.Text = _Text & Environment.NewLine & lIncomingTextBox.Text
+            Else
+                lIncomingTextBox.Text = _Text & lIncomingTextBox.Text
             End If
-        Catch ex As Exception
-            Throw
-        End Try
+        End If
     End Sub
 
     Private Sub SendData(ByVal lTempSocket As AsyncSocket, ByVal lData As String)
-        Try
-            If Len(lData) <> 0 Then
-                lTempSocket.Send(lData & Environment.NewLine)
-            End If
-        Catch ex As Exception
-            Throw
-        End Try
+        If Len(lData) <> 0 Then
+            lTempSocket.Send(lData & Environment.NewLine)
+        End If
     End Sub
 
     Private Sub InitDCCListenSocket(Optional ByVal _Port As Long = 0)
-        Try
-            lListen = New AsyncServer(Convert.ToInt32(_Port))
-            lListen.Start()
-        Catch ex As Exception
-            Throw
-        End Try
+        lListen = New AsyncServer(Convert.ToInt32(_Port))
+        lListen.Start()
     End Sub
 
     Public Sub ConnectToDCCChat(ByVal _Ip As String, ByVal _Port As Integer)
-        Try
-            lSocket.Connect(_Ip, _Port)
-        Catch ex As Exception
-            Throw
-        End Try
+        lSocket.Connect(_Ip, _Port)
     End Sub
 
     Public Sub SetInfo(ByVal _Ip As String, ByVal _Port As String)
-        Try
-            lRemoteIp = _Ip
-            lRemotePort = _Port
-            lAutoConnect = True
-        Catch ex As Exception
-            Throw
-        End Try
+        lRemoteIp = _Ip
+        lRemotePort = _Port
+        lAutoConnect = True
     End Sub
 
     Public Sub Form_Load(_Form As Form, _UsersDropDownList As ToolStripComboBox, _ConnectButton As ToolStripButton, _DisconnectButton As ToolStripButton, _IncomingTextBox As RichTextBox, _ToolStrip As ToolStrip, _OutgoingTextBox As TextBox)
-        Try
-            Dim lPort As Long, lConnect As New ConnectDelegate(AddressOf ConnectToDCCChat), i As Integer
-            lInvokeForm = _Form
-            lUsersDropDownList = _UsersDropDownList
-            lConnectButton = _ConnectButton
-            lDisconnectButton = _DisconnectButton
-            lToolStrip = _ToolStrip
-            lOutgoingTextBox = _OutgoingTextBox
-            _Form.Icon = mdiMain.Icon
-            _Form.MdiParent = mdiMain
-            For i = 1 To lSettings.lNotify.nCount
-                With lSettings.lNotify.nNotify(i)
-                    _UsersDropDownList.Items.Add(.nNickName)
-                End With
-            Next i
-            If lAutoConnect = True Then
-                lSocket = New AsyncSocket
-                lRemoteIp = lStrings.DecodeLongIPAddr(lRemoteIp)
-                lPort = Convert.ToInt64(Replace(Trim(lRemotePort), "", ""))
-                _UsersDropDownList.Enabled = False
-                _ConnectButton.Enabled = False
-                _DisconnectButton.Enabled = True
-                _Form.Invoke(lConnect, lRemoteIp, lPort)
-            End If
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim lPort As Long, lConnect As New ConnectDelegate(AddressOf ConnectToDCCChat), i As Integer
+        lInvokeForm = _Form
+        lUsersDropDownList = _UsersDropDownList
+        lConnectButton = _ConnectButton
+        lDisconnectButton = _DisconnectButton
+        lToolStrip = _ToolStrip
+        lOutgoingTextBox = _OutgoingTextBox
+        _Form.Icon = mdiMain.Icon
+        _Form.MdiParent = mdiMain
+        For i = 1 To lSettings.lNotify.nCount
+            With lSettings.lNotify.nNotify(i)
+                _UsersDropDownList.Items.Add(.nNickName)
+            End With
+        Next i
+        If lAutoConnect = True Then
+            lSocket = New AsyncSocket
+            lRemoteIp = lStrings.DecodeLongIPAddr(lRemoteIp)
+            lPort = Convert.ToInt64(Replace(Trim(lRemotePort), "", ""))
+            _UsersDropDownList.Enabled = False
+            _ConnectButton.Enabled = False
+            _DisconnectButton.Enabled = True
+            _Form.Invoke(lConnect, lRemoteIp, lPort)
+        End If
     End Sub
 
     Private Sub lListen_ConnectionAccept(ByVal tmp_Socket As AsyncSocket) Handles lListen.ConnectionAccept
-        Try
-            Dim lAddText As New StringDelegate(AddressOf AddText)
-            lInvokeForm.Invoke(lAddText, "Connection Accepted")
-            lSocket = tmp_Socket
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim lAddText As New StringDelegate(AddressOf AddText)
+        lInvokeForm.Invoke(lAddText, "Connection Accepted")
+        lSocket = tmp_Socket
     End Sub
 
     Private Sub lSocket_socketConnected(ByVal SocketID As String) Handles lSocket.SocketConnected
-        Try
-            Dim lAddText As New StringDelegate(AddressOf AddText)
-            lInvokeForm.Invoke(lAddText, "Socket Connected")
-            lClientConnected = True
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim lAddText As New StringDelegate(AddressOf AddText)
+        lInvokeForm.Invoke(lAddText, "Socket Connected")
+        lClientConnected = True
     End Sub
 
     Private Sub ProcessInData(ByVal lData As String)
-        Try
-            Dim lAddText As New StringDelegate(AddressOf AddText), msg As String
-            If Len(lData) <> 0 Then
-                lData = Replace(lData, Chr(10), "")
-                lData = Replace(lData, Chr(13), "")
-                lData = Replace(lData, Environment.NewLine, "")
-                msg = "<" & lUsersDropDownList.Text & "> " & Trim(lData)
-                lInvokeForm.Invoke(lAddText, msg)
-            End If
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim lAddText As New StringDelegate(AddressOf AddText), msg As String
+        If Len(lData) <> 0 Then
+            lData = Replace(lData, Chr(10), "")
+            lData = Replace(lData, Chr(13), "")
+            lData = Replace(lData, Environment.NewLine, "")
+            msg = "<" & lUsersDropDownList.Text & "> " & Trim(lData)
+            lInvokeForm.Invoke(lAddText, msg)
+        End If
     End Sub
 
     Private Sub lSocket_socketDataArrival(ByVal SocketID As String, ByVal SocketData As String, ByVal lBytes() As Byte, ByVal lBytesRead As Integer) Handles lSocket.SocketDataArrival

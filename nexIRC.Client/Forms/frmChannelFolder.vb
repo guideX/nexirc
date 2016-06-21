@@ -2,7 +2,6 @@
 '05-30-2016 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.Classes.UI
 Imports nexIRC.Modules
 Public Class frmChannelFolder
     Private WithEvents channelFolderWindow As New clsChannelFolderUI

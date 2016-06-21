@@ -51,12 +51,8 @@ Public Class frmNoticeWindow
         End Try
     End Sub
 
-    Public Sub DoNoticeColor(ByVal lData As String)
-        Try
-            lStrings.Print(lData, txtIncoming)
-        Catch ex As Exception
-            Throw
-        End Try
+    Public Sub DoNoticeColor(ByVal data As String)
+        txtIncoming.Print(data)
     End Sub
 
     Private Sub frmNoticeWindow_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -119,7 +115,7 @@ Public Class frmNoticeWindow
                             lStatus.DoStatusSocket(lStatusIndex, "PRIVMSG " & _privateMessageNickName & " :" & msg)
                             txtOutgoing.Text = ""
                             e.Handled = True
-                            DoNoticeColor(lStrings.ReturnReplacedString(clsIrcNumerics.eStringTypes.sPRIVMSG, lStatus.NickName(lStatusIndex), msg))
+                            DoNoticeColor(lStringsController.ReadReplacedString(IrcNumeric.sPRIVMSG, lStatus.NickName(lStatusIndex), msg))
                         End If
                     End If
                 End If

@@ -1,7 +1,9 @@
-﻿'nexIRC 3.0.31
-'05-30-2016 - guideX
-Option Explicit On
+﻿Option Explicit On
 Option Strict On
+Imports nexIRC.Business.Controllers
+'nexIRC 3.0.31
+'05-30-2016 - guideX
+Imports nexIRC.Models.Server
 Imports nexIRC.Modules
 Public Class clsServerLinks
     Private lStatusIndex As Integer
@@ -65,28 +67,31 @@ Public Class clsServerLinks
             Throw 'ProcessError(ex.Message, "Private Sub frmServerLinks_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load")
         End Try
     End Sub
-    Public Sub cmdOK_Click(_Form As Form, _ListView As ListView, _ComboBox As ComboBox)
-        Try
-            Dim mbox As MsgBoxResult, i As Integer, lItem As ListViewItem
-            If lSettings.lIRC.iSettings.sPrompts = True Then
-                mbox = MsgBox("Warning! You are about to add a range of servers to a network group via /LINKS command, are you sure you wish to proceed?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question)
-            Else
-                mbox = MsgBoxResult.Yes
-            End If
-            If mbox = MsgBoxResult.Yes Then
-                For i = 0 To _ListView.Items.Count - 1
-                    lItem = _ListView.Items(i)
-                    If Len(lItem.Text) <> 0 Then
-                        If lItem.Checked = True Then
-                            lSettings.AddServer(_ComboBox.Text & ": " & lItem.Text, lItem.Text, lSettings.FindNetworkIndex(_ComboBox.Text), Convert.ToInt64(Trim(lItem.SubItems(1).Text)))
-                        End If
+    Public Sub cmdOK_Click(form As Form, _ListView As ListView, _ComboBox As ComboBox)
+        Dim mbox As MsgBoxResult, i As Integer, lItem As ListViewItem
+        If (lSettings.lIRC.iSettings.sPrompts) Then
+            mbox = MsgBox("Warning! You are about to add a range of servers to a network group via /LINKS command, are you sure you wish to proceed?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question)
+        Else
+            mbox = MsgBoxResult.Yes
+        End If
+        If (mbox = MsgBoxResult.Yes) Then
+            For i = 0 To _ListView.Items.Count - 1
+                lItem = _ListView.Items(i)
+                If (lItem.Text.Length <> 0) Then
+                    If (lItem.Checked) Then
+                        Dim server As New ServerModel
+                        server.Description = _ComboBox.Text & ": " & lItem.Text
+                        server.Ip = lItem.Text
+                        server.NetworkIndex = lSettings.FindNetworkIndex(_ComboBox.Text)
+                        server.Port = Convert.ToInt64(Trim(lItem.SubItems(1).Text))
+                        Using c As New ConnectionController(lSettings.lINI.iNetworks, lSettings.lINI.iServers)
+                            c.CreateServer(server)
+                        End Using
                     End If
-                Next i
-            End If
-            _Form.Close()
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Private Sub cmdOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOK.Click")
-        End Try
+                End If
+            Next i
+        End If
+        form.Close()
     End Sub
     Public Sub cmdCancel_Click(_Form As Form)
         Try

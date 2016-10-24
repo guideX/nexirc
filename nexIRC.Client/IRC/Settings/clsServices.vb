@@ -6,6 +6,7 @@ Imports nexIRC.Business.Helpers
 Imports nexIRC.Enum.Services
 Imports nexIRC.Modules
 Imports nexIRC.Settings
+Imports TeamNexgenCore.Helpers
 
 Namespace nexIRC.IRC.Settings
     Public Class clsServices
@@ -77,12 +78,12 @@ Namespace nexIRC.IRC.Settings
             Try
                 Dim i As Integer, n As Integer, t As Integer, e As Integer
                 lServices.sCount = Convert.ToInt32(NativeMethods.ReadINI(Modules.lSettings.lINI.iServices, "Settings", "Count", "0"))
-                ReDim lServices.sService(Modules.lSettings.lArraySizes.aServices)
+                ReDim lServices.sService(2000)
                 If lServices.sCount <> 0 Then
                     For i = 1 To lServices.sCount
                         With lServices.sService(i)
-                            ReDim .sServerCommands.sServiceCommand(Modules.lSettings.lArraySizes.aServiceCommands)
-                            ReDim .sServerCommands.sServiceCommand(i).sServiceParam(Modules.lSettings.lArraySizes.aServiceParams)
+                            ReDim .sServerCommands.sServiceCommand(2000)
+                            ReDim .sServerCommands.sServiceCommand(i).sServiceParam(2000)
                             .sName = NativeMethods.ReadINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "Name", "")
                             e = Convert.ToInt32(NativeMethods.ReadINI(Modules.lSettings.lINI.iServices, Trim(Str(i)), "Type", "0"))
                             Select Case e

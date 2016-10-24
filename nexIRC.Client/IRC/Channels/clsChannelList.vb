@@ -3,6 +3,8 @@ Option Strict On
 Imports nexIRC.Modules
 Imports nexIRC.Business.Helpers
 Imports nexIRC.Enum
+Imports TeamNexgenCore.Helpers
+
 Public Class clsChannelListUI
     Public Event SaveColumnWidths()
     Public lSortOrder As SortOrder

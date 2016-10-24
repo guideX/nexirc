@@ -7,7 +7,9 @@ Imports nexIRC.IRC.Customize
 Imports nexIRC.Modules
 Imports nexIRC.nexIRC.IRC.Settings.clsDCC
 Imports nexIRC.Enum
-Imports nexIRC.Business.Helpers
+Imports TeamNexgenCore.Helpers
+Imports nexIRC.Business.Controllers
+
 Public Class frmCustomize
     Public WithEvents lCustomize As New clsCustomize
     Public Sub EventApply()
@@ -101,11 +103,13 @@ Public Class frmCustomize
             End If
         Next i
         lvwCompatibility.SelectedIndex = 0
-        lvwStrings.PopulateWithIrcStrings(lStringsController.FixedStrings)
+        Using c As New FixedStringController(lSettings.lINI.iStringSettings)
+            lvwStrings.PopulateWithIrcStrings(c.FixedStrings)
+        End Using
         lSettings.FillRadComboWithNetworks(cboNetworkNotify, True)
-        For i = 1 To lSettings.lNotify.nCount
-            With lSettings.lNotify.nNotify(i)
-                lCustomize.AddToNotifyListView(.nNickName, .nMessage, .nNetwork, lvwNotify)
+        For i = 1 To Modules.Notify.NotifyList.Count
+            With Modules.Notify.NotifyList(i)
+                lCustomize.AddToNotifyListView(.Nickname, .Message, .Network, lvwNotify)
             End With
         Next i
         For i = 1 To lSettings.lIRC.iNicks.nCount
@@ -313,7 +317,7 @@ Public Class frmCustomize
         lCustomize.cmdCancelNow_Click(Me)
     End Sub
     Private Sub cboNetworks_SelectedIndexChanged(sender As System.Object, e As Telerik.WinControls.UI.Data.PositionChangedEventArgs) Handles cboNetworks.SelectedIndexChanged
-        lCustomize.cboNetworks_SelectedIndexChanged(lvwServers, cboNetworks.SelectedItem.Tag.ToString.ToInt)
+        lCustomize.cboNetworks_SelectedIndexChanged(lvwServers, cboNetworks.SelectedItem.Tag.ToString.ToInt())
     End Sub
     Private Sub cmdAddMyNickName_Click(sender As System.Object, e As System.EventArgs) Handles cmdAddMyNickName.Click
         lCustomize.cmdAddNickName_Click()

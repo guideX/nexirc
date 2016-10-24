@@ -8,45 +8,17 @@ Imports nexIRC.Modules
 Imports nexIRC.Enum
 Imports nexIRC.Models.Compatibility
 Imports nexIRC.Models.Media
-Imports nexIRC.Business.Helpers
 Imports nexIRC.Models.ChannelFolder
 Imports nexIRC.Models.Query
 Imports nexIRC.Models.Network
 Imports nexIRC.Models.Server
 Imports nexIRC.Models.Mode
 Imports nexIRC.Business.Controllers
+Imports TeamNexgenCore.Helpers
 
 Public Class Settings
-    Structure gArraySizes
-        Public aCompatibility As Integer
-        Public aProcess As Integer
-        Public aNickList As Integer
-        Public aAutoAllowList As Integer
-        Public aAutoDenyList As Integer
-        Public aSpamFilterCount As Integer
-        Public aRecientServers As Integer
-        Public aNotifyItems As Integer
-        Public aNetworks As Integer
-        Public aServers As Integer
-        Public aNickNames As Integer
-        Public aServices As Integer
-        Public aServiceCommands As Integer
-        Public aServiceParams As Integer
-        Public aDCCIgnore As Integer
-        Public aDownloadManager As Integer
-        Public aChannelFolder As Integer
-        Public aChannelList As Integer
-        Public aStatusWindows As Integer
-        Public aChannelWindows As Integer
-        Public aServerLinks As Integer
-        Public aQueries As Integer
-        Public aStrings As Integer
-        Public aPlaylists As Integer
-        Public aMediaFiles As Integer
-        Public aSub As Integer
-    End Structure
-
     Structure gINI
+        Public iBots As String
         Public iBasePath As String
         Public iCompatibility As String
         Public iMedia As String
@@ -85,17 +57,17 @@ Public Class Settings
         Public iEnabled As Boolean
     End Structure
 
-    Structure gNotify
-        Public nNickName As String
-        Public nMessage As String
-        Public nNetwork As String
-    End Structure
+    'Structure gNotify
+    'Public nNickName As String
+    'Public nMessage As String
+    'Public nNetwork As String
+    'End Structure
 
-    Structure gNotifyList
-        Public nModified As Boolean
-        Public nCount As Integer
-        Public nNotify() As gNotify
-    End Structure
+    'Structure gNotifyList
+    'Public nModified As Boolean
+    'Public nCount As Integer
+    'Public nNotify() As gNotify
+    'End Structure
 
     Structure gIdentd
         Public iUserID As String
@@ -107,7 +79,6 @@ Public Class Settings
     Structure gStringSettings
         Public sUnknowns As UnknownsIn
         Public sUnsupported As UnsupportedIn
-        'Public sServerInNotices As Boolean
     End Structure
 
     Structure gDownload
@@ -158,7 +129,6 @@ Public Class Settings
         Public sShowWindowsAutomatically As Boolean
         Public sAutoMaximize As Boolean
         Public sQuitMessage As String
-        'Public sHideStatusOnClose As Boolean
         Public sAutoConnect As Boolean
         Public sVideoBackground As Boolean
         Public sChannelFolderCloseOnJoin As Boolean
@@ -194,7 +164,6 @@ Public Class Settings
     End Structure
 
     Private lAway As Boolean
-    Public lArraySizes As gArraySizes
     Public lDownloadManager As gDownloadManager
     Public lINI As gINI
     Public lWinVisible As gWinVisible
@@ -202,9 +171,7 @@ Public Class Settings
     Public lServers As ServersModel = New ServersModel
     Public lNetworks As NetworksModel = New NetworksModel
     Public lChannelFolders As List(Of ChannelFolderModel) = New List(Of ChannelFolderModel)
-    Public lNotify As gNotifyList
     Public lQuerySettings As QueryModel
-    Public lRecientServers As gRecientServers
     Public lPlaylists As List(Of PlaylistModel) = New List(Of PlaylistModel)
     Public lMediaFiles As List(Of MediaFileModel) = New List(Of MediaFileModel)
     Public lCompatibility As New List(Of CompatibilityModel)
@@ -212,85 +179,16 @@ Public Class Settings
 
     Public Function FindCompatibilityIndex(ByVal lDescription As String) As Integer
         Dim result As Integer
-        Try
-            For i As Integer = 1 To lCompatibility.Count
-                With lCompatibility(i)
-                    If LCase(Trim(.Description)) = LCase(Trim(lDescription)) Then
-                        result = i
-                        Exit For
-                    End If
-                End With
-            Next i
-            Return result
-        Catch ex As Exception
-            Throw
-            Return Nothing
-        End Try
-    End Function
-
-    'Public Sub SaveCompatibility()
-    'Dim i As Integer
-    'NativeMethods.WriteINI(lINI.iCompatibility, "Settings", "Count", Trim(lCompatibility.Count.ToString))
-    'For i = 0 To lCompatibility.Count - 1
-    'NativeMethods.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Description", lCompatibility(i).Description)
-    'NativeMethods.WriteINI(lINI.iCompatibility, Trim(i.ToString), "Enabled", lCompatibility(i).Enabled.ToString)
-    'Next i
-    'End Sub
-
-    'Public Sub LoadCompatibility()
-    'Dim i As Integer, c As Integer
-    'c = NativeMethods.ReadINIInt(lINI.iCompatibility, "Settings", "Count", 0)
-    'For i = 1 To c
-    'Dim newItem = New CompatibilityModel()
-    'newItem.Description = NativeMethods.ReadINI(lINI.iCompatibility, i.ToString, "Description", "")
-    'newItem.Enabled = NativeMethods.ReadINIBool(lINI.iCompatibility, i.ToString, "Enabled", False)
-    'lCompatibility.Add(newItem)
-    'Next i
-    'End Sub
-
-    Public Sub AddToCompatibility(ByVal description As String, ByVal enabled As Boolean)
-        If (Not String.IsNullOrEmpty(description)) Then
-            'lCompatibility.Modified = True
-            Dim c = New CompatibilityModel
-            c.Description = description
-            c.Enabled = enabled
-            lCompatibility.Add(c)
-        End If
-    End Sub
-
-    Public Sub RemoveFromCompatibility(ByVal lIndex As Integer)
-        Try
-            'lCompatibility.Modified = True
-            With lCompatibility(lIndex)
-                .Enabled = False
-                .Description = ""
-            End With
-            SortCompatibility()
-        Catch ex As Exception
-            Throw
-        End Try
-    End Sub
-
-    Public Sub SortCompatibility()
-        Dim lEnabled(lArraySizes.aCompatibility) As Boolean, lDescription(lArraySizes.aCompatibility) As String, i As Integer, c As Integer
-        For i = 1 To lCompatibility.Count
+        For i As Integer = 1 To lCompatibility.Count
             With lCompatibility(i)
-                lEnabled(i) = .Enabled
-                lDescription(i) = .Description
-                .Enabled = False
-                .Description = ""
+                If LCase(Trim(.Description)) = LCase(Trim(lDescription)) Then
+                    result = i
+                    Exit For
+                End If
             End With
         Next i
-        For i = 1 To lArraySizes.aCompatibility
-            If Len(lDescription(i)) <> 0 Then
-                c = c + 1
-                With lCompatibility(c)
-                    .Description = lDescription(i)
-                    .Enabled = lEnabled(i)
-                End With
-            End If
-        Next i
-    End Sub
+        Return result
+    End Function
 
     Public Sub LoadPlaylists()
         Dim i As Integer
@@ -309,152 +207,84 @@ Public Class Settings
     End Sub
 
     Public Sub LoadMediaFiles()
-        Try
-            Dim i As Integer
-            With lMediaFiles
-                Dim n = NativeMethods.ReadINIInt(lINI.iMedia, "Settings", "Count", 0)
-                For i = 1 To n
-                    Dim f = New MediaFileModel
-                    f.File = NativeMethods.ReadINI(lINI.iMedia, i.ToString, "File", "")
-                Next i
-            End With
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim i As Integer
+        With lMediaFiles
+            Dim n = NativeMethods.ReadINIInt(lINI.iMedia, "Settings", "Count", 0)
+            For i = 1 To n
+                Dim f = New MediaFileModel
+                f.File = NativeMethods.ReadINI(lINI.iMedia, i.ToString, "File", "")
+            Next i
+        End With
     End Sub
 
     Public Sub SaveMediaFiles()
-        Try
-            Dim i As Integer
-            With lMediaFiles
-                NativeMethods.WriteINI(lINI.iMedia, "Settings", "Count", Trim(lMediaFiles.Count.ToString))
-                For i = 1 To lMediaFiles.Count
-                    NativeMethods.WriteINI(lINI.iMedia, Trim(i.ToString), "File", lMediaFiles(i).File)
-                Next i
-            End With
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Public Sub SaveMediaFiles()")
-        End Try
+        Dim i As Integer
+        With lMediaFiles
+            NativeMethods.WriteINI(lINI.iMedia, "Settings", "Count", Trim(lMediaFiles.Count.ToString))
+            For i = 1 To lMediaFiles.Count
+                NativeMethods.WriteINI(lINI.iMedia, Trim(i.ToString), "File", lMediaFiles(i).File)
+            Next i
+        End With
     End Sub
 
     Public Function ReturnDownloadManagerFullPath(ByVal lFileName As String) As String
-        Try
-            Dim i As Integer, msg As String = ""
-            If Len(lFileName) <> 0 Then
-                For i = 0 To lDownloadManager.dCount
-                    With lDownloadManager.dDownload(i)
-                        If LCase(Trim(.dFileName)) = LCase(Trim(lFileName)) Then
-                            msg = .dFilePath & .dFileName
-                        End If
-                    End With
-                Next i
-            End If
-            Return msg
-        Catch ex As Exception
-            Throw
-            Return Nothing
-        End Try
+        Dim i As Integer, msg As String = ""
+        If Len(lFileName) <> 0 Then
+            For i = 0 To lDownloadManager.dCount
+                With lDownloadManager.dDownload(i)
+                    If LCase(Trim(.dFileName)) = LCase(Trim(lFileName)) Then
+                        msg = .dFilePath & .dFileName
+                    End If
+                End With
+            Next i
+        End If
+        Return msg
     End Function
 
-    Public Sub AddToRecientServerList(ByVal lServerIndex As Integer)
-        Try
-            Dim msg As String
-            If lServerIndex <> 0 Then
-                msg = lServers.Servers(lServerIndex).Ip
-                If msg = lRecientServers.sItem(1) Or msg = lRecientServers.sItem(2) Or msg = lRecientServers.sItem(3) Then Exit Sub
-                lRecientServers.sItem(3) = lRecientServers.sItem(2)
-                lRecientServers.sItem(2) = lRecientServers.sItem(1)
-                lRecientServers.sItem(1) = msg
-                RefreshRecientServersMenu()
-                SaveRecientServers()
-            End If
-        Catch ex As Exception
-            Throw
-        End Try
-    End Sub
-
-    Public Sub LoadRecientServers()
-        Try
-            Dim i As Integer
-            lRecientServers.sCount = lArraySizes.aRecientServers
-            ReDim lRecientServers.sItem(lRecientServers.sCount)
-            For i = 1 To lRecientServers.sCount
-                lRecientServers.sItem(i) = NativeMethods.ReadINI(lINI.iRecientServers, "Items", Trim(i.ToString), "")
-            Next i
-            RefreshRecientServersMenu()
-        Catch ex As Exception
-            Throw
-        End Try
-    End Sub
-
     Public Sub RefreshRecientServersMenu()
-        Try
-            mdiMain.cmd_RecientServer1.Text = lRecientServers.sItem(1)
-            mdiMain.cmd_RecientServer2.Text = lRecientServers.sItem(2)
-            mdiMain.cmd_RecientServer3.Text = lRecientServers.sItem(3)
-            If Len(mdiMain.cmd_RecientServer1.Text) = 0 Then
-                mdiMain.cmd_RecientServer1.Text = "(Empty)"
-                mdiMain.cmd_RecientServer1.Enabled = False
-            Else
-                mdiMain.cmd_RecientServer1.Enabled = True
-            End If
-            If Len(mdiMain.cmd_RecientServer2.Text) = 0 Then
-                mdiMain.cmd_RecientServer2.Text = "(Empty)"
-                mdiMain.cmd_RecientServer2.Enabled = False
-            Else
-                mdiMain.cmd_RecientServer2.Enabled = True
-            End If
-            If Len(mdiMain.cmd_RecientServer3.Text) = 0 Then
-                mdiMain.cmd_RecientServer3.Text = "(Empty)"
-                mdiMain.cmd_RecientServer3.Enabled = False
-            Else
-                mdiMain.cmd_RecientServer3.Enabled = True
-            End If
-        Catch ex As Exception
-            Throw
-        End Try
-    End Sub
-
-    Public Sub SaveRecientServers()
-        Try
-            Dim i As Integer
-            For i = 1 To lRecientServers.sCount
-                NativeMethods.WriteINI(lINI.iRecientServers, "Items", Trim(i.ToString), lRecientServers.sItem(i))
-            Next i
-        Catch ex As Exception
-            Throw
-        End Try
+        mdiMain.cmd_RecientServer1.Text = mdlObjects.lRecentServerController.RecentServers(0).Description
+        mdiMain.cmd_RecientServer2.Text = mdlObjects.lRecentServerController.RecentServers(1).Description
+        mdiMain.cmd_RecientServer3.Text = mdlObjects.lRecentServerController.RecentServers(2).Description
+        If Len(mdiMain.cmd_RecientServer1.Text) = 0 Then
+            mdiMain.cmd_RecientServer1.Text = "(Empty)"
+            mdiMain.cmd_RecientServer1.Enabled = False
+        Else
+            mdiMain.cmd_RecientServer1.Enabled = True
+        End If
+        If Len(mdiMain.cmd_RecientServer2.Text) = 0 Then
+            mdiMain.cmd_RecientServer2.Text = "(Empty)"
+            mdiMain.cmd_RecientServer2.Enabled = False
+        Else
+            mdiMain.cmd_RecientServer2.Enabled = True
+        End If
+        If Len(mdiMain.cmd_RecientServer3.Text) = 0 Then
+            mdiMain.cmd_RecientServer3.Text = "(Empty)"
+            mdiMain.cmd_RecientServer3.Enabled = False
+        Else
+            mdiMain.cmd_RecientServer3.Enabled = True
+        End If
     End Sub
 
     Public Sub WriteTextFile(ByVal lFileName As String, ByVal lData As String)
-        Try
-            Dim w As StreamWriter
-            w = New StreamWriter(lFileName)
-            w.Write(lData)
-            w.Close()
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim w As StreamWriter
+        w = New StreamWriter(lFileName)
+        w.Write(lData)
+        w.Close()
     End Sub
 
     Public Function ReadTextFile(ByVal lFileName As String) As String
-        Try
-            Dim r As StreamReader, msg As String, msg2 As String
-            r = New StreamReader(lFileName)
-            msg = r.ReadLine
-            msg2 = ""
-            Do While Not msg Is Nothing
-                If Len(msg2) <> 0 Then
-                    msg2 = msg2 & Environment.NewLine & msg
-                Else
-                    msg2 = msg
-                End If
-            Loop
-            ReadTextFile = msg2
-        Catch ex As Exception
-            Throw
-            Return Nothing
-        End Try
+        Dim r As StreamReader, msg As String, msg2 As String
+        r = New StreamReader(lFileName)
+        msg = r.ReadLine
+        msg2 = ""
+        Do While Not msg Is Nothing
+            If Len(msg2) <> 0 Then
+                msg2 = msg2 & Environment.NewLine & msg
+            Else
+                msg2 = msg
+            End If
+        Loop
+        ReadTextFile = msg2
     End Function
 
     Public Sub LoadQuerySettings()
@@ -503,90 +333,12 @@ Public Class Settings
         End With
     End Sub
 
-    Public Sub PopulateNotifyByListView(ByVal lListView As RadListView)
-        Try
-            Dim i As Integer, n As Integer
-            For i = 0 To (lListView.Items.Count - 1)
-                n = n + 1
-                With lListView.Items(i)
-                    lNotify.nNotify(n).nNickName = .Text
-                    lNotify.nNotify(n).nNetwork = .Item(2).ToString
-                    lNotify.nNotify(n).nMessage = .Item(1).ToString
-                End With
-            Next i
-            lNotify.nCount = n
-        Catch ex As Exception
-            Throw
-        End Try
-    End Sub
-
-    Public Function FindNotifyIndex(ByVal lNickName As String) As Integer
-        Try
-            Dim i As Integer
-            FindNotifyIndex = 0
-            If Len(lNickName) <> 0 Then
-                For i = 1 To lNotify.nCount
-                    If LCase(Trim(lNickName)) = LCase(Trim(lNotify.nNotify(i).nNickName)) Then
-                        FindNotifyIndex = i
-                        Exit For
-                    End If
-                Next i
-            End If
-        Catch ex As Exception
-            Throw
-            Return Nothing
-        End Try
-    End Function
-
     Public Function ReturnAwayStatus() As Boolean
         ReturnAwayStatus = lAway
     End Function
 
     Public Sub SetAwayStatus(ByVal lStatus As Boolean)
         lAway = lStatus
-    End Sub
-
-    Public Sub LoadNotifyList()
-        Dim i As Integer
-        ReDim lNotify.nNotify(lArraySizes.aNotifyItems)
-        lNotify.nCount = Convert.ToInt32(Trim(NativeMethods.ReadINI(lINI.iNotify, "Settings", "Count", "0")))
-        If lNotify.nCount <> 0 Then
-            For i = 1 To lNotify.nCount
-                With lNotify.nNotify(i)
-                    .nNickName = NativeMethods.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "NickName", "")
-                    .nMessage = NativeMethods.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "Message", "")
-                    .nNetwork = NativeMethods.ReadINI(lINI.iNotify, Trim(Convert.ToString(i)), "Network", "")
-                End With
-            Next i
-        End If
-    End Sub
-
-    Public Sub AddToNotifyList(_Item As gNotify)
-        Try
-            lNotify.nCount = lNotify.nCount + 1
-            With lNotify.nNotify(lNotify.nCount)
-                .nNickName = _Item.nNickName
-                .nNetwork = _Item.nNetwork
-                .nMessage = _Item.nMessage
-            End With
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Public Sub AddToNotifyList(_Item As gNotify)")
-        End Try
-    End Sub
-
-    Public Sub SaveNotifyList()
-        Dim i As Integer
-        If lNotify.nModified = True Then
-            NativeMethods.WriteINI(lINI.iNotify, "Settings", "Count", Trim(lNotify.nCount.ToString))
-            For i = 1 To lNotify.nCount
-                With lNotify.nNotify(i)
-                    NativeMethods.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "NickName", .nNickName)
-                    NativeMethods.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "Message", .nMessage)
-                    NativeMethods.WriteINI(lINI.iNotify, Trim(Convert.ToString(i)), "Network", .nNetwork)
-                End With
-            Next i
-            lNotify.nModified = False
-        End If
     End Sub
 
     Public Function ReturnOtherNickName(ByVal lUnAcceptedNick As String) As String
@@ -614,46 +366,13 @@ Public Class Settings
         ReturnBasePath = lINI.iBasePath
     End Function
 
-    Public Sub SetArraySizes()
-        With lArraySizes
-            .aSub = 1000
-            .aCompatibility = 1000
-            .aPlaylists = 500
-            .aMediaFiles = 20000
-            .aProcess = 20000
-            .aAutoAllowList = 100
-            .aAutoDenyList = 100
-            .aChannelFolder = 300
-            .aChannelList = 500
-            .aChannelWindows = 100
-            .aDCCIgnore = 100
-            .aDownloadManager = 300
-            .aNetworks = 1000
-            .aNickList = 2000
-            .aNickNames = 100
-            .aNotifyItems = 100
-            .aQueries = 300
-            .aRecientServers = 3
-            .aServerLinks = 1000
-            .aServers = 3000
-            .aServiceCommands = 100
-            .aServiceParams = 4
-            .aServices = 100
-            .aSpamFilterCount = 200
-            .aStatusWindows = 300
-            .aStrings = 300
-        End With
-        'ReDim lNetworks.Networks(lArraySizes.aNetworks)
-        'ReDim lServers.Server(lArraySizes.aServers)
-        ReDim lIRC.iNicks.nNick(lArraySizes.aNickNames)
-    End Sub
-
     Private Sub SetINIFiles()
         With lINI
             .iBasePath = Path.GetDirectoryName(Application.ExecutablePath) & "\"
             .iNotepad = lINI.iBasePath & "data\config\notepad.txt"
             .iPlaylists = lINI.iBasePath & "data\config\playlists.ini"
             .iQueryLogs = lINI.iBasePath & "data\logs\query.txt"
+            .iBots = lINI.iBasePath & "data\config\bots.ini"
             .iNotify = lINI.iBasePath & "data\config\notify.ini"
             .iStringSettings = lINI.iBasePath & "data\config\stringsettings.ini"
             .iNetworks = lINI.iBasePath & "data\config\networks.ini"
@@ -700,26 +419,6 @@ Public Class Settings
         End With
     End Sub
 
-    Public Sub LoadNetworks()
-        Dim lNetworkController = New NetworkController(lINI.iNetworks)
-        lNetworks.Networks = lNetworkController.Networks
-        lNetworks.Index = lNetworkController.Index
-    End Sub
-
-    Private Sub LoadServers()
-        lServers.Servers = New List(Of ServerModel)
-        lServers.Index = NativeMethods.ReadINIInt(lINI.iServers, "Settings", "Index", 0)
-        For i As Integer = 1 To NativeMethods.ReadINIInt(lINI.iServers, "Settings", "Count", 0)
-            Dim server = New ServerModel
-            server.Description = NativeMethods.ReadINI(lINI.iServers, i.ToString, "Description", "")
-            server.Ip = NativeMethods.ReadINI(lINI.iServers, i.ToString, "Ip", "")
-            server.NetworkIndex = NativeMethods.ReadINIInt(lINI.iServers, i.ToString, "NetworkIndex", 0)
-            server.Port = NativeMethods.ReadINIInt(lINI.iServers, i.ToString, "Port", 0)
-            If (Not String.IsNullOrEmpty(server.Description) And Not String.IsNullOrEmpty(server.Ip)) Then
-                lServers.Servers.Add(server)
-            End If
-        Next i
-    End Sub
 
     Public Sub LoadStringSettings()
         Dim i As Integer
@@ -750,7 +449,7 @@ Public Class Settings
 
     Private Sub LoadDownloadManager()
         Dim i As Integer
-        ReDim lDownloadManager.dDownload(lArraySizes.aDownloadManager)
+        ReDim lDownloadManager.dDownload(2000)
         With lDownloadManager
             .dCount = Convert.ToInt32(Trim(NativeMethods.ReadINI(lINI.iDownloadManager, "Settings", "Count", "0")))
             For i = 1 To .dCount
@@ -775,7 +474,7 @@ Public Class Settings
             mdiMain.SetLoadingFormProgress("Setting INI Files", 5)
             SetINIFiles()
             mdiMain.SetLoadingFormProgress("Loading Recient Servers", 11)
-            LoadRecientServers()
+            mdlObjects.lRecentServerController.Load()
             mdiMain.SetLoadingFormProgress("Loading Services", 12)
             lSettings_Services.LoadServices()
             mdiMain.SetLoadingFormProgress("Loading String Settings", 15)
@@ -787,16 +486,21 @@ Public Class Settings
             mdiMain.SetLoadingFormProgress("Loading Ident", 25)
             LoadIdent()
             mdiMain.SetLoadingFormProgress("Loading Networks", 27)
-            LoadNetworks()
-            mdiMain.SetLoadingFormProgress("Loading Servers", 32)
-            LoadServers()
+            Using c As New ConnectionController(lSettings.lINI.iNetworks, lSettings.lINI.iServers)
+                lNetworks.Networks = c.ReadAllNetworks()
+                lNetworks.Index = c.ReadNetworkIndex()
+                mdiMain.SetLoadingFormProgress("Loading Servers", 32)
+                lServers.Servers = c.ReadAllServers()
+                lServers.Index = c.ReadServerIndex()
+            End Using
             mdiMain.SetLoadingFormProgress("Loading Modes", 50)
             LoadModes()
             mdiMain.SetLoadingFormProgress("Loading Notify List", 52)
-            LoadNotifyList()
+            mdlObjects.Notify.Load()
             mdiMain.SetLoadingFormProgress("Loading Bot Commands", 55)
-            lCommandController = New CommandController(lSettings.lINI.iCommands)
+            lBotController = New BotController(lSettings.lINI.iBots)
             mdiMain.SetLoadingFormProgress("Loading Compatibility", 60)
+            lCommandController = New CommandController(lSettings.lINI.iCommands)
             lCompatibilityController = New CompatibilityController(lSettings.lINI.iCompatibility)
             lCompatibility = lCompatibilityController.Compatibilities
             mdiMain.SetLoadingFormProgress("Loading DCC Settings", 65)
@@ -1035,84 +739,22 @@ Public Class Settings
             NativeMethods.WriteINI(lINI.iIRC, "Settings", "Password", .iPass)
             NativeMethods.WriteINI(lINI.iIRC, "Settings", "RealName", .iRealName)
         End With
-        Dim c = New CompatibilityController(lINI.iCompatibility)
-        c.Compatibilities = lSettings.lCompatibility
-        c.Save()
-        SaveRecientServers()
+        Using c = New CompatibilityController(lSettings.lINI.iCompatibility)
+            c.Compatibilities = lSettings.lCompatibility
+            c.Save()
+        End Using
+        Modules.lRecentServerController.Save()
         lSettings_Services.SaveServices()
         SaveIdentdSettings()
         SaveNickNames()
-        SaveNetworks()
-        SaveServers()
-        SaveNotifyList()
+        Using c = New ConnectionController(lSettings.lINI.iNetworks, lSettings.lINI.iRecientServers)
+            c.SaveNetworks(lNetworks.Networks)
+            c.SaveServers(lServers.Servers)
+        End Using
+        Modules.Notify.Save()
         lSettings_DCC.SaveDCCSettings()
         SaveDownloadManagerSettings()
         SaveQuerySettings()
-    End Sub
-
-    Public Function AddServer(ByVal description As String, ByVal ip As String, ByVal networkIndex As Integer, ByVal port As Long) As Integer
-        If (Not String.IsNullOrEmpty(description) And Not String.IsNullOrEmpty(ip) And networkIndex <> 0 And port <> 0) Then
-            Dim server = New ServerModel
-            server.Description = description
-            server.Ip = ip
-            server.NetworkIndex = networkIndex
-            server.Port = port
-            SaveServers()
-        End If
-        Return lServers.Servers.Count
-    End Function
-
-    Public Function AddNetwork(ByVal name As String) As Integer
-        If (Not String.IsNullOrEmpty(name)) Then
-            Dim n = New NetworkModel
-            n.Name = name
-            If (lWinVisible.wCustomize) Then
-                frmCustomize.lCustomize.RefreshNetworks(frmCustomize.cboNetworks)
-                frmCustomize.cboNetworks.Text = name
-                lNetworks.Networks.Add(n)
-                SaveNetworks()
-            End If
-        End If
-        Return lNetworks.Networks.Count
-        'If Len(lDescription) <> 0 Then
-        'Dim c = lNetworks.Networks.Count + 1
-        'With lNetworks.nNetwork(lNetworks.Networks.Count)
-        '.Name = lDescription
-        'End With
-        'If lWinVisible.wCustomize = True Then
-        'frmCustomize.lCustomize.RefreshNetworks(frmCustomize.cboNetworks)
-        'frmCustomize.cboNetworks.Text = lDescription
-        'End If
-        'End If
-        'SaveNetworks()
-        'AddNetwork = lNetworks.nCount
-    End Function
-
-    Public Sub SaveServers()
-        Dim i As Integer
-        NativeMethods.WriteINI(lINI.iServers, "Settings", "Count", lServers.Servers.Count.ToString())
-        NativeMethods.WriteINI(lINI.iServers, "Settings", "Index", lServers.Index.ToString())
-        For i = 0 To lServers.Servers.Count - 1
-            With lServers.Servers(i)
-                NativeMethods.WriteINI(lINI.iServers, i.ToString, "Ip", .Ip)
-                NativeMethods.WriteINI(lINI.iServers, i.ToString, "Port", Trim(Convert.ToString(.Port)))
-                NativeMethods.WriteINI(lINI.iServers, i.ToString, "Description", .Description)
-                NativeMethods.WriteINI(lINI.iServers, i.ToString, "NetworkIndex", Trim(.NetworkIndex.ToString))
-            End With
-        Next i
-    End Sub
-
-    Private Sub SaveNetworks()
-        Dim i As Integer
-        If lNetworks.Networks.Count <> 0 Then
-            NativeMethods.WriteINI(lINI.iNetworks, "Settings", "Count", Trim(lNetworks.Networks.Count.ToString))
-            NativeMethods.WriteINI(lINI.iNetworks, "Settings", "Index", Trim(lNetworks.Index.ToString))
-            For i = 0 To lNetworks.Networks.Count - 1
-                With lNetworks.Networks(i)
-                    NativeMethods.WriteINI(lINI.iNetworks, i.ToString, "Name", .Name)
-                End With
-            Next i
-        End If
     End Sub
 
     Public Function FindServerIndexByIp(ByVal lIp As String) As Integer

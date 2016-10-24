@@ -1,8 +1,7 @@
 ﻿Option Explicit On
 Option Strict On
-'nexIRC 3.0.31
-'05-30-2016 - guideX
 Imports nexIRC.Enum
+Imports nexIRC.Models.Bot
 Imports nexIRC.Modules
 Imports Telerik.WinControls.RichTextBox.Model
 
@@ -14,154 +13,80 @@ Public Class frmStatus
 #Region "Window Events"
 #Region "txtIncoming Events"
     Private Sub txtIncoming_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncoming.MouseDown
-        Try
-            mdiChildWindow.txtIncomingColor_MouseDown(Me)
-            lStatus.ActiveIndex = mdiChildWindow.MeIndex
-        Catch ex As Exception
-            Throw
-        End Try
+        mdiChildWindow.txtIncomingColor_MouseDown(Me)
+        lStatus.ActiveIndex = mdiChildWindow.MeIndex
     End Sub
     Private Sub txtIncoming_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles txtIncoming.MouseUp
-        Try
-            mdiChildWindow.txtIncomingColor_MouseUp(txtIncoming.Document.Selection.GetSelectedText(), txtIncoming, txtOutgoing)
-        Catch ex As Exception
-            Throw
-        End Try
+        mdiChildWindow.txtIncomingColor_MouseUp(txtIncoming.Document.Selection.GetSelectedText(), txtIncoming, txtOutgoing)
     End Sub
 #End Region
 #Region "txtOugtgoing Events"
-
     Private Sub txtOutgoing_Click(sender As Object, e As System.EventArgs) Handles txtOutgoing.Click
         mdiChildWindow.txtIncomingColor_MouseDown(Me)
         lStatus.ActiveIndex = mdiChildWindow.MeIndex
     End Sub
     Private Sub txtOutgoing_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtOutgoing.KeyDown
-        Try
-            mdiChildWindow.txtOutgoing_KeyDown(e, txtOutgoing.Text)
-        Catch ex As Exception
-            Throw
-        End Try
+        mdiChildWindow.txtOutgoing_KeyDown(e, txtOutgoing.Text)
     End Sub
     Private Sub txtOutgoing_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles txtOutgoing.MouseDown
-        Try
-            'mdiChildWindow.txtIncomingColor_MouseUp(txtIncoming.Document.Selection.GetSelectedText(), txtIncoming, txtOutgoing)
-            mdiChildWindow.txtIncomingColor_MouseDown(Me)
-            lStatus.ActiveIndex = mdiChildWindow.MeIndex
-        Catch ex As Exception
-            Throw
-        End Try
+        'mdiChildWindow.txtIncomingColor_MouseUp(txtIncoming.Document.Selection.GetSelectedText(), txtIncoming, txtOutgoing)
+        mdiChildWindow.txtIncomingColor_MouseDown(Me)
+        lStatus.ActiveIndex = mdiChildWindow.MeIndex
     End Sub
 #End Region
 #Region "frmStatus Events"
     Private Sub frmStatus_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
-        Try
-            mdiChildWindow.Form_Resize(txtIncoming, txtOutgoing, Me)
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Private Sub frmStatus_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize")
-        End Try
+        mdiChildWindow.Form_Resize(txtIncoming, txtOutgoing, Me)
     End Sub
     Private Sub frmStatus_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        Try
-            mdiChildWindow.Form_FormClosing(Me, e)
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs)")
-        End Try
+        mdiChildWindow.Form_FormClosing(Me, e)
     End Sub
     Private Sub frmStatus_MdiChildActivate(sender As Object, e As System.EventArgs) Handles Me.MdiChildActivate
-        Try
-            mdiChildWindow.Form_GotFocus(Me)
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Private Sub frmStatus_MdiChildActivate(sender As Object, e As System.EventArgs) Handles Me.MdiChildActivate")
-        End Try
+        mdiChildWindow.Form_GotFocus(Me)
     End Sub
     Private Sub frmStatus_GotFocus(sender As Object, e As System.EventArgs) Handles Me.GotFocus
-        Try
-            mdiChildWindow.Form_GotFocus(Me)
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Private Sub frmStatus_GotFocus(sender As Object, e As System.EventArgs) Handles Me.GotFocus")
-        End Try
+        mdiChildWindow.Form_GotFocus(Me)
     End Sub
     Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        Try
-            mdiChildWindow.Form_Load(FormTypes.Status)
-            txtIncoming.Cursor = Cursors.Default
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Private Sub frmStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load")
-        End Try
+        mdiChildWindow.Form_Load(FormTypes.Status)
+        txtIncoming.Cursor = Cursors.Default
     End Sub
 #End Region
 #End Region
 #Region "Button Events"
     Private Sub cmdDisconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDisconnect.Click
-        Try
-            mdiChildWindow.cmdDisconnect_Click()
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Private Sub cmdDisconnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDisconnect.Click")
-        End Try
+        mdiChildWindow.cmdDisconnect_Click()
     End Sub
     Private Sub cmdConnection_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnection.ButtonClick
-        Try
-            mdiChildWindow.cmdToggleConnection_Click()
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Private Sub cmdConnection_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnection.ButtonClick")
-        End Try
+        mdiChildWindow.cmdToggleConnection_Click()
     End Sub
     Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click
-        Try
-            mdiChildWindow.cmdConnect_Click()
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Private Sub cmdConnect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdConnect.Click")
-        End Try
+        mdiChildWindow.cmdConnect_Click()
     End Sub
     Private Sub cmd_SendNewNotice_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem3.Click
-        Try
-            mdiChildWindow.cmdSendNewNotice_Click()
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Private Sub ToolStripMenuItem3_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem3.Click")
-        End Try
+        mdiChildWindow.cmdSendNewNotice_Click()
     End Sub
     Private Sub cmd_ChangeNickName_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem1.Click
-        Try
-            mdiChildWindow.cmdChangeNickName_Click()
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Private Sub ToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles ToolStripMenuItem1.Click")
-        End Try
+        mdiChildWindow.cmdChangeNickName_Click()
     End Sub
     Private Sub tspListChannels_Click(sender As System.Object, e As System.EventArgs) Handles tspListChannels.Click
-        Try
-            mdiChildWindow.cmdListChannels_Click()
-        Catch ex As Exception
-            Throw 'ProcessError(ex.Message, "Private Sub tspListChannels_Click(sender As System.Object, e As System.EventArgs) Handles tspListChannels.Click")
-        End Try
+        mdiChildWindow.cmdListChannels_Click()
     End Sub
     Private Sub cmdBotLogin_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotLogin.Click
-        Try
-            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Login()
-        Catch ex As Exception
-            Throw
-        End Try
+        lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Login()
     End Sub
     Private Sub cmdBot_ButtonClick(sender As System.Object, e As System.EventArgs) Handles cmdBot.ButtonClick
-        Try
-            lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.LoginForm()
-        Catch ex As Exception
-            Throw
-        End Try
+        lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.LoginForm()
     End Sub
     Private Sub cmdBotRegister_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotRegister.Click
-        Dim settings As BotSettings
-        Try
-            settings = New BotSettings()
-            settings.Email = InputBox("Email:")
-            If (Not String.IsNullOrEmpty(settings.Email)) Then
-                settings.Password = InputBox("Password:")
-                If (Not String.IsNullOrEmpty(settings.Password)) Then
-                    lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Register(settings)
-                End If
+        Dim s = New NickBotModel(mdiChildWindow.MeIndex)
+        s.Email = InputBox("Email:")
+        If (Not String.IsNullOrEmpty(s.Email)) Then
+            s.Password = InputBox("Password:")
+            If (Not String.IsNullOrEmpty(s.Password)) Then
+                lStatus.GetObject(mdiChildWindow.MeIndex).sNickBot.Register()
             End If
-        Catch ex As Exception
-            Throw
-        End Try
+        End If
     End Sub
     Private Sub cmdBotGhost_Click(sender As System.Object, e As System.EventArgs) Handles cmdBotGhost.Click
         Dim user As String
@@ -297,12 +222,10 @@ Public Class frmStatus
         End Try
     End Sub
     Private Sub mdiChildWindow_SetNickBotNickName(nickName As String) Handles mdiChildWindow.SetNickBotNickName
-        Try
+        If (Not String.IsNullOrEmpty(nickName)) Then
             cmdBot.Visible = True
             cmdBot.Text = nickName
-        Catch ex As Exception
-            Throw
-        End Try
+        End If
     End Sub
     Private Sub lMdiChildWindow_SetOutgoingColors(backgroundColor As System.Drawing.Color, foregroundColor As System.Drawing.Color) Handles mdiChildWindow.SetOutgoingColors
         Try

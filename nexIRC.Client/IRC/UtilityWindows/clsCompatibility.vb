@@ -71,27 +71,23 @@ Namespace IRC.UtilityWindows
             End Try
         End Sub
         Public Sub lblAdd_LinkClicked(_SelectedCompatibilityItem As String)
-            Try
-                Dim mbox As MsgBoxResult, msg As String, b As Boolean
-                msg = InputBox("Description: ")
-                mbox = MsgBox("Would you like the item '" & _SelectedCompatibilityItem & "' to enabled?", MsgBoxStyle.YesNo)
-                Select Case mbox
-                    Case MsgBoxResult.Yes
-                        b = True
-                    Case MsgBoxResult.No
-                        b = False
-                End Select
-                lSettings.AddToCompatibility(msg, b)
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Public Sub lblAdd_LinkClicked(_SelectedCompatibilityItem As String)")
-            End Try
+            Dim mbox As MsgBoxResult, msg As String, b As Boolean
+            msg = InputBox("Description: ")
+            mbox = MsgBox("Would you like the item '" & _SelectedCompatibilityItem & "' to enabled?", MsgBoxStyle.YesNo)
+            Select Case mbox
+                Case MsgBoxResult.Yes
+                    b = True
+                Case MsgBoxResult.No
+                    b = False
+            End Select
+            Dim obj = New Models.Compatibility.CompatibilityModel()
+            obj.Description = msg
+            obj.Enabled = b
+            mdlObjects.lCompatibilityController.Create(obj)
         End Sub
         Public Sub lblRemove_LinkClicked(_SelectedCompatibilityItem As String)
-            Try
-                lSettings.RemoveFromCompatibility(lSettings.FindCompatibilityIndex(_SelectedCompatibilityItem))
-            Catch ex As Exception
-                Throw 'ProcessError(ex.Message, "Private Sub lblRemove_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblRemove.LinkClicked")
-            End Try
+            Dim i As Integer = lSettings.FindCompatibilityIndex(_SelectedCompatibilityItem)
+            If (i <> 0) Then mdlObjects.lCompatibilityController.Delete(i)
         End Sub
     End Class
 End Namespace

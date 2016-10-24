@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using nexIRC.Business.Helpers;
 using nexIRC.Enum;
 using nexIRC.Models.String;
+using TeamNexgenCore.Helpers;
+using System;
 namespace nexIRC.Business.Controllers {
     /// <summary>
     /// Fixed String Controller
     /// </summary>
-    public class FixedStringController {
+    public class FixedStringController : IDisposable {
+        /// <summary>
+        /// Disposed
+        /// </summary>
+        private bool _disposed = false;
         /// <summary>
         /// Ini
         /// </summary>
@@ -41,7 +47,7 @@ namespace nexIRC.Business.Controllers {
                     fs.Support = NativeMethods.ReadINI(_ini, i.ToString(), "Support").Replace("$syschar", "•").Replace("$arrowchar", "»");
                     fs.Syntax = NativeMethods.ReadINI(_ini, i.ToString(), "Syntax").Replace("$syschar", "•").Replace("$arrowchar", "»");
                     fs.Data = NativeMethods.ReadINI(_ini, i.ToString(), "Data").Replace("$syschar", "•").Replace("$arrowchar", "»");
-                    var obj = NativeMethods.ReadINIIrcNumeric(_ini, i.ToString(), "Type");
+                    var obj = NativeMethodExtras.ReadINIIrcNumeric(_ini, i.ToString(), "Type");
                     if (obj != null) {
                         fs.Type = obj.Value;
                         var b = true;
@@ -301,5 +307,34 @@ namespace nexIRC.Business.Controllers {
             return functionReturnValue;
         }
 
+        /// <summary>
+        /// Dispose
+        /// </summary>
+        public void Dispose() {
+            try {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// Dispose
+        /// </summary>
+        protected virtual void Dispose(bool _disposing) {
+            try {
+                if (_disposed) {
+                    return;
+                }
+                if (_disposing) {
+                }
+                _disposed = true;
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+
     }
+
 }

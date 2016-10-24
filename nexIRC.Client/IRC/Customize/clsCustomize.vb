@@ -6,6 +6,9 @@ Imports nexIRC.clsSharedAdd
 Imports nexIRC.Settings
 Imports nexIRC.Enum
 Imports nexIRC.Business.Helpers
+Imports TeamNexgenCore.Helpers
+Imports nexIRC.Business.Controllers
+Imports nexIRC.Models.NotifyList
 
 Namespace IRC.Customize
     Public Class clsCustomize
@@ -180,37 +183,47 @@ Namespace IRC.Customize
         Public Sub lvwNotify_SelectedIndexChanged(_NotifyListView As RadListView, _NotifyNickNameTextBox As RadTextBox, _NotifyMessageTextBox As RadTextBox, _NetworkNotifyDropDownList As RadDropDownList)
             Dim i As Integer, n As Integer
             For i = 0 To _NotifyListView.SelectedItems.Count - 1
-                n = lSettings.FindNotifyIndex(_NotifyListView.SelectedItems(i).Text)
-                If (n <> 0) Then
-                    _NotifyNickNameTextBox.Text = lSettings.lNotify.nNotify(n).nNickName
-                    _NotifyMessageTextBox.Text = lSettings.lNotify.nNotify(n).nMessage
-                    _NetworkNotifyDropDownList.SelectedItem = _NetworkNotifyDropDownList.Items(_NetworkNotifyDropDownList.FindRadComboIndex(lSettings.lNotify.nNotify(n).nNetwork))
-                    Exit For
+                Dim obj = Modules.Notify.FindNotifyIndex(_NotifyListView.SelectedItems(i).Text)
+                If (obj IsNot Nothing) Then
+                    n = obj.Value
+                    If (n <> 0) Then
+                        With Modules.Notify.NotifyList(n)
+                            _NotifyNickNameTextBox.Text = .Nickname
+                            _NotifyMessageTextBox.Text = .Message
+                            _NetworkNotifyDropDownList.SelectedItem = _NetworkNotifyDropDownList.Items(_NetworkNotifyDropDownList.FindRadComboIndex(Modules.Notify.NotifyList(n).Network))
+                        End With
+                        Exit For
+                    End If
                 End If
             Next i
         End Sub
         Public Sub cmdEditString_Click(_StringsListView As RadListView)
-            Dim item As ListViewDataItem, f As frmEditString, i As Integer
-            item = New ListViewDataItem
-            If _StringsListView.SelectedItems.Count <> 0 Then
-                For i = 0 To _StringsListView.SelectedItems.Count
-                    item = _StringsListView.SelectedItems(i)
-                    Exit For
-                Next i
-                f = New frmEditString
-                f.Show()
-                f.txtDescription.Text = item.Text
-                f.txtSupport.Text = item.Item(1).ToString
-                f.txtSyntax.Text = item.Item(2).ToString
-                f.cboNumeric.Text = item.Item(3).ToString
-                f.txtData.Text = item.Item(4).ToString
-                Dim obj = lStringsController.FindStringIndexByDescription(item.Text)
-                For Each o In obj.Find
-                    If (Not String.IsNullOrEmpty(o)) Then
-                        f.lstParameters.Items.Add(o)
-                    End If
-                Next o
-            End If
+            Using c As New FixedStringController(lSettings.lINI.iText)
+            End Using
+            'Dim item As ListViewDataItem, f As frmEditString, i As Integer
+            'item = New ListViewDataItem
+            'If _StringsListView.SelectedItems.Count <> 0 Then
+            'For i = 0 To _StringsListView.SelectedItems.Count
+            'item = _StringsListView.SelectedItems(i)
+            'Exit For
+            'Next i
+            'f = New frmEditString
+            'f.Show()
+            'f.txtDescription.Text = item.Text
+            'f.txtSupport.Text = item.Item(1).ToString
+            'f.txtSyntax.Text = item.Item(2).ToString
+            'f.cboNumeric.Text = item.Item(3).ToString
+            'f.txtData.Text = item.Item(4).ToString
+            'FixedStringModel obj;
+            'Using c As New FixedStringController(lSettings.lINI.iText)
+            'obj = c.FindStringIndexByDescription(item.Text)
+            'End Using
+            'For Each o In obj.Find
+            'If (Not String.IsNullOrEmpty(o)) Then
+            'f.lstParameters.Items.Add(o)
+            'End If
+            'Next o
+            'End If
         End Sub
         Public Sub cmdServersClear_Click(_Network As String, _RadListView As RadListView)
             Dim _MsgBoxResult As MsgBoxResult
@@ -296,17 +309,15 @@ Namespace IRC.Customize
             _QuerySettings.Show()
         End Sub
         Public Sub cmdClearNotify_Click(_NotifyListView As RadListView)
-            lSettings.lNotify.nModified = True
             _NotifyListView.Items.Clear()
         End Sub
         Public Sub cmdNotifyAdd_Click(_NotifyListView As RadListView)
-            Dim _Notify As New gNotify
-            lSettings.lNotify.nModified = True
+            Dim notify As New NotifyListModel
             AddToNotifyListView("Users Nickname", "Notify Message", "Network Name", _NotifyListView)
-            _Notify.nNickName = "Users Nickname"
-            _Notify.nMessage = "Notify Message"
-            _Notify.nNetwork = "My Network"
-            lSettings.AddToNotifyList(_Notify)
+            notify.Nickname = "Users Nickname"
+            notify.Message = "Notify Message"
+            notify.Network = "My Network"
+            Modules.Notify.NotifyList.Add(notify)
         End Sub
         Public Sub lnkAddServer_Click(_Network As String)
             Dim addServer As frmAddServer
@@ -390,13 +401,11 @@ Namespace IRC.Customize
         Public Sub txtNotifyNetwork_TextChanged(_NotifyNetwork As String, _NotifyListView As RadListView)
             If (_NotifyListView.SelectedItem IsNot Nothing) Then
                 _NotifyListView.SelectedItem.Item(2) = _NotifyNetwork
-                lSettings.lNotify.nModified = True
             End If
         End Sub
         Public Sub txtNotifyMessage_TextChanged(_NotifyMessage As String, _NotifyListView As RadListView)
             If (_NotifyListView.SelectedItem IsNot Nothing) Then
                 _NotifyListView.SelectedItem.Item(1) = _NotifyMessage
-                lSettings.lNotify.nModified = True
             End If
         End Sub
         Public Sub Apply_Settings_Servers(_ServersListView As RadListView, _SelectedNetwork As String)
@@ -533,7 +542,7 @@ Namespace IRC.Customize
             Dim _SelectedNick As String = "", _LastSelectedNickName As String = "", splt() As String
             If lSettings.lIRC.iNicks.nIndex <> 0 Then _LastSelectedNickName = lSettings.lIRC.iNicks.nNick(lSettings.lIRC.iNicks.nIndex).nNick
             lSettings.lIRC.iNicks = New gNicks()
-            ReDim lSettings.lIRC.iNicks.nNick(lSettings.lArraySizes.aNickNames)
+            ReDim lSettings.lIRC.iNicks.nNick(2000)
             For i As Integer = 0 To _NickNamesDropDownList.Items.Count - 1
                 lSettings.lIRC.iNicks.nNick(i + 1).nNick = _NickNamesDropDownList.Items(i).Text
                 If (i = _NickNamesDropDownList.SelectedIndex) Then
@@ -563,7 +572,6 @@ Namespace IRC.Customize
         Public Sub txtNotifyNickname_TextChanged(_NotifyNickName As String, _NotifyListView As RadListView)
             If (_NotifyListView.SelectedItem IsNot Nothing) Then
                 _NotifyListView.SelectedItem.Item(0) = _NotifyNickName
-                lSettings.lNotify.nModified = True
             End If
         End Sub
     End Class

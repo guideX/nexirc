@@ -2,7 +2,6 @@
 '05-30-2016 - guideX
 Option Explicit On
 Option Strict On
-Imports nexIRC.clsIrcNumerics
 Imports nexIRC.Enum
 Imports nexIRC.Modules
 Imports nexIRC.nexIRC.MainWindow.clsMainWindowUI
@@ -542,7 +541,7 @@ Namespace IRC.Channels
             End Set
         End Property
         Public Sub New()
-            ReDim lChannels.cChannel(lSettings.lArraySizes.aChannelWindows)
+            ReDim lChannels.cChannel(2000)
         End Sub
     End Class
 End Namespace

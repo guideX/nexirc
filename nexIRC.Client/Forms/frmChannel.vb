@@ -141,12 +141,8 @@ Public Class frmChannel
 #End Region
 #Region "Class Events"
     Private Sub MdiChildWindow_AddToNickList(nickName As String) Handles MdiChildWindow.AddToNickList
-        Try
-            Dim m = lvwNickList.Items.Where(Function(n) n.Text.ToLower().Trim().Replace("@", "").Replace("+", "").Replace("-", "") = nickName.ToLower().Trim().Replace("@", "").Replace("+", "").Replace("-", ""))
-            If (m.Count = 0) Then lvwNickList.Items.Add(nickName)
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim m = lvwNickList.Items.Where(Function(n) n.Text.ToLower().Trim().Replace("@", "").Replace("+", "").Replace("-", "") = nickName.ToLower().Trim().Replace("@", "").Replace("+", "").Replace("-", ""))
+        If (m.Count = 0) Then lvwNickList.Items.Add(nickName)
     End Sub
     Private Sub lMdiChildWindow_BringToFront() Handles MdiChildWindow.BringToFront
         Try

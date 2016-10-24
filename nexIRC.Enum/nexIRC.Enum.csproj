@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimateWindowFlags.cs" />
+    <Compile Include="BotTypes.cs" />
     <Compile Include="ColorCodes.cs" />
     <Compile Include="CommandTypes.cs" />
     <Compile Include="FormTypes.cs" />

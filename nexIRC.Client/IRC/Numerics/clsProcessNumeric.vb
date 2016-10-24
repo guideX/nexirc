@@ -446,14 +446,17 @@ Public Class clsProcessNumeric
                                 For i = 0 To UBound(splt3)
                                     If Len(splt3(i)) <> 0 Then
                                         msg2 = splt3(i)
-                                        n = lSettings.FindNotifyIndex(Trim(msg2))
-                                        If Len(lSettings.lNotify.nNotify(n).nNetwork) = 0 Then
-                                            lStrings.ProcessReplaceString(lStatusIndex, IrcNumeric.sRPL_ISON, msg2, lSettings.lNotify.nNotify(n).nMessage)
-                                            lStatus.AddToNotifyList(lStatusIndex, msg2)
-                                        Else
-                                            If lSettings.lNotify.nNotify(n).nNetwork = lSettings.lNetworks.Networks(lStatus.NetworkIndex(lStatusIndex)).Name Or Len(LCase(Trim(lSettings.lNotify.nNotify(n).nNetwork))) <> 0 Then
-                                                lStrings.ProcessReplaceString(lStatusIndex, IrcNumeric.sRPL_ISON, msg2, lSettings.lNotify.nNotify(n).nMessage)
+                                        Dim notify = Modules.Notify.FindNotifyIndex(Trim(msg2))
+                                        If (notify IsNot Nothing) Then
+                                            n = notify.Value
+                                            If Len(Modules.Notify.NotifyList(n).Network) = 0 Then
+                                                lStrings.ProcessReplaceString(lStatusIndex, IrcNumeric.sRPL_ISON, msg2, Modules.Notify.NotifyList(n).Message)
                                                 lStatus.AddToNotifyList(lStatusIndex, msg2)
+                                            Else
+                                                If Modules.Notify.NotifyList(n).Network = lSettings.lNetworks.Networks(lStatus.NetworkIndex(lStatusIndex)).Name Or Len(LCase(Trim(Modules.Notify.NotifyList(n).Network))) <> 0 Then
+                                                    lStrings.ProcessReplaceString(lStatusIndex, IrcNumeric.sRPL_ISON, msg2, Modules.Notify.NotifyList(n).Message)
+                                                    lStatus.AddToNotifyList(lStatusIndex, msg2)
+                                                End If
                                             End If
                                         End If
                                     End If

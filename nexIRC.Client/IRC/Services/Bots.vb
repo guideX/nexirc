@@ -1,49 +1,16 @@
-﻿'nexIRC 3.0.31
-'05-30-2016 - guideX
-Option Explicit On
+﻿Option Explicit On
 Option Strict On
+Imports nexIRC.Models.Bot
 Imports nexIRC.Modules
-
-Public Class BotSettings
-    Private _email As String
-    Private _password As String
-
-    Public Property Email() As String
-        Get
-            Return _email
-        End Get
-        Set(value As String)
-            _email = value
-        End Set
-    End Property
-
-    Public Property Password() As String
-        Get
-            Return _password
-        End Get
-        Set(value As String)
-            _password = value
-        End Set
-    End Property
-End Class
 
 Public Class NickBot
     Private _statusId As Integer
+    Private _settings As NickBotModel
 
     Public Sub New(statusId As Integer)
         _statusId = statusId
+        _settings = New NickBotModel(statusId)
     End Sub
-
-    Public Function BotNick() As String
-        Dim networkId As Integer
-        networkId = lStatus.NetworkIndex(StatusId)
-        Select Case lSettings.lNetworks.Networks(networkId).Name.ToLower().Trim()
-            Case "freenode"
-                Return "Nickserv"
-            Case Else
-                Return ""
-        End Select
-    End Function
 
     Public Property StatusId() As Integer
         Get
@@ -54,17 +21,15 @@ Public Class NickBot
         End Set
     End Property
 
-    Public Sub Login()
-        Dim settings As BotSettings
-        settings = New BotSettings()
+    Public Sub Login(newSettings As NickBotModel)
         If (lSettings_Services.lNickServ.nLoginOnConnect) Then
             Select Case lSettings.lNetworks.Networks(lStatus.NetworkIndex(StatusId)).Name.ToLower().Trim()
                 Case "freenode"
                     If (lSettings_Services.lNickServ.nShowOnConnect = False) Then
                         If (Not String.IsNullOrEmpty(lSettings_Services.lNickServ.nLoginPassword)) And (Not String.IsNullOrEmpty(lSettings_Services.lNickServ.nLoginNickname)) Then
-                            settings.Email = lSettings_Services.lNickServ.nLoginNickname
-                            settings.Password = lSettings_Services.lNickServ.nLoginPassword
-                            Login(settings)
+                            _settings.Email = lSettings_Services.lNickServ.nLoginNickname
+                            _settings.Password = lSettings_Services.lNickServ.nLoginPassword
+                            'Login()
                         End If
                     Else
                         LoginForm()
@@ -75,6 +40,21 @@ Public Class NickBot
         End If
     End Sub
 
+    Public Sub Login()
+        If (lSettings_Services.lNickServ.nLoginOnConnect) Then
+            Select Case lSettings.lNetworks.Networks(lStatus.NetworkIndex(StatusId)).Name.ToLower().Trim()
+                Case "freenode"
+                    If (Not String.IsNullOrEmpty(_settings.Password) And Not String.IsNullOrEmpty(_settings.Email)) Then
+                        If (Not _statusId = 0) Then
+                            With lStatus.GetObject(_statusId)
+                                lStatus.SendSocket(_statusId, "PRIVMSG Nickserv :IDENTIFY " & _settings.Email & " " & _settings.Password)
+                                lStatus.AddText(">Nickserv< identify", _statusId)
+                            End With
+                        End If
+                    End If
+            End Select
+        End If
+    End Sub
     Public Sub LoginForm()
         Select Case lSettings.lNetworks.Networks(lStatus.NetworkIndex(StatusId)).Name.ToLower().Trim()
             Case "freenode"
@@ -84,27 +64,14 @@ Public Class NickBot
         End Select
     End Sub
 
-    Public Sub Login(settings As BotSettings)
-        Select Case lSettings.lNetworks.Networks(lStatus.NetworkIndex(StatusId)).Name.ToLower().Trim()
-            Case "freenode"
-                If (Not String.IsNullOrEmpty(settings.Password) And Not String.IsNullOrEmpty(settings.Email)) Then
-                    If (Not _statusId = 0) Then
-                        With lStatus.GetObject(_statusId)
-                            lStatus.SendSocket(_statusId, "PRIVMSG Nickserv :IDENTIFY " & settings.Email & " " & settings.Password)
-                            lStatus.AddText(">Nickserv< identify", _statusId)
-                        End With
-                    End If
-                End If
-        End Select
-    End Sub
 
-    Public Sub Register(settings As BotSettings)
+    Public Sub Register()
         Select Case lSettings.lNetworks.Networks(lStatus.NetworkIndex(StatusId)).Name.ToLower().Trim()
             Case "freenode"
-                If (Not String.IsNullOrEmpty(settings.Password) And Not String.IsNullOrEmpty(settings.Email)) Then
+                If (Not String.IsNullOrEmpty(_settings.Password) And Not String.IsNullOrEmpty(_settings.Email)) Then
                     If (Not _statusId = 0) Then
                         With lStatus.GetObject(_statusId)
-                            lStatus.SendSocket(_statusId, "PRIVMSG Nickserv :REGISTER " & settings.Password & " " & settings.Email)
+                            lStatus.SendSocket(_statusId, "PRIVMSG Nickserv :REGISTER " & _settings.Password & " " & _settings.Email)
                             lStatus.SendSocket(_statusId, "PRIVMSG Nickserv :set hide email on")
                             'lStatus.SendSocket(_statusId, "PRIVMSG " & _botNick & " :set email " & email)
                             lStatus.AddText(">Nickserv< register", _statusId)

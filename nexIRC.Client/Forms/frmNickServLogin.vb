@@ -1,7 +1,8 @@
-'nexIRC 3.0.31
-'05-30-2016 - guideX
 Option Explicit On
 Option Strict On
+'nexIRC 3.0.31
+'05-30-2016 - guideX
+Imports nexIRC.Models.Bot
 Imports nexIRC.Modules
 
 Public Class frmNickServLogin
@@ -37,21 +38,16 @@ Public Class frmNickServLogin
     End Sub
 
     Private Sub cmdLogin_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogin.Click
-        Dim settings As BotSettings
-        Try
-            settings = New BotSettings()
-            lSettings_Services.lNickServ.nLoginNickname = txtNickname.Text
-            lSettings_Services.lNickServ.nLoginPassword = txtPassword.Text
-            lSettings_Services.lNickServ.nShowOnConnect = Convert.ToBoolean(chkShowOnConnect.Checked)
-            lSettings_Services.lNickServ.nLoginOnConnect = Convert.ToBoolean(chkLoginOnConnect.Checked)
-            settings.Email = lSettings_Services.lNickServ.nLoginNickname
-            settings.Password = lSettings_Services.lNickServ.nLoginPassword
-            lStatus.GetObject(lStatusIndex).sNickBot.Login(settings)
-            lSettings_Services.SaveServices()
-            Me.Close()
-        Catch ex As Exception
-            Throw
-        End Try
+        Dim s = New NickBotModel(lStatusIndex)
+        lSettings_Services.lNickServ.nLoginNickname = txtNickname.Text
+        lSettings_Services.lNickServ.nLoginPassword = txtPassword.Text
+        lSettings_Services.lNickServ.nShowOnConnect = Convert.ToBoolean(chkShowOnConnect.Checked)
+        lSettings_Services.lNickServ.nLoginOnConnect = Convert.ToBoolean(chkLoginOnConnect.Checked)
+        s.Email = lSettings_Services.lNickServ.nLoginNickname
+        s.Password = lSettings_Services.lNickServ.nLoginPassword
+        lStatus.GetObject(lStatusIndex).sNickBot.Login()
+        lSettings_Services.SaveServices()
+        Me.Close()
     End Sub
 
     Private Sub txtPassword_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtPassword.KeyPress

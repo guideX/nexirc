@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\AllBots.cs" />
+    <Compile Include="Base\BaseObjects.cs" />
+    <Compile Include="Bot\BotModel.cs" />
+    <Compile Include="Bot\NickBot.cs" />
     <Compile Include="ChannelFolder\ChannelFolderModel.cs" />
     <Compile Include="Command\CommandModel.cs" />
     <Compile Include="Command\CommandReturnDataModel.cs" />
@@ -49,10 +54,14 @@
     <Compile Include="Mode\ModeModel.cs" />
     <Compile Include="Network\NetworkModel.cs" />
     <Compile Include="Network\NetworksModel.cs" />
+    <Compile Include="NotifyList\NotifyListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\QueryModel.cs" />
+    <Compile Include="Server\RecentServerModel.cs" />
+    <Compile Include="Server\ServerLink.cs" />
     <Compile Include="Server\ServerModel.cs" />
     <Compile Include="Server\ServersModel.cs" />
+    <Compile Include="Settings\IniPathModel.cs" />
     <Compile Include="Sockets\AsyncServerModel.cs" />
     <Compile Include="Sockets\AsyncSocketModel.cs" />
     <Compile Include="Status\StatusModel.cs" />
@@ -64,7 +73,9 @@
       <Name>nexIRC.Enum</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

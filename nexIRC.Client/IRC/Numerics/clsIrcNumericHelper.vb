@@ -214,7 +214,7 @@ Public Class clsIrcNumericHelper
             Dim splt() As String, msg As String
             msg = lStrings.ParseData(lData, ":", "!")
             splt = Split(lData, " ")
-            If lSettings_DCC.lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then Exit Sub
+            If lSettings_DCC.lDCC.dAutoIgnore = True And Modules.Notify.IsUserInNotifyList(msg) = False Then Exit Sub
             If IsNickNameInDCCIgnoreList(Trim(msg)) = False Then
                 If lSettings_DCC.lDCC.dChatPrompt = nexIRC.IRC.Settings.clsDCC.eDCCPrompt.ePrompt Then
                     Dim lDCCChatPrompt As New frmDCCChatPrompt
@@ -257,28 +257,11 @@ Public Class clsIrcNumericHelper
         End Try
     End Function
 
-    Public Function IsUserInNotifyList(ByVal lData As String) As Boolean
-        Dim result As Boolean
-        Try
-            Dim i As Integer
-            For i = 0 To lSettings.lNotify.nCount
-                If (lData.ToLower() = lSettings.lNotify.nNotify(i).nNickName.ToLower()) Then
-                    result = True
-                    Exit For
-                End If
-            Next i
-            Return result
-        Catch ex As Exception
-            Throw
-            Return Nothing
-        End Try
-    End Function
-
     Public Sub DCCSendProc(ByVal lData As String)
         Dim lForm As New frmDCCGet, splt() As String, splt2() As String, msg As String
         msg = lStrings.ParseData(lData, ":", "!")
         splt = Split(lData, " ")
-        If lSettings_DCC.lDCC.dAutoIgnore = True And IsUserInNotifyList(msg) = False Then
+        If Not lSettings_DCC.lDCC.dAutoIgnore = True And Modules.Notify.IsUserInNotifyList(msg) Then
             lProcessNumeric.ProcessReplaceStringHelper(lStatus.ActiveIndex, IrcNumeric.sDCC_DENIED, "Auto Ignore is enabled, and user is unknown '" & msg & "'.")
             Exit Sub
         End If
@@ -328,30 +311,27 @@ Public Class clsIrcNumericHelper
     End Function
 
     Public Sub DoNotify(ByVal lStatusIndex As Integer)
-        Try
-            Dim i As Integer, msg As String
-            msg = ""
-            If lSettings.lNotify.nCount <> 0 Then
-                For i = 1 To lSettings.lNotify.nCount
-                    With lSettings.lNotify.nNotify(i)
-                        If Len(.nNickName) <> 0 Then
-                            If LCase(Trim(.nNetwork)) = LCase(Trim(lSettings.lNetworks.Networks(lStatus.NetworkIndex(lStatusIndex)).Name)) Or .nNetwork = "" Then
-                                If Len(msg) <> 0 Then
-                                    msg = msg & " " & .nNickName
-                                Else
-                                    msg = .nNickName
-                                End If
+        Dim i As Integer, msg As String
+        msg = ""
+
+        If Modules.Notify.NotifyList.Count <> 0 Then
+            For i = 0 To Modules.Notify.NotifyList.Count
+                With Modules.Notify.NotifyList(i)
+                    If Len(.Nickname) <> 0 Then
+                        If LCase(Trim(.Network)) = LCase(Trim(lSettings.lNetworks.Networks(lStatus.NetworkIndex(lStatusIndex)).Name)) Or .Network = "" Then
+                            If Len(msg) <> 0 Then
+                                msg = msg & " " & .Nickname
+                            Else
+                                msg = .Nickname
                             End If
                         End If
-                    End With
-                Next i
-                If Len(msg) <> 0 Then
-                    lStatus.SendSocket(lStatusIndex, "ISON " & msg)
-                End If
+                    End If
+                End With
+            Next i
+            If Len(msg) <> 0 Then
+                lStatus.SendSocket(lStatusIndex, "ISON " & msg)
             End If
-        Catch ex As Exception
-            Throw
-        End Try
+        End If
     End Sub
 
     Public Sub ProcessDataArrival(ByVal lStatusIndex As Integer, ByVal lData As String)

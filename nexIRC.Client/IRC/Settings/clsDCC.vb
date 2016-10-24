@@ -5,6 +5,7 @@ Option Strict On
 Imports nexIRC.Modules
 Imports System.Net
 Imports nexIRC.Business.Helpers
+Imports TeamNexgenCore.Helpers
 
 Namespace nexIRC.IRC.Settings
     Public Class clsDCC
@@ -52,7 +53,7 @@ Namespace nexIRC.IRC.Settings
         Public Sub LoadDCCSettings()
             Dim i As Integer, n As Integer
             With lDCC
-                ReDim .dIgnorelist.dItem(lSettings.lArraySizes.aDCCIgnore)
+                ReDim .dIgnorelist.dItem(2000)
                 .dFileExistsAction = CType(NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "FileExistsAction", "1"), eDCCFileExistsAction)
                 n = Convert.ToInt32(Trim(NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "ChatPrompt", "1")))
                 If n = 1 Then

@@ -228,7 +228,7 @@ Public Class MdiChildWindow
         Select Case _formType
             Case FormTypes.Status
                 lStatus.Window_Resize(_meIndex)
-                RaiseEvent SetNickBotNickName(lStatus.GetObject(_meIndex).sNickBot.BotNick())
+                'RaiseEvent SetNickBotNickName(lBotController.BotNick(lSettings.lNetworks.Networks(lSettings.lNetworks.Index).Name))
             Case FormTypes.Channel
                 lChannels.Window_Resize(_meIndex)
                 RaiseEvent SetNicklistColors(Color.Blue, Color.White)

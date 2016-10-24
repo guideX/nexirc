@@ -3,7 +3,6 @@
 Option Explicit On
 Option Strict On
 Imports nexIRC.Modules
-Imports nexIRC.clsCommandTypes
 Imports nexIRC.Enum
 
 Public Class clsSendNoticeUI

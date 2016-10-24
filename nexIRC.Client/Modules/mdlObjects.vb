@@ -9,9 +9,6 @@ Imports nexIRC.Business.Controllers
 
 Namespace Modules
     Public Module mdlObjects
-        Public lCommandController As CommandController
-        Public lCompatibilityController As CompatibilityController
-        Public lStringsController As FixedStringController
         Public lSettings As New Settings
         Public lStrings As New IrcStrings
         Public lStatus As Status
@@ -22,5 +19,12 @@ Namespace Modules
         Public lSettings_DCC As New clsDCC
         Public lSettings_Services As New clsServices
         Public lIdent As New Ident
+        Public lCommandController As CommandController
+        Public lStringsController As New FixedStringController(Application.StartupPath + "\data\config\strings.ini")
+        Public lCompatibilityController As New CompatibilityController(Application.StartupPath + "\data\config\compatibility.ini")
+        Public lBotController As New BotController(Application.StartupPath + "\data\config\bots.ini")
+        Public lChannelFolderController As New ChannelFolderController(Application.StartupPath + "\data\config\channelfolder.ini")
+        Public lRecentServerController As New RecentServersController(Application.StartupPath + "\data\config\recentservers.ini", False)
+        Public Notify As New NotifyListController(Application.StartupPath + "\data\config\notifylist.ini")
     End Module
 End Namespace

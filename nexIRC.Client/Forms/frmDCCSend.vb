@@ -5,6 +5,8 @@ Option Strict On
 Imports nexIRC.Modules
 Imports nexIRC.Business.Helpers
 Imports nexIRC.Business.Sockets
+Imports TeamNexgenCore.Helpers
+
 Public Class frmDCCSend
     Private WithEvents lListen As AsyncServer
     Private WithEvents lSocket As AsyncSocket
@@ -74,8 +76,8 @@ Public Class frmDCCSend
         Dim i As Integer
         cboNickname.Text = NativeMethods.ReadINI(lSettings.lINI.iDCC, "Settings", "DCCSendLastNick", "")
         Me.Icon = mdiMain.Icon
-        For i = 1 To lSettings.lNotify.nCount
-            cboNickname.Items.Add(lSettings.lNotify.nNotify(i).nNickName)
+        For i = 0 To Modules.Notify.NotifyList.Count - 1
+            cboNickname.Items.Add(Modules.Notify.NotifyList(i).Nickname)
         Next i
         For i = 128 To 9999
             cboPort.Items.Add(Trim(i.ToString))

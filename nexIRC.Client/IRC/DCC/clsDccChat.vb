@@ -73,9 +73,9 @@ Public Class clsDccChat
         lOutgoingTextBox = _OutgoingTextBox
         _Form.Icon = mdiMain.Icon
         _Form.MdiParent = mdiMain
-        For i = 1 To lSettings.lNotify.nCount
-            With lSettings.lNotify.nNotify(i)
-                _UsersDropDownList.Items.Add(.nNickName)
+        For i = 0 To Modules.Notify.NotifyList.Count - 1
+            With Modules.Notify.NotifyList(i)
+                _UsersDropDownList.Items.Add(.Nickname)
             End With
         Next i
         If lAutoConnect = True Then

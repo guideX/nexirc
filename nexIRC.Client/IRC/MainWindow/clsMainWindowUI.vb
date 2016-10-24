@@ -8,6 +8,7 @@ Imports Telerik.WinControls.UI
 Imports nexIRC.Business.Helpers
 Imports System.Windows.Forms
 Imports nexIRC.Enum
+Imports TeamNexgenCore.Helpers
 
 Namespace nexIRC.MainWindow
     Public Class clsMainWindowUI
@@ -134,8 +135,7 @@ Namespace nexIRC.MainWindow
             lLoadingForm.Focus()
             Application.DoEvents()
             SetLoadingFormProgress("Initializing Status Windows", 2)
-            lSettings.SetArraySizes()
-            lStatus = New Global.nexIRC.IRC.Status.Status(lSettings.lArraySizes.aStatusWindows)
+            lStatus = New Global.nexIRC.IRC.Status.Status(2000)
             SetLoadingFormProgress("Initializing Processes", 5)
             lProcesses.Initialize()
             SetLoadingFormProgress("Loading Settings", 7)
@@ -265,7 +265,7 @@ Namespace nexIRC.MainWindow
                 If Len(_QueryPromptLabel.Tag.ToString) = 1 Then
                     Select Case CType(CType(_QueryPromptLabel.Tag.ToString, Integer), eInfoBar)
                         Case eInfoBar.iNickServ_NickTaken
-                            'frmNickServLogin.Show()
+                            frmNickServLogin.Show()
                             'frmNickServLogin.SetStatusIndex(lStatus.ActiveIndex)
                     End Select
                 ElseIf InStr(_QueryPromptLabel.Tag.ToString, ":") <> 0 Then
@@ -291,9 +291,7 @@ Namespace nexIRC.MainWindow
             _Recent1.Enabled = False
             _Recent2.Enabled = False
             _Recent3.Enabled = False
-            For i = 1 To lSettings.lRecientServers.sCount
-                lSettings.lRecientServers.sItem(i) = ""
-            Next i
+            Modules.lRecentServerController.RecentServers.Clear()
         End Sub
         Public Sub cmd_Connect_Click()
             lStatus.ActiveStatusConnect()
@@ -389,13 +387,13 @@ Namespace nexIRC.MainWindow
         End Sub
         Public Sub cmdLeftBar_Click(_ActiveForm As Form, _cmd_LeftBarButton As ToolStripMenuItem, _LeftPanel As Panel, _Form As Form)
             If _cmd_LeftBarButton.Checked = True Then
-                NativeMethods.Animate(_LeftPanel, [Enum].AnimateWindowFlags.AW_SLIDE, 200, 1)
+                NativeMethods.Animate(_LeftPanel, AnimateWindowFlags.AW_SLIDE, 200, 1)
                 mdiMain.cmdLeftBar.Left = 168
                 _cmd_LeftBarButton.Checked = False
             Else
                 _cmd_LeftBarButton.Checked = True
                 mdiMain.cmdLeftBar.Left = 0
-                NativeMethods.Animate(_LeftPanel, [Enum].AnimateWindowFlags.AW_SLIDE, 200, 1)
+                NativeMethods.Animate(_LeftPanel, AnimateWindowFlags.AW_SLIDE, 200, 1)
             End If
             _Form.Width = _Form.Width + 1
             _ActiveForm.Focus()

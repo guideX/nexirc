@@ -5,6 +5,7 @@ Option Strict On
 Imports nexIRC.Business.Helpers
 Imports nexIRC.Business.UI.ListView
 Imports nexIRC.Modules
+Imports TeamNexgenCore.Helpers
 
 Public Class frmChannelList
     Private WithEvents lChannelListUI As New clsChannelListUI

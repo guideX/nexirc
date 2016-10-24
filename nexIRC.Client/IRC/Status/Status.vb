@@ -19,13 +19,10 @@ Namespace IRC.Status
             Public sTreeNodeVisible As Boolean
             Public sVisible As Boolean
             Public sWindow As frmServerLinks
-            Public sLink() As gLink
+            Public sLink() As ServerLink
             Public sLinkCount As Integer
         End Structure
-        Public Structure gLink
-            Public lServerIP As String
-            Public lPort As String
-        End Structure
+
         Public Structure gUnknowns
             Public uTreeNode As TreeNode
             Public uTreeNodeVisible As Boolean
@@ -237,9 +234,9 @@ Namespace IRC.Status
             lStatusObjects.sIndex = lStatusObjects.sCount
             i = lStatusObjects.sIndex
             With lStatusObjects.sStatusObject(i)
-                ReDim .sNotifyItems.nNotify(lSettings.lArraySizes.aNotifyItems)
-                ReDim .sServerLinks.sLink(lSettings.lArraySizes.aServerLinks)
-                ReDim .sPrivateMessages.pPrivateMessage(lSettings.lArraySizes.aQueries)
+                ReDim .sNotifyItems.nNotify(2000)
+                ReDim .sServerLinks.sLink(2000)
+                ReDim .sPrivateMessages.pPrivateMessage(2000)
                 .sServerIndex = lServerSettings.Index
                 .sPrimitives.sNetworkIndex = lServerSettings.Servers(lServerSettings.Index).NetworkIndex
                 .sNickBot = New NickBot(i)
@@ -897,7 +894,7 @@ Namespace IRC.Status
                                     .sServerLinks.sWindow.lServerLinksUI.SetNetworkIndex(t, .sServerLinks.sWindow.cboNetworks)
                                     .sServerLinks.sWindow.cboNetworks.Text = lSettings.lNetworks.Networks(t).Name
                                     For i = 1 To .sServerLinks.sLinkCount
-                                        .sServerLinks.sWindow.lServerLinksUI.AddToLinks(.sServerLinks.sLink(i).lServerIP, .sServerLinks.sLink(i).lPort, .sServerLinks.sWindow.lvwLinks)
+                                        .sServerLinks.sWindow.lServerLinksUI.AddToLinks(.sServerLinks.sLink(i).Server, .sServerLinks.sLink(i).Port, .sServerLinks.sWindow.lvwLinks)
                                     Next i
                                 Else
                                     mdiMain.SetWindowFocus(.sServerLinks.sWindow)
@@ -1011,7 +1008,7 @@ Namespace IRC.Status
                     End If
                     If Find(lTreeNode.Text) <> 0 Then Exit Sub
                     If LCase(lTreeNode.Parent.Text) = "notify" Then
-                        e = lSettings.FindNotifyIndex(lTreeNode.Text)
+                        e = Modules.Notify.FindNotifyIndex(lTreeNode.Text)
                         n = Find(lTreeNode.Parent.Text)
                         If e <> 0 And n <> 0 Then
                             If e <> 0 Then
@@ -1561,8 +1558,11 @@ Namespace IRC.Status
                     End Select
                 End If
                 If (_StatusIndex <> 0 And .sPrimitives.sRemoteIP.Length() <> 0 And .sPrimitives.sRemotePort <> 0) Then
-                    lSettings.AddToRecientServerList(lSettings.FindServerIndexByIp(.sPrimitives.sRemoteIP))
-                    lSettings.SaveRecientServers()
+                    Dim recentServer As New ServerModel
+                    ' FIX!!!! recentServer IS NOT SET!!! LEON TODO FIX FUCK!
+                    Modules.lRecentServerController.RecentServers.Add(recentServer)
+                    'lSettings.AddToRecientServerList(lSettings.FindServerIndexByIp(.sPrimitives.sRemoteIP))
+                    'lSettings.SaveRecientServers()
                     .sConnecting = True
                     .sSocket = New StatusSocket()
                     .sSocket.NewSocket(_StatusIndex, .sWindow)
@@ -2029,8 +2029,8 @@ Namespace IRC.Status
                             If .sServerLinks.sTreeNode.ImageIndex <> 6 Then .sServerLinks.sTreeNode.ImageIndex = 6
                             If .sServerLinks.sTreeNode.SelectedImageIndex <> 6 Then .sServerLinks.sTreeNode.SelectedImageIndex = 6
                             .sServerLinks.sLinkCount = .sServerLinks.sLinkCount + 1
-                            .sServerLinks.sLink(.sServerLinks.sLinkCount).lServerIP = lServerIP
-                            .sServerLinks.sLink(.sServerLinks.sLinkCount).lPort = lServerPort
+                            .sServerLinks.sLink(.sServerLinks.sLinkCount).Server = lServerIP
+                            .sServerLinks.sLink(.sServerLinks.sLinkCount).Port = lServerPort
                         End If
                     End If
                     .sServerLinks.sWindow.lServerLinksUI.AddToLinks(lServerIP, lServerPort, .sServerLinks.sWindow.lvwLinks)
@@ -2049,8 +2049,8 @@ Namespace IRC.Status
             'On Error Resume Next
             With lStatusObjects.sStatusObject(lIndex).sServerLinks
                 .sLinkCount = .sLinkCount + 1
-                .sLink(.sLinkCount).lServerIP = lServerIP
-                .sLink(.sLinkCount).lPort = lServerPort
+                .sLink(.sLinkCount).Server = lServerIP
+                .sLink(.sLinkCount).Port = lServerPort
             End With
             'If Err.Number <> 0 Then Throw 'ProcessError(ex.Message, "Public Sub SaveServerLink(ByVal lIndex As Integer, ByVal lServerIP As String, ByVal lServerPort As String)")
         End Sub
@@ -2059,8 +2059,8 @@ Namespace IRC.Status
             Dim i As Integer
             With lStatusObjects.sStatusObject(lIndex).sServerLinks
                 For i = 1 To .sLinkCount
-                    .sLink(i).lServerIP = ""
-                    .sLink(i).lPort = ""
+                    .sLink(i).Server = ""
+                    .sLink(i).Port = ""
                 Next i
                 .sLinkCount = 0
             End With
@@ -2259,7 +2259,7 @@ Namespace IRC.Status
                             Notices_Add(_StatusIndex, lStrings.DoRight(_Data, Len(_Data) - 11))
                             Exit Sub
                         Case "loadstrings"
-                            lStringsController = New FixedStringController(lSettings.lINI.iText)
+                            'lStringsController = New FixedStringController(lSettings.lINI.iText)
                             Exit Sub
                         Case "loadcommands"
                             lCommandController = New CommandController(lSettings.lINI.iCommands)

@@ -1,14 +1,25 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
-using nexIRC.Business.Helpers;
 using nexIRC.Enum;
 using nexIRC.Models.Compatibility;
 using nexIRC.Models.String;
+using TeamNexgenCore.Helpers;
+using nexIRC.Data.Interfaces;
+using nexIRC.Data.Repositories;
 namespace nexIRC.Business.Controllers {
     /// <summary>
     /// Compatibility Controller
     /// </summary>
-    public class CompatibilityController {
+    public class CompatibilityController : IDisposable {
+        /// <summary>
+        /// Disposed
+        /// </summary>
+        private bool _disposed = false;
+        /// <summary>
+        /// Compatibility Repository
+        /// </summary>
+        private ICompatibilityRepository _compatibilityRepository;
         /// <summary>
         /// Ini
         /// </summary>
@@ -20,25 +31,17 @@ namespace nexIRC.Business.Controllers {
         /// <summary>
         /// Entry Point
         /// </summary>
-        public CompatibilityController(string ini, bool load = true) {
+        public CompatibilityController(string ini) {
             _ini = ini;
-            if (load) Load();
+            _compatibilityRepository = new CompatibilityRepository(ini);
         }
         /// <summary>
-        /// Load
+        /// Add
         /// </summary>
-        public void Load() {
-            if (!string.IsNullOrEmpty(_ini)) {
-                Compatibilities = new List<CompatibilityModel>();
-                for (var i = 1; i <= NativeMethods.ReadINIInt(_ini, "Settings", "Count", 0); i++) {
-                    var c = new CompatibilityModel();
-                    c.Description = NativeMethods.ReadINI(_ini, i.ToString(), "Description", "");
-                    c.Enabled = NativeMethods.ReadINIBool(_ini, i.ToString(), "Enabled", false);
-                    if (!string.IsNullOrEmpty(c.Description)) {
-                        Compatibilities.Add(c);
-                    }
-                }
-            }
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public bool Create(CompatibilityModel obj) {
+            return _compatibilityRepository.Create(obj);
         }
         /// <summary>
         /// Save Compatibilities
@@ -65,6 +68,46 @@ namespace nexIRC.Business.Controllers {
                 result = true;
             }
             return result;
+        }
+        /// <summary>
+        /// Remove From Compatibility
+        /// </summary>
+        /// <returns></returns>
+        public bool Delete(int ID) {
+            return _compatibilityRepository.Delete(ID);
+        }
+        /// <summary>
+        /// Find Index
+        /// </summary>
+        /// <returns></returns>
+        //public int FindIndex() {
+        //}
+        /// <summary>
+        /// Dispose
+        /// </summary>
+        public void Dispose() {
+            try {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// Dispose
+        /// </summary>
+        protected virtual void Dispose(bool _disposing) {
+            try {
+                if (_disposed) {
+                    return;
+                }
+                if (_disposing) {
+                    _compatibilityRepository = null;
+                }
+                _disposed = true;
+            } catch (Exception ex) {
+                throw ex;
+            }
         }
     }
 }

@@ -3,6 +3,8 @@ using nexIRC.Business.Helpers;
 using nexIRC.Enum;
 using nexIRC.Models.Command;
 using System.Collections.Generic;
+using TeamNexgenCore.Helpers;
+
 namespace nexIRC.Business.Controllers {
     /// <summary>
     /// Command Controller

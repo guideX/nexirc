@@ -54,10 +54,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BotController.cs" />
+    <Compile Include="Controllers\ChannelFolderController.cs" />
     <Compile Include="Controllers\CommandController.cs" />
     <Compile Include="Controllers\CompatibilityController.cs" />
     <Compile Include="Controllers\FixedStringController.cs" />
-    <Compile Include="Controllers\NetworkController.cs" />
+    <Compile Include="Controllers\ConnectionController.cs" />
+    <Compile Include="Controllers\NotifyListController.cs" />
+    <Compile Include="Controllers\RecentServersController.cs" />
     <Compile Include="Extensions\DrawingExtensions.cs" />
     <Compile Include="Extensions\IoExtensions.cs" />
     <Compile Include="Extensions\IrcExtensions.cs" />
@@ -65,6 +69,7 @@
     <Compile Include="Extensions\TelerikExtensions.cs" />
     <Compile Include="Extensions\WinformsExtensions.cs" />
     <Compile Include="Helpers\IrcProcessHelper.cs" />
+    <Compile Include="Helpers\NativeMethodExtras.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />
     <Compile Include="Helpers\NetworkUtilHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +80,14 @@
     <Compile Include="UI\ListView\ListViewSorter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\corelib\TeamNexgenCore\TeamNexgenCore.csproj">
+      <Project>{aadcad4e-abb4-48ae-af79-b0df1c270e55}</Project>
+      <Name>TeamNexgenCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\nexIRC.Data\nexIRC.Data.csproj">
+      <Project>{6acc4ee7-52c8-44ba-ade3-2595dbf6a3f6}</Project>
+      <Name>nexIRC.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\nexIRC.Enum\nexIRC.Enum.csproj">
       <Project>{f08fedac-f91b-443a-8e96-3f3d1cc0f60f}</Project>
       <Name>nexIRC.Enum</Name>

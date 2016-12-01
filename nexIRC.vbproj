@@ -1,0 +1,509 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{72D58ED0-B0F8-48DB-AF6F-62A24788732A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>nexIRC.My.MyApplication</StartupObject>
+    <RootNamespace>nexIRC</RootNamespace>
+    <AssemblyName>nexIRC</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>nexIRC.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>nexIRC.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Telerik.WinControls, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.GridView, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.RadDock, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.RadMarkupEditor, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.RichTextBox, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Scheduler, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Aqua, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Breeze, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Desert, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.HighContrastBlack, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Miscellaneous, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Office2007Black, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Office2007Silver, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Office2010Black, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Office2010Blue, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Office2010Silver, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Telerik, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.TelerikMetro, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Vista, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Windows7, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.UI, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="TelerikCommon, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="TelerikData, Version=2011.2.11.831, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Classes\Communications\AsyncSocket.vb" />
+    <Compile Include="Classes\Communications\StatusSocket.vb" />
+    <Compile Include="Classes\Ident.vb" />
+    <Compile Include="Classes\IO\Files.vb" />
+    <Compile Include="Classes\IrcProcess.vb" />
+    <Compile Include="Classes\MdiChildWindow.vb" />
+    <Compile Include="Classes\UI\Animate.vb" />
+    <Compile Include="Classes\UI\ListViewSorter.vb" />
+    <Compile Include="Classes\UI\ScrollToBottom.vb" />
+    <Compile Include="Forms\frmAbout.Designer.vb">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAbout.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddServer.Designer.vb">
+      <DependentUpon>frmAddServer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddServer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChangeNickname.Designer.vb">
+      <DependentUpon>frmChangeNickname.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChangeNickname.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChannel.Designer.vb">
+      <DependentUpon>frmChannel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChannel.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChannelFolder.Designer.vb">
+      <DependentUpon>frmChannelFolder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChannelFolder.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChannelList.Designer.vb">
+      <DependentUpon>frmChannelList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChannelList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChooseNetwork.Designer.vb">
+      <DependentUpon>frmChooseNetwork.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChooseNetwork.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCompatibility.Designer.vb">
+      <DependentUpon>frmCompatibility.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCompatibility.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCustomize.Designer.vb">
+      <DependentUpon>frmCustomize.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCustomize.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDCCChat.Designer.vb">
+      <DependentUpon>frmDCCChat.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDCCChat.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDCCChatPrompt.Designer.vb">
+      <DependentUpon>frmDCCChatPrompt.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDCCChatPrompt.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDCCGet.Designer.vb">
+      <DependentUpon>frmDCCGet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDCCGet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDCCIgnoreAdd.Designer.vb">
+      <DependentUpon>frmDCCIgnoreAdd.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDCCIgnoreAdd.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDCCSend.Designer.vb">
+      <DependentUpon>frmDCCSend.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDCCSend.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDownloadManager.Designer.vb">
+      <DependentUpon>frmDownloadManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDownloadManager.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEditServer.Designer.vb">
+      <DependentUpon>frmEditServer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmEditServer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEditString.Designer.vb">
+      <DependentUpon>frmEditString.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmEditString.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmIdentdSettings.Designer.vb">
+      <DependentUpon>frmIdentdSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmIdentdSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLoading.Designer.vb">
+      <DependentUpon>frmLoading.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLoading.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmNetworkSettings.Designer.vb">
+      <DependentUpon>frmNetworkSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmNetworkSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmNickServLogin.Designer.vb">
+      <DependentUpon>frmNickServLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmNickServLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmNoticeWindow.Designer.vb">
+      <DependentUpon>frmNoticeWindow.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmNoticeWindow.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmPrivateMessage.Designer.vb">
+      <DependentUpon>frmPrivateMessage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmPrivateMessage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmQuerySettings.Designer.vb">
+      <DependentUpon>frmQuerySettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmQuerySettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmRaw.Designer.vb">
+      <DependentUpon>frmRaw.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmRaw.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSendNotice.Designer.vb">
+      <DependentUpon>frmSendNotice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSendNotice.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmServerLinks.Designer.vb">
+      <DependentUpon>frmServerLinks.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmServerLinks.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSharedAdd.Designer.vb">
+      <DependentUpon>frmSharedAdd.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSharedAdd.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmStatus.Designer.vb">
+      <DependentUpon>frmStatus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmStatus.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmVideoPlayer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\mdiMain.Designer.vb">
+      <DependentUpon>mdiMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\mdiMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IRC\Channels\clsChannelFolder.vb" />
+    <Compile Include="IRC\Channels\clsChannelList.vb" />
+    <Compile Include="IRC\Channels\clsChannels.vb" />
+    <Compile Include="IRC\Customize\clsCustomize.vb" />
+    <Compile Include="IRC\DCC\clsDccChat.vb" />
+    <Compile Include="IRC\MainWindow\clsMainWindowUI.vb" />
+    <Compile Include="IRC\Numerics\clsCommandTypes.vb" />
+    <Compile Include="IRC\Numerics\clsIrcNumericHelper.vb" />
+    <Compile Include="IRC\Numerics\clsIrcNumerics.vb" />
+    <Compile Include="IRC\Numerics\clsProcessNumeric.vb" />
+    <Compile Include="IRC\Numerics\IrcStrings.vb" />
+    <Compile Include="IRC\SendNotice\clsSendNotice.vb" />
+    <Compile Include="IRC\ServerLinks\clsServerLinks.vb" />
+    <Compile Include="IRC\Services\Bots.vb" />
+    <Compile Include="IRC\Settings\clsDCC.vb" />
+    <Compile Include="IRC\Settings\clsServices.vb" />
+    <Compile Include="IRC\Settings\Settings.vb" />
+    <Compile Include="IRC\Status\Status.vb" />
+    <Compile Include="IRC\UtilityWindows\clsAbout.vb" />
+    <Compile Include="IRC\UtilityWindows\clsAddNickName.vb" />
+    <Compile Include="IRC\UtilityWindows\clsAddServer.vb" />
+    <Compile Include="IRC\UtilityWindows\clsChangeNickName.vb" />
+    <Compile Include="IRC\UtilityWindows\clsChooseNetwork.vb" />
+    <Compile Include="IRC\UtilityWindows\clsCompatibility.vb" />
+    <Compile Include="IRC\UtilityWindows\clsSharedAdd.vb" />
+    <Compile Include="Modules\mdlObjects.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="User Controls\clsVideo.vb">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Classes\MdiChildWindow.resx">
+      <DependentUpon>MdiChildWindow.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAbout.resx">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddServer.resx">
+      <DependentUpon>frmAddServer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChangeNickname.resx">
+      <DependentUpon>frmChangeNickname.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChannel.resx">
+      <DependentUpon>frmChannel.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChannelFolder.resx">
+      <DependentUpon>frmChannelFolder.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChannelList.resx">
+      <DependentUpon>frmChannelList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChooseNetwork.resx">
+      <DependentUpon>frmChooseNetwork.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCompatibility.resx">
+      <DependentUpon>frmCompatibility.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCustomize.resx">
+      <DependentUpon>frmCustomize.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDCCChat.resx">
+      <DependentUpon>frmDCCChat.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDCCChatPrompt.resx">
+      <DependentUpon>frmDCCChatPrompt.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDCCGet.resx">
+      <DependentUpon>frmDCCGet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDCCIgnoreAdd.resx">
+      <DependentUpon>frmDCCIgnoreAdd.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDCCSend.resx">
+      <DependentUpon>frmDCCSend.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDownloadManager.resx">
+      <DependentUpon>frmDownloadManager.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEditServer.resx">
+      <DependentUpon>frmEditServer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEditString.resx">
+      <DependentUpon>frmEditString.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmIdentdSettings.resx">
+      <DependentUpon>frmIdentdSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLoading.resx">
+      <DependentUpon>frmLoading.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmNetworkSettings.resx">
+      <DependentUpon>frmNetworkSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmNickServLogin.resx">
+      <DependentUpon>frmNickServLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmNoticeWindow.resx">
+      <DependentUpon>frmNoticeWindow.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmPrivateMessage.resx">
+      <DependentUpon>frmPrivateMessage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmQuerySettings.resx">
+      <DependentUpon>frmQuerySettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmRaw.resx">
+      <DependentUpon>frmRaw.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSendNotice.resx">
+      <DependentUpon>frmSendNotice.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmServerLinks.resx">
+      <DependentUpon>frmServerLinks.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSharedAdd.resx">
+      <DependentUpon>frmSharedAdd.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmStatus.resx">
+      <DependentUpon>frmStatus.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmVideoPlayer.resx">
+      <DependentUpon>frmVideoPlayer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\mdiMain.resx">
+      <DependentUpon>mdiMain.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Controls\clsVideo.resx">
+      <DependentUpon>clsVideo.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\app.manifest" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="nexgen.ico" />
+    <Content Include="Resources\accept.png" />
+    <Content Include="Resources\acid1.gif" />
+    <Content Include="Resources\acid2.gif" />
+    <Content Include="Resources\add.png" />
+    <Content Include="Resources\add1.png" />
+    <Content Include="Resources\applications.png" />
+    <Content Include="Resources\background.jpg" />
+    <Content Include="Resources\cancel.png" />
+    <Content Include="Resources\chat.png" />
+    <Content Include="Resources\close.png" />
+    <Content Include="Resources\configure.png" />
+    <Content Include="Resources\connect.gif" />
+    <Content Include="Resources\connect.png" />
+    <Content Include="Resources\delete.png" />
+    <Content Include="Resources\documents_white.ico" />
+    <Content Include="Resources\film.png" />
+    <Content Include="Resources\Image1.gif" />
+    <Content Include="Resources\network.png" />
+    <Content Include="Resources\network1.png" />
+    <None Include="Resources\nexircnew.jpg" />
+    <Content Include="Resources\nirc.bmp" />
+    <Content Include="Resources\nirc.gif" />
+    <Content Include="Resources\nirc1.bmp" />
+    <Content Include="Resources\preferences.png" />
+    <Content Include="Resources\Software.ico" />
+    <Content Include="Resources\spot-software2[1].gif" />
+    <Content Include="Resources\status.ico" />
+    <Content Include="Resources\tools.png" />
+    <Content Include="Resources\top-button-closestatus.gif" />
+    <Content Include="Resources\top-button-disconnect.gif" />
+    <Content Include="Resources\top-button-exit.gif" />
+    <Content Include="Resources\top-button-network.gif" />
+    <Content Include="Resources\top-button-recientservers.gif" />
+    <Content Include="Resources\web.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IRC\CTCP\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -916,15 +916,16 @@ Namespace IRC.Status
                     End If
                 End With
             Catch ex As Exception
-                Throw ex 'ProcessError(ex.Message, "Public Sub SendQuitMessage(ByVal lIndex As Integer)")
+                Throw ex
             End Try
         End Sub
         Public ReadOnly Property NewInitialText(ByVal _Index As Integer) As String
             Get
                 Try
                     Return lSettings.lNetworks.nNetwork(lSettings.lServers.sServer(lSettings.lServers.sIndex).sNetworkIndex).nDescription & " (" & Trim(_Index.ToString().Trim()) & ")"
+                    'Return lSettings.lServers.sServer(lSettings.lServers.sIndex).sDescription & " (" & Trim(_Index.ToString().Trim()) & ")"
                 Catch ex As Exception
-                    Throw ex 'ProcessError(ex.Message, "Public ReadOnly Property NewInitialText(ByVal lIndex As Integer) As String")
+                    Throw ex
                     Return Nothing
                 End Try
             End Get
